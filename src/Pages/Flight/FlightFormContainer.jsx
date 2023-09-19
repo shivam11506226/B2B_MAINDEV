@@ -18,6 +18,7 @@ const animationDuration = 800;
 
 const StyledTabs = styled(Tabs)(({ theme }) => ({
   display: 'flex',
+  flexWrap:'wrap',
   borderRadius: theme.spacing(2), // Adjust the border radius as needed
   overflow: 'hidden',
   '& .MuiTabs-indicator': {
@@ -77,7 +78,7 @@ export default function StyledTabsExample() {
 
   return (
     <Box sx={{ width: '100%' }}>
-      <StyledTabs value={value} onChange={handleChange} aria-label="styled tabs example">
+      <StyledTabs value={value} onChange={handleChange} aria-label="styled tabs example" >
         <StyledTab label="One Way" {...a11yProps(0)} />
         <StyledTab label="Return" {...a11yProps(1)} />
         <StyledTab label="Off Share" {...a11yProps(2)} />

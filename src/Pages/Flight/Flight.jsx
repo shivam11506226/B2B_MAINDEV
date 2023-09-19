@@ -36,7 +36,7 @@ const Flight = () => {
       {loader ? (
         <Loader />
       ) : (
-        <div className="flightContainer" style={{border:'2px solid red'}}>
+        <Box className="flightContainer" style={{border:'2px solid red'}}>
           {/* step by step updating part */}
           <Box
             w="100%"
@@ -45,6 +45,7 @@ const Flight = () => {
             boxShadow="base"
             border="1px solid gray"
             borderRadius="10px"
+            flexWrap="wrap"
           >
             <HStack p="5px">
               <Box
@@ -127,14 +128,14 @@ const Flight = () => {
               <Box fontWeight="normal">Booking Confirmation</Box>
             </HStack>
           </Box>
-          <div className="flightNavBar">{/* <FlightNavBar /> */}</div>
-          <div className="flightNavBarContainer">
+          <Box className="flightNavBar">{/* <FlightNavBar /> */}</Box>
+          <Box className="flightNavBarContainer">
             <FlightAllRoute />
-          </div>
+          </Box>
 
           {/* 👍Tabs of flight */}
           <StyledTabs />
-        </div>
+        </Box>
       )}
     </>
   );

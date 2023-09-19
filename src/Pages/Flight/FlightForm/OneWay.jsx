@@ -231,9 +231,9 @@ const OneWay = () => {
   return (
     <form onSubmit={handleSubmit} className="formFlightSearch">
       <div className="container">
-        <div className="row">
-          <div className="col-xs-12 col-md-3 pe-0">
-            <div className="form_input">
+        <div className="row rowcon">
+          <div className="col-xs-12 col-md-2 pe-0">
+            <div className="form_input" >
               <label className="form_lable">FROM</label>
               <input
                 name="from"
@@ -283,11 +283,12 @@ const OneWay = () => {
                 </div>
               )}
             </div>
+
           </div>
           <div className="col-md-1 d-flex justify-content-center">
             <img src={transfer} alt="name" className="align-self-center" />
           </div>
-          <div className="col-xs-12 col-md-3 ps-0">
+          <div className="col-xs-12 col-md-2 ps-0">
             <div className="form_input">
               <label className="form_lable">TO</label>
               <input
@@ -340,7 +341,7 @@ const OneWay = () => {
             </div>
           </div>
 
-          <div className="col-xs-12 col-md-3">
+          <div className="col-xs-12 col-md-2">
             <div className="form_input" onClick={handleClick}>
               <label className="form_lable">DEPARTURE</label>
 
@@ -355,7 +356,7 @@ const OneWay = () => {
           </div>
 
           <div className="col-xs-12 col-md-2">
-            <div className="form_input">
+            <div className="form_input" border={{ border: '2px solid red' }}>
               <label className="form_lable"></label>
               <select name="time" id="" className="form_input_select">
                 <option mx={5}>Any Time</option>
@@ -369,65 +370,61 @@ const OneWay = () => {
         </div>
 
         <div className="row" style={{ marginTop: "32px" }}>
-          <div className="col-xs-3 col-md-3  pe-0">
-            <Typography mt={1} variant="h6" paddingRight={0}>
-              Select A Fair of Type:
-            </Typography>
-          </div>
-          <div className="col-xs-3 col-md-8">
-            <div style={{ display: "flex" }}>
-              <span
-                style={{
-                  width: "30%",
-                  height: "50%",
-                  display: "flex",
-                  padding: "10px",
-                  justifyContent: "space-evenly",
-                  alignItems: "center",
-                  borderRadius: "10px",
-                  color: "white",
-
-                  opacity: 1,
-                  backgroundColor:
-                    selectedOption === "option1" ? "#00BDC4" : "#8D8985",
-                  border: "none",
-                }}
-                onClick={(e) => setSelectedOption("option1")}
-              >
-                <input
-                  type="radio"
-                  value="2"
-                  checked={selectedOption === "option1"}
-                />
-                Regular Fares
-              </span>
-              <button
-                style={{
-                  width: "30%",
-                  height: "50%",
-                  display: "flex",
-                  justifyContent: "space-evenly",
-                  alignItems: "center",
-                  borderRadius: "10px",
-                  color: "white",
-                  opacity: 1,
-                  marginLeft: "8px",
-                  backgroundColor:
-                    selectedOption === "option2" ? "#00BDC4" : "#8D8985",
-                  border: "none",
-                }}
-                onClick={(e) => setSelectedOption("option2")}
-              >
-                <input
-                  type="radio"
-                  value="3"
-                  checked={selectedOption === "option2"}
-                />
-                Student Fares
-              </button>
-            </div>
-          </div>
-        </div>
+  <div className="col-xs-3 col-md-3 pe-0">
+    <Typography mt={1} variant="h6" paddingRight={0}>
+      Select A Fair Of Type:
+    </Typography>
+  </div>
+  <div className="col-xs-3 col-md-5">
+    <div style={{ display: "flex" }}>
+      <span
+        style={{
+          display: "flex",
+          padding: "10px",
+          justifyContent: "center",
+          alignItems: "center",
+          borderRadius: "10px",
+          color: "white",
+          opacity: 1,
+          backgroundColor:
+            selectedOption === "option1" ? "#00BDC4" : "#8D8985",
+          border: "none",
+        }}
+        className="span"
+        onClick={(e) => setSelectedOption("option1")}
+      >
+        <input
+          type="radio"
+          value="2"
+          checked={selectedOption === "option1"}
+        />
+        Regular Fares
+      </span>
+      <button
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          borderRadius: "10px",
+          color: "white",
+          opacity: 1,
+          marginLeft: "8px",
+          backgroundColor:
+            selectedOption === "option2" ? "#00BDC4" : "#8D8985",
+          border: "none",
+        }}
+        onClick={(e) => setSelectedOption("option2")}
+      >
+        <input
+          type="radio"
+          value="3"
+          checked={selectedOption === "option2"}
+        />
+        Student Fares
+      </button>
+    </div>
+  </div>
+</div>
 
         <div className="row">
           <div className="col-xs-9">

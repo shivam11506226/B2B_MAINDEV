@@ -27,7 +27,7 @@
 }
 .componentsContainer {
   margin: auto;
-  display: grid;
+  /* display: grid; */
   margin-top: 10px;
   width: 85%;
   height: auto;
