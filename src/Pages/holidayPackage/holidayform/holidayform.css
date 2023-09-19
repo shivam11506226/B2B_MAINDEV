@@ -19,3 +19,7 @@
     background-color: rgb(61, 144, 144);
     color: white;
 }
+
+.error{
+    color: red;
+}
