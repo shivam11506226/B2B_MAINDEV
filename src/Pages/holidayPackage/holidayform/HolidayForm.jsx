@@ -1,6 +1,6 @@
 import { Typography } from "@material-ui/core";
 import { Grid, Box, TextField } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef  } from "react";
 // import { Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 // import PinDropIcon from "@mui/icons-material/PinDrop";
@@ -22,6 +22,8 @@ const HolidayForm = () => {
     reducerState?.searchResult?.packageSearchResult?.data?.data?.pakage;
 
   const dispatch = useDispatch();
+  const destinationInputRef = useRef(null);
+  const daysSearchInputRef = useRef(null);
 
   useEffect(() => {
     console.log('=====================');
@@ -46,6 +48,13 @@ const HolidayForm = () => {
       };
       console.log(payload);
       dispatch(searchPackageAction(payload));
+    }else {
+      // Focus on the first empty field
+      if (!destination.trim()) {
+        destinationInputRef.current.focus();
+      } else if (isNaN(daysSearch) || daysSearch <= 0) {
+        daysSearchInputRef.current.focus();
+      }
     }
   };
 
@@ -99,6 +108,7 @@ const HolidayForm = () => {
             variant="filled"
             name="destination"
             onChange={handleDestinationChange}
+            inputRef={destinationInputRef}
           />
            {error.destination && (
             <Typography color="error">{error.destination}</Typography>
@@ -113,6 +123,7 @@ const HolidayForm = () => {
             name="days"
             type="number"
             onChange={handleDaysSearchChange}
+            inputRef={daysSearchInputRef}
             required
           />
            {error.daysSearch && (
