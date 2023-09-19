@@ -1,0 +1,109 @@
+.hotelContainer{
+    padding: 20px !important;
+      width: 100% !important;
+      height: 100%;
+      border-radius: 10px;
+      background: white;
+  }
+  
+
+
+
+  .nhotel_form_input {
+    height: 100% !important;
+    position: relative;
+    width: 100% !important;
+}
+
+.nhotel_form_input input {
+    width: 100%;
+    height: 100%;
+    padding-left: 25px;
+    border-radius: 10px;
+    border: 3px solid #70707069;
+}
+  .hotel_form_input {
+    height: 50px !important;
+    position: relative;
+    width: 100% !important;
+}
+
+.hotel_form_input input {
+    /* width: 100%; */
+    height: 100%;
+    padding-left: 25px;
+    border-radius: 10px;
+    border: 3px solid #70707069;
+}
+
+.hotel_form_input .lable {
+    font-size: 13px;
+    color: #4E4C4C;
+    font-weight: 700;
+    font-family: 'Quicksand', sans-serif;
+
+}
+
+.hotel_form_input .from_input::placeholder, .to_input::placeholder {
+    color: #4E4C4CA1;
+    font-size: 18px;
+    font-weight: 700;
+    font-family: 'Quicksand', sans-serif;
+
+}
+
+.form_lable {
+    color: #4E4C4C;
+    font-size: 13px;
+    font-weight: 700;
+    font-family: 'Quicksand', sans-serif;
+    left: 10px;
+    line-height: 14px;
+    pointer-events: none;
+    position: absolute;
+    transform-origin: 0 50%;
+    top: 24px;
+    transform: translateY(-30px) translateX(10px);
+    background: #fff;
+    padding: 0px 8px;
+}
+
+
+.form_lable1{
+    color: #4E4C4C;
+    font-size: 13px;
+    font-weight: Bold;
+    margin-bottom: 1rem;
+ 
+}
+.hotel_input_select{
+    width: 150px;
+    border: 10PX;
+    border-radius: 10px;
+    height: 3.1rem; 
+    border: 3px solid #70707069; 
+    }
+.nhotel_input_select{
+    width: 100%;
+    border: 10PX;
+    border-radius: 10px;
+    height: 3.1rem; 
+    border: 3px solid #70707069; 
+    }
+
+
+    .hotel_submit {
+      color: white;
+      background-color: #00BDC4;
+      width: 154px;
+      height: 36px;
+      box-shadow: 0px 3px 6px #00000029;
+      border: 1px solid #DFDFDF;
+      border-radius: 10px;
+      opacity: 1;
+  }
+  
+  .hotel_submit:hover{
+      background-color: rgb(61, 144, 144);
+      color: white;
+  }

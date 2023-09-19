@@ -1,0 +1,13 @@
+.text {
+  list-style: none;
+}
+.logoname {
+  background-color: white;
+  border-radius: 5px;
+}
+.active-nav {
+  background-color: aqua;
+  border-radius: 5px;
+  width: 100px;
+}
+

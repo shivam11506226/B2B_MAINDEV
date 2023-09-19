@@ -1,0 +1,14 @@
+.innerNav {
+  margin: auto;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  margin-top: 10px;
+  width: 100%;
+  height: 80px;
+  z-index: 10;
+  border-radius: 10px;
+  box-shadow: 0px 3px 6px #00000029;;
+  opacity: 1;
+}
+

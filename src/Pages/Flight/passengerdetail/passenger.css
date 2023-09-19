@@ -1,0 +1,51 @@
+.Top_header {
+    background: #E6F9FF 0% 0% no-repeat padding-box;
+    box-shadow: 0px 3px 6px #00000029;
+    border-radius: 10px;
+    opacity: 1;
+}
+
+.Top_txt {
+    text-align: left;
+    letter-spacing: 0px;
+    font-size: 16px !important;
+    font-size: bold;
+    color: #008FCC;
+    opacity: 1;
+}
+
+.sub_txt {
+    text-align: left;
+    font-size: 10px !important;
+    font-size: bold;
+    letter-spacing: 0px;
+    color: #707070;
+    opacity: 1;
+}
+
+.mid_header {
+    background: #FFFFFF 0% 0% no-repeat padding-box;
+    box-shadow: 0px 3px 6px #00000029;
+    border-radius: 10px;
+    opacity: 1;
+}
+
+.form_input_select {
+    width: 150px;
+    border: 10px;
+    border-radius: 10px;
+    height: 2.5rem;
+    border: 3px solid #70707069;
+}
+
+.inner_box {
+    background: #F5F5F5 0% 0% no-repeat padding-box;
+    box-shadow: 0px 3px 6px #00000029;
+    opacity: 1;
+    padding: 10px 15px;
+}
+.lis_item{
+    color:'red';
+    font-size: 14px;
+    font-weight: bold;
+}

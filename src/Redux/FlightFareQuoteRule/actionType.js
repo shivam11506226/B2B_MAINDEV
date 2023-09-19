@@ -1,0 +1,5 @@
+export const RULE_REQUEST = "RULE_REQUEST";
+export const RULE_SUCCESS = "RULE_SUCCESS";
+
+export const QUOTE_REQUEST = "QUOTE_REQUEST";
+export const QUOTE_SUCCESS = "QUOTE_SUCCESS";

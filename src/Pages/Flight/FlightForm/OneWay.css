@@ -1,0 +1,174 @@
+.form_input {
+  height: 90%;
+  position: relative;
+  width: 100%;
+}
+
+.form_input input {
+  width: 100%;
+  height: 100%;
+  padding-left: 25px;
+  border-radius: 20px;
+  border: 2px solid #70707069;
+}
+
+.form_input .lable {
+  font-size: 13px;
+  color: #4e4c4c;
+  font-weight: 700;
+  font-family: "Quicksand", sans-serif;
+}
+
+.form_input .from_input::placeholder,
+.to_input::placeholder {
+  color: #4e4c4ca1;
+  font-size: 18px;
+  font-weight: 700;
+  font-family: "Quicksand", sans-serif;
+}
+
+.form_lable {
+  color: #4e4c4c;
+  font-size: 13px;
+  font-weight: 700;
+  font-family: "Quicksand", sans-serif;
+  left: 10px;
+  line-height: 14px;
+  pointer-events: none;
+  position: absolute;
+  transform-origin: 0 50%;
+  top: 24px;
+  transform: translateY(-30px) translateX(10px);
+  background: #fff;
+  padding: 0px 8px;
+}
+
+.form_lable1 {
+  color: #4e4c4c;
+  font-size: 13px;
+  font-weight: Bold;
+  margin-bottom: 1rem;
+}
+.form_input_select {
+  width: 78%;
+  border: 10px;
+  border-radius: 10px;
+  height: 2.5rem;
+  border: 3px solid #70707069;
+}
+
+.formFlightSearch {
+  margin-top: 20px;
+}
+
+.formFlightSearch {
+  margin-top: 20px;
+}
+.ristrictSearch {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(5, minmax(310px, max-content));
+  grid-gap: 16px;
+  justify-content: center;
+  padding: initial;
+}
+.inputSelect {
+  font-size: 10px;
+}
+.faireRadiao {
+  background: #00bdc4;
+  margin-left: 10px;
+  border-radius: 20px;
+  padding-top: 10px;
+}
+.showDirectFligthDiv {
+  margin-top: -25px;
+  padding: auto;
+
+  width: 170px;
+  border-radius: 10px;
+  font-size: 11px;
+  border: 2px solid #70707069;
+  font: Quicksand, SemiBold;
+  height: 30px;
+  padding: 5px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.showDirectFligthDiv > input {
+  margin-left: 10px;
+  font-size: 5px;
+  /* width: 10px; */
+  margin-right: 2px;
+  width: 15px;
+  height: 15px;
+   border-radius:50%;
+  font: Quicksand, SemiBold;
+}
+.showDirectFligthDiv >span{
+  font-weight: bold;
+}
+.creditBox {
+  height: 50px;
+}
+
+.grid-container {
+  display: grid;
+  grid-template-rows: repeat(4, 1fr);
+  grid-template-columns: repeat(6, 1fr);
+  grid-gap: 10px;
+}
+
+#cssbuttons-io-button {
+  background: #00bdc4;
+  color: white;
+  font-family: inherit;
+  padding: 0.35em;
+  padding-left: 1.2em;
+  font-size: 17px;
+  font-weight: 500;
+  border-radius: 0.9em;
+  border: none;
+  letter-spacing: 0.05em;
+  display: flex;
+  align-items: center;
+  box-shadow: inset 0 0 1.6em -0.6em #714da6;
+  overflow: hidden;
+  position: relative;
+  height: 2.8em;
+  padding-right: 3.3em;
+}
+
+#cssbuttons-io-button #icon {
+  background: white;
+  margin-left: 1em;
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 2.2em;
+  width: 2.2em;
+  border-radius: 0.7em;
+  box-shadow: 0.1em 0.1em 0.6em 0.2em #7b52b9;
+  right: 0.3em;
+  transition: all 0.3s;
+}
+
+#cssbuttons-io-button:hover #icon {
+  width: calc(100% - 0.6em);
+}
+
+#cssbuttons-io-button #icon svg {
+  width: 1.1em;
+  transition: transform 0.3s;
+  color: #7b52b9;
+}
+
+#cssbuttons-io-button:hover #icon svg {
+  transform: translateX(0.1em);
+}
+
+#cssbuttons-io-button:active #icon {
+  transform: scale(0.95);
+}

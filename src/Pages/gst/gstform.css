@@ -1,0 +1,12 @@
+.gst_input{
+    border: none; 
+    text-decoration: none;
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+}
+.gst_input::placeholder{
+    color: black;
+    padding: 2px 10px;
+    background-color: #d2cece29;
+}

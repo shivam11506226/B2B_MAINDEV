@@ -1,0 +1,19 @@
+.flightContainer{
+  /* padding: 20px; */
+    width: 100%;
+    /* height: 100%; */
+    border-radius: 20px;
+    background: white;
+}
+
+.flightNavBar{
+    width: 100%;
+ 
+    margin-top: 20px;
+    }
+.flightNavBarContainer{
+    width:800%;
+    height: auto;
+    margin: 20px;
+}
+
