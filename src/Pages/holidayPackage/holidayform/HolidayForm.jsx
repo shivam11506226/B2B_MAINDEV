@@ -1,9 +1,9 @@
 import { Typography } from "@material-ui/core";
 import { Grid, Box, TextField } from "@mui/material";
 import React, { useEffect, useState } from "react";
-import { Button } from "react-bootstrap";
+// import { Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
-import PinDropIcon from "@mui/icons-material/PinDrop";
+// import PinDropIcon from "@mui/icons-material/PinDrop";
 import "./holidayform.css";
 import { useDispatch, useSelector } from "react-redux";
 import { searchPackageAction } from "../../../Redux/SearchPackage/actionSearchPackage";
@@ -14,6 +14,10 @@ const HolidayForm = () => {
   console.log("holiday", reducerState?.searchResult);
   const [destination, setDestination] = useState("");
   const [daysSearch, setDaySearch] = useState(0);
+  const [error, setError] = useState({
+    destination: "",
+    daysSearch: "",
+  });
   const filteredPackage =
     reducerState?.searchResult?.packageSearchResult?.data?.data?.pakage;
 
@@ -30,16 +34,50 @@ const HolidayForm = () => {
     if (filteredPackage) {
       navigate("HolidaypackageResult");
     }
-  }, [filteredPackage]);
-  const clickUs = () => {
-    const payload = {
-      destination,
-      days: daysSearch,
-    };
-    console.log(payload);
-    dispatch(searchPackageAction(payload));
+  }, [filteredPackage,navigate]);
+    const clickUs = () => {
+    // Validate the form before submission
+    const isValid = validateForm();
+
+    if (isValid) {
+      const payload = {
+        destination,
+        days: daysSearch,
+      };
+      console.log(payload);
+      dispatch(searchPackageAction(payload));
+    }
   };
 
+  // Form validation function
+  const validateForm = () => {
+    let valid = true;
+    const newErrors = { destination: "", daysSearch: "" };
+
+    if (!destination.trim()) {
+      newErrors.destination = "Destination is required";
+      valid = false;
+    }
+
+    if (isNaN(daysSearch) || daysSearch <= 0) {
+      newErrors.daysSearch = "Days must be a positive number";
+      valid = false;
+    }
+
+    setError(newErrors);
+
+    return valid;
+  };
+  
+  const handleDestinationChange = (e) => {
+    setError({ ...error, destination: "" }); // Clear the error when the user types in the destination field
+    setDestination(e.target.value);
+  };
+
+  const handleDaysSearchChange = (e) => {
+    setError({ ...error, daysSearch: "" }); // Clear the error when the user types in the days field
+    setDaySearch(e.target.value);
+  };
  
 
   return (
@@ -53,14 +91,20 @@ const HolidayForm = () => {
           display="flex"
           justifyContent="center"
         >
+          <Box>
           <TextField
             className="search__Input"
             id="filled-basic"
             label="Search From Destination"
             variant="filled"
             name="destination"
-            onChange={(e) => setDestination(e.target.value)}
+            onChange={handleDestinationChange}
           />
+           {error.destination && (
+            <Typography color="error">{error.destination}</Typography>
+          )}
+          </Box>
+          <Box>
           <TextField
             className="search__Input"
             id="filled-basic"
@@ -68,9 +112,13 @@ const HolidayForm = () => {
             variant="filled"
             name="days"
             type="number"
-            onChange={(e) => setDaySearch(e.target.value)}
+            onChange={handleDaysSearchChange}
             required
           />
+           {error.daysSearch && (
+            <Typography color="error">{error.daysSearch}</Typography>
+          )}
+          </Box>
           <button
             className="holiday_submit"
             onClick={clickUs}
