@@ -28,6 +28,11 @@ const BusForm = () => {
   const inputRef = useRef(null);
   const [fromData,setFromData] = useState([]);
   const [origin,setOrigin] = useState([]);
+  const [errors, setErrors] = useState({
+    from: "",
+    to: "",
+    date: ""
+  });
 
 
   useEffect(() => {
@@ -45,7 +50,7 @@ const BusForm = () => {
       // make an API call to get search results
 
       const results = await axios.get(
-        `https://api.travvolt.com/travvolt/city/searchCityBusData?keyword=${fromQuery}`
+        `http://localhost:8000/travvolt/city/searchCityBusData?keyword=${fromQuery}`
       );
       if (mounted) {
         setFromSearchResults(results?.data?.data);
@@ -70,7 +75,7 @@ const BusForm = () => {
       // make an API call to get search results
 
       const results = await axios.get(
-        `https://api.travvolt.com/travvolt/city/searchCityBusData?keyword=${toQuery}`
+        `http://localhost:8000/travvolt/city/searchCityBusData?keyword=${toQuery}`
       );
       if (mounted) {
         setToSearchResults(results?.data?.data);
@@ -90,6 +95,7 @@ const BusForm = () => {
   console.log("to result",toSearchResults)
 
   const handleFromInputChange = (event) => {
+    setErrors({ ...errors, from: "" }); 
     setFrom(event.target.value);
     setSelectedFrom(null);
   };
@@ -120,6 +126,7 @@ const BusForm = () => {
   };
 
   const handleToInputChange = (event) => {
+    setErrors({ ...errors, to: "" });
     setTO(event.target.value);
     setSelectedTo(null);
   };
@@ -128,22 +135,55 @@ const BusForm = () => {
     setToQuery(e);
   };
 
+  const handleDateInputChange = () => {
+    setErrors({ ...errors, date: "" }); // Clear the error when the user selects a date
+  };
+  
+  // Form validation function
+  const validateForm = () => {
+    let valid = true;
+    const newErrors = { from: "", to: "", date: "" };
+
+    if (!from.cityId) {
+      newErrors.from = "Please select a city or airport for 'FROM'";
+      valid = false;
+    }
+
+    if (!to) {
+      newErrors.to = "Please select a city or airport for 'TO'";
+      valid = false;
+    }
+
+    if (!inputRef.current.value) {
+      newErrors.date = "Please select a departure date";
+      valid = false;
+    }
+
+    setErrors(newErrors);
+
+    return valid;
+  };
+
 
 
   // form submit data
   function handleSubmit(event) {
     event.preventDefault();
-    const formData = new FormData(event.target);
-    const payload = {
-      EndUserIp: reducerState?.ip?.ipData,
-      TokenId: reducerState?.ip?.tokenData,
-      DateOfJourney: formData.get("departure"),
-      DestinationId: formData.get("to"),
-      OriginId : formData.get("from"),
-    };
-    console.log("payload",payload);
-    dispatch(busSearchAction(payload));
-    navigate("/BusResult")
+
+    const isValid = validateForm();
+    if (isValid) {
+      const formData = new FormData(event.target);
+      const payload = {
+        EndUserIp: reducerState?.ip?.ipData,
+        TokenId: reducerState?.ip?.tokenData,
+        DateOfJourney: formData.get("departure"),
+        DestinationId: formData.get("to"),
+        OriginId : formData.get("from"),
+      };
+      console.log("payload",payload);
+      dispatch(busSearchAction(payload));
+      navigate("/BusResult")
+    }
   }
 
   // /BusResult
@@ -215,6 +255,7 @@ const BusForm = () => {
                   </ul>
                 </div>
               )}
+              {errors.from && <div className="error">{errors.from}</div>}
             </div>
         </div>
       <div className="col-xs-12 col-md-3">
@@ -279,6 +320,7 @@ const BusForm = () => {
                   </ul>
                 </div>
               )}
+              {errors.to && <div className="error">{errors.to}</div>}
             </div>
         </div>
       </div>
@@ -293,8 +335,10 @@ const BusForm = () => {
               id="departure"
               ref={inputRef}
               className="deaprture_input"
+              onChange={handleDateInputChange}
             ></input>
           </div>
+          {errors.date && <div className="error">{errors.date}</div>}
         </div>
          
       </div>
