@@ -15,6 +15,7 @@ import axios from "axios";
 import "./hotelstepper.css";
 import { clearHotelReducer, hotelAction } from "../../../Redux/Hotel/hotel";
 import Loader from "../../Loader/Loader";
+import Custombutton from "../../../Custombuttom/Button";
 
 const HotelForm = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -275,15 +276,12 @@ const HotelForm = () => {
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
                   />
-                  
+
                   {loading && <div>Loading...</div>}
                   {results.length > 0 && (
                     <ul>
-                      {results.map((city,index) => (
-                        <li
-                          key={index}
-                          onClick={() => handleResultClick(city)}
-                        >
+                      {results.map((city, index) => (
+                        <li key={index} onClick={() => handleResultClick(city)}>
                           {city.Destination}
                         </li>
                       ))}
@@ -516,14 +514,15 @@ const HotelForm = () => {
             </Grid>
           </Grid>
           <div style={{ display: "flex", justifyContent: "center" }}>
-            <Button
+            {/* <Button
               type="submit"
               color="primary"
               sx={{ background: "#00BDC4", borderRadius: "10px" }}
               variant="contained"
             >
               Hotel Search
-            </Button>
+            </Button> */}
+            <Custombutton title={"Hotel Search"} type={"submit"}/>
           </div>
         </form>
       )}
