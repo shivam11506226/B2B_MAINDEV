@@ -102,7 +102,7 @@
   background-color: rgb(61, 144, 144);
   color: white;
 }
-ul {
+#citySearchId {
   height: 100px;
   list-style: none;
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
@@ -110,7 +110,7 @@ ul {
   padding: 5px;
   overflow-y: scroll;
 }
-ul > li {
+#citySearchId > li {
   /* border: 1px solid red; */
   padding: 8px;
   box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px,

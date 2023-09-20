@@ -279,7 +279,7 @@ const HotelForm = () => {
 
                   {loading && <div>Loading...</div>}
                   {results.length > 0 && (
-                    <ul>
+                    <ul id="citySearchId">
                       {results.map((city, index) => (
                         <li key={index} onClick={() => handleResultClick(city)}>
                           {city.Destination}
