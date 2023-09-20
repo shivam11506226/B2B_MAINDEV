@@ -36,7 +36,7 @@ const Flight = () => {
       {loader ? (
         <Loader />
       ) : (
-        <Box className="flightContainer" style={{border:'2px solid red'}}>
+        <Box className="flightContainer" style={{marginBottom:'20px'}}>
           {/* step by step updating part */}
           <Box
             w="100%"
@@ -46,6 +46,7 @@ const Flight = () => {
             border="1px solid gray"
             borderRadius="10px"
             flexWrap="wrap"
+           
           >
             <HStack p="5px">
               <Box

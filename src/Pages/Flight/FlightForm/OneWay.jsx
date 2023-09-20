@@ -524,35 +524,26 @@ const OneWay = () => {
           </span>
         </label>
 
-        <Box>
-          {/* <MultiSelect/> */}
+        <Box >
+  <div>
+    <div className="grid-container" style={{display:'flex',flexWrap:'wrap',gap:'40px'}}>
+      {options.map(({ label, value }) => (
+        <label key={value}>
+          <input
+            type="checkbox"
+            value={label}
+            checked={selectAll ? true : selected.includes(label)}
+            onChange={handleCheckboxChange}
+            disabled={selectAll}
+            className="me-1"
+          />
+          {label}
+        </label>
+      ))}
+    </div>
+  </div>
+</Box>
 
-          <div>
-            {/* <label>
-              <input
-                type="checkbox"
-                checked={selectAll}
-                onChange={handleSelectAllChange}
-              />
-              Select All
-            </label> */}
-            <div className="grid-container">
-              {options.map(({ label, value }) => (
-                <label key={value}>
-                  <input
-                    type="checkbox"
-                    value={label}
-                    checked={selectAll ? true : selected.includes(label)}
-                    onChange={handleCheckboxChange}
-                    disabled={selectAll}
-                    className="me-1"
-                  />
-                  {label}
-                </label>
-              ))}
-            </div>
-          </div>
-        </Box>
 
         <Box className="row">
           <Flex direction="row" justifyContent="center">
