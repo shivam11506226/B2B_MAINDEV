@@ -84,6 +84,9 @@ Input {
     opacity: 1;
     margin: 20px 32px !important;
     border: none;
+    text-align: center;
+    display: flex;
+    justify-content: center;
 }
 
 .acc_para {

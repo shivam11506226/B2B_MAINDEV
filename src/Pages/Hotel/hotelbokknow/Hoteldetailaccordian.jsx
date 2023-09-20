@@ -21,7 +21,7 @@ import Checkbox from "@mui/material/Checkbox";
 
 import { useDispatch, useSelector, useReducer } from "react-redux";
 import { useNavigate } from "react-router-dom";
-
+import Custombutton from "../../../Custombuttom/Button";
 import { hotelBlockRoomAction } from "../../../Redux/Hotel/hotel";
 
 const Accordion = styled((props) => (
@@ -447,7 +447,7 @@ export default function CustomizedAccordions() {
         </AccordionDetails>
       </Accordion>
       <Box className="accordian_area">
-        <Button
+        {/* <Button
           className="continue_btn"
           type="submit"
           variant="contained"
@@ -456,7 +456,8 @@ export default function CustomizedAccordions() {
           }}
         >
           Continue
-        </Button>
+        </Button> */}
+        <Custombutton type={"submit"} title={"continue"} onClick={handleClick}/>
       </Box>
     </div>
   );
