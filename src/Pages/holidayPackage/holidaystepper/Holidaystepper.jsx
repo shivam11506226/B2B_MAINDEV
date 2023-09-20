@@ -14,6 +14,7 @@ const Holidaystepper = () => {
         boxShadow="base"
         border="1px solid gray"
         borderRadius="10px"
+        flexWrap="wrap"
       >
         <HStack p="5px">
           <Box
