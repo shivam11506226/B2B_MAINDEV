@@ -30,7 +30,7 @@ const GSTform = () => {
     return (
         <div className='flightContainer'>
             <Typography sx={{ fontSize: '20px', fontWeight: 'bold', color: '#252525' }} textAlign='center'>Submit GST Input Invoice</Typography>
-            <Typography sx={{ fontSize: '18px', fontWeight: 'bold', color: '#252525' }} textAlign='left' my={2}>Details of Receiver (Billed To):</Typography>
+            <Typography sx={{ fontSize: '18px', fontWeight: 'bold', color: '#006FFF' }} textAlign='left' my={2}>Details of Receiver (Billed To):</Typography>
             <Box sx={{ flexGrow: 1 }}>
                 <Grid container spacing={2} columns={16}>
                     <Grid item xs={6}>
@@ -43,7 +43,7 @@ const GSTform = () => {
                         <Box display='flex' alignItems='center' justifyContent='space-between' my={2}>
                             <Typography sx={{ fontSize: '14px', fontWeight: 'bold', color: '#666666' }} textAlign='Left'>Company State:</Typography>
                             <Box sx={{ width: '50%', boxShadow: '0px 3px 6px #00000029', borderRadius: '10px', height: 'auto' }}>
-                                <select name="company state" style={{ border: 'none', textDecoration: 'none', width: '100%', borderRadius: '10px', paddingY: '10px' }}>
+                                <select name="company state" className='gst_input' style={{ border: 'none', textDecoration: 'none', width: '100%', borderRadius: '10px', paddingY: '10px' }}>
                                     <option>Select</option>
                                     <option>Select</option>
                                     <option>Select</option>
@@ -88,7 +88,7 @@ const GSTform = () => {
                         <Box display='flex' alignItems='center' justifyContent='space-between' my={2}>
                             <Typography sx={{ fontSize: '14px', fontWeight: 'bold', color: '#666666' }} textAlign='Left'>Company State:</Typography>
                             <Box sx={{ width: '50%', boxShadow: '0px 3px 6px #00000029', borderRadius: '10px', height: 'auto' }}>
-                                <select name="company state" style={{ border: 'none', textDecoration: 'none', width: '100%', borderRadius: '10px', paddingY: '10px' }}>
+                                <select className='gst_input' name="company state"  style={{ border: 'none', textDecoration: 'none', width: '100%', borderRadius: '10px', paddingY: '10px' }}>
                                     <option>Supplier Invoice</option>
                                     <option>Select</option>
                                     <option>Select</option>
@@ -98,7 +98,7 @@ const GSTform = () => {
                         <Box display='flex' alignItems='center' justifyContent='space-between' my={2}>
                             <Typography sx={{ fontSize: '14px', fontWeight: 'bold', color: '#666666' }} textAlign='Left'></Typography>
                             <Box sx={{ width: '50%', boxShadow: '0px 3px 6px #00000029', borderRadius: '10px', height: 'auto' }}>
-                                <select name="company state" style={{ border: 'none', textDecoration: 'none', width: '100%', borderRadius: '10px', paddingY: '10px' }}>
+                                <select className='gst_input' name="company state" style={{ border: 'none', textDecoration: 'none', width: '100%', borderRadius: '10px', paddingY: '10px' }}>
                                     <option>Invoice for GST Rembursm..</option>
                                     <option>Select</option>
                                     <option>Select</option>
@@ -111,7 +111,7 @@ const GSTform = () => {
                         <Box display='flex' alignItems='center' justifyContent='space-between' my={2}>
                             <Typography sx={{ fontSize: '14px', fontWeight: 'bold', color: '#666666' }} textAlign='Left'>Select Source:</Typography>
                             <Box sx={{ width: '50%', boxShadow: '0px 3px 6px #00000029', borderRadius: '10px', height: 'auto' }}>
-                                <select name="company state" style={{ border: 'none', textDecoration: 'none', width: '100%', borderRadius: '10px', paddingY: '10px' }}>
+                                <select className='gst_input' name="company state" style={{ border: 'none', textDecoration: 'none', width: '100%', borderRadius: '10px', paddingY: '10px' }}>
                                     <option>Agency</option>
                                     <option>Select</option>
                                     <option>Select</option>
@@ -123,7 +123,7 @@ const GSTform = () => {
                         <Box display='flex' alignItems='center' justifyContent='space-between' my={2}>
                             <Typography sx={{ fontSize: '14px', fontWeight: 'bold', color: '#666666' }} textAlign='Left'>Select Agency</Typography>
                             <Box sx={{ width: '50%', boxShadow: '0px 3px 6px #00000029', borderRadius: '10px', height: 'auto' }}>
-                                <select name="select agency" style={{ border: 'none', textDecoration: 'none', width: '100%', borderRadius: '10px', paddingY: '10px' }}>
+                                <select className='gst_input' name="select agency" style={{ border: 'none', textDecoration: 'none', width: '100%', borderRadius: '10px', paddingY: '10px' }}>
                                     <option>Select</option>
                                     <option>Select</option>
                                     <option>Select</option>
@@ -133,7 +133,7 @@ const GSTform = () => {
                         <Box display='flex' alignItems='center' justifyContent='space-between' my={2}>
                             <Typography sx={{ fontSize: '14px', fontWeight: 'bold', color: '#666666' }} textAlign='Left'>Account Code</Typography>
                             <Box sx={{ width: '50%', boxShadow: '0px 3px 6px #00000029', borderRadius: '10px', height: 'auto' }}>
-                                <select name="account code" style={{ border: 'none', textDecoration: 'none', width: '100%', borderRadius: '10px', paddingY: '10px' }}>
+                                <select className='gst_input' name="account code" style={{ border: 'none', textDecoration: 'none', width: '100%', borderRadius: '10px', paddingY: '10px' }}>
                                     <option>Select</option>
                                     <option>Select</option>
                                     <option>Select</option>
@@ -143,7 +143,7 @@ const GSTform = () => {
                         <Box display='flex' alignItems='center' justifyContent='space-between' my={2}>
                             <Typography sx={{ fontSize: '14px', fontWeight: 'bold', color: '#666666' }} textAlign='Left'></Typography>
                             <Box sx={{ width: '50%', boxShadow: '0px 3px 6px #00000029', borderRadius: '10px', height: 'auto' }}>
-                                <select name="cash a/c" style={{ border: 'none', textDecoration: 'none', width: '100%', borderRadius: '10px', paddingY: '10px' }}>
+                                <select className='gst_input' name="cash a/c" style={{ border: 'none', textDecoration: 'none', width: '100%', borderRadius: '10px', paddingY: '10px' }}>
                                     <option>Cash A/C</option>
                                     <option>Select</option>
                                     <option>Select</option>
@@ -165,7 +165,7 @@ const GSTform = () => {
                         <Box display='flex' alignItems='center' justifyContent='space-between' my={2}>
                             <Typography sx={{ fontSize: '14px', fontWeight: 'bold', color: '#666666' }} textAlign='Left'>GST Flag:</Typography>
                             <Box sx={{ width: '50%', boxShadow: '0px 3px 6px #00000029', borderRadius: '10px', height: 'auto' }}>
-                                <select name="gst flag" style={{ border: 'none', textDecoration: 'none', width: '100%', borderRadius: '10px', paddingY: '10px' }}>
+                                <select name="gst flag" className='gst_input'  style={{ border: 'none', textDecoration: 'none', width: '100%', borderRadius: '10px', paddingY: '10px' }}>
                                     <option>GST Paid</option>
                                     <option>Select</option>
                                     <option>Select</option>
@@ -175,7 +175,7 @@ const GSTform = () => {
                         <Box display='flex' alignItems='center' justifyContent='space-between' my={2}>
                             <Typography sx={{ fontSize: '14px', fontWeight: 'bold', color: '#666666' }} textAlign='Left'>State Name:</Typography>
                             <Box sx={{ width: '50%', boxShadow: '0px 3px 6px #00000029', borderRadius: '10px', height: 'auto' }}>
-                                <select name="state name" style={{ border: 'none', textDecoration: 'none', width: '100%', borderRadius: '10px', paddingY: '10px' }}>
+                                <select name="state name" className='gst_input' style={{ border: 'none', textDecoration: 'none', width: '100%', borderRadius: '10px', paddingY: '10px' }}>
                                     <option>State Name</option>
                                     <option>Select</option>
                                     <option>Select</option>
@@ -193,7 +193,7 @@ const GSTform = () => {
                         <Box display='flex' alignItems='center' justifyContent='space-between' my={2}>
                             <Typography sx={{ fontSize: '14px', fontWeight: 'bold', color: '#666666' }} textAlign='Left'>State Code:</Typography>
                             <Box sx={{ width: '50%', boxShadow: '0px 3px 6px #00000029', borderRadius: '10px', height: 'auto' }}>
-                                <select name="state code" style={{ border: 'none', textDecoration: 'none', width: '100%', borderRadius: '10px', paddingY: '10px' }}>
+                                <select className='gst_input' name="state code" style={{ border: 'none', textDecoration: 'none', width: '100%', borderRadius: '10px', paddingY: '10px' }}>
                                     <option>State Code</option>
                                     <option>Select</option>
                                     <option>Select</option>
@@ -234,7 +234,7 @@ const GSTform = () => {
 
                     <Box my={2}>
                         <Typography sx={{ fontSize: '18px', fontWeight: 'bold', color: '#252525' }} textAlign='left' my={2}>Remarks:</Typography>
-                        <Box sx={{ width: '50%', boxShadow: '0px 3px 6px #00000029', borderRadius: '10px', height: 'auto' }}>
+                        <Box sx={{ width: '50%', borderRadius: '10px', height: 'auto' }}>
                             <textarea type='text' name='state name' className='gst_input' />
                         </Box>
                     </Box>

@@ -1,42 +1,53 @@
 import React from 'react';
-import { Button,Box, Typography,Grid } from '@mui/material';
+import { Button, Box, Typography, Grid, TextField, Divider } from '@mui/material';
 import './admin.css';
 
 const Admin = () => {
   return (
     <div className='flightContainer'>
       <form action='/AdminUserForm'>
-      <Box>
-        <Button variant='contained' type='submit' sx={{backgroundColor:'#006FFF',borderRadius:'10px'}}>User Name Create</Button>
-      </Box>
+        <Box mb={2}>
+          <Typography variant="h5" sx={{ marginBottom: '1rem', color: '#252525' }}>
+            Create User
+          </Typography>
+          <Button variant='contained' type='submit' sx={{ backgroundColor: '#006FFF', borderRadius: '10px' }}>
+            User Name Create
+          </Button>
+        </Box>
+
+        <Divider sx={{ marginBottom: '1rem' }} />
+
+        <Box sx={{ boxShadow: '0px 3px 6px #00000029', padding: '1rem' }}>
+          <Grid container spacing={2}>
+            <Grid item xs={12} md={4}>
+              <TextField label="Name" variant="outlined" fullWidth />
+            </Grid>
+            <Grid item xs={12} md={4}>
+              <TextField label="Type" variant="outlined" fullWidth />
+            </Grid>
+            <Grid item xs={12} md={4}>
+              <TextField label="Role" variant="outlined" fullWidth />
+            </Grid>
+            <Grid item xs={12} md={4}>
+              <TextField label="Email" variant="outlined" fullWidth />
+            </Grid>
+            <Grid item xs={12} md={4}>
+              <TextField label="Phone" variant="outlined" fullWidth />
+            </Grid>
+            <Grid item xs={12} md={4}>
+              <TextField label="Status" variant="outlined" fullWidth />
+            </Grid>
+          </Grid>
+        </Box>
+
+        <Box mt={2}>
+          <Button variant='contained' type='submit' sx={{ backgroundColor: '#006FFF', borderRadius: '10px' }}>
+            Export To CSV
+          </Button>
+        </Box>
       </form>
-      <Box my={2} sx={{boxShadow:"0px 3px 6px #00000029",padding:'10px'}}>
-        <Grid container >
-            <Grid item  xs={2}>
-                <Typography sx={{color:'#252525',fontSize:'16px',fontWeight:'bold'}} textAlign='center'>Name</Typography>
-            </Grid>
-            <Grid item  xs={2}>
-                <Typography sx={{color:'#252525',fontSize:'16px',fontWeight:'bold'}}  textAlign='center'>Type</Typography>
-            </Grid>
-            <Grid item  xs={2}>
-                <Typography sx={{color:'#252525',fontSize:'16px',fontWeight:'bold'}}  textAlign='center'>Role</Typography>
-            </Grid>
-            <Grid item  xs={2}>
-                <Typography sx={{color:'#252525',fontSize:'16px',fontWeight:'bold'}}  textAlign='center'>Email</Typography>
-            </Grid>
-            <Grid item  xs={2}>
-                <Typography sx={{color:'#252525',fontSize:'16px',fontWeight:'bold'}}  textAlign='center'>Phone</Typography>
-            </Grid>
-            <Grid item  xs={2}>
-                <Typography sx={{color:'#252525',fontSize:'16px',fontWeight:'bold'}}  textAlign='center'>Status</Typography>
-            </Grid>
-        </Grid>
-      </Box>
-      <Box>
-        <Button variant='contained' type='submit' sx={{backgroundColor:'#006FFF',borderRadius:'10px'}}>Export To CSV</Button>
-      </Box>
     </div>
-  )
+  );
 }
 
-export default Admin
+export default Admin;

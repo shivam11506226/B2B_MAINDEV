@@ -4,14 +4,31 @@ import React from 'react'
 const ServicesTotalData = () => {
   return (
     <div>
-    <Box p={2}>
-      <Typography color="#FF8900" fontSize="18px" fontWeight="bold" textAlign="center">
-      Total Open Requests : 0
+    <Box p={2} >
+      <div style={{display:'flex',margin:'auto',width:'50%',gap:'10px'}}>
+      <Typography color="#FF8900" fontSize="18px" width="350px" fontWeight="bold" textAlign="center" >
+      Total Open Requests : 
+      </Typography>
+      <Typography color="#FF8900" fontSize="18px" fontWeight="bold" textAlign="center" >
+       0
+      </Typography>
+
+      </div>
+     
+      <div style={{display:'flex',margin:'auto',width:'50%',gap:'10px'}}> 
+      <Typography color="#FF8900" fontSize="18px" width="400px" fontWeight="bold" textAlign="center" style={{paddingLeft:'55px'}}>
+      Total In progress Requests : 
       </Typography>
       <Typography color="#FF8900" fontSize="18px" fontWeight="bold" textAlign="center">
-      Total In progress Requests : 0
+       0
       </Typography>
+      </div>
+     
+
       </Box>
+      
+      
+      
       <Box
         p={3}
         backgroundColor="#FCFFFF"

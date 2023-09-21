@@ -246,16 +246,19 @@ const Return = () => {
         </div>
       </div>
 
-        <div className="row">
+         <div className="row" style={{width:'100%'}}>
           <label className="form_lable1">
             -More options: Airline prefrence
           </label>
         </div>
-
-
-
-
-
+        <div className="row" style={{width:'100%'}}>
+          <div className="col-12 col-md-3 col-lg-3 mb-3">
+            <div className="showDirectFligthDiv">
+              <input name="direct" type="checkbox" />{" "}
+              <span>Show direct flights</span>
+            </div>
+          </div>
+        </div>
 
         <label style={{ fontSize: "20px", fontWeight: "400" }}>
           Restrict my Search to:{" "}
