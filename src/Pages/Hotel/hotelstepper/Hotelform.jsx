@@ -300,10 +300,10 @@ const HotelForm = () => {
         <Loader />
       ) : (
         <form onSubmit={handleSubmit}>
-          <Grid container spacing={3} py={2} alignItems="center">
-            <Grid item md={6} sm={12} xs={12}>
-              <Box>
-                <div className="nhotel_form_input">
+          <Grid container spacing={5} py={2} display="inline-block" style={{ display: 'flex', flexWrap: 'wrap' }}>
+            <Grid item md={6} sm={12} xs={12} display="flex">
+              <Box paddingRight={1}>
+                <div className="hotel_form_input">
                   <label className="form_lable">City</label>
                   
                   <input
@@ -328,13 +328,7 @@ const HotelForm = () => {
                   )}
                 </div>
               </Box>
-            </Grid>
-            <Grid item md={6} sm={12} xs={12}>
-              
-            </Grid>
-          </Grid>
-          <Grid container spacing={5} py={2} display="inline-block">
-            <Grid item md={6} sm={12} xs={12} display="flex">
+            
               <Box paddingRight={1}>
                 <div className="hotel_form_input">
                   <label className="form_lable">Check In</label>
@@ -351,7 +345,7 @@ const HotelForm = () => {
                 </div>
               </Box>
 
-              <Box px={1}>
+              <Box paddingRight={1}>
                 <div className="hotel_form_input">
                   <label className="form_lable">Check-Out</label>
                   <input
@@ -502,10 +496,7 @@ const HotelForm = () => {
                   </div>
                 </Box>
               ) : null}
-            </Grid>
-          </Grid>
-          <Grid container spacing={5} py={2}>
-            <Grid item md={6} sm={12} xs={12} display="flex">
+            
               <Box paddingRight={1}>
                 <div className="hotel_form_input">
                   <label className="form_lable">Star Rating*</label>
@@ -526,9 +517,15 @@ const HotelForm = () => {
               </Box>
             </Grid>
           </Grid>
-          <div style={{ display: "flex", justifyContent: "center" }}>
-           
-            <Custombutton title={"Hotel Search"} type={"submit"}/>
+          <div style={{ display: "flex" }}>
+            <Button
+              type="submit"
+              color="primary"
+              sx={{ background: "#00BDC4", borderRadius: "10px" }}
+              variant="contained"
+            >
+              Hotel Search
+            </Button>
           </div>
         </form>
       )}
