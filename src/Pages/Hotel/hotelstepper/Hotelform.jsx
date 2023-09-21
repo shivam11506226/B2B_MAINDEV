@@ -1,16 +1,11 @@
-import { Typography } from "@material-ui/core";
 import { apiURL } from "../../../Constants/constant";
 import { Grid, Box } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { Button } from "@mui/material";
-import PinDropIcon from "@mui/icons-material/PinDrop";
-import { useDispatch, useSelector, useReducer } from "react-redux";
+import { useDispatch, useSelector, useRef } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import Snackbar from "@mui/material/Snackbar";
 import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
-import Link from "@mui/material/Link";
-import moment from "moment";
 import axios from "axios";
 import "./hotelstepper.css";
 import { clearHotelReducer, hotelAction } from "../../../Redux/Hotel/hotel";
@@ -23,6 +18,12 @@ const HotelForm = () => {
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  // error manage
+  const [cityError, setCityError]=useState("");
+  const [checkInError,setCheckInError]=useState("");
+  const [checkOutError,setCheckOutError]=useState("");
+  
   const reducerState = useSelector((state) => state);
   console.log("State Data", reducerState);
 
@@ -42,7 +43,11 @@ const HotelForm = () => {
   const [open, setOpen] = useState(false);
   const [loader, setLoader] = useState(false);
   const [values, setValues] = React.useState(initialvalue);
-  const [error, setError] = React.useState(false);
+  const [error, setError] = React.useState({
+    nationality: false,
+      room: false,
+      adult: false,
+  });
   const [date, setDate] = React.useState("");
   const [oldDate, setOldDate] = React.useState("");
   const [isVisible, setIsVisible] = useState(false);
@@ -111,6 +116,7 @@ const HotelForm = () => {
     //Below is cityId to send in payload
     setCityid(city.cityid)
     setResults([]); // Clear the results
+    setCityError("");                                                                                             
   };
 
   const handleClose = (event, reason) => {
@@ -144,18 +150,36 @@ const HotelForm = () => {
       ...values,
       [name]: value,
     });
+
+    setError({
+      nationality: false,
+        room: false,
+        adult: false,
+    })
   };
 
+    // checkin checkout function
+  const handlechnage = (e) => {
+    const time = e.target.value;
+    console.log("time is", time);
+    setDate(time);
+    // setOldDate(time)
+    setCheckInError("");
+  };
+
+  
+  const handlechnageone = (e) => {
+    const time = e.target.value;
+    console.log("time is", time);
+    setOldDate(time);
+    setCheckOutError("")
+  };
+
+
   function handleSubmit(event) {
-    event.preventDefault();
-    if (
-      values.City.length < 1 ||
-      values.nationality.length < 1 ||
-      values.room.length < 1 ||
-      values.adult.length < 1
-    ) {
-      setError(true);
-    }
+    event.preventDefault(); 
+
+    
     const formData = new FormData(event.target);
     // Convert input date to desired format
     const date = new Date(formData.get("departure"));
@@ -163,6 +187,40 @@ const HotelForm = () => {
     const month = (date.getMonth() + 1).toString().padStart(2, "0");
     const year = date.getFullYear();
     const formattedDate = `${day}/${month}/${year}`;
+    console.log("formate date",formattedDate)
+
+
+     // validate Error
+     
+      if(!cityid){
+      setCityError("city is Required");
+       }else if(!formData.get("departure")){
+      setCheckInError("Select Date");
+    }else if(!oldDate){
+      setCheckOutError("Select checkout Date");
+    }else{
+    const newErrors  = {
+      nationality: false,
+      room: false,
+      adult: false,
+    };
+
+    if (values.nationality.length < 1) {
+      newErrors.nationality = true;
+    }
+    if (values.room.length < 1) {
+      newErrors.room = true;
+    }
+    if (values.adult.length < 1) {
+      newErrors.adult = true;
+    }
+
+    setError(true);
+    if (Object.values(newErrors).some((error) => error)) {
+    return;
+    }
+ 
+     
 
     const payload = {
       CheckInDate: formattedDate,
@@ -200,6 +258,8 @@ const HotelForm = () => {
     }
     setOpen(true);
   }
+  
+  }
 
   function disablePastDate() {
     const today = new Date();
@@ -224,20 +284,7 @@ const HotelForm = () => {
     return yyyy + "-" + mm + "-" + dd;
   };
 
-  // checkin checkout function
 
-  const handlechnage = (e) => {
-    const time = e.target.value;
-    console.log("time is", time);
-    setDate(time);
-    // setOldDate(time)
-  };
-
-  const handlechnageone = (e) => {
-    const time = e.target.value;
-    console.log("time is", time);
-    setOldDate(time);
-  };
 
   // const[year,month,day]=oldDate.split('-');
   const currentDate = new Date(date);
@@ -257,16 +304,7 @@ const HotelForm = () => {
               <Box paddingRight={1}>
                 <div className="hotel_form_input">
                   <label className="form_lable">City</label>
-                  {/* <select
-                    name="City"
-                    value={values.City}
-                    onChange={handleInputChange}
-                    id=""
-                    className="nhotel_input_select"
-                  >
-                    <option value="130443">Delhi</option>
-                    <option value="101204">Kochi</option>
-                  </select> */}
+                  
                   <input
                     name="City"
                     id=""
@@ -275,6 +313,7 @@ const HotelForm = () => {
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
                   />
+                  {cityError!=="" && (<span className="error">{cityError}</span>) }
 
                   {loading && <div>Loading...</div>}
                   {results.length > 0 && (
@@ -289,21 +328,17 @@ const HotelForm = () => {
                       ))}
                     </ul>
                   )}
-                  {error && values.City.length < 1 ? (
-                    <label
-                      style={{
-                        color: "red",
-                        fontSize: "12px",
-                        textAlign: "left",
-                      }}
-                    >
-                      Please Select City{" "}
-                    </label>
-                  ) : (
-                    ""
-                  )}
                 </div>
               </Box>
+
+            </Grid>
+            <Grid item md={6} sm={12} xs={12}>
+              
+            </Grid>
+          </Grid>
+          <Grid container spacing={5} py={2} display="inline-block">
+            <Grid item md={6} sm={12} xs={12} display="flex">
+
               <Box paddingRight={1}>
                 <div className="hotel_form_input">
                   <label className="form_lable">Check In</label>
@@ -316,6 +351,7 @@ const HotelForm = () => {
                     onChange={handlechnage}
                     min={disablePastDate()}
                   />
+                  {checkInError!=="" && (<span className="error">{checkInError}</span>) }
                 </div>
               </Box>
 
@@ -332,6 +368,7 @@ const HotelForm = () => {
                     min={disableNexttDate()}
                     placeholder="Night"
                   />
+                  {checkOutError!=="" && (<span className="error">{checkOutError}</span>) }
                 </div>
               </Box>
               <Box px={1}>
@@ -496,6 +533,11 @@ const HotelForm = () => {
 
           </Grid>
 
+          <div style={{ display: "flex", justifyContent: "center" }}>
+           
+            <Custombutton title={"Hotel Search"} type={"submit"}/>
+
+
 
 
 
@@ -512,17 +554,6 @@ const HotelForm = () => {
           </div>
         </form>
       )}
-      {/* {errorCode == 2 && errorCode == 3 ? (
-        <Snackbar
-          open={open}
-          autoHideDuration={6000}
-          onClose={handleClose}
-          message={errorMsg}
-          action={action}
-        />
-      ) : (
-        ""
-      )} */}
     </>
   );
 };
