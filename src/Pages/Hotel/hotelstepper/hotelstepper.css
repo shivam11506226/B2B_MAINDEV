@@ -107,18 +107,9 @@
       background-color: rgb(61, 144, 144);
       color: white;
   }
-
-
-.ul::-webkit-scrollbar-track {
-  background: #ddd;
-  border-radius: 20px;
-}
-
-
 .error{
-  color: red;
+color:red;
 }
-
   @media (max-width: 1240px) {
     .flightContainer {
       display: flex;
