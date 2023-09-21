@@ -1,5 +1,7 @@
 import * as React from "react";
-import { Grid, Box, Typography, Button } from "@mui/material";
+import { useState,useRef } from "react";
+import { Grid, Box, Typography, Button,Accordion,AccordionDetails,AccordionSummary} from "@mui/material";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import Rating from "../hotelresult/Rating";
 import Divider from "@mui/material/Divider";
 import FormControl from "@mui/material/FormControl";
@@ -10,34 +12,91 @@ import Link from "@mui/material/Link";
 import StarIcon from "@mui/icons-material/Star";
 import StarBorderOutlinedIcon from "@mui/icons-material/StarBorderOutlined";
 import "./review.css";
-
 import { useDispatch, useSelector, useReducer } from "react-redux";
 import { useNavigate } from "react-router-dom";
-
+import {
+  hotelBookRoomAction,
+  fetchBookRoomHotel,
+} from "../../../Redux/Hotel/hotel";
+import Custombutton from "../../../Custombuttom/Button";
 const Flightdetail = () => {
+  const emailRef = useRef();
+  const phoneRef = useRef();
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const reducerState = useSelector((state) => state);
   console.log("State Data", reducerState);
   const TotalGuest = sessionStorage.getItem("totalGuest");
   const HotelIndex = sessionStorage.getItem("HotelIndex");
-
+  const ResultIndex = sessionStorage.getItem("ResultIndex");
+  const HotelCode = sessionStorage.getItem("HotelCode");
   const OpenNewpage = () => {
     navigate("booknow");
   };
   // radio Butoon
   const [selectedValue, setSelectedValue] = React.useState("a");
-
   const handleChange = (event) => {
     setSelectedValue(event.target.value);
   };
+  const passengerTemplate = {
+    Title: "mr",
+    FirstName: "",
+    MiddleName: null,
+    LastName: "",
+    Phoneno: "9878656453",
+    Email: "testing@gmail.com",
+    PaxType: 1,
+    LeadPassenger: true,
+    Age: parseInt(30),
+    PassportNo: null,
+    PassportIssueDate: null,
+    PassportExpDate: null,
+    PAN: "DNIPS1199Q",
+  };
 
+  const childPassenger = {
+    Title: "mr",
+    FirstName: "",
+    MiddleName: null,
+    LastName: "",
+    Phoneno: "",
+    Email: "",
+    PaxType: 2,
+    LeadPassenger: true,
+    Age: parseInt(0),
+    PassportNo: null,
+    PassportIssueDate: null,
+    PassportExpDate: null,
+  };
+
+  const [accordionExpanded, setAccordionExpanded] = React.useState(false);
+  const handleAccordionChange = (index) => (event, isExpanded) => {
+    setAccordionExpanded(isExpanded ? index : false);
+  };
+
+  const passengerLists = [];
+  for (let i = 0; i < TotalGuest; i++) {
+    passengerLists.push({
+      ...passengerTemplate,
+      // IsLeadPax: i === 0, // Set the first passenger as the lead passenger
+    });
+  }
+
+  // const passengerChildLists = [];
+  // for (let i = 0; i < childCount; i++) {
+  //   passengerChildLists.push({
+  //     ...childPassenger,
+  //     IsLeadPax: false, // Set the first passenger as the lead passenger
+  //   });
+  // }
+
+  const [passengerList, setPassengerList] = useState(passengerLists);
+  const allPassenger = [passengerLists];
+  const [passengerData, setPassengerData] = useState(allPassenger.flat());
   const [Value, setValue] = React.useState("c");
-
   const handleClick = (event) => {
     setValue(event.target.value);
   };
-
   const hotelInfo = reducerState?.hotelSearchResult?.hotelInfo?.HotelInfoResult;
   const hotelRoom =
     reducerState?.hotelSearchResult?.hotelRoom?.GetHotelRoomResult;
@@ -65,6 +124,120 @@ const Flightdetail = () => {
   });
   const year = date1.getFullYear();
   const formattedDate = `${day} ${month} ${year}`;
+const handleServiceChange = (e, index) => {
+  const { name, value } = e.target;
+  const list = [...passengerData];
+  list[index][name] = value;
+  setPassengerData(list);
+};
+
+
+
+
+
+const handleClickBooking = () => {
+  // sessionStorage.setItem("HotelIndex", HotelIndex);
+  const email = emailRef.current.value;
+  const phoneno = phoneRef.current.value; 
+  const smoking = hotelRoom?.HotelRoomsDetails[HotelIndex]?.SmokingPreference;
+  var SmokingPreference;
+  if (smoking == "NoPreference") {
+    SmokingPreference = 0;
+  }
+  if (smoking == "Smoking") {
+    SmokingPreference = 1;
+  }
+  if (smoking == "NonSmoking") {
+    SmokingPreference = 2;
+  }
+  if (smoking == "Either") {
+    SmokingPreference = 3;
+  }
+  const payload = {
+    ResultIndex: ResultIndex,
+    HotelCode: HotelCode,
+    HotelName: hotelInfo?.HotelDetails?.HotelName,
+    GuestNationality: "IN",
+    NoOfRooms:
+      reducerState?.hotelSearchResult?.ticketData?.data?.data?.HotelSearchResult
+        ?.NoOfRooms,
+    ClientReferenceNo: 0,
+    IsVoucherBooking: true,
+    HotelRoomsDetails: [
+      {
+        RoomIndex: hotelRoom?.HotelRoomsDetails[HotelIndex]?.RoomIndex,
+        RoomTypeCode: hotelRoom?.HotelRoomsDetails[HotelIndex]?.RoomTypeCode,
+        RoomTypeName: hotelRoom?.HotelRoomsDetails[HotelIndex]?.RoomTypeName,
+        RatePlanCode: hotelRoom?.HotelRoomsDetails[HotelIndex]?.RatePlanCode,
+        BedTypeCode: null,
+        SmokingPreference: SmokingPreference,
+        Supplements: null,
+        Price: {
+          CurrencyCode:
+            hotelRoom?.HotelRoomsDetails[HotelIndex]?.Price?.CurrencyCode,
+          RoomPrice: hotelRoom?.HotelRoomsDetails[HotelIndex]?.Price?.RoomPrice,
+          Tax: hotelRoom?.HotelRoomsDetails[HotelIndex]?.Price?.Tax,
+          ExtraGuestCharge:
+            hotelRoom?.HotelRoomsDetails[HotelIndex]?.Price?.ExtraGuestCharge,
+          ChildCharge:
+            hotelRoom?.HotelRoomsDetails[HotelIndex]?.Price?.ChildCharge,
+          OtherCharges:
+            hotelRoom?.HotelRoomsDetails[HotelIndex]?.Price?.OtherCharges,
+          Discount: hotelRoom?.HotelRoomsDetails[HotelIndex]?.Price?.Discount,
+          PublishedPrice:
+            hotelRoom?.HotelRoomsDetails[HotelIndex]?.Price?.PublishedPrice,
+          PublishedPriceRoundedOff:
+            hotelRoom?.HotelRoomsDetails[HotelIndex]?.Price
+              ?.PublishedPriceRoundedOff,
+          OfferedPrice:
+            hotelRoom?.HotelRoomsDetails[HotelIndex]?.Price?.OfferedPrice,
+          OfferedPriceRoundedOff:
+            hotelRoom?.HotelRoomsDetails[HotelIndex]?.Price
+              ?.OfferedPriceRoundedOff,
+          AgentCommission:
+            hotelRoom?.HotelRoomsDetails[HotelIndex]?.Price?.AgentCommission,
+          AgentMarkUp:
+            hotelRoom?.HotelRoomsDetails[HotelIndex]?.Price?.AgentMarkUp,
+          ServiceTax:
+            hotelRoom?.HotelRoomsDetails[HotelIndex]?.Price?.ServiceTax,
+          TCS: hotelRoom?.HotelRoomsDetails[HotelIndex]?.Price?.TCS,
+          TDS: hotelRoom?.HotelRoomsDetails[HotelIndex]?.Price?.TDS,
+          ServiceCharge:
+            hotelRoom?.HotelRoomsDetails[HotelIndex]?.Price?.ServiceCharge,
+          TotalGSTAmount:
+            hotelRoom?.HotelRoomsDetails[HotelIndex]?.Price?.TotalGSTAmount,
+          GST: {
+            CGSTAmount:
+              hotelRoom?.HotelRoomsDetails[HotelIndex]?.GST?.CGSTAmount,
+            CGSTRate: hotelRoom?.HotelRoomsDetails[HotelIndex]?.GST?.CGSTRate,
+            CessAmount:
+              hotelRoom?.HotelRoomsDetails[HotelIndex]?.GST?.CessAmount,
+            CessRate: hotelRoom?.HotelRoomsDetails[HotelIndex]?.GST?.CessRate,
+            IGSTAmount:
+              hotelRoom?.HotelRoomsDetails[HotelIndex]?.GST?.IGSTAmount,
+            IGSTRate: hotelRoom?.HotelRoomsDetails[HotelIndex]?.GST?.IGSTRate,
+            SGSTAmount:
+              hotelRoom?.HotelRoomsDetails[HotelIndex]?.GST?.SGSTAmount,
+            SGSTRate: hotelRoom?.HotelRoomsDetails[HotelIndex]?.GST?.SGSTRate,
+            TaxableAmount:
+              hotelRoom?.HotelRoomsDetails[HotelIndex]?.GST?.TaxableAmount,
+          },
+        },
+        HotelPassenger: passengerData,
+      },
+    ],
+    EndUserIp: reducerState?.ip?.ipData,
+    TokenId: reducerState?.ip?.tokenData,
+    TraceId:
+      reducerState?.hotelSearchResult?.ticketData?.data?.data?.HotelSearchResult
+        ?.TraceId,
+  };
+  dispatch(hotelBookRoomAction(payload));
+};
+
+
+
+
 
   return (
     <Box borderRadius="10px">
@@ -125,7 +298,6 @@ const Flightdetail = () => {
               fontWeight="bold"
               px={1}
             >
-              {" "}
               {hotelInfo?.HotelDetails?.HotelContactNo}
             </Typography>
           </Typography>
@@ -226,367 +398,144 @@ const Flightdetail = () => {
           backgroundColor: "white",
         }}
       >
-        <Box display="flex">
+        <Box>
           <Typography
             sx={{ fontSize: "16px", color: "#252525", fontWeight: "bold" }}
           >
-            Enter Passenger Details
+            Enter Guest Details
           </Typography>
-        </Box>
-        <Box mt={2}>
-          <Typography
-            sx={{ fontSize: "16px", color: "#FF8900", fontWeight: "bold" }}
-          >
-            Corporate Booking (In case of corporate booking. Please enter the
-            pan no. of corporate) For corporate Bookings, Only a Corporate PAN
-            card with indemnity Bond on the corporate letterhead is mandatory to
-            issue the booking. (Travel agent's PAN card is not valid for any
-            booking) In absence of the correct details, the Booking may be
-            cancelled.
-          </Typography>
-        </Box>
+          <Box>
+            <Box>
+              {TotalGuest > 0 &&
+                Array.from({ length: TotalGuest }, (_, index) => (
+                  <Box>
+                    <div mb={2} key={index} className="services" py={1}>
+                      <Accordion
+                        expanded={accordionExpanded === index}
+                        onChange={handleAccordionChange(index)}
+                      >
+                        <AccordionSummary
+                          expandIcon={<ExpandMoreIcon />}
+                          aria-controls="panel1a-content"
+                          id="panel1a-header"
+                        >
+                          <Typography>Guest {index + 1}</Typography>
+                        </AccordionSummary>
+                        <AccordionDetails>
+                          <Box>
+                            <Grid container spacing={3} my={1}>
+                              <Grid item xs={12} sm={12} md={4}>
+                                <Box>
+                                  <div className="form_input">
+                                    <label
+                                      hotel_form_input
+                                      className="form_lable"
+                                    >
+                                      First name*
+                                    </label>
+                                    <input
+                                      name="FirstName"
+                                      placeholder="Enter your name"
+                                      value={passengerData.FirstName}
+                                      onChange={(e) =>
+                                        handleServiceChange(e, index)
+                                      }
+                                    />
+                                  </div>
+                                </Box>
+                              </Grid>
+                              <Grid item xs={12} sm={12} md={4} py={1}>
+                                <Box>
+                                  <div className="form_input">
+                                    <label
+                                      hotel_form_input
+                                      className="form_lable"
+                                    >
+                                      Last name*
+                                    </label>
+                                    <input
+                                      name="LastName"
+                                      placeholder="Enter your last name"
+                                      value={passengerData.LastName}
+                                      onChange={(e) =>
+                                        handleServiceChange(e, index)
+                                      }
+                                    />
+                                  </div>
+                                </Box>
+                              </Grid>
+                              <Grid item xs={12} sm={12} md={4} py={1}>
+                                <Box>
+                                  <div className="form_input">
+                                    <label
+                                      hotel_form_input
+                                      className="form_lable"
+                                    >
+                                      age*
+                                    </label>
+                                    <input
+                                      name="Age"
+                                      type="number"
+                                      placeholder="Enter Age"
+                                      value={passengerData.Age}
+                                      onChange={(e) =>
+                                        handleServiceChange(e, index)
+                                      }
+                                    />
+                                  </div>
+                                </Box>
+                              </Grid>
+                            </Grid>
+                          </Box>
+                        </AccordionDetails>
+                      </Accordion>
 
-        <Divider sx={{ backgroundColor: "gray", marginY: "5px" }} />
+                      {/* Form end */}
+                    </div>
+                  </Box>
+                ))}
+            </Box>
 
-        <Box>
-          <Box display="flex">
-            <Typography
-              sx={{ fontSize: "16px", color: "#006FFF", fontWeight: "bold" }}
-            >
-              Room 1 Guest 1 (Adult) - Lead Passenger
-            </Typography>
-          </Box>
-          <Box mt={2} display="flex">
-            <Typography
-              sx={{
-                fontSize: "16px",
-                color: "#252525",
-                fontWeight: "bold",
-                textDecoration: "underline",
-                cursor: "pointer",
-              }}
-            >
-              Name:-*
-            </Typography>
+            <Grid container spacing={3} my={1}>
+              <Grid item xs={12} sm={12} md={4}>
+                <Box>
+                  <div className="form_input">
+                    <label hotel_form_input className="form_lable">
+                      Email*
+                    </label>
+                    <input
+                      name="Email"
+                      ref={emailRef}
+                      placeholder="Enter your Email"
+                      value={passengerData.Email}
+                    />
+                  </div>
+                </Box>
+              </Grid>
+
+              <Grid item xs={12} sm={12} md={4}>
+                <Box>
+                  <div className="form_input">
+                    <label hotel_form_input className="form_lable">
+                      Phone No*
+                    </label>
+                    <input
+                      name="Phoneno"
+                      ref={phoneRef}
+                      placeholder="Enter your name"
+                      value={passengerData.Phoneno}
+                    />
+                  </div>
+                </Box>
+              </Grid>
+            </Grid>
+
             <Box
-              sx={{
-                width: "100px",
-                height: "30px",
-                boxShadow: " 0px 3px 6px #00000029",
-                borderRadius: "10px",
-                textAlign: "center",
-              }}
-              mx={2}
-            >
-              <FormControl>
-                <NativeSelect
-                  defaultValue={0}
-                  inputProps={{
-                    name: "price",
-                  }}
-                >
-                  <option value={10}>Mr.</option>
-                  <option value={20}>Miss.</option>
-                  <option value={30}>Mrs.</option>
-                </NativeSelect>
-              </FormControl>
-            </Box>
-            <Box
-              sx={{
-                width: "270px",
-                height: "30px",
-                boxShadow: " 0px 3px 6px #00000029",
-                borderRadius: "10px",
-                textAlign: "center",
-              }}
-              mx={2}
-            >
-              <Input
-                type="text"
-                placeholder="Traveller First Name"
-                border="none"
-              ></Input>
-            </Box>
-            <Box
-              sx={{
-                width: "270px",
-                height: "30px",
-                boxShadow: " 0px 3px 6px #00000029",
-                borderRadius: "10px",
-                textAlign: "center",
-              }}
-              mx={2}
-            >
-              <Input
-                type="text"
-                placeholder="Traveller Last Name"
-                border="none"
-              ></Input>
-            </Box>
-          </Box>
-        </Box>
-        <Divider sx={{ backgroundColor: "gray", marginY: "15px" }} />
-        <Box>
-          <Box display="flex">
-            <Typography
-              sx={{ fontSize: "16px", color: "#252525", fontWeight: "bold" }}
-            >
-              Package Details
-            </Typography>
-          </Box>
-          {/* Arrival Details*/}
-          <Box px={2}>
-            <Typography
-              sx={{ fontSize: "16px", color: "#252525", fontWeight: "bold" }}
-            >
-              Arrival Details:
-            </Typography>
-            <Box mt={1} display="flex">
-              <div>
-                <Radio
-                  checked={selectedValue === "a"}
-                  onChange={handleChange}
-                  value="a"
-                  name="radio-buttons"
-                  inputProps={{ "aria-label": "A" }}
-                />
-                Arriving by Flight
-                <Radio
-                  checked={selectedValue === "b"}
-                  onChange={handleChange}
-                  value="b"
-                  name="radio-buttons"
-                  inputProps={{ "aria-label": "B" }}
-                />
-                Arriving by Surface
-              </div>
-            </Box>
-            <Box mt={2} display="flex">
-              <Typography
-                sx={{
-                  fontSize: "14px",
-                  color: "#252525",
-                  fontWeight: "bold",
-                  textDecoration: "underline",
-                  cursor: "pointer",
-                }}
-              >
-                Flight No.:-*
-              </Typography>
-
-              <Box className="input_area" mx={3}>
-                <Input
-                  type="text"
-                  placeholder="Enter Flight No."
-                  border="none"
-                ></Input>
-              </Box>
-
-              <Typography
-                sx={{
-                  fontSize: "14px",
-                  color: "#252525",
-                  fontWeight: "bold",
-                  textDecoration: "underline",
-                  cursor: "pointer",
-                }}
-              >
-                Date & Time:-*
-              </Typography>
-              <Box
-                sx={{
-                  width: "160px",
-                  height: "30px",
-                  boxShadow: " 0px 3px 6px #00000029",
-                  borderRadius: "10px",
-                  textAlign: "center",
-                }}
-                mx={3}
-              >
-                <Input
-                  type="date"
-                  name="departure"
-                  id="departure"
-                  className="deaprture_input"
-                  placeholder="Enter city or airport"
-                  style={{ textDecoration: "none", border: "none" }}
-                />
-              </Box>
-              <Box
-                sx={{
-                  width: "120px",
-                  height: "30px",
-                  boxShadow: " 0px 3px 6px #00000029",
-                  borderRadius: "10px",
-                  textAlign: "center",
-                }}
-                mx={3}
-              >
-                <FormControl>
-                  <NativeSelect
-                    defaultValue={0}
-                    inputProps={{
-                      name: "price",
-                    }}
-                  >
-                    <option value={10}>Hours</option>
-                    <option value={20}>1</option>
-                    <option value={30}>2</option>
-                  </NativeSelect>
-                </FormControl>
-              </Box>
-              <Box
-                sx={{
-                  width: "120px",
-                  height: "30px",
-                  boxShadow: " 0px 3px 6px #00000029",
-                  borderRadius: "10px",
-                  textAlign: "center",
-                }}
-                mx={1}
-              >
-                <FormControl>
-                  <NativeSelect
-                    defaultValue={0}
-                    inputProps={{
-                      name: "price",
-                    }}
-                  >
-                    <option value={10}>Minutes</option>
-                    <option value={20}>1</option>
-                    <option value={30}>2</option>
-                  </NativeSelect>
-                </FormControl>
-              </Box>
-            </Box>
-          </Box>
-
-          {/* Departure detail */}
-
-          <Box px={2} mt={2}>
-            <Typography
-              sx={{ fontSize: "16px", color: "#252525", fontWeight: "bold" }}
-            >
-              Departure Details:
-            </Typography>
-            <Box mt={1} display="flex">
-              <div>
-                <Radio
-                  checked={Value === "c"}
-                  onChange={handleClick}
-                  value="c"
-                  name="radio-buttons"
-                  inputProps={{ "aria-label": "A" }}
-                />
-                Departure by Flight
-                <Radio
-                  checked={Value === "e"}
-                  onChange={handleClick}
-                  value="p"
-                  name="radio-buttons"
-                  inputProps={{ "aria-label": "B" }}
-                />
-                Arriving by Surface
-              </div>
-            </Box>
-            <Box mt={2} display="flex">
-              <Typography
-                sx={{
-                  fontSize: "14px",
-                  color: "#252525",
-                  fontWeight: "bold",
-                  textDecoration: "underline",
-                  cursor: "pointer",
-                }}
-              >
-                Flight No.:-*
-              </Typography>
-
-              <Box className="input_area" mx={3}>
-                <Input
-                  type="text"
-                  placeholder="Enter Flight No."
-                  border="none"
-                ></Input>
-              </Box>
-
-              <Typography
-                sx={{
-                  fontSize: "14px",
-                  color: "#252525",
-                  fontWeight: "bold",
-                  textDecoration: "underline",
-                  cursor: "pointer",
-                }}
-              >
-                Date & Time:-*
-              </Typography>
-              <Box
-                sx={{
-                  width: "160px",
-                  height: "30px",
-                  boxShadow: " 0px 3px 6px #00000029",
-                  borderRadius: "10px",
-                  textAlign: "center",
-                }}
-                mx={3}
-              >
-                <Input
-                  type="date"
-                  name="departure"
-                  id="departure"
-                  className="deaprture_input"
-                  placeholder="Enter city or airport"
-                  style={{ textDecoration: "none", border: "none" }}
-                />
-              </Box>
-              <Box
-                sx={{
-                  width: "120px",
-                  height: "30px",
-                  boxShadow: " 0px 3px 6px #00000029",
-                  borderRadius: "10px",
-                  textAlign: "center",
-                }}
-                mx={3}
-              >
-                <FormControl>
-                  <NativeSelect
-                    defaultValue={0}
-                    inputProps={{
-                      name: "price",
-                    }}
-                  >
-                    <option value={10}>Hours</option>
-                    <option value={20}>1</option>
-                    <option value={30}>2</option>
-                  </NativeSelect>
-                </FormControl>
-              </Box>
-              <Box
-                sx={{
-                  width: "120px",
-                  height: "30px",
-                  boxShadow: " 0px 3px 6px #00000029",
-                  borderRadius: "10px",
-                  textAlign: "center",
-                }}
-                mx={1}
-              >
-                <FormControl>
-                  <NativeSelect
-                    defaultValue={0}
-                    inputProps={{
-                      name: "price",
-                    }}
-                  >
-                    <option value={10}>Minutes</option>
-                    <option value={20}>1</option>
-                    <option value={30}>2</option>
-                  </NativeSelect>
-                </FormControl>
-              </Box>
-            </Box>
+              mt={1}
+              display="flex"
+              alignItems="center"
+              justifyContent="center"
+            ></Box>
           </Box>
         </Box>
 
@@ -782,13 +731,19 @@ const Flightdetail = () => {
           </ol>
         </Box>
 
-        <form action="/Guestdetail">
-          <Box textAlign="center" mt={2}>
-            <Button className="continue_btn" type="submit" variant="contained">
+        {/* <form> */}
+        <Box display={"flex"} justifyContent={"center"} mt={2}>
+          {/* <Button
+              className="continue_btn"
+              type="submit"
+              variant="contained"
+              onClick={handleClickBooking}
+            >
               Proceed to Booking Review
-            </Button>
-          </Box>
-        </form>
+            </Button> */}
+          <Custombutton title={"Proceed to Booking Review"} type={"submit"} onClick={handleClickBooking}/>
+        </Box>
+        {/* </form> */}
       </Box>
     </Box>
   );
