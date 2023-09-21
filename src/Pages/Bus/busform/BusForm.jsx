@@ -1,4 +1,6 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react';
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 import "./busform.css";
 import { Button,Box } from '@mui/material';
 import axios from 'axios';
@@ -25,7 +27,10 @@ const BusForm = () => {
   const [selectedTo, setSelectedTo] = useState(null);
   const [displayFrom, setdisplayFrom] = useState(true);
   const [displayTo, setdisplayTo] = useState(true);
+  const [startDate, setStartDate] = useState(null);
   const inputRef = useRef(null);
+  const fromInputRef=useRef(null);
+  const toInputRef=useRef(null)
   const [fromData,setFromData] = useState([]);
   const [origin,setOrigin] = useState([]);
   const [errors, setErrors] = useState({
@@ -136,7 +141,7 @@ const BusForm = () => {
   };
 
   const handleDateInputChange = () => {
-    setErrors({ ...errors, date: "" }); // Clear the error when the user selects a date
+    setErrors({ ...errors, date: "" });  // Clear the error when the user selects a date
   };
   
   // Form validation function
@@ -154,7 +159,7 @@ const BusForm = () => {
       valid = false;
     }
 
-    if (!inputRef.current.value) {
+    if (!startDate) {
       newErrors.date = "Please select a departure date";
       valid = false;
     }
@@ -173,20 +178,40 @@ const BusForm = () => {
     const isValid = validateForm();
     if (isValid) {
       const formData = new FormData(event.target);
+        // Format the selected date as "MM/dd/yyyy"
+    const selectedDate = startDate;
+    let formattedDate = "";
+    if (selectedDate) {
+      const month = selectedDate.getMonth() + 1;
+      const day = selectedDate.getDate();
+      const year = selectedDate.getFullYear();
+      formattedDate = `${year}/${month.toString().padStart(2, '0')}/${day.toString().padStart(2, '0')}`;
+    }
       const payload = {
         EndUserIp: reducerState?.ip?.ipData,
         TokenId: reducerState?.ip?.tokenData,
-        DateOfJourney: formData.get("departure"),
+        DateOfJourney: formattedDate,
         DestinationId: formData.get("to"),
         OriginId : formData.get("from"),
       };
       console.log("payload",payload);
       dispatch(busSearchAction(payload));
       navigate("/BusResult")
-    }
+    }else{
+      // Focus on the first empty field
+      if (!from) {
+        fromInputRef.current.focus();
+      } else if (!to) {
+        toInputRef.current.focus();
+      } else if (!inputRef.current.value) {
+        inputRef.current.focus();
+      }
+  }
   }
 
   // /BusResult
+
+  
 
   return (
     <div className='container'>
@@ -215,7 +240,7 @@ const BusForm = () => {
                   handleFromInputChange(event);
                   handleFromSearch(event.target.value);
                 }}
-                
+                ref={fromInputRef}
               />
               {isLoading && <div>Loading...</div>}
               {fromSearchResults && fromSearchResults.length > 0 && (
@@ -281,6 +306,7 @@ const BusForm = () => {
                   handleToInputChange(event);
                   handleToSearch(event.target.value);
                 }}
+                ref={toInputRef}
               />
               {isLoading && <div>Loading...</div>}
               {toSearchResults && toSearchResults.length > 0 && (
@@ -326,15 +352,21 @@ const BusForm = () => {
         <div className="col-xs-12 col-md-3">
           <div className="form_input">
             <label className="form_lable">DEPARTURE</label>
+            
 
-            <input
-              type="date"
+            <DatePicker
+             selected={startDate}
               name="departure"
               id="departure"
               ref={inputRef}
+              placeholderText='Select Date'
               className="deaprture_input"
-              onChange={handleDateInputChange}
-            ></input>
+              onChange={date => {
+                setStartDate(date);
+                handleDateInputChange();
+              }}
+              minDate={new Date()}
+            />
           </div>
           {errors.date && <div className="error">{errors.date}</div>}
         </div>
