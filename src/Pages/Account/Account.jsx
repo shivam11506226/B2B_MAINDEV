@@ -173,7 +173,7 @@ const Account = () => {
                                 </Grid>
                             </Grid>
                         </Box>
-                        <Box sx={{ padding: '15px', display: 'flex', justifyContent: 'right' }} my={2} >
+                        <Box sx={{ padding: '15px', display: 'flex'}} my={2} >
                             <form action='/'>
                                 <Button type='submit' color='primary' variant='contained' sx={{ borderRadius: '10px', boxShadow: '0px 3px 6px #00000029' }}>Save Change</Button>
                             </form>

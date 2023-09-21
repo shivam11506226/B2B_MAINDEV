@@ -11,6 +11,10 @@ const ServicesFilter = () => {
         boxShadow="1px 1px 8px gray"
         borderRadius="10px"
         alignItems="center"
+        style={{border:'5px solid red'}}
+        display="flex"
+        flexWrap="wrap"
+        className="filter-container"
       >
         <Box p={1}>
           <Typography
@@ -92,6 +96,7 @@ const ServicesFilter = () => {
         <Box display="flex" justifyContent='space-around'>
           <button className="btn">Non Set</button>
           <button className="btn">Domestic</button>
+         
         </Box>
         <Box display="flex" justifyContent="center">
           <button className="btn-1">International</button>
@@ -136,7 +141,7 @@ const ServicesFilter = () => {
         <Box className="input" display='flex' alignItems='center'>
           <input type="checkbox" />
           <Typography ml={2} color="#252525" fontSize="12px" fontWeight="bold">Book-out</Typography>
-        </Box>
+        </Box> <br></br>
         <Box className="input" display='flex' alignItems='center'>
           <input type="checkbox" />
           <Typography ml={2} color="#252525" fontSize="12px" fontWeight="bold">Domestic Package</Typography>

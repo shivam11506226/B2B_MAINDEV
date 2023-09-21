@@ -370,61 +370,63 @@ const OneWay = () => {
         </div>
 
         <div className="row" style={{ marginTop: "32px" }}>
-  <div className="col-xs-3 col-md-3 pe-0">
-    <Typography mt={1} variant="h6" paddingRight={0}>
-      Select A Fair Of Type:
-    </Typography>
-  </div>
-  <div className="col-xs-3 col-md-5">
-    <div style={{ display: "flex" }}>
-      <span
-        style={{
-          display: "flex",
-          padding: "10px",
-          justifyContent: "center",
-          alignItems: "center",
-          borderRadius: "10px",
-          color: "white",
-          opacity: 1,
-          backgroundColor:
-            selectedOption === "option1" ? "#00BDC4" : "#8D8985",
-          border: "none",
-        }}
-        className="span"
-        onClick={(e) => setSelectedOption("option1")}
-      >
-        <input
-          type="radio"
-          value="2"
-          checked={selectedOption === "option1"}
-        />
-        Regular Fares
-      </span>
-      <button
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          borderRadius: "10px",
-          color: "white",
-          opacity: 1,
-          marginLeft: "8px",
-          backgroundColor:
-            selectedOption === "option2" ? "#00BDC4" : "#8D8985",
-          border: "none",
-        }}
-        onClick={(e) => setSelectedOption("option2")}
-      >
-        <input
-          type="radio"
-          value="3"
-          checked={selectedOption === "option2"}
-        />
-        Student Fares
-      </button>
-    </div>
-  </div>
-</div>
+          <div className="col-xs-3 col-md-3 pe-0">
+            <Typography mt={1} variant="h6" paddingRight={0}>
+              Select A Fair Of Type:
+            </Typography>
+          </div>
+          <div className="col-xs-3 col-md-5">
+            <div style={{ display: "flex" }}>
+              <span
+                style={{
+                  display: "flex",
+                  padding: "10px",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  borderRadius: "10px",
+                  color: "white",
+                  opacity: 1,
+                  backgroundColor:
+                    selectedOption === "option1" ? "#00BDC4" : "#8D8985",
+                  border: "none",
+                }}
+                className="span"
+                onClick={(e) => setSelectedOption("option1")}
+              >
+                <input
+                  type="radio"
+                  value="2"
+                  checked={selectedOption === "option1"}
+                />
+                Regular Fares
+              </span>
+              
+              <button
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  borderRadius: "10px",
+                  color: "white",
+                  opacity: 1,
+                  marginLeft: "8px",
+                  backgroundColor:
+                    selectedOption === "option2" ? "#00BDC4" : "#8D8985",
+                  border: "none",
+                }}
+                onClick={(e) => setSelectedOption("option2")}
+              >
+                <input
+                  type="radio"
+                  value="3"
+                  checked={selectedOption === "option2"}
+                />
+                Student Fares
+              </button>
+            </div>
+          </div>
+        </div>
+        
 
         <div className="row">
           <div className="col-xs-9">
@@ -525,24 +527,24 @@ const OneWay = () => {
         </label>
 
         <Box >
-  <div>
-    <div className="grid-container" style={{display:'flex',flexWrap:'wrap',gap:'40px'}}>
-      {options.map(({ label, value }) => (
-        <label key={value}>
-          <input
-            type="checkbox"
-            value={label}
-            checked={selectAll ? true : selected.includes(label)}
-            onChange={handleCheckboxChange}
-            disabled={selectAll}
-            className="me-1"
-          />
-          {label}
-        </label>
-      ))}
-    </div>
-  </div>
-</Box>
+          <div>
+            <div className="grid-container" style={{ display: 'flex', flexWrap: 'wrap', gap: '40px' }}>
+              {options.map(({ label, value }) => (
+                <label key={value}>
+                  <input
+                    type="checkbox"
+                    value={label}
+                    checked={selectAll ? true : selected.includes(label)}
+                    onChange={handleCheckboxChange}
+                    disabled={selectAll}
+                    className="me-1"
+                  />
+                  {label}
+                </label>
+              ))}
+            </div>
+          </div>
+        </Box>
 
 
         <Box className="row">

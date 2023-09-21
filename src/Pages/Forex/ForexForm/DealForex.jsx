@@ -51,7 +51,7 @@ const DealForex = () => {
               <input type="text" name="enterCity" onChange={handleChange} />
             </div>
           </div>
-          <div className="col-xs-12 col-md-4">
+          <div className="col-xs-12 col-md-3">
             <div className="form_input">
               <label className="form_lable">Enter Location</label>
               <input
@@ -61,9 +61,7 @@ const DealForex = () => {
               ></input>
             </div>
           </div>
-        </div>
-        <div className="row" style={{ display: "flex", alignItems: "center" }}>
-          <div className="col-xs-12 col-md-2">
+          <div className="col-xs-12 col-md-3">
             <div className="form_input">
               <label className="form_lable">Service</label>
               <input
@@ -73,7 +71,7 @@ const DealForex = () => {
               ></input>
             </div>
           </div>
-          <div className="col-xs-12 col-md-2">
+          <div className="col-xs-12 col-md-3">
             <div className="form_input">
               <label className="form_lable">Amount</label>
               <input
@@ -83,7 +81,12 @@ const DealForex = () => {
               ></input>
             </div>
           </div>
-          <div className="col-xs-12 col-md-2">
+
+
+        </div>
+        <div className="row" style={{ display: "flex", alignItems: "center" }}>
+          
+          <div className="col-xs-12 col-md-3">
             <div className="form_input">
               <label className="form_lable">Currency</label>
               <input
@@ -93,10 +96,7 @@ const DealForex = () => {
               ></input>
             </div>
           </div>
-        </div>
-
-        <div className="row">
-          <div className="col-xs-12 col-md-2">
+          <div className="col-xs-12 col-md-3">
             <div className="form_input">
               <label className="form_lable">Commission Type</label>
               {/* <select name="commissionType" className="form_input_select"  onChange={handleChange}>
@@ -114,7 +114,7 @@ const DealForex = () => {
               </select>
             </div>
           </div>
-          <div className="col-xs-12 col-md-2">
+          <div className="col-xs-12 col-md-3">
             <div className="form_input">
               <label className="form_lable">My Commission</label>
               <input
@@ -125,9 +125,7 @@ const DealForex = () => {
               ></input>
             </div>
           </div>
-        </div>
-        <div className="row">
-          <div className="col-xs-12 col-md-2">
+          <div className="col-xs-12 col-md-3">
             <div className="form_input">
               <label className="form_lable">Mobile No.</label>
               <input
@@ -137,7 +135,11 @@ const DealForex = () => {
               ></input>
             </div>
           </div>
+
         </div>
+
+       
+      
 
         <div className="row">
           <div className="col-xs-12">
@@ -154,8 +156,8 @@ const DealForex = () => {
                 my={4}
                 colorScheme="teal"
                 type="submit"
-                m
-                sx={{ backgroundColor: "#00BDC4", borderRadius: "20px" }}
+                
+                sx={{ backgroundColor: "#00BDC4", borderRadius: "20px",marginTop:"-30px" }}
               >
                 Submit
               </Button>

@@ -132,7 +132,7 @@ const Header = () => {
         </p>
         <button onClick={handleOpenModal}>Recharge</button>
 
-        <div style={{ marginBottom: "25px", height: "60px" }}>
+        <div style={{ marginBottom: "25px", height: "60px",display:'flex'}}>
           <Box marginTop={3}>
             <Typography
               sx={{
@@ -155,13 +155,6 @@ const Header = () => {
               {reducerState?.logIn?.loginData?.data?.data?.username}
             </Typography>
           </Box>
-        </div>
-
-        <div
-          style={{
-            marginLeft: "-25px",
-          }}
-        >
           <ArrowDropDownIcon
             onClick={handleClick}
             id="menu"
@@ -169,7 +162,18 @@ const Header = () => {
             aria-haspopup="true"
             aria-expanded={open ? "true" : undefined}
             cursor="pointer"
+            style={{marginTop:'24px',marginRight:'20px'}}
           />
+        </div>
+
+        <div
+          style={{
+            marginLeft: "-25px",
+          }}
+        >
+         
+
+          
           <Menu
             id="menu"
             MenuListProps={{

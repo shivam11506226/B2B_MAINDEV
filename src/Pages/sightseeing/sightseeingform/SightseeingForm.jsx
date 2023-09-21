@@ -6,7 +6,7 @@ const SightseeingForm = () => {
     return (
         <div className='container'>
             <div className='row'>
-                <div className="col-xs-12 col-md-6">
+                <div className="col-xs-12 col-md-2">
                     <div className="form_input">
                         <label className="form_lable">Destination</label>
                         <select name="" id="" className="form_input_select">
@@ -18,9 +18,6 @@ const SightseeingForm = () => {
                         </select>
                     </div>
                 </div>
-                
-            </div>
-            <div className='row'>
                 <div className="col-xs-12 col-md-2">
                     <div className="form_input">
                         <label className="form_lable">DEPARTURE</label>
@@ -32,7 +29,7 @@ const SightseeingForm = () => {
                         ></input>
                     </div>
                 </div>
-                <div className="col-xs-12 col-md-3">
+                <div className="col-xs-12 col-md-2">
                     <div className="form_input">
                         <label className="form_lable">Nationality</label>
                         <select name="" id="" className="form_input_select">
@@ -42,8 +39,6 @@ const SightseeingForm = () => {
                         </select>
                     </div>
                 </div>
-            </div>
-            <div className='row'>
                 <div className="col-xs-12 col-md-2">
                     <div className="form_input">
                         <label className="form_lable">Name a keyword</label>
@@ -54,11 +49,14 @@ const SightseeingForm = () => {
                         ></input>
                     </div>
                 </div>
+                
             </div>
+            
+           
             <div className='row' >
                 <div className="col-xs-12">
                     <form action="/SightseeingResult">
-                        <Box display='flex' justifyContent='center'>
+                        <Box display='flex'>
                             <Button
                                 variant='contained'
                                 my={4}
