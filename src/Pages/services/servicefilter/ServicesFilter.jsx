@@ -11,7 +11,7 @@ const ServicesFilter = () => {
         boxShadow="1px 1px 8px gray"
         borderRadius="10px"
         alignItems="center"
-        style={{border:'5px solid red'}}
+       
         display="flex"
         flexWrap="wrap"
         className="filter-container"
@@ -22,7 +22,7 @@ const ServicesFilter = () => {
               fontSize: "16px",
               fontWeight: "bold",
               color: "#252525",
-              borderBottom: "1px solid grey",
+              borderBottom: "2px solid grey",
             }}
             textAlign="center"
           >
@@ -34,7 +34,7 @@ const ServicesFilter = () => {
           <Grid md={7} sm={6}>
             <Box display="flex" alignItems="center">
               <Box px={1}>
-                <Typography color="#666666" fontSize="12px" fontWeight="bold">
+                <Typography color="#666666" fontSize="15px" fontWeight="bold">
                   Status
                 </Typography>
               </Box>
@@ -46,7 +46,7 @@ const ServicesFilter = () => {
                 <Typography
                   display="flex"
                   color="#006FFF"
-                  fontSize="10px"
+                  fontSize="15px"
                   fontWeight="bold"
                 >
                   (Select/ Unselect)
@@ -55,169 +55,209 @@ const ServicesFilter = () => {
             </Box>
           </Grid>
         </Grid>
-        <Box className="input" display='flex' alignItems='center'>
-          <input type="checkbox" />
-          <Typography ml={2} color="#252525" fontSize="12px" fontWeight="bold">Open</Typography>
-        </Box>
-        <Box className="input" display='flex' alignItems='center'>
-          <input type="checkbox" />
-          <Typography ml={2} color="#252525" fontSize="12px" fontWeight="bold">In Progress</Typography>
-        </Box>
-        <Box className="input" display='flex' alignItems='center'>
-          <input type="checkbox" />
-          <Typography ml={2} color="#252525" fontSize="12px" fontWeight="bold">Hold</Typography>
-        </Box>
-        <Box className="input" display='flex' alignItems='center'>
-          <input type="checkbox" />
-          <Typography ml={2} color="#252525" fontSize="12px" fontWeight="bold">Closed</Typography>
-        </Box>
-        <Box className="input" display='flex' alignItems='center'>
-          <input type="checkbox" />
-          <Typography ml={2} color="#252525" fontSize="12px" fontWeight="bold">Rejected</Typography>
-        </Box>
-        <Box className="input" display='flex' alignItems='center' borderBottom="1px solid grey" >
-          <input type="checkbox" />
-          <Typography ml={2} color="#252525" fontSize="12px" fontWeight="bold">Re Open</Typography>
-        </Box>
+
+
+        <div style={{ display: 'flex', width: '95%',  marginLeft: '10px', height: '50px', gap: '10px' }}>
+          <Box className="input" display='flex' alignItems='center' >
+            <input type="checkbox"  style={{ width: '20px', height: '20px' }} />
+            <Typography ml={2} color="#252525" fontSize="15px" fontWeight="bold">Open</Typography>
+          </Box>
+          <Box className="input" display='flex' alignItems='center'>
+            <input type="checkbox"  style={{ width: '20px', height: '20px' }} />
+            <Typography ml={2} color="#252525" fontSize="15px" fontWeight="bold">In Progress</Typography>
+          </Box>
+          <Box className="input" display='flex' alignItems='center'>
+            <input type="checkbox" style={{ width: '20px', height: '20px' }} />
+            <Typography ml={2} color="#252525" fontSize="15px" fontWeight="bold">Hold</Typography>
+          </Box>
+        </div>
+
+
+
+        <div style={{ display: 'flex', width: '95%',  marginLeft: '10px', height: '50px', gap: '10px' }}>
+          <Box className="input" display='flex' alignItems='center'>
+            <input type="checkbox" style={{ width: '20px', height: '20px' }} />
+            <Typography ml={2} color="#252525" fontSize="15px" fontWeight="bold">Closed</Typography>
+          </Box>
+          <Box className="input" display='flex' alignItems='center'>
+            <input type="checkbox" style={{ width: '20px', height: '20px' }} />
+            <Typography ml={2} color="#252525" fontSize="15px" fontWeight="bold">Rejected</Typography>
+          </Box>
+          <Box className="input" display='flex' alignItems='center'  >
+            <input type="checkbox" style={{ width: '20px', height: '20px' }} />
+            <Typography ml={2} color="#252525" fontSize="15px" fontWeight="bold">Re Open</Typography>
+          </Box>
+        </div>
+
+
+
+
+
+
         {/* ------------------------------------------- */}
 
         <Box p={1}>
-          <Typography
-            sx={{
-              fontSize: "12px",
-              fontWeight: "bold",
-              color: "#252525",
-            }}
-            textAlign="center"
-          >
+        <Typography color="#666666" fontSize="15px" fontWeight="bold">
+            
             Demographic Type
           </Typography>
         </Box>
-        <Box display="flex" justifyContent='space-around'>
-          <button className="btn">Non Set</button>
-          <button className="btn">Domestic</button>
-         
+        <Box display="flex" justifyContent='space-around' style={{ marginLeft: '8px',gap:'10px' }}>
+          <button className="click">Non Set</button>
+          <button className="click">Domestic</button>
+          <button className="click">International</button>
+
         </Box>
-        <Box display="flex" justifyContent="center">
-          <button className="btn-1">International</button>
-        </Box>
+
         {/* ----------------------------------------------------------- */}
-        <Grid container alignItems="center">
-          <Box display="flex" alignItems="center">
-            <Box px={1}>
-              <Typography color="#666666" fontSize="12px" fontWeight="bold">
-                Restrict By Category
-              </Typography>
-            </Box>
-
-            <Grid md={5} sm={6} display="flex">
-              <Box display="flex" justifyContent="right" width="100%">
-                <Box display="block" alignItems="right" textAlign="end">
-                  <Typography
-                    display="flex"
-                    color="#006FFF"
-                    fontSize="10px"
-                    fontWeight="bold"
-                  >
-                    (Select/ Unselect)
-                  </Typography>
-                </Box>
+        <Grid container alignItems="center" style={{marginTop:'10px'}}>
+          <Grid md={7} sm={6}>
+            <Box display="flex" alignItems="center">
+              <Box px={1}>
+                <Typography color="#666666" fontSize="15px" fontWeight="bold">
+                  Restrict By Category
+                </Typography>
               </Box>
-            </Grid>
-          </Box>
+            </Box>
+          </Grid>
+          <Grid md={5} sm={6} display="flex">
+            <Box display="flex" justifyContent="right" width="100%">
+              <Box display="block" alignItems="right" textAlign="end">
+                <Typography
+                  display="flex"
+                  color="#006FFF"
+                  fontSize="15px"
+                  fontWeight="bold"
+                >
+                  (Select/ Unselect)
+                </Typography>
+              </Box>
+            </Box>
+          </Grid>
         </Grid>
-        <Box className="input" display='flex' alignItems='center'>
-          <input type="checkbox" />
-          <Typography ml={2} color="#252525" fontSize="12px" fontWeight="bold">Amendment Request</Typography>
-        </Box>
-        <Box className="input" display='flex' alignItems='center'>
-          <input type="checkbox" />
-          <Typography ml={2} color="#252525" fontSize="12px" fontWeight="bold">BeddingTypeIssue</Typography>
-        </Box>
-        <Box className="input" display='flex' alignItems='center'>
-          <input type="checkbox" />
-          <Typography ml={2} color="#252525" fontSize="12px" fontWeight="bold">Booking Cancelled at Hotel End</Typography>
-        </Box>
-        <Box className="input" display='flex' alignItems='center'>
-          <input type="checkbox" />
-          <Typography ml={2} color="#252525" fontSize="12px" fontWeight="bold">Book-out</Typography>
-        </Box> <br></br>
-        <Box className="input" display='flex' alignItems='center'>
-          <input type="checkbox" />
-          <Typography ml={2} color="#252525" fontSize="12px" fontWeight="bold">Domestic Package</Typography>
-        </Box>
-        <Box className="input" display='flex' alignItems='center'>
-          <input type="checkbox" />
-          <Typography ml={2} color="#252525" fontSize="12px" fontWeight="bold">Hotel Refund</Typography>
-        </Box>
-        <Box className="input" display='flex' alignItems='center' borderBottom="1px solid grey" >
-          <input type="checkbox" />
-          <Typography ml={2} color="#252525" fontSize="12px" fontWeight="bold">Hotel Cancellation/Amendment</Typography>
-        </Box>
+
+
+        <div style={{  marginLeft: '10px', marginBottom: '10px',width:'70%' }}>
+          <Box className="input" display='flex' alignItems='center' >
+            <input type="checkbox" style={{ width: '20px', height: '20px' }} />
+            <Typography ml={2} color="#252525" fontSize="15px" fontWeight="bold">Amendment Request</Typography>
+          </Box>
+          <Box className="input" display='flex' alignItems='center'>
+            <input type="checkbox" style={{ width: '20px', height: '20px' }} />
+            <Typography ml={2} color="#252525" fontSize="15px" fontWeight="bold">BeddingTypeIssue</Typography>
+          </Box>
+           <Box className="input" display='flex' alignItems='center'>
+            <input type="checkbox" style={{ width: '20px', height: '20px' }} />
+            <Typography ml={2} color="#252525" fontSize="15px" fontWeight="bold">BeddingTypeIssue</Typography>
+          </Box>
+          <Box className="input" display='flex' alignItems='center'>
+            <input type="checkbox" style={{ width: '20px', height: '20px' }} />
+            <Typography ml={2} color="#252525" fontSize="15px" fontWeight="bold">Booking Cancelled at Hotel End</Typography>
+          </Box>
+          <Box className="input" display='flex' alignItems='center'>
+            <input type="checkbox" style={{ width: '20px', height: '20px' }} />
+            <Typography ml={2} color="#252525" fontSize="15px" fontWeight="bold">Book-out</Typography>
+          </Box>
+          <Box className="input" display='flex' alignItems='center'>
+            <input type="checkbox" style={{ width: '20px', height: '20px' }} />
+            <Typography ml={2} color="#252525" fontSize="15px" fontWeight="bold">Domestic Package</Typography>
+          </Box>
+          <Box className="input" display='flex' alignItems='center'>
+            <input type="checkbox" style={{ width: '20px', height: '20px' }} />
+            <Typography ml={2} color="#252525" fontSize="15px" fontWeight="bold">Hotel Refund</Typography>
+          </Box>
+          <Box className="input" display='flex' alignItems='center'  >
+            <input type="checkbox" style={{ width: '20px', height: '20px' }} />
+            <Typography ml={2} color="#252525" fontSize="15px" fontWeight="bold">Hotel Cancellation/Amendment</Typography>
+          </Box>
+        </div>
+
 
         <Grid container alignItems="center">
-          <Box display="flex" alignItems="center">
+          <Box  alignItems="center" gap="20px">
             <Box px={1}>
-              <Typography mt={2} color="#252525" fontSize="12px" fontWeight="bold">
+              <Typography color="#666666" fontSize="15px" fontWeight="bold">
                 Restrict By Request Id
               </Typography>
             </Box>
+            <Box mt={1}>
+              <input className="input_date" type="text" style={{border:'2px solid grey',marginLeft:'10px'}} />
+            </Box>
           </Box>
         </Grid>
-        <Box mt={1}>
-          <input className="input_value" type="text" />
-        </Box>
+
         <Grid container alignItems="center" mt={2}>
           <Box display="flex" alignItems="center">
             <Box px={1}>
-              <Typography color="#252525" fontSize="12px" fontWeight="bold">
+            <Typography color="#666666" fontSize="15px" fontWeight="bold">
                 Restrict By Request Date
               </Typography>
             </Box>
           </Box>
         </Grid>
+
+
+
+        <div style={{display:'flex',gap:'10px'}}>
         <Box>
-          <Typography mt={1} fontSize="12px" fontWeight='bold'  color="#252525">
+          <Typography mt={1} fontSize="12px" fontWeight='bold' color="#252525" ml={2}>
             From:
           </Typography>
-          <input className="input_date" type="date" />
+          <input mt={1} className="input_date" type="date" style={{border:'2px solid grey',marginLeft:'10px'}}/>
         </Box>
         <Box>
-          <Typography mt={1} fontSize="12px" fontWeight='bold'  color="#252525">
+          <Typography mt={1} fontSize="12px" fontWeight='bold' color="#252525" ml={2}>
             To:
           </Typography>
-          <input className="input_date" type="date" />
+          <input mt={1} className="input_date" type="date" style={{border:'2px solid grey',marginLeft:'10px'}}/>
         </Box>
+        </div>
+
+
+
+
+
         <Grid container alignItems="center" mt={2}>
           <Box display="flex" alignItems="center">
             <Box px={1}>
-              <Typography color="#252525" fontSize="12px" fontWeight="bold">
+            <Typography color="#666666" fontSize="15px" fontWeight="bold">
                 Restrict By Reminder Date
               </Typography>
             </Box>
           </Box>
         </Grid>
+
+
+        <div style={{display:'flex',gap:'10px',marginBottom:'20px'}}> 
         <Box>
-          <Typography mt={1} fontSize="12px" fontWeight='bold' color="#252525">
+          <Typography mt={1} fontSize="12px" fontWeight='bold' color="#252525" ml={2}>
             From:
           </Typography>
-          <input className="input_date" type="date" />
+          <input className="input_date" type="date" style={{border:'2px solid grey',marginLeft:'10px'}}/>
         </Box>
         <Box>
-          <Typography mt={1} fontSize="12px"  fontWeight='bold' color="#252525">
+          <Typography mt={1} fontSize="12px" fontWeight='bold' color="#252525" ml={2}>
             To:
           </Typography>
-          <input className="input_date" type="date" />
+          <input className="input_date" type="date" style={{border:'2px solid grey',marginLeft:'10px'}}/>
         </Box>
-        <Box mt={3} display="flex">
+        </div>
+       
+
+
+
+        <div > 
+        <Box  style={{display:'flex',gap:'10px',marginLeft:'10px',width:'100%'}}>
           <form action="/">
-          <button className="click" type="submit">Apply</button>
+            <button className="click" type="submit">Apply</button>
           </form>
 
           <form action="/services">
-          <button className="click" type="submit">Reset</button>
+            <button className="click" type="submit">Reset</button>
           </form>
         </Box>
+        </div>
+        
 
 
 
