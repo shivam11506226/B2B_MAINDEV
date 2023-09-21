@@ -251,10 +251,10 @@ const HotelForm = () => {
         <Loader />
       ) : (
         <form onSubmit={handleSubmit}>
-         
-          <Grid container spacing={5} py={2} display="inline-block" style={{display:'flex',flexWrap:'wrap'}}>
+
+          <Grid container spacing={5} py={2} display="inline-block" style={{ display: 'flex', flexWrap: 'wrap' }}>
             <Grid item md={6} sm={12} xs={12} display="flex">
-            <Box paddingRight={1}>
+              <Box paddingRight={1}>
                 <div className="hotel_form_input">
                   <label className="form_lable">City</label>
                   {/* <select
@@ -373,7 +373,7 @@ const HotelForm = () => {
           </Grid>
           <Grid container spacing={5} py={2}>
             <Grid item md={6} sm={12} xs={12} display="flex">
-         
+
 
 
               <Box paddingRight={1}>

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useRef } from "react";
 import { Typography, Button, Box, Grid } from "@mui/material";
 import { useDispatch } from "react-redux";
 import { createVisaAction } from "../../Redux/visaRequest/actionVisaRequest";
@@ -14,6 +14,14 @@ const Visaform = () => {
     visaType: "",
   });
   const [errors, setErrors] = useState({});//errors
+
+  //useRef input focus
+
+  const nameInputRef = useRef(null);
+  const emailInputRef = useRef(null);
+  const mobileInputRef=useRef(null);
+  const destinationInputRef=useRef(null);
+  const visaTypeInputRef=useRef(null);
 
   const handleChange = (e) => {
     setFormData({
@@ -80,6 +88,19 @@ const Visaform = () => {
       dispatch(createVisaAction(payload));
 
       event.target.reset();
+    }else{
+      // Focus on the first empty field
+      if (!formData.name.trim()) {
+        nameInputRef.current.focus();
+      } else if(!formData.email){
+        emailInputRef.current.focus();
+      }else if(!formData.mobile){
+        mobileInputRef.current.focus();
+      }else if(!formData.destination){
+        destinationInputRef.current.focus();
+      }else{
+        visaTypeInputRef.current.focus();
+      }
     }
   };
   return (
@@ -105,6 +126,7 @@ const Visaform = () => {
                   name="name"
                   placeholder="Enter Your Name"
                   onChange={handleChange}
+                  ref={nameInputRef}
                 />
                 {errors.name && <p className="error">{errors.name}</p>}
               </div>
@@ -117,6 +139,7 @@ const Visaform = () => {
                   name="email"
                   placeholder="Enter Email"
                   onChange={handleChange}
+                  ref={emailInputRef}
                 />
                 {errors.email && <p className="error">{errors.email}</p>}
               </div>
@@ -129,6 +152,7 @@ const Visaform = () => {
                   name="mobile"
                   placeholder="Enter Mobile Number"
                   onChange={handleChange}
+                  ref={mobileInputRef}
                 />
                 {errors.mobile && <p className="error">{errors.mobile}</p>}
               </div>
@@ -141,6 +165,7 @@ const Visaform = () => {
                   className="form_input_select"
                   value={formData.destination}
                   onChange={handleChange}
+                  ref={destinationInputRef}
                 >
                   <option defaultChecked>Select Destination</option>
                   <option value="India">India</option>
@@ -160,6 +185,7 @@ const Visaform = () => {
                   className="form_input_select"
                   value={formData.visaType}
                   onChange={handleChange}
+                  ref={visaTypeInputRef}
                 >
                   <option defaultChecked>Select Visa Type</option>
                   <option value="Tourist Visa">Tourist Visa</option>

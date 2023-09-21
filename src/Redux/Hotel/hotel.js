@@ -79,6 +79,21 @@ export const hotelBookRoomAction = (data) => {
     };
   }
 };
+export const HotelDetails = (data) => {
+  return {
+    type: types.HOTEL_DETAILS_SUCCESS,
+    payload: data,
+  };
+};
+
+export const HotelDetailsAction = (data) => {
+  if (data) {
+    return {
+      type: types.HOTEL_DETAILS_REQUEST,
+      payload: data,
+    };
+  }
+};
 
 export const clearHotelReducer = () => {
   return {
