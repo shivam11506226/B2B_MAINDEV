@@ -66,6 +66,12 @@ const OneWay = () => {
   const [displayFrom, setdisplayFrom] = useState(true);
   const [displayTo, setdisplayTo] = useState(true);
 
+  // error show
+
+  const [fromError, setFromError]=useState("");
+  const [toError, setToError]=useState("");
+  const [dateError, setDateError]=useState("");
+
   useEffect(() => {
     let mounted = true;
 
@@ -136,6 +142,7 @@ const OneWay = () => {
   const handleClick = () => {
     console.log("Button CLicked");
     inputRef.current.click();
+    setDateError("");
   };
 
   function handleCheckboxChange(event) {
@@ -161,6 +168,7 @@ const OneWay = () => {
   const handleFromInputChange = (event) => {
     setFrom(event.target.value);
     setSelectedFrom(null);
+    setFromError("");
   };
 
   const handleFromSearch = (e) => {
@@ -170,6 +178,7 @@ const OneWay = () => {
   const handleToInputChange = (event) => {
     setTO(event.target.value);
     setSelectedTo(null);
+    setToError("");
   };
 
   const handleToSearch = (e) => {
@@ -179,6 +188,20 @@ const OneWay = () => {
   function handleSubmit(event) {
     event.preventDefault();
     const formData = new FormData(event.target);
+
+    if(!formData.get("from")){
+      setFromError("Enter Destination City");
+      return;
+    }
+    if(!formData.get("to")){
+      setToError("Enter Arrival City");
+      return;
+    }
+    if(!formData.get("departure")){
+      setDateError("Select Date");
+      return;
+    }
+
     const payload = {
       EndUserIp: reducerState?.ip?.ipData,
       TokenId: reducerState?.ip?.tokenData,
@@ -244,6 +267,7 @@ const OneWay = () => {
                   handleFromSearch(event.target.value);
                 }}
               />
+              {fromError!=="" && <span className="error">{fromError}</span> }
               {isLoading && <div>Loading...</div>}
               {fromSearchResults && fromSearchResults.length > 0 && (
                 <div
@@ -300,6 +324,7 @@ const OneWay = () => {
                   handleToSearch(event.target.value);
                 }}
               />
+              {toError!=="" && <span className="error">{toError}</span> }
               {isLoading && <div>Loading...</div>}
               {toSearchResults && toSearchResults.length > 0 && (
                 <div
@@ -351,7 +376,8 @@ const OneWay = () => {
                 id="departure"
                 ref={inputRef}
                 className="deaprture_input"
-              ></input>
+              />
+              {dateError!=="" && <span className="error">{dateError}</span>}
             </div>
           </div>
 
