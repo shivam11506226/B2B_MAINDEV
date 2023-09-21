@@ -308,7 +308,7 @@ const HotelForm = () => {
                   
                   <input
                     name="City"
-                    id=""
+                    id="CitySearchID"
                     type="text"
                     placeholder="Search for a city..."
                     value={searchTerm}
