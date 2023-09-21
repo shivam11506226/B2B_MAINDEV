@@ -207,4 +207,10 @@
 
 
 /* Media query for screens up to 600px width */
-
+@media (max-width: 600px) {
+  .grid-container {
+    display:grid;
+    grid-template-columns: repeat(4,1fr);
+    
+  }
+}

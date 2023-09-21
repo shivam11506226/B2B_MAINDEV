@@ -11,6 +11,8 @@ const initState = {
 
   bookRoom: [],
 
+  hotelDetails:[],
+
   isLoading: false,
 
   isLoadingHotelInfo: false,
@@ -104,6 +106,22 @@ export const hotelReducer = (state = initState, action) => {
       return {
         ...state,
         bookRoom: payload?.data?.data,
+        isLoadingBookRoom: false,
+        isError: false,
+        showSuccessMessage: true,
+      };
+    case types.HOTEL_DETAILS_REQUEST:
+      return {
+        ...state,
+        isLoadingBookRoom: false,
+        isError: false,
+        showSuccessMessage: true,
+      };
+
+    case types.HOTEL_DETAILS_SUCCESS:
+      return {
+        ...state,
+        hotelDetails: payload,
         isLoadingBookRoom: false,
         isError: false,
         showSuccessMessage: true,
