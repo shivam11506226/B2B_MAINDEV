@@ -10,10 +10,11 @@ import axios from "axios";
 import "./hotelstepper.css";
 import { clearHotelReducer, hotelAction } from "../../../Redux/Hotel/hotel";
 import Loader from "../../Loader/Loader";
+import Custombutton from "../../../Custombuttom/Button";
 
 const HotelForm = () => {
   const [searchTerm, setSearchTerm] = useState("");
-  const [cityid, setCityid] = useState("");
+  const[cityid,setCityid]=useState("");
   const [results, setResults] = useState([]);
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
@@ -246,8 +247,9 @@ const HotelForm = () => {
       TokenId: reducerState?.ip?.tokenData,
     };
 
-    const totalGuest = `${parseInt(formData.get("adult")) + parseInt(formData.get("child"))
-      }`;
+    const totalGuest = `${
+      parseInt(formData.get("adult")) + parseInt(formData.get("child"))
+    }`;
     sessionStorage.setItem("totalGuest", totalGuest);
     dispatch(hotelAction(payload));
     if (
@@ -298,11 +300,10 @@ const HotelForm = () => {
         <Loader />
       ) : (
         <form onSubmit={handleSubmit}>
-
-          <Grid container spacing={5} py={2} display="inline-block" style={{ display: 'flex', flexWrap: 'wrap' }}>
-            <Grid item md={6} sm={12} xs={12} display="flex">
-              <Box paddingRight={1}>
-                <div className="hotel_form_input">
+          <Grid container spacing={3} py={2} alignItems="center">
+            <Grid item md={6} sm={12} xs={12}>
+              <Box>
+                <div className="nhotel_form_input">
                   <label className="form_lable">City</label>
                   
                   <input
@@ -317,12 +318,9 @@ const HotelForm = () => {
 
                   {loading && <div>Loading...</div>}
                   {results.length > 0 && (
-                    <ul>
+                    <ul id="citySearchId">
                       {results.map((city, index) => (
-                        <li
-                          key={index}
-                          onClick={() => handleResultClick(city)}
-                        >
+                        <li key={index} onClick={() => handleResultClick(city)}>
                           {city.Destination}
                         </li>
                       ))}
@@ -330,7 +328,6 @@ const HotelForm = () => {
                   )}
                 </div>
               </Box>
-
             </Grid>
             <Grid item md={6} sm={12} xs={12}>
               
@@ -338,7 +335,6 @@ const HotelForm = () => {
           </Grid>
           <Grid container spacing={5} py={2} display="inline-block">
             <Grid item md={6} sm={12} xs={12} display="flex">
-
               <Box paddingRight={1}>
                 <div className="hotel_form_input">
                   <label className="form_lable">Check In</label>
@@ -355,7 +351,7 @@ const HotelForm = () => {
                 </div>
               </Box>
 
-              <Box paddingRight={1}>
+              <Box px={1}>
                 <div className="hotel_form_input">
                   <label className="form_lable">Check-Out</label>
                   <input
@@ -410,9 +406,6 @@ const HotelForm = () => {
           </Grid>
           <Grid container spacing={5} py={2}>
             <Grid item md={6} sm={12} xs={12} display="flex">
-
-
-
               <Box paddingRight={1}>
                 <div className="hotel_form_input">
                   <label className="form_lable">Room*</label>
@@ -509,6 +502,10 @@ const HotelForm = () => {
                   </div>
                 </Box>
               ) : null}
+            </Grid>
+          </Grid>
+          <Grid container spacing={5} py={2}>
+            <Grid item md={6} sm={12} xs={12} display="flex">
               <Box paddingRight={1}>
                 <div className="hotel_form_input">
                   <label className="form_lable">Star Rating*</label>
@@ -527,30 +524,11 @@ const HotelForm = () => {
                   <div></div>
                 </div>
               </Box>
-
-
             </Grid>
-
           </Grid>
-
           <div style={{ display: "flex", justifyContent: "center" }}>
            
             <Custombutton title={"Hotel Search"} type={"submit"}/>
-
-
-
-
-
-
-          <div style={{ display: "flex" }}>
-            <Button
-              type="submit"
-              color="primary"
-              sx={{ background: "#00BDC4", borderRadius: "10px" }}
-              variant="contained"
-            >
-              Hotel Search
-            </Button>
           </div>
         </form>
       )}
