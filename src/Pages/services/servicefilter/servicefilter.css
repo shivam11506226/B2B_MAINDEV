@@ -42,3 +42,11 @@ padding: 8px;
     border: none;
     box-shadow: 1px 2px 9px grey
 }
+.filter-container {
+  
+    display: flex;
+    flex-wrap: wrap;
+  }
+  
+  /* Add more styles for checkboxes, buttons, etc. */
+  

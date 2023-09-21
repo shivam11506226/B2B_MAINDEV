@@ -323,9 +323,7 @@ const BusForm = () => {
               {errors.to && <div className="error">{errors.to}</div>}
             </div>
         </div>
-      </div>
-      <div className='row'>
-      <div className="col-xs-12 col-md-2">
+        <div className="col-xs-12 col-md-3">
           <div className="form_input">
             <label className="form_lable">DEPARTURE</label>
 
@@ -340,12 +338,12 @@ const BusForm = () => {
           </div>
           {errors.date && <div className="error">{errors.date}</div>}
         </div>
-         
       </div>
+   
       <div className='row' >
       <div className="col-xs-12">
           
-            <Box display='flex' justifyContent='center'>
+            <Box display='flex'>
             <Button
             variant='contained'
               my={4}

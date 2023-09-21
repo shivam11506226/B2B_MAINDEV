@@ -4,8 +4,9 @@ import { Button, Box } from '@mui/material';
 const TransferForm = () => {
   return (
     <div className='container'>
+            
             <div className='row'>
-                <div className="col-xs-12 col-md-5">
+            <div className="col-xs-12 col-md-2">
                     <div className="form_input">
                         <label className="form_lable">Destination</label>
                         <select name="" id="" className="form_input_select">
@@ -17,9 +18,6 @@ const TransferForm = () => {
                         </select>
                     </div>
                 </div>
-                
-            </div>
-            <div className='row'>
                 <div className="col-xs-12 col-md-2">
                     <div className="form_input">
                         <label className="form_lable">Pick Up</label>
@@ -97,7 +95,7 @@ const TransferForm = () => {
             <div className='row' >
                 <div className="col-xs-12">
                     <form action="/TransferResult">
-                        <Box display='flex' justifyContent='center'>
+                        <Box display='flex' >
                             <Button
                                 variant='contained'
                                 my={4}

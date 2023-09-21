@@ -45,11 +45,7 @@
   margin-top: 20px;
 }
 
-.form_lable1 {
-  color: #4e4c4c;
-  font-size: 13px;
-  font-weight: Bold;
-}
+
 .form_input_select {
   width: 78%;
   border: 10px;
@@ -142,4 +138,32 @@ label{
 }
 input[type="radio"]:checked+label{
     color: orange;
+}
+.showDirectFligthDiv {
+  margin-top: -25px;
+  padding: auto;
+
+  width: 170px;
+  border-radius: 10px;
+  font-size: 11px;
+  border: 2px solid #70707069;
+  font: Quicksand, SemiBold;
+  height: 30px;
+  padding: 5px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.showDirectFligthDiv > input {
+  margin-left: 10px;
+  font-size: 5px;
+  /* width: 10px; */
+  margin-right: 2px;
+  width: 15px;
+  height: 15px;
+   border-radius:50%;
+  font: Quicksand, SemiBold;
+}
+.showDirectFligthDiv >span{
+  font-weight: bold;
 }

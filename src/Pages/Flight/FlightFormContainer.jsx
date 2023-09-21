@@ -78,13 +78,13 @@ export default function StyledTabsExample() {
 
   return (
     <Box sx={{ width: '100%' }}>
-      <StyledTabs value={value} onChange={handleChange} aria-label="styled tabs example" >
+      <StyledTabs value={value} onChange={handleChange} aria-label="styled tabs example" style={{marginLeft:'28px',marginBottom:'-40px'}}>
         <StyledTab label="One Way" {...a11yProps(0)} />
         <StyledTab label="Return" {...a11yProps(1)} />
-        <StyledTab label="Off Share" {...a11yProps(2)} />
+        {/* <StyledTab label="Off Share" {...a11yProps(2)} />
         <StyledTab label="Multi Stop" {...a11yProps(3)} />
         <StyledTab label="Calendar Fare" {...a11yProps(4)} />
-        <StyledTab label="Advance Search" {...a11yProps(5)} />
+        <StyledTab label="Advance Search" {...a11yProps(5)} /> */}
       </StyledTabs>
       <CustomTabPanel value={value} index={0}>
         <OneWay />

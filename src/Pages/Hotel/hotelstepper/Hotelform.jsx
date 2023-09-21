@@ -18,7 +18,7 @@ import Loader from "../../Loader/Loader";
 
 const HotelForm = () => {
   const [searchTerm, setSearchTerm] = useState("");
-  const[cityid,setCityid]=useState("");
+  const [cityid, setCityid] = useState("");
   const [results, setResults] = useState([]);
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
@@ -188,9 +188,8 @@ const HotelForm = () => {
       TokenId: reducerState?.ip?.tokenData,
     };
 
-    const totalGuest = `${
-      parseInt(formData.get("adult")) + parseInt(formData.get("child"))
-    }`;
+    const totalGuest = `${parseInt(formData.get("adult")) + parseInt(formData.get("child"))
+      }`;
     sessionStorage.setItem("totalGuest", totalGuest);
     dispatch(hotelAction(payload));
     if (
@@ -252,10 +251,11 @@ const HotelForm = () => {
         <Loader />
       ) : (
         <form onSubmit={handleSubmit}>
-          <Grid container spacing={3} py={2} alignItems="center">
-            <Grid item md={6} sm={12} xs={12}>
-              <Box>
-                <div className="nhotel_form_input">
+         
+          <Grid container spacing={5} py={2} display="inline-block" style={{display:'flex',flexWrap:'wrap'}}>
+            <Grid item md={6} sm={12} xs={12} display="flex">
+            <Box paddingRight={1}>
+                <div className="hotel_form_input">
                   <label className="form_lable">City</label>
                   {/* <select
                     name="City"
@@ -275,11 +275,11 @@ const HotelForm = () => {
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
                   />
-                  
+
                   {loading && <div>Loading...</div>}
                   {results.length > 0 && (
                     <ul>
-                      {results.map((city,index) => (
+                      {results.map((city, index) => (
                         <li
                           key={index}
                           onClick={() => handleResultClick(city)}
@@ -304,28 +304,6 @@ const HotelForm = () => {
                   )}
                 </div>
               </Box>
-            </Grid>
-            <Grid item md={6} sm={12} xs={12}>
-              {/* <Box display="flex">
-                <Box mx={1}>
-                  <Typography className="or">OR</Typography>
-                </Box>
-                <PinDropIcon style={{ color: "#00BDC4" }} />
-                <Box mx={0}>
-                  <Typography className="search_map">
-                    <Link
-                      href="https://www.google.co.in/maps/@27.2219713,92.0887287,7z"
-                      underline="none"
-                    >
-                      Search On Map
-                    </Link>
-                  </Typography>
-                </Box>
-              </Box> */}
-            </Grid>
-          </Grid>
-          <Grid container spacing={5} py={2} display="inline-block">
-            <Grid item md={6} sm={12} xs={12} display="flex">
               <Box paddingRight={1}>
                 <div className="hotel_form_input">
                   <label className="form_lable">Check In</label>
@@ -341,7 +319,7 @@ const HotelForm = () => {
                 </div>
               </Box>
 
-              <Box px={1}>
+              <Box paddingRight={1}>
                 <div className="hotel_form_input">
                   <label className="form_lable">Check-Out</label>
                   <input
@@ -395,6 +373,9 @@ const HotelForm = () => {
           </Grid>
           <Grid container spacing={5} py={2}>
             <Grid item md={6} sm={12} xs={12} display="flex">
+         
+
+
               <Box paddingRight={1}>
                 <div className="hotel_form_input">
                   <label className="form_lable">Room*</label>
@@ -491,10 +472,6 @@ const HotelForm = () => {
                   </div>
                 </Box>
               ) : null}
-            </Grid>
-          </Grid>
-          <Grid container spacing={5} py={2}>
-            <Grid item md={6} sm={12} xs={12} display="flex">
               <Box paddingRight={1}>
                 <div className="hotel_form_input">
                   <label className="form_lable">Star Rating*</label>
@@ -513,9 +490,17 @@ const HotelForm = () => {
                   <div></div>
                 </div>
               </Box>
+
+
             </Grid>
+
           </Grid>
-          <div style={{ display: "flex", justifyContent: "center" }}>
+
+
+
+
+
+          <div style={{ display: "flex" }}>
             <Button
               type="submit"
               color="primary"

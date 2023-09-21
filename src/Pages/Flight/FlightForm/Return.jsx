@@ -52,7 +52,7 @@ const Return = () => {
       }
     }
   return (
-    <form action="" className="formFlightSearch">
+    <form action="" className="formFlightSearch" style={{marginLeft:'17px'}}>
       {/* Type of return  */}
 
       <div className="d-flex flex-row mb-3 gap-5">
@@ -154,9 +154,14 @@ const Return = () => {
           </div>
         </div>
       </div>
-
-      <div className="d-flex mt-3  p-1 align-items-center gap-1">
-        <div className="">Select A Fare Type:</div>
+       
+       
+      <div className="d-flex mt-3  p-1 align-items-center gap-2" style={{width:'100%'}}>
+      <div className="col-xs-3 col-md-3 pe-0">
+            <Typography mt={1} variant="h6" paddingRight={0}>
+              Select A Fair Of Type:
+            </Typography>
+          </div>
         <div className="d-flex gap-3 ">
           <div className="d-flex align-items-center gap-1 bg-info p-2 rounded">
             <input type="radio" name="fareType"></input>
@@ -169,7 +174,8 @@ const Return = () => {
         </div>
       </div>
 
-      <div className="row">
+
+      <div className="row" style={{width:'100%'}}>
         <div className="col-xs-9">
           <div className="row">
             <div className="col-3 col-md-3 col-lg-2 mb-3">
@@ -240,59 +246,49 @@ const Return = () => {
         </div>
       </div>
 
-      <div className="row">
-        <label className="form_lable1">-More options: Airline prefrence</label>
-      </div>
-      <div className="row">
-        <div className="col-12 col-md-3 col-lg-3 mb-3">
-          <div className="showDirectFligthDiv">
-            <input type="radio" /> <span>Show direct flight</span>
-          </div>
+        <div className="row">
+          <label className="form_lable1">
+            -More options: Airline prefrence
+          </label>
         </div>
-      </div>
 
-      <label style={{ fontSize: "20px", fontWeight: "400" }}>
-        Restrict my Search to:{" "}
-        <span style={{ color: "#00BDC4" }}>
-          <input
-            type="checkbox"
-            checked={selectAll}
-            onChange={handleSelectAllChange}
-            style={{ marginRight: "5px" }}
-          />
-          Select All / Unselect All
-        </span>
-      </label>
 
-      <Box>
-        {/* <MultiSelect/> */}
 
-        <div>
-          {/* <label>
-              <input
-                type="checkbox"
-                checked={selectAll}
-                onChange={handleSelectAllChange}
-              />
-              Select All
-            </label> */}
-          <div className="grid-container">
-            {options.map(({ label, value }) => (
-              <label key={value}>
-                <input
-                  type="checkbox"
-                  value={label}
-                  checked={selectAll ? true : selected.includes(label)}
-                  onChange={handleCheckboxChange}
-                  disabled={selectAll}
-                  className="me-1"
-                />
-                {label}
-              </label>
-            ))}
+
+
+
+        <label style={{ fontSize: "20px", fontWeight: "400" }}>
+          Restrict my Search to:{" "}
+          <span style={{ color: "#00BDC4" }}>
+            <input
+              type="checkbox"
+              checked={selectAll}
+              onChange={handleSelectAllChange}
+              style={{ marginRight: "5px" }}
+            />
+            Select All / Unselect All
+          </span>
+        </label>
+
+   <Box >
+          <div>
+            <div className="grid-container" style={{ display: 'flex', flexWrap: 'wrap', gap: '40px' }}>
+              {options.map(({ label, value }) => (
+                <label key={value}>
+                  <input
+                    type="checkbox"
+                    value={label}
+                    checked={selectAll ? true : selected.includes(label)}
+                    onChange={handleCheckboxChange}
+                    disabled={selectAll}
+                    className="me-1"
+                  />
+                  {label}
+                </label>
+              ))}
+            </div>
           </div>
-        </div>
-      </Box>
+        </Box>
 
       <div className="row">
         <Flex direction="row" justifyContent="center">
