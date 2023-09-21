@@ -129,3 +129,8 @@ ul::-webkit-scrollbar {
   background: #ddd;
   border-radius: 20px;
 }
+
+
+.error{
+  color: red;
+}
