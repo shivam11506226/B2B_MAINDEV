@@ -25,7 +25,7 @@ const NavBarBox = ({ avatar, name, path }, index) => {
           </div>
         </Center>
         <Text fontWeight="bold" fontSize="12px" style={{ textAlign: "center" }}>
-          {name}
+          {name} 
         </Text>
 
         {hover && (
