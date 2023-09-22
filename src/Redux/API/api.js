@@ -387,6 +387,24 @@ function api() {
       },
     });
   };
+  
+
+const hotelBookingDetails = (payload) => { 
+   console.log("payload of api 👍") 
+    return axios({ 
+      method: "POST", 
+      url: "/travvolt/hotel/bookingdetails", 
+      baseURL: `${apiURL.baseURL}`, 
+      data: payload, 
+      headers: { 
+        "Content-Type": "application/json", 
+      }, 
+    }); 
+  };
+
+
+
+
   //Bus API's Start
 
   return {
@@ -416,6 +434,7 @@ function api() {
     hotelRoomInfo,
     hotelBlockRoom,
     hotelBookRoom,
+    hotelBookingDetails,
     bookingHolidayRequest,
     bookingHoliday,
     createForex,
