@@ -266,6 +266,7 @@ export default function Popularfilter() {
                           <img
                             src={result?.HotelPicture}
                             className="flight_img"
+                            
                           />
                         </Box>
                         <Box px={1}>
