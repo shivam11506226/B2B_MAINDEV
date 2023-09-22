@@ -328,7 +328,7 @@ const HotelForm = () => {
                   )}
                 </div>
               </Box>
-            
+
               <Box paddingRight={1}>
                 <div className="hotel_form_input">
                   <label className="form_lable">Check In</label>
@@ -517,7 +517,10 @@ const HotelForm = () => {
               </Box>
             </Grid>
           </Grid>
-          <div style={{ display: "flex" }}>
+
+
+          <div style={{ display: "flex",justifyContent:'center' }}>
+
             <Button
               type="submit"
               color="primary"
