@@ -501,7 +501,7 @@ const hotelDetailsPayload = {
                                     </label>
                                     <input
                                       name="Age"
-                                      type="number"
+                                      type="text"
                                       placeholder="Enter Age"
                                       value={passengerData.Age}
                                       onChange={(e) =>
