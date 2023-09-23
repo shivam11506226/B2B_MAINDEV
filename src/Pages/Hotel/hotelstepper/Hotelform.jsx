@@ -398,7 +398,7 @@ const HotelForm = () => {
               </Box>
             </Grid>
           </Grid>
-          <Grid container spacing={5} py={2}>
+          <Grid container spacing={5} py={2} style={{ display: 'flex', flexWrap: 'wrap' }} >
             <Grid item md={6} sm={12} xs={12} display="flex">
               <Box paddingRight={1}>
                 <div className="hotel_form_input">

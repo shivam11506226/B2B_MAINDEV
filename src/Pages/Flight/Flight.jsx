@@ -36,7 +36,7 @@ const Flight = () => {
       {loader ? (
         <Loader />
       ) : (
-        <Box className="flightContainer" style={{marginBottom:'20px'}}>
+        <Box className="flightContainer">
           {/* step by step updating part */}
           <Box
             w="100%"
