@@ -45,7 +45,7 @@
 
 .form_lable1 {
   color: #4e4c4c;
-  font-size: 13px;
+  
   font-weight: Bold;
   margin-bottom: 1rem;
 }
@@ -169,6 +169,7 @@
 #cssbuttons-io-button:active #icon {
   transform: scale(0.95);
 }
+
 
 
 

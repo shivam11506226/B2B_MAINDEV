@@ -10,12 +10,13 @@ const NavBarBox = ({ avatar, name, path }, index) => {
   const [hover, setHover] = useState(false);
 
   return (
-    <Square w="auto" h="100%" borderRadius="15px" key={index}>
+    <Square w="auto" h="100%" borderRadius="15px" key={index}  >
       <Flex
         direction="column"
         w="auto"
         h="100%"
         alignItems="center"
+       
         onMouseEnter={() => setHover(true)}
         onMouseLeave={() => setHover(false)}
       >

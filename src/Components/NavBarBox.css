@@ -10,4 +10,6 @@
   border-radius: 5px;
   
 }
-
+.squre:hover{
+  background-color: rgb(240, 186, 153);
+}

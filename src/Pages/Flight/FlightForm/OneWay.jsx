@@ -382,7 +382,7 @@ const OneWay = () => {
           </div>
 
           <div className="col-xs-12 col-md-2">
-            <div className="form_input" border={{ border: '2px solid red' }}>
+            <div className="form_input" >
               <label className="form_lable"></label>
               <select name="time" id="" className="form_input_select">
                 <option mx={5}>Any Time</option>
@@ -525,38 +525,49 @@ const OneWay = () => {
           </div>
         </div>
 
-        <div className="row">
-          <label className="form_lable1">
+        <div className="row" style={{fontSize:'18px'}}>
+          <label className="form_lable1" >
             -More options: Airline prefrence
           </label>
         </div>
         <div className="row">
           <div className="col-12 col-md-3 col-lg-3 mb-3">
             <div className="showDirectFligthDiv">
-              <input name="direct" type="checkbox" />{" "}
+              <input name="direct" type="checkbox" style={{ width: '18px', height: '18px' }}/>{" "}
               <span>Show direct flights</span>
             </div>
           </div>
         </div>
 
-        <label style={{ fontSize: "20px", fontWeight: "400" }}>
-          Restrict my Search to:{" "}
-          <span style={{ color: "#00BDC4" }}>
-            <input
-              type="checkbox"
-              checked={selectAll}
-              onChange={handleSelectAllChange}
-              style={{ marginRight: "5px" }}
-            />
-            Select All / Unselect All
-          </span>
-        </label>
+        <label
+      style={{
+        fontSize: "20px",
+        fontWeight: "400",
+        marginBottom: '15px',
+        border: '1px solid grey',
+        padding: '10px',
+        display: 'inline-block',
+        borderRadius: '10px',
+        boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
+      }}
+    >
+      Restrict my Search to:{" "}
+      <span style={{ color: "#00BDC4" }}>
+        <input
+          type="checkbox"
+          checked={selectAll}
+          onChange={handleSelectAllChange}
+          style={{ marginRight: "5px", width: '18px', height: '18px' }}
+        />
+        Select All / Unselect All
+      </span>
+    </label>
 
         <Box >
           <div>
             <div className="grid-container" style={{ display: 'flex', flexWrap: 'wrap', gap: '40px' }}>
               {options.map(({ label, value }) => (
-                <label key={value}>
+                <label key={value} style={{width:'190px',height:'30px',gap:'10px',display:'flex'}}>
                   <input
                     type="checkbox"
                     value={label}
@@ -564,8 +575,9 @@ const OneWay = () => {
                     onChange={handleCheckboxChange}
                     disabled={selectAll}
                     className="me-1"
+                    style={{ width: '18px', height: '18px' }}
                   />
-                  {label}
+                   <p style={{marginTop:'-2px'}}>{label} </p>  
                 </label>
               ))}
             </div>
