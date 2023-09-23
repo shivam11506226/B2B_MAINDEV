@@ -97,6 +97,12 @@ const Holidaystepper = () => {
           <Box fontWeight="normal">Booking Confirmation</Box>
         </HStack>
       </Box>
+
+
+
+
+
+      
       <div>
         <HolidayForm />
       </div>

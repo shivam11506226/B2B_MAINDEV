@@ -361,15 +361,15 @@ const HotelForm = () => {
                   {checkOutError!=="" && (<span className="error">{checkOutError}</span>) }
                 </div>
               </Box>
-              <Box px={1}>
-                <div className="hotel_form_input">
+              <Box paddingRight={1}>
+                <div className="hotel_form_input" >
                   <label for="departure" className="form_lable">
                     Nights
                   </label>
-                  <input type="number" min="0" name="night" value={nightdays} />
+                  <input type="number" min="0" name="night" value={nightdays} className="deaprture_input"/>
                 </div>
               </Box>
-              <Box px={1}>
+              <Box paddingRight={1}>
                 <div className="hotel_form_input">
                   <label className="form_lable">
                     Nationality(Country Code)*
@@ -432,7 +432,7 @@ const HotelForm = () => {
                   )}
                 </div>
               </Box>
-              <Box px={1}>
+              <Box paddingRight={1}>
                 <div className="hotel_form_input">
                   <label className="form_lable">Adult*</label>
                   <select
@@ -466,7 +466,7 @@ const HotelForm = () => {
                   )}
                 </div>
               </Box>
-              <Box px={1}>
+              <Box paddingRight={1}>
                 <div className="hotel_form_input">
                   <label className="form_lable">Child (2-12)*</label>
                   <select

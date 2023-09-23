@@ -5,7 +5,7 @@ import transfer from "../../../Images/transfer.png";
 // import { fontWeight } from '@mui/system'
 import { Button } from "react-bootstrap";
 import { Grid, GridItem, Flex,Box } from "@chakra-ui/react";
-
+import './OneWay.css'
 import { Stack } from "react-bootstrap";
  const options = [
    { label: "GPS", value: "1" },
@@ -167,10 +167,10 @@ const Return = () => {
             <input type="radio" name="fareType"></input>
             <label className="text-white">Regular Fares</label>
           </div>
-          <div className=" d-flex align-items-center gap-1 bg-secondary rounded p-2">
+          {/* <div className=" d-flex align-items-center gap-1 bg-secondary rounded p-2">
             <input type="radio" name="fareType"></input>
             <label className="text-white">Student Fares</label>
-          </div>
+          </div> */}
         </div>
       </div>
 
@@ -260,24 +260,35 @@ const Return = () => {
           </div>
         </div>
 
-        <label style={{ fontSize: "20px", fontWeight: "400" }}>
-          Restrict my Search to:{" "}
-          <span style={{ color: "#00BDC4" }}>
-            <input
-              type="checkbox"
-              checked={selectAll}
-              onChange={handleSelectAllChange}
-              style={{ marginRight: "5px" }}
-            />
-            Select All / Unselect All
-          </span>
-        </label>
+        <label
+      style={{
+        fontSize: "20px",
+        fontWeight: "400",
+        marginBottom: '15px',
+        border: '1px solid grey',
+        padding: '10px',
+        display: 'inline-block',
+        borderRadius: '10px',
+        boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
+      }}
+    >
+      Restrict my Search to:{" "}
+      <span style={{ color: "#00BDC4" }}>
+        <input
+          type="checkbox"
+          checked={selectAll}
+          onChange={handleSelectAllChange}
+          style={{ marginRight: "5px", width: '18px', height: '18px' }}
+        />
+        Select All / Unselect All
+      </span>
+    </label>
 
    <Box >
           <div>
             <div className="grid-container" style={{ display: 'flex', flexWrap: 'wrap', gap: '40px' }}>
               {options.map(({ label, value }) => (
-                <label key={value}>
+                <label key={value} style={{width:'190px',height:'30px',gap:'10px',display:'flex'}}>
                   <input
                     type="checkbox"
                     value={label}
@@ -285,26 +296,42 @@ const Return = () => {
                     onChange={handleCheckboxChange}
                     disabled={selectAll}
                     className="me-1"
+                    style={{ width: '18px', height: '18px' }}
                   />
-                  {label}
+                   <p style={{marginTop:'-2px'}}>{label} </p>  
                 </label>
               ))}
             </div>
           </div>
         </Box>
 
-      <div className="row">
-        <Flex direction="row" justifyContent="center">
-          <Button
-            mt={4}
-            colorScheme="teal"
-            // isLoading={props.isSubmitting}
-            type="submit"
-          >
-            Flight Search
-          </Button>
-        </Flex>
-      </div>
+        <Box className="row" >
+          <Flex direction="row" justifyContent="center" marginLeft="330px">
+            <button type="submit" id="cssbuttons-io-button" >
+              {" "}
+              Search Flight
+              <div id="icon">
+                <svg
+                  height="24"
+                  width="24"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path d="M0 0h24v24H0z" fill="none"></path>
+                  <path
+                    d="M16.172 11l-5.364-5.364 1.414-1.414L20 12l-7.778 7.778-1.414-1.414L16.172 13H4v-2z"
+                    fill="currentColor"
+                  ></path>
+                </svg>
+              </div>
+            </button>
+          </Flex>
+        </Box>
+
+
+
+
+
     </form>
   );
 };
