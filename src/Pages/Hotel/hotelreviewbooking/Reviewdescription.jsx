@@ -1,6 +1,16 @@
 import * as React from "react";
-import { useState,useRef } from "react";
-import { Grid, Box, Typography, Button,Accordion,AccordionDetails,AccordionSummary} from "@mui/material";
+import moment from "moment";
+import { useState, useRef } from "react";
+import {
+  Grid,
+  Box,
+  Typography,
+  Button,
+  Accordion,
+  AccordionDetails,
+  AccordionSummary,
+  Modal
+} from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import Rating from "../hotelresult/Rating";
 import Divider from "@mui/material/Divider";
@@ -22,15 +32,14 @@ import {
 import Custombutton from "../../../Custombuttom/Button";
 
 const Flightdetail = () => {
-  const emailRef = useRef();
-  const phoneRef = useRef();
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const reducerState = useSelector((state) => state);
+
   console.log("State Data", reducerState);
   const TotalGuest = sessionStorage.getItem("totalGuest");
-  const HotelIndex = sessionStorage.getItem("HotelIndex");
-  const ResultIndex = sessionStorage.getItem("ResultIndex");
+  const HotelIndex =sessionStorage.getItem("HotelIndex");
+  const ResultIndex =sessionStorage.getItem("ResultIndex");
   const HotelCode = sessionStorage.getItem("HotelCode");
   const OpenNewpage = () => {
     navigate("booknow");
@@ -40,13 +49,15 @@ const Flightdetail = () => {
   const handleChange = (event) => {
     setSelectedValue(event.target.value);
   };
+  const emailRef = useRef();
+  const phoneRef = useRef();
   const passengerTemplate = {
     Title: "mr",
     FirstName: "",
     MiddleName: null,
     LastName: "",
-    Phoneno: "9878656453",
-    Email: "testing@gmail.com",
+    Phoneno: "",
+    Email: "",
     PaxType: 1,
     LeadPassenger: true,
     Age: parseInt(30),
@@ -102,12 +113,27 @@ const Flightdetail = () => {
   const hotelInfo = reducerState?.hotelSearchResult?.hotelInfo?.HotelInfoResult;
   const hotelRoom =
     reducerState?.hotelSearchResult?.hotelRoom?.GetHotelRoomResult;
+  const hotelCancellationPolicies =
+    reducerState?.hotelSearchResult?.blockRoom?.BlockRoomResult
+      ?.HotelRoomsDetails[0]
+    const cancellationStartingDate =
+      hotelCancellationPolicies?.CancellationPolicies[0]?.FromDate;
+      const cancellationFormattedStartingDate = moment(
+        cancellationStartingDate
+      ).format("MMMM DD, YYYY");
+    const cancellationEndingDate =
+      hotelCancellationPolicies?.CancellationPolicies[0]?.ToDate;
+    const cancellationFormattedEndingDate = moment(
+      cancellationEndingDate
+    ).format("MMMM DD, YYYY");
 
+    const cancellationCharge =
+      hotelCancellationPolicies?.CancellationPolicies[0]?.Charge
+ 
   const hotelData = hotelRoom?.HotelRoomsDetails[HotelIndex];
-   const bookingId =
-     reducerState?.hotelSearchResult?.bookRoom?.BookResult?.BookingId;
-
-
+  const bookingId =
+    reducerState?.hotelSearchResult?.bookRoom?.BookResult?.BookingId;
+  console.log(hotelCancellationPolicies?.CancellationPolicies[0]);
   const star = (data) => {
     const stars = [];
     for (let i = 0; i < data; i++) {
@@ -129,141 +155,128 @@ const Flightdetail = () => {
   });
   const year = date1.getFullYear();
   const formattedDate = `${day} ${month} ${year}`;
-const handleServiceChange = (e, index) => {
-  const { name, value } = e.target;
-  const list = [...passengerData];
-  list[index][name] = value;
-  setPassengerData(list);
-};
+  const handleServiceChange = (e, index) => {
+    const { name, value } = e.target;
+    const updatedPassenger=[...passengerData]
+    updatedPassenger[index]={
+      ...updatedPassenger[index],
+      [name]:value,
+    }
+    // const list = [...passengerData];
+    // list[index][name] = value;
+    setPassengerData(updatedPassenger);
+    navigate("/Guestdetail");
+  };
 
+  const handleClickBooking = async () => {
+    // sessionStorage.setItem("HotelIndex", HotelIndex);
 
+    const email = emailRef.current.value;
+    const phoneno = phoneRef.current.value;
+    const smoking = hotelRoom?.HotelRoomsDetails[HotelIndex]?.SmokingPreference;
+    var SmokingPreference;
+    if (smoking == "NoPreference") {
+      SmokingPreference = 0;
+    }
+    if (smoking == "Smoking") {
+      SmokingPreference = 1;
+    }
+    if (smoking == "NonSmoking") {
+      SmokingPreference = 2;
+    }
+    if (smoking == "Either") {
+      SmokingPreference = 3;
+    }
+    const payload = {
+      ResultIndex: ResultIndex,
+      HotelCode: HotelCode,
+      HotelName: hotelInfo?.HotelDetails?.HotelName,
+      GuestNationality: "IN",
+      NoOfRooms:
+        reducerState?.hotelSearchResult?.ticketData?.data?.data
+          ?.HotelSearchResult?.NoOfRooms,
+      ClientReferenceNo: 0,
+      IsVoucherBooking: true,
+      HotelRoomsDetails: [
+        {
+          RoomIndex: hotelRoom?.HotelRoomsDetails[HotelIndex]?.RoomIndex,
+          RoomTypeCode: hotelRoom?.HotelRoomsDetails[HotelIndex]?.RoomTypeCode,
+          RoomTypeName: hotelRoom?.HotelRoomsDetails[HotelIndex]?.RoomTypeName,
+          RatePlanCode: hotelRoom?.HotelRoomsDetails[HotelIndex]?.RatePlanCode,
+          BedTypeCode: null,
+          SmokingPreference: SmokingPreference,
+          Supplements: null,
+          Price: {
+            CurrencyCode:
+              hotelRoom?.HotelRoomsDetails[HotelIndex]?.Price?.CurrencyCode,
+            RoomPrice:
+              hotelRoom?.HotelRoomsDetails[HotelIndex]?.Price?.RoomPrice,
+            Tax: hotelRoom?.HotelRoomsDetails[HotelIndex]?.Price?.Tax,
+            ExtraGuestCharge:
+              hotelRoom?.HotelRoomsDetails[HotelIndex]?.Price?.ExtraGuestCharge,
+            ChildCharge:
+              hotelRoom?.HotelRoomsDetails[HotelIndex]?.Price?.ChildCharge,
+            OtherCharges:
+              hotelRoom?.HotelRoomsDetails[HotelIndex]?.Price?.OtherCharges,
+            Discount: hotelRoom?.HotelRoomsDetails[HotelIndex]?.Price?.Discount,
+            PublishedPrice:
+              hotelRoom?.HotelRoomsDetails[HotelIndex]?.Price?.PublishedPrice,
+            PublishedPriceRoundedOff:
+              hotelRoom?.HotelRoomsDetails[HotelIndex]?.Price
+                ?.PublishedPriceRoundedOff,
+            OfferedPrice:
+              hotelRoom?.HotelRoomsDetails[HotelIndex]?.Price?.OfferedPrice,
+            OfferedPriceRoundedOff:
+              hotelRoom?.HotelRoomsDetails[HotelIndex]?.Price
+                ?.OfferedPriceRoundedOff,
+            AgentCommission:
+              hotelRoom?.HotelRoomsDetails[HotelIndex]?.Price?.AgentCommission,
+            AgentMarkUp:
+              hotelRoom?.HotelRoomsDetails[HotelIndex]?.Price?.AgentMarkUp,
+            ServiceTax:
+              hotelRoom?.HotelRoomsDetails[HotelIndex]?.Price?.ServiceTax,
+            TCS: hotelRoom?.HotelRoomsDetails[HotelIndex]?.Price?.TCS,
+            TDS: hotelRoom?.HotelRoomsDetails[HotelIndex]?.Price?.TDS,
+            ServiceCharge:
+              hotelRoom?.HotelRoomsDetails[HotelIndex]?.Price?.ServiceCharge,
+            TotalGSTAmount:
+              hotelRoom?.HotelRoomsDetails[HotelIndex]?.Price?.TotalGSTAmount,
+            GST: {
+              CGSTAmount:
+                hotelRoom?.HotelRoomsDetails[HotelIndex]?.GST?.CGSTAmount,
+              CGSTRate: hotelRoom?.HotelRoomsDetails[HotelIndex]?.GST?.CGSTRate,
+              CessAmount:
+                hotelRoom?.HotelRoomsDetails[HotelIndex]?.GST?.CessAmount,
+              CessRate: hotelRoom?.HotelRoomsDetails[HotelIndex]?.GST?.CessRate,
+              IGSTAmount:
+                hotelRoom?.HotelRoomsDetails[HotelIndex]?.GST?.IGSTAmount,
+              IGSTRate: hotelRoom?.HotelRoomsDetails[HotelIndex]?.GST?.IGSTRate,
+              SGSTAmount:
+                hotelRoom?.HotelRoomsDetails[HotelIndex]?.GST?.SGSTAmount,
+              SGSTRate: hotelRoom?.HotelRoomsDetails[HotelIndex]?.GST?.SGSTRate,
+              TaxableAmount:
+                hotelRoom?.HotelRoomsDetails[HotelIndex]?.GST?.TaxableAmount,
+            },
+          },
+          HotelPassenger: passengerData,
+        },
+      ],
+      EndUserIp: reducerState?.ip?.ipData,
+      TokenId: reducerState?.ip?.tokenData,
+      TraceId:
+        reducerState?.hotelSearchResult?.ticketData?.data?.data
+          ?.HotelSearchResult?.TraceId,
+    };
 
-
-
-const handleClickBooking = async() => {
-  // sessionStorage.setItem("HotelIndex", HotelIndex);
-  
-     const email = emailRef.current.value;
-     const phoneno = phoneRef.current.value;
-     const smoking =
-       hotelRoom?.HotelRoomsDetails[HotelIndex]?.SmokingPreference;
-     var SmokingPreference;
-     if (smoking == "NoPreference") {
-       SmokingPreference = 0;
-     }
-     if (smoking == "Smoking") {
-       SmokingPreference = 1;
-     }
-     if (smoking == "NonSmoking") {
-       SmokingPreference = 2;
-     }
-     if (smoking == "Either") {
-       SmokingPreference = 3;
-     }
-     const payload = {
-       ResultIndex: ResultIndex,
-       HotelCode: HotelCode,
-       HotelName: hotelInfo?.HotelDetails?.HotelName,
-       GuestNationality: "IN",
-       NoOfRooms:
-         reducerState?.hotelSearchResult?.ticketData?.data?.data
-           ?.HotelSearchResult?.NoOfRooms,
-       ClientReferenceNo: 0,
-       IsVoucherBooking: true,
-       HotelRoomsDetails: [
-         {
-           RoomIndex: hotelRoom?.HotelRoomsDetails[HotelIndex]?.RoomIndex,
-           RoomTypeCode: hotelRoom?.HotelRoomsDetails[HotelIndex]?.RoomTypeCode,
-           RoomTypeName: hotelRoom?.HotelRoomsDetails[HotelIndex]?.RoomTypeName,
-           RatePlanCode: hotelRoom?.HotelRoomsDetails[HotelIndex]?.RatePlanCode,
-           BedTypeCode: null,
-           SmokingPreference: SmokingPreference,
-           Supplements: null,
-           Price: {
-             CurrencyCode:
-               hotelRoom?.HotelRoomsDetails[HotelIndex]?.Price?.CurrencyCode,
-             RoomPrice:
-               hotelRoom?.HotelRoomsDetails[HotelIndex]?.Price?.RoomPrice,
-             Tax: hotelRoom?.HotelRoomsDetails[HotelIndex]?.Price?.Tax,
-             ExtraGuestCharge:
-               hotelRoom?.HotelRoomsDetails[HotelIndex]?.Price
-                 ?.ExtraGuestCharge,
-             ChildCharge:
-               hotelRoom?.HotelRoomsDetails[HotelIndex]?.Price?.ChildCharge,
-             OtherCharges:
-               hotelRoom?.HotelRoomsDetails[HotelIndex]?.Price?.OtherCharges,
-             Discount:
-               hotelRoom?.HotelRoomsDetails[HotelIndex]?.Price?.Discount,
-             PublishedPrice:
-               hotelRoom?.HotelRoomsDetails[HotelIndex]?.Price?.PublishedPrice,
-             PublishedPriceRoundedOff:
-               hotelRoom?.HotelRoomsDetails[HotelIndex]?.Price
-                 ?.PublishedPriceRoundedOff,
-             OfferedPrice:
-               hotelRoom?.HotelRoomsDetails[HotelIndex]?.Price?.OfferedPrice,
-             OfferedPriceRoundedOff:
-               hotelRoom?.HotelRoomsDetails[HotelIndex]?.Price
-                 ?.OfferedPriceRoundedOff,
-             AgentCommission:
-               hotelRoom?.HotelRoomsDetails[HotelIndex]?.Price?.AgentCommission,
-             AgentMarkUp:
-               hotelRoom?.HotelRoomsDetails[HotelIndex]?.Price?.AgentMarkUp,
-             ServiceTax:
-               hotelRoom?.HotelRoomsDetails[HotelIndex]?.Price?.ServiceTax,
-             TCS: hotelRoom?.HotelRoomsDetails[HotelIndex]?.Price?.TCS,
-             TDS: hotelRoom?.HotelRoomsDetails[HotelIndex]?.Price?.TDS,
-             ServiceCharge:
-               hotelRoom?.HotelRoomsDetails[HotelIndex]?.Price?.ServiceCharge,
-             TotalGSTAmount:
-               hotelRoom?.HotelRoomsDetails[HotelIndex]?.Price?.TotalGSTAmount,
-             GST: {
-               CGSTAmount:
-                 hotelRoom?.HotelRoomsDetails[HotelIndex]?.GST?.CGSTAmount,
-               CGSTRate:
-                 hotelRoom?.HotelRoomsDetails[HotelIndex]?.GST?.CGSTRate,
-               CessAmount:
-                 hotelRoom?.HotelRoomsDetails[HotelIndex]?.GST?.CessAmount,
-               CessRate:
-                 hotelRoom?.HotelRoomsDetails[HotelIndex]?.GST?.CessRate,
-               IGSTAmount:
-                 hotelRoom?.HotelRoomsDetails[HotelIndex]?.GST?.IGSTAmount,
-               IGSTRate:
-                 hotelRoom?.HotelRoomsDetails[HotelIndex]?.GST?.IGSTRate,
-               SGSTAmount:
-                 hotelRoom?.HotelRoomsDetails[HotelIndex]?.GST?.SGSTAmount,
-               SGSTRate:
-                 hotelRoom?.HotelRoomsDetails[HotelIndex]?.GST?.SGSTRate,
-               TaxableAmount:
-                 hotelRoom?.HotelRoomsDetails[HotelIndex]?.GST?.TaxableAmount,
-             },
-           },
-           HotelPassenger: passengerData,
-         },
-       ],
-       EndUserIp: reducerState?.ip?.ipData,
-       TokenId: reducerState?.ip?.tokenData,
-       TraceId:
-         reducerState?.hotelSearchResult?.ticketData?.data?.data
-           ?.HotelSearchResult?.TraceId,
-     };
-    
-const hotelDetailsPayload = {
-  BookingId: await bookingId,
-  EndUserIp: reducerState?.ip?.ipData,
-  TokenId: reducerState?.ip?.tokenData,
-}; 
-   console.log("hotelDetailsPayload",hotelDetailsPayload) 
-      // Dispatch the hotelBookRoomAction 
- dispatch(hotelBookRoomAction([payload,hotelDetailsPayload]));
-  
-  
-  
-  
-};
-
-
-
-
+    const hotelDetailsPayload = {
+      BookingId: await bookingId,
+      EndUserIp: reducerState?.ip?.ipData,
+      TokenId: reducerState?.ip?.tokenData,
+    };
+    console.log("hotelDetailsPayload", hotelDetailsPayload);
+    // Dispatch the hotelBookRoomAction
+    dispatch(hotelBookRoomAction([payload, hotelDetailsPayload]));
+  };
 
   return (
     <Box borderRadius="10px">
@@ -534,6 +547,7 @@ const hotelDetailsPayload = {
                       ref={emailRef}
                       placeholder="Enter your Email"
                       value={passengerData.Email}
+                      onChange={(e) => handleServiceChange(e, 0)}
                     />
                   </div>
                 </Box>
@@ -550,6 +564,7 @@ const hotelDetailsPayload = {
                       ref={phoneRef}
                       placeholder="Enter your name"
                       value={passengerData.Phoneno}
+                      onChange={(e) => handleServiceChange(e, 0)}
                     />
                   </div>
                 </Box>
@@ -567,7 +582,7 @@ const hotelDetailsPayload = {
 
         {/* textarea */}
 
-        <Box
+        {/* <Box
           className="input_area"
           height="120px"
           sx={{
@@ -586,7 +601,7 @@ const hotelDetailsPayload = {
             rows="3"
             width="100%"
           ></textarea>
-        </Box>
+        </Box> */}
         <Typography
           sx={{
             fontSize: "13px",
@@ -598,7 +613,7 @@ const hotelDetailsPayload = {
           Note: For any additional services, Applicable Charges will be paid
           directly at Hotel.
         </Typography>
-        <Box
+        {/* <Box
           className="input_area"
           height="120px"
           sx={{
@@ -616,7 +631,7 @@ const hotelDetailsPayload = {
             id="review"
             rows="3"
           ></textarea>
-        </Box>
+        </Box> */}
         <Box
           sx={{
             padding: "15px",
@@ -640,34 +655,34 @@ const hotelDetailsPayload = {
               <Typography
                 sx={{ fontSize: "13px", color: "#252525", fontWeight: "bold" }}
               >
-                Cancelled on or After
+                Cancelled from
               </Typography>
               <Typography
-                sx={{ fontSize: "13px", color: "#006FFF", fontWeight: "bold" }}
+                sx={{
+                  fontSize: "13px",
+                  color: "#006FFF",
+                  fontWeight: "bold",
+                  textAlign: "left",
+                }}
               >
-                07 Jan, 2023
-              </Typography>
-              <Typography
-                sx={{ fontSize: "13px", color: "#006FFF", fontWeight: "bold" }}
-              >
-                19 Jan, 2023
+                {cancellationFormattedStartingDate}
               </Typography>
             </Grid>
             <Grid item xs={12} md={4}>
               <Typography
                 sx={{ fontSize: "13px", color: "#252525", fontWeight: "bold" }}
               >
-                Cancelled on or After
+                Cancelled before
               </Typography>
               <Typography
-                sx={{ fontSize: "13px", color: "#006FFF", fontWeight: "bold" }}
+                sx={{
+                  fontSize: "13px",
+                  color: "#006FFF",
+                  fontWeight: "bold",
+                  textAlign: "left",
+                }}
               >
-                09 Jan, 2023
-              </Typography>
-              <Typography
-                sx={{ fontSize: "13px", color: "#006FFF", fontWeight: "bold" }}
-              >
-                23 Jan, 2023
+                {cancellationFormattedEndingDate}
               </Typography>
             </Grid>
             <Grid item xs={12} md={3}>
@@ -676,7 +691,7 @@ const hotelDetailsPayload = {
                   fontSize: "13px",
                   color: "#252525",
                   fontWeight: "bold",
-                  textAlign: "right",
+                  textAlign: "center",
                 }}
               >
                 Cancellation Charges
@@ -686,20 +701,10 @@ const hotelDetailsPayload = {
                   fontSize: "13px",
                   color: "#FF8900",
                   fontWeight: "bold",
-                  textAlign: "right",
+                  textAlign: "center",
                 }}
               >
-                100%
-              </Typography>
-              <Typography
-                sx={{
-                  fontSize: "13px",
-                  color: "#FF8900",
-                  fontWeight: "bold",
-                  textAlign: "right",
-                }}
-              >
-                100%
+                {cancellationCharge}%
               </Typography>
             </Grid>
             <Typography
@@ -711,8 +716,7 @@ const hotelDetailsPayload = {
               }}
               ml={2}
             >
-              Note: Early check out will attract full cancellation charges
-              unless otherwise specified.
+              Note:{hotelCancellationPolicies?.CancellationPolicy}
             </Typography>
           </Grid>
         </Box>
@@ -767,7 +771,11 @@ const hotelDetailsPayload = {
             >
               Proceed to Booking Review
             </Button> */}
-          <Custombutton title={"Proceed to Booking Review"} type={"submit"} onClick={handleClickBooking}/>
+          <Custombutton
+            title={"Proceed to Booking"}
+            type={"submit"}
+            onClick={handleClickBooking}
+          />
         </Box>
         {/* </form> */}
       </Box>
