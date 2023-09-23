@@ -41,6 +41,7 @@ const Header = () => {
   const reducerState = useSelector((state) => state);
   const [openModal, setOpenModal] = React.useState(false);
   const [amount, setAmount] = React.useState("");
+  const [userData, setUserData] = useState(null);
   const handleOpenModal = () => setOpenModal(true);
   const handleCloseModal = () => setOpenModal(false);
   const dispatch = useDispatch();
@@ -69,6 +70,9 @@ const Header = () => {
   const editPackage = () => {
     navigate("/EditHolidayPackage");
   };
+
+ 
+
   useEffect(() => {
     const updateSrollYPosition = () => {
       setScrollYValue(window.scrollY);
@@ -77,6 +81,28 @@ const Header = () => {
 
     return () => window.removeEventListener("scroll", updateSrollYPosition);
   });
+
+ 
+  const handlePayment = (e) => {
+    e.preventDefault();
+    const data = {_id:reducerState?.logIn?.loginData?.data?.data?.id, amount: amount };
+
+    // axios
+    //   .post("http://localhost:8000/updateBalance", data)
+    //   .then((res) => {
+    //     console.log(res.data);
+    //     handleRazorpay(res.data.data);
+    //   })
+    //   .catch((err) => {
+    //     console.log(err);
+    //   });
+    handleRazorpay(data);
+
+    // alert(amount);
+    setAmount("");
+    handleCloseModal();
+    
+  };
 
   const handleRazorpay = (data) => {
     console.log("handleRazorpay called");
@@ -90,28 +116,76 @@ const Header = () => {
       order_id: data.id,
       handler: function (response) {
         console.log(response);
+         // Check if the Razorpay payment is successful
+      if (response.razorpay_payment_id) {
+        // Payment was successful, now update the user's balance
+        const paymentData = {
+          _id: reducerState?.logIn?.loginData?.data?.data?.id,
+          amount: amount,
+        };
+
+        axios
+          .post("http://localhost:8000/updateBalance", paymentData)
+          .then((balanceUpdateResponse) => {
+            console.log("new data response",balanceUpdateResponse);
+
+            // Handle any further actions after a successful payment and database update
+          })
+          .catch((balanceUpdateError) => {
+            console.error("Error updating user balance:", balanceUpdateError);
+            // Handle the error from the database update, if needed.
+          });
+          // console.log(response)
+          const paymentVerifyData = {
+            razorpay_order_id: response.data.id,
+            razorpay_payment_id: response.razorpay_payment_id,
+            razorpay_signature: data.razorpay_signature,
+          };
+
+          console.log("paymentVeriy", paymentVerifyData)
+
+  
+          axios
+            .post("http://localhost:8000/payVerify", paymentVerifyData)
+            .then((verificationResponse) => {
+              console.log(verificationResponse.data);
+  
+              // Handle any further actions after a successful payment verification
+              // You can update the user's balance here if the payment was successful
+            })
+            .catch((verificationError) => {
+              console.error("Error verifying payment:", verificationError);
+              // Handle the error from the payment verification, if needed.
+            });
+      } else {
+        // Payment was not successful, handle it as needed
+        console.log("Razorpay payment was not successful");
+        // Handle the unsuccessful payment scenario, e.g., display an error message.
+      }
       },
     };
+    // console.log("option data", options)
     const rzp = new window.Razorpay(options);
     rzp.open();
   };
-  const handlePayment = (e) => {
-    e.preventDefault();
-    const data = { amount: amount };
-    axios
-      .post("http://localhost:8000/travvolt/wallet/rechargeWallet", data)
-      .then((res) => {
-        console.log(res.data);
-        handleRazorpay(res.data.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
 
-    alert(amount);
-    setAmount("");
-    handleCloseModal();
-  };
+  //get user detail for update balance 
+  const userId=reducerState?.logIn?.loginData?.data?.data?.id
+
+  useEffect(() => {
+    // Make a GET request to the API endpoint
+    axios.get(`http://localhost:8000/travvolt/user/${userId}`)
+      .then((response) => {
+        // Handle the response data
+        const user = response.data.data;
+        setUserData(user);
+        console.log("user data",response?.data?.data?.balance)
+      })
+      .catch((error) => {
+        console.error(error);
+        // Handle errors, e.g., display an error message
+      });
+  }, []);
   return (
     <div className={scrollYvalue > 45 ? "header_scroll" : "header"}>
       <div>
@@ -128,7 +202,7 @@ const Header = () => {
       <div className="welcome">
         <p>Contect Your Representative</p>
         <p className="welPrice">
-          Cash Balance: ₹ {reducerState?.logIn?.loginData?.data?.data?.balance}
+          Cash Balance: ₹ {userData?.balance}
         </p>
         <button onClick={handleOpenModal}>Recharge</button>
 
@@ -287,6 +361,7 @@ const Header = () => {
                     Cancel
                   </Button>
                 </Box>
+                <span style={{color:"red"}}>{reducerState?.logIn?.loginData?.data?.data?.id}</span>
               </form>
             </Paper>
           </Typography>
