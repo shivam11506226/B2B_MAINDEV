@@ -11,6 +11,7 @@ import {
   AccordionSummary,
   Modal
 } from "@mui/material";
+import CircularProgress from "@mui/material/CircularProgress";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import Rating from "../hotelresult/Rating";
 import Divider from "@mui/material/Divider";
@@ -30,22 +31,41 @@ import {
   HotelDetailsAction,
 } from "../../../Redux/Hotel/hotel";
 import Custombutton from "../../../Custombuttom/Button";
+import { useEffect } from "react";
+const styleLoader = {
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: 400,
+  bgcolor: "transparent",
+  display:"flex",
+  justifyContent:"center"
+};
 
 const Flightdetail = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const reducerState = useSelector((state) => state);
-
+  let bookingStatus =
+    reducerState?.hotelSearchResult?.bookRoom?.BookResult?.Status || false
+     console.log(bookingStatus);
+     const[bookingSuccess,setBookingSuccess]=useState(bookingStatus)
   console.log("State Data", reducerState);
+  
   const TotalGuest = sessionStorage.getItem("totalGuest");
   const HotelIndex =sessionStorage.getItem("HotelIndex");
   const ResultIndex =sessionStorage.getItem("ResultIndex");
   const HotelCode = sessionStorage.getItem("HotelCode");
-  const OpenNewpage = () => {
-    navigate("booknow");
-  };
+  
   // radio Butoon
   const [selectedValue, setSelectedValue] = React.useState("a");
+  useEffect(() => {
+    if (bookingStatus == 1) {
+      setBookingSuccess(false);
+      navigate("/Guestdetail");
+    }
+  }, [bookingStatus]);
   const handleChange = (event) => {
     setSelectedValue(event.target.value);
   };
@@ -165,7 +185,8 @@ const Flightdetail = () => {
     // const list = [...passengerData];
     // list[index][name] = value;
     setPassengerData(updatedPassenger);
-    navigate("/Guestdetail");
+    
+    
   };
 
   const handleClickBooking = async () => {
@@ -275,7 +296,10 @@ const Flightdetail = () => {
     };
     console.log("hotelDetailsPayload", hotelDetailsPayload);
     // Dispatch the hotelBookRoomAction
+    //  bookingStatus = true;
+    setBookingSuccess(true);
     dispatch(hotelBookRoomAction([payload, hotelDetailsPayload]));
+   
   };
 
   return (
@@ -330,14 +354,14 @@ const Flightdetail = () => {
         </Box>
         <Box>
           <Typography className="thirdd-txt">
-            Contact No.:
+            Contact No-:
             <Typography
               className="thirdd-txt"
               color="#006FFF !important"
               fontWeight="bold"
               px={1}
             >
-              {hotelInfo?.HotelDetails?.HotelContactNo}
+              +{hotelInfo?.HotelDetails?.HotelContactNo}
             </Typography>
           </Typography>
         </Box>
@@ -779,6 +803,11 @@ const Flightdetail = () => {
         </Box>
         {/* </form> */}
       </Box>
+      <Modal open={bookingSuccess}>
+        <Box sx={styleLoader}>
+          <CircularProgress size={70} thickness={4} />
+        </Box>
+      </Modal>
     </Box>
   );
 };
