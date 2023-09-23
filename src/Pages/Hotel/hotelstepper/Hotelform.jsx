@@ -235,8 +235,8 @@ const HotelForm = () => {
       RoomGuests: [
         {
           NoOfAdults: formData.get("adult"),
-          NoOfChild: formData.get("child"),
-          ChildAge: formData.get("age"),
+          NoOfChild:"0",
+          ChildAge:null,
         },
       ],
       MaxRating: formData.get("star"),
@@ -248,7 +248,7 @@ const HotelForm = () => {
     };
 
     const totalGuest = `${
-      parseInt(formData.get("adult")) + parseInt(formData.get("child"))
+      parseInt(formData.get("adult")) + parseInt("0")
     }`;
     sessionStorage.setItem("totalGuest", totalGuest);
     dispatch(hotelAction(payload));
@@ -361,15 +361,15 @@ const HotelForm = () => {
                   {checkOutError!=="" && (<span className="error">{checkOutError}</span>) }
                 </div>
               </Box>
-              <Box paddingRight={1}>
-                <div className="hotel_form_input" >
+              <Box px={1}>
+                <div className="hotel_form_input">
                   <label for="departure" className="form_lable">
                     Nights
                   </label>
-                  <input type="number" min="0" name="night" value={nightdays} className="deaprture_input"/>
+                  <input type="number" min="0" name="night" value={nightdays} />
                 </div>
               </Box>
-              <Box paddingRight={1}>
+              <Box px={1}>
                 <div className="hotel_form_input">
                   <label className="form_lable">
                     Nationality(Country Code)*
@@ -432,9 +432,9 @@ const HotelForm = () => {
                   )}
                 </div>
               </Box>
-              <Box paddingRight={1}>
+              <Box px={1}>
                 <div className="hotel_form_input">
-                  <label className="form_lable">Adult*</label>
+                  <label className="form_lable">Guest*</label>
                   <select
                     name="adult"
                     value={values.adult}
@@ -466,7 +466,7 @@ const HotelForm = () => {
                   )}
                 </div>
               </Box>
-              <Box paddingRight={1}>
+              {/* <Box px={1}>
                 <div className="hotel_form_input">
                   <label className="form_lable">Child (2-12)*</label>
                   <select
@@ -482,8 +482,8 @@ const HotelForm = () => {
                     <option value="number">4</option>
                   </select>
                 </div>
-              </Box>
-              {isVisible ? (
+              </Box> */}
+              {/* {isVisible ? (
                 <Box px={1}>
                   <div className="hotel_form_input">
                     <label className="form_lable">Child Age</label>
@@ -495,7 +495,7 @@ const HotelForm = () => {
                     />
                   </div>
                 </Box>
-              ) : null}
+              ) : null} */}
             
               <Box paddingRight={1}>
                 <div className="hotel_form_input">

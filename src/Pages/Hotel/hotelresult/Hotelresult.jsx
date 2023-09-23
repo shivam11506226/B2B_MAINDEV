@@ -262,11 +262,12 @@ export default function Popularfilter() {
                   <Box display="flex">
                     <Grid md={7} sm={6}>
                       <Box display="flex">
-                        <Box sx={{ width: "20%", height: "30%" }}>
+                        <Box sx={{ width: "20%", height: "30%",borderRadius:"5px" }}>
                           <img
                             src={result?.HotelPicture}
                             className="flight_img"
-                            
+                            alt="hotelImage"
+                            style={{borderRadius:"5px"}}
                           />
                         </Box>
                         <Box px={1}>
