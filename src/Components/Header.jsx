@@ -16,7 +16,9 @@ import OutlinedInput from "@mui/material/OutlinedInput";
 import InputLabel from "@mui/material/InputLabel";
 import InputAdornment from "@mui/material/InputAdornment";
 import axios from "axios";
-
+import logout from "../Images/FlightImages/logout.jpeg";
+import login from "../Images/login.png";
+import { motion } from "framer-motion";
 import {
   FormControl,
   FormLabel,
@@ -200,8 +202,15 @@ const Header = () => {
       </div>
 
       <div className="welcome">
-        <p>Contect Your Representative</p>
-        <p className="welPrice">
+      <motion.p
+        style={{ fontSize: '20px' }}
+        initial={{ opacity: 0, translateY: -20 }}
+        animate={{ opacity: 1, translateY: 0 }}
+        transition={{ duration: 1, delay: 1 }}
+      >
+        Contact Your Representative
+      </motion.p>
+        <p className="welPrice" style={{fontSize:'20px'}}>
           Cash Balance: ₹ {userData?.balance}
         </p>
         <button onClick={handleOpenModal}>Recharge</button>
@@ -211,7 +220,7 @@ const Header = () => {
             <Typography
               sx={{
                 color: "#2525250",
-                fontSize: "15px",
+                fontSize: "18px",
                 fontWeight: "bold",
                 textAlign: "center",
               }}
@@ -258,10 +267,11 @@ const Header = () => {
             onClose={handleClose}
             TransitionComponent={Fade}
           >
-            <MenuItem onClick={handleSubmit}>
-              {reducerState?.logIn?.loginData?.data?.data ? "Logout" : "Login"}
+            <MenuItem onClick={handleSubmit} style={{width:'130px'}}>
+              {reducerState?.logIn?.loginData?.data?.data ?<img src={logout} alt="" style={{width:'100%'}}/> : <img src={login} alt="" style={{width:'100%'}}/>}
+             
             </MenuItem>
-            <MenuItem onClick={editPackage}>My Package</MenuItem>
+            <MenuItem onClick={editPackage} style={{fontSize:'15px'}}>My Package</MenuItem>
           </Menu>
         </div>
       </div>

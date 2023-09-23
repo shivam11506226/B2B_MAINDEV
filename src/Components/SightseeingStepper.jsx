@@ -1,59 +1,101 @@
 import React from 'react'
-import {Box, Flex ,Spacer,Text} from '@chakra-ui/react'
+import { Box, Flex, Spacer, Text ,HStack} from '@chakra-ui/react'
 
 
 const Stepper = () => {
   return (
     <div>
-       <Flex w="100%" h="50"  mb="20" borderRadius="20px" m="auto" className="shadow-sm p-3 mb-5 bg-white rounded ">
+      
+       <Box
+        w="100%"
+        display="flex"
+        justifyContent={"space-around"}
+        boxShadow="base"
+        border="1px solid gray"
+        borderRadius="10px"
+        flexWrap="wrap"
+      >
+        <HStack p="5px">
+          <Box
+            display="flex"
+            justifyContent="center"
+            w="25px"
+            h="25px"
+            borderRadius="50%"
+            bg="#0096FF"
+            color="white"
+          >
+            <Text>1</Text>
+          </Box>
 
-<Flex w='19%' h='90%'  >
-<Box w='25px' h='25'   borderRadius="50%" bg="#1DBCF0" color="white" >
- <Text ml="6px">
-   1
- </Text>
-</Box>
-<Text ml="10" fontWeight="bold">Sightseeing Search</Text>
-</Flex>
- <Spacer />
- <Flex w='19%' h='90%'  >
-<Box w='25px' h='25'   borderRadius="50%" bg="#1DBCF0" color="white" >
- <Text ml="6px">
-   2
- </Text>
-</Box>
-<Text ml="10" fontWeight="bold">Sightseeing Result</Text>
-</Flex>
- <Spacer />
+          <Box color="#FDDA0D" fontWeight="bold">
+          Sightseeing Search
+          </Box>
+        </HStack>
+        <HStack p="5px">
+          <Box
+            display="flex"
+            justifyContent="center"
+            // align="center"
+            w="25px"
+            h="25px"
+            borderRadius="50%"
+            bg="#0096FF"
+            color="white"
+          >
+            <Text>2</Text>
+          </Box>
 
- <Flex w='19%' h='90%'  >
-<Box w='25px' h='25'   borderRadius="50%" bg="#1DBCF0" color="white" >
- <Text ml="6px">
-   3
- </Text>
-</Box>
-<Text ml="10" fontWeight="bold">Passenger Details</Text>
-</Flex>
- <Spacer />
- <Flex w='19%' h='90%'  >
-<Box w='25px' h='25'   borderRadius="50%" bg="#1DBCF0" color="white" >
- <Text ml="6px">
-   4
- </Text>
-</Box>
-<Text ml="10" fontWeight="bold">Review Booking</Text>
-</Flex>
- <Spacer />
- <Flex w='19%' h='90%'  >
-<Box w='25px' h='25'   borderRadius="50%" bg="#1DBCF0" color="white">
- <Text ml="6px">
-   5
- </Text>
-</Box>
-<Text ml="10" fontWeight="bold">Booking Confirmation</Text>
-</Flex>
-</Flex>
+          <Box fontWeight="normal">Sightseeing Result</Box>
+        </HStack>
+        <HStack p="5px">
+          <Box
+            display="flex"
+            justifyContent="center"
+            w="25px"
+            h="25px"
+            borderRadius="50%"
+            bg="#0096FF"
+            color="white"
+          >
+            <Text>3</Text>
+          </Box>
 
+          <Box fontWeight="normal">Passenger Details</Box>
+        </HStack>
+        <HStack p="5px">
+          <Box
+            display="flex"
+            justifyContent="center"
+            // align="center"
+            w="25px"
+            h="25px"
+            borderRadius="50%"
+            bg="#0096FF"
+            color="white"
+          >
+            <Text>4</Text>
+          </Box>
+
+          <Box fontWeight="normal">Review Booking</Box>
+        </HStack>
+        <HStack p="5px">
+          <Box
+            display="flex"
+            justifyContent="center"
+            // align="center"
+            w="25px"
+            h="25px"
+            borderRadius="50%"
+            bg="#0096FF"
+            color="white"
+          >
+            <Text>5</Text>
+          </Box>
+
+          <Box fontWeight="normal">Booking Confirmation</Box>
+        </HStack>
+      </Box>
     </div>
   )
 }
