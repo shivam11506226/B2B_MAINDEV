@@ -21,7 +21,7 @@ const Banner = () => {
             <motion.img
               style={{ width: "100%", height: "100%"}}
               src={avatar}
-              alt={name}
+              alt="Banner"
               initial={{ opacity: 0, translateY: -100 }}
               animate={{ opacity: 1, translateY: 0 }}
               transition={{ duration: 2, delay: 1 }} // Adjust the delay for the slow-motion effect
