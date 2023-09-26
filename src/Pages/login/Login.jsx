@@ -27,7 +27,7 @@ import accounting from "../../Images/accounting.png";
 import forex from "../../Images/forex.png";
 import passport from "../../Images/passport.png";
 import binoculars from "../../Images/binoculars.png";
-import beachchair from "../../Images/beachchair.png";
+import beachchair from "../../Images/beach-chair.png";
 import insurence from "../../Images/insurence.png";
 import luggagex from "../../Images/luggagex.png";
 import airportt from "../../Images/airportt.png";

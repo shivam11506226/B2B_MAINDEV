@@ -22,16 +22,6 @@ export const InnerBarMoreLogo = [
     name: "Account",
     path: "/account",
   },
-  //   {
-  //     avatar: require("./Images/add-to-queue.png"),
-  //     name: "Queues",
-  //     path: "/queues",
-  //   },
-  //   {
-  //     avatar: require("./Images/document.png"),
-  //     name: "Reports",
-  //     path: "/reports",
-  //   },
   {
     avatar: require("./Images/businessman.png"),
     name: "Admin",
