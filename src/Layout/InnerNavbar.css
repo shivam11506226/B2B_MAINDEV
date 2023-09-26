@@ -11,13 +11,12 @@
   opacity: 1;
   box-shadow: 0px 3px 6px #00000029;
   padding: 5px;
-  background-color:#F8F5F1;
+  background-color:white;
 
 }
 .innerNav1 {
  
-  display: grid;
-  grid-template-columns: repeat(3,1fr);
+  
   gap:10px;
   margin-top: 10px;
   width: 100%;
@@ -26,7 +25,7 @@
   border-radius: 10px;
   box-shadow: 0px 3px 6px #00000029;;
   opacity: 1;
-  margin-left: -110px;
+ 
 }
 
 .innermorecard
