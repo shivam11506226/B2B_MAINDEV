@@ -7,7 +7,7 @@ import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { busSearchAction, clearBusSearchReducer } from '../../../Redux/busSearch/busSearchAction';
-
+import color from "../../../color/color.js"
 const BusForm = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -382,7 +382,8 @@ const BusForm = () => {
               colorScheme="teal"
               type="submit"
               
-              sx={{backgroundColor:'#00BDC4',borderRadius:'20px'}}
+              sx={{borderRadius:'20px'}}
+              style={{backgroundColor:color.bluedark}}
             >
               Bus Search
             </Button>

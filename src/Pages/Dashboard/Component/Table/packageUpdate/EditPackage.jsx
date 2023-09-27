@@ -361,30 +361,35 @@ const EditHolidayPackage = () => {
             {" "}
             Give the package a title <span style={{ color: "red" }}>*</span>
           </Typography>
+
           <Box
             style={{
-              boxShadow: " 0px 7px 11px #00000029",
+              boxShadow: "0px 7px 11px rgba(0, 0, 0, 0.29)",
               paddingTop: "10px",
               paddingBottom: "10px",
               borderRadius: "10px",
               padding: "5px",
-              background: "#FFFFFF",
+              background: "#EFEFEF", // Changed background color
+            
+              width: "300px", // Adjusted width
             }}
           >
-
             <input
               type="text"
-              name="pakage_title"
-              placeholder="Enter Your Package TItle"
+              name="package_title"
+              placeholder="Enter Your Package Title"
               value={package_title || ""}
               onChange={(e) => setPackage_title(e.target.value)}
               style={{
                 border: "none",
                 textDecoration: "none",
                 width: "100%",
+                padding: "5px", // Added padding for input
+                borderRadius: "5px", // Added border radius for input
               }}
             />
           </Box>
+
 
           <Box style={{ marginTop: "20px" }}>
 

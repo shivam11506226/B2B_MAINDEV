@@ -11,7 +11,7 @@ import "./hotelstepper.css";
 import { clearHotelReducer, hotelAction } from "../../../Redux/Hotel/hotel";
 import Loader from "../../Loader/Loader";
 import Custombutton from "../../../Custombuttom/Button";
-
+import color from "../../../../src/color/color.js"
 const HotelForm = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const[cityid,setCityid]=useState("");
@@ -524,8 +524,9 @@ const HotelForm = () => {
             <Button
               type="submit"
               color="primary"
-              sx={{ background: "#00BDC4", borderRadius: "10px" }}
+              sx={{ background:color.bluedark, borderRadius: "10px" }}
               variant="contained"
+              
             >
               Hotel Search
             </Button>

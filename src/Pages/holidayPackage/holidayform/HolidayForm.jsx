@@ -8,7 +8,7 @@ import "./holidayform.css";
 import { useDispatch, useSelector } from "react-redux";
 import { searchPackageAction } from "../../../Redux/SearchPackage/actionSearchPackage";
 import { clearHolidayReducer } from "../../../Redux/OnePackageSearchResult/actionOneSearchPackage";
-
+import color from "../../../../src/color/color.js"
 const HolidayForm = () => {
   const reducerState = useSelector((state) => state);
   console.log("holiday", reducerState?.searchResult);
@@ -135,6 +135,7 @@ const HolidayForm = () => {
             className="holiday_submit"
             onClick={clickUs}
             variant="contained"
+            style={{backgroundColor:color.bluedark}}
           >
             Search Holiday Package
           </button>
