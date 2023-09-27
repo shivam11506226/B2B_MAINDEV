@@ -3,7 +3,7 @@ import { Typography, Button, Box, Grid } from "@mui/material";
 import { useDispatch } from "react-redux";
 import { createVisaAction } from "../../Redux/visaRequest/actionVisaRequest";
 import "./visaform.css";
-
+import color from "../../color/color.js"
 const Visaform = () => {
   const dispatch = useDispatch();
   const [formData, setFormData] = useState({
@@ -213,7 +213,8 @@ const Visaform = () => {
                   colorScheme="teal"
                   type="submit"
                   m
-                  sx={{ backgroundColor: "#00BDC4", borderRadius: "20px" }}
+                  sx={{  borderRadius: "20px" }}
+                  style={{backgroundColor:color.bluedark}}
                 >
                   Apply now →
                 </Button>

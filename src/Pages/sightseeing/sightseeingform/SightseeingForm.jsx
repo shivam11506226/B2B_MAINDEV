@@ -1,7 +1,7 @@
 import React from 'react'
 import { Button, Box } from '@mui/material';
 import "./sightseeing.css";
-
+import color from "../../../color/color.js"
 const SightseeingForm = () => {
     return (
         <div className='container'>
@@ -63,7 +63,8 @@ const SightseeingForm = () => {
                                 colorScheme="teal"
                                 type="submit"
                                 m
-                                sx={{ backgroundColor: '#00BDC4', borderRadius: '20px' }}
+                                sx={{borderRadius: '20px' }}
+                                style={{backgroundColor:color.bluedark}}
                             >
                                 Search
                             </Button>

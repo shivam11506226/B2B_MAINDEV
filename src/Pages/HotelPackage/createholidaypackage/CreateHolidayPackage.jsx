@@ -371,18 +371,21 @@ console.log("inputList",inputList)
 
   return (
     <div>
-      <Grid container className="package__Container">
+      <Grid  >
         <form onSubmit={handleCreatePackage}>
-          <Grid item xs={2} md={2}></Grid>
-          <Grid item xs={2} md={8}>
+         
+          <Grid item xs={2} md={8}> 
             <Box
               sx={{
-                width: "1000px",
+                width: "100%",
                 backgroundColor: "white",
                 borderRadius: "10px",
                 boxShadow: "0 2px 6px gray",
-                padding: "30px",
+                border:"2px solid red",
+              
+
               }}
+              
             >
               <Box>
                 <Typography

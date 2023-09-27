@@ -19,6 +19,7 @@ import axios from "axios";
 import logout from "../Images/FlightImages/logout.jpeg";
 import login from "../Images/login.png";
 import { motion } from "framer-motion";
+import  color from "../../src/color/color.js"
 import {
   FormControl,
   FormLabel,
@@ -213,7 +214,9 @@ const Header = () => {
         <p className="welPrice" style={{fontSize:'20px'}}>
           Cash Balance: ₹ {userData?.balance}
         </p>
-        <button onClick={handleOpenModal}>Recharge</button>
+        <button 
+        style={{backgroundColor:color.bluedark}}
+        onClick={handleOpenModal}>Recharge</button>
 
         <div style={{ marginBottom: "25px", height: "60px",display:'flex'}}>
           <Box marginTop={3}>
@@ -266,6 +269,7 @@ const Header = () => {
             open={open}
             onClose={handleClose}
             TransitionComponent={Fade}
+            
           >
             <MenuItem onClick={handleSubmit} style={{width:'130px'}}>
               {reducerState?.logIn?.loginData?.data?.data ?<img src={logout} alt="" style={{width:'100%'}}/> : <img src={login} alt="" style={{width:'100%'}}/>}
