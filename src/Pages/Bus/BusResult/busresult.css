@@ -11,3 +11,60 @@
   opacity: 1;
   padding: 20px;
 }
+.outerseat {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        /* Style for the upper seat */
+        .busSeatlft, .busSeatrgt {
+            width: 50%;
+            padding: 20px;
+        }
+
+        .busSeat {
+            background-color: #ECECEC;
+            padding: 10px;
+        }
+
+        .seatcontainer {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .nseat ,.hseat ,.vseat,.bseat{
+            width: 40px;
+            height: 40px;
+            background-color: #ccc;
+            border: 1px solid #999;
+            text-align: center;
+            line-height: 40px;
+            margin: 5px;
+            cursor: pointer;
+        }
+
+        .bhseat ,.rhseat {
+            width: 40px;
+            height: 40px;
+            margin: 5px;
+            background-color: #ccc;
+            border: 1px solid #999;
+        }
+
+        .clearfix::after {
+            content: "";
+            clear: both;
+            display: table;
+        }
+
+        /* Style for the lower seat */
+        .outerlowerseat {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+
+        .lower {
+            width: 50%;
+            padding: 20px;
+        }
