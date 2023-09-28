@@ -57,7 +57,7 @@ import { GrAddCircle } from "react-icons/gr";
 import { updatePackageAction } from "../../../../../Redux/Auth/updatePackage/packageUpdateData";
 
 import { searchOnePackageAction } from "../../../../../Redux/OnePackageSearchResult/actionOneSearchPackage";
-
+import color from "../../../../../color/color"
 
 const label = { inputProps: { "aria-label": "Checkbox demo" } };
 
@@ -357,65 +357,65 @@ const EditHolidayPackage = () => {
               Update Holiday Package {package_id}
             </Typography>
           </Box>
-          <Typography style={{ fontSize: "16px" }}>
-            {" "}
-            Give the package a title <span style={{ color: "red" }}>*</span>
-          </Typography>
+          <div style={{ display: "flex", justifyContent: "space-between" }}>
+  <div style={{ flex: 1 }}>
+    <Typography style={{ fontSize: "16px" }}>
+      {" "}
+      Give the package a title <span style={{ color: "red" }}>*</span>
+    </Typography>
+    <Box
+      style={{
+        boxShadow: "0px 7px 11px rgba(0, 0, 0, 0.29)",
+        paddingTop: "10px",
+        paddingBottom: "10px",
+        borderRadius: "10px",
+        padding: "5px",
+        background: "#EFEFEF", // Changed background color
+        width: "100%", // Adjusted width to fill available space
+        marginTop:"10px"
+      }}
+    >
+      <input
+        type="text"
+        name="package_title"
+        placeholder="Enter Your Package Title"
+        value={package_title || ""}
+        onChange={(e) => setPackage_title(e.target.value)}
+        style={{
+          border: "none",
+          textDecoration: "none",
+          width: "100%",
+          padding: "5px", // Added padding for input
+          borderRadius: "5px", // Added border radius for input
+        }}
+      />
+    </Box>
+  </div>
 
-          <Box
-            style={{
-              boxShadow: "0px 7px 11px rgba(0, 0, 0, 0.29)",
-              paddingTop: "10px",
-              paddingBottom: "10px",
-              borderRadius: "10px",
-              padding: "5px",
-              background: "#EFEFEF", // Changed background color
-            
-              width: "300px", // Adjusted width
-            }}
-          >
-            <input
-              type="text"
-              name="package_title"
-              placeholder="Enter Your Package Title"
-              value={package_title || ""}
-              onChange={(e) => setPackage_title(e.target.value)}
-              style={{
-                border: "none",
-                textDecoration: "none",
-                width: "100%",
-                padding: "5px", // Added padding for input
-                borderRadius: "5px", // Added border radius for input
-              }}
-            />
-          </Box>
+  <div style={{ flex: 1, marginLeft: "20px" }}>
+    <Box>
+      <Typography style={{ fontSize: "16px", color: "#252525" }}>
+        Upload a picture of the package <span style={{ color: "red" }}>*</span>
+      </Typography>
+      <Typography style={{ fontSize: "10px", color: "#666666" }}>
+        Please select from auto suggestions
+      </Typography>
+      <input
+        style={{
+          border: "1px solid grey",
+          padding: "5px",
+          width: "100%", // Adjusted width to fill available space
+          borderRadius: "10px",
+          color: "#006FFF",
+        }}
+        name="user_card_document"
+        id="user_card_document"
+        type="file"
+      />
+    </Box>
+  </div>
+</div>
 
-
-          <Box style={{ marginTop: "20px" }}>
-
-            <Typography style={{ fontSize: "16px", color: "#252525" }}>
-              Upload a picture of the package
-              <span style={{ color: "red" }}>*</span>
-            </Typography>
-            <Typography style={{ fontSize: "10px", color: "#666666" }}>
-              Please select from auto suggestions
-            </Typography>
-            <Box>
-              <input
-                style={{
-                  border: "1px solid grey",
-                  padding: "25px",
-                  width: "250px",
-                  borderRadius: "10px",
-                  color: "#006FFF",
-                }}
-                name="user_card_document"
-
-                id="user_card_document"
-                type="file"
-              />
-            </Box>
-          </Box>
 
           <Box style={{ marginTop: "20px" }}>
             <Typography style={{ fontSize: "16px" }}>
@@ -475,7 +475,7 @@ const EditHolidayPackage = () => {
 
                         <button
                           className="destination__btn"
-                          style={{ backgroundColor: "green" }}
+                          style={{ backgroundColor:color.bluedark,width:"70px",textAlign:"center"}}
                           onClick={handleAddClick}
                         >
                           Add

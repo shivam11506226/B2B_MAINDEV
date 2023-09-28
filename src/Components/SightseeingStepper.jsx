@@ -1,6 +1,6 @@
 import React from 'react'
 import { Box, Flex, Spacer, Text ,HStack} from '@chakra-ui/react'
-
+import color from "../color/color"
 
 const Stepper = () => {
   return (
@@ -22,7 +22,7 @@ const Stepper = () => {
             w="25px"
             h="25px"
             borderRadius="50%"
-            bg="#0096FF"
+            style={{backgroundColor: color.bluedark}}
             color="white"
           >
             <Text>1</Text>
@@ -40,7 +40,7 @@ const Stepper = () => {
             w="25px"
             h="25px"
             borderRadius="50%"
-            bg="#0096FF"
+            style={{backgroundColor: color.bluedark}}
             color="white"
           >
             <Text>2</Text>
@@ -55,7 +55,7 @@ const Stepper = () => {
             w="25px"
             h="25px"
             borderRadius="50%"
-            bg="#0096FF"
+            style={{backgroundColor: color.bluedark}}
             color="white"
           >
             <Text>3</Text>
@@ -71,7 +71,7 @@ const Stepper = () => {
             w="25px"
             h="25px"
             borderRadius="50%"
-            bg="#0096FF"
+            style={{backgroundColor: color.bluedark}}
             color="white"
           >
             <Text>4</Text>
@@ -87,7 +87,7 @@ const Stepper = () => {
             w="25px"
             h="25px"
             borderRadius="50%"
-            bg="#0096FF"
+            style={{backgroundColor: color.bluedark}}
             color="white"
           >
             <Text>5</Text>

@@ -1,5 +1,6 @@
 import { Box, Flex, Spacer } from "@chakra-ui/react";
 import React from "react";
+import color from "../../src/color/color.js"
 import "./Footer.css";
 const Footer = () => {
   return (
@@ -16,7 +17,8 @@ const Footer = () => {
               mr="10px"
               w="300px"
               h="40px"
-              bg="#005778"
+              sx={{ background:color.bluedark }}
+         
             >
               GST FAQ
             </Box>
@@ -28,7 +30,7 @@ const Footer = () => {
               p="4"
               w="300px"
               h="40px"
-              bg="#005778"
+              sx={{ background:color.bluedark }}
             >
               FeedBack
             </Box>
@@ -44,7 +46,7 @@ const Footer = () => {
               mr="10px"
               w="300px"
               h="40px"
-              bg="#005778"
+              sx={{ background:color.bluedark }}
             >
               Report an Issue
             </Box>
@@ -56,7 +58,7 @@ const Footer = () => {
               mr="10px"
               w="300px"
               h="40px"
-              bg="#005778"
+              sx={{ background:color.bluedark }}
             >
               Support
             </Box>
@@ -68,7 +70,7 @@ const Footer = () => {
               p="4"
               w="300px"
               h="40px"
-              bg="#005778"
+              sx={{ background:color.bluedark }}
             >
               Online Assistance
             </Box>
@@ -78,11 +80,11 @@ const Footer = () => {
 
         <div className="containetArticals2Div">
           <div className="skdTravel">
-            <h4>The Skytrails - A Unit of SKD Tours & Travels</h4>
+            <h4  style={{ color:color.bluedark }}>The Skytrails - A Unit of SKD Tours & Travels</h4>
           </div>
-          <div className="line"></div>
+          <div className="line"  style={{ background:color.bluedark }}></div>
           <div className="copyRightFooter">
-            <h6>
+            <h6 style={{ color:color.bluedark }}>
               &copy; All Rights Reserved{" "}
               <a
                 href="https://gbunny.online/"

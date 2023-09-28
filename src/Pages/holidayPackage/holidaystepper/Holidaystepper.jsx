@@ -3,7 +3,7 @@ import "./holidaystepper.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Box, Flex, Spacer, Text,HStack } from "@chakra-ui/react";
 import HolidayForm from "../holidayform/HolidayForm";
-
+import color from "../../../color/color"
 const Holidaystepper = () => {
   return (
     <div className="flightContainer">
@@ -23,7 +23,7 @@ const Holidaystepper = () => {
             w="25px"
             h="25px"
             borderRadius="50%"
-            bg="#0096FF"
+            style={{backgroundColor: color.bluedark}}
             color="white"
           >
             <Text>1</Text>
@@ -41,7 +41,7 @@ const Holidaystepper = () => {
             w="25px"
             h="25px"
             borderRadius="50%"
-            bg="#0096FF"
+            style={{backgroundColor: color.bluedark}}
             color="white"
           >
             <Text>2</Text>
@@ -56,7 +56,7 @@ const Holidaystepper = () => {
             w="25px"
             h="25px"
             borderRadius="50%"
-            bg="#0096FF"
+            style={{backgroundColor: color.bluedark}}
             color="white"
           >
             <Text>3</Text>
@@ -72,7 +72,7 @@ const Holidaystepper = () => {
             w="25px"
             h="25px"
             borderRadius="50%"
-            bg="#0096FF"
+            style={{backgroundColor: color.bluedark}}
             color="white"
           >
             <Text>4</Text>
@@ -88,7 +88,7 @@ const Holidaystepper = () => {
             w="25px"
             h="25px"
             borderRadius="50%"
-            bg="#0096FF"
+            style={{backgroundColor: color.bluedark}}
             color="white"
           >
             <Text>5</Text>

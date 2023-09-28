@@ -36,7 +36,7 @@ import { useNavigate } from "react-router-dom";
 import "./login.css";
 import { Button } from "@mui/material";
 import { fontWeight } from "@mui/system";
-
+import color from "../../color/color.js"
 const Login = () => {
   const reducerState = useSelector((state) => state);
   const navigate = useNavigate();
@@ -96,60 +96,60 @@ const Login = () => {
                     <Grid item xs={12} sm={12} lg={10} textAlign="center">
                       <Box display="flex" justifyContent="space-around">
                         <Box textAlign="center">
-                          <img src={flight} />
+                          <img src={flight} style={{width:"100%",height:"80px"}}/>
                           <Typography
                             sx={{
                               fontSize: "15px",
                               fontWeight: "bold",
-                              color: "#252525",
+                              color:color.bluedark,
                             }}
                           >
                             Flights
                           </Typography>
                         </Box>
                         <Box textAlign="center">
-                          <img src={hotelbed} />
+                          <img src={hotelbed} style={{width:"100%",height:"80px"}}/>
                           <Typography
                             sx={{
                               fontSize: "15px",
                               fontWeight: "bold",
-                              color: "#252525",
+                              color:color.bluedark,
                             }}
                           >
                             Hotel
                           </Typography>
                         </Box>
                         <Box textAlign="center">
-                          <img src={schoolbus} />
+                          <img src={schoolbus} style={{width:"100%",height:"80px"}}/>
                           <Typography
                             sx={{
                               fontSize: "15px",
                               fontWeight: "bold",
-                              color: "#252525",
+                              color:color.bluedark,
                             }}
                           >
                             Bus
                           </Typography>
                         </Box>
                         <Box textAlign="center">
-                          <img src={taxi} />
+                          <img src={taxi} style={{width:"100%",height:"80px"}}/>
                           <Typography
                             sx={{
                               fontSize: "15px",
                               fontWeight: "bold",
-                              color: "#252525",
+                              color:color.bluedark,
                             }}
                           >
                             Taxi
                           </Typography>
                         </Box>
                         <Box textAlign="center">
-                          <img src={accounting} />
+                          <img src={accounting} style={{width:"100%",height:"80px"}}/>
                           <Typography
                             sx={{
                               fontSize: "15px",
                               fontWeight: "bold",
-                              color: "#252525",
+                              color:color.bluedark,
                             }}
                           >
                             GST
@@ -158,48 +158,48 @@ const Login = () => {
                       </Box>
                       <Box display="flex" justifyContent="center" py={4}>
                         <Box textAlign="center" px={3}>
-                          <img src={insurence} />
+                          <img src={insurence} style={{width:"100%",height:"80px"}}/>
                           <Typography
                             sx={{
                               fontSize: "15px",
                               fontWeight: "bold",
-                              color: "#252525",
+                              color:color.bluedark,
                             }}
                           >
                             Sightseeing
                           </Typography>
                         </Box>
                         <Box textAlign="center" px={3}>
-                          <img src={beachchair} />
+                          <img src={beachchair} style={{width:"100%",height:"80px"}}/>
                           <Typography
                             sx={{
                               fontSize: "15px",
                               fontWeight: "bold",
-                              color: "#252525",
+                              color:color.bluedark,
                             }}
                           >
                             Holiday Package
                           </Typography>
                         </Box>
                         <Box textAlign="center" px={3}>
-                          <img src={passport} />
+                          <img src={passport} style={{width:"100%",height:"80px"}}/>
                           <Typography
                             sx={{
                               fontSize: "15px",
                               fontWeight: "bold",
-                              color: "#252525",
+                              color:color.bluedark,
                             }}
                           >
                             Visa
                           </Typography>
                         </Box>
                         <Box textAlign="center" px={3}>
-                          <img src={forex} />
+                          <img src={forex} style={{width:"100%",height:"80px"}}/>
                           <Typography
                             sx={{
                               fontSize: "15px",
                               fontWeight: "bold",
-                              color: "#252525",
+                              color:color.bluedark,
                             }}
                           >
                             Forex
@@ -208,24 +208,24 @@ const Login = () => {
                       </Box>
                       <Box display="flex" justifyContent="center">
                         <Box textAlign="center" px={2}>
-                          <img src={luggagex} />
+                          <img src={luggagex} style={{height:"80px"}}/>
                           <Typography
                             sx={{
                               fontSize: "15px",
                               fontWeight: "bold",
-                              color: "#252525",
+                              color:color.bluedark,
                             }}
                           >
                             Assistance & Insurance
                           </Typography>
                         </Box>
                         <Box textAlign="center" px={2}>
-                          <img src={airportt} />
+                          <img src={airportt} style={{height:"80px"}}/>
                           <Typography
                             sx={{
                               fontSize: "15px",
                               fontWeight: "bold",
-                              color: "#252525",
+                              color:color.bluedark,
                             }}
                           >
                             Fixed Departure
@@ -262,7 +262,7 @@ const Login = () => {
                     </Alert>
                   )}
                   <Box pt={5} className="login_field">
-                    <Typography className="Login_min" font="Quicksand, Bold">
+                    <Typography className="Login_min" font="Bold" style={{color:color.bluedark}}>
                       Login
                     </Typography>
                     <Box py={2}>

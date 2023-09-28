@@ -195,7 +195,7 @@ const Header = () => {
         <a href="/">
           <img
             src={STLOGO}
-            style={{ width: "90%", height: "70px" }}
+            style={{ width: "90%", height: "45px",marginBottom:"-43px"}}
             className="mt-2 ms-2"
             alt="logo"
           />
@@ -204,14 +204,15 @@ const Header = () => {
 
       <div className="welcome">
       <motion.p
-        style={{ fontSize: '20px' }}
+        style={{ fontSize: '20px', color:color.bluedark }}
         initial={{ opacity: 0, translateY: -20 }}
         animate={{ opacity: 1, translateY: 0 }}
         transition={{ duration: 1, delay: 1 }}
+       
       >
         Contact Your Representative
       </motion.p>
-        <p className="welPrice" style={{fontSize:'20px'}}>
+        <p className="welPrice" style={{fontSize:'20px',color:color.red1}}>
           Cash Balance: ₹ {userData?.balance}
         </p>
         <button 
@@ -222,7 +223,7 @@ const Header = () => {
           <Box marginTop={3}>
             <Typography
               sx={{
-                color: "#2525250",
+                color: color.bluedark,
                 fontSize: "18px",
                 fontWeight: "bold",
                 textAlign: "center",
