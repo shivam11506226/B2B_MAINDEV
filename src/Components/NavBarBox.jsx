@@ -21,7 +21,7 @@ const NavBarBox = ({ avatar, name, path }, index) => {
       >
         <Center pt="10px">
           <div>
-            <img src={avatar} alt={name} className="avatarImage" style={{width:"100%",  height:"50px"}}/>
+            <img src={avatar} alt={name} className="avatarImage" style={{width:"100%",height:"50px"}}/>
           
           </div>
         </Center>

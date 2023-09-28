@@ -5,6 +5,9 @@ import {
   Grid,
   NativeSelect,
   Typography,
+  FormControlLabel,
+  RadioGroup,
+  Radio
 } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import "./packageUpdate.css";
@@ -50,29 +53,26 @@ import BookmarkAddIcon from "@mui/icons-material/BookmarkAdd";
 import WifiPasswordIcon from "@mui/icons-material/WifiPassword";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
-import AddCircleIcon from '@mui/icons-material/AddCircle';
-import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
-import Accordion from 'react-bootstrap/Accordion';
+import AddCircleIcon from "@mui/icons-material/AddCircle";
+import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
+import Accordion from "react-bootstrap/Accordion";
 import { GrAddCircle } from "react-icons/gr";
 import { updatePackageAction } from "../../../../../Redux/Auth/updatePackage/packageUpdateData";
 
 import { searchOnePackageAction } from "../../../../../Redux/OnePackageSearchResult/actionOneSearchPackage";
-import color from "../../../../../color/color"
+import color from "../../../../../color/color";
 
 const label = { inputProps: { "aria-label": "Checkbox demo" } };
 
 const EditHolidayPackage = () => {
   const location = useLocation();
 
+  let className = "";
 
-  let className = '';
-
-  if (location.pathname === '/admin/dashboard/EditHolidayPackage') {
-    className = 'main__container_width_75';
-
-  } else if (location.pathname === '/EditHolidayPackage') {
-    className = 'main__container_width_100';
-
+  if (location.pathname === "/admin/dashboard/EditHolidayPackage") {
+    className = "main__container_width_75";
+  } else if (location.pathname === "/EditHolidayPackage") {
+    className = "main__container_width_100";
   }
 
   // Redux- saga
@@ -80,8 +80,12 @@ const EditHolidayPackage = () => {
   const reducerState = useSelector((state) => state);
   const navigate = useNavigate();
 
-  const onePackage = reducerState?.searchOneResult?.OneSearchPackageResult?.data?.data;
-  const inclusions = reducerState?.searchOneResult?.OneSearchPackageResult?.data?.data?.insclusions?.map((ele) => ele);
+  const onePackage =
+    reducerState?.searchOneResult?.OneSearchPackageResult?.data?.data;
+  const inclusions =
+    reducerState?.searchOneResult?.OneSearchPackageResult?.data?.data?.insclusions?.map(
+      (ele) => ele
+    );
   console.log("train", inclusions);
   console.log("===========================");
   console.log("one pakcage", onePackage);
@@ -96,14 +100,12 @@ const EditHolidayPackage = () => {
     };
     console.log(payload);
     dispatch(searchOnePackageAction(payload));
-  }, [])
+  }, []);
 
   //  state form form
-  const [package_title, setPackage_title] = useState(onePackage?.pakage_title)
+  const [package_title, setPackage_title] = useState(onePackage?.pakage_title);
 
-  const handleUpdate = () => {
-
-  }
+  const handleUpdate = () => {};
 
   const [inputList, setInputList] = useState([{ addMore: "" }]);
 
@@ -330,11 +332,121 @@ const EditHolidayPackage = () => {
     console.log(formData1);
     dispatch(updatePackageAction(formData1));
     event.target.reset();
+  };
+  const styles = {
+    container: {
+      marginTop: "1rem",
+      marginLeft:"-15px",
+      padding: "20px",
+    },
+    label: {
+      fontSize: "16px",
+      marginBottom: "5px",
+      display: "flex",
+      alignItems: "center",
+    },
+    required: {
+      color: "red",
+      marginLeft: "5px",
+    },
+    suggestions: {
+      fontSize: "10px",
+      marginBottom: "10px",
+    },
+    destination: {
+      display: "flex",
+      alignItems: "center",
+      marginBottom: "10px",
+    },
+    input: {
+      borderRadius: "10px",
+      padding: "5px",
+      border: "1px solid #707070",
+      marginRight: "10px",
+    },
+    addButton: {
+      backgroundColor: "blue",
+      color: "white",
+      borderRadius: "5px",
+      padding: "5px 15px",
+      border: "none",
+      cursor: "pointer",
+    },
 
+    actionButtons: {
+      display: "flex",
+      alignItems: "center",
+      marginTop: "10px",
+    },
+    deleteButton: {
+      backgroundColor: "red",
+      color: "white",
+      borderRadius: "5px",
+      padding: "5px 15px",
+      border: "none",
+      cursor: "pointer",
+    },
   };
 
+  const styles1 = {
+    container: {
+      display: "flex",
+      marginLeft:"-6px",
+      marginTop:"10px"
+    },
+    input: {
+      color: "#006FFF",
+      paddingLeft: "15px",
+      paddingRight: "15px",
+      fontSize: "16px",
+      border: "1px solid #006FFF",
+      borderRadius: "5px",
+      width: "55px",
+      textAlign: "center",
+    },
+    button: {
+      backgroundColor: "#006FFF",
+      color: "#fff",
+      borderRadius: "5px",
+      marginLeft: "5px",
+      marginRight: "5px",
+    },
+  };
+  const styles3 = {
+    container: {
+      marginBottom: "16px",
+    },
+  };
+  const [selectedSchedule, setSelectedSchedule] = React.useState(
+    onePackage?.schedule?.flexible ? "flexible" : "fixed"
+  );
+
+  const handleScheduleChange = (event) => {
+    setSelectedSchedule(event.target.value);
+  };
+  const styles4 = {
+    container: {
+      marginBottom: "16px",
+    },
+    select: {
+      width: "80px",
+    },
+    inputContainer: {
+      display: "flex",
+      alignItems: "center",
+     
+    },
+    input: {
+      border: "1px solid #ccc",
+      padding: "8px",
+      borderRadius: "4px",
+      width: "120px",
+      marginRight: "10px",
+      boxSizing: "border-box",
+    },
+  };
   return (
-    <div >
+    <div>
       <form onSubmit={handleCreatePackage}>
         <Box
           className={`main__container ${className}`}
@@ -343,7 +455,6 @@ const EditHolidayPackage = () => {
             borderRadius: "10px",
             boxShadow: "0 2px 6px gray",
             padding: "30px",
-
           }}
         >
           <Box>
@@ -358,256 +469,206 @@ const EditHolidayPackage = () => {
             </Typography>
           </Box>
           <div style={{ display: "flex", justifyContent: "space-between" }}>
-  <div style={{ flex: 1 }}>
-    <Typography style={{ fontSize: "16px" }}>
-      {" "}
-      Give the package a title <span style={{ color: "red" }}>*</span>
-    </Typography>
-    <Box
-      style={{
-        boxShadow: "0px 7px 11px rgba(0, 0, 0, 0.29)",
-        paddingTop: "10px",
-        paddingBottom: "10px",
-        borderRadius: "10px",
-        padding: "5px",
-        background: "#EFEFEF", // Changed background color
-        width: "100%", // Adjusted width to fill available space
-        marginTop:"10px"
-      }}
-    >
-      <input
-        type="text"
-        name="package_title"
-        placeholder="Enter Your Package Title"
-        value={package_title || ""}
-        onChange={(e) => setPackage_title(e.target.value)}
-        style={{
-          border: "none",
-          textDecoration: "none",
-          width: "100%",
-          padding: "5px", // Added padding for input
-          borderRadius: "5px", // Added border radius for input
-        }}
-      />
-    </Box>
-  </div>
+            <div style={{ flex: 1 }}>
+              <Typography style={{ fontSize: "16px" }}>
+                {" "}
+                Give the package a title <span style={{ color: "red" }}>*</span>
+              </Typography>
+              <Box
+                style={{
+                  boxShadow: "0px 7px 11px rgba(0, 0, 0, 0.29)",
+                  paddingTop: "10px",
+                  paddingBottom: "10px",
+                  borderRadius: "10px",
+                  padding: "5px",
+                  background: "#EFEFEF", // Changed background color
+                  width: "100%", // Adjusted width to fill available space
+                  marginTop: "10px",
+                }}
+              >
+                <input
+                  type="text"
+                  name="package_title"
+                  placeholder="Enter Your Package Title"
+                  value={package_title || ""}
+                  onChange={(e) => setPackage_title(e.target.value)}
+                  style={{
+                    border: "none",
+                    textDecoration: "none",
+                    width: "100%",
+                    padding: "5px", // Added padding for input
+                    borderRadius: "5px", // Added border radius for input
+                  }}
+                />
+              </Box>
+            </div>
 
-  <div style={{ flex: 1, marginLeft: "20px" }}>
-    <Box>
-      <Typography style={{ fontSize: "16px", color: "#252525" }}>
-        Upload a picture of the package <span style={{ color: "red" }}>*</span>
-      </Typography>
-      <Typography style={{ fontSize: "10px", color: "#666666" }}>
-        Please select from auto suggestions
-      </Typography>
-      <input
-        style={{
-          border: "1px solid grey",
-          padding: "5px",
-          width: "100%", // Adjusted width to fill available space
-          borderRadius: "10px",
-          color: "#006FFF",
-        }}
-        name="user_card_document"
-        id="user_card_document"
-        type="file"
-      />
-    </Box>
-  </div>
-</div>
+            <div style={{ flex: 1, marginLeft: "20px" }}>
+              <Box>
+                <Typography style={{ fontSize: "16px", color: "#252525" }}>
+                  Upload a picture of the package{" "}
+                  <span style={{ color: "red" }}>*</span>
+                </Typography>
+                <Typography style={{ fontSize: "10px", color: "#666666" }}>
+                  Please select from auto suggestions
+                </Typography>
+                <input
+                  style={{
+                    border: "1px solid grey",
+                    padding: "5px",
+                    width: "100%", // Adjusted width to fill available space
+                    borderRadius: "10px",
+                    color: "#006FFF",
+                  }}
+                  name="user_card_document"
+                  id="user_card_document"
+                  type="file"
+                />
+              </Box>
+            </div>
+          </div>
 
-
-          <Box style={{ marginTop: "20px" }}>
-            <Typography style={{ fontSize: "16px" }}>
-              What destinations does this package cover?
-              <span style={{ color: "red" }}>*</span>
-            </Typography>
-            <Typography style={{ fontSize: "10px" }}>
+          <div style={styles.container}>
+            <div style={styles.label}>
+              <Typography style={{ fontSize: "16px" }}>
+                What destinations does this package cover?
+                <span style={styles.required}>*</span>
+              </Typography>
+            </div>
+            <Typography style={styles.suggestions}>
               Please select from auto suggestions
             </Typography>
-            <Typography style={{ fontSize: "14px" }}>
-              Destination 1...…...
-            </Typography>
 
-            <Box>
-              {inputList.map((x, i) => {
-                return (
-                  <div
-                    style={{
-                      display: "flex",
-                      margin: "10px",
-                      borderRadius: "5px",
-                      color: "#666666",
-                    }}
-                    className="box"
-                  >
-                    {
-                      onePackage?.destination?.map((ele, id) => {
+            {inputList.map((x, i) => (
+              <div key={i} style={styles.destination}>
+                {onePackage?.destination?.map((ele, id) => (
+                  <input
+                    key={id}
+                    style={styles.input}
+                    name="addMore"
+                    placeholder="+ Add more destinations"
+                    value={ele?.addMore}
+                    onChange={(e) => handleInputChange(e, i)}
+                  />
+                ))}
 
-                        return (
-                          <input
-                            style={{
-                              borderRadius: "10px",
-                              padding: "2px",
-                              border: " 1px solid #707070",
-                            }}
-                            name="addMore"
-                            placeholder="+ Add more destinations"
-                            value={ele?.addMore}
-                            onChange={(e) => handleInputChange(e, i)}
-                          />
-                        )
-                      })
-                    }
+                <div style={styles.actionButtons}>
+                  {inputList.length !== 1 && (
+                    <button
+                      style={styles.deleteButton}
+                      onClick={() => handleRemoveClick(i)}
+                    >
+                      Delete
+                    </button>
+                  )}
+                  {inputList.length - 1 === i && (
+                    <button style={styles.addButton} onClick={handleAddClick}>
+                      Add
+                    </button>
+                  )}
+                </div>
+              </div>
+            ))}
+          </div>
 
-
-                    <div >
-                      {inputList.length !== 1 && (
-                        <button className="destination__btn"
-
-
-                          onClick={() => handleRemoveClick(i)}
-                        >
-                          Delete
-                        </button>
-                      )}
-                      {inputList.length - 1 === i && (
-
-                        <button
-                          className="destination__btn"
-                          style={{ backgroundColor:color.bluedark,width:"70px",textAlign:"center"}}
-                          onClick={handleAddClick}
-                        >
-                          Add
-
-                        </button>
-                      )}
-                    </div>
-                  </div>
-                );
-              })}
-            </Box>
-          </Box>
-
-          <Box my={2}>
+          <Box my={1}>
             <Typography style={{ fontSize: "16px", color: "#252525" }}>
               How Many Days?
             </Typography>
-            <Box style={{ display: "flex", fontSize: "14px" }}>
+            <Box style={styles1.container}>
               <Button
-                onClick={() =>
-                  days === 0 ? setDays(0) : setDays(days - 1)
-                }
+                onClick={() => (days === 0 ? setDays(0) : setDays(days - 1))}
+                style={styles1.button}
               >
                 <RemoveIcon style={{ fontSize: "16px" }} />
               </Button>
               <input
-                style={{
-                  color: "#006FFF",
-                  paddingLeft: "15px",
-                  paddingRight: "15px",
-                  fontSize: "16px",
-                  border: "none",
-                  width: "55px",
-                }}
-                value={onePackage?.days}
+                style={styles1.input}
+                type="number"
+                value={days}
+                onChange={(e) => setDays(Number(e.target.value))}
               />
-              <Button onClick={() => setDays(days + 1)}>
-                <AddIcon style={{ fontSize: "16px" }} />{" "}
+              <Button onClick={() => setDays(days + 1)} style={styles1.button}>
+                <AddIcon style={{ fontSize: "16px" }} />
               </Button>
             </Box>
           </Box>
 
-          <Box my={2}>
-            <Typography style={{ fontSize: "16px" }}>
-              What is the schedule?<span style={{ color: "red" }}>*</span>
-            </Typography>
-            <Box display="flex">
-              <Box style={{ display: "flex" }}>
-                <Box>
-                  <input
-                    type="radio"
-                    name="schedule"
-                    id="schedule"
-                    value="fixed departure"
-                    defaultChecked={onePackage?.schedule?.fixed_departure === true || false}
-                  />
-                </Box>
-                <Box ml={3}>
-                  <Typography
-                    style={{ fontSize: "14px", color: "#252525" }}
-                  >
-                    Fixed Departure
-                  </Typography>
-                  <Typography
-                    style={{ fontSize: "10px", color: "#666666" }}
-                  >
-                    Departure are scheduled
-                  </Typography>
-                </Box>
-              </Box>
+          <Box my={2} style={styles3.container}>
+      <Typography style={{ fontSize: "16px" }}>
+        What is the schedule?<span style={{ color: "red" }}>*</span>
+      </Typography>
+      <RadioGroup
+        aria-label="schedule"
+        name="schedule"
+        value={selectedSchedule}
+        onChange={handleScheduleChange}
+      >
+        <FormControlLabel
+          value="fixed"
+          control={<Radio color="primary" />}
+          label={
+            <Box display="flex" alignItems="center" >
+              <Typography style={{ fontSize: "14px", color: "#252525", marginRight: "8px" }}>
+                Fixed Departure
+              </Typography>
+              <Typography style={{ fontSize: "10px", color: "#666666" }}>
+                Departures are scheduled
+              </Typography>
+            </Box>
+          }
+        />
+        <FormControlLabel
+          value="flexible"
+          control={<Radio color="primary" />}
+          label={
+            <Box display="flex" alignItems="center">
+              <Typography style={{ fontSize: "14px", color: "#252525", marginRight: "8px" }}>
+                Flexible Departure
+              </Typography>
+              <Typography style={{ fontSize: "10px", color: "#666666" }}>
+                Departures are flexible
+              </Typography>
+            </Box>
+          }
+        />
+      </RadioGroup>
+    </Box>
 
-              <Box style={{ display: "flex" }}>
-                <Box>
-                  <input
-                    type="radio"
-                    name="schedule"
-                    id="schedule"
-                    defaultChecked={onePackage?.schedule?.flexible === true || false}
-                    value="flexible departure"
-                  />
-                </Box>
-                <Box ml={3}>
-                  <Typography
-                    style={{ fontSize: "14px", color: "#252525" }}
-                  >
-                    Fixed Departure
-                  </Typography>
-                  <Typography
-                    style={{ fontSize: "10px", color: "#666666" }}
-                  >
-                    Departure are scheduled
-                  </Typography>
-                </Box>
-              </Box>
-            </Box>
-          </Box>
-          <Box>
-            <Typography style={{ fontSize: "16px" }}>
-              Set up package pricing<span style={{ color: "red" }}>*</span>
-            </Typography>
-            <Box display="flex">
-              <Box className="" ml={1}>
-                <FormControl>
-                  <NativeSelect>
-                    <option value={10}>INR</option>
-                    <option value={10}>INR</option>
-                    <option value={10}>INR</option>
-                    <option value={10}>INR</option>
-                  </NativeSelect>
-                </FormControl>
-              </Box>
-              <Box display="flex" width="30" ml={1}>
-                <input
-                  type="text"
-                  name="amount"
-                  placeholder="Amount"
-                  value={onePackage?.pakage_amount?.amount}
-                  style={{ textDecoration: "none" }}
-                  onChange={handleAmount}
-                />
-                <span>Per Person</span>
-              </Box>
-            </Box>
-          </Box>
+    <Box my={2} style={styles4.container}>
+      <Typography style={{ fontSize: "16px",marginBottom:"10px"}}>
+        Set up package pricing<span style={{ color: "red" }}>*</span>
+      </Typography>
+      <Box display="flex" alignItems="center">
+        <FormControl style={{marginRight:"10px"}}>
+          <NativeSelect style={styles4.select}>
+            <option value="INR">INR</option>
+            <option value="USD">USD</option>
+            <option value="EUR">EUR</option>
+            {/* Add more currency options if needed */}
+          </NativeSelect>
+        </FormControl>
+        <div style={styles4.inputContainer}>
+          <input
+            type="text"
+            name="amount"
+            placeholder="Amount"
+            value={onePackage?.pakage_amount?.amount}
+            onChange={handleAmount}
+            style={styles4.input}
+          />
+          <span>Per Person</span>
+        </div>
+      </Box>
+    </Box>
 
           <Box>
             <Typography style={{ fontSize: "16px", marginTop: "29px" }}>
               Inclusions / Exclusions<span style={{ color: "red" }}>*</span>
             </Typography>
             <Typography style={{ fontSize: "10px", color: "#FF8900" }}>
-              Select ( ) for inclusion / ( ) for exclusions / leave
-              unselected for Not Applicable
+              Select ( ) for inclusion / ( ) for exclusions / leave unselected
+              for Not Applicable
             </Typography>
           </Box>
           <Grid container spacing={10}>
@@ -619,11 +680,7 @@ const EditHolidayPackage = () => {
                   justifyContent="space-between"
                   alignItems="center"
                 >
-                  <Box
-                    display="flex"
-                    textAlign="center"
-                    alignItems="center"
-                  >
+                  <Box display="flex" textAlign="center" alignItems="center">
                     <CommitIcon />
                     <Typography
                       sx={{
@@ -640,7 +697,9 @@ const EditHolidayPackage = () => {
                       value="true"
                       name="flexibility"
                       onChange={handleChange}
-                      checked={inclusions?.[0].flexibility == true ? true : false}
+                      checked={
+                        inclusions?.[0].flexibility == true ? true : false
+                      }
                       {...label}
                       icon={<CheckCircleOutlineIcon />}
                       checkedIcon={<CheckCircleIcon />}
@@ -649,7 +708,6 @@ const EditHolidayPackage = () => {
                       {...label}
                       value="false"
                       name="flexibility"
-
                       defaultChecked={inclusions?.[0].flexibility == true}
                       onChange={handleChange}
                       icon={<HighlightOffIcon />}
@@ -676,8 +734,9 @@ const EditHolidayPackage = () => {
                       name="train"
                       onChange={handleChange}
                       //   defaultChecked={inclusions?.[0].flexibility == true ? true : false}
-                      checked={inclusions?.[0].flexibility == true ? true : false}
-
+                      checked={
+                        inclusions?.[0].flexibility == true ? true : false
+                      }
                       {...label}
                       icon={<CheckCircleOutlineIcon />}
                       checkedIcon={<CheckCircleIcon />}
@@ -1783,11 +1842,11 @@ const EditHolidayPackage = () => {
             </Typography>
             {Array.from({ length: onePackage?.days }, (_, i) => (
               <>
-
-
-                <Accordion style={{ width: '700px' }}>
+                <Accordion style={{ width: "700px" }}>
                   <Accordion.Item eventKey={i}>
-                    <Accordion.Header><p>{`Days ${i + 1}`}</p></Accordion.Header>
+                    <Accordion.Header>
+                      <p>{`Days ${i + 1}`}</p>
+                    </Accordion.Header>
                     <Accordion.Body>
                       {/* {
             onePackage?.detailed_ltinerary?.map((ele,index)=>{
@@ -1804,8 +1863,12 @@ const EditHolidayPackage = () => {
                           className="style_Textarea day_Textarea"
                           type="text"
                           name="detailed_ltinerary"
-                          placeholder={`${onePackage?.detailed_ltinerary[i]} ${i + 1}`}
-                          value={`${onePackage?.detailed_ltinerary[i]} ${i + 1}`}
+                          placeholder={`${onePackage?.detailed_ltinerary[i]} ${
+                            i + 1
+                          }`}
+                          value={`${onePackage?.detailed_ltinerary[i]} ${
+                            i + 1
+                          }`}
                           // placeholder={`Days ${i + 1}`}
                           onChange={(event) => handleDaysDetail(i, event)}
                         ></textarea>
@@ -1813,8 +1876,6 @@ const EditHolidayPackage = () => {
                     </Accordion.Body>
                   </Accordion.Item>
                 </Accordion>
-
-
               </>
             ))}
           </Box>
@@ -1892,8 +1953,6 @@ const EditHolidayPackage = () => {
                 <div class="checkmark"></div>
                 <span className="tag__title">Luxury</span>
               </label>
-
-
             </div>
 
             <div className="relevant__tag">
@@ -1928,16 +1987,10 @@ const EditHolidayPackage = () => {
               </label>
 
               <label class="label__container">
-                <input
-                  type="checkbox"
-                  name="solo"
-                  onChange={handleTagChange}
-                />
+                <input type="checkbox" name="solo" onChange={handleTagChange} />
                 <div class="checkmark"></div>
                 <span className="tag__title">Solo</span>
               </label>
-
-
             </div>
 
             <div className="relevant__tag">
@@ -2062,7 +2115,6 @@ const EditHolidayPackage = () => {
                 <span className="tag__title">Mid-Range</span>
               </label>
 
-
               <label class="label__container">
                 <input
                   type="checkbox"
@@ -2072,8 +2124,6 @@ const EditHolidayPackage = () => {
                 <div class="checkmark"></div>
                 <span className="tag__title">Family With Children</span>
               </label>
-
-
             </div>
           </div>
           <Box my={2}>
@@ -2105,9 +2155,7 @@ const EditHolidayPackage = () => {
             <Typography style={{ fontSize: "16px", color: "#252525" }}>
               <p>
                 {" "}
-                Cancellation Policy<span style={{ color: "red" }}>
-                  *
-                </span>{" "}
+                Cancellation Policy<span style={{ color: "red" }}>*</span>{" "}
               </p>
 
               <textarea
@@ -2162,7 +2210,6 @@ const EditHolidayPackage = () => {
           </Box>
         </Box>
       </form>
-
     </div>
   );
 };

@@ -191,11 +191,11 @@ const Header = () => {
   }, []);
   return (
     <div className={scrollYvalue > 45 ? "header_scroll" : "header"}>
-      <div>
+      <div style={{display:"flex", justifyContent:"center",alignItems:"center"}}>
         <a href="/">
           <img
             src={STLOGO}
-            style={{ width: "90%", height: "45px",marginBottom:"-43px"}}
+            style={{ width: "90%", height: "45px"}}
             className="mt-2 ms-2"
             alt="logo"
           />

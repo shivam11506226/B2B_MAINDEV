@@ -72,7 +72,8 @@ import { useLocation, Navigate } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector, useReducer } from "react-redux";
 import { ipAction, tokenAction } from "../Redux/IP/actionIp";
-
+import Slider from "../Pages/Banner/Slider";
+import GotoTopBtn from "../Components/GotoTopBtn";
 const MainPage = () => {
   const dispatch = useDispatch();
   const location = useLocation();
@@ -148,7 +149,9 @@ const MainPage = () => {
                 <Route exact path="return" element={<Return/>} />
               </Route>
 
-              <Route path="/" element={<Banner />} />
+              {/* <Route path="/" element={<Banner />} /> */}
+            
+                <Route path="/" element={<Slider />} />
 
               <Route
                 exact
@@ -333,7 +336,7 @@ const MainPage = () => {
           {/* {!isLoginRoute && <Footer />} */}
         </div>
       )}
-
+<GotoTopBtn/>
       <div>
         <Routes>
           <Route path="login" element={<Login />} />
