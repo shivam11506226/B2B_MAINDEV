@@ -5,7 +5,7 @@ import { Button, Box } from "@mui/material";
 import { useDispatch, useSelector, useReducer } from "react-redux";
 import { loginAction } from "../../Redux/Auth/logIn/actionLogin";
 import Alert from "@mui/material/Alert";
-
+import color from "../../color/color";
 export default function Demo(props) {
   const dispatch = useDispatch();
   const reducerState = useSelector((state) => state);
@@ -82,7 +82,7 @@ export default function Demo(props) {
         <Button
           variant="contained"
           style={{
-            backgroundColor: "#0052D0",
+            backgroundColor:color.bluedark,
             color: "white",
             width: "100%",
             borderRadius: "20px",

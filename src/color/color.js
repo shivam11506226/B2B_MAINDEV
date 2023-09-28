@@ -29,4 +29,5 @@ export default {
   brown: '#6F4E37',
   yellow: '#fb9403',
   dairyBlue: '#009fe1',
+  red1:'#F03540'
 };

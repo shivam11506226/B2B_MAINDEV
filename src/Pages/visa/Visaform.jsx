@@ -201,7 +201,7 @@ const Visaform = () => {
           <div className="row">
             <div className="col-xs-12">
               <Typography
-                sx={{ fontSize: "13px", color: "#FF8900", fontWeight: "bold" }}
+                sx={{ fontSize: "13px",  fontWeight: "bold",color:color.red1}}
                 textAlign="left"
               >
                 Note : All Document Required

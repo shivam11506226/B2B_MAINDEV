@@ -11,7 +11,7 @@ import { styled } from "@mui/material/styles";
 import Chip from "@mui/material/Chip";
 import Paper from "@mui/material/Paper";
 import TagFacesIcon from "@mui/icons-material/TagFaces";
-
+import color from  "../../../color/color"
 import Editor from "react-simple-wysiwyg";
 import "./CreatePackage.css";
 //   import "./selectclickbutton.css";
@@ -398,7 +398,7 @@ console.log("inputList",inputList)
                   Create Holiday Package
                 </Typography>
               </Box>
-              <Typography style={{ fontSize: "16px" }}>
+              <Typography style={{ fontSize: "16px",marginLeft:"20px" }}>
                 {" "}
                 Give the package a title <span style={{ color: "red" }}>*</span>
               </Typography>
@@ -507,6 +507,7 @@ console.log("inputList",inputList)
                     onClick={handleAddChip}
                     variant="contained"
                     endIcon={<AddIcon />}
+                    style={{ backgroundColor:color.bluedark}}
                   >
                     Add
                   </Button>
@@ -522,6 +523,7 @@ console.log("inputList",inputList)
                     display: "flex",
                     justifyContent: "flex-start",
                     paddingLeft: "0px",
+                    
                   }}
                 >
                   <Button
@@ -529,6 +531,7 @@ console.log("inputList",inputList)
                       days === 0 ? setDays(0) : setDays(days - 1)
                     }
                     variant="contained"
+                    style={{backgroundColor:color.bluedark}}
                   >
                     <RemoveIcon style={{ fontSize: "16px" }} />
                   </Button>
@@ -544,7 +547,9 @@ console.log("inputList",inputList)
                     }}
                     value={days}
                   />
-                  <Button onClick={() => setDays(days + 1)} variant="contained">
+                  <Button onClick={() => setDays(days + 1)} variant="contained"
+                   style={{backgroundColor:color.bluedark}}
+                  >
                     <AddIcon style={{ fontSize: "16px" }} />{" "}
                   </Button>
                 </Box>

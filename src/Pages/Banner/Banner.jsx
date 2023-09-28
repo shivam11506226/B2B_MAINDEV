@@ -10,8 +10,8 @@ const Banner = () => {
 
   return (
     <Flex
-      direction="column"
-      justifyContent="space-around"
+      
+      
       bg="red.500"
       className="banners"
     >

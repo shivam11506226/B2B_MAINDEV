@@ -6,6 +6,7 @@ import Loader from "../../Loader/Loader";
 import Hotelform from "./Hotelform";
 import { useDispatch, useSelector, useReducer } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import color from "../../../color/color.js"
 const Hotelstepper = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -31,7 +32,7 @@ const Hotelstepper = () => {
             w="25px"
             h="25px"
             borderRadius="50%"
-            bg="#0096FF"
+            style={{backgroundColor: color.bluedark}}
             color="white"
           >
             <Text>1</Text>
@@ -49,7 +50,7 @@ const Hotelstepper = () => {
             w="25px"
             h="25px"
             borderRadius="50%"
-            bg="#0096FF"
+            style={{backgroundColor: color.bluedark}}
             color="white"
           >
             <Text>2</Text>
@@ -64,7 +65,7 @@ const Hotelstepper = () => {
             w="25px"
             h="25px"
             borderRadius="50%"
-            bg="#0096FF"
+            style={{backgroundColor: color.bluedark}}
             color="white"
           >
             <Text>3</Text>
@@ -80,7 +81,7 @@ const Hotelstepper = () => {
             w="25px"
             h="25px"
             borderRadius="50%"
-            bg="#0096FF"
+            style={{backgroundColor: color.bluedark}}
             color="white"
           >
             <Text>4</Text>
@@ -96,7 +97,7 @@ const Hotelstepper = () => {
             w="25px"
             h="25px"
             borderRadius="50%"
-            bg="#0096FF"
+            style={{backgroundColor: color.bluedark}}
             color="white"
           >
             <Text>5</Text>

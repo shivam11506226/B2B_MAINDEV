@@ -71,14 +71,14 @@ const Dropdown = () => {
          width:'85px',
           height: '80px',
          borderRadius: '8px',
-          border: '2px solid #2980b9',
+          
           cursor: 'pointer',
           fontWeight: 'bold',
           fontSize: '18px',
           transition: 'background-color 0.3s ease-in-out',
         }}
       >
-        <img src={add} alt="" style={{width:'100%',height:'50px'}}/>
+        <img src={add} alt="" style={{width:'90%',height:'40px'}}/>
       </Button>
 
       <Menu
