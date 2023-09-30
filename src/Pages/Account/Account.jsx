@@ -3,26 +3,21 @@ import Stack from '@mui/material/Stack';
 import { Button, Box, Typography, Input } from '@mui/material';
 import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
-
-
-
-
-
-
+import color from "../../color/color"
 const Account = () => {
     return (
         <div className='flightContainer'>
             <Stack spacing={2} direction="row">
-                <Button variant="contained" type='submit' sx={{ backgroundColor: '#006FFF', borderRadius: '10px', color: 'white', boxShadow: '0px 3px 6px #00000029' }}>Text</Button>
-                <Button type='submit' sx={{ backgroundColor: '#fff', borderRadius: '10px', color: '#006FFF', boxShadow: '0px 3px 6px #00000029' }}>Contained</Button>
-                <Button type='submit' sx={{ backgroundColor: '#fff', borderRadius: '10px', color: '#006FFF', boxShadow: '0px 3px 6px #00000029' }}>Outlined</Button>
+                <Button variant="contained" type='submit' sx={{ backgroundColor:color.bluedark, borderRadius: '10px', color: 'white', boxShadow: '0px 3px 6px #00000029' }}>Text</Button>
+                <Button variant="contained" type='submit' sx={{ backgroundColor:color.bluedark, borderRadius: '10px', color: 'white', boxShadow: '0px 3px 6px #00000029' }}>Contained</Button>
+                <Button variant="contained" type='submit' sx={{ backgroundColor:color.bluedark, borderRadius: '10px', color: 'white', boxShadow: '0px 3px 6px #00000029' }}>Outlined</Button>
             </Stack>
             <Box sx={{ flexGrow: 1 }} my={2}>
                 <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
 
                     <Grid item xs={2} sm={4} md={6}>
                         <Box sx={{ boxShadow: '0px 3px 6px #00000029', borderRadius: '10px', padding: '15px', margin: '0 auto', marginTop: '20px' }}>
-                            <Typography sx={{ fontSize: '18px', fontWeight: 'bold', color: '#252525' }} mb={2}>Change Password</Typography>
+                            <Typography sx={{ fontSize: '24px', fontWeight: 'bold', color:color.bluedark }} mb={2}>Change Password</Typography>
                             <Box sx={{ display: 'flex', alignItems: 'center', marginBottom: '15px' }}>
                                 <Typography sx={{ fontSize: '14px', color: '#666666', fontWeight: '500', width: '150px', marginLeft: '10px' }}>Enter Old Password*</Typography>
                                 <Input type="password" border="none" name='enter old password' sx={{ flexGrow: 1, padding: '10px', borderRadius: '5px', backgroundColor: 'white' }} />
@@ -36,12 +31,12 @@ const Account = () => {
                                 <Input type="password" border="none" name='enter confirm password' sx={{ flexGrow: 1, padding: '10px', borderRadius: '5px', backgroundColor: 'white' }} />
                             </Box>
                             <Box sx={{ display: 'flex', justifyContent: 'center' }} my={2}>
-                                <Button variant='contained' color="warning" sx={{ borderRadius: '10px', color: 'white', fontWeight: 'bold', fontSize: '16px' }}>Change Password</Button>
+                                <Button variant='contained'  sx={{ borderRadius: '10px', color: 'white',  fontSize: '16px',backgroundColor:color.bluedark }}>Change Password</Button>
                             </Box>
                         </Box>
 
                         <Box sx={{ boxShadow: '0px 3px 6px #00000029', borderRadius: '10px', padding: '20px', margin: '0 auto', marginTop: '20px' }}>
-                            <Typography sx={{ fontSize: '24px', fontWeight: 'bold', color: '#006FFF', marginBottom: '15px' }}>Agency Detail</Typography>
+                            <Typography sx={{ fontSize: '24px', fontWeight: 'bold', color:color.bluedark, marginBottom: '15px' }}>Agency Detail</Typography>
                             <Grid container spacing={2}>
                                 <Grid item xs={12} md={6}>
                                     <Box sx={{ textAlign: 'left', }} my={1}>
@@ -60,7 +55,7 @@ const Account = () => {
 
 
                         <Box sx={{ boxShadow: '0px 3px 6px #00000029', borderRadius: '10px', padding: '20px', margin: '0 auto', marginTop: '20px' }}>
-                            <Typography sx={{ fontSize: '24px', fontWeight: 'bold', color: '#006FFF', marginBottom: '15px' }}>Agency Address</Typography>
+                            <Typography sx={{ fontSize: '24px', fontWeight: 'bold', color:color.bluedark, marginBottom: '15px' }}>Agency Address</Typography>
                             <Grid container spacing={2}>
                                 <Grid item xs={12} md={6}>
                                     <Box sx={{ textAlign: 'left' }} my={1}>
@@ -82,7 +77,7 @@ const Account = () => {
 
 
                         <Box sx={{ boxShadow: '0px 3px 6px #00000029', borderRadius: '10px', padding: '20px', margin: '0 auto', marginTop: '20px' }}>
-                            <Typography sx={{ fontSize: '24px', fontWeight: 'bold', color: '#006FFF', marginBottom: '15px' }}>Residence Address</Typography>
+                            <Typography sx={{ fontSize: '24px', fontWeight: 'bold', color:color.bluedark, marginBottom: '15px' }}>Residence Address</Typography>
                             <Grid container spacing={2}>
                                 <Grid item xs={12} md={6}>
                                     <Box sx={{ textAlign: 'left' }} my={1}>
@@ -106,7 +101,7 @@ const Account = () => {
                     </Grid>
                     <Grid item xs={2} sm={4} md={6}>
                         <Box sx={{ boxShadow: '0px 3px 6px #00000029', borderRadius: '10px', padding: '20px' }} my={2}>
-                            <Typography sx={{ fontSize: '24px', fontWeight: 'bold', color: '#006FFF', marginBottom: '15px' }}>Email Address</Typography>
+                            <Typography sx={{ fontSize: '24px', fontWeight: 'bold', color:color.bluedark, marginBottom: '15px' }}>Email Address</Typography>
                             <Grid container spacing={2}>
                                 <Grid item xs={12} md={6}>
                                     <Box sx={{ textAlign: 'left' }} my={1}>
@@ -123,7 +118,7 @@ const Account = () => {
                         </Box>
 
                         <Box sx={{ boxShadow: '0px 3px 6px #00000029', borderRadius: '10px', padding: '20px' }} my={2}>
-                            <Typography sx={{ fontSize: '24px', fontWeight: 'bold', color: '#006FFF', marginBottom: '15px' }}>Mobile Number</Typography>
+                            <Typography sx={{ fontSize: '24px', fontWeight: 'bold', color:color.bluedark, marginBottom: '15px' }}>Mobile Number</Typography>
                             <Grid container spacing={2}>
                                 <Grid item xs={12} md={6}>
                                     <Box sx={{ textAlign: 'left' }} my={1}>
@@ -147,7 +142,7 @@ const Account = () => {
                         </Box>
 
                         <Box sx={{ boxShadow: '0px 3px 6px #00000029', borderRadius: '10px', padding: '20px' }} my={2}>
-                            <Typography sx={{ fontSize: '24px', fontWeight: 'bold', color: '#006FFF', marginBottom: '15px' }}>Threshold Balance</Typography>
+                            <Typography sx={{ fontSize: '24px', fontWeight: 'bold', color:color.bluedark, marginBottom: '15px' }}>Threshold Balance</Typography>
                             <Grid container spacing={2}>
                                 <Grid item xs={12} md={6}>
                                     <Box sx={{ textAlign: 'left' }} my={1}>
@@ -156,7 +151,7 @@ const Account = () => {
                                 </Grid>
                                 <Grid item xs={12} md={6}>
                                     <Box sx={{ textAlign: 'left' }} my={1}>
-                                        <Typography sx={{ fontSize: '16px', color: '#FF8900', fontWeight: '500' }}>₹ 564,654</Typography>
+                                        <Typography sx={{ fontSize: '16px', color:color.red1, fontWeight: '500' }}>₹ 564,654</Typography>
                                     </Box>
                                 </Grid>
                             </Grid>
@@ -165,7 +160,7 @@ const Account = () => {
 
                         <Box sx={{ boxShadow: '0px 3px 6px #00000029', borderRadius: '10px', padding: '20px', display: 'flex' }} my={2}>
                             <form action='/'>
-                                <Button type='submit' color='primary' variant='contained' sx={{ borderRadius: '10px', boxShadow: '0px 3px 6px #00000029', marginLeft: 'auto' }}>Save Change</Button>
+                                <Button type='submit' color='primary' variant='contained' sx={{ borderRadius: '10px', boxShadow: '0px 3px 6px #00000029', marginLeft: 'auto',backgroundColor:color.bluedark}}>Save Change</Button>
                             </form>
                         </Box>
                     </Grid>

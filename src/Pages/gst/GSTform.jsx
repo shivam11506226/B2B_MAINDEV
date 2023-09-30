@@ -8,7 +8,7 @@ import { background } from '@chakra-ui/react';
 import "./gstform.css"
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
-
+import color from "../../color/color"
 const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
     ...theme.typography.body2,
@@ -377,8 +377,8 @@ const GSTform = () => {
             </Box>
             <Box textAlign='center' display='flex' justifyContent='center' my={3}>
                 <Stack spacing={2} direction="row" textAlign='center'>
-                    <Button variant='contained' type='submit'>Reset</Button>
-                    <Button variant='contained' type='submit'>Submit</Button>
+                    <Button variant='contained' type='submit' style={{backgroundColor:color.bluedark}}>Reset</Button>
+                    <Button variant='contained' type='submit'  style={{backgroundColor:color.bluedark}}>Submit</Button>
                 </Stack>
             </Box>
         </div>

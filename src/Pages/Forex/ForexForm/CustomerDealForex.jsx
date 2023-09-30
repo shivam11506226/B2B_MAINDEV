@@ -3,7 +3,7 @@ import { Button, Box } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import { createForex4CustomerAction } from "../../../Redux/CreateForexWithCustomer/actionCreateForex";
 import { useDispatch } from 'react-redux';
-
+import color from "../../../color/color"
 const CustomerDealForex = () => {
     const dispatch = useDispatch();
 
@@ -156,7 +156,7 @@ const CustomerDealForex = () => {
                                 my={4}
                                 colorScheme="teal"
                                 type="submit"
-                                sx={{ backgroundColor: "#00BDC4", borderRadius: "20px" }}
+                                sx={{ backgroundColor:color.bluedark, borderRadius: "20px" }}
                             >
                                 Submit
                             </Button>

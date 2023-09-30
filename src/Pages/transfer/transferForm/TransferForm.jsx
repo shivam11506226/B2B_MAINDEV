@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button, Box } from '@mui/material';
-
+import color from "../../../color/color"
 const TransferForm = () => {
   return (
     <div className='container'>
@@ -102,7 +102,7 @@ const TransferForm = () => {
                                 colorScheme="teal"
                                 type="submit"
                                 m
-                                sx={{ backgroundColor: '#00BDC4', borderRadius: '20px' }}
+                                sx={{ backgroundColor:color.bluedark, borderRadius: '20px' }}
                             >
                                 Search
                             </Button>
