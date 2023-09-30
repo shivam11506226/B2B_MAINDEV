@@ -11,60 +11,34 @@
   opacity: 1;
   padding: 20px;
 }
-.outerseat {
-            display: flex;
-            justify-content: space-between;
-        }
 
-        /* Style for the upper seat */
-        .busSeatlft, .busSeatrgt {
-            width: 50%;
-            padding: 20px;
-        }
 
-        .busSeat {
-            background-color: #ECECEC;
-            padding: 10px;
-        }
+.outerseat,
+.outerlowerseat {
+  /* border: 10px solid green; */
+  width: 100%;
+  height: 50%;
+  display: block;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  align-items: center;
+}
 
-        .seatcontainer {
-            display: flex;
-            flex-wrap: wrap;
-        }
+.busSeatlft,
+.busSeatrgt {
+  border: 2px solid red;
+  height: 45%;
+  width: 45%;
+}
 
-        .nseat ,.hseat ,.vseat,.bseat{
-            width: 40px;
-            height: 40px;
-            background-color: #ccc;
-            border: 1px solid #999;
-            text-align: center;
-            line-height: 40px;
-            margin: 5px;
-            cursor: pointer;
-        }
-
-        .bhseat ,.rhseat {
-            width: 40px;
-            height: 40px;
-            margin: 5px;
-            background-color: #ccc;
-            border: 1px solid #999;
-        }
-
-        .clearfix::after {
-            content: "";
-            clear: both;
-            display: table;
-        }
-
-        /* Style for the lower seat */
-        .outerlowerseat {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 20px;
-        }
-
-        .lower {
-            width: 50%;
-            padding: 20px;
-        }
+.upper {
+  position: relative;
+}
+.busSeat{
+  display: block;
+  flex-direction: column;
+}
+.seatcontainer{
+  position: relative;
+}
