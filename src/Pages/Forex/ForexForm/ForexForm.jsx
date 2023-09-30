@@ -3,6 +3,7 @@ import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Typography from '@mui/material/Typography';
 import {Box,Button} from '@mui/material';
+import color from "../../../color/color.js";
 import CustomerDealForex from "./CustomerDealForex";
 import DealForex from "./DealForex";
 
@@ -58,10 +59,10 @@ export default function BasicTabs() {
          </Tabs>
          
          <Box display='flex' ml={5}>
-          <Button variant="contained">Rent</Button>
+          <Button variant="contained" style={{backgroundColor:color.bluedark,width:"60px",height:"40px"}}>Rent</Button>
          </Box>
          <Box display='flex' ml={5}>
-          <Button variant="contained">Buy</Button>
+          <Button variant="contained" style={{backgroundColor:color.bluedark,width:"60px",height:"40px"}}>Buy</Button>
          </Box>
       </Box>
       <TabPanel value={value} index={0}>

@@ -1,7 +1,7 @@
 import { Box, Grid, Typography, label, Input } from "@mui/material";
 import React from "react";
 import './servicefilter.css';
-
+import color from "../../../color/color"
 const ServicesFilter = () => {
   return (
     <>
@@ -45,7 +45,7 @@ const ServicesFilter = () => {
               <Box display="block" alignItems="right" textAlign="end">
                 <Typography
                   display="flex"
-                  color="#006FFF"
+                  sx={{color:color.bluedark}}
                   fontSize="15px"
                   fontWeight="bold"
                 >
@@ -103,9 +103,9 @@ const ServicesFilter = () => {
           </Typography>
         </Box>
         <Box display="flex" justifyContent='space-around' style={{ marginLeft: '8px',gap:'10px' }}>
-          <button className="click">Non Set</button>
-          <button className="click">Domestic</button>
-          <button className="click">International</button>
+          <button className="click" style={{backgroundColor:color.bluedark}}>Non Set</button>
+          <button className="click" style={{backgroundColor:color.bluedark}}>Domestic</button>
+          <button className="click" style={{backgroundColor:color.bluedark}}>International</button>
 
         </Box>
 
@@ -125,7 +125,7 @@ const ServicesFilter = () => {
               <Box display="block" alignItems="right" textAlign="end">
                 <Typography
                   display="flex"
-                  color="#006FFF"
+                  sx={{color:color.bluedark}}
                   fontSize="15px"
                   fontWeight="bold"
                 >
@@ -249,11 +249,11 @@ const ServicesFilter = () => {
         <div > 
         <Box  style={{display:'flex',gap:'10px',marginLeft:'10px',width:'100%'}}>
           <form action="/">
-            <button className="click" type="submit">Apply</button>
+            <button className="click" type="submit"   style={{backgroundColor:color.bluedark}}>Apply</button>
           </form>
 
           <form action="/services">
-            <button className="click" type="submit">Reset</button>
+            <button className="click" type="submit"   style={{backgroundColor:color.bluedark}}>Reset</button>
           </form>
         </Box>
         </div>

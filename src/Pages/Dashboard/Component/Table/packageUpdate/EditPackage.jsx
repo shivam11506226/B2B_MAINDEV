@@ -338,6 +338,7 @@ const EditHolidayPackage = () => {
       marginTop: "1rem",
       marginLeft:"-15px",
       padding: "20px",
+      
     },
     label: {
       fontSize: "16px",
@@ -365,7 +366,7 @@ const EditHolidayPackage = () => {
       marginRight: "10px",
     },
     addButton: {
-      backgroundColor: "blue",
+      backgroundColor:color.bluedark,
       color: "white",
       borderRadius: "5px",
       padding: "5px 15px",
@@ -395,17 +396,17 @@ const EditHolidayPackage = () => {
       marginTop:"10px"
     },
     input: {
-      color: "#006FFF",
+      color:"color.bluedark",
       paddingLeft: "15px",
       paddingRight: "15px",
       fontSize: "16px",
-      border: "1px solid #006FFF",
+      border:"color.bluedark",
       borderRadius: "5px",
       width: "55px",
       textAlign: "center",
     },
     button: {
-      backgroundColor: "#006FFF",
+      backgroundColor:color.bluedark,
       color: "#fff",
       borderRadius: "5px",
       marginLeft: "5px",
@@ -663,10 +664,10 @@ const EditHolidayPackage = () => {
     </Box>
 
           <Box>
-            <Typography style={{ fontSize: "16px", marginTop: "29px" }}>
+            <Typography style={{ fontSize: "20px", marginTop: "29px" }}>
               Inclusions / Exclusions<span style={{ color: "red" }}>*</span>
             </Typography>
-            <Typography style={{ fontSize: "10px", color: "#FF8900" }}>
+            <Typography style={{ fontSize: "15px", color:color.red1 }}>
               Select ( ) for inclusion / ( ) for exclusions / leave unselected
               for Not Applicable
             </Typography>
@@ -679,6 +680,7 @@ const EditHolidayPackage = () => {
                   display="flex"
                   justifyContent="space-between"
                   alignItems="center"
+                 
                 >
                   <Box display="flex" textAlign="center" alignItems="center">
                     <CommitIcon />
@@ -1902,7 +1904,7 @@ const EditHolidayPackage = () => {
             </Typography>
           </Box>
 
-          <div className="tag__Container">
+          <div className="tag__Container" >
             <div className="relevant__tag">
               <label class="label__container">
                 <input
@@ -2141,7 +2143,10 @@ const EditHolidayPackage = () => {
               ></textarea>
             </Typography>
             <Typography style={{ fontSize: "14px", color: "#666666" }}>
-              Write a descriptive summary of the T&C.....
+            
+              <p>
+              Write a descriptive summary of the T&C.....<span style={{ color: "red" }}>*</span>{" "}
+              </p>
               <textarea
                 className="style_Textarea"
                 name="term_Conditions"
@@ -2183,11 +2188,13 @@ const EditHolidayPackage = () => {
           <Box my={2} display="flex" justifyContent="center">
             <Box mx={1}>
               <Button
-                variant="outlined"
+                sx={{border:color.red1}}
                 style={{
-                  border: "1px solid #FF8900",
+                  border:"none",
                   borderRadius: "10px",
-                  color: "#FF8900",
+                  backgroundColor:color.bluedark,
+                  color: "white"
+                  
                 }}
               >
                 Save As Draft
@@ -2198,10 +2205,10 @@ const EditHolidayPackage = () => {
                 variant="primary"
                 type="submit"
                 style={{
-                  border: "1px solid #707070",
+                  border:"none",
                   borderRadius: "10px",
-                  backgroundColor: "#006FFF",
-                  color: "#fff",
+                  backgroundColor:color.bluedark,
+                  color: "white"
                 }}
               >
                 Update

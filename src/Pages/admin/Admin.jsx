@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button, Box, Typography, Grid, TextField, Divider } from '@mui/material';
 import './admin.css';
-
+import  color from "../../color/color"
 const Admin = () => {
   return (
     <div className='flightContainer'>
@@ -10,7 +10,7 @@ const Admin = () => {
           <Typography variant="h5" sx={{ marginBottom: '1rem', color: '#252525' }}>
             Create User
           </Typography>
-          <Button variant='contained' type='submit' sx={{ backgroundColor: '#006FFF', borderRadius: '10px' }}>
+          <Button variant='contained' type='submit' sx={{ backgroundColor:color.bluedark, borderRadius: '10px' }}>
             User Name Create
           </Button>
         </Box>
@@ -41,7 +41,7 @@ const Admin = () => {
         </Box>
 
         <Box mt={2}>
-          <Button variant='contained' type='submit' sx={{ backgroundColor: '#006FFF', borderRadius: '10px' }}>
+          <Button variant='contained' type='submit' sx={{ backgroundColor:color.bluedark, borderRadius: '10px' }}>
             Export To CSV
           </Button>
         </Box>

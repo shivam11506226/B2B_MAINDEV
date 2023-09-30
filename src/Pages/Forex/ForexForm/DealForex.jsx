@@ -3,7 +3,7 @@ import { Button, Box } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import { createForexAction } from "../../../Redux/CreateForxWithMe/actionCreateForex";
 import { useDispatch } from "react-redux";
-
+import color from "../../../color/color"
 const DealForex = () => {
   const dispatch = useDispatch();
 
@@ -144,7 +144,7 @@ const DealForex = () => {
         <div className="row">
           <div className="col-xs-12">
             <Typography
-              sx={{ fontSize: "16px", color: "#FF8900", fontWeight: "bold" }}
+              sx={{ fontSize: "16px", color:color.red1, fontWeight: "bold" }}
               textAlign="left"
             >
               Note : Customer KYC Document Required
@@ -154,10 +154,10 @@ const DealForex = () => {
               <Button
                 variant="contained"
                 my={4}
-                colorScheme="teal"
+                colorScheme="color.red"
                 type="submit"
                 
-                sx={{ backgroundColor: "#00BDC4", borderRadius: "20px",marginTop:"-30px" }}
+                sx={{ backgroundColor:color.bluedark, borderRadius: "20px",marginTop:"-30px" }}
               >
                 Submit
               </Button>

@@ -3,7 +3,7 @@ import CustomSlider from "./components/custom.slider";
 import Images from "./images";
 import "./styles.css";
 
-export default function App() {
+export default function Slider() {
   return (
     <div className="App">
       <CustomSlider>
