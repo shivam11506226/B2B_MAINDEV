@@ -27,7 +27,7 @@ const GotoTopBtn = () => {
         <div
           className="go-to-top"
           onClick={goToTop}
-          style={{ position: 'fixed', right: '1.25rem', bottom: '1.25rem' }}
+          style={{ position: 'fixed', right: '1.25rem', bottom: '1.25rem',cursor:'pointer' }}
         >
           <BsFillArrowUpCircleFill fontSize={40} sx={{color:color.bluedark}} />
         </div>

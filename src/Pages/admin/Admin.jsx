@@ -1,8 +1,14 @@
 import React from 'react';
 import { Button, Box, Typography, Grid, TextField, Divider } from '@mui/material';
 import './admin.css';
+import { useDispatch, useSelector, useReducer } from "react-redux";
 import  color from "../../color/color"
 const Admin = () => {
+  const reducerState = useSelector((state) => state);
+  console.log("red")
+  console.log(reducerState)
+  const userData=reducerState?.logIn?.loginData?.data?.data
+  console.log("UserData", userData)
   return (
     <div className='flightContainer'>
       <form action='/AdminUserForm'>
@@ -19,24 +25,21 @@ const Admin = () => {
 
         <Box sx={{ boxShadow: '0px 3px 6px #00000029', padding: '1rem' }}>
           <Grid container spacing={2}>
-            <Grid item xs={12} md={4}>
-              <TextField label="Name" variant="outlined" fullWidth />
+            <Grid item xs={12} md={4} >
+            Name: {userData.username}
+              
             </Grid>
             <Grid item xs={12} md={4}>
-              <TextField label="Type" variant="outlined" fullWidth />
+             Email: {userData.email}
+             
             </Grid>
             <Grid item xs={12} md={4}>
-              <TextField label="Role" variant="outlined" fullWidth />
+             Balance: {userData.balance}
             </Grid>
-            <Grid item xs={12} md={4}>
-              <TextField label="Email" variant="outlined" fullWidth />
-            </Grid>
-            <Grid item xs={12} md={4}>
-              <TextField label="Phone" variant="outlined" fullWidth />
-            </Grid>
-            <Grid item xs={12} md={4}>
+           
+            {/* <Grid item xs={12} md={4}>
               <TextField label="Status" variant="outlined" fullWidth />
-            </Grid>
+            </Grid> */}
           </Grid>
         </Box>
 

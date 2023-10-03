@@ -318,7 +318,7 @@ function api() {
     console.log("bus result api", payload);
     return axios({
       method: "POST",
-      url: "/travvolt/bus/search",
+      url: "/travvolt/bus/search" ,
       baseURL: `${apiURL.baseURL}`,
       data: payload,
       headers: {
