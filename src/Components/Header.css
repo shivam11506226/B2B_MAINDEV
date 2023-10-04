@@ -71,7 +71,10 @@
   font-size: medium;
   font-weight: 700;
 }
-
+.cancel:hover{
+   background : #ff8900;
+   color: white;
+}
 
 /* Media query for screens with a minimum width of 566px */
 @media screen and (min-width: 600px) {

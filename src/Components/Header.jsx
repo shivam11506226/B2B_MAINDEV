@@ -365,14 +365,15 @@ const Header = () => {
                   <Button
                     variant="contained"
                     type="submit"
-                    sx={{ margin: 0.1 }}
+                    sx={{ margin: 0.1,backgroundColor:color.bluedark}}
                   >
                     Recharge Wallet
                   </Button>
                   <Button
-                    variant="contained"
+                   className="cancel"
+                   variant="contained"
                     onClick={handleCloseModal}
-                    sx={{ margin: 0.5, backgroundColor: "red", margin: 0.1 }}
+                    sx={{ margin: 0.5,backgroundColor:color.red1, margin: 0.1,color:"white" }}
                   >
                     Cancel
                   </Button>
