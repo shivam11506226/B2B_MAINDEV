@@ -8,14 +8,14 @@ export const InnerBarLogo = [
   },
   {
     avatar: require("./Images/hotelbed.png"),
-    name: "Hotel",
+    name: "Hotel",   
     path: "/hotel",
   },
   //   {
   //     avatar: require("./Images/luggage.png"),
   //     name: "Assistance & Inssurance",
   //     path: "/activities",
-  //   },
+  //   },            
   // {
   //     avatar: require("./Images/home.png"),
   //     name: "Home Package",
@@ -39,7 +39,7 @@ export const InnerBarLogo = [
   {
     avatar: require("./Images/schoolbus.png"),
     name: "Bus",
-    path: "/bus",
+    path: "/bus", 
   },
   // {
   //   avatar: require("./Images/taxi.png"),
