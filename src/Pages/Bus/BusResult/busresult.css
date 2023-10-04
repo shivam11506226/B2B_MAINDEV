@@ -15,21 +15,23 @@
 
 .outerseat,
 .outerlowerseat {
-  /* border: 10px solid green; */
-  width: 100%;
+position: relative;
+  width: auto;
   height: 50%;
   display: block;
   flex-direction: row;
   flex-wrap: nowrap;
   justify-content: space-between;
   align-items: center;
+  margin-bottom: 10px;
+  padding-left: 20px;
 }
 
 .busSeatlft,
 .busSeatrgt {
-  border: 2px solid red;
+  /* border: 2px solid red; */
   height: 45%;
-  width: 45%;
+  width: auto;
 }
 
 .upper {
@@ -41,4 +43,5 @@
 }
 .seatcontainer{
   position: relative;
+  align-self: center;
 }

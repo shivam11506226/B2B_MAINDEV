@@ -3,15 +3,24 @@ import Box from "@mui/material/Box";
 import axios from "axios";
 import "./busresult.css";
 import Grid from "@mui/material/Grid";
-import { Typography, Modal } from "@mui/material";
+import { Typography, Modal,InputLabel,Select,OutlinedInput,MenuItem } from "@mui/material";
 import { Button } from "react-bootstrap";
 import Link from "@mui/material/Link";
 import Busmoredetail from "./Busmoredetail";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { height } from "@mui/system";
+// import { CheckBox } from "@mui/icons-material";
+import Checkbox from "@mui/material/Checkbox";
 
 const Busdetail = () => {
+  const name=[]
+  const blockedSeatArray = [];
+  const upperArray = [];
+  const lowerArray = [];
+  const[origin,setOrigin]=useState([]);
+  const[destination,setDestination]=useState([]);
+  const [flatArray, setFlatArray] = useState([]);
   const [modal, setModal] = useState(false);
   const [seatLayoutData, setSeatLayoutData] = useState({});
   const [layout, setLayout] = useState([]);
@@ -49,8 +58,31 @@ const Busdetail = () => {
             response.data?.data?.GetBusSeatLayOutResult?.SeatLayoutDetails
               ?.HTMLLayout
           );
-          console.log("finalLayout", finalLayout);
+          console.log(
+            "finalLayout",
+            response.data?.data?.GetBusSeatLayOutResult?.SeatLayoutDetails
+              ?.HTMLLayout
+          );
+
           setLayout((prev) => finalLayout);
+          const SeatDetailsArray =
+            response.data?.data?.GetBusSeatLayOutResult?.SeatLayoutDetails
+              ?.SeatLayout?.SeatDetails;
+          console.log("seatDetailssAraayyy", SeatDetailsArray);
+
+          let singleArray = SeatDetailsArray.reduce(
+            (acc, currentArray) => [...acc, ...currentArray],
+            []
+          );
+          setFlatArray(singleArray);
+          busDataResult.map((item,index)=>{
+            if(item?.ResultIndex==resultIndex){
+              setOrigin(item?.BoardingPointsDetails);
+            }
+          })
+          
+
+          // console.log("flattArayyyyyy",flatArray)
           setModal((prev) => !prev);
         });
     } catch (error) {
@@ -59,44 +91,17 @@ const Busdetail = () => {
   };
   console.log(layout);
   console.log(seatLayoutData);
-
-  function handleSeatLayoutString(inputString) {
-    let outerSeatPointer = 0;
-    let lowerSeatPointer = 0;
-    const divArray = [];
-    const divRegex = /<div[^>]*?>/g;
-
-    // Extract div elements using regex
-    const divElements = inputString.match(divRegex);
-    console.log("divElementttttttttttttttttt", divElements);
-    // Initialize an array to store objects
-
-    // Loop through the extracted div elements
-    for (const div of divElements) {
-      // Use regex to extract attributes
-      const idMatch = /id="([^"]*)"/.exec(div);
-      const styleMatch = /style="([^"]*)"/.exec(div);
-      const classMatch = /class="([^"]*)"/.exec(div);
-
-      // Create an object with extracted attributes
-      const divObject = {
-        id: idMatch ? idMatch[1] : null,
-        style: styleMatch ? styleMatch[1] : null,
-        class: classMatch ? classMatch[1] : null,
-      };
-
-      // Check if any of the attributes are null, and skip adding to the array
-      if (
-        divObject.id !== null &&
-        divObject.style !== null &&
-        divObject.class !== null
-      ) {
-        // Push the object into the array
-        divArray.push(divObject);
-      }
+  console.log("flattArayyyyyy", flatArray);
+  console.log("originnnnnnnnn", origin);
+  flatArray.forEach((obj) => {
+    if (obj?.IsUpper === true) {
+      upperArray.push(obj);
+    } else if (obj?.IsUpper === false) {
+      lowerArray.push(obj);
     }
-    return divArray;
-  }
+  });
+
+  console.log(upperArray, lowerArray);
   function handleSeatLayoutStringTwo(inputString) {
     // Your bus seat layout string
     let busSeatLayoutString = `${inputString}`;
@@ -107,33 +112,45 @@ const Busdetail = () => {
     // Create a temporary div element to parse the string
     let tempDiv = document.createElement("div");
     tempDiv.innerHTML = busSeatLayoutString;
-
+    console.log("temppdivvvvvvvvvv", tempDiv);
     // Select all seat div elements
     let seatDivs = tempDiv.querySelectorAll(
       ".hseat, .bhseat, .vhseat, .bhseat, .bseat, .vseat, .nseat, .rhseat"
     );
+    console.log(seatDivs);
 
     // Iterate through each seat div and differentiate between upper/lower and left/right sides
     seatDivs.forEach((seatDiv) => {
       // Check if the seat div is inside the upper part of the bus
+      console.log(seatDiv.closest(".outerseat"), "............hfhgfhgj");
+
       if (seatDiv.closest(".outerseat")) {
-        let side = seatDiv.closest(".busSeatrgt") ? "right" : "left";
-        seatObjects.push({
-          type: "upper",
-          side: side,
-          id: seatDiv.id,
-          class: seatDiv.getAttribute("class"),
-          top: seatDiv.style.top,
-          left: seatDiv.style.left,
-          onclick: seatDiv.getAttribute("onclick"),
-        });
+        const upperCheck = seatDiv.closest(".outerseat");
+        const lowerDivCheck = upperCheck.querySelector(".lower");
+        if (lowerDivCheck) {
+          seatObjects.push({
+            type: "lower",
+            id: seatDiv.id,
+            class: seatDiv.getAttribute("class"),
+            top: seatDiv.style.top,
+            left: seatDiv.style.left,
+            onclick: seatDiv.getAttribute("onclick"),
+          });
+        } else {
+          seatObjects.push({
+            type: "upper",
+            id: seatDiv.id,
+            class: seatDiv.getAttribute("class"),
+            top: seatDiv.style.top,
+            left: seatDiv.style.left,
+            onclick: seatDiv.getAttribute("onclick"),
+          });
+        }
       }
       // Check if the seat div is inside the lower part of the bus
       else if (seatDiv.closest(".outerlowerseat")) {
-        let side = seatDiv.closest(".busSeatrgt") ? "right" : "left";
         seatObjects.push({
           type: "lower",
-          side: side,
           id: seatDiv.id,
           class: seatDiv.getAttribute("class"),
           top: seatDiv.style.top,
@@ -146,6 +163,23 @@ const Busdetail = () => {
     // Log the array of seat objects
     // console.log(seatObjects);
     return seatObjects;
+  }
+  function addOrRemoveSeat(e,object) {
+    console.log("hiiiiiiiiiiiiiiiiiiiii");
+    console.log(e)
+    console.log(e.target.checked)
+    // console.log(index)
+    if(e.target.checked){
+      blockedSeatArray.push(object);
+      console.log(blockedSeatArray);
+    }
+    else{
+      const element=object
+      const index=blockedSeatArray.indexOf(element)
+      blockedSeatArray.splice(index,1)
+      console.log(blockedSeatArray)
+    }
+
   }
 
   return (
@@ -303,141 +337,181 @@ const Busdetail = () => {
         open={modal}
         aria-labelledby="parent-modal-title"
         aria-describedby="parent-modal-description"
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+        }}
       >
         <Box
           className="layOutParent"
           sx={{
-            position: "absolute",
             height: "600px",
             width: "800px",
             bgcolor: "background.paper",
+            backdropFilter: "blur(5px)",
+            border: "1px solid red",
             alignSelf: "center",
-            // transform: "translate(-60%, -60%)",
+            opacity: 0.9,
+            display: "flex",
           }}
         >
-          <Box class="outerseat">
-            <Box class="busSeatlft">
-              <Box class="upper">
-                {layout?.map((item) => {
-                  if (item?.type == "upper" && item?.side == "left") {
-                    const divStyle = {
-                      top: item?.top || 0,
+          <Box
+            sx={{
+              height: "100%",
+              width: "60%",
+            }}
+          >
+            <Box class="outerseat">
+              <Box class="busSeatlft">
+                <Box class="upper"></Box>
+              </Box>
+              <Box class="busSeatrgt">
+                <Box class="busSeat">
+                  <Box class="seatcontainer clearfix">
+                    {layout?.map((item, index) => {
+                      if (item?.type == "upper") {
+                        const divStyle = {
+                          top: item?.top || 0,
+                          left: item?.left || 0,
+                        };
 
-                      left: item?.left || 0,
-                    };
-
-                    return (
-                      <Box
-                        class={item?.class}
-                        id={item?.id}
-                        style={{
-                          ...divStyle,
-                          width: "40px",
-                          height: "40px",
-                          display: "block",
-                          border: "1px solid red",
-                          padding: "2px",
-                          position: "absolute",
-                        }}
-                      ></Box>
-                    );
-                  }
-                })}
+                        return (
+                          <Box
+                            class={item?.class}
+                            id={item?.id}
+                            style={{
+                              ...divStyle,
+                              width: "20px",
+                              height: "20px",
+                              display: "flex",
+                              border: "1px solid red",
+                              position: "absolute",
+                              justifyContent: "center",
+                              alignItems: "center",
+                            }}
+                          >
+                            <Checkbox
+                              onChange={(e) =>
+                                addOrRemoveSeat(e, upperArray?.[index], index)
+                              }
+                              disabled={
+                                upperArray?.[index]?.SeatStatus == true
+                                  ? false
+                                  : true
+                              }
+                            />
+                          </Box>
+                        );
+                      }
+                    })}
+                  </Box>
+                </Box>
               </Box>
             </Box>
-            <Box class="busSeatrgt">
-              <Box class="busSeat">
-                <Box class="seatcontainer clearfix">
-                  {layout?.map((item) => {
-                    if (item?.type == "upper" && item?.side == "right") {
-                      const divStyle = {
-                        top: item?.top || 0,
 
-                        left: item?.left || 0,
-                      };
+            <Box class="outerlowerseat">
+              <Box class="busSeatlft">
+                <Box class="lower"></Box>
+              </Box>
+              <Box class="busSeatrgt">
+                <Box class="busSeat">
+                  <Box class="seatcontainer clearfix">
+                    {layout?.map((item, index) => {
+                      if (item?.type == "lower") {
+                        const divStyle = {
+                          top: item?.top || 0,
 
-                      return (
-                        <Box
-                          class={item?.class}
-                          id={item?.id}
-                          style={{
-                            ...divStyle,
-                            width: "20px",
-                            height: "20px",
-                            display: "inline-block",
-                            border: "1px solid red",
-                            position: "absolute",
-                          }}
-                        ></Box>
-                      );
-                    }
-                  })}
+                          left: item?.left || 0,
+                        };
+
+                        return (
+                          <Box
+                            class={item?.class}
+                            id={item?.id}
+                            style={{
+                              ...divStyle,
+                              width: "20px",
+                              height: "20px",
+                              display: "flex",
+                              border: "1px solid red",
+                              // padding: "2px",
+                              position: "absolute",
+                              justifyContent: "center",
+                              alignItems: "center",
+                            }}
+                          >
+                            <Checkbox
+                              onChange={(e) =>
+                                addOrRemoveSeat(
+                                  e,
+                                  lowerArray?.[index - upperArray.length],
+                                  index
+                                )
+                              }
+                              disabled={
+                                lowerArray?.[index - upperArray.length]
+                                  ?.SeatStatus == true
+                                  ? false
+                                  : true
+                              }
+                            />
+                          </Box>
+                        );
+                      }
+                    })}
+                  </Box>
                 </Box>
               </Box>
             </Box>
           </Box>
-
-          <Box class="outerlowerseat">
-            <Box class="busSeatlft">
-              <Box class="lower">
-                {layout?.map((item) => {
-                  if (item?.type == "lower" && item?.side == "left") {
-                    const divStyle = {
-                      top: item?.top || 0,
-
-                      left: item?.left || 0,
-                    };
-
-                    return (
-                      <Box
-                        class={item?.class}
-                        id={item?.id}
-                        style={{
-                          ...divStyle,
-                          width: "40px",
-                          height: "40px",
-                          display: "block",
-                          border: "1px solid red",
-                          padding: "2px",
-                          position: "absolute",
-                        }}
-                      ></Box>
-                    );
-                  }
-                })}
-              </Box>
-            </Box>
-            <Box class="busSeatrgt">
-              <Box class="busSeat">
-                <Box class="seatcontainer clearfix">
-                  {layout?.map((item) => {
-                    if (item?.type == "lower" && item?.side == "right") {
-                      const divStyle = {
-                        top: item?.top || 0,
-
-                        left: item?.left || 0,
-                      };
-
-                      return (
-                        <Box
-                          class={item?.class}
-                          id={item?.id}
-                          style={{
-                            ...divStyle,
-                            width: "20px",
-                            height: "20px",
-                            display: "inline-block",
-                            border: "1px solid red",
-                            // padding: "2px",
-                            position: "absolute",
-                          }}
-                        ></Box>
-                      );
-                    }
-                  })}
+          <Box
+            sx={{
+              height: "100%",
+              width: "50%",
+              border: "3px solid gray",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <Box
+              sx={{
+                height: "80%",
+                width: "100%",
+                border: "2px solid black",
+              }}
+            >
+              <Box>
+                <Box
+                  sx={{
+                    display: "flex",
+                  }}
+                >
+                  {" "}
+                  <InputLabel id="demo-multiple-name-label">Name</InputLabel>
+                  <Select
+                    labelId="demo-multiple-name-label"
+                    id="demo-multiple-name"
+                    // multiple
+                    // value={personName}
+                    // onChange={handleChange}
+                    input={<OutlinedInput label="Name" />}
+                  >
+                    {origin.map((name, index) => (
+                      <MenuItem
+                        key={index}
+                        value={name}
+                        // style={getStyles(name, personName, theme)}
+                      >
+                        {name?.CityPointName}
+                      </MenuItem>
+                    ))}
+                  </Select>
                 </Box>
+                <Box></Box>
               </Box>
-              {/* <Box class="clr"></Box> */}
+
+              <Button onClick={() => setModal((prev) => !prev)}>Close</Button>
             </Box>
           </Box>
         </Box>
