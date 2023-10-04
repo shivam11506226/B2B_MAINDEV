@@ -50,7 +50,7 @@ export default function BasicPopover(props) {
   const [anchorEl, setAnchorEl] = React.useState(null);
 
   const results =
-    reducerState?.oneWay?.oneWayData?.data?.data?.Response?.Results;
+    reducerState?.oneWay?.oneWayData?.data?.data?.Response?.Results || reducerState?.return?.returnData?.data?.data?.Response?.Results;
   console.log("Redux State", results);
 
   const origin = props.origin;

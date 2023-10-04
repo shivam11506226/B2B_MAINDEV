@@ -1,11 +1,19 @@
-import {useState}from "react";
+import {useState, useEffect}from "react";
 import { Typography } from "@mui/material";
 import "./Return.css";
 import transfer from "../../../Images/transfer.png";
 // import { fontWeight } from '@mui/system'
 import { Button } from "react-bootstrap";
 import { Grid, GridItem, Flex,Box } from "@chakra-ui/react";
-import './OneWay.css'
+import './OneWay.css';
+import { useDispatch, useSelector, useReducer } from "react-redux";
+import {
+  clearReturnReducer,
+  returnAction,
+} from "../../../Redux/FlightSearch/Return/return";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import { apiURL } from "../../../Constants/constant";
 import { Stack } from "react-bootstrap";
  const options = [
    { label: "GPS", value: "1" },
@@ -31,8 +39,88 @@ import { Stack } from "react-bootstrap";
    { label: "Mega Maldives", value: "21" },
  ];
 const Return = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const reducerState = useSelector((state) => state);
     const [selected, setSelected] = useState([]);
     const [selectAll, setSelectAll] = useState(false);
+    const [selectedOption, setSelectedOption] = useState("option1");
+  const [isLoading, setIsLoading] = useState(false);
+  const [fromSearchResults, setFromSearchResults] = useState([]);
+  const [toSearchResults, setToSearchResults] = useState([]);
+  const [fromQuery, setFromQuery] = useState("");
+  const [toQuery, setToQuery] = useState("");
+  const [from, setFrom] = useState("");
+  const [selectedFrom, setSelectedFrom] = useState(null);
+  const [to, setTO] = useState("");
+  const [selectedTo, setSelectedTo] = useState(null);
+  const [displayFrom, setdisplayFrom] = useState(true);
+  const [displayTo, setdisplayTo] = useState(true);
+  useEffect(() => {
+    let mounted = true;
+
+    const fetchSearchResults = async () => {
+      setIsLoading(true);
+
+      // make an API call to get search results
+
+      const results = await axios.get(
+        `${apiURL.baseURL}/travvolt/city/searchCityData?keyword=${fromQuery}`
+      );
+      if (mounted) {
+        setFromSearchResults(results?.data?.data);
+        setIsLoading(false);
+      }
+    };
+
+    if (fromQuery.length >= 2) {
+      fetchSearchResults();
+    }
+    return () => {
+      mounted = false;
+    };
+  }, [fromQuery]);
+
+  useEffect(() => {
+    let mounted = true;
+
+    const fetchSearchResults = async () => {
+      setIsLoading(true);
+
+      // make an API call to get search results
+
+      const results = await axios.get(
+        `${apiURL.baseURL}/travvolt/city/searchCityData?keyword=${toQuery}`
+      );
+      if (mounted) {
+        setToSearchResults(results?.data?.data);
+        setIsLoading(false);
+      }
+    };
+
+    if (toQuery.length >= 2) {
+      fetchSearchResults();
+    }
+    return () => {
+      mounted = false;
+    };
+  }, [toQuery]);
+
+  useEffect(() => {
+    dispatch(clearReturnReducer());
+  }, [dispatch]);
+
+  const handleFromClick = (result) => {
+    setFrom(result.AirportCode);
+    setSelectedFrom(result);
+    setdisplayFrom(false);
+  };
+
+  const handleToClick = (result) => {
+    setTO(result.AirportCode);
+    setSelectedTo(result);
+    setdisplayTo(false);
+  };
     function handleCheckboxChange(event) {
       const { value } = event.target;
       if (selected.includes(value)) {
@@ -51,8 +139,67 @@ const Return = () => {
         setSelected([]);
       }
     }
+
+    const handleFromInputChange = (event) => {
+      setFrom(event.target.value);
+      setSelectedFrom(null);
+    
+    };
+    const handleFromSearch = (e) => {
+      setFromQuery(e);
+    };
+
+    const handleToInputChange = (event) => {
+      setTO(event.target.value);
+      setSelectedTo(null);
+      
+    };
+
+    const handleToSearch = (e) => {
+      setToQuery(e);
+    };
+
+    function handleSubmit(event) {
+      event.preventDefault();
+      const formData = new FormData(event.target);
+
+      const payload = {
+        EndUserIp: reducerState?.ip?.ipData,
+        TokenId: reducerState?.ip?.tokenData,
+        AdultCount: formData.get("adult"),
+        ChildCount: formData.get("child"),
+        InfantCount: formData.get("infant"),
+        DirectFlight: "false",
+        OneStopFlight: "false",
+        JourneyType: "2",
+        PreferredAirlines: null,
+        Segments: [
+          {
+            Origin: formData.get("from"),
+            Destination: formData.get("to"),
+            FlightCabinClass: formData.get("class"),
+            PreferredDepartureTime: formData.get("departure"),
+            PreferredArrivalTime: formData.get("departure"),
+          },
+          {
+            Origin: formData.get("to"),
+            Destination: formData.get("from"),
+            FlightCabinClass: formData.get("class"),
+            PreferredDepartureTime: formData.get("departure1"),
+            PreferredArrivalTime: formData.get("departure1"),
+          }
+        ],
+        Sources: null,
+      };
+     
+      sessionStorage.setItem("adults", formData.get("adult"));
+      sessionStorage.setItem("childs", formData.get("child"));
+      sessionStorage.setItem("infants", formData.get("infant"));
+      dispatch(returnAction(payload));
+    }
+
   return (
-    <form action="" className="formFlightSearch" style={{marginLeft:'17px'}}>
+    <form onSubmit={handleSubmit} className="formFlightSearch" style={{marginLeft:'17px'}}>
       {/* Type of return  */}
 
       <div className="d-flex flex-row mb-3 gap-5">
@@ -92,7 +239,53 @@ const Return = () => {
             <label for="from" className="form_lable">
               FROM
             </label>
-            <input placeholder="Enter city" />
+            <input
+                name="from"
+                placeholder="Enter city or airport"
+                value={from}
+                onChange={(event) => {
+                  handleFromInputChange(event);
+                  handleFromSearch(event.target.value);
+                }}
+              />
+              {isLoading && <div>Loading...</div>}
+              {fromSearchResults && fromSearchResults.length > 0 && (
+                <div
+                  style={{
+                    backgroundColor: "white",
+                    borderRadius: "10px",
+                    zIndex: 1,
+                    width: "100%",
+                    boxShadow: "rgba(0, 0, 0, 0.09) 0px 3px 12px",
+                    textAlign: "left",
+                    cursor: "pointer",
+                    display: displayFrom ? "block" : "none",
+                  }}
+                >
+                  <ul>
+                    <Box
+                      sx={{
+                        mb: 2,
+                        display: "flex",
+                        flexDirection: "column",
+                        maxHeight: 150,
+                        overflow: "hidden",
+                        overflowY: "scroll",
+                      }}
+                    >
+                      {fromSearchResults.map((result) => (
+                        <li
+                          key={result._id}
+                          onClick={() => handleFromClick(result)}
+                        >
+                          <strong>{result.AirportCode}</strong> {result.name}{" "}
+                          {result.code}
+                        </li>
+                      ))}
+                    </Box>
+                  </ul>
+                </div>
+              )}
           </div>
         </div>
         <div className="col-1 d-flex justify-content-center">
@@ -103,7 +296,53 @@ const Return = () => {
             <label for="to" className="form_lable">
               TO
             </label>
-            <input placeholder="Enter city" />
+            <input
+                name="to"
+                placeholder="Enter city or airport"
+                value={to}
+                onChange={(event) => {
+                  handleToInputChange(event);
+                  handleToSearch(event.target.value);
+                }}
+              />
+              {isLoading && <div>Loading...</div>}
+              {toSearchResults && toSearchResults.length > 0 && (
+                <div
+                  style={{
+                    backgroundColor: "white",
+                    borderRadius: "10px",
+                    zIndex: 1,
+                    width: "100%",
+                    boxShadow: "rgba(0, 0, 0, 0.09) 0px 3px 12px",
+                    textAlign: "left",
+                    cursor: "pointer",
+                    display: displayTo ? "block" : "none",
+                  }}
+                >
+                  <ul>
+                    <Box
+                      sx={{
+                        mb: 2,
+                        display: "flex",
+                        flexDirection: "column",
+                        maxHeight: 150,
+                        overflow: "hidden",
+                        overflowY: "scroll",
+                      }}
+                    >
+                      {toSearchResults.map((result) => (
+                        <li
+                          key={result._id}
+                          onClick={() => handleToClick(result)}
+                        >
+                          <strong>{result.AirportCode}</strong> {result.name}{" "}
+                          {result.code}
+                        </li>
+                      ))}
+                    </Box>
+                  </ul>
+                </div>
+              )}
           </div>
         </div>
 
@@ -130,8 +369,8 @@ const Return = () => {
 
             <input
               type="date"
-              name="departure"
-              id="departure"
+              name="departure1"
+              id="departure1"
               className="deaprture_input"
               placeholder="Enter city or airport"
             ></input>

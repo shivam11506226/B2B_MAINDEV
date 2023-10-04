@@ -19,6 +19,10 @@ function SingleData(props) {
   const IsLCC = props.IsLCC;
   // console.log("flight single", flight);
 
+  const results =
+  reducerState?.oneWay?.oneWayData?.data?.data?.Response?.Results|| reducerState?.return?.returnData?.data?.data?.Response?.Results;
+// console.log("Redux State", results);
+
   const indexKey = props.index;
   const fare =
     reducerState?.logIn?.loginData.length > 0
@@ -30,9 +34,11 @@ function SingleData(props) {
 
   console.log(fare);
   const img = flight?.Airline?.AirlineCode;
-  const results =
-    reducerState?.oneWay?.oneWayData?.data?.data?.Response?.Results;
-  // console.log("Redux State", results);
+  const imgReturn=results[1][0]?.AirlineCode;
+
+  console.log("data return flight array", results[1][0]?.Segments[0][0]?.Airline)
+
+
   const time = `${Math.floor(flight?.Duration / 60)}hr ${
     flight.Duration % 60
   }min`;
@@ -213,6 +219,131 @@ function SingleData(props) {
             </Box>
           </Grid>
         </Box>
+        {reducerState?.return?.returnData?.data?.data?.Response?.Results[1]?(
+        <Box display="flex" justifyContent="space-between">
+          <Grid
+            container
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+            }}
+          >
+            <Grid md={2} sm={2} py={3}>
+              <Box
+                display="flex"
+                justifyContent="center"
+                flexDirection="column"
+              >
+                <Box
+                  sx={{
+                    width: "auto",
+                    height: "40px",
+                    backgroundColor: "white",
+                  }}
+                >
+                  <img
+                    src={`${process.env.PUBLIC_URL}/FlightImages/${imgReturn}.png`}
+                    alt="flight"
+                    style={{
+                      width: "-webkit-fill-available",
+                      height: "40px",
+                      backgroundColor: "white",
+                    }}
+                  />
+                </Box>
+                <Box px={1}>
+                  <Typography className="flight_name">
+                    {results[1][0]?.Segments[0][0]?.Airline?.AirlineName}
+                  </Typography>
+                  <Typography className="flight_class">
+                    {results[1][0]?.Segments[0][0]?.Airline?.AirlineCode}{" "}
+                    {results[1][0]?.Segments[0][0]?.Airline?.FlightNumber}
+                  </Typography>
+                  <Typography className="mt-2">
+                    {IsLCC ? (
+                      <span
+                        className="text-danger"
+                        style={{ fontSize: "12px" }}
+                      >
+                        Not Available
+                      </span>
+                    ) : (
+                      <span
+                        className="text-success"
+                        style={{ fontSize: "12px" }}
+                      >
+                        Available
+                      </span>
+                    )}
+                  </Typography>
+                </Box>
+              </Box>
+            </Grid>
+            <Grid md={2} sm={1} py={3} display="flex" justifyContent="center">
+              <Box px={1}>
+                <Typography className="flight_name">
+                  <span style={{ fontSize: "11px" }}>{formattedDate}</span>
+                  <p style={{ paddingBottom: "5px", margin: 0 }}>{time1}</p>
+                </Typography>
+                <Typography className="flight_class">
+                  {results[1][0]?.Segments[0][0]?.Origin?.Airport?.CityName}
+                </Typography>
+              </Box>
+            </Grid>
+            <Grid md={2} sm={2} py={4}>
+              <Box display="flex" justifyContent="center">
+                <Box>
+                  <Box px={1} textAlign="center">
+                    <Typography className="flight_class">{time}</Typography>
+                  </Box>
+                  <Box px={1} textAlign="center">
+                    <Typography className="flight_class">
+                      Direct Flight
+                    </Typography>
+                  </Box>
+                </Box>
+              </Box>
+            </Grid>
+            <Grid md={2} sm={1} py={3} display="flex" justifyContent="center">
+              <Box px={1}>
+                <Typography className="flight_name">
+                  {" "}
+                  <Typography className="flight_name">
+                    <span style={{ fontSize: "11px" }}>{formattedDate1}</span>
+                    <p style={{ paddingBottom: "5px", margin: 0 }}>{time2}</p>
+                  </Typography>
+                </Typography>
+                <Typography className="flight_class">
+                  {results[1][0]?.Segments[0][0]?.Destination?.Airport?.CityName}
+                </Typography>
+              </Box>
+            </Grid>
+          </Grid>
+          <Grid
+            md={2}
+            sm={2}
+            py={3}
+            display="flex"
+            justifyContent="center"
+            alignItems="center"
+          >
+            <Box px={1}>
+              <Typography className="flight_price">₹{fare}</Typography>
+            </Box>
+          </Grid>
+          <Grid
+            md={2}
+            sm={2}
+            py={3}
+            display="flex"
+            justifyContent="center"
+            alignItems="center"
+          >
+            <Box px={1}>
+              <Typography className="flight_price">₹{fare}</Typography>
+            </Box>
+          </Grid>
+        </Box>):""}
         <Box display="flex" justifyContent="space-between" alignItems="center">
           <Typography className="seat_left" display="flex" alignItems="center">
             {flight?.NoOfSeatAvailable} Seats Left

@@ -3,6 +3,7 @@ import { logInReducer } from "./Auth/logIn/logInReducer";
 import { signUpReducer } from "./Auth/SignUp/signUpReducer";
 import { ipReducer } from "./IP/ipReducer";
 import { oneWayReducer } from "./FlightSearch/OneWay/oneWayReducer";
+import { returnReducer } from "./FlightSearch/Return/returnReducer";
 import { oneWayEMTReducer } from "./FlightSearch/OneWayEMT/oneWayEMTReducer";
 import storage from "redux-persist/lib/storage/session";
 import { LOGOUT_REQUEST } from "./Auth/logIn/actionType";
@@ -37,6 +38,7 @@ const appReducer = combineReducers({
   ip: ipReducer,
   passengers: passengersReducer,
   oneWay: oneWayReducer,
+  return:returnReducer,
   oneWayEMT: oneWayEMTReducer,
   flightFare: flightFareReducer,
   flightBook: flightBookReducer,
@@ -77,6 +79,12 @@ const rootReducer = (state, action) => {
     return {
       ...state,
       oneWay: oneWayReducer(undefined, action),
+    };
+  }else if(action.type === "CLEAR_RETURN_REDUCER"){
+    return {
+      ...state,
+      return:returnReducer(undefined, action)
+
     };
   } else if (action.type === "CLEAR_ONEWAY_EMT_REDUCER") {
     return {

@@ -15,7 +15,7 @@ const Flightdetail = () => {
   const navigate = useNavigate();
   const [filter, setFilter] = useState(1);
   const results =
-    reducerState?.oneWay?.oneWayData?.data?.data?.Response?.Results;
+    reducerState?.oneWay?.oneWayData?.data?.data?.Response?.Results || reducerState?.return?.returnData?.data?.data?.Response?.Results;
   // console.log("Reducer State", results);
 
   useEffect(() => {

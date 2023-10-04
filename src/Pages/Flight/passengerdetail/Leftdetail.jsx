@@ -225,7 +225,7 @@ const Leftdetail = () => {
     //   AgentReferenceNo: "sonam1234567890",
     //   Passengers: [
     //     {
-    //       Title: "Mr",
+    //       Title: formData.get("title"),
     //       FirstName: formData.get("name"),
     //       LastName: formData.get("lastname"),
     //       PaxType: 1,
@@ -236,12 +236,20 @@ const Leftdetail = () => {
     //       AddressLine1: formData.get("address"),
     //       AddressLine2: "",
     //       Fare: {
-    //         BaseFare: 5531.0,
-    //         Tax: 1042.0,
-    //         YQTax: 0.0,
-    //         AdditionalTxnFeePub: 0.0,
-    //         AdditionalTxnFeeOfrd: 0.0,
-    //         OtherCharges: 0.0,
+    //         Currency:fareValue?.Fare?.Currency,
+    //         BaseFare: fareValue?.Fare?.BaseFare,
+    //         Tax: fareValue?.Fare?.Tax,
+    //         YQTax: fareValue?.Fare?.YQTax,
+    //         AdditionalTxnFeePub: fareValue?.Fare?.AdditionalTxnFeePub,
+    //         AdditionalTxnFeeOfrd: fareValue?.Fare?.AdditionalTxnFeeOfrd,
+    //         OtherCharges: fareValue?.Fare?.OtherCharges,
+    //         Discount:fareValue?.Fare?.Discount,
+    //         PublishedFare: fareValue?.Fare?.PublishedFare,
+    //         OfferedFare: fareValue?.Fare?.OfferedFare,
+    //         TdsOnCommission: fareValue?.Fare?.TdsOnCommission,
+    //         TdsOnPLB: fareValue?.Fare?.TdsOnPLB,
+    //         TdsOnIncentive: fareValue?.Fare?.TdsOnIncentive,
+    //         ServiceFee: fareValue?.Fare?.ServiceFee
     //       },
     //       City: formData.get("city"),
     //       CountryCode: "IN",
@@ -254,11 +262,11 @@ const Leftdetail = () => {
     //       FFNumber: "123",
     //       Baggage: [
     //         {
-    //           AirlineCode: "6E",
-    //           FlightNumber: "23",
-    //           WayType: 2,
-    //           Code: "No Baggage",
-    //           Description: 2,
+    //           AirlineCode: fareValue?.Segments[0]?.Airline?.AirlineCode,
+    //           FlightNumber: fareValue?.Segments[0]?.Airline?.FlightNumber,
+    //           WayType: ,
+    //           Code: ,
+    //           Description: ,
     //           Weight: 0,
     //           Currency: "INR",
     //           Price: 0,
@@ -367,6 +375,20 @@ const Leftdetail = () => {
                     <div className="mb-2">
                       <span className=" p-2 ">Passenger {i + 1}</span>
                       <Box p={15} display="flex">
+                      <Box>
+                      <div className="hotel_form_input">
+                            <label className="form_lable">Title*</label>
+                            <select
+                              name="Title"
+                              className="hotel_input_select"
+                              onChange={(e) => handleServiceChange(e, i)}
+                            >
+                              <option value="Mr">Mr.</option>
+                              <option value="Mrs">Mrs.</option>
+                              <option value="Miss">Miss</option>
+                            </select>
+                          </div>
+                        </Box>
                         <Box>
                           <div className="form_input">
                             <label hotel_form_input className="form_lable">
