@@ -20,16 +20,16 @@ const Flight = () => {
 
   console.log("reducerState", reducerState);
   useEffect(() => {
-    if (reducerState?.oneWay?.isLoading == true) {
+    if (reducerState?.oneWay?.isLoading||reducerState?.return?.isLoading === true) {
       setLoader(true);
     }
-  }, [reducerState?.oneWay?.isLoading]);
+  }, [reducerState?.oneWay?.isLoading || reducerState?.return?.isLoading ]);
   useEffect(() => {
-    if (reducerState?.oneWay?.oneWayData?.data?.data?.Response?.Results) {
+    if (reducerState?.oneWay?.oneWayData?.data?.data?.Response?.Results||reducerState?.return?.returnData?.data?.data?.Response?.Results) {
       navigate("/Flightresult");
       setLoader(false);
     }
-  }, [reducerState?.oneWay?.oneWayData?.data?.data?.Response?.Results]);
+  }, [reducerState?.oneWay?.oneWayData?.data?.data?.Response?.Results||reducerState?.return?.returnData?.data?.data?.Response?.Results]);
 
   return (
     <>
