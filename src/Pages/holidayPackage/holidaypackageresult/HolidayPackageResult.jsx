@@ -1,10 +1,8 @@
 import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Flex, Spacer, Text, HStack, Box } from "@chakra-ui/react";
-
 import HolidayPackagedetail from "../holidaypackageresult/HolidayPackagedetail";
 import HolidatLeftPackage from "./HolidatLeftPackage";
-
 import CommitIcon from "@mui/icons-material/Commit";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import Checkbox from "@mui/material/Checkbox";
@@ -51,6 +49,7 @@ import information from "../../../Images/information.png";
 import { Grid, Box as MuiBox, Typography, Button } from "@mui/material";
 import mainImage from "../../../Images/mainImage.png";
 import FlightIcon from "@mui/icons-material/Flight";
+import colors from "../../../color/color"; //color.js
 import { useDispatch, useSelector } from "react-redux";
 import {
   clearHolidayReducer,
@@ -97,8 +96,8 @@ const HolidayPackageResult = () => {
               w="25px"
               h="25px"
               borderRadius="50%"
-              bg="#0096FF"
               color="white"
+              style={{ backgroundColor: colors.bluedark }}
             >
               <Text>1</Text>
             </Box>
@@ -115,7 +114,7 @@ const HolidayPackageResult = () => {
               w="25px"
               h="25px"
               borderRadius="50%"
-              bg="#0096FF"
+              style={{ backgroundColor: colors.bluedark }}
               color="white"
             >
               <Text>2</Text>
@@ -130,7 +129,7 @@ const HolidayPackageResult = () => {
               w="25px"
               h="25px"
               borderRadius="50%"
-              bg="#0096FF"
+              style={{ backgroundColor: colors.bluedark }}
               color="white"
             >
               <Text>3</Text>
@@ -146,7 +145,7 @@ const HolidayPackageResult = () => {
               w="25px"
               h="25px"
               borderRadius="50%"
-              bg="#0096FF"
+              style={{ backgroundColor: colors.bluedark }}
               color="white"
             >
               <Text>4</Text>
@@ -162,7 +161,7 @@ const HolidayPackageResult = () => {
               w="25px"
               h="25px"
               borderRadius="50%"
-              bg="#0096FF"
+              style={{ backgroundColor: colors.bluedark }}
               color="white"
             >
               <Text>5</Text>
@@ -186,11 +185,16 @@ const HolidayPackageResult = () => {
                 margin="15px 0px 15px 0px"
               >
                 <MuiBox>
-                  <Button sx={{ color: "black" }}>Sorting By :</Button>
+                  <Button sx={{ color: colors.bluedark }}>Sorting By :</Button>
                 </MuiBox>
 
                 <MuiBox>
-                  <Button sx={{ color: "black" }} variant="outlined">
+                  <Button
+                    sx={{
+                      color: colors.bluedark,
+                      border: "1px solid colors.bluedark",
+                    }}
+                  >
                     Price
                   </Button>
                 </MuiBox>
@@ -233,7 +237,7 @@ const HolidayPackageResult = () => {
                                 <img
                                   src={item?.pakage_img}
                                   style={{
-                                    width: "100px",
+                                    width: "150px",
                                     border: "1px solid gray",
                                     borderRadius: "10px",
                                   }}
@@ -247,12 +251,15 @@ const HolidayPackageResult = () => {
                                   marginLeft: "60px",
                                 }}
                               >
-                                <Typography className="hotel_name">
+                                <Typography
+                                  className="hotel_name"
+                                  style={{ color: colors.bluedark }}
+                                >
                                   {item?.pakage_title}
                                 </Typography>
                                 <Typography
                                   color="#FF8900"
-                                  fontSize="10px"
+                                  fontSize="12px"
                                   fontWeight="bold"
                                 >
                                   {/* 3N/4D (Goa) */}
@@ -275,6 +282,8 @@ const HolidayPackageResult = () => {
                                 display: "flex",
                                 alignItems: "flex-start",
                                 justifyContent: "space-around",
+
+                                width: "500px",
                               }}
                             >
                               {item?.insclusions?.map((ele, index) => {
@@ -283,121 +292,221 @@ const HolidayPackageResult = () => {
                                     {ele?.flexibility && (
                                       <span>
                                         {" "}
-                                        <CommitIcon />{" "}
+                                        <CommitIcon
+                                          style={{
+                                            fontSize: "60px",
+                                            color: colors.bluedark,
+                                          }}
+                                        />{" "}
                                       </span>
                                     )}
                                     {ele?.train && (
                                       <span>
                                         {" "}
-                                        <TramIcon />{" "}
+                                        <TramIcon
+                                          style={{
+                                            fontSize: "50px",
+                                            color: colors.bluedark,
+                                          }}
+                                        />{" "}
                                       </span>
                                     )}
                                     {ele?.bus && (
                                       <span>
                                         {" "}
-                                        <DirectionsBusIcon />{" "}
+                                        <DirectionsBusIcon
+                                          style={{
+                                            fontSize: "50px",
+                                            color: colors.bluedark,
+                                          }}
+                                        />{" "}
                                       </span>
                                     )}
                                     {ele?.cab && (
                                       <span>
                                         {" "}
-                                        <DirectionsCarIcon />{" "}
+                                        <DirectionsCarIcon
+                                          style={{
+                                            fontSize: "50px",
+                                            color: colors.bluedark,
+                                          }}
+                                        />{" "}
                                       </span>
                                     )}
                                     {ele?.hotel && (
                                       <span>
                                         {" "}
-                                        <ApartmentIcon />{" "}
+                                        <ApartmentIcon
+                                          style={{
+                                            fontSize: "50px",
+                                            color: colors.bluedark,
+                                          }}
+                                        />{" "}
                                       </span>
                                     )}
                                     {ele?.homeStays && (
                                       <span>
                                         {" "}
-                                        <HolidayVillageIcon />{" "}
+                                        <HolidayVillageIcon
+                                          style={{
+                                            fontSize: "50px",
+                                            color: colors.bluedark,
+                                          }}
+                                        />{" "}
                                       </span>
                                     )}
                                     {ele?.guestHouse && (
                                       <span>
                                         {" "}
-                                        <LocationCityIcon />{" "}
+                                        <LocationCityIcon
+                                          style={{
+                                            fontSize: "50px",
+                                            color: colors.bluedark,
+                                          }}
+                                        />{" "}
                                       </span>
                                     )}
                                     {ele?.cruise && (
                                       <span>
                                         {" "}
-                                        <BlurOnIcon />{" "}
+                                        <BlurOnIcon
+                                          style={{
+                                            fontSize: "50px",
+                                            color: colors.bluedark,
+                                          }}
+                                        />{" "}
                                       </span>
                                     )}
                                     {ele?.sightSeeing && (
                                       <span>
                                         {" "}
-                                        <DeckIcon />{" "}
+                                        <DeckIcon
+                                          style={{
+                                            fontSize: "50px",
+                                            color: colors.bluedark,
+                                          }}
+                                        />{" "}
                                       </span>
                                     )}
                                     {ele?.guide && (
                                       <span>
                                         {" "}
-                                        <EngineeringIcon />{" "}
+                                        <EngineeringIcon
+                                          style={{
+                                            fontSize: "50px",
+                                            color: colors.bluedark,
+                                          }}
+                                        />{" "}
                                       </span>
                                     )}
                                     {ele?.meals && (
                                       <span>
                                         {" "}
-                                        <FastfoodIcon />{" "}
+                                        <FastfoodIcon
+                                          style={{
+                                            fontSize: "50px",
+                                            color: colors.bluedark,
+                                          }}
+                                        />{" "}
                                       </span>
                                     )}
                                     {ele?.breakfast && (
                                       <span>
                                         {" "}
-                                        <DinnerDiningIcon />{" "}
+                                        <DinnerDiningIcon
+                                          style={{
+                                            fontSize: "50px",
+                                            color: colors.bluedark,
+                                          }}
+                                        />{" "}
                                       </span>
                                     )}
                                     {ele?.drink && (
                                       <span>
                                         {" "}
-                                        <LiquorIcon />{" "}
+                                        <LiquorIcon
+                                          style={{
+                                            fontSize: "50px",
+                                            color: colors.bluedark,
+                                          }}
+                                        />{" "}
                                       </span>
                                     )}
                                     {ele?.visa && (
                                       <span>
                                         {" "}
-                                        <ArticleIcon />{" "}
+                                        <ArticleIcon
+                                          style={{
+                                            fontSize: "50px",
+                                            color: colors.bluedark,
+                                          }}
+                                        />{" "}
                                       </span>
                                     )}
                                     {ele?.moterBike && (
                                       <span>
                                         {" "}
-                                        <TwoWheelerIcon />{" "}
+                                        <TwoWheelerIcon
+                                          style={{
+                                            fontSize: "50px",
+                                            color: colors.bluedark,
+                                          }}
+                                        />{" "}
                                       </span>
                                     )}
                                     {ele?.travelInsurance && (
                                       <span>
                                         {" "}
-                                        <AccountBalanceIcon />{" "}
+                                        <AccountBalanceIcon
+                                          style={{
+                                            fontSize: "50px",
+                                            color: colors.bluedark,
+                                          }}
+                                        />{" "}
                                       </span>
                                     )}
                                     {ele?.safeTravel && (
                                       <span>
                                         {" "}
-                                        <ParaglidingIcon />{" "}
+                                        <ParaglidingIcon
+                                          style={{
+                                            fontSize: "50px",
+                                            color: colors.bluedark,
+                                          }}
+                                        />{" "}
                                       </span>
                                     )}
                                     {ele?.wildlife && (
                                       <span>
                                         {" "}
-                                        <NaturePeopleIcon />{" "}
+                                        <NaturePeopleIcon
+                                          style={{
+                                            fontSize: "50px",
+                                            color: colors.bluedark,
+                                          }}
+                                        />{" "}
                                       </span>
                                     )}
                                     {ele?.heritage && (
                                       <span>
                                         {" "}
-                                        <LandslideIcon />{" "}
+                                        <LandslideIcon
+                                          style={{
+                                            fontSize: "50px",
+                                            color: colors.bluedark,
+                                          }}
+                                        />{" "}
                                       </span>
                                     )}
                                     {ele?.adventure && (
                                       <span>
                                         {" "}
-                                        <KitesurfingIcon />{" "}
+                                        <KitesurfingIcon
+                                          style={{
+                                            fontSize: "50px",
+                                            color: colors.bluedark,
+                                          }}
+                                        />{" "}
                                       </span>
                                     )}
                                     {ele?.beach && (
@@ -409,13 +518,23 @@ const HolidayPackageResult = () => {
                                     {ele?.hillStation && (
                                       <span>
                                         {" "}
-                                        <DownhillSkiingIcon />{" "}
+                                        <DownhillSkiingIcon
+                                          style={{
+                                            fontSize: "50px",
+                                            color: colors.bluedark,
+                                          }}
+                                        />{" "}
                                       </span>
                                     )}
                                     {ele?.nature && (
                                       <span>
                                         {" "}
-                                        <ForestIcon />{" "}
+                                        <ForestIcon
+                                          style={{
+                                            fontSize: "50px",
+                                            color: colors.bluedark,
+                                          }}
+                                        />{" "}
                                       </span>
                                     )}
                                   </>
@@ -435,17 +554,16 @@ const HolidayPackageResult = () => {
                                 textAlign="center"
                               >
                                 <Typography
-                                  color="#006FFF"
+                                  style={{ color: colors.bluedark }}
                                   fontSize="18px"
                                   fontWeight="bold"
                                 >
-                                  
                                   <span>&#8377;</span>
                                   {item?.pakage_amount?.amount}
                                 </Typography>
                                 <form action="./Holidaybooknow">
                                   <Button
-                                    variant="contained"
+                                    style={{ backgroundColor: colors.bluedark }}
                                     type="submit"
                                     onClick={(e) => searchOneHoliday(item?._id)}
                                   >

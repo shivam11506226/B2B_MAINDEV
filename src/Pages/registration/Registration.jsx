@@ -30,7 +30,9 @@ import { Button } from "@mui/material";
 import { fontWeight } from "@mui/system";
 import { signUpAction } from "../../Redux/Auth/SignUp/actionSignUp";
 import "./registration.css";
-
+import logo from "../../../src/Images/ST-Main-Logo.png";
+import color from "../../color/color";
+import newbanner from "../../../src/Images/newBanner1.jpg"
 const Login = () => {
   const dispatch = useDispatch();
   const reducerState = useSelector((state) => state);
@@ -152,13 +154,12 @@ const Login = () => {
                 >
                   <Box
                     sx={{
-                      width: "69px",
+                      width: "200px",
                       height: "69px",
                     }}
                   >
-                    <img src={tra} style={{ width: "100%" }}></img>
+                    <img src={logo} style={{ width: "100%" }}></img>
                   </Box>
-                  <Typography className="logo_text">Travvolt</Typography>
                 </Box>
               </Grid>
               <Grid
@@ -211,13 +212,15 @@ const Login = () => {
                         backgroundSize: "100% 100%",
                       }}
                     >
+                      {/* <img src={newbanner} alt="" style={{width:"100%",background:"cover",height:"300px",opacity:"0.8"}}/> */}
                       <Box>
+                       
                         <Typography
                           sx={{
                             fontSize: "22px",
                             fontWeight: "bold",
-                            textDecoration: "underline",
                           }}
+                          style={{ color: color.bluedark }}
                         >
                           Personal Details
                         </Typography>
@@ -229,13 +232,7 @@ const Login = () => {
                             justifyContent="center"
                             p={3}
                           >
-                            <Grid
-                              item
-                              xs={12}
-                              sm={12}
-                              md={4}
-                              alignItems="center"
-                            >
+                            <Grid width="100%" alignItems="center">
                               <Box
                                 py={2}
                                 display="flex"
@@ -270,9 +267,6 @@ const Login = () => {
                                     required
                                   />
                                 </div>
-                              </Box>
-
-                              <Box py={2}>
                                 <div className="form_input">
                                   <label className="form_lable">
                                     Residential Address*
@@ -286,7 +280,15 @@ const Login = () => {
                                   />
                                 </div>
                               </Box>
-                              <Box py={2}>
+                            </Grid>
+
+                            <Grid width="100%" alignItems="center">
+                              <Box
+                                py={2}
+                                display="flex"
+                                justifyContent="space-between"
+                                style={{ gap: "10px" }}
+                              >
                                 <div className="form_input">
                                   <label className="form_lable">
                                     Pin Code*
@@ -299,9 +301,7 @@ const Login = () => {
                                     required
                                   />
                                 </div>
-                              </Box>
-                              <Box py={2}>
-                                <div className="form_input">
+                                <div className="form_input" mx={2}>
                                   <label className="form_lable">
                                     State/Province*
                                   </label>
@@ -313,17 +313,8 @@ const Login = () => {
                                     required
                                   />
                                 </div>
-                              </Box>
-                            </Grid>
-                            <Grid
-                              item
-                              xs={12}
-                              sm={12}
-                              md={4}
-                              alignItems="center"
-                            >
-                              <Box py={2}>
-                                <div className="form_input">
+
+                                <div className="form_input" mx={2}>
                                   <label className="form_lable">
                                     Mobile Number
                                   </label>
@@ -336,7 +327,15 @@ const Login = () => {
                                   />
                                 </div>
                               </Box>
-                              <Box py={2}>
+                            </Grid>
+
+                            <Grid width="100%" alignItems="center">
+                              <Box
+                                py={2}
+                                display="flex"
+                                justifyContent="space-between"
+                                style={{ gap: "10px" }}
+                              >
                                 <div className="form_input">
                                   <label className="form_lable">
                                     {" "}
@@ -349,8 +348,6 @@ const Login = () => {
                                     className="input_size"
                                   />
                                 </div>
-                              </Box>
-                              <Box py={2}>
                                 <div className="form_input">
                                   <label className="form_lable">City*</label>
                                   <input
@@ -361,8 +358,7 @@ const Login = () => {
                                     required
                                   />
                                 </div>
-                              </Box>
-                              <Box py={2}>
+
                                 <div className="form_input">
                                   <label className="form_lable">
                                     Password*
@@ -377,14 +373,14 @@ const Login = () => {
                                 </div>
                               </Box>
                             </Grid>
-                            <Grid
-                              item
-                              xs={12}
-                              sm={12}
-                              md={4}
-                              alignItems="center"
-                            >
-                              <Box py={2}>
+
+                            <Grid width="100%" alignItems="center">
+                              <Box
+                                py={2}
+                                display="flex"
+                                justifyContent="space-between"
+                                style={{ gap: "10px" }}
+                              >
                                 <div className="form_input">
                                   <label className="form_lable">Email*</label>
                                   <input
@@ -395,8 +391,6 @@ const Login = () => {
                                     required
                                   />
                                 </div>
-                              </Box>
-                              <Box py={2}>
                                 <div className="form_input">
                                   <label className="form_lable">
                                     {" "}
@@ -409,8 +403,7 @@ const Login = () => {
                                     className="input_size"
                                   />
                                 </div>
-                              </Box>
-                              <Box py={2}>
+
                                 <div className="form_input">
                                   <label className="form_lable">Country*</label>
                                   <input
@@ -441,8 +434,8 @@ const Login = () => {
                           sx={{
                             fontSize: "22px",
                             fontWeight: "bold",
-                            textDecoration: "underline",
                           }}
+                          style={{ color: color.bluedark }}
                         >
                           Agency Details
                         </Typography>
@@ -517,32 +510,7 @@ const Login = () => {
                                   />
                                 </div>
                               </Box>
-                              <Box py={2}>
-                                <FormControl display="flex">
-                                  <FormLabel
-                                    id="demo-row-radio-buttons-group-label"
-                                    sx={{ color: "black", fontWeight: "bold" }}
-                                  >
-                                    Office Space
-                                  </FormLabel>
-                                  <RadioGroup
-                                    row
-                                    aria-labelledby="demo-row-radio-buttons-group-label"
-                                    name="row-radio-buttons-group"
-                                  >
-                                    <FormControlLabel
-                                      value="Owned"
-                                      control={<Radio />}
-                                      label="Owned"
-                                    />
-                                    <FormControlLabel
-                                      value="Rental"
-                                      control={<Radio />}
-                                      label="Rental"
-                                    />
-                                  </RadioGroup>
-                                </FormControl>
-                              </Box>
+
                               {/* <Box py={2}>
                                 <div className="form-row d-flex">
                                   <div className="px-3 py-2">
@@ -569,6 +537,7 @@ const Login = () => {
                                   />
                                 </div>
                               </Box>
+
                               <Box py={2}>
                                 <div className="form_input">
                                   <label className="form_lable">
@@ -583,13 +552,7 @@ const Login = () => {
                                 </div>
                               </Box>
                             </Grid>
-                            <Grid
-                              item
-                              xs={12}
-                              sm={12}
-                              md={4}
-                              alignItems="center"
-                            >
+                            <Grid item xs={12} sm={12} md={4}>
                               <Box py={2}>
                                 <div className="form_input">
                                   <label className="form_lable">PAN*</label>
@@ -599,6 +562,7 @@ const Login = () => {
                                     type="file"
                                     className="input_size"
                                     required
+                                    style={{ padding: "10px" }}
                                   />
                                 </div>
                               </Box>
@@ -657,32 +621,7 @@ const Login = () => {
                                   </div>
                                 </div>
                               </Box> */}
-                              <Box>
-                                <FormControl display="flex">
-                                  <FormLabel
-                                    id="demo-row-radio-buttons-group-label"
-                                    sx={{ color: "black", fontWeight: "bold" }}
-                                  >
-                                    IATA Registerd
-                                  </FormLabel>
-                                  <RadioGroup
-                                    row
-                                    aria-labelledby="demo-row-radio-buttons-group-label"
-                                    name="row-radio-buttons-group"
-                                  >
-                                    <FormControlLabel
-                                      value="Yes"
-                                      control={<Radio />}
-                                      label="Yes"
-                                    />
-                                    <FormControlLabel
-                                      value="No"
-                                      control={<Radio />}
-                                      label="No"
-                                    />
-                                  </RadioGroup>
-                                </FormControl>
-                              </Box>
+
                               <Box py={2}>
                                 <div className="form_input">
                                   <label className="form_lable">
@@ -697,6 +636,7 @@ const Login = () => {
                                   />
                                 </div>
                               </Box>
+
                               <Box py={2}>
                                 <div className="form_input">
                                   <label className="form_lable">
@@ -791,7 +731,7 @@ const Login = () => {
                                   />
                                 </div>
                               </Box>
-                              <Box py={4.6}></Box>
+
                               <Box py={2}>
                                 <div className="form_input">
                                   <label className="form_lable">
@@ -807,6 +747,67 @@ const Login = () => {
                               </Box>
                             </Grid>
                           </Grid>
+                          <div
+                            style={{
+                              display: "flex",
+                              margin: "auto",
+                              gap: "20px",
+                              marginLeft: "20px",
+                            }}
+                          >
+                            <Box py={2} style={{ padding: "-10px" }}>
+                              <FormControl display="flex">
+                                <FormLabel
+                                  id="demo-row-radio-buttons-group-label"
+                                  sx={{ color: "black", fontWeight: "bold" }}
+                                >
+                                  Office Space
+                                </FormLabel>
+                                <RadioGroup
+                                  row
+                                  aria-labelledby="demo-row-radio-buttons-group-label"
+                                  name="row-radio-buttons-group"
+                                >
+                                  <FormControlLabel
+                                    value="Owned"
+                                    control={<Radio />}
+                                    label="Owned"
+                                  />
+                                  <FormControlLabel
+                                    value="Rental"
+                                    control={<Radio />}
+                                    label="Rental"
+                                  />
+                                </RadioGroup>
+                              </FormControl>
+                            </Box>
+                            <Box py={2}>
+                              <FormControl display="flex">
+                                <FormLabel
+                                  id="demo-row-radio-buttons-group-label"
+                                  sx={{ color: "black", fontWeight: "bold" }}
+                                >
+                                  IATA Registerd
+                                </FormLabel>
+                                <RadioGroup
+                                  row
+                                  aria-labelledby="demo-row-radio-buttons-group-label"
+                                  name="row-radio-buttons-group"
+                                >
+                                  <FormControlLabel
+                                    value="Yes"
+                                    control={<Radio />}
+                                    label="Yes"
+                                  />
+                                  <FormControlLabel
+                                    value="No"
+                                    control={<Radio />}
+                                    label="No"
+                                  />
+                                </RadioGroup>
+                              </FormControl>
+                            </Box>
+                          </div>
                         </div>
                       </Box>
                     </div>
@@ -824,8 +825,8 @@ const Login = () => {
                           sx={{
                             fontSize: "22px",
                             fontWeight: "bold",
-                            textDecoration: "underline",
                           }}
+                          style={{ color: color.bluedark }}
                         >
                           Agency GST Details
                         </Typography>
@@ -923,7 +924,7 @@ const Login = () => {
                                   />
                                 </div>
                               </Box>
-                              <Box py={2}>
+                              <Box style={{display:"flex",margin:"auto",width:"510px",gap:"20px"}}>
                                 <div className="form_input">
                                   <label className="form_lable">
                                     Supply Type
@@ -932,6 +933,21 @@ const Login = () => {
                                     <option mx={5}>Tax</option>
                                     <option px={5}>SEZWOP</option>
                                   </select>
+                                </div>
+                                <div
+                                 style={{marginTop:"10px"}}
+                                >
+                                  <Button
+                                    type="submit"
+                                    variant="contained"
+                                    style={{
+                                      backgroundColor: color.bluedark,
+                                      color: "white",
+                                      
+                                    }}
+                                  >
+                                    Submit
+                                  </Button>
                                 </div>
                               </Box>
                             </Grid>
@@ -1121,17 +1137,6 @@ const Login = () => {
                           </Grid>
                         </div>
                       </Box>
-                    </div>
-                    <div
-                      style={{
-                        display: "flex",
-                        justifyContent: "space-evenly",
-                        marginTop: "20px",
-                      }}
-                    >
-                      <Button type="submit" variant="contained" color="primary">
-                        Submit
-                      </Button>
                     </div>
                   </form>
                 </Paper>

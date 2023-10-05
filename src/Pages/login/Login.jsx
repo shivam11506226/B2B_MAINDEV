@@ -65,12 +65,14 @@ const Login = () => {
                   textAlign="center"
                   // marginTop="10px"
                   font="Quicksand, Bold"
+                  
                 >
                   <Box
                     sx={{
                       width: "69px",
                       height: "69px",
                     }}
+                  
                   >
                     <img src={StLogo} style={{ width: "250px" }}></img>
                   </Box>
@@ -95,7 +97,7 @@ const Login = () => {
                     <Grid item xs={12} sm={12} lg={1} textAlign="center"></Grid>
                     <Grid item xs={12} sm={12} lg={10} textAlign="center">
                       <Box display="flex" justifyContent="space-around">
-                        <Box textAlign="center">
+                        <Box textAlign="center" >
                           <img src={flight} style={{width:"100%",height:"80px"}}/>
                           <Typography
                             sx={{

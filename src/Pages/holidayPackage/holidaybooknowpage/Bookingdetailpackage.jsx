@@ -51,7 +51,7 @@ import { textAlign } from "@mui/system";
 import { Divider } from "@chakra-ui/react";
 import { useSelector } from "react-redux";
 import Accordion from "react-bootstrap/Accordion";
-
+import color from "../../../color/color";
 const Bookingdetailpackage = () => {
   const reducerState = useSelector((state) => state);
   const onePackage =
@@ -70,7 +70,7 @@ const Bookingdetailpackage = () => {
           <Grid container alignItems="center">
             <Grid md={7} sm={6}>
               <Box display="flex" alignItems="center">
-                <Box sx={{ width: "20%", height: "20%" }}>
+                <Box sx={{ width: "25%", height: "22%" }}>
                   <img
                     src={onePackage?.pakage_img}
                     className="flight_img"
@@ -78,7 +78,7 @@ const Bookingdetailpackage = () => {
                   />
                 </Box>
                 <Box px={1}>
-                  <Typography className="hotel_name">
+                  <Typography className="hotel_name" >
                     {onePackage?.pakage_title}
                   </Typography>
                   <Typography color="#FF8900" fontSize="10px" fontWeight="bold">
@@ -91,7 +91,7 @@ const Bookingdetailpackage = () => {
                         {tag?.domestic == true && (
                           <Typography
                             color="#666666"
-                            fontSize="10px"
+                            fontSize="15px"
                             fontWeight="bold"
                           >
                             Domestic
@@ -100,7 +100,7 @@ const Bookingdetailpackage = () => {
                         {tag?.international == true && (
                           <Typography
                             color="#666666"
-                            fontSize="10px"
+                            fontSize="15px"
                             fontWeight="bold"
                           >
                             International
@@ -109,7 +109,7 @@ const Bookingdetailpackage = () => {
                         {tag?.budget == true && (
                           <Typography
                             color="#666666"
-                            fontSize="10px"
+                            fontSize="15px"
                             fontWeight="bold"
                           >
                             Budget
@@ -118,7 +118,7 @@ const Bookingdetailpackage = () => {
                         {tag?.holiday == true && (
                           <Typography
                             color="#666666"
-                            fontSize="10px"
+                            fontSize="15px"
                             fontWeight="bold"
                           >
                             Holiday
@@ -127,7 +127,7 @@ const Bookingdetailpackage = () => {
                         {tag?.mid_range == true && (
                           <Typography
                             color="#666666"
-                            fontSize="10px"
+                            fontSize="15px"
                             fontWeight="bold"
                           >
                             Mid Range
@@ -136,7 +136,7 @@ const Bookingdetailpackage = () => {
                         {tag?.luxury == true && (
                           <Typography
                             color="#666666"
-                            fontSize="10px"
+                            fontSize="15px"
                             fontWeight="bold"
                           >
                             Luxury
@@ -145,7 +145,7 @@ const Bookingdetailpackage = () => {
                         {tag?.honeymoon == true && (
                           <Typography
                             color="#666666"
-                            fontSize="10px"
+                            fontSize="15px"
                             fontWeight="bold"
                           >
                             Honeymoon
@@ -154,7 +154,7 @@ const Bookingdetailpackage = () => {
                         {tag?.anniversary == true && (
                           <Typography
                             color="#666666"
-                            fontSize="10px"
+                            fontSize="15px"
                             fontWeight="bold"
                           >
                             Anniversary
@@ -163,7 +163,7 @@ const Bookingdetailpackage = () => {
                         {tag?.weekend_gateway == true && (
                           <Typography
                             color="#666666"
-                            fontSize="10px"
+                            fontSize="15px"
                             fontWeight="bold"
                           >
                             Weekend Gateway
@@ -172,7 +172,7 @@ const Bookingdetailpackage = () => {
                         {tag?.couples == true && (
                           <Typography
                             color="#666666"
-                            fontSize="10px"
+                            fontSize="15px"
                             fontWeight="bold"
                           >
                             Couples
@@ -181,7 +181,7 @@ const Bookingdetailpackage = () => {
                         {tag?.family == true && (
                           <Typography
                             color="#666666"
-                            fontSize="10px"
+                            fontSize="15px"
                             fontWeight="bold"
                           >
                             Family
@@ -190,7 +190,7 @@ const Bookingdetailpackage = () => {
                         {tag?.solo == true && (
                           <Typography
                             color="#666666"
-                            fontSize="10px"
+                            fontSize="15px"
                             fontWeight="bold"
                           >
                             Solo
@@ -369,14 +369,14 @@ const Bookingdetailpackage = () => {
                 display="flex"
                 justifyContent="space-between"
                 width="100%"
-                // border="1px solid red"
+               
               >
                 <Box
                   display="flex"
                   justifyContent="space-around"
                   width="50%"
-                  mt="16%"
-                  marginLeft="-38%"
+                  mt="16px"
+                  marginLeft="-28%"
                 >
                   {onePackage?.insclusions?.map((item, index) => {
                     return (
@@ -384,139 +384,139 @@ const Bookingdetailpackage = () => {
                         {item?.flexibility && (
                           <span>
                             {" "}
-                            <CommitIcon />{" "}
+                            <CommitIcon style={{fontSize:"50px",color:color.bluedark}} />{" "}
                           </span>
                         )}
                         {item?.train && (
                           <span>
                             {" "}
-                            <TramIcon />{" "}
+                            <TramIcon style={{fontSize:"40px",color:color.bluedark}}/>{" "}
                           </span>
                         )}
                         {item?.bus && (
                           <span>
                             {" "}
-                            <DirectionsBusIcon />{" "}
+                            <DirectionsBusIcon style={{fontSize:"40px",color:color.bluedark}}/>{" "}
                           </span>
                         )}
                         {item?.cab && (
                           <span>
                             {" "}
-                            <DirectionsCarIcon />{" "}
+                            <DirectionsCarIcon style={{fontSize:"40px",color:color.bluedark}}/>{" "}
                           </span>
                         )}
                         {item?.hotel && (
                           <span>
                             {" "}
-                            <ApartmentIcon />{" "}
+                            <ApartmentIcon style={{fontSize:"40px",color:color.bluedark}}/>{" "}
                           </span>
                         )}
                         {item?.homeStays && (
                           <span>
                             {" "}
-                            <HolidayVillageIcon />{" "}
+                            <HolidayVillageIcon style={{fontSize:"40px",color:color.bluedark}}/>{" "}
                           </span>
                         )}
                         {item?.guestHouse && (
                           <span>
                             {" "}
-                            <LocationCityIcon />{" "}
+                            <LocationCityIcon style={{fontSize:"40px",color:color.bluedark}}/>{" "}
                           </span>
                         )}
                         {item?.cruise && (
                           <span>
                             {" "}
-                            <BlurOnIcon />{" "}
+                            <BlurOnIcon style={{fontSize:"40px",color:color.bluedark}}/>{" "}
                           </span>
                         )}
                         {item?.sightSeeing && (
                           <span>
                             {" "}
-                            <DeckIcon />{" "}
+                            <DeckIcon style={{fontSize:"40px",color:color.bluedark}}/>{" "}
                           </span>
                         )}
                         {item?.guide && (
                           <span>
                             {" "}
-                            <EngineeringIcon />{" "}
+                            <EngineeringIcon style={{fontSize:"40px",color:color.bluedark}}/>{" "}
                           </span>
                         )}
                         {item?.meals && (
                           <span>
                             {" "}
-                            <FastfoodIcon />{" "}
+                            <FastfoodIcon style={{fontSize:"40px",color:color.bluedark}}/>{" "}
                           </span>
                         )}
                         {item?.breakfast && (
                           <span>
                             {" "}
-                            <DinnerDiningIcon />{" "}
+                            <DinnerDiningIcon style={{fontSize:"40px",color:color.bluedark}}/>{" "}
                           </span>
                         )}
                         {item?.drink && (
                           <span>
                             {" "}
-                            <LiquorIcon />{" "}
+                            <LiquorIcon style={{fontSize:"40px",color:color.bluedark}}/>{" "}
                           </span>
                         )}
                         {item?.visa && (
                           <span>
                             {" "}
-                            <ArticleIcon />{" "}
+                            <ArticleIcon style={{fontSize:"40px",color:color.bluedark}}/>{" "}
                           </span>
                         )}
                         {item?.moterBike && (
                           <span>
                             {" "}
-                            <TwoWheelerIcon />{" "}
+                            <TwoWheelerIcon style={{fontSize:"40px",color:color.bluedark}}/>{" "}
                           </span>
                         )}
                         {item?.travelInsurance && (
                           <span>
                             {" "}
-                            <AccountBalanceIcon />{" "}
+                            <AccountBalanceIcon style={{fontSize:"40px",color:color.bluedark}}/>{" "}
                           </span>
                         )}
                         {item?.safeTravel && (
                           <span>
                             {" "}
-                            <ParaglidingIcon />{" "}
+                            <ParaglidingIcon style={{fontSize:"40px",color:color.bluedark}}/>{" "}
                           </span>
                         )}
                         {item?.wildlife && (
                           <span>
                             {" "}
-                            <NaturePeopleIcon />{" "}
+                            <NaturePeopleIcon style={{fontSize:"40px",color:color.bluedark}}/>{" "}
                           </span>
                         )}
                         {item?.heritage && (
                           <span>
                             {" "}
-                            <LandslideIcon />{" "}
+                            <LandslideIcon style={{fontSize:"40px",color:color.bluedark}}/>{" "}
                           </span>
                         )}
                         {item?.adventure && (
                           <span>
                             {" "}
-                            <KitesurfingIcon />{" "}
+                            <KitesurfingIcon style={{fontSize:"40px",color:color.bluedark}}/>{" "}
                           </span>
                         )}
                         {item?.beach && (
                           <span>
                             {" "}
-                            <PoolIcon />{" "}
+                            <PoolIcon style={{fontSize:"40px",color:color.bluedark}}/>{" "}
                           </span>
                         )}
                         {item?.hillStation && (
                           <span>
                             {" "}
-                            <DownhillSkiingIcon />{" "}
+                            <DownhillSkiingIcon style={{fontSize:"40px",color:color.bluedark}}/>{" "}
                           </span>
                         )}
                         {item?.nature && (
                           <span>
                             {" "}
-                            <ForestIcon />{" "}
+                            <ForestIcon style={{fontSize:"40px",color:color.bluedark}}/>{" "}
                           </span>
                         )}
                       </>
@@ -564,14 +564,15 @@ const Bookingdetailpackage = () => {
                   </Box> */}
                 </Box>
                 <Box display="block" textAlign="end" alignSelf="center">
-                  <Typography color="#0096FF" fontSize="24px" fontWeight="bold">
+                  <Typography style={{color:color.bluedark}} fontSize="24px" fontWeight="bold">
                     ₹{onePackage?.pakage_amount?.amount}
                   </Typography>
                   <Typography
-                    color="#FF8900"
+                    
                     fontSize="10px"
                     fontWeight="bold"
                     marginTop={-1}
+                    style={{color:color.red1}}
                   >
                     per person
                   </Typography>
@@ -595,7 +596,7 @@ const Bookingdetailpackage = () => {
         </Box>
         <Box>
           <Typography
-            sx={{ color: "#006FFF", fontSize: "16px", fontWeight: "bold" }}
+            sx={{ color:color.bluedark, fontSize: "16px", fontWeight: "bold" }}
             py={2}
           >
             Overview
@@ -610,11 +611,11 @@ const Bookingdetailpackage = () => {
           <Box>
             <Typography
               sx={{
-                color: "#006FFF",
+                color:color.bluedark,
                 fontSize: "16px",
                 fontWeight: "bold",
                 alignItems: "left",
-                textDecoration: "underline",
+               
               }}
             >
               Day Plan
@@ -676,11 +677,11 @@ const Bookingdetailpackage = () => {
           <Box>
             <Typography
               sx={{
-                color: "#006FFF",
+                color:color.bluedark,
                 fontSize: "16px",
                 fontWeight: "bold",
                 alignItems: "left",
-                textDecoration: "underline",
+              
               }}
             >
               Inclusions
@@ -706,11 +707,11 @@ const Bookingdetailpackage = () => {
           <Box>
             <Typography
               sx={{
-                color: "#006FFF",
+                color:color.bluedark,
                 fontSize: "16px",
                 fontWeight: "bold",
                 alignItems: "left",
-                textDecoration: "underline",
+              
               }}
             >
               Exclusions
@@ -747,11 +748,11 @@ const Bookingdetailpackage = () => {
           <Box>
             <Typography
               sx={{
-                color: "#006FFF",
+                color:color.bluedark,
                 fontSize: "16px",
                 fontWeight: "bold",
                 alignItems: "left",
-                textDecoration: "underline",
+                
               }}
             >
               Day Plan
@@ -820,7 +821,7 @@ const Bookingdetailpackage = () => {
           <form action="/HolidayGuestDetail">
             <Box textAlign="center" mt={3}>
               <Button
-                variant="contained"
+               style={{backgroundColor:color.bluedark,color:"white"}}
                 textAlign="center"
                 display="flex"
                 justifyContent="center"

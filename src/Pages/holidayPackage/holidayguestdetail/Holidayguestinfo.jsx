@@ -23,7 +23,7 @@ import { addFormEntry } from "../../../Redux/HolidayPackageTravellerDetails/Holi
 import { FaPlus } from "react-icons/fa";
 import Custombutton from "../../../Custombuttom/Button";
 import successGif from "../../../Images/successGif.png";
-
+import color from "../../../color/color";
 const Holidayguestinfo = ({ setadultCount, setchildCount }) => {
   const style = {
     position: "absolute",
@@ -214,9 +214,9 @@ const Holidayguestinfo = ({ setadultCount, setchildCount }) => {
             </Box>
             <Button
               onClick={handlePersonAdd}
-              colorScheme="teal"
+             
               size="xs"
-              variant="outline 3"
+             style={{backgroundColor:color.bluedark}}
               borderRadius={4}
               paddingTop={3}
               paddingRight={5}
