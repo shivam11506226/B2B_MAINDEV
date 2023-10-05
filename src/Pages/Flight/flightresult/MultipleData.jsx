@@ -28,7 +28,7 @@ const MultipleData = (props) => {
   const img = flight?.Airline?.AirlineCode;
   const stop = props.stop;
   const results =
-    reducerState?.oneWay?.oneWayData?.data?.data?.Response?.Results;
+    reducerState?.oneWay?.oneWayData?.data?.data?.Response?.Results||reducerState?.return?.returnData?.data?.data?.Response?.Results;
   // console.log("Results", results);
   const handleClick = (ResultIndex) => {
     console.log("Handel Click Index Key", ResultIndex);
