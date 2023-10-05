@@ -25,7 +25,7 @@ import successGif from "../../../Images/successGif.png"
 
 import Divider from "@mui/material/Divider";
 import { Grid, Radio, Typography, Button } from "@mui/material";
-
+import color from "../../../color/color"
 const HolidayGuestDetail = () => {
   const style = {
   position: 'absolute',
@@ -68,8 +68,7 @@ const HolidayGuestDetail = () => {
               w="25px"
               h="25px"
               borderRadius="50%"
-              bg="#0096FF"
-              color="white"
+              style={{backgroundColor:color.bluedark,color:"white"}}
             >
               <Text>1</Text>
             </Box>
@@ -86,8 +85,7 @@ const HolidayGuestDetail = () => {
               w="25px"
               h="25px"
               borderRadius="50%"
-              bg="#0096FF"
-              color="white"
+              style={{backgroundColor:color.bluedark,color:"white"}}
             >
               <Text>2</Text>
             </Box>
@@ -101,8 +99,7 @@ const HolidayGuestDetail = () => {
               w="25px"
               h="25px"
               borderRadius="50%"
-              bg="#0096FF"
-              color="white"
+              style={{backgroundColor:color.bluedark,color:"white"}}
             >
               <Text>3</Text>
             </Box>
@@ -117,8 +114,7 @@ const HolidayGuestDetail = () => {
               w="25px"
               h="25px"
               borderRadius="50%"
-              bg="#0096FF"
-              color="white"
+              style={{backgroundColor:color.bluedark,color:"white"}}
             >
               <Text>4</Text>
             </Box>
@@ -133,8 +129,7 @@ const HolidayGuestDetail = () => {
               w="25px"
               h="25px"
               borderRadius="50%"
-              bg="#0096FF"
-              color="white"
+              style={{backgroundColor:color.bluedark,color:"white"}}
             >
               <Text>5</Text>
             </Box>

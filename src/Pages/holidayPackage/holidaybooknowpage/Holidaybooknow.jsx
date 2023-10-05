@@ -7,7 +7,7 @@ import HolidatLeftPackage from "../holidaypackageresult/HolidatLeftPackage";
 import { Box as MuiBox, Typography, Button } from "@mui/material";
 import Bookingdetailpackage from './Bookingdetailpackage';
 import { useSelector } from 'react-redux';
-
+import colors from "../../../color/color";
 const Holidaybooknow = () => {
   const reducerState = useSelector((state) => state);
   console.log("package Req",reducerState);
@@ -40,7 +40,7 @@ const Holidaybooknow = () => {
               w="25px"
               h="25px"
               borderRadius="50%"
-              bg="#0096FF"
+             style={{backgroundColor:colors.bluedark}}
               color="white"
             >
               <Text>1</Text>
@@ -58,7 +58,7 @@ const Holidaybooknow = () => {
               w="25px"
               h="25px"
               borderRadius="50%"
-              bg="#0096FF"
+              style={{backgroundColor:colors.bluedark}}  
               color="white"
             >
               <Text>2</Text>
@@ -73,7 +73,7 @@ const Holidaybooknow = () => {
               w="25px"
               h="25px"
               borderRadius="50%"
-              bg="#0096FF"
+              style={{backgroundColor:colors.bluedark}}
               color="white"
             >
               <Text>3</Text>
@@ -89,7 +89,7 @@ const Holidaybooknow = () => {
               w="25px"
               h="25px"
               borderRadius="50%"
-              bg="#0096FF"
+              style={{backgroundColor:colors.bluedark}}
               color="white"
             >
               <Text>4</Text>
@@ -105,7 +105,7 @@ const Holidaybooknow = () => {
               w="25px"
               h="25px"
               borderRadius="50%"
-              bg="#0096FF"
+              style={{backgroundColor:colors.bluedark}}
               color="white"
             >
               <Text>5</Text>
