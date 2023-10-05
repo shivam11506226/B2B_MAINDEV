@@ -63,7 +63,7 @@ const Flightbookingdetail = () => {
 
       EndUserIp: reducerState?.ip?.ipData,
       TokenId: reducerState?.ip?.tokenData,
-      TraceId: reducerState?.oneWay?.oneWayData?.data?.data?.Response?.TraceId,
+      TraceId: reducerState?.oneWay?.oneWayData?.data?.data?.Response?.TraceId||reducerState?.return?.returnData?.data?.data?.Response?.TraceId,
     };
     //alert("Submitted");
     if (fareValue?.IsLCC === false) {
