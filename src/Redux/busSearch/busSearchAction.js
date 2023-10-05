@@ -16,6 +16,20 @@ export const busSearchAction = (user) => {
     };
   }
 };
+export const busSeatBlock=(data)=>{
+  return{
+    tyoe:types.BUS_BLOCK_SUCCESS,
+    payload:data
+  }
+}
+export const busSeatBlockAction=(data)=>{
+  if(data){
+    return{
+      type:types.BUS_BLOCK_REQUEST,
+      payload:data
+    }
+  }
+}
 
 export const clearBusSearchReducer = () => {
   return {

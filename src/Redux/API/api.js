@@ -424,6 +424,18 @@ const hotelBookingDetails = (payload) => {
 
   //Bus API's Start
 
+  const busBlock = (payload) => {
+    return axios({
+      method: "POST",
+      url: "/travvolt/bus/block",
+      baseURL: `${apiURL.baseURL}`,
+      data: payload,
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+  };
+
   return {
     userB2BRegistration,
     userIP,
@@ -461,6 +473,7 @@ const hotelBookingDetails = (payload) => {
     forexCustomerData,
     visaRequest,
     getBusSearch,
+    busBlock,
     visaData,
   };
 }

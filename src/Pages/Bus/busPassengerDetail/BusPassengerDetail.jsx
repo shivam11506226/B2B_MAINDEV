@@ -1,5 +1,5 @@
 import Stepper from "../../../Components/Stepper";
-import React from "react";
+import React,{useState} from "react";
 import { styled } from "@mui/material/styles";
 import { Box, Button } from "@mui/material";
 import Paper from "@mui/material/Paper";
@@ -13,6 +13,30 @@ import BusSaleSummary from "./BusSaleSummary";
 import BusStepper from "../../../Components/BusStepper";
 
 const BusPassengerDetail = () => {
+  const [accordionExpanded, setAccordionExpanded] = useState(false);
+  const seatData = sessionStorage.getItem("seatData");
+  const parsedSeatData=JSON.parse(seatData)
+  console.log(parsedSeatData);
+  const passengerCount = parsedSeatData?.blockedSeatArray.length
+  console.log(passengerCount)
+  const passengerTemplate = {
+    LeadPassenger: true,
+    PassengerId: 0,
+    Title: "mr",
+    Address: "",
+    Age: parseInt(),
+    Email: "",
+    FirstName: "",
+    Gender:"",
+    IdNumber:null,
+    IdType:null,
+    LastName: "",
+    Phoneno: "",
+  };
+  const handleAccordionChange = (index) => (event, isExpanded) => {
+    setAccordionExpanded(isExpanded ? index : false);
+  };
+
   return (
     <div className="flightContainer">
       <BusStepper />
@@ -201,7 +225,7 @@ const BusPassengerDetail = () => {
                             fontSize: "16px",
                             color: "#666666",
                             fontWeight: "bold",
-                            textDecoration: "underline",
+                            
                             cursor: "pointer",
                           }}
                         >
@@ -244,24 +268,14 @@ const BusPassengerDetail = () => {
                             fontSize: "14px",
                             color: "#666666",
                             fontWeight: "bold",
-                            textDecoration: "underline",
+                            
                             cursor: "pointer",
                           }}
                         >
                           Age:-*
                         </Typography>
                         <Box className="input_area" mx={2}>
-                          <FormControl>
-                            <NativeSelect
-                              defaultValue={0}
-                              inputProps={{
-                                name: "age",
-                              }}
-                            >
-                              <option value={20}>25</option>
-                              <option value={30}>26</option>
-                            </NativeSelect>
-                          </FormControl>
+                         <input type="number" placeholder="age"/>
                         </Box>
                         <Box className="input_area" mx={1}>
                           <FormControl>
@@ -277,28 +291,6 @@ const BusPassengerDetail = () => {
                             </NativeSelect>
                           </FormControl>
                         </Box>
-                        <Box className="input_area" mx={1}>
-                          <FormControl>
-                            <NativeSelect
-                              defaultValue={0}
-                              inputProps={{
-                                name: "price",
-                              }}
-                            >
-                              <option value={10}>Id Type:*: *</option>
-                              <option value={20}>Adhar</option>
-                              <option value={30}>Pan</option>
-                            </NativeSelect>
-                          </FormControl>
-                        </Box>
-                        <Box className="input_area" ml={1}>
-                          <Input
-                            type="text"
-                            placeholder=" Id:*"
-                            border="none"
-                            name="id"
-                          ></Input>
-                        </Box>
                       </Box>
                       <Box mt={2} display="flex">
                         <Typography
@@ -306,7 +298,7 @@ const BusPassengerDetail = () => {
                             fontSize: "14px",
                             color: "#666666",
                             fontWeight: "bold",
-                            textDecoration: "underline",
+                            
                             cursor: "pointer",
                           }}
                         >
@@ -320,17 +312,7 @@ const BusPassengerDetail = () => {
                             name="number"
                           ></Input>
                         </Box>
-                        {/* <Typography
-                                                    sx={{
-                                                        fontSize: "14px",
-                                                        color: "#666666",
-                                                        fontWeight: "bold",
-                                                        textDecoration: "underline",
-                                                        cursor: "pointer",
-                                                    }}
-                                                >
-                                                    Email Id:*
-                                                </Typography> */}
+
                         <Box className="input_area" mx={1}>
                           <Input
                             type="email"
@@ -346,36 +328,12 @@ const BusPassengerDetail = () => {
                             fontSize: "14px",
                             color: "#666666",
                             fontWeight: "bold",
-                            textDecoration: "underline",
                             cursor: "pointer",
                           }}
                         >
                           Address.*
                         </Typography>
-                        <Box className="textarea_field " mx={1}>
-                          <textarea sx={{ border: "1px solid #4E4C4CA1" }}>
-                            {" "}
-                          </textarea>
-                        </Box>
-                        {/* <Typography
-                                                    sx={{
-                                                        fontSize: "14px",
-                                                        color: "#666666",
-                                                        fontWeight: "bold",
-                                                        textDecoration: "underline",
-                                                        cursor: "pointer",
-                                                    }}
-                                                >
-                                                    Email Id:*
-                                                </Typography> */}
-                        <Box className="input_area" mx={1}>
-                          <Input
-                            type="number"
-                            placeholder=" Seat No.:*"
-                            name="seat_no"
-                            border="none"
-                          ></Input>
-                        </Box>
+                        <Input type="text"></Input>
                       </Box>
                       <form action="/BusReviewBooking">
                         <Box

@@ -3,7 +3,14 @@ import Box from "@mui/material/Box";
 import axios from "axios";
 import "./busresult.css";
 import Grid from "@mui/material/Grid";
-import { Typography, Modal,InputLabel,Select,OutlinedInput,MenuItem } from "@mui/material";
+import {
+  Typography,
+  Modal,
+  InputLabel,
+  Select,
+  OutlinedInput,
+  MenuItem,
+} from "@mui/material";
 import { Button } from "react-bootstrap";
 import Link from "@mui/material/Link";
 import Busmoredetail from "./Busmoredetail";
@@ -14,12 +21,14 @@ import { height } from "@mui/system";
 import Checkbox from "@mui/material/Checkbox";
 
 const Busdetail = () => {
-  const name=[]
-  const blockedSeatArray = [];
+  const name = [];
+  const [blockedSeatArray, setBlockedSeatArray] = useState([]);
   const upperArray = [];
   const lowerArray = [];
-  const[origin,setOrigin]=useState([]);
-  const[destination,setDestination]=useState([]);
+   const [selectedOrigin, setSelectedOrigin] = useState("");
+   const[selectedDropPoint,setSelectedDropPoint]=useState("");
+  const [origin, setOrigin] = useState([]);
+  const [destination, setDestination] = useState([]);
   const [flatArray, setFlatArray] = useState([]);
   const [modal, setModal] = useState(false);
   const [seatLayoutData, setSeatLayoutData] = useState({});
@@ -75,12 +84,12 @@ const Busdetail = () => {
             []
           );
           setFlatArray(singleArray);
-          busDataResult.map((item,index)=>{
-            if(item?.ResultIndex==resultIndex){
+          busDataResult.map((item, index) => {
+            if (item?.ResultIndex == resultIndex) {
               setOrigin(item?.BoardingPointsDetails);
+              setDestination(item?.DroppingPointsDetails);
             }
-          })
-          
+          });
 
           // console.log("flattArayyyyyy",flatArray)
           setModal((prev) => !prev);
@@ -164,22 +173,44 @@ const Busdetail = () => {
     // console.log(seatObjects);
     return seatObjects;
   }
-  function addOrRemoveSeat(e,object) {
+  function addOrRemoveSeat(e, object) {
     console.log("hiiiiiiiiiiiiiiiiiiiii");
-    console.log(e)
-    console.log(e.target.checked)
+    console.log(e);
+    console.log(e.target.checked);
     // console.log(index)
-    if(e.target.checked){
-      blockedSeatArray.push(object);
+    if (e.target.checked) {
+      setBlockedSeatArray([...blockedSeatArray, object]);
+      console.log(blockedSeatArray);
+    } else {
+      // const element = object;
+      // const index = blockedSeatArray.indexOf(element);
+      // const slicedArray=blockedSeatArray.splice(index, 1)
+      // setBlockedSeatArray(slicedArray);
+         const updatedBlockedSeatArray = blockedSeatArray.filter(
+           (seatObject) => seatObject !== object
+         );
+         setBlockedSeatArray(updatedBlockedSeatArray);
       console.log(blockedSeatArray);
     }
-    else{
-      const element=object
-      const index=blockedSeatArray.indexOf(element)
-      blockedSeatArray.splice(index,1)
-      console.log(blockedSeatArray)
-    }
+  }
+  function handleClose(){
+    setBlockedSeatArray([]);
+    setSelectedDropPoint("")
+    setSelectedOrigin("")
+    setOrigin([])
+    setDestination([])
+    setModal((prev) => !prev);
+  }
+  function handleContinue(){
+      const dataToSave = {
+        blockedSeatArray: blockedSeatArray,
+        selectedOrigin: selectedOrigin,
+        selectedDropPoint: selectedDropPoint,
+      };
 
+      // Save the combined state object to session storage
+      sessionStorage.setItem("seatData", JSON.stringify(dataToSave));
+      navigate("/BusPassengerDetail");
   }
 
   return (
@@ -482,36 +513,79 @@ const Busdetail = () => {
               }}
             >
               <Box>
+                <Box>
+                  <label>Origin</label>
+                  <select
+                    value={selectedOrigin}
+                    onClick={(e) => setSelectedOrigin(e.target.value)}
+                  >
+                    {origin.map((name, index) => (
+                      <option key={index} value={name?.CityPointIndex}>
+                        {name?.CityPointName}
+                      </option>
+                    ))}
+                  </select>
+                </Box>
+                <Box>
+                  <label>Destination</label>
+                  <select
+                    value={selectedDropPoint}
+                    onClick={(e) => setSelectedDropPoint(e.target.value)}
+                  >
+                    {destination.map((name, index) => (
+                      <option key={index} value={name?.CityPointIndex}>
+                        {name?.CityPointName}
+                      </option>
+                    ))}
+                  </select>
+                </Box>
+              </Box>
+              <Box
+                sx={{
+                  display: "flex",
+                  paddingTop: "5px",
+                  width: "100%",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                }}
+              >
                 <Box
                   sx={{
                     display: "flex",
+                    gap: "8px",
                   }}
                 >
                   {" "}
-                  <InputLabel id="demo-multiple-name-label">Name</InputLabel>
-                  <Select
-                    labelId="demo-multiple-name-label"
-                    id="demo-multiple-name"
-                    // multiple
-                    // value={personName}
-                    // onChange={handleChange}
-                    input={<OutlinedInput label="Name" />}
-                  >
-                    {origin.map((name, index) => (
-                      <MenuItem
-                        key={index}
-                        value={name}
-                        // style={getStyles(name, personName, theme)}
+                  <Typography>Seats:</Typography>
+                  {blockedSeatArray?.map((seat, index) => {
+                    return (
+                      <Typography
+                        sx={{
+                          border: "1px solid red",
+                        }}
                       >
-                        {name?.CityPointName}
-                      </MenuItem>
-                    ))}
-                  </Select>
+                        {seat?.SeatName}
+                      </Typography>
+                    );
+                  })}
                 </Box>
-                <Box></Box>
+                <Box>
+                  {(() => {
+                    const totalSeatPrice = blockedSeatArray.reduce(
+                      (totalPrice, seat) => {
+                        return totalPrice + (seat?.SeatFare || 0);
+                      },
+                      0
+                    );
+                    return <Typography>Price:{totalSeatPrice}</Typography>;
+                  })()}
+                </Box>
               </Box>
 
-              <Button onClick={() => setModal((prev) => !prev)}>Close</Button>
+              <Box>
+                <Button onClick={handleClose}>Close</Button>
+                <Button onClick={handleContinue}>Continue</Button>
+              </Box>
             </Box>
           </Box>
         </Box>
