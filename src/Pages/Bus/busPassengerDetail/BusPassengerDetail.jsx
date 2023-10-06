@@ -1,8 +1,15 @@
 import Stepper from "../../../Components/Stepper";
-import React,{useState} from "react";
+import React, { useState } from "react";
 import { styled } from "@mui/material/styles";
-import { Box, Button } from "@mui/material";
+import {
+  Box,
+  Button,
+  Accordion,
+  AccordionDetails,
+  AccordionSummary,
+} from "@mui/material";
 import Paper from "@mui/material/Paper";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import FormControl from "@mui/material/FormControl";
@@ -11,31 +18,81 @@ import Input from "@mui/material/Input";
 import "./buspassengerdetail.css";
 import BusSaleSummary from "./BusSaleSummary";
 import BusStepper from "../../../Components/BusStepper";
+import { useDispatch, useSelector } from "react-redux";
+import { busSeatBlockAction } from "../../../Redux/busSearch/busSearchAction";
 
 const BusPassengerDetail = () => {
+  const reducerState = useSelector((state) => state);
+  console.log("..................", reducerState);
+  const dispatch = useDispatch();
+  const busFullData =
+    reducerState?.getBusResult?.busResult?.data?.data?.BusSearchResult;
+  console.log(busFullData);
+  const passengerLists = [];
   const [accordionExpanded, setAccordionExpanded] = useState(false);
   const seatData = sessionStorage.getItem("seatData");
-  const parsedSeatData=JSON.parse(seatData)
+  const parsedSeatData = JSON.parse(seatData);
   console.log(parsedSeatData);
-  const passengerCount = parsedSeatData?.blockedSeatArray.length
-  console.log(passengerCount)
+  const passengerCount = parsedSeatData?.blockedSeatArray.length;
+  const resultIndex = parsedSeatData?.resultIndex;
+  const boardingPoint = parsedSeatData?.selectedOrigin;
+  const droppingPoint = parsedSeatData?.selectedDropPoint;
+  console.log(passengerCount);
   const passengerTemplate = {
     LeadPassenger: true,
     PassengerId: 0,
-    Title: "mr",
+    Title: "Mr.",
     Address: "",
-    Age: parseInt(),
+    Age: 22,
     Email: "",
     FirstName: "",
-    Gender:"",
-    IdNumber:null,
-    IdType:null,
+    Gender: 1,
+    IdNumber: null,
+    IdType: null,
     LastName: "",
     Phoneno: "",
   };
   const handleAccordionChange = (index) => (event, isExpanded) => {
     setAccordionExpanded(isExpanded ? index : false);
   };
+  for (let i = 0; i < passengerCount; i++) {
+    passengerLists.push({
+      ...passengerTemplate,
+      // IsLeadPax: i === 0, // Set the first passenger as the lead passenger
+    });
+  }
+  const [passengerList, setPassengerList] = useState(passengerLists);
+  const allPassenger = [passengerLists];
+  const [passengerData, setPassengerData] = useState(allPassenger.flat());
+  const handleServiceChange = (e, index) => {
+    const { name, value } = e.target;
+    const updatedPassenger = [...passengerData];
+    updatedPassenger[index] = {
+      ...updatedPassenger[index],
+      [name]: value,
+    };
+    // const list = [...passengerData];
+    // list[index][name] = value;
+    setPassengerData(updatedPassenger);
+  };
+  console.log(passengerData);
+  function handleSeatBlock() {
+    const payload = {
+      Passenger: [
+        passengerData?.map((item, index) => {
+          return { ...item, Seat: parsedSeatData?.blockedSeatArray[index] };
+        }),
+      ],
+      EndUserIp: reducerState?.ip?.ipData,
+      ResultIndex: JSON.stringify(resultIndex),
+      TraceId: busFullData?.TraceId,
+      TokenId: reducerState?.ip?.tokenData,
+      BoardingPointId: boardingPoint,
+      DroppingPointId: droppingPoint,
+    };
+    console.log(payload);
+    dispatch(busSeatBlockAction(payload));
+  }
 
   return (
     <div className="flightContainer">
@@ -206,156 +263,161 @@ const BusPassengerDetail = () => {
                   Enter Passenger Details
                 </Typography>
               </Box>
-              <Box padding="15px">
-                <Box>
-                  <Typography
-                    sx={{
-                      fontSize: "14px",
-                      fontWeight: "bold",
-                      color: "#252525",
-                    }}
-                  >
-                    Passanger 1
-                  </Typography>
-                  <Box mt={2}>
+              <Box>
+                {passengerCount > 0 &&
+                  Array.from({ length: passengerCount }, (_, index) => (
                     <Box>
-                      <Box mt={2} display="flex">
-                        <Typography
-                          sx={{
-                            fontSize: "16px",
-                            color: "#666666",
-                            fontWeight: "bold",
-                            
-                            cursor: "pointer",
-                          }}
+                      <div mb={2} key={index} className="services" py={1}>
+                        <Accordion
+                          expanded={accordionExpanded === index}
+                          onChange={handleAccordionChange(index)}
                         >
-                          Name:-*
-                        </Typography>
-                        <Box className="input_area" ml={2}>
-                          <FormControl>
-                            <NativeSelect
-                              defaultValue={0}
-                              inputProps={{
-                                name: "price",
-                              }}
-                            >
-                              <option value={10}>Mr.</option>
-                              <option value={20}>Miss.</option>
-                              <option value={30}>Mrs.</option>
-                            </NativeSelect>
-                          </FormControl>
-                        </Box>
-                        <Box className="input_area" ml={1}>
-                          <Input
-                            type="text"
-                            placeholder="Traveller First Name"
-                            border="none"
-                            name="traveller first name"
-                          ></Input>
-                        </Box>
-                        <Box className="input_area" ml={1}>
-                          <Input
-                            type="text"
-                            placeholder="Traveller Last Name"
-                            border="none"
-                            name="traveller last  name"
-                          ></Input>
-                        </Box>
-                      </Box>
-                      <Box mt={2} display="flex">
-                        <Typography
-                          sx={{
-                            fontSize: "14px",
-                            color: "#666666",
-                            fontWeight: "bold",
-                            
-                            cursor: "pointer",
-                          }}
-                        >
-                          Age:-*
-                        </Typography>
-                        <Box className="input_area" mx={2}>
-                         <input type="number" placeholder="age"/>
-                        </Box>
-                        <Box className="input_area" mx={1}>
-                          <FormControl>
-                            <NativeSelect
-                              defaultValue={0}
-                              inputProps={{
-                                name: "price",
-                              }}
-                            >
-                              <option value={10}>Gender: *</option>
-                              <option value={20}>Female</option>
-                              <option value={30}>Male</option>
-                            </NativeSelect>
-                          </FormControl>
-                        </Box>
-                      </Box>
-                      <Box mt={2} display="flex">
-                        <Typography
-                          sx={{
-                            fontSize: "14px",
-                            color: "#666666",
-                            fontWeight: "bold",
-                            
-                            cursor: "pointer",
-                          }}
-                        >
-                          Mobile No.*
-                        </Typography>
-                        <Box className="input_area" mx={1}>
-                          <Input
-                            type="number"
-                            placeholder=" 91+ 8724563587"
-                            border="none"
-                            name="number"
-                          ></Input>
-                        </Box>
-
-                        <Box className="input_area" mx={1}>
-                          <Input
-                            type="email"
-                            placeholder=" travvolt@gmail.com"
-                            border="none"
-                            name="email"
-                          ></Input>
-                        </Box>
-                      </Box>
-                      <Box mt={2} display="flex">
-                        <Typography
-                          sx={{
-                            fontSize: "14px",
-                            color: "#666666",
-                            fontWeight: "bold",
-                            cursor: "pointer",
-                          }}
-                        >
-                          Address.*
-                        </Typography>
-                        <Input type="text"></Input>
-                      </Box>
-                      <form action="/BusReviewBooking">
-                        <Box
-                          style={{ display: "flex", justifyContent: "center" }}
-                        >
-                          <Button
-                            variant="contained"
-                            type="submit"
-                            style={{
-                              backgroundColor: "#006FFF",
-                              borderRadius: "10px",
-                            }}
+                          <AccordionSummary
+                            expandIcon={<ExpandMoreIcon />}
+                            aria-controls="panel1a-content"
+                            id="panel1a-header"
                           >
-                            Proceed to Booking Review
-                          </Button>
-                        </Box>
-                      </form>
+                            <Typography>Passenger {index + 1}</Typography>
+                          </AccordionSummary>
+                          <AccordionDetails>
+                            <Box>
+                              <Grid container spacing={3} my={1}>
+                                <Grid item xs={12} sm={12} md={4}>
+                                  <Box>
+                                    <div className="form_input">
+                                      <label
+                                        hotel_form_input
+                                        className="form_lable"
+                                      >
+                                        First name*
+                                      </label>
+                                      <input
+                                        name="FirstName"
+                                        placeholder="Enter your name"
+                                        value={passengerData.FirstName}
+                                        onChange={(e) =>
+                                          handleServiceChange(e, index)
+                                        }
+                                      />
+                                    </div>
+                                  </Box>
+                                </Grid>
+                                <Grid item xs={12} sm={12} md={4} py={1}>
+                                  <Box>
+                                    <div className="form_input">
+                                      <label
+                                        hotel_form_input
+                                        className="form_lable"
+                                      >
+                                        Last name*
+                                      </label>
+                                      <input
+                                        name="LastName"
+                                        placeholder="Enter your last name"
+                                        value={passengerData.LastName}
+                                        onChange={(e) =>
+                                          handleServiceChange(e, index)
+                                        }
+                                      />
+                                    </div>
+                                  </Box>
+                                </Grid>
+                                {/* <Grid item xs={12} sm={12} md={4} py={1}>
+                                  <Box>
+                                    <div className="form_input">
+                                      <label
+                                        hotel_form_input
+                                        className="form_lable"
+                                      >
+                                        age*
+                                      </label>
+                                      <input
+                                        name="Age"
+                                        type="text"
+                                        placeholder="Enter Age"
+                                        value={passengerData.Age}
+                                        onChange={(e) =>
+                                          handleServiceChange(e, index)
+                                        }
+                                      />
+                                    </div>
+                                  </Box>
+                                </Grid> */}
+                                <Grid item xs={12} sm={12} md={4}>
+                                  <Box>
+                                    <div className="form_input">
+                                      <label
+                                        hotel_form_input
+                                        className="form_lable"
+                                      >
+                                        Email*
+                                      </label>
+                                      <input
+                                        name="Email"
+                                        type="email"
+                                        placeholder="Enter your email"
+                                        value={passengerData.Email}
+                                        onChange={(e) =>
+                                          handleServiceChange(e, index)
+                                        }
+                                      />
+                                    </div>
+                                  </Box>
+                                </Grid>
+                                <Grid item xs={12} sm={12} md={4}>
+                                  <Box>
+                                    <div className="form_input">
+                                      <label
+                                        hotel_form_input
+                                        className="form_lable"
+                                      >
+                                        Address*
+                                      </label>
+                                      <input
+                                        name="Address"
+                                        type="text"
+                                        placeholder="Enter your address"
+                                        value={passengerData.Address}
+                                        onChange={(e) =>
+                                          handleServiceChange(e, index)
+                                        }
+                                      />
+                                    </div>
+                                  </Box>
+                                </Grid>
+                                <Grid item xs={12} sm={12} md={4}>
+                                  <Box>
+                                    <div className="form_input">
+                                      <label
+                                        hotel_form_input
+                                        className="form_lable"
+                                      >
+                                        Phone*
+                                      </label>
+                                      <input
+                                        name="Phoneno"
+                                        type="text"
+                                        placeholder="Enter your Phoneno"
+                                        value={passengerData.Phoneno}
+                                        onChange={(e) =>
+                                          handleServiceChange(e, index)
+                                        }
+                                      />
+                                    </div>
+                                  </Box>
+                                </Grid>
+                              </Grid>
+                            </Box>
+                          </AccordionDetails>
+                        </Accordion>
+
+                        {/* Form end */}
+                      </div>
                     </Box>
-                  </Box>
-                </Box>
+                  ))}
               </Box>
             </Box>
+            <Button onClick={handleSeatBlock}>Book Review</Button>
           </Grid>
           <Grid item xs={3}>
             <BusSaleSummary />

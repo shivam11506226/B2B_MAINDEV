@@ -22,9 +22,11 @@ import Checkbox from "@mui/material/Checkbox";
 
 const Busdetail = () => {
   const name = [];
-  const [blockedSeatArray, setBlockedSeatArray] = useState([]);
   const upperArray = [];
   const lowerArray = [];
+  const [blockedSeatArray, setBlockedSeatArray] = useState([]);
+  const [resulttIndex,setResulttIndex]=useState("")
+  
    const [selectedOrigin, setSelectedOrigin] = useState("");
    const[selectedDropPoint,setSelectedDropPoint]=useState("");
   const [origin, setOrigin] = useState([]);
@@ -90,6 +92,7 @@ const Busdetail = () => {
               setDestination(item?.DroppingPointsDetails);
             }
           });
+          setResulttIndex(resultIndex)
 
           // console.log("flattArayyyyyy",flatArray)
           setModal((prev) => !prev);
@@ -206,6 +209,7 @@ const Busdetail = () => {
         blockedSeatArray: blockedSeatArray,
         selectedOrigin: selectedOrigin,
         selectedDropPoint: selectedDropPoint,
+        resultIndex:resulttIndex
       };
 
       // Save the combined state object to session storage
