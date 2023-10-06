@@ -18,7 +18,7 @@ export const busSearchAction = (user) => {
 };
 export const busSeatBlock=(data)=>{
   return{
-    tyoe:types.BUS_BLOCK_SUCCESS,
+    type:types.BUS_BLOCK_SUCCESS,
     payload:data
   }
 }

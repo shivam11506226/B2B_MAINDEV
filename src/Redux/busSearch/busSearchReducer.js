@@ -6,8 +6,6 @@ const initState = {
   isLoading: false,
   isError: false,
   isLoadingBlockBus:false,
-
-
   showSuccessMessage: false,
 };
 
@@ -29,7 +27,7 @@ export const busSearchReducer = (state = initState, action) => {
         isError: false,
         showSuccessMessage: true,
       };
-    case types.BUS_BLOCK_SUCCESS:
+    case types.BUS_BLOCK_REQUEST:
       return {
         ...state,
         isLoadingBlockBus: true,
@@ -38,7 +36,7 @@ export const busSearchReducer = (state = initState, action) => {
     case types.BUS_BLOCK_SUCCESS:
       return {
         ...state,
-        blockBus: payload,
+        busBlock: payload,
         isLoadingBlockBus: false,
         isError: false,
         showSuccessMessage: true,
