@@ -435,6 +435,17 @@ const hotelBookingDetails = (payload) => {
       },
     });
   };
+  const busBook=(payload)=>{
+    return axios({
+      method: "POST",
+      url: "/travvolt/bus/book",
+      baseURL: `${apiURL.baseURL}`,
+      data: payload,
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+  }
 
   return {
     userB2BRegistration,
@@ -474,6 +485,7 @@ const hotelBookingDetails = (payload) => {
     visaRequest,
     getBusSearch,
     busBlock,
+    busBook,
     visaData,
   };
 }

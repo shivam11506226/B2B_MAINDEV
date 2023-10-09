@@ -1,7 +1,7 @@
 import { takeEvery, takeLatest, call, put } from "redux-saga/effects";
 import userApi from "../API/api";
-import { busSearch,busSeatBlock} from "../busSearch/busSearchAction";
-import { BUS_SEARCH_REQUEST,BUS_BLOCK_REQUEST } from "../busSearch/actionType";
+import { busSearch,busSeatBlock,busBook} from "../busSearch/busSearchAction";
+import { BUS_SEARCH_REQUEST,BUS_BLOCK_REQUEST, BUS_BOOK_REQUEST } from "../busSearch/actionType";
 
 function* busSearchSaga(action) {
   try {
@@ -19,7 +19,17 @@ function* busSeatBlockSaga(action){
     console.log(error)
   }
 }
+function* busBookSaga(action){
+  try{
+    const data=yield call(userApi.busBook,action.payload);
+    yield put(busBook(data))
+  }
+  catch(error){
+     console.log(error)
+  }
+}
 export function* busSearchWatcher() {
   yield takeLatest(BUS_SEARCH_REQUEST, busSearchSaga);
   yield takeLatest(BUS_BLOCK_REQUEST,busSeatBlockSaga);
+  yield takeLatest(BUS_BOOK_REQUEST,busBookSaga)
 }
