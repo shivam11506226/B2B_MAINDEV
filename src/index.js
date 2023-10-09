@@ -8,12 +8,12 @@ import { Provider } from "react-redux";
 // import store from "./Redux/store";
 import { persistor, store } from "./Redux/store";
 import { PersistGate } from "redux-persist/lib/integration/react";
-import { ProSidebarProvider } from "react-pro-sidebar";
+
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <ProSidebarProvider>
+   
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
         <BrowserRouter>
@@ -26,7 +26,7 @@ root.render(
         <App />
       </BrowserRouter> */}
     </Provider>
-    </ProSidebarProvider>
+  
   </React.StrictMode>
 );
 

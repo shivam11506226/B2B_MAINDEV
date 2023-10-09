@@ -313,7 +313,7 @@ function api() {
 
   // visa data for dashboard
   const visaData = () => {
-    return axios.get("https://api.travvolt.com/travvolt/visa/getAllVisa");
+    return axios.get("http://localhost:8000/travvolt/visa/getAllVisa");
   };
 
   // create Visa
