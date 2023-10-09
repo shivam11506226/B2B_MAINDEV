@@ -106,6 +106,16 @@ const VisaData = () => {
 
   const dispatch = useDispatch();
 
+  const transformData = (visaData) => {
+    return visaData.map((item, index) => ({
+      id: index + 1,
+      name: item.name,
+      email: item.email,
+      mobile: item.mobile,
+      visaType: item.visaType,
+    }));
+  };
+
   useEffect(() => {
     dispatch(getVisaAction());
   }, []);
@@ -114,16 +124,16 @@ const VisaData = () => {
       <Box height={100} />
       <Box sx={{ height: 400, width: "100%" }}>
         <DataGrid
-          rows={visaData1}
+          rows={transformData(visaData)}
           columns={columns}
           initialState={{
             pagination: {
               paginationModel: {
-                pageSize: 5,
+                pageSize: 10,
               },
             },
           }}
-          pageSizeOptions={[5]}
+          pageSizeOptions={[10]}
           checkboxSelection
           disableRowSelectionOnClick
         />
