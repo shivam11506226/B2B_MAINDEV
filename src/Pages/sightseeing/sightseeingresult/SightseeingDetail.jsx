@@ -6,6 +6,7 @@ import LocationCityIcon from "@mui/icons-material/LocationCity";
 import RowingIcon from "@mui/icons-material/Rowing";
 import TransferWithinAStationIcon from "@mui/icons-material/TransferWithinAStation";
 
+import color from "../../../color/color"
 const SightseeingDetail = () => {
   return (
     <div>
@@ -50,9 +51,10 @@ const SightseeingDetail = () => {
                   <Button
                     variant="contained"
                     type="submit"
-                    sx={{ background: "#006FFF", borderRadius: "10px" }}
+                    sx={{borderRadius: "10px" }}
+                    style={{backgroundColor:color.bluedark}}
                   >
-                    <Typography color="white" fontSize="10px">
+                    <Typography color="white" fontSize="10px" >
                       Check Availability
                     </Typography>
                   </Button>
@@ -157,7 +159,8 @@ const SightseeingDetail = () => {
               <Button
                 variant="contained"
                 type="submit"
-                sx={{ background: "#006FFF", borderRadius: "10px" }}
+                sx={{ borderRadius: "10px" }}
+                style={{backgroundColor:color.bluedark}}
               >
                 <Typography color="white" fontSize="10px">
                   Book Now

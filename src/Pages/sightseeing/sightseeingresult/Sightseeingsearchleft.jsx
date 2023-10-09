@@ -9,7 +9,7 @@ import { Divider } from '@mui/material';
 import Checkbox from "@mui/material/Checkbox";
 import RadioButtonCheckedIcon from "@mui/icons-material/RadioButtonChecked";
 import RadioButtonUncheckedIcon from "@mui/icons-material/RadioButtonUnchecked";
-
+import color from "../../../color/color"
 
 const label = { inputProps: { "aria-label": "Checkbox demo" } };
 const SightseeingsearchLeft = () => {
@@ -30,7 +30,7 @@ const SightseeingsearchLeft = () => {
           <Typography className="list_text">Indian</Typography>
         </Box>
         <Box sx={{ display: "flex", marginY: "15px" ,justifyContent:'center'}}>
-          <Button variant='contained' type='submit' sx={{background:'#006FFF',borderRadius:'10px'}}>Modify Search</Button>
+          <Button variant='contained' type='submit' sx={{background:color.bluedark,borderRadius:'10px'}}>Modify Search</Button>
         </Box>
         <Box sx={{ display: "flex", marginY: "15px",justifyContent:'space-between' }}>
           <Box display='flex'>
