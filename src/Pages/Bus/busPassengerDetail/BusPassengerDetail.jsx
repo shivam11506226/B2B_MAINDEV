@@ -19,9 +19,11 @@ import "./buspassengerdetail.css";
 import BusSaleSummary from "./BusSaleSummary";
 import BusStepper from "../../../Components/BusStepper";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { busSeatBlockAction } from "../../../Redux/busSearch/busSearchAction";
 
 const BusPassengerDetail = () => {
+  const navigate=useNavigate();
   const reducerState = useSelector((state) => state);
   console.log("..................", reducerState);
   const dispatch = useDispatch();
@@ -78,11 +80,11 @@ const BusPassengerDetail = () => {
   console.log(passengerData);
   function handleSeatBlock() {
     const payload = {
-      Passenger: [
+      Passenger:
         passengerData?.map((item, index) => {
           return { ...item, Seat: parsedSeatData?.blockedSeatArray[index] };
         }),
-      ],
+      
       EndUserIp: reducerState?.ip?.ipData,
       ResultIndex: JSON.stringify(resultIndex),
       TraceId: busFullData?.TraceId,
@@ -92,6 +94,7 @@ const BusPassengerDetail = () => {
     };
     console.log(payload);
     dispatch(busSeatBlockAction(payload));
+    navigate("/BusReviewBooking");
   }
 
   return (

@@ -3,9 +3,11 @@ import * as types from "./actionType";
 const initState = {
   busResult: [],
   busBlock:[],
+  busBook:[],
   isLoading: false,
   isError: false,
   isLoadingBlockBus:false,
+  isLoadingBook:false,
   showSuccessMessage: false,
 };
 
@@ -37,10 +39,24 @@ export const busSearchReducer = (state = initState, action) => {
       return {
         ...state,
         busBlock: payload,
-        isLoadingBlockBus: false,
+        isLoadingBlockBus:true,
         isError: false,
         showSuccessMessage: true,
       };
+      case types.BUS_BOOK_REQUEST:
+        return{
+          ...state,
+          isLoadingBook:true,
+          isError:false
+        }
+      case types.BUS_BOOK_SUCCESS:
+        return{
+          ...state,
+          busBook:payload,
+          isLoadingBook:true,
+          isError:false,
+          showSuccessMessage:true
+        }  
 
     default:
       return state;

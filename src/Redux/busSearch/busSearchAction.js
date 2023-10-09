@@ -30,6 +30,20 @@ export const busSeatBlockAction=(data)=>{
     }
   }
 }
+export const busBook=(data)=>{
+  return {
+    type:types.BUS_BOOK_SUCCESS,
+    payload:data
+  }
+}
+export const busBookAction=(data)=>{
+  if(data){
+   return{
+     type:types.BUS_BOOK_REQUEST,
+     payload:data
+   }
+  }
+}
 
 export const clearBusSearchReducer = () => {
   return {

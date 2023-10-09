@@ -5,9 +5,14 @@ import BusSaleSummary from '../busPassengerDetail/BusSaleSummary';
 import Buscancellation from '../BusResult/Buscancellation';
 import ReadMoreIcon from '@mui/icons-material/ReadMore';
 import BusStepper from "../../../Components/BusStepper";
-
+import { useDispatch, useSelector } from "react-redux";
 
 const Busbookingconfirmation = () => {
+     const reducerState = useSelector((state) => state);
+       console.log("___________________", reducerState);
+       
+
+    
   return (
     <div className="flightContainer">
             <Box>
