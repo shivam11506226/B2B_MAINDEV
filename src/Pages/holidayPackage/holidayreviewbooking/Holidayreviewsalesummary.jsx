@@ -237,7 +237,7 @@ import Link from "@mui/material/Link";
 import Divider from "@mui/material/Divider";
 import { Grid, Radio, Typography, Button } from "@mui/material";
 import Custombutton from "../../../Custombuttom/Button";
-
+import color from "../../../color/color";
 const label = { inputProps: { "aria-label": "Checkbox demo" } };
 
 const Item = styled(Paper)(({ theme }) => ({
@@ -257,13 +257,17 @@ const Holidaysalesummary = ({ childCount, adultCount }) => {
   const reducerForm = reducerState?.form?.formEntries;
   return (
     <Box sx={{ flexGrow: 1 }} marginTop={2}>
+     
+
+    
+
       <Box
         py={1}
         backgroundColor="white"
         boxShadow="1px 1px 8px gray"
         borderRadius="10px"
       >
-        <Typography justifyContent="center" display="flex" pt={3}>
+        <Typography justifyContent="center" display="flex" pt={3} fontSize="20px" font="bold" style={{color:color.bluedark}}>
           Sale Summary
         </Typography>
         <Typography
@@ -273,20 +277,19 @@ const Holidaysalesummary = ({ childCount, adultCount }) => {
           display="flex"
           sx={{ fontSize: "12px", fontWeight: "bold", color: "#666666" }}
         >
-          GRAND TOTAL-:{}
+          GRAND TOTAL:-{}
         </Typography>
         <Box
           sx={{
             display: "flex",
             justifyContent: "space-between",
             // alignItems:"center",
-            marginY: "3px",
-            marginX: "20px",
+             
           }}
         >
           <Box>
             <Typography
-              sx={{ fontSize: "24px", color: "#252525", fontWeight: "bold" }}
+              sx={{ fontSize: "24px", color: "#252525", fontWeight: "bold",marginLeft:"20px" }}
             >
               Price
             </Typography>
@@ -295,7 +298,7 @@ const Holidaysalesummary = ({ childCount, adultCount }) => {
             <Typography
               sx={{
                 fontSize: "20px",
-                color: "#FF8900",
+                color:color.red1,
                 fontWeight: "bold",
                 textAlign: "center",
               }}
@@ -306,6 +309,7 @@ const Holidaysalesummary = ({ childCount, adultCount }) => {
                 0.05 +
                 (reducerForm.length - 1) * onePackage?.pakage_amount.amount}
             </Typography>
+
             <Typography
               sx={{
                 fontSize: "8px",
@@ -323,20 +327,19 @@ const Holidaysalesummary = ({ childCount, adultCount }) => {
           sx={{
             display: "flex",
             justifyContent: "space-between",
-            marginY: "5px",
-            marginX: "20px",
+            
           }}
         >
           <Box>
             <Typography
-              sx={{ fontSize: "12px", color: "#252525", fontWeight: "bold" }}
+              sx={{ fontSize: "12px", color: "#252525", fontWeight: "bold",marginLeft:"20px" }}
             >
               Fare Breakup
             </Typography>
           </Box>
           <Box>
             <Typography
-              sx={{ fontSize: "12px", color: "#FF8900", fontWeight: "bold" }}
+              sx={{ fontSize: "12px", color:color.red1, fontWeight: "bold",marginRight:"40px" }}
             >
               ₹{" "}
               {(reducerForm.length - 1) *
@@ -362,7 +365,7 @@ const Holidaysalesummary = ({ childCount, adultCount }) => {
               Total Basic Cost
             </Typography>
             <Typography
-              sx={{ fontSize: "10px", color: "#252525", fontWeight: "bold" }}
+              sx={{ fontSize: "10px", color:color.red1, fontWeight: "bold" }}
             >
               {" "}
               ₹ Travellers {reducerForm.length - 1} x{" "}
@@ -371,7 +374,7 @@ const Holidaysalesummary = ({ childCount, adultCount }) => {
           </Box>
           <Box>
             <Typography
-              sx={{ fontSize: "12px", color: "#FF8900", fontWeight: "bold" }}
+              sx={{ fontSize: "12px", color:color.red1, fontWeight: "bold",marginRight:"22px" }}
             >
               ₹{(reducerForm.length - 1) * onePackage?.pakage_amount.amount}
             </Typography>
@@ -417,7 +420,7 @@ const Holidaysalesummary = ({ childCount, adultCount }) => {
         >
           <Box>
             <Typography
-              sx={{ fontSize: "10px", color: "#252525", fontWeight: "bold" }}
+              sx={{ fontSize: "10px", color: "#252525", fontWeight: "bold",marginRight:"40px" }}
             >
               Fees & Taxes
             </Typography>
@@ -430,7 +433,7 @@ const Holidaysalesummary = ({ childCount, adultCount }) => {
           </Box>
           <Box>
             <Typography
-              sx={{ fontSize: "12px", color: "#FF8900", fontWeight: "bold" }}
+              sx={{ fontSize: "12px", color:color.red1, fontWeight: "bold",marginRight:"20px"}}
             >
               ₹{" "}
               {(reducerForm.length - 1) *
@@ -438,7 +441,7 @@ const Holidaysalesummary = ({ childCount, adultCount }) => {
                 0.05}
             </Typography>
             <Typography
-              sx={{ fontSize: "12px", color: "#252525", fontWeight: "bold" }}
+              sx={{ fontSize: "12px", color:color.red1, fontWeight: "bold" }}
             >
               ₹{" "}
               {(reducerForm.length - 1) *
@@ -467,7 +470,7 @@ const Holidaysalesummary = ({ childCount, adultCount }) => {
           </Box>
           <Box>
             <Typography
-              sx={{ fontSize: "12px", color: "#FF8900", fontWeight: "bold" }}
+              sx={{ fontSize: "12px",color:color.red1, fontWeight: "bold",marginRight:"22px" }}
             >
               ₹{" "}
               {(reducerForm.length - 1) *
@@ -477,12 +480,12 @@ const Holidaysalesummary = ({ childCount, adultCount }) => {
           </Box>
         </Box>
         {/* <form action="/Holidayreviewbooking"> */}
-        <Box display="flex" justifyContent="center" width={"100%"}>
-          {/* <Button variant="contained" type="submit" style={{borderRadius:'10px'}}>
+          <Box display="flex" justifyContent="center" width={"100%"}>
+            {/* <Button variant="contained" type="submit" style={{borderRadius:'10px'}}>
               Proceed to Booking Review
             </Button> */}
-          <Custombutton title={"Print package"} />
-        </Box>
+            <Custombutton title={"Print package"}/>
+          </Box>
         {/* </form> */}
       </Box>
     </Box>

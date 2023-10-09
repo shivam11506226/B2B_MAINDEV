@@ -150,8 +150,8 @@ const Holidayguestinfo = ({ setadultCount, setchildCount }) => {
   return (
     <Box>
       <form action="/Holidayreviewbooking">
-        <Box className="main-head" marginTop={2}>
-          <Typography className="holiday_txt">
+        <Box className="main-head" marginTop={5} mt={5}>
+          <Typography className="holiday_txt" style={{color:color.bluedark}}>
             {onePackage?.pakage_title}
           </Typography>
           {/* <Typography className="holiday_txt_b">
@@ -162,9 +162,9 @@ const Holidayguestinfo = ({ setadultCount, setchildCount }) => {
             Mar 3, 2023 / From New Delhi
           </Typography> */}
         </Box>
-        <Box className="main-head" mt={2}>
-          <Typography className="holiday_txt">Traveller Details</Typography>
-          <Typography className="holiday_txt_b" py={1}>
+        <Box className="main-head" mt={5} >
+          <Typography className="holiday_txt" style={{color:color.bluedark}}>Traveller Details</Typography>
+          <Typography className="holiday_txt_b" py={1}  style={{color:color.bluedark}}>
             {reducerForm.length - 1} Travellers
             {/* <Typography
               fontSize="14px"
@@ -176,70 +176,77 @@ const Holidayguestinfo = ({ setadultCount, setchildCount }) => {
             </Typography> */}
           </Typography>
 
-          <Typography className="Top_txt" marginBottom={1}>
-            Add Guests
-          </Typography>
-          <HStack spacing={4}>
-            <Box>
-              <Input
-                type="text"
-                name="name"
-                variant="filled"
-                value={formData.name}
-                onChange={handlePersonChange}
-                placeholder="Enter Name"
-              />
-            </Box>
-            <Box>
-              <Input
-                name="dob"
-                type="date"
-                value={formData.dob}
-                onChange={handlePersonChange}
-                placeholder="Date of Birth"
-              />
-            </Box>
-            <Box>
-              <Select
-                name="gender"
-                value={formData.gender}
-                variant="Filled"
-                onChange={handlePersonChange}
-                placeholder="Select Gender"
-              >
-                <option value="male">Male</option>
-                <option value="female">Female</option>
-                <option value="other">Other</option>
-              </Select>
-            </Box>
-            <Button
-              onClick={handlePersonAdd}
-             
-              size="xs"
-             style={{backgroundColor:color.bluedark}}
-              borderRadius={4}
-              paddingTop={3}
-              paddingRight={5}
-              paddingBottom={3}
-              paddingLeft={5}
-            >
-              Add Guest
-            </Button>
-          </HStack>
+          <Typography className="Top_txt" marginBottom={5} fontWeight="bold">
+        Add Guests
+      </Typography>
+      <HStack spacing={4} style={{marginTop:"-30px"}}>
+        <Box>
+          <Input
+            type="text"
+            name="name"
+            variant="filled"
+            value={formData.name}
+            onChange={handlePersonChange}
+            placeholder="Enter Name"
+            paddingLeft="2px"
+          />
+        </Box>
+        <Box>
+          <Input
+            name="dob"
+            type="date"
+            value={formData.dob}
+            onChange={handlePersonChange}
+            placeholder="Date of Birth"
+            paddingLeft="2px"
+            width="185px"
+          />
+        </Box>
+        <Box>
+          <Select
+            name="gender"
+            value={formData.gender}
+            variant="filled"
+            onChange={handlePersonChange}
+            placeholder="Select Gender"
+          >
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+            <option value="other">Other</option>
+          </Select>
+        </Box>
+        <Button
+          onClick={handlePersonAdd}
+          size="xs"
+          bgColor={color.bluedark}  // Use Chakra UI's bgColor for setting background color
+          borderRadius={4}
+          paddingTop={3}
+          paddingRight={5}
+          paddingBottom={3}
+          paddingLeft={5}
+          color="white"  // Set text color to white for better contrast
+        >
+          Add Guest
+        </Button>
+      </HStack>
+    
+
           {reducerForm.slice(1).map((singleService, index) => {
             return (
               <>
                 <Box
                   key={index}
                   marginBottom={2}
+                  marginTop={2}
                   display="flex"
                   alignItems="center"
-                  width="100%"
+                  width="71%"
                   justifyContent="space-between"
+                  textAlign="center"
                 >
-                  <Text>{singleService.name}</Text>
-                  <Text>{singleService.dob}</Text>
-                  <Text>{singleService.gender}</Text>
+                  <Text width="18%"   textAlign="center" >{singleService.name}</Text>
+                  <Text width="18%"  textAlign="center">{singleService.dob}</Text>
+                  <Text width="18%"  textAlign="center">{singleService.gender}</Text>
 
                   <MdDeleteForever
                     onClick={() => handlePersonRemove(index)}
@@ -247,6 +254,8 @@ const Holidayguestinfo = ({ setadultCount, setchildCount }) => {
                     style={{
                       alignSelf: "start",
                       marginTop: "5px",
+                      width:"18%",
+                      textAlign:"right"
                     }}
                   />
                 </Box>
@@ -255,10 +264,10 @@ const Holidayguestinfo = ({ setadultCount, setchildCount }) => {
           })}
 
           <Box py={1}>
-            <Typography fontSize="16px" fontWeight="bold" color="#006FFF">
+            <Typography fontSize="16px" fontWeight="bold" color="#006FFF" marginTop="10px">
               Please Enter Contact Details
             </Typography>
-            <HStack spacing={4}>
+            <HStack spacing={4} marginTop="10px">
               <Box>
                 <Input
                   type="email"
@@ -266,6 +275,7 @@ const Holidayguestinfo = ({ setadultCount, setchildCount }) => {
                   value={requestData.email}
                   onChange={handleRequestChange}
                   placeholder="email"
+                  paddingLeft="2px"
                 />
               </Box>
               <Box>
@@ -275,25 +285,31 @@ const Holidayguestinfo = ({ setadultCount, setchildCount }) => {
                   value={requestData.mobile}
                   onChange={handleRequestChange}
                   placeholder="Enter Number"
+                  paddingLeft="2px"
                 ></Input>
               </Box>
+              <Box>
               <Select
                 name="countryCode"
                 value={requestData.countryCode}
                 onChange={handleRequestChange}
                 placeholder="Select code"
+                style={{width:"100px"}}
               >
                 <option value="+91">+91</option>
                 <option value="+511">+511</option>
                 <option value="other">Other</option>
               </Select>
+              </Box>
               <Box>
-                <Input
+              <Input
                   name="departureCity"
                   type="text"
                   value={requestData.departureCity}
                   onChange={handleRequestChange}
                   placeholder="Enter departure city"
+                  paddingLeft="2px"
+                  style={{width:"155px"}}
                 ></Input>
               </Box>
             </HStack>
@@ -320,7 +336,7 @@ const Holidayguestinfo = ({ setadultCount, setchildCount }) => {
           </Box>
         </Box> */}
 
-        <Box className="main-head" my={2}>
+        <Box className="main-head" my={2} mt={8}>
           <Typography className="holiday_txt" textDecoration="underline">
             Package Itinerary & Inclusions
           </Typography>
@@ -700,7 +716,7 @@ const Holidayguestinfo = ({ setadultCount, setchildCount }) => {
             );
           })}
         </Box>
-        <Box className="main-head" mt={2}>
+        <Box className="main-head" mt={8}>
           <Typography className="holiday_txt" textDecoration="underline">
             Cancellation & Date Change
           </Typography>

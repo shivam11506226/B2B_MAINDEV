@@ -274,7 +274,7 @@ const Header = () => {
             
           >
             <MenuItem onClick={handleSubmit} style={{width:'130px'}}>
-              {reducerState?.logIn?.loginData?.data?.data ?<img src={logout} alt="" style={{width:'100%'}}/> : <img src={login} alt="" style={{width:'100%'}}/>}
+              {reducerState?.logIn?.loginData?.data?.data ?"Login":"Logout"}
              
             </MenuItem>
             <MenuItem onClick={editPackage} style={{fontSize:'15px'}}>My Package</MenuItem>

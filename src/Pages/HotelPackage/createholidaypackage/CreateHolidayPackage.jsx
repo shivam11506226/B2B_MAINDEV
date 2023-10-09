@@ -381,10 +381,7 @@ console.log("inputList",inputList)
                 backgroundColor: "white",
                 borderRadius: "10px",
                 boxShadow: "0 2px 6px gray",
-                border:"2px solid red",
-              
-
-              }}
+                  }}
               
             >
               <Box>
