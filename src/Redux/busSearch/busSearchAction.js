@@ -44,6 +44,20 @@ export const busBookAction=(data)=>{
    }
   }
 }
+export const busBookDetails=(data)=>{
+  return{
+    type:types.BUS_DETAILS_SUCCESS,
+    payload:data
+  }
+}
+export const busBookDetailsAction=(data)=>{
+  if(data){
+    return{
+      type:types.BUS_DETAILS_REQUEST,
+      payload:data
+    }
+  }
+}
 
 export const clearBusSearchReducer = () => {
   return {
