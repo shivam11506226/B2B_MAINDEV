@@ -5,7 +5,7 @@ import { GET_VISA_DATA } from "../getVisa/actionType";
 
 function* getVisaTableData() {
   try {
-    const user = yield call(userApi.visaData,);
+    const user = yield call(userApi.visaData);
     yield put(getVisaData(user));
   } catch (error) {
     console.log(error);

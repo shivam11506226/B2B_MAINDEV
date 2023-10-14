@@ -1,124 +1,106 @@
-import React, { useEffect } from "react";
+import React, { useEffect,useState } from "react";
 import Table from "react-bootstrap/Table";
 import Box from "@mui/material/Box";
 import { DataGrid } from "@mui/x-data-grid";
 import { useDispatch, useSelector } from "react-redux";
 import { getVisaAction } from "../../../../../Redux/getVisa/actionVisaData";
 
-const columns = [
-  { field: "id", headerName: "ID", width: 90 },
-  {
-    field: "name",
-    headerName: "Name",
-    width: 150,
-    editable: true,
-  },
-  {
-    field: "email",
-    headerName: "Email",
-    width: 110,
-    editable: true,
-  },
-  {
-    field: "mobile",
-    headerName: "Mobile",
-    width: 150,
-    editable: true,
-  },
-  {
-    field: "visaType",
-    headerName: "visaType",
-    width: 110,
-    editable: true,
-  },
-];
-const visaData1 = [
-  {
-    id: 1,
-    name: "Jane Smith",
-    email: "jane@example.com",
-    mobile: "987-654-3210",
-    visaType: "Business",
-  },
-  {
-    id: 2,
-    name: "Alice Johnson",
-    email: "alice@example.com",
-    mobile: "555-555-5555",
-    visaType: "Student",
-  },
-  {
-    id: 3,
-    name: "Michael Brown",
-    email: "michael@example.com",
-    mobile: "111-222-3333",
-    visaType: "Work",
-  },
-  {
-    id: 4,
-    name: "Emily Davis",
-    email: "emily@example.com",
-    mobile: "444-555-6666",
-    visaType: "Tourist",
-  },
-  {
-    id: 5,
-    name: "William Lee",
-    email: "william@example.com",
-    mobile: "777-888-9999",
-    visaType: "Business",
-  },
-  {
-    id: 6,
-    name: "Sophia Miller",
-    email: "sophia@example.com",
-    mobile: "222-333-4444",
-    visaType: "Student",
-  },
-  {
-    id: 7,
-    name: "James Wilson",
-    email: "james@example.com",
-    mobile: "888-999-0000",
-    visaType: "Work",
-  },
-  {
-    id: 8,
-    name: "Olivia Taylor",
-    email: "olivia@example.com",
-    mobile: "123-987-4567",
-    visaType: "Tourist",
-  },
-  {
-    id: 9,
-    name: "Liam Martinez",
-    email: "liam@example.com",
-    mobile: "555-777-2222",
-    visaType: "Business",
-  },
-];
+
 
 const VisaData = () => {
+  const dispatch = useDispatch();
   const reducerState = useSelector((state) => state);
+  const [visaData, setVisaData] = useState([]);
+  
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        await dispatch(getVisaAction());
+        const newData = reducerState?.getVisaData?.visaData?.data?.data || [];
+        setVisaData(newData);
+      } catch (error) {
+        // Handle any errors here
+        console.error('Error fetching visa data:', error);
+      }
+    };
 
-  const visaData = reducerState?.getVisaData?.visaData?.data?.data;
+    fetchData();
+  }, [dispatch]);
+
+
+  const columns = [
+    { field: "id", headerName: "ID", width: 90 },
+    {
+      field: "name",
+      headerName: "Name",
+      width: 150,
+      editable: true,
+    },
+    {
+      field: "email",
+      headerName: "Email",
+      width: 110,
+      editable: true,
+    },
+    {
+      field: "mobile",
+      headerName: "Mobile",
+      width: 150,
+      editable: true,
+    },
+    {
+      field: "visaType",
+      headerName: "visaType",
+      width: 110,
+      editable: true,
+    },
+    {
+      field: "delete",
+      headerName: "Delete",
+      width: 110,
+      renderCell: (params) => (
+        <button onClick={() => handleDelete(params.row.deleteId)} 
+        style={{ backgroundColor: 'red' }}>Delete</button>
+      ),
+    },
+  ];
+  
+
+  
+
+  const handleDelete = async  (id) => {
+    try {
+      // Make an HTTP DELETE request to your backend API to delete the data by _id
+      await fetch(`http://localhost:8000/travvolt/deleteVisa/${id}`, {
+        method: "DELETE",
+      });
+
+      setVisaData((prevData) => prevData.filter((item) => item.id !== id));
+      alert("Delete Successfully");
+      setTimeout(() => {
+        window.location.reload();
+      }, 2000);
+
+
+    } catch (error) {
+      // Handle any errors here
+      console.error(`Error deleting row with ID ${id}:`, error);
+    }
+  };
   console.log("visaData", visaData);
 
-  const dispatch = useDispatch();
-
   const transformData = (visaData) => {
-    return visaData.map((item, index) => ({
+    return visaData?.map((item, index) => ({
       id: index + 1,
       name: item.name,
       email: item.email,
       mobile: item.mobile,
       visaType: item.visaType,
+      deleteId:item._id
     }));
   };
 
-  useEffect(() => {
-    dispatch(getVisaAction());
-  }, []);
+  
   return (
     <>
       <Box height={100} />
