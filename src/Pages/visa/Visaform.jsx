@@ -14,6 +14,7 @@ const Visaform = () => {
     visaType: "",
   });
   const [errors, setErrors] = useState({});//errors
+  const [successMessage, setSuccessMessage] = useState(""); // success msg
 
   //useRef input focus
 
@@ -87,6 +88,8 @@ const Visaform = () => {
       console.log("formData", formData);
       dispatch(createVisaAction(payload));
 
+
+      setSuccessMessage("Your query was submitted successfully. We will call you shortly.");
       event.target.reset();
     }else{
       // Focus on the first empty field
@@ -198,6 +201,11 @@ const Visaform = () => {
               </div>
             </div>
           </div>
+          {successMessage && (
+        <div style={{color:"green"}}>
+          {successMessage}
+        </div>
+      )}
           <div className="row">
             <div className="col-xs-12">
               <Typography
