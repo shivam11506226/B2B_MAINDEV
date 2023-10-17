@@ -24,12 +24,27 @@ const Flight = () => {
       setLoader(true);
     }
   }, [reducerState?.oneWay?.isLoading || reducerState?.return?.isLoading ]);
+  // useEffect(() => {
+  //   if (reducerState?.oneWay?.oneWayData?.data?.data?.Response?.Results||reducerState?.return?.returnData?.data?.data?.Response?.Results) {
+  //     navigate("/Flightresult");
+  //     setLoader(false);
+  //   }
+  // }, [reducerState?.oneWay?.oneWayData?.data?.data?.Response?.Results||reducerState?.return?.returnData?.data?.data?.Response?.Results]);
+
   useEffect(() => {
-    if (reducerState?.oneWay?.oneWayData?.data?.data?.Response?.Results||reducerState?.return?.returnData?.data?.data?.Response?.Results) {
+    const oneWayResults = reducerState?.oneWay?.oneWayData?.data?.data?.Response?.Results;
+    const returnResults = reducerState?.return?.returnData?.data?.data?.Response?.Results;
+  
+    if (oneWayResults) {
       navigate("/Flightresult");
+    } else if (returnResults) {
+      navigate("/FlightresultReturn");
+    }
+  
+    if (oneWayResults || returnResults) {
       setLoader(false);
     }
-  }, [reducerState?.oneWay?.oneWayData?.data?.data?.Response?.Results||reducerState?.return?.returnData?.data?.data?.Response?.Results]);
+  }, [reducerState?.oneWay?.oneWayData?.data?.data?.Response?.Results, reducerState?.return?.returnData?.data?.data?.Response?.Results, navigate]);
 
   return (
     <>
