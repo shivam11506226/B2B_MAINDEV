@@ -4,9 +4,11 @@ const initState = {
   busResult: [],
   busBlock:[],
   busBook:[],
+  busDetails:[],
   isLoading: false,
   isError: false,
   isLoadingBlockBus:false,
+  isLoadingDetails:false,
   isLoadingBook:false,
   showSuccessMessage: false,
 };
@@ -39,7 +41,7 @@ export const busSearchReducer = (state = initState, action) => {
       return {
         ...state,
         busBlock: payload,
-        isLoadingBlockBus:true,
+        isLoadingBlockBus:false,
         isError: false,
         showSuccessMessage: true,
       };
@@ -53,10 +55,24 @@ export const busSearchReducer = (state = initState, action) => {
         return{
           ...state,
           busBook:payload,
-          isLoadingBook:true,
+          isLoadingBook:false,
           isError:false,
           showSuccessMessage:true
-        }  
+        }
+      case types.BUS_DETAILS_SUCCESS:
+        return{
+          ...state,
+          busDetails:payload,
+          isError:false,
+          isLoadingDetails:false,
+          showSuccessMessage:true
+        }
+      case types.BUS_DETAILS_REQUEST:
+        return{
+          ...state,
+          isLoadingDetails:true,
+          isError:false
+        }
 
     default:
       return state;

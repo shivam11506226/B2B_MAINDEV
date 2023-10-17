@@ -404,6 +404,7 @@ function api() {
       },
     });
   };
+
   
 
 const hotelBookingDetails = (payload) => { 
@@ -447,6 +448,29 @@ const hotelBookingDetails = (payload) => {
     });
   }
 
+  const busBookDetails=(payload)=>{
+    return axios({
+      method: "POST",
+      url: "/travvolt/bus/bookingdetails",
+      baseURL: `${apiURL.baseURL}`,
+      data: payload,
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+  }
+  const busBookingDataSave=(payload)=>{
+    return axios({
+      method: "POST",
+      url: "/travvolt/busBooking/addBusBookingData",
+      baseURL: `${apiURL.baseURL}`,
+      data: payload,
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+  }
+  
   return {
     userB2BRegistration,
     userIP,
@@ -486,6 +510,8 @@ const hotelBookingDetails = (payload) => {
     getBusSearch,
     busBlock,
     busBook,
+    busBookDetails,
+    busBookingDataSave,
     visaData,
   };
 }

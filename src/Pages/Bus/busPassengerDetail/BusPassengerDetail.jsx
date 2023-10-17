@@ -60,7 +60,7 @@ const BusPassengerDetail = () => {
   for (let i = 0; i < passengerCount; i++) {
     passengerLists.push({
       ...passengerTemplate,
-      // IsLeadPax: i === 0, // Set the first passenger as the lead passenger
+      LeadPassenger: i === 0, // Set the first passenger as the lead passenger
     });
   }
   const [passengerList, setPassengerList] = useState(passengerLists);
@@ -100,7 +100,6 @@ const BusPassengerDetail = () => {
   return (
     <div className="flightContainer">
       <BusStepper />
-
       <Box sx={{ flexGrow: 1 }}>
         <Grid container spacing={2}>
           <Grid item xs={9}>

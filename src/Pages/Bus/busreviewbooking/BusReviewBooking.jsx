@@ -1,4 +1,4 @@
-import React from 'react'
+import React,{useState} from 'react'
 import Stepper from '../../../Components/Stepper';
 import {Box,Grid, Typography,Link,Button} from '@mui/material';
 import BusSaleSummary from '../busPassengerDetail/BusSaleSummary';
@@ -12,7 +12,7 @@ const BusReviewBooking = () => {
     const dispatch=useDispatch();
     const navigate=useNavigate();
     const reducerState = useSelector((state) => state);
-    const isNavigate = reducerState?.getBusResult?.isLoadingBook ||false;
+    const isNavigate = reducerState?.getBusResult?.isLoadingBook ||true;
     console.log("======================", reducerState);
     const busBlockData =
       reducerState?.getBusResult?.busBlock?.data?.data?.BlockResult;
@@ -22,11 +22,7 @@ const BusReviewBooking = () => {
     const resultIndex = parsedSeatData?.resultIndex;
     const boardingPoint = parsedSeatData?.selectedOrigin;
     const droppingPoint = parsedSeatData?.selectedDropPoint;
-    useEffect(()=>{
-         if (isNavigate == true) {
-        navigate("/Busbookingconfirmation");
-         }
-    },[isNavigate])
+    
     const handleBookBus = async () => {
       try {
         const payload = {
