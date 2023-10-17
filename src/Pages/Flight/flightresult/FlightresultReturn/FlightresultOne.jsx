@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import SingleData from "../SingleData";
+import SingleDataReturn from "./SingleDataReturn";
 import MultipleData from "../MultipleData";
 import { Grid, Box, Typography, Button } from "@mui/material";
 import { useDispatch, useSelector, useReducer } from "react-redux";
@@ -56,7 +56,7 @@ const FlightresultOne = () => {
             const length = flight.length;
             console.log("ResultIndex1", flight1?.ResultIndex);
             return length === 1 ? (
-              <SingleData
+              <SingleDataReturn
                 flight={flight[0]}
                 stop={length}
                 index={flight1?.ResultIndex}
