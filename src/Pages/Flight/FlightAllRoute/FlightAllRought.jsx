@@ -9,6 +9,7 @@ import OneWay from '../FlightForm/OneWay'
 import Return from '../FlightForm/Return'
 import Flightresult from '../flightresult/Flightresult';
 import Booknow from '../booknow/Booknow';
+import FlightresultReturn from '../flightresult/FlightresultReturn'
 
 // import MultiStop from '../Flight/FlightForm/MultiStop'
 // import Calander from '../Flight/FlightForm/Calander'
@@ -30,6 +31,7 @@ const FlightAllRoute = () => {
         <Route exact path="flightresult" element={<Flightresult />} />
         <Route exact path='flight/booknow' element={<Booknow />} />
         <Route exact path="return" element={<Return />} />
+        <Route exact path='FlightresultReturn' element={<FlightresultReturn />} />
 
         <Route exact path='advanceSearch' element={<AdvanceSearch />} />
       </Routes>
