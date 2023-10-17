@@ -413,6 +413,7 @@ const EditHolidayPackage = () => {
       marginRight: "5px",
     },
   };
+  
   const styles3 = {
     container: {
       marginBottom: "16px",

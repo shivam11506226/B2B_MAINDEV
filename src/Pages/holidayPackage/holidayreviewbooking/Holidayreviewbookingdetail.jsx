@@ -1,4 +1,4 @@
-import React from 'react'
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Box, Typography, Button, Grid } from "@mui/material";
 import FormControl from "@mui/material/FormControl";
@@ -11,34 +11,38 @@ import mainImage from "../../../Images/mainImage.png";
 import HolidayRating from "../holidaypackageresult/HolidayRating";
 import FileDownloadDoneIcon from "@mui/icons-material/FileDownloadDone";
 import FastfoodIcon from "@mui/icons-material/Fastfood";
-
+import color from "../../../color/color";
 const Holidayreviewbookingdetail = () => {
-   const dispatch = useDispatch();
-   const reducerState = useSelector((state) => state);
-   const onePackage =
-     reducerState?.searchOneResult?.OneSearchPackageResult?.data?.data;
-   const reducerForm = reducerState?.form?.formEntries;
-   console.log(onePackage);
-   console.log(reducerForm);
+  const dispatch = useDispatch();
+  const reducerState = useSelector((state) => state);
+  const onePackage =
+    reducerState?.searchOneResult?.OneSearchPackageResult?.data?.data;
+  const reducerForm = reducerState?.form?.formEntries;
+  console.log(onePackage);
+  console.log(reducerForm);
 
   return (
     <Box>
       <Box className="main-head" marginTop={2}>
-        <Typography className="holiday_txt">
+        <Typography className="holiday_txt" style={{ color: color.bluedark }}>
           {onePackage?.pakage_title}
         </Typography>
 
         <Typography>{onePackage?.destination[0].addMore}</Typography>
       </Box>
       <Box className="main-head" mt={2}>
-        <Typography className="holiday_txt">Traveller Details</Typography>
+        <Typography className="holiday_txt" style={{ color: color.bluedark }}>
+          Traveller Details
+        </Typography>
         <Typography className="holiday_txt_b" py={1}>
           {reducerForm.length - 1} Travellers
           <Typography fontSize="14px" fontWeight="bold" color="#006FFF" px={1}>
             - 1 Room | {reducerForm.length - 1} Adults
           </Typography>
         </Typography>
-        <Typography className="holiday_txt_v">Traveller 1 (Adult)</Typography>
+        <Typography className="holiday_txt_v" style={{ color: color.red1 }}>
+          Traveller 1 (Adult)
+        </Typography>
         <Box>
           <Box mt={1} display="flex">
             <Typography
@@ -103,7 +107,9 @@ const Holidayreviewbookingdetail = () => {
             </Typography>
           </Box>
         </Box>
-        <Typography className="holiday_txt_v">Traveller 2 (Adult)</Typography>
+        <Typography className="holiday_txt_v" style={{ color: color.red1 }}>
+          Traveller 2 (Adult)
+        </Typography>
         <Box>
           <Box mt={1} display="flex">
             <Typography
@@ -241,7 +247,11 @@ const Holidayreviewbookingdetail = () => {
       </Box>
 
       <Box className="main-head" my={2}>
-        <Typography className="holiday_txt" textDecoration="underline">
+        <Typography
+          className="holiday_txt"
+          textDecoration="underline"
+          style={{ color: color.bluedark }}
+        >
           Package Itinerary & Inclusions
         </Typography>
         {/* <Typography className="holiday_txt_b" py={1}>
@@ -556,7 +566,7 @@ const Holidayreviewbookingdetail = () => {
           return (
             <>
               <Box key={index}>
-                <Typography sx={{ color: "orange", fontWeight: "bold" }}>
+                <Typography sx={{ color: color.red1, fontWeight: "bold" }}>
                   Day{index + 1}
                 </Typography>
                 <Typography>{item}</Typography>
@@ -566,7 +576,11 @@ const Holidayreviewbookingdetail = () => {
         })}
       </Box>
       <Box className="main-head" mt={2}>
-        <Typography className="holiday_txt" textDecoration="underline">
+        <Typography
+          className="holiday_txt"
+          textDecoration="underline"
+          style={{ color: color.bluedark }}
+        >
           Cancellation & Date Change
         </Typography>
         <Typography
@@ -626,20 +640,21 @@ const Holidayreviewbookingdetail = () => {
             <Typography
               sx={{
                 fontSize: "14px",
-                color: "#FF8900",
                 fontWeight: "300",
                 textAlign: "right",
               }}
+              style={{ color: color.red1 }}
             >
               ₹2,000 Cancellation Fee
             </Typography>
             <Typography
               sx={{
                 fontSize: "14px",
-                color: "#FF8900",
+
                 fontWeight: "300",
                 textAlign: "right",
               }}
+              style={{ color: color.red1 }}
             >
               Non Refundable
             </Typography>
@@ -709,20 +724,21 @@ const Holidayreviewbookingdetail = () => {
             <Typography
               sx={{
                 fontSize: "14px",
-                color: "#FF8900",
+
                 fontWeight: "300",
                 textAlign: "right",
               }}
+              style={{ color: color.red1 }}
             >
               ₹0 Date Change Fee
             </Typography>
             <Typography
               sx={{
                 fontSize: "14px",
-                color: "#FF8900",
                 fontWeight: "300",
                 textAlign: "right",
               }}
+              style={{ color: color.red1 }}
             >
               Date cannot be changed
             </Typography>
@@ -746,6 +762,6 @@ const Holidayreviewbookingdetail = () => {
       </Box>
     </Box>
   );
-}
+};
 
-export default Holidayreviewbookingdetail
+export default Holidayreviewbookingdetail;

@@ -4,8 +4,6 @@ import color from "../color/color"
 const BusStepper = () => {
   return (
     <div>
-    
-
       <Box
         w="100%"
         display="flex"

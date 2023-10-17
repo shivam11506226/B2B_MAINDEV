@@ -11,7 +11,7 @@ import { styled } from "@mui/material/styles";
 import Chip from "@mui/material/Chip";
 import Paper from "@mui/material/Paper";
 import TagFacesIcon from "@mui/icons-material/TagFaces";
-import color from  "../../../color/color"
+import color from "../../../color/color";
 import Editor from "react-simple-wysiwyg";
 import "./CreatePackage.css";
 //   import "./selectclickbutton.css";
@@ -77,9 +77,7 @@ const CreateHolidayPackage = () => {
     margin: theme.spacing(0.5),
   }));
   const [input, setInput] = React.useState("");
-  const [chipData, setChipData] = React.useState([
-  
-  ]);
+  const [chipData, setChipData] = React.useState([]);
   const handleDelete = (chipToDelete) => () => {
     setChipData((chips) =>
       chips.filter((chip) => chip.key !== chipToDelete.key)
@@ -88,18 +86,15 @@ const CreateHolidayPackage = () => {
 
   const handleAddChip = () => {
     if (input.trim() !== "") {
-      setChipData((chips) => [
-        ...chips,
-        { key:Date.now(), addMore: input },
-      ]);
+      setChipData((chips) => [...chips, { key: Date.now(), addMore: input }]);
 
       setInput("");
     }
-  }
-  const inputList= chipData.map((item) => ({ addMore: item.addMore }));
+  };
+  const inputList = chipData.map((item) => ({ addMore: item.addMore }));
 
-console.log("inputList",inputList)
-//  console.log("chipdata", chipData);
+  console.log("inputList", inputList);
+  //  console.log("chipdata", chipData);
   // function textEditorChange(e) {
   //   setHtml(e.target.value);
   // }
@@ -123,8 +118,6 @@ console.log("inputList",inputList)
   // const handleAddClick = () => {
   //   setInputList([...inputList, { addMore: "" }]);
   // };
-
-  
 
   const [tag, setTag] = useState({
     domestic: false,
@@ -200,6 +193,31 @@ console.log("inputList",inputList)
     flexibleBooking: false,
     wifi: false,
   });
+  const styles1 = {
+    container: {
+      display: "flex",
+      marginLeft:"-6px",
+      marginTop:"10px"
+    },
+    input: {
+      color:"color.bluedark",
+      paddingLeft: "15px",
+      paddingRight: "15px",
+      fontSize: "16px",
+      border:"color.bluedark",
+      borderRadius: "5px",
+      width: "55px",
+      textAlign: "center",
+    },
+    button: {
+      backgroundColor:color.bluedark,
+      color: "#fff",
+      borderRadius: "5px",
+      marginLeft: "5px",
+      marginRight: "5px",
+    },
+  };
+
   const handleChange = (event) => {
     setCheckedItem({
       ...checkedItem,
@@ -371,21 +389,16 @@ console.log("inputList",inputList)
 
   return (
     <div>
-      <Grid  >
+      <Grid>
         <form onSubmit={handleCreatePackage}>
-         
-          <Grid item xs={2} md={8}> 
+          <Grid item xs={2} md={8}>
             <Box
               sx={{
                 width: "100%",
                 backgroundColor: "white",
                 borderRadius: "10px",
                 boxShadow: "0 2px 6px gray",
-                border:"2px solid red",
-              
-
               }}
-              
             >
               <Box>
                 <Typography
@@ -398,57 +411,67 @@ console.log("inputList",inputList)
                   Create Holiday Package
                 </Typography>
               </Box>
-              <Typography style={{ fontSize: "16px",marginLeft:"20px" }}>
+             
+              <div style={{ display: "flex", justifyContent: "space-between" }}>
+            <div style={{ flex: 1, marginLeft:"10px"}}>
+              <Typography style={{ fontSize: "16px" }}>
                 {" "}
                 Give the package a title <span style={{ color: "red" }}>*</span>
               </Typography>
               <Box
                 style={{
-                  boxShadow: " 0px 3px 3px #00000029",
+                  boxShadow: "0px 7px 11px rgba(0, 0, 0, 0.29)",
                   paddingTop: "10px",
                   paddingBottom: "10px",
                   borderRadius: "10px",
                   padding: "5px",
-                  background: "#FFFFFF",
+                  background: "#EFEFEF", // Changed background color
+                  width: "100%", // Adjusted width to fill available space
+                  marginTop: "10px",
                 }}
               >
                 <input
                   type="text"
-                  name="pakage_title"
-                  placeholder="Unexplored Dubai"
+                  name="package_title"
+                  placeholder="Enter Your Package Title"
+                 
                   style={{
                     border: "none",
                     textDecoration: "none",
                     width: "100%",
-                    padding: "3px",
+                    padding: "5px", // Added padding for input
+                    borderRadius: "5px", // Added border radius for input
                   }}
                 />
               </Box>
+            </div>
 
-              <Box style={{ marginTop: "20px" }}>
+            <div style={{ flex: 1, marginLeft: "20px", marginRight:"20px" }}>
+              <Box >
                 <Typography style={{ fontSize: "16px", color: "#252525" }}>
-                  Upload a picture of the package
+                  Upload a picture of the package{" "}
                   <span style={{ color: "red" }}>*</span>
                 </Typography>
                 <Typography style={{ fontSize: "10px", color: "#666666" }}>
                   Please select from auto suggestions
                 </Typography>
-                <Box>
-                  <input
-                    style={{
-                      border: "1px solid grey",
-                      padding: "10px",
-                      width: "250px",
-                      borderRadius: "10px",
-                      color: "#000000",
-                    }}
-                    name="user_card_document"
-                    id="user_card_document"
-                    type="file"
-                  />
-                </Box>
+                <input
+                  style={{
+                    border: "1px solid grey",
+                    padding: "5px",
+                    width: "100%", // Adjusted width to fill available space
+                    borderRadius: "10px",
+                    color: "#006FFF",
+                  }}
+                  name="user_card_document"
+                  id="user_card_document"
+                  type="file"
+                />
               </Box>
-              <Box style={{ paddingTop: "10px" }}>
+            </div>
+          </div>
+
+              <Box style={{ paddingTop: "10px",width:"48%",marginTop:"10px",marginLeft:"10px"}}>
                 <Typography style={{ fontSize: "16px" }}>
                   What destinations does this package cover?
                   <span style={{ color: "red" }}>*</span>
@@ -470,7 +493,7 @@ console.log("inputList",inputList)
                   }}
                   component="ul"
                 >
-                  {chipData.map((data,index) => {
+                  {chipData.map((data, index) => {
                     let icon;
                     return (
                       <ListItem key={data.key}>
@@ -478,7 +501,7 @@ console.log("inputList",inputList)
                           icon={icon}
                           label={data.addMore}
                           onDelete={handleDelete(data)}
-                          variant={index%2==0?"outlined":"filled"}
+                          variant={index % 2 == 0 ? "outlined" : "filled"}
                         />
                       </ListItem>
                     );
@@ -507,56 +530,38 @@ console.log("inputList",inputList)
                     onClick={handleAddChip}
                     variant="contained"
                     endIcon={<AddIcon />}
-                    style={{ backgroundColor:color.bluedark}}
+                    style={{ backgroundColor: color.bluedark }}
                   >
                     Add
                   </Button>
                 </div>
               </Box>
 
-              <Box my={2}>
-                <Typography style={{ fontSize: "16px", color: "#252525" }}>
-                  How Many Days?
-                </Typography>
-                <Box
-                  style={{
-                    display: "flex",
-                    justifyContent: "flex-start",
-                    paddingLeft: "0px",
-                    
-                  }}
-                >
-                  <Button
-                    onClick={() =>
-                      days === 0 ? setDays(0) : setDays(days - 1)
-                    }
-                    variant="contained"
-                    style={{backgroundColor:color.bluedark}}
-                  >
-                    <RemoveIcon style={{ fontSize: "16px" }} />
-                  </Button>
-                  <input
-                    style={{
-                      color: "#00",
-                      paddingLeft: "15px",
-                      paddingRight: "15px",
-                      fontSize: "16px",
-                      border: "none",
-                      width: "55px",
-                      textAlign: "center",
-                    }}
-                    value={days}
-                  />
-                  <Button onClick={() => setDays(days + 1)} variant="contained"
-                   style={{backgroundColor:color.bluedark}}
-                  >
-                    <AddIcon style={{ fontSize: "16px" }} />{" "}
-                  </Button>
-                </Box>
-              </Box>
+              <Box my={5} style={{marginLeft:"20px"}}>
+            <Typography style={{ fontSize: "16px", color: "#252525" }}>
+              How Many Days?
+            </Typography>
+            <Box style={styles1.container}>
+              <Button
+                onClick={() => (days === 0 ? setDays(0) : setDays(days - 1))}
+                style={styles1.button}
+              >
+                <RemoveIcon style={{ fontSize: "16px" }} />
+              </Button>
+              <input
+                style={styles1.input}
+                type="number"
+                value={days}
+                onChange={(e) => setDays(Number(e.target.value))}
+              />
+              <Button onClick={() => setDays(days + 1)} style={styles1.button}>
+                <AddIcon style={{ fontSize: "16px" }} />
+              </Button>
+            </Box>
+          </Box>
 
-              <Box my={2}>
-                <Typography style={{ fontSize: "16px" }}>
+              <Box my={2} style={{marginLeft:"20px"}}>
+                 <Typography style={{ fontSize: "16px" }}>
                   What is the schedule?<span style={{ color: "red" }}>*</span>
                 </Typography>
                 <Box display="flex" gap="15px">
@@ -609,10 +614,10 @@ console.log("inputList",inputList)
                 </Box>
               </Box>
               <Box>
-                <Typography style={{ fontSize: "16px" }}>
+                <Typography style={{ fontSize: "16px",marginLeft:"20px"}}>
                   Set up package pricing<span style={{ color: "red" }}>*</span>
                 </Typography>
-                <Box display="flex">
+                <Box display="flex" style={{marginLeft:"20px"}}>
                   <Box ml={1}>
                     <FormControl>
                       <NativeSelect>
@@ -646,7 +651,7 @@ console.log("inputList",inputList)
                 </Box>
               </Box>
 
-              <Box>
+              <Box style={{ fontSize: "16px", marginLeft: "29px" }}>
                 <Typography style={{ fontSize: "16px", marginTop: "29px" }}>
                   Inclusions / Exclusions<span style={{ color: "red" }}>*</span>
                 </Typography>
@@ -663,7 +668,6 @@ console.log("inputList",inputList)
                       display="flex"
                       justifyContent="space-between"
                       alignItems="center"
-                
                     >
                       <Box
                         display="flex"
@@ -1890,7 +1894,7 @@ console.log("inputList",inputList)
                 <Grid item lg={1}></Grid>
               </Grid>
               {/* ------------------------------ */}
-              <Box my={2}>
+              <Box my={2} style={{marginLeft:"25px"}}>
                 <Typography style={{ fontSize: "16px", color: "#252525" }}>
                   Hotel Details<span style={{ color: "red" }}>*</span>
                 </Typography>
@@ -1909,10 +1913,10 @@ console.log("inputList",inputList)
                 </Typography>
               </Box>
               <Box my={2}>
-                <Typography style={{ fontSize: "16px", color: "#252525" }}>
+                <Typography style={{ fontSize: "16px", color: "#252525",marginLeft:"20px"  }}>
                   Inclusion Note
                 </Typography>
-                <Typography style={{ fontSize: "14px", color: "#666666" }}>
+                <Typography style={{ fontSize: "14px", color: "#666666",marginLeft:"20px" }}>
                   {/* <input type="text" name="insclusion_note" placeholder="Add Details" style={{ textDecoration: 'none', width: '100%' }} /> */}
                   <textarea
                     className="style_Textarea"
@@ -1925,11 +1929,11 @@ console.log("inputList",inputList)
                 </Typography>
               </Box>
               <Box my={2}>
-                <Typography style={{ fontSize: "16px", color: "#252525" }}>
+                <Typography style={{ fontSize: "16px", color: "#252525",marginLeft:"20px" }}>
                   Exclusion Note
                   <p> What's explicitly excluded?</p>
                 </Typography>
-                <Typography style={{ fontSize: "14px", color: "#666666" }}>
+                <Typography style={{ fontSize: "14px", color: "#666666",marginLeft:"20px"  }}>
                   {/* <input type="text" name="exclusion_note" placeholder="Add Hotel Details" style={{ textDecoration: 'none', width: '100%' }} /> */}
                   <textarea
                     className="style_Textarea"
@@ -1941,7 +1945,7 @@ console.log("inputList",inputList)
                   ></textarea>
                 </Typography>
               </Box>
-              <Box my={2}>
+              <Box my={2} style={{marginLeft:"20px"}}>
                 <Typography style={{ fontSize: "16px", color: "#252525" }}>
                   Detailed Itinerary<span style={{ color: "red" }}>*</span>
                 </Typography>
@@ -1975,7 +1979,7 @@ console.log("inputList",inputList)
                   </>
                 ))}
               </Box>
-              <Box my={2}>
+              <Box my={2} marginLeft="20px">
                 <Typography style={{ fontSize: "16px", color: "#252525" }}>
                   Overview<span style={{ color: "red" }}>*</span>
                 </Typography>
@@ -1987,12 +1991,13 @@ console.log("inputList",inputList)
                   cols="95"
                   rows="5"
                 ></textarea>
+
               </Box>
-              <Box my={2}>
-                <Typography style={{ fontSize: "16px", color: "#252525" }}>
+              <Box my={2}  marginLeft="20" >
+                <Typography style={{ fontSize: "16px", color: "#252525",marginLeft:"20px"}}>
                   Select Tags<span style={{ color: "red" }}>*</span>
                 </Typography>
-                <Typography style={{ fontSize: "14px", color: "#666666" }}>
+                <Typography style={{ fontSize: "14px", color: "#666666",marginLeft:"20px" }}>
                   Select tags most relevant to your packages
                 </Typography>
               </Box>
@@ -2225,9 +2230,9 @@ console.log("inputList",inputList)
                   </label>
                 </div>
               </div>
-              <Box my={2}>
+              <Box my={2} style={{marginLeft:"20px"}}>
                 <Typography style={{ fontSize: "16px", color: "#252525" }}>
-                  <p>
+                  <p style={{marginLeft:"8px",fontSize:"20px"}}>
                     Term & Conditions<span style={{ color: "red" }}>*</span>{" "}
                   </p>
                   <textarea
@@ -2238,8 +2243,9 @@ console.log("inputList",inputList)
                     rows="5"
                   ></textarea>
                 </Typography>
-                <Typography style={{ fontSize: "14px", color: "#666666" }}>
-                  Write a descriptive summary of the T&C.....
+                Write a descriptive summary of the T&C.....
+                <Typography style={{ fontSize: "14px", color: "#666666",marginLeft:"5px"}}>
+                  
                   <textarea
                     className="style_Textarea"
                     name="term_Conditions"
@@ -2249,8 +2255,8 @@ console.log("inputList",inputList)
                   ></textarea>
                 </Typography>
               </Box>
-              <Box my={2}>
-                <Typography style={{ fontSize: "16px", color: "#252525" }}>
+              <Box my={2} style={{marginLeft:"20px"}}>
+                <Typography style={{ fontSize: "20px", color: "#252525" }}>
                   <p>
                     {" "}
                     Cancellation Policy<span style={{ color: "red" }}>
@@ -2282,11 +2288,12 @@ console.log("inputList",inputList)
               <Box my={2} display="flex" justifyContent="center">
                 <Box mx={1}>
                   <Button
-                    variant="outlined"
+                   
                     style={{
-                      border: "1px solid #FF8900",
+                      border: "1px solid",
+                      borderColor:color.red1,
                       borderRadius: "10px",
-                      color: "#FF8900",
+                      color:color.red1,
                     }}
                   >
                     Save As Draft
@@ -2296,11 +2303,14 @@ console.log("inputList",inputList)
                   <Button
                     variant="primary"
                     type="submit"
+                   
                     style={{
                       border: "1px solid #707070",
                       borderRadius: "10px",
-                      backgroundColor: "#006FFF",
+                     backgroundColor:color.bluedark,
                       color: "#fff",
+                      marginBottom:"20px",
+                      
                     }}
                   >
                     Submit Request

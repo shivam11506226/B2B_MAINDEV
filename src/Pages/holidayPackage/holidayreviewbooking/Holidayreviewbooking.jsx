@@ -8,7 +8,7 @@ import Holidayreviewsalesummary from "./Holidayreviewsalesummary";
 import { styled } from "@mui/material/styles";
 import { Box as MuiBox } from "@mui/material";
 import Paper from "@mui/material/Paper";
-
+import color from "../../../color/color"
 import Divider from "@mui/material/Divider";
 import { Grid, Radio, Typography, Button } from "@mui/material";
 // import {Holidaysalesummary} from "../holidayguestdetail/Holidaysalesummary"
@@ -34,8 +34,8 @@ const HolidayGuestDetail = () => {
               w="25px"
               h="25px"
               borderRadius="50%"
-              bg="#0096FF"
               color="white"
+              style={{backgroundColor:color.bluedark}}
             >
               <Text>1</Text>
             </Box>
@@ -54,6 +54,7 @@ const HolidayGuestDetail = () => {
               borderRadius="50%"
               bg="#0096FF"
               color="white"
+              style={{backgroundColor:color.bluedark}}
             >
               <Text>2</Text>
             </Box>
@@ -67,7 +68,7 @@ const HolidayGuestDetail = () => {
               w="25px"
               h="25px"
               borderRadius="50%"
-              bg="#0096FF"
+              style={{backgroundColor:color.bluedark}}
               color="white"
             >
               <Text>3</Text>
@@ -83,7 +84,7 @@ const HolidayGuestDetail = () => {
               w="25px"
               h="25px"
               borderRadius="50%"
-              bg="#0096FF"
+              style={{backgroundColor:color.bluedark}}
               color="white"
             >
               <Text>4</Text>
@@ -99,7 +100,7 @@ const HolidayGuestDetail = () => {
               w="25px"
               h="25px"
               borderRadius="50%"
-              bg="#0096FF"
+              style={{backgroundColor:color.bluedark}}
               color="white"
             >
               <Text>5</Text>

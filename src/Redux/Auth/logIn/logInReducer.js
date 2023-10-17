@@ -26,6 +26,13 @@ export const logInReducer = (state = initialState, action) => {
         isLoading: true,
         isError: false,
       };
+      case types.LOGIN_FAILURE:
+        return {
+          ...state,
+          isLogin:false,
+          isLoading:false,
+          isError:true,
+        }
 
     default:
       return state;
