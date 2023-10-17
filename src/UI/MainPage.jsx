@@ -74,7 +74,7 @@ import { useDispatch, useSelector, useReducer } from "react-redux";
 import { ipAction, tokenAction } from "../Redux/IP/actionIp";
 import Slider from "../Pages/Banner/Slider";
 import GotoTopBtn from "../Components/GotoTopBtn";
-import FlightresultReturn from "../Pages/Flight/flightresult/FlightresultReturn";
+import FlightresultReturn from "../Pages/Flight/flightresult/FlightresultReturn/FlightresultReturn";
 const MainPage = () => {
   const dispatch = useDispatch();
   const location = useLocation();
@@ -118,43 +118,47 @@ const MainPage = () => {
         <div className="mainBox">
           {/* header of main dashboard */}
           <div className="header_section">
-            <Header/>
+            <Header />
             {/* inner navbar contain all pages */}
-            <InnerNavbar/>
+            <InnerNavbar />
           </div>
 
           {/* all routes of inner navbar */}
           <div className="componentsContainer">
             <Routes>
               <Route
-                element={<Active/>}
+                element={<Active />}
                 style={{ color: "inherit", textDecoration: "inherit" }}
               />
               <Route
                 path="/Hotel"
-                element={<Hotel/>}
+                element={<Hotel />}
                 style={{ color: "inherit", textDecoration: "inherit" }}
               />
               <Route exact path="flightresult" element={<Flightresult />} />
-            
-              <Route exact path='FlightresultReturn' element={<FlightresultReturn />} />
+
+              <Route
+                exact
+                path="FlightresultReturn"
+                element={<FlightresultReturn />}
+              />
               <Route
                 exact
                 path="/hotel/hotelsearch"
-                element={<HotelSearch/>}
+                element={<HotelSearch />}
               />
               <Route exact path="/Flightresult/booknow" element={<Booknow />} />
-              <Route path="/flights/*" element={<Flight/>}>
-                <Route exact path="oneway" element={<OneWay/>} />
-                <Route exact path="offShare" element={<OffShare/>} />
-                <Route exact path="multiStop" element={<MultiStop/>} />
-                <Route exact path="calenderfare" element={<Calander/>} />
-                <Route exact path="return" element={<Return/>} />
+              <Route path="/flights/*" element={<Flight />}>
+                <Route exact path="oneway" element={<OneWay />} />
+                <Route exact path="offShare" element={<OffShare />} />
+                <Route exact path="multiStop" element={<MultiStop />} />
+                <Route exact path="calenderfare" element={<Calander />} />
+                <Route exact path="return" element={<Return />} />
               </Route>
 
               {/* <Route path="/" element={<Banner />} /> */}
-            
-                <Route path="/" element={<Slider />} />
+
+              <Route path="/" element={<Slider />} />
 
               <Route
                 exact
@@ -339,7 +343,7 @@ const MainPage = () => {
           {/* {!isLoginRoute && <Footer />} */}
         </div>
       )}
-<GotoTopBtn/>
+      <GotoTopBtn />
       <div>
         <Routes>
           <Route path="login" element={<Login />} />
