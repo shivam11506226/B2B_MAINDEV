@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { Grid, Box, Typography } from "@mui/material";
+import { Grid, Box, Typography, Checkbox } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import "../SingleData.css";
 import Nonrefundable from "../Nonrefundable";
 
 import { useDispatch, useSelector, useReducer } from "react-redux";
 import Luggage from "../Luggage";
-
+import { PropagateLoader } from "react-spinners";
 
 function SingleDataReturn(props) {
   // console.log("Props", props);
@@ -15,10 +15,13 @@ function SingleDataReturn(props) {
   const reducerState = useSelector((state) => state);
   const flight = props.flight;
   const IsLCC = props.IsLCC;
+  const [focusedIndex, setFocusedIndex] = useState(null);
+
   // console.log("flight single", flight);
 
-  const results =reducerState?.return?.returnData?.data?.data?.Response?.Results;
-// console.log("Redux State", results);
+  const results =
+    reducerState?.return?.returnData?.data?.data?.Response?.Results;
+  // console.log("Redux State", results);
 
   const indexKey = props.index;
   const fare =
@@ -31,10 +34,6 @@ function SingleDataReturn(props) {
 
   console.log(fare);
   const img = flight?.Airline?.AirlineCode;
-  
-
- 
-
 
   const time = `${Math.floor(flight?.Duration / 60)}hr ${
     flight.Duration % 60
@@ -77,27 +76,31 @@ function SingleDataReturn(props) {
   const year1 = date2.getFullYear();
   const formattedDate1 = `${day1} ${month1} ${year1}`;
 
-
   const handleClick = (ResultIndex) => {
     console.log("Handel Click Index Key", ResultIndex);
-    navigate("passengerdetail");
-    sessionStorage.setItem("ResultIndex", ResultIndex);
+    console.log("hghfdsjgdsjsfd",props.flight);
+    const obj = {
+      ResultIndex: ResultIndex,
+      flight: props.flight
+    };
+      if (focusedIndex === ResultIndex) {
+        // If the clicked flight is already focused, remove focus
+        setFocusedIndex(null);
+      } else {
+        // Set focus on the clicked flight
+        setFocusedIndex(ResultIndex);
+      }
+    
   };
 
-
-  
- 
-
   return (
-    <div>
-      <Box
-        p={2}
-        mb={2}
-        backgroundColor="#F5F5F5"
-        boxShadow="1px 1px 8px gray"
-        borderRadius="10px"
-      >
-        <Box display="flex" justifyContent="space-between">
+    <div onClick={() => handleClick(props.index)}>
+      <Box>
+        <Box
+          display="flex"
+          justifyContent="space-between"
+          border={props.index === focusedIndex ? "2px solid red" : ""}
+        >
           <Grid
             container
             style={{
@@ -236,40 +239,6 @@ function SingleDataReturn(props) {
             {/* <Fairrule /> */}
             <Nonrefundable />
           </Box>
-          <Grid
-            md={2}
-            sm={2}
-            py={3}
-            display="flex"
-            justifyContent="center"
-            alignItems="center"
-          >
-            <button
-              onClick={() => {
-                console.log("indexKey inside loop", indexKey);
-                handleClick(indexKey);
-              }}
-            >
-              <div class="svg1-wrapper1-1">
-                <div class="svg1-wrapper1">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 24 24"
-                    width="15"
-                    height="15"
-                    id="svg1"
-                  >
-                    <path fill="none" d="M0 0h24v24H0z"></path>
-                    <path
-                      fill="currentColor"
-                      d="M1.946 9.315c-.522-.174-.527-.455.01-.634l19.087-6.362c.529-.176.832.12.684.638l-5.454 19.086c-.15.529-.455.547-.679.045L12 14l6-8-8 6-8.054-2.685z"
-                    ></path>
-                  </svg>
-                </div>
-              </div>
-              <span id="id2">Book Now</span>
-            </button>
-          </Grid>
         </Box>
       </Box>
     </div>

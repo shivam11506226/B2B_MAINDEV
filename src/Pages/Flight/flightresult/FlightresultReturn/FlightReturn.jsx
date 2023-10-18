@@ -9,9 +9,9 @@ const FlightresultOne = () => {
   const [filter, setFilter] = useState(1);
   const setToSearchResults =
     reducerState?.return?.returnData?.data?.data?.Response?.Results;
-  console.log("+++++++++++++",setToSearchResults[0]);
+  console.log("+++++++++++++", setToSearchResults[1]);
 
-  return setToSearchResults[0]?.map((flight1) => {
+  return setToSearchResults[1]?.map((flight1) => {
     // result = res.sort((a, b) => a.Segments[0][0].Duration - b.Fare.OfferedFare);
     return (
       <Box
@@ -21,7 +21,6 @@ const FlightresultOne = () => {
         backgroundColor="#F5F5F5"
         boxShadow="1px 1px 8px gray"
         borderRadius="10px"
-        
       >
         {/* <div className="row">
           <div
