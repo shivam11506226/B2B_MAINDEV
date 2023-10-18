@@ -2,7 +2,7 @@ import { Grid, Box, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 
 import "../MultiData.css";
-import Nonrefundable from "./Nonrefundable";
+import Nonrefundable from "../Nonrefundable";
 import { useDispatch, useSelector, useReducer } from "react-redux";
 import Luggage from "../Luggage";
 
@@ -36,11 +36,6 @@ const MultipleDataReturn = (props) => {
   return (
     <div key={indexKey}>
       <Box
-        p={2}
-        mb={2}
-        backgroundColor="#F5F5F5"
-        boxShadow="1px 1px 8px gray"
-        borderRadius="10px"
       >
         {flight?.map((data, index) => {
           const img = data?.Airline?.AirlineCode;
@@ -248,7 +243,7 @@ const MultipleDataReturn = (props) => {
                     justifyContent="center"
                     alignItems="center"
                   >
-                    <button
+                    {/* <button
                       onClick={() => {
                         console.log("indexKey inside loop", indexKey);
                         handleClick(indexKey);
@@ -272,7 +267,7 @@ const MultipleDataReturn = (props) => {
                         </div>
                       </div>
                       <span id="span1">Book Now</span>
-                    </button>
+                    </button> */}
                   </Grid>
                 </Box>
               )}
