@@ -11,6 +11,8 @@ const FlightresultOne = () => {
     reducerState?.return?.returnData?.data?.data?.Response?.Results;
   console.log("+++++++++++++",setToSearchResults[0]);
 
+  const [selectedFlightIndex, setSelectedFlightIndex] = useState(null);
+
   return setToSearchResults[0]?.map((flight1) => {
     // result = res.sort((a, b) => a.Segments[0][0].Duration - b.Fare.OfferedFare);
     return (
@@ -63,6 +65,8 @@ const FlightresultOne = () => {
                 index={flight1?.ResultIndex}
                 fare={flight1?.Fare?.PublishedFare}
                 IsLCC={flight1.IsLCC}
+                isSelected={flight1?.ResultIndex === selectedFlightIndex}
+                onSelect={() => setSelectedFlightIndex(flight1?.ResultIndex)}
               />
             ) : (
               <MultipleDataReturn

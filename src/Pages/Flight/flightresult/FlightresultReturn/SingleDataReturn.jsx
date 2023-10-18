@@ -94,12 +94,12 @@ function SingleDataReturn(props) {
   };
 
   return (
-    <div onClick={() => handleClick(props.index)}>
+    <div onClick={() => props.onSelect(props.index)}>
       <Box>
         <Box
           display="flex"
           justifyContent="space-between"
-          border={props.index === focusedIndex ? "2px solid red" : ""}
+          border={props.isSelected ? "2px solid red" : ""}
         >
           <Grid
             container
