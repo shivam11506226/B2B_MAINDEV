@@ -23,7 +23,7 @@ const BusStepper = () => {
             style={{backgroundColor: color.bluedark}}
             color="white"
           >
-            <Text>1</Text>
+            <Text style={{marginTop:"2px"}}>1</Text>
           </Box>
 
           <Box color="#FDDA0D" fontWeight="bold">
@@ -41,7 +41,7 @@ const BusStepper = () => {
             style={{backgroundColor: color.bluedark}}
             color="white"
           >
-            <Text>2</Text>
+            <Text style={{marginTop:"2px"}}>2</Text>
           </Box>
 
           <Box fontWeight="normal">Bus Result</Box>
@@ -56,7 +56,7 @@ const BusStepper = () => {
             style={{backgroundColor: color.bluedark}}
             color="white"
           >
-            <Text>3</Text>
+            <Text style={{marginTop:"2px"}}>3</Text>
           </Box>
 
           <Box fontWeight="normal">Passenger Details</Box>
@@ -72,7 +72,7 @@ const BusStepper = () => {
             style={{backgroundColor: color.bluedark}}
             color="white"
           >
-            <Text>4</Text>
+            <Text style={{marginTop:"2px"}}>4</Text>
           </Box>
 
           <Box fontWeight="normal">Review Booking</Box>
@@ -88,7 +88,7 @@ const BusStepper = () => {
             style={{backgroundColor: color.bluedark}}
             color="white"
           >
-            <Text>5</Text>
+            <Text style={{marginTop:"2px"}}>5</Text>
           </Box>
 
           <Box fontWeight="normal">Booking Confirmation</Box>
