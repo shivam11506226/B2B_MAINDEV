@@ -1,21 +1,15 @@
-import React from "react";
+import React, {useState,useEffect} from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { Flex, Spacer, Text, HStack, Box } from "@chakra-ui/react";
+import {  Text, HStack, Box } from "@chakra-ui/react";
 import HolidayPackagedetail from "../holidaypackageresult/HolidayPackagedetail";
 import HolidatLeftPackage from "./HolidatLeftPackage";
 import CommitIcon from "@mui/icons-material/Commit";
-import CheckCircleIcon from "@mui/icons-material/CheckCircle";
-import Checkbox from "@mui/material/Checkbox";
-import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
-import HighlightOffIcon from "@mui/icons-material/HighlightOff";
-import CancelIcon from "@mui/icons-material/Cancel";
 import TramIcon from "@mui/icons-material/Tram";
 import DirectionsBusIcon from "@mui/icons-material/DirectionsBus";
 import DirectionsCarIcon from "@mui/icons-material/DirectionsCar";
 import TwoWheelerIcon from "@mui/icons-material/TwoWheeler";
 import ApartmentIcon from "@mui/icons-material/Apartment";
 import HolidayVillageIcon from "@mui/icons-material/HolidayVillage";
-import CabinIcon from "@mui/icons-material/Cabin";
 import BlurOnIcon from "@mui/icons-material/BlurOn";
 import DeckIcon from "@mui/icons-material/Deck";
 import EngineeringIcon from "@mui/icons-material/Engineering";
@@ -30,50 +24,55 @@ import KitesurfingIcon from "@mui/icons-material/Kitesurfing";
 import PoolIcon from "@mui/icons-material/Pool";
 import DownhillSkiingIcon from "@mui/icons-material/DownhillSkiing";
 import ForestIcon from "@mui/icons-material/Forest";
-import SelfImprovementIcon from "@mui/icons-material/SelfImprovement";
-import FitnessCenterIcon from "@mui/icons-material/FitnessCenter";
-import FolderDeleteIcon from "@mui/icons-material/FolderDelete";
-import LocalOfferIcon from "@mui/icons-material/LocalOffer";
-import KayakingIcon from "@mui/icons-material/Kayaking";
-import SportsKabaddiIcon from "@mui/icons-material/SportsKabaddi";
-import BookmarkAddIcon from "@mui/icons-material/BookmarkAdd";
+
 import LocationCityIcon from "@mui/icons-material/LocationCity";
-import RowingIcon from "@mui/icons-material/Rowing";
-import TransferWithinAStationIcon from "@mui/icons-material/TransferWithinAStation";
-import FlightTakeoffIcon from "@mui/icons-material/FlightTakeoff";
-import FlightLandIcon from "@mui/icons-material/FlightLand";
-import HolidayRating from "../holidaypackageresult/HolidayRating";
 import FastfoodIcon from "@mui/icons-material/Fastfood";
-import information from "../../../Images/information.png";
 
 import { Grid, Box as MuiBox, Typography, Button } from "@mui/material";
-import mainImage from "../../../Images/mainImage.png";
-import FlightIcon from "@mui/icons-material/Flight";
+
 import colors from "../../../color/color"; //color.js
 import { useDispatch, useSelector } from "react-redux";
 import {
   clearHolidayReducer,
   searchOnePackageAction,
 } from "../../../Redux/OnePackageSearchResult/actionOneSearchPackage";
-import { useEffect } from "react";
+
 
 const HolidayPackageResult = () => {
   const reducerState = useSelector((state) => state);
   const dispatch = useDispatch();
 
+  
+
   // console.log("holiday details",reducerState?.searchResult?.packageSearchResult?.data?.data?.pakage);
   const filteredPackage =
     reducerState?.searchResult?.packageSearchResult?.data?.data?.pakage;
-  console.log("----------------------------");
-  console.log("Flitered line 22", filteredPackage);
+  // console.log("----------------------------");
+  // console.log("Flitered line 22", filteredPackage);
+
+
+  // console.log("Price", filteredPackage[0]?.pakage_amount?.amount)
 
   const searchOneHoliday = (id) => {
     //  console.log("ID",id);
     const payload = {
       id,
     };
-    console.log(payload);
+    // console.log(payload);
     dispatch(searchOnePackageAction(payload));
+  };
+
+  const [newPackage, setNewPackage]=useState(filteredPackage);
+
+  const handleSortByPrice = () => {
+    // Sort the filteredPackage array by the 'amount' property
+    const sortedPackage = [...newPackage].sort((a, b) => {
+      const priceA = a.pakage_amount?.amount || 0; 
+      const priceB = b.pakage_amount?.amount || 0;
+      return priceA - priceB; // Sort in ascending order; reverse for descending
+    });
+
+    setNewPackage(sortedPackage); // Update the state with the sorted array
   };
 
   return (
@@ -190,6 +189,7 @@ const HolidayPackageResult = () => {
 
                 <MuiBox>
                   <Button
+                   onClick={handleSortByPrice}
                     sx={{
                       color: colors.bluedark,
                       border: "1px solid colors.bluedark",
@@ -201,7 +201,7 @@ const HolidayPackageResult = () => {
               </MuiBox>
               <MuiBox>
                 {/* HolidayPackagedetail  */}
-                {filteredPackage?.map((item, index) => {
+                {newPackage?.map((item, index) => {
                   return (
                     <>
                       <MuiBox
@@ -241,6 +241,7 @@ const HolidayPackageResult = () => {
                                     border: "1px solid gray",
                                     borderRadius: "10px",
                                   }}
+                                  alt="package"
                                 />
                               </MuiBox>
                               <MuiBox
