@@ -10,6 +10,7 @@ const MultipleDataReturn = (props) => {
   const navigate = useNavigate();
   const reducerState = useSelector((state) => state);
   const flight = props.flight;
+  const wholeFlight=props.wholeFlight
   const IsLCC = props.IsLCC;
   console.log("flight multiple", flight);
   const indexKey = props.index;
@@ -25,18 +26,30 @@ const MultipleDataReturn = (props) => {
   // )}`;
   const img = flight?.Airline?.AirlineCode;
   const stop = props.stop;
-  const results =reducerState?.return?.returnData?.data?.data?.Response?.Results;
+  const results =
+    reducerState?.return?.returnData?.data?.data?.Response?.Results;
   // console.log("Results", results);
-  const handleClick = (ResultIndex) => {
-    console.log("Handel Click Index Key", ResultIndex);
-    navigate("passengerdetail");
-    sessionStorage.setItem("ResultIndex", ResultIndex);
+  const handleClick = (allDetails,ResultIndex) => {
+    const slicedResultIndex = ResultIndex.slice(0, 2);
+    console.log("Handel Click Index Key", slicedResultIndex);
+    console.log("hghfdsjgdsjsfd", props.flight);
+    
+
+    if (slicedResultIndex == "OB") {
+      sessionStorage.setItem("flightDetailsONGo", JSON.stringify(allDetails));
+    }
+    if (slicedResultIndex == "IB") {
+      sessionStorage.setItem("flightDetailsIncome", JSON.stringify(allDetails));
+    }
   };
 
+
   return (
-    <div key={indexKey}>
-      <Box
-      >
+    <div onClick={() => {
+        props.onSelect(props.index);
+        handleClick(props.wholeFlight,props.index);
+      }}>
+      <Box border={props.isSelected ? "2px solid red" : ""}>
         {flight?.map((data, index) => {
           const img = data?.Airline?.AirlineCode;
 

@@ -14,8 +14,9 @@ function SingleDataReturn(props) {
   const dispatch = useDispatch();
   const reducerState = useSelector((state) => state);
   const flight = props.flight;
+  const wholeFlight=props.wholeFlight
   const IsLCC = props.IsLCC;
-  const [focusedIndex, setFocusedIndex] = useState(null);
+
 
   // console.log("flight single", flight);
 
@@ -76,25 +77,26 @@ function SingleDataReturn(props) {
   const year1 = date2.getFullYear();
   const formattedDate1 = `${day1} ${month1} ${year1}`;
 
-  const handleClick = (ResultIndex) => {
-    console.log("Handel Click Index Key", ResultIndex);
-    console.log("hghfdsjgdsjsfd",props.flight);
-    const obj = {
-      ResultIndex: ResultIndex,
-      flight: props.flight
-    };
-      if (focusedIndex === ResultIndex) {
-        // If the clicked flight is already focused, remove focus
-        setFocusedIndex(null);
-      } else {
-        // Set focus on the clicked flight
-        setFocusedIndex(ResultIndex);
-      }
-    
+  const handleClick = (allDetails, ResultIndex) => {
+    const slicedResultIndex = ResultIndex.slice(0, 2);
+    console.log("Handel Click Index Key", slicedResultIndex);
+    console.log("hghfdsjgdsjsfd", props.flight);
+
+    if (slicedResultIndex == "OB") {
+      sessionStorage.setItem("flightDetailsONGo", JSON.stringify(allDetails));
+    }
+    if (slicedResultIndex == "IB") {
+      sessionStorage.setItem("flightDetailsIncome", JSON.stringify(allDetails));
+    }
   };
 
   return (
-    <div onClick={() => props.onSelect(props.index)}>
+    <div
+      onClick={() => {
+        props.onSelect(props.index);
+       handleClick(props.wholeFlight, props.index);
+      }}
+    >
       <Box>
         <Box
           display="flex"
