@@ -5,9 +5,17 @@ import FlightresultOne from "./FlightresultOne";
 import FlightReturn from "./FlightReturn";
 import SingleDataReturn from "./SingleDataReturn";
 import MultipleDataReturn from "./MultipleDataReturn";
+import { useNavigate } from "react-router-dom";
+import {
+  quoteAction,
+  ruleAction,
+} from "../../../../Redux/FlightFareQuoteRule/actionFlightQuote";
 import { Wrap } from "@chakra-ui/react";
 const FlightresultReturn = () => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   const reducerState = useSelector((state) => state);
+
   const result =
     reducerState?.return?.returnData?.data?.data?.Response?.Results;
   const initialGoFlight = result[0][0];
@@ -20,22 +28,37 @@ const FlightresultReturn = () => {
     setIncomeFlight(initialReturnFlight);
   }, [initialGoFlight, initialReturnFlight]);
 
-  
   const receiveChildData = (data) => {
     console.log("callbackData", data);
-    const onnGoingFlight = JSON.parse(
-      sessionStorage.getItem("flightDetailsONGo")
-    );
-    const incomingFlight = JSON.parse(
-      sessionStorage.getItem("flightDetailsIncome")
-    );
+    const onnGoingFlight =
+      JSON.parse(sessionStorage.getItem("flightDetailsONGo")) ||
+      initialGoFlight;
+    const incomingFlight =
+      JSON.parse(sessionStorage.getItem("flightDetailsIncome")) ||
+      initialReturnFlight;
     if (data) {
-      setIncomeFlight(incomingFlight);
       setOngoFlight(onnGoingFlight);
+      setIncomeFlight(incomingFlight);
     }
+  };
+
+  const handleFareRuleAndQuote = () => {
+    const payload = {
+      EndUserIp: reducerState?.ip?.ipData,
+      TokenId: reducerState?.ip?.tokenData,
+      TraceId: reducerState?.return?.returnData?.data?.data?.Response?.TraceId,
+      ResultIndex: `${ongoFlight?.ResultIndex},${incomeGlight?.ResultIndex}`,
+    };
+    console.log(payload);
+    dispatch(ruleAction(payload));
+    dispatch(quoteAction(payload));
+    navigate("/FlightresultReturn/Passengerdetail");
+
+    console.log("reducerrrState", reducerState);
   };
   console.log("ongoFlight", ongoFlight);
   console.log("incomeGlight", incomeGlight);
+  console.log("reducerrrState", reducerState);
 
   return (
     <Box>
@@ -86,7 +109,9 @@ const FlightresultReturn = () => {
             />
           )}
         </Box>
-        <Button variant="contained">Book Now</Button>
+        <Button variant="contained" onClick={handleFareRuleAndQuote}>
+          Book Now
+        </Button>
       </Box>
 
       <Box

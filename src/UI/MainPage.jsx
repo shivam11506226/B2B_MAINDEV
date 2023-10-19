@@ -20,6 +20,7 @@ import HotelSearch from "../Pages/Hotel/hotelsearch/HotelSearch";
 import Booknow from "../Pages/Flight/booknow/Booknow";
 import Passengerdetail from "../Pages/Flight/passengerdetail/Passengerdetail";
 import FlightReviewbooking from "../Pages/Flight/flightreviewbooking/FlightReviewbooking";
+import ReturnPassenger from "../Pages/Flight/flightresult/FlightresultReturn/ReturnPassenger/PassengerReturn"
 import Flightbookingconfirmation from "../Pages/Flight/flightbookingconfirmation/Flightbookingconfirmation";
 import HolidayPackage from "../Pages/holidayPackage/HolidayPackage";
 import HolidayPackageResult from "../Pages/holidayPackage/holidaypackageresult/HolidayPackageResult";
@@ -175,6 +176,11 @@ const MainPage = () => {
                 exact
                 path="/Flightresult/passengerdetail"
                 element={<Passengerdetail />}
+              />
+              <Route
+              exact
+              path="/FlightresultReturn/Passengerdetail"
+              element={<ReturnPassenger/>}
               />
               <Route
                 exact

@@ -16,7 +16,7 @@ const Flightbookingdetail = () => {
   const [loading, setLoading] = useState(false);
   const [paymentOption, setPaymentOption] = useState(false);
   const reducerState = useSelector((state) => state);
-  const ResultIndex = sessionStorage.getItem("ResultIndex");
+  const ResultIndex = JSON.parse(sessionStorage.getItem("flightDetailsONGo")).ResultIndex;
   console.log(
     "passengerAgreement",
     passengerAgreement,
