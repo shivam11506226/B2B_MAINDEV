@@ -4,14 +4,20 @@ import MultipleDataReturn from "./MultipleDataReturn";
 import { Grid, Box, Typography, Button } from "@mui/material";
 import { useDispatch, useSelector, useReducer } from "react-redux";
 
-const FlightresultOne = () => {
+const FlightresultOne = ({ sendDataToParent }) => {
   const reducerState = useSelector((state) => state);
   const [filter, setFilter] = useState(1);
   const setToSearchResults =
     reducerState?.return?.returnData?.data?.data?.Response?.Results;
-  console.log("+++++++++++++",setToSearchResults[0]);
+  console.log("+++++++++++++", setToSearchResults[0]);
 
   const [selectedFlightIndex, setSelectedFlightIndex] = useState(null);
+
+  const sendData = (e) => {
+    const data =e.target;
+  console.log("dataaaaaaaaaaa",data)
+    sendDataToParent(data);
+  };
 
   return setToSearchResults[0]?.map((flight1) => {
     // result = res.sort((a, b) => a.Segments[0][0].Duration - b.Fare.OfferedFare);
@@ -23,7 +29,6 @@ const FlightresultOne = () => {
         backgroundColor="#F5F5F5"
         boxShadow="1px 1px 8px gray"
         borderRadius="10px"
-        
       >
         {/* <div className="row">
           <div
@@ -59,23 +64,41 @@ const FlightresultOne = () => {
             const length = flight.length;
             console.log("ResultIndex1", flight1?.ResultIndex);
             return length === 1 ? (
-              <SingleDataReturn
-                flight={flight[0]}
-                stop={length}
-                index={flight1?.ResultIndex}
-                fare={flight1?.Fare?.PublishedFare}
-                IsLCC={flight1.IsLCC}
-                isSelected={flight1?.ResultIndex === selectedFlightIndex}
-                onSelect={() => setSelectedFlightIndex(flight1?.ResultIndex)}
-              />
+              <Box
+                onClick={(e) => {
+                  sendData(e);
+                }}
+              >
+                <SingleDataReturn
+                  flight={flight[0]}
+                  stop={length}
+                  wholeFlight={flight1}
+                  index={flight1?.ResultIndex}
+                  fare={flight1?.Fare?.PublishedFare}
+                  IsLCC={flight1.IsLCC}
+                  isSelected={flight1?.ResultIndex === selectedFlightIndex}
+                  onSelect={(e) => {
+                    setSelectedFlightIndex(flight1?.ResultIndex);
+                  }}
+                />
+              </Box>
             ) : (
-              <MultipleDataReturn
-                flight={flight}
-                stop={length}
-                index={flight1?.ResultIndex}
-                fare={flight1?.Fare?.PublishedFare}
-                IsLCC={flight1.IsLCC}
-              />
+              <Box
+                onClick={(e) => {
+                  sendData(e);
+                }}
+              >
+                <MultipleDataReturn
+                  flight={flight}
+                  wholeFlight={flight1}
+                  stop={length}
+                  index={flight1?.ResultIndex}
+                  fare={flight1?.Fare?.PublishedFare}
+                  IsLCC={flight1.IsLCC}
+                  isSelected={flight1?.ResultIndex === selectedFlightIndex}
+                  onSelect={() => setSelectedFlightIndex(flight1?.ResultIndex)}
+                />
+              </Box>
             );
           })}
         </div>
