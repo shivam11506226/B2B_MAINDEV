@@ -190,13 +190,13 @@ const Header = () => {
       });
   }, []);
   return (
-    <div className={scrollYvalue > 45 ? "header_scroll" : "header"}>
+    <div className={scrollYvalue > 45 ? "header_scroll" : "header"} style={{border:"2px solid red"}}>
       <div style={{display:"flex", justifyContent:"center",alignItems:"center"}}>
         <a href="/">
           
           <img
             src={STLOGO}
-            style={{ width: "90%", height: "45px"}}
+            style={{ width: "100%", height: "250px"}}
             className="mt-2 ms-2"
             alt="logo"
           />

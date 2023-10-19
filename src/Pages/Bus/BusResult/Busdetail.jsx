@@ -25,10 +25,10 @@ const Busdetail = () => {
   const upperArray = [];
   const lowerArray = [];
   const [blockedSeatArray, setBlockedSeatArray] = useState([]);
-  const [resulttIndex,setResulttIndex]=useState("")
-  
-   const [selectedOrigin, setSelectedOrigin] = useState("");
-   const[selectedDropPoint,setSelectedDropPoint]=useState("");
+  const [resulttIndex, setResulttIndex] = useState("");
+
+  const [selectedOrigin, setSelectedOrigin] = useState("");
+  const [selectedDropPoint, setSelectedDropPoint] = useState("");
   const [origin, setOrigin] = useState([]);
   const [destination, setDestination] = useState([]);
   const [flatArray, setFlatArray] = useState([]);
@@ -87,12 +87,12 @@ const Busdetail = () => {
           );
           setFlatArray(singleArray);
           busDataResult.map((item, index) => {
-            if (item?.ResultIndex == resultIndex) {
+            if (item?.ResultIndex === resultIndex) {
               setOrigin(item?.BoardingPointsDetails);
               setDestination(item?.DroppingPointsDetails);
             }
           });
-          setResulttIndex(resultIndex)
+          setResulttIndex(resultIndex);
 
           // console.log("flattArayyyyyy",flatArray)
           setModal((prev) => !prev);
@@ -146,20 +146,19 @@ const Busdetail = () => {
             left: seatDiv.style.left,
             onclick: seatDiv.getAttribute("onclick"),
           });
-        } 
-       
-          // Conditionally check for SeatType 2 and add sleeper seat
-          else {
-            seatObjects.push({
-              type: "upper",
-              id: seatDiv.id,
-              class: seatDiv.getAttribute("class"),
-              top: seatDiv.style.top,
-              left: seatDiv.style.left,
-              onclick: seatDiv.getAttribute("onclick"),
-            });
-          }
-        
+        }
+
+        // Conditionally check for SeatType 2 and add sleeper seat
+        else {
+          seatObjects.push({
+            type: "upper",
+            id: seatDiv.id,
+            class: seatDiv.getAttribute("class"),
+            top: seatDiv.style.top,
+            left: seatDiv.style.left,
+            onclick: seatDiv.getAttribute("onclick"),
+          });
+        }
       }
       // Check if the seat div is inside the lower part of the bus
       else if (seatDiv.closest(".outerlowerseat")) {
@@ -191,33 +190,33 @@ const Busdetail = () => {
       // const index = blockedSeatArray.indexOf(element);
       // const slicedArray=blockedSeatArray.splice(index, 1)
       // setBlockedSeatArray(slicedArray);
-         const updatedBlockedSeatArray = blockedSeatArray.filter(
-           (seatObject) => seatObject !== object
-         );
-         setBlockedSeatArray(updatedBlockedSeatArray);
+      const updatedBlockedSeatArray = blockedSeatArray.filter(
+        (seatObject) => seatObject !== object
+      );
+      setBlockedSeatArray(updatedBlockedSeatArray);
       console.log(blockedSeatArray);
     }
   }
-  function handleClose(){
+  function handleClose() {
     setBlockedSeatArray([]);
-    setSelectedDropPoint("")
-    setSelectedOrigin("")
-    setOrigin([])
-    setDestination([])
+    setSelectedDropPoint("");
+    setSelectedOrigin("");
+    setOrigin([]);
+    setDestination([]);
     setModal((prev) => !prev);
   }
 
-  function handleContinue(){
-      const dataToSave = {
-        blockedSeatArray: blockedSeatArray,
-        selectedOrigin: selectedOrigin,
-        selectedDropPoint: selectedDropPoint,
-        resultIndex:resulttIndex
-      };
+  function handleContinue() {
+    const dataToSave = {
+      blockedSeatArray: blockedSeatArray,
+      selectedOrigin: selectedOrigin,
+      selectedDropPoint: selectedDropPoint,
+      resultIndex: resulttIndex,
+    };
 
-      // Save the combined state object to session storage
-      sessionStorage.setItem("seatData", JSON.stringify(dataToSave));
-      navigate("/BusPassengerDetail");
+    // Save the combined state object to session storage
+    sessionStorage.setItem("seatData", JSON.stringify(dataToSave));
+    navigate("/BusPassengerDetail");
   }
 
   return (
@@ -347,6 +346,7 @@ const Busdetail = () => {
                   <Button
                     textAlign="left"
                     onClick={() => handleBuslayout(item?.ResultIndex)}
+                    style={{ backgroundColor: "#21325D", color: "white" }}
                   >
                     Book Now
                   </Button>
@@ -408,11 +408,10 @@ const Busdetail = () => {
                 <Box class="busSeat">
                   <Box class="seatcontainer clearfix">
                     {layout?.map((item, index) => {
-                      if (item?.type == "upper") {
+                      if (item?.type === "upper") {
                         const divStyle = {
                           top: item?.top || 0,
                           left: item?.left || 0,
-
                         };
 
                         return (
@@ -424,11 +423,12 @@ const Busdetail = () => {
                               width: "20px",
                               height: "20px",
                               display: "flex",
-                             
                               position: "absolute",
                               justifyContent: "center",
                               alignItems: "center",
-                              border: `2px solid ${item?.SeatType === 2 ? "green" : "blue"}`, // Change the border color based on SeatType // Change the border color based on SeatType // Change the color based on SeatType
+                              border: `2px solid ${
+                                item?.SeatType === 2 ? "green" : "blue"
+                              }`, // Change the border color based on SeatType // Change the border color based on SeatType // Change the color based on SeatType
                             }}
                           >
                             <Checkbox
@@ -436,7 +436,7 @@ const Busdetail = () => {
                                 addOrRemoveSeat(e, upperArray?.[index], index)
                               }
                               disabled={
-                                upperArray?.[index]?.SeatStatus == true
+                                upperArray?.[index]?.SeatStatus === true
                                   ? false
                                   : true
                               }
@@ -458,7 +458,7 @@ const Busdetail = () => {
                 <Box class="busSeat">
                   <Box class="seatcontainer clearfix">
                     {layout?.map((item, index) => {
-                      if (item?.type == "lower") {
+                      if (item?.type === "lower") {
                         const divStyle = {
                           top: item?.top || 0,
 
@@ -491,7 +491,7 @@ const Busdetail = () => {
                               }
                               disabled={
                                 lowerArray?.[index - upperArray.length]
-                                  ?.SeatStatus == true
+                                  ?.SeatStatus === true
                                   ? false
                                   : true
                               }
@@ -522,7 +522,6 @@ const Busdetail = () => {
                 border: "2px solid black",
               }}
             >
-            
               <Box
                 sx={{
                   display: "flex",
@@ -530,15 +529,13 @@ const Busdetail = () => {
                   width: "70%",
                   justifyContent: "space-between",
                   alignItems: "center",
-                  margin:"auto",
-                  
+                  margin: "auto",
                 }}
               >
                 <Box
                   sx={{
                     display: "flex",
                     gap: "8px",
-                  
                   }}
                 >
                   {" "}
@@ -547,8 +544,7 @@ const Busdetail = () => {
                     return (
                       <Typography
                         sx={{
-                         
-                          color:"blue"
+                          color: "blue",
                         }}
                       >
                         {seat?.SeatName}
@@ -564,43 +560,91 @@ const Busdetail = () => {
                       },
                       0
                     );
-                    return <div style={ {display:"flex"}}><Typography>Price:</Typography><h2 style={{color:"blue",marginTop:"3px",width:"20px"}}>{totalSeatPrice}</h2></div>
+                    return (
+                      <div style={{ display: "flex" }}>
+                        <Typography>Price:</Typography>
+                        <h2
+                          style={{
+                            color: "blue",
+                            marginTop: "3px",
+                            width: "20px",
+                          }}
+                        >
+                          {totalSeatPrice}
+                        </h2>
+                      </div>
+                    );
                   })()}
                 </Box>
-               
               </Box>
-              <Box style={{width:"70%",margin:"auto",gap:"70px",display:"flex"}}>
-                  <label >Origin</label>
-                  <select
-                    value={selectedOrigin}
-                    onClick={(e) => setSelectedOrigin(e.target.value)}
-                    style={{borderRadius:"10px",width:"120px"}}
-                  >
-                    {origin.map((name, index) => (
-                      <option key={index} value={name?.CityPointIndex}>
-                      
-                            {name?.CityPointName}
-                      </option>
-                    ))}
-                  </select>
-                </Box>
-                <Box style={{width:"70%",margin:"auto",marginTop:"20px",display:"flex",gap:"30px"}}>
-                  <label >Destination</label>
-                  <select
-                    value={selectedDropPoint}
-                    onClick={(e) => setSelectedDropPoint(e.target.value)}
-                    style={{borderRadius:"10px",width:"120px"}}
-                  >
-                    {destination.map((name, index) => (
-                      <option key={index} value={name?.CityPointIndex}>
-                        {name?.CityPointName}
-                      </option>
-                    ))}
-                  </select>
-                </Box>
-              <Box style={{width:"60%",display:"flex",gap:"20px",margin:"auto",marginTop:"20px"}}>
-                <Button onClick={handleClose} style={{backgroundColor:"blue",color:"white"}}>Close</Button>
-                <Button onClick={handleContinue} style={{backgroundColor:"blue",color:"white"}}>Continue</Button>
+
+              <Box
+                style={{
+                  width: "70%",
+                  margin: "auto",
+                  gap: "70px",
+                  display: "flex",
+                }}
+              >
+                <label>Origin</label>
+                <select
+                  value={selectedOrigin} // Bind the selected value to the state variable.
+                  onChange={(e) => setSelectedOrigin(e.target.value)} // Use onChange to handle value changes.
+                  style={{ borderRadius: "10px", width: "120px" }}
+                >
+                  {origin.map((name, index) => (
+                    <option key={index} value={name?.CityPointIndex}>
+                      {name?.CityPointName}
+                    </option>
+                  ))}
+                </select>
+              </Box>
+
+              <Box
+                style={{
+                  width: "70%",
+                  margin: "auto",
+                  marginTop: "20px",
+                  display: "flex",
+                  gap: "30px",
+                }}
+              >
+                <label>Destination</label>
+                <select
+                  value={selectedDropPoint}
+                  onChange={(e) => setSelectedDropPoint(e.target.value)}
+                  style={{ borderRadius: "10px", width: "120px" }}
+                >
+                  {destination.map((name, index) => (
+                    <option key={index} value={name?.CityPointIndex}>
+                      {name?.CityPointName}
+                    </option>
+                  ))}
+                </select>
+              </Box>
+
+
+              <Box
+                style={{
+                  width: "60%",
+                  display: "flex",
+                  gap: "20px",
+                  margin: "auto",
+                  marginTop: "20px",
+                }}
+              >
+                <Button
+                  onClick={handleClose}
+                  style={{ backgroundColor: "#21325D", color: "white" }}
+                >
+                  Close
+                </Button>
+                <Button
+                  onClick={handleContinue}
+                  style={{ backgroundColor: "#21325D", color: "white" }}
+                >
+                  Continue
+                </Button>
               </Box>
             </Box>
           </Box>
