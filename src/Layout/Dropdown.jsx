@@ -63,7 +63,7 @@ const Dropdown = () => {
 
   return (
     <div>
-     <Button
+     {/* <Button
         aria-controls="simple-menu"
         aria-haspopup="true"
         onClick={handleClick}
@@ -79,7 +79,7 @@ const Dropdown = () => {
         }}
       >
         <img src={add} alt="" style={{width:'90%',height:'40px'}}/>
-      </Button>
+      </Button> */}
 
       <Menu
         id="simple-menu"

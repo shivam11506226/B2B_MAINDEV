@@ -395,7 +395,7 @@ const OneWay = () => {
           </div>
         </div>
 
-        <div className="row" style={{ marginTop: "32px" }}>
+        {/* <div className="row" style={{ marginTop: "32px" }}>
           <div className="col-xs-3 col-md-3 pe-0">
             <Typography mt={1} variant="h6" paddingRight={0}>
               Select A Fair Of Type:
@@ -451,7 +451,7 @@ const OneWay = () => {
               </button>
             </div>
           </div>
-        </div>
+        </div> */}
         
 
         <div className="row">
@@ -539,7 +539,7 @@ const OneWay = () => {
           </div>
         </div>
 
-        <label
+        {/* <label
       style={{
         fontSize: "20px",
         fontWeight: "400",
@@ -582,7 +582,7 @@ const OneWay = () => {
               ))}
             </div>
           </div>
-        </Box>
+        </Box> */}
 
 
         <Box className="row">
