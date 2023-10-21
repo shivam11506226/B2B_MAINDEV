@@ -93,7 +93,7 @@ export const InnerBarLogo = [
     path: "/visa",
   },
   {
-    avatar: require("./Images/Group.png"),
+    avatar: require("./Images/group.png"),
     name: "Administration",
     path: "/visa",
   }
