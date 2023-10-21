@@ -12,6 +12,8 @@ import { clearHotelReducer, hotelAction } from "../../../Redux/Hotel/hotel";
 import Loader from "../../Loader/Loader";
 import Custombutton from "../../../Custombuttom/Button";
 import color from "../../../../src/color/color.js"
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 const HotelForm = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const[cityid,setCityid]=useState("");
@@ -49,8 +51,7 @@ const HotelForm = () => {
       room: false,
       adult: false,
   });
-  const [date, setDate] = React.useState("");
-  const [oldDate, setOldDate] = React.useState("");
+  
   const [isVisible, setIsVisible] = useState(false);
   const changeHandler = (e) => {
     if (e.target.value === "number") {
@@ -159,21 +160,14 @@ const HotelForm = () => {
     })
   };
 
-    // checkin checkout function
-  const handlechnage = (e) => {
-    const time = e.target.value;
-    console.log("time is", time);
-    setDate(time);
-    // setOldDate(time)
+  const handleStartDateChange = (date) => {
+    setValues({ ...values, departure: date }); // Update the departure date
     setCheckInError("");
   };
 
-  
-  const handlechnageone = (e) => {
-    const time = e.target.value;
-    console.log("time is", time);
-    setOldDate(time);
-    setCheckOutError("")
+  const handleEndDateChange = (date) => {
+    setValues({ ...values, checkOutDeparture: date }); // Update the checkOutDeparture date
+    setCheckOutError("");
   };
 
 
@@ -195,11 +189,7 @@ const HotelForm = () => {
      
       if(!cityid){
       setCityError("city is Required");
-       }else if(!formData.get("departure")){
-      setCheckInError("Select Date");
-    }else if(!oldDate){
-      setCheckOutError("Select checkout Date");
-    }else{
+       }else{
     const newErrors  = {
       nationality: false,
       room: false,
@@ -220,7 +210,11 @@ const HotelForm = () => {
     if (Object.values(newErrors).some((error) => error)) {
     return;
     }
- 
+    const departureDate = new Date(values.departure);
+    const day = departureDate.getDate().toString().padStart(2, "0");
+    const month = (departureDate.getMonth() + 1).toString().padStart(2, "0");
+    const year = departureDate.getFullYear();
+    const formattedDate = `${day}/${month}/${year}`;
      
 
     const payload = {
@@ -263,36 +257,16 @@ const HotelForm = () => {
   
   }
 
-  function disablePastDate() {
-    const today = new Date();
-    const dd = String(today.getDate()).padStart(2, "0");
-    const mm = String(today.getMonth() + 1).padStart(2, "0"); //January is 0!
-    const yyyy = today.getFullYear();
-    return yyyy + "-" + mm + "-" + dd;
-  }
+  
 
-  function disablePastDate() {
-    const today = new Date();
-    const dd = String(today.getDate()).padStart(2, "0");
-    const mm = String(today.getMonth() + 1).padStart(2, "0"); //January is 0!
-    const yyyy = today.getFullYear();
-    return yyyy + "-" + mm + "-" + dd;
-  }
-  const disableNexttDate = () => {
-    const today = new Date();
-    const dd = String(today.getDate() + 1).padStart(2, "0");
-    const mm = String(today.getMonth() + 1).padStart(2, "0"); //January is 0!
-    const yyyy = today.getFullYear();
-    return yyyy + "-" + mm + "-" + dd;
-  };
+ 
 
 
 
-  // const[year,month,day]=oldDate.split('-');
-  const currentDate = new Date(date);
-  const toDate = new Date(oldDate);
-  const list = toDate - currentDate;
-  const nightdays = list / 86400000;
+  const currentDate = new Date(values.departure);
+  const toDate = new Date(values.checkOutDeparture);
+  const timeDifference = toDate.getTime() - currentDate.getTime();
+  const nightdays = Math.ceil(timeDifference / (1000 * 3600 * 24));
 
   return (
     <>
@@ -332,14 +306,14 @@ const HotelForm = () => {
               <Box paddingRight={1}>
                 <div className="hotel_form_input">
                   <label className="form_lable">Check In</label>
-                  <input
-                    type="Date"
-                    name="departure"
-                    id="departure"
-                    className="deaprture_input"
-                    value={values.departure}
-                    onChange={handlechnage}
-                    min={disablePastDate()}
+                  <DatePicker
+                    selected={values.departure}
+                    onChange={handleStartDateChange}
+                    dateFormat="dd/MM/yyyy"
+                    placeholderText='Select Date'
+                    className="hotel_input_select"
+                    isClearable
+                    minDate={new Date()} // Disable past dates
                   />
                   {checkInError!=="" && (<span className="error">{checkInError}</span>) }
                 </div>
@@ -348,15 +322,14 @@ const HotelForm = () => {
               <Box paddingRight={1}>
                 <div className="hotel_form_input">
                   <label className="form_lable">Check-Out</label>
-                  <input
-                    type="date"
-                    name="checkOutDeparture"
-                    id="departure"
-                    className="deaprture_input"
-                    value={oldDate}
-                    onChange={handlechnageone}
-                    min={disableNexttDate()}
-                    placeholder="Night"
+                  <DatePicker
+                    selected={values.checkOutDeparture}
+                    onChange={handleEndDateChange}
+                    dateFormat="dd/MM/yyyy"
+                    placeholderText='Select Date'
+                    className="hotel_input_select"
+                    minDate={values.departure} // Disable dates before Check-in date
+                    isClearable
                   />
                   {checkOutError!=="" && (<span className="error">{checkOutError}</span>) }
                 </div>
