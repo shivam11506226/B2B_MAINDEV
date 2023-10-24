@@ -1,11 +1,11 @@
-import {useState, useEffect}from "react";
+import { useState, useEffect } from "react";
 import { Typography } from "@mui/material";
 import "./Return.css";
 import transfer from "../../../Images/transfer.png";
 // import { fontWeight } from '@mui/system'
 import { Button } from "react-bootstrap";
-import { Grid, GridItem, Flex,Box } from "@chakra-ui/react";
-import './OneWay.css';
+import { Grid, GridItem, Flex, Box } from "@chakra-ui/react";
+import "./OneWay.css";
 import { useDispatch, useSelector, useReducer } from "react-redux";
 import {
   clearReturnReducer,
@@ -15,36 +15,36 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { apiURL } from "../../../Constants/constant";
 import { Stack } from "react-bootstrap";
- const options = [
-   { label: "GPS", value: "1" },
-   { label: "Fly Dubai", value: "2" },
-   { label: "Air Arobia", value: "3" },
-   { label: "Zoom Air", value: "4" },
-   { label: "Other untl LCC", value: "5" },
-   { label: "Air Asia", value: "6" },
-   { label: "Air India Express", value: "7" },
-   { label: "Air Cost", value: "8" },
-   { label: "NokScoot", value: "9" },
-   { label: "Salman Air", value: "10" },
-   { label: "Inter Sky", value: "11" },
-   { label: "Triger Airways", value: "12" },
-   { label: "SpiceJet", value: "13" },
-   { label: "GOFIRTS", value: "14" },
-   { label: "Alliance Air", value: "15" },
-   { label: "Akasa Air", value: "16" },
-   { label: "Fly Scoot", value: "17" },
-   { label: "Indigo", value: "18" },
-   { label: "Bhutan Airlines", value: "19" },
-   { label: "TruJet", value: "20" },
-   { label: "Mega Maldives", value: "21" },
- ];
+const options = [
+  { label: "GPS", value: "1" },
+  { label: "Fly Dubai", value: "2" },
+  { label: "Air Arobia", value: "3" },
+  { label: "Zoom Air", value: "4" },
+  { label: "Other untl LCC", value: "5" },
+  { label: "Air Asia", value: "6" },
+  { label: "Air India Express", value: "7" },
+  { label: "Air Cost", value: "8" },
+  { label: "NokScoot", value: "9" },
+  { label: "Salman Air", value: "10" },
+  { label: "Inter Sky", value: "11" },
+  { label: "Triger Airways", value: "12" },
+  { label: "SpiceJet", value: "13" },
+  { label: "GOFIRTS", value: "14" },
+  { label: "Alliance Air", value: "15" },
+  { label: "Akasa Air", value: "16" },
+  { label: "Fly Scoot", value: "17" },
+  { label: "Indigo", value: "18" },
+  { label: "Bhutan Airlines", value: "19" },
+  { label: "TruJet", value: "20" },
+  { label: "Mega Maldives", value: "21" },
+];
 const Return = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const reducerState = useSelector((state) => state);
-    const [selected, setSelected] = useState([]);
-    const [selectAll, setSelectAll] = useState(false);
-    const [selectedOption, setSelectedOption] = useState("option1");
+  const [selected, setSelected] = useState([]);
+  const [selectAll, setSelectAll] = useState(false);
+  const [selectedOption, setSelectedOption] = useState("option1");
   const [isLoading, setIsLoading] = useState(false);
   const [fromSearchResults, setFromSearchResults] = useState([]);
   const [toSearchResults, setToSearchResults] = useState([]);
@@ -54,6 +54,9 @@ const Return = () => {
   const [selectedFrom, setSelectedFrom] = useState(null);
   const [to, setTO] = useState("");
   const [selectedTo, setSelectedTo] = useState(null);
+  const [departureDate, setDepartureDate] = useState(""); // To store the selected departure date
+  const [returnDate, setReturnDate] = useState(""); // To store the selected return date
+  const [minReturnDate, setMinReturnDate] = useState(""); // To store the minimum return date
   const [displayFrom, setdisplayFrom] = useState(true);
   const [displayTo, setdisplayTo] = useState(true);
   useEffect(() => {
@@ -121,85 +124,96 @@ const Return = () => {
     setSelectedTo(result);
     setdisplayTo(false);
   };
-    function handleCheckboxChange(event) {
-      const { value } = event.target;
-      if (selected.includes(value)) {
-        setSelected(selected.filter((item) => item !== value));
-      } else {
-        setSelected([...selected, value]);
-      }
+  function handleCheckboxChange(event) {
+    const { value } = event.target;
+    if (selected.includes(value)) {
+      setSelected(selected.filter((item) => item !== value));
+    } else {
+      setSelected([...selected, value]);
     }
+  }
 
-    function handleSelectAllChange(event) {
-      const { checked } = event.target;
-      setSelectAll(checked);
-      if (checked) {
-        setSelected(options.map((item) => item.label));
-      } else {
-        setSelected([]);
-      }
+  function handleSelectAllChange(event) {
+    const { checked } = event.target;
+    setSelectAll(checked);
+    if (checked) {
+      setSelected(options.map((item) => item.label));
+    } else {
+      setSelected([]);
     }
+  }
 
-    const handleFromInputChange = (event) => {
-      setFrom(event.target.value);
-      setSelectedFrom(null);
-    
+  const handleFromInputChange = (event) => {
+    setFrom(event.target.value);
+    setSelectedFrom(null);
+  };
+  const handleFromSearch = (e) => {
+    setFromQuery(e);
+  };
+
+  const handleToInputChange = (event) => {
+    setTO(event.target.value);
+    setSelectedTo(null);
+  };
+
+  const handleToSearch = (e) => {
+    setToQuery(e);
+  };
+  const handleDepartureDateChange = (event) => {
+    const selectedDepartureDate = event.target.value;
+    setDepartureDate(selectedDepartureDate);
+
+    // Calculate the minimum return date (1 day after the selected departure date)
+    const newMinReturnDate = new Date(selectedDepartureDate);
+    newMinReturnDate.setDate(newMinReturnDate.getDate() + 1);
+    setMinReturnDate(newMinReturnDate.toISOString().split("T")[0]);
+  };
+
+  function handleSubmit(event) {
+    event.preventDefault();
+    const formData = new FormData(event.target);
+
+    const payload = {
+      EndUserIp: reducerState?.ip?.ipData,
+      TokenId: reducerState?.ip?.tokenData,
+      AdultCount: formData.get("adult"),
+      ChildCount: formData.get("child"),
+      InfantCount: formData.get("infant"),
+      DirectFlight: "false",
+      OneStopFlight: "false",
+      JourneyType: "2",
+      PreferredAirlines: null,
+      Segments: [
+        {
+          Origin: formData.get("from"),
+          Destination: formData.get("to"),
+          FlightCabinClass: formData.get("class"),
+          PreferredDepartureTime: formData.get("departure"),
+          PreferredArrivalTime: formData.get("departure"),
+        },
+        {
+          Origin: formData.get("to"),
+          Destination: formData.get("from"),
+          FlightCabinClass: formData.get("class"),
+          PreferredDepartureTime: formData.get("departure1"),
+          PreferredArrivalTime: formData.get("departure1"),
+        },
+      ],
+      Sources: null,
     };
-    const handleFromSearch = (e) => {
-      setFromQuery(e);
-    };
 
-    const handleToInputChange = (event) => {
-      setTO(event.target.value);
-      setSelectedTo(null);
-      
-    };
-
-    const handleToSearch = (e) => {
-      setToQuery(e);
-    };
-
-    function handleSubmit(event) {
-      event.preventDefault();
-      const formData = new FormData(event.target);
-
-      const payload = {
-        EndUserIp: reducerState?.ip?.ipData,
-        TokenId: reducerState?.ip?.tokenData,
-        AdultCount: formData.get("adult"),
-        ChildCount: formData.get("child"),
-        InfantCount: formData.get("infant"),
-        DirectFlight: "false",
-        OneStopFlight: "false",
-        JourneyType: "2",
-        PreferredAirlines: null,
-        Segments: [
-          {
-            Origin: formData.get("from"),
-            Destination: formData.get("to"),
-            FlightCabinClass: formData.get("class"),
-            PreferredDepartureTime: formData.get("departure"),
-            PreferredArrivalTime: formData.get("departure"),
-          },
-          {
-            Origin: formData.get("to"),
-            Destination: formData.get("from"),
-            FlightCabinClass: formData.get("class"),
-            PreferredDepartureTime: formData.get("departure1"),
-            PreferredArrivalTime: formData.get("departure1"),
-          }
-        ],
-        Sources: null,
-      };
-     
-      sessionStorage.setItem("adults", formData.get("adult"));
-      sessionStorage.setItem("childs", formData.get("child"));
-      sessionStorage.setItem("infants", formData.get("infant"));
-      dispatch(returnAction(payload));
-    }
+    sessionStorage.setItem("adults", formData.get("adult"));
+    sessionStorage.setItem("childs", formData.get("child"));
+    sessionStorage.setItem("infants", formData.get("infant"));
+    dispatch(returnAction(payload));
+  }
 
   return (
-    <form onSubmit={handleSubmit} className="formFlightSearch" style={{marginLeft:'17px'}}>
+    <form
+      onSubmit={handleSubmit}
+      className="formFlightSearch"
+      style={{ marginLeft: "17px" }}
+    >
       {/* Type of return  */}
 
       <div className="d-flex flex-row mb-3 gap-5">
@@ -240,52 +254,52 @@ const Return = () => {
               FROM
             </label>
             <input
-                name="from"
-                placeholder="Enter city or airport"
-                value={from}
-                onChange={(event) => {
-                  handleFromInputChange(event);
-                  handleFromSearch(event.target.value);
+              name="from"
+              placeholder="Enter city or airport"
+              value={from}
+              onChange={(event) => {
+                handleFromInputChange(event);
+                handleFromSearch(event.target.value);
+              }}
+            />
+            {isLoading && <div>Loading...</div>}
+            {fromSearchResults && fromSearchResults.length > 0 && (
+              <div
+                style={{
+                  backgroundColor: "white",
+                  borderRadius: "10px",
+                  zIndex: 1,
+                  width: "100%",
+                  boxShadow: "rgba(0, 0, 0, 0.09) 0px 3px 12px",
+                  textAlign: "left",
+                  cursor: "pointer",
+                  display: displayFrom ? "block" : "none",
                 }}
-              />
-              {isLoading && <div>Loading...</div>}
-              {fromSearchResults && fromSearchResults.length > 0 && (
-                <div
-                  style={{
-                    backgroundColor: "white",
-                    borderRadius: "10px",
-                    zIndex: 1,
-                    width: "100%",
-                    boxShadow: "rgba(0, 0, 0, 0.09) 0px 3px 12px",
-                    textAlign: "left",
-                    cursor: "pointer",
-                    display: displayFrom ? "block" : "none",
-                  }}
-                >
-                  <ul>
-                    <Box
-                      sx={{
-                        mb: 2,
-                        display: "flex",
-                        flexDirection: "column",
-                        maxHeight: 150,
-                        overflow: "hidden",
-                        overflowY: "scroll",
-                      }}
-                    >
-                      {fromSearchResults.map((result) => (
-                        <li
-                          key={result._id}
-                          onClick={() => handleFromClick(result)}
-                        >
-                          <strong>{result.AirportCode}</strong> {result.name}{" "}
-                          {result.code}
-                        </li>
-                      ))}
-                    </Box>
-                  </ul>
-                </div>
-              )}
+              >
+                <ul>
+                  <Box
+                    sx={{
+                      mb: 2,
+                      display: "flex",
+                      flexDirection: "column",
+                      maxHeight: 150,
+                      overflow: "hidden",
+                      overflowY: "scroll",
+                    }}
+                  >
+                    {fromSearchResults.map((result) => (
+                      <li
+                        key={result._id}
+                        onClick={() => handleFromClick(result)}
+                      >
+                        <strong>{result.AirportCode}</strong> {result.name}{" "}
+                        {result.code}
+                      </li>
+                    ))}
+                  </Box>
+                </ul>
+              </div>
+            )}
           </div>
         </div>
         <div className="col-1 d-flex justify-content-center">
@@ -297,52 +311,52 @@ const Return = () => {
               TO
             </label>
             <input
-                name="to"
-                placeholder="Enter city or airport"
-                value={to}
-                onChange={(event) => {
-                  handleToInputChange(event);
-                  handleToSearch(event.target.value);
+              name="to"
+              placeholder="Enter city or airport"
+              value={to}
+              onChange={(event) => {
+                handleToInputChange(event);
+                handleToSearch(event.target.value);
+              }}
+            />
+            {isLoading && <div>Loading...</div>}
+            {toSearchResults && toSearchResults.length > 0 && (
+              <div
+                style={{
+                  backgroundColor: "white",
+                  borderRadius: "10px",
+                  zIndex: 1,
+                  width: "100%",
+                  boxShadow: "rgba(0, 0, 0, 0.09) 0px 3px 12px",
+                  textAlign: "left",
+                  cursor: "pointer",
+                  display: displayTo ? "block" : "none",
                 }}
-              />
-              {isLoading && <div>Loading...</div>}
-              {toSearchResults && toSearchResults.length > 0 && (
-                <div
-                  style={{
-                    backgroundColor: "white",
-                    borderRadius: "10px",
-                    zIndex: 1,
-                    width: "100%",
-                    boxShadow: "rgba(0, 0, 0, 0.09) 0px 3px 12px",
-                    textAlign: "left",
-                    cursor: "pointer",
-                    display: displayTo ? "block" : "none",
-                  }}
-                >
-                  <ul>
-                    <Box
-                      sx={{
-                        mb: 2,
-                        display: "flex",
-                        flexDirection: "column",
-                        maxHeight: 150,
-                        overflow: "hidden",
-                        overflowY: "scroll",
-                      }}
-                    >
-                      {toSearchResults.map((result) => (
-                        <li
-                          key={result._id}
-                          onClick={() => handleToClick(result)}
-                        >
-                          <strong>{result.AirportCode}</strong> {result.name}{" "}
-                          {result.code}
-                        </li>
-                      ))}
-                    </Box>
-                  </ul>
-                </div>
-              )}
+              >
+                <ul>
+                  <Box
+                    sx={{
+                      mb: 2,
+                      display: "flex",
+                      flexDirection: "column",
+                      maxHeight: 150,
+                      overflow: "hidden",
+                      overflowY: "scroll",
+                    }}
+                  >
+                    {toSearchResults.map((result) => (
+                      <li
+                        key={result._id}
+                        onClick={() => handleToClick(result)}
+                      >
+                        <strong>{result.AirportCode}</strong> {result.name}{" "}
+                        {result.code}
+                      </li>
+                    ))}
+                  </Box>
+                </ul>
+              </div>
+            )}
           </div>
         </div>
 
@@ -358,6 +372,9 @@ const Return = () => {
               id="departure"
               className="deaprture_input"
               placeholder="Enter city or airport"
+              min={new Date().toISOString().split("T")[0]}
+              value={departureDate}
+              onChange={handleDepartureDateChange}
             ></input>
           </div>
         </div>
@@ -373,6 +390,9 @@ const Return = () => {
               id="departure1"
               className="deaprture_input"
               placeholder="Enter city or airport"
+              min={minReturnDate}
+              value={returnDate}
+              onChange={(event) => setReturnDate(event.target.value)}
             ></input>
           </div>
         </div>
@@ -393,14 +413,16 @@ const Return = () => {
           </div>
         </div>
       </div>
-       
-       
-      <div className="d-flex mt-3  p-1 align-items-center gap-2" style={{width:'100%'}}>
-      <div className="col-xs-3 col-md-3 pe-0">
-            <Typography mt={1} variant="h6" paddingRight={0}>
-              Select A Fair Of Type:
-            </Typography>
-          </div>
+
+      <div
+        className="d-flex mt-3  p-1 align-items-center gap-2"
+        style={{ width: "100%" }}
+      >
+        <div className="col-xs-3 col-md-3 pe-0">
+          <Typography mt={1} variant="h6" paddingRight={0}>
+            Select A Fair Of Type:
+          </Typography>
+        </div>
         <div className="d-flex gap-3 ">
           <div className="d-flex align-items-center gap-1 bg-info p-2 rounded">
             <input type="radio" name="fareType"></input>
@@ -413,8 +435,7 @@ const Return = () => {
         </div>
       </div>
 
-
-      <div className="row" style={{width:'100%'}}>
+      <div className="row" style={{ width: "100%" }}>
         <div className="col-xs-9">
           <div className="row">
             <div className="col-3 col-md-3 col-lg-2 mb-3">
@@ -485,92 +506,96 @@ const Return = () => {
         </div>
       </div>
 
-         <div className="row" style={{width:'100%'}}>
-          <label className="form_lable1">
-            -More options: Airline prefrence
-          </label>
-        </div>
-        <div className="row" style={{width:'100%'}}>
-          <div className="col-12 col-md-3 col-lg-3 mb-3">
-            <div className="showDirectFligthDiv">
-              <input name="direct" type="checkbox" />{" "}
-              <span>Show direct flights</span>
-            </div>
+      <div className="row" style={{ width: "100%" }}>
+        <label className="form_lable1">-More options: Airline prefrence</label>
+      </div>
+      <div className="row" style={{ width: "100%" }}>
+        <div className="col-12 col-md-3 col-lg-3 mb-3">
+          <div className="showDirectFligthDiv">
+            <input name="direct" type="checkbox" />{" "}
+            <span>Show direct flights</span>
           </div>
         </div>
+      </div>
 
-        <label
-      style={{
-        fontSize: "20px",
-        fontWeight: "400",
-        marginBottom: '15px',
-        border: '1px solid grey',
-        padding: '10px',
-        display: 'inline-block',
-        borderRadius: '10px',
-        boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
-      }}
-    >
-      Restrict my Search to:{" "}
-      <span style={{ color: "#00BDC4" }}>
-        <input
-          type="checkbox"
-          checked={selectAll}
-          onChange={handleSelectAllChange}
-          style={{ marginRight: "5px", width: '18px', height: '18px' }}
-        />
-        Select All / Unselect All
-      </span>
-    </label>
+      <label
+        style={{
+          fontSize: "20px",
+          fontWeight: "400",
+          marginBottom: "15px",
+          border: "1px solid grey",
+          padding: "10px",
+          display: "inline-block",
+          borderRadius: "10px",
+          boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
+        }}
+      >
+        Restrict my Search to:{" "}
+        <span style={{ color: "#00BDC4" }}>
+          <input
+            type="checkbox"
+            checked={selectAll}
+            onChange={handleSelectAllChange}
+            style={{ marginRight: "5px", width: "18px", height: "18px" }}
+          />
+          Select All / Unselect All
+        </span>
+      </label>
 
-   <Box >
-          <div>
-            <div className="grid-container" style={{ display: 'flex', flexWrap: 'wrap', gap: '40px' }}>
-              {options.map(({ label, value }) => (
-                <label key={value} style={{width:'190px',height:'30px',gap:'10px',display:'flex'}}>
-                  <input
-                    type="checkbox"
-                    value={label}
-                    checked={selectAll ? true : selected.includes(label)}
-                    onChange={handleCheckboxChange}
-                    disabled={selectAll}
-                    className="me-1"
-                    style={{ width: '18px', height: '18px' }}
-                  />
-                   <p style={{marginTop:'-2px'}}>{label} </p>  
-                </label>
-              ))}
-            </div>
+      <Box>
+        <div>
+          <div
+            className="grid-container"
+            style={{ display: "flex", flexWrap: "wrap", gap: "40px" }}
+          >
+            {options.map(({ label, value }) => (
+              <label
+                key={value}
+                style={{
+                  width: "190px",
+                  height: "30px",
+                  gap: "10px",
+                  display: "flex",
+                }}
+              >
+                <input
+                  type="checkbox"
+                  value={label}
+                  checked={selectAll ? true : selected.includes(label)}
+                  onChange={handleCheckboxChange}
+                  disabled={selectAll}
+                  className="me-1"
+                  style={{ width: "18px", height: "18px" }}
+                />
+                <p style={{ marginTop: "-2px" }}>{label} </p>
+              </label>
+            ))}
           </div>
-        </Box>
+        </div>
+      </Box>
 
-        <Box className="row" >
-          <Flex direction="row" justifyContent="center" marginLeft="330px">
-            <button type="submit" id="cssbuttons-io-button" >
-              {" "}
-              Search Flight
-              <div id="icon">
-                <svg
-                  height="24"
-                  width="24"
-                  viewBox="0 0 24 24"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path d="M0 0h24v24H0z" fill="none"></path>
-                  <path
-                    d="M16.172 11l-5.364-5.364 1.414-1.414L20 12l-7.778 7.778-1.414-1.414L16.172 13H4v-2z"
-                    fill="currentColor"
-                  ></path>
-                </svg>
-              </div>
-            </button>
-          </Flex>
-        </Box>
-
-
-
-
-
+      <Box className="row">
+        <Flex direction="row" justifyContent="center" marginLeft="330px">
+          <button type="submit" id="cssbuttons-io-button">
+            {" "}
+            Search Flight
+            <div id="icon">
+              <svg
+                height="24"
+                width="24"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path d="M0 0h24v24H0z" fill="none"></path>
+                <path
+                  d="M16.172 11l-5.364-5.364 1.414-1.414L20 12l-7.778 7.778-1.414-1.414L16.172 13H4v-2z"
+                  fill="currentColor"
+                ></path>
+              </svg>
+            </div>
+          </button>
+        </Flex>
+      </Box>
     </form>
   );
 };
