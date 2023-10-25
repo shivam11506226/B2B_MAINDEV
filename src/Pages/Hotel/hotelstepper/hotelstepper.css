@@ -4,7 +4,7 @@
   height: 100%;
   border-radius: 10px;
   background: white;
-  margin-top: 150px;
+  border:"2px solid red"
 }
 
 .nhotel_form_input {

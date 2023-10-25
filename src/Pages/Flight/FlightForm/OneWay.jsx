@@ -68,9 +68,9 @@ const OneWay = () => {
 
   // error show
 
-  const [fromError, setFromError]=useState("");
-  const [toError, setToError]=useState("");
-  const [dateError, setDateError]=useState("");
+  const [fromError, setFromError] = useState("");
+  const [toError, setToError] = useState("");
+  const [dateError, setDateError] = useState("");
 
   useEffect(() => {
     let mounted = true;
@@ -189,15 +189,15 @@ const OneWay = () => {
     event.preventDefault();
     const formData = new FormData(event.target);
 
-    if(!formData.get("from")){
+    if (!formData.get("from")) {
       setFromError("Enter Destination City");
       return;
     }
-    if(!formData.get("to")){
+    if (!formData.get("to")) {
       setToError("Enter Arrival City");
       return;
     }
-    if(!formData.get("departure")){
+    if (!formData.get("departure")) {
       setDateError("Select Date");
       return;
     }
@@ -253,11 +253,14 @@ const OneWay = () => {
 
   return (
     <form onSubmit={handleSubmit} className="formFlightSearch">
-      <div className="container">
-        <div className="row rowcon">
-          <div className="col-xs-12 col-md-2 pe-0">
-            <div className="form_input" >
-              <label className="form_lable">FROM</label>
+      <div className="container" >
+        <div className="row rowcon" style={{ marginTop: "-20px" }}>
+          <div
+            className="col-xs-12 col-md-2 pe-0"
+            style={{ width: "305px", height: "56px" }}
+          >
+            <div className="form_input">
+              <label className="form_lable">Departure</label>
               <input
                 name="from"
                 placeholder="Enter city or airport"
@@ -267,7 +270,7 @@ const OneWay = () => {
                   handleFromSearch(event.target.value);
                 }}
               />
-              {fromError!=="" && <span className="error">{fromError}</span> }
+              {fromError !== "" && <span className="error">{fromError}</span>}
               {isLoading && <div>Loading...</div>}
               {fromSearchResults && fromSearchResults.length > 0 && (
                 <div
@@ -289,8 +292,6 @@ const OneWay = () => {
                         display: "flex",
                         flexDirection: "column",
                         maxHeight: 150,
-                        overflow: "hidden",
-                        overflowY: "scroll",
                       }}
                     >
                       {fromSearchResults.map((result) => (
@@ -307,14 +308,16 @@ const OneWay = () => {
                 </div>
               )}
             </div>
-
           </div>
           <div className="col-md-1 d-flex justify-content-center">
             <img src={transfer} alt="name" className="align-self-center" />
           </div>
-          <div className="col-xs-12 col-md-2 ps-0">
-            <div className="form_input">
-              <label className="form_lable">TO</label>
+          <div
+            className="col-xs-12 col-md-2 ps-0"
+            style={{ width: "305px", height: "56px" }}
+          >
+            <div className="form_input" >
+              <label className="form_lable">Arrival</label>
               <input
                 name="to"
                 placeholder="Enter city or airport"
@@ -323,8 +326,9 @@ const OneWay = () => {
                   handleToInputChange(event);
                   handleToSearch(event.target.value);
                 }}
+                style={{ border: "2px solid red" }}
               />
-              {toError!=="" && <span className="error">{toError}</span> }
+              {toError !== "" && <span className="error">{toError}</span>}
               {isLoading && <div>Loading...</div>}
               {toSearchResults && toSearchResults.length > 0 && (
                 <div
@@ -366,9 +370,12 @@ const OneWay = () => {
             </div>
           </div>
 
-          <div className="col-xs-12 col-md-2">
+          <div
+            className="col-xs-12 col-md-2"
+            style={{ width: "305px", height: "56px" }}
+          >
             <div className="form_input" onClick={handleClick}>
-              <label className="form_lable">DEPARTURE</label>
+              <label className="form_lable">Departure Date</label>
 
               <input
                 type="date"
@@ -377,11 +384,11 @@ const OneWay = () => {
                 ref={inputRef}
                 className="deaprture_input"
               />
-              {dateError!=="" && <span className="error">{dateError}</span>}
+              {dateError !== "" && <span className="error">{dateError}</span>}
             </div>
           </div>
 
-          <div className="col-xs-12 col-md-2">
+          {/* <div className="col-xs-12 col-md-2">
             <div className="form_input" >
               <label className="form_lable"></label>
               <select name="time" id="" className="form_input_select">
@@ -392,7 +399,7 @@ const OneWay = () => {
                 <option mx={5}>Night</option>
               </select>
             </div>
-          </div>
+          </div> */}
         </div>
 
         {/* <div className="row" style={{ marginTop: "32px" }}>
@@ -452,14 +459,16 @@ const OneWay = () => {
             </div>
           </div>
         </div> */}
-        
 
         <div className="row">
-          <div className="col-xs-9">
+          <div className="col-xs-12">
             <div className="row">
-              <div className="col-3 col-md-3 col-lg-2 mb-3">
+              <div
+                className="col-3 col-md-3 col-lg-2 mb-3"
+                style={{ width: "250px", height: "56px" }}
+              >
                 <div className="form_input">
-                  <label className="form_lable">Adult(12+)</label>
+                  <label className="form_lable">Adult(12+ Yrs)</label>
 
                   <select name="adult" id="" className="form_input_select">
                     <option value="1">1</option>
@@ -475,9 +484,12 @@ const OneWay = () => {
                 </div>
               </div>
 
-              <div className="col-3 col-md-3 col-lg-2 mb-3">
+              <div
+                className="col-3 col-md-3 col-lg-2 mb-3"
+                style={{ width: "250px", height: "56px" }}
+              >
                 <div className="form_input">
-                  <label className="form_lable">Child(2-11)</label>
+                  <label className="form_lable">Child(2-12 Yrs)</label>
                   <select name="child" id="" className="form_input_select">
                     <option value="0">0</option>
                     <option value="1">1</option>
@@ -491,7 +503,10 @@ const OneWay = () => {
                   </select>
                 </div>
               </div>
-              <div className="col-3 col-md-3 col-lg-3 mb-3">
+              <div
+                className="col-3 col-md-3 col-lg-3 mb-3"
+                style={{ width: "250px", height: "56px" }}
+              >
                 <div className="form_input">
                   <label className="form_lable">Infant(Under 2 Yrs)</label>
                   <select name="infant" id="" className="form_input_select">
@@ -508,7 +523,10 @@ const OneWay = () => {
                 </div>
               </div>
 
-              <div className="col-3 col-md-3 col-lg-2 mb-3">
+              <div
+                className="col-3 col-md-3 col-lg-2 mb-3"
+                style={{ width: "250px", height: "56px" }}
+              >
                 <div className="form_input">
                   <label className="form_lable">Class</label>
                   <select name="class" id="" className="form_input_select">
@@ -523,21 +541,67 @@ const OneWay = () => {
               </div>
             </div>
           </div>
-        </div>
+          <div className="col-xs-12">
+            <div
+              className="row"
+              style={{
+                width: "100%",
+                gap: "40px",
+             
+                display: "flex",
+                height: "55px",
+              }}
+            >
+              <div
+                className="col-6 col-md-3 col-lg-2 mb-3"
+                style={{ width: "250px" }}
+              >
+                <div className="form_input">
+                  <label className="form_lable">Preferred Airline</label>
 
-        <div className="row" style={{fontSize:'18px'}}>
-          <label className="form_lable1" >
-            -More options: Airline prefrence
-          </label>
-        </div>
-        <div className="row">
-          <div className="col-12 col-md-3 col-lg-3 mb-3">
-            <div className="showDirectFligthDiv">
-              <input name="direct" type="checkbox" style={{ width: '18px', height: '18px' }}/>{" "}
-              <span>Show direct flights</span>
+                  <select name="adult" id="" className="form_input_select1">
+                    <option value="1">Select Airline </option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                  </select>
+                </div>
+              </div>
+
+              <div className="col-6 col-md-3 col-lg-2 mb-3">
+                <button
+                  type="submit"
+                  id="cssbuttons-io-button"
+                  style={{ backgroundColor: "#21325D", borderRadius: "8px" }}
+                >
+                  {" "}
+                  Search Flight
+                  <div id="icon">
+                    <svg
+                      height="24"
+                      width="24"
+                      viewBox="0 0 24 24"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path d="M0 0h24v24H0z" fill="none"></path>
+                      <path
+                        d="M16.172 11l-5.364-5.364 1.414-1.414L20 12l-7.778 7.778-1.414-1.414L16.172 13H4v-2z"
+                        fill="currentColor"
+                      ></path>
+                    </svg>
+                  </div>
+                </button>
+              </div>
             </div>
           </div>
         </div>
+
+     
 
         {/* <label
       style={{
@@ -584,8 +648,7 @@ const OneWay = () => {
           </div>
         </Box> */}
 
-
-        <Box className="row">
+        {/* <Box className="row">
           <Flex direction="row" justifyContent="center">
             <button type="submit" id="cssbuttons-io-button">
               {" "}
@@ -606,7 +669,7 @@ const OneWay = () => {
               </div>
             </button>
           </Flex>
-        </Box>
+        </Box> */}
       </div>
     </form>
   );
