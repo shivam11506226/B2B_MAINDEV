@@ -68,7 +68,7 @@ const Return = () => {
       // make an API call to get search results
 
       const results = await axios.get(
-        `${apiURL.baseURL}/travvolt/city/searchCityData?keyword=${fromQuery}`
+        `${apiURL.baseURL}/skyTrails/city/searchCityData?keyword=${fromQuery}`
       );
       if (mounted) {
         setFromSearchResults(results?.data?.data);
@@ -93,7 +93,7 @@ const Return = () => {
       // make an API call to get search results
 
       const results = await axios.get(
-        `${apiURL.baseURL}/travvolt/city/searchCityData?keyword=${toQuery}`
+        `${apiURL.baseURL}/skyTrails/city/searchCityData?keyword=${toQuery}`
       );
       if (mounted) {
         setToSearchResults(results?.data?.data);

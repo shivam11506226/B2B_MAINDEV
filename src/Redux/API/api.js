@@ -7,13 +7,13 @@ function api() {
   };
 
   const usersTableData = () => {
-    return axios.get("http://localhost:8000/travvolt/user/getallusers");
+    return axios.get("http://localhost:8000/skyTrails/user/getallusers");
   };
 
   const userB2BToken = (payload) => {
     return axios({
       method: "POST",
-      url: "/travvolt/token",
+      url: "/skyTrails/token",
       baseURL: `${apiURL.baseURL}`,
       data: payload,
       headers: {
@@ -26,7 +26,7 @@ function api() {
     const { data, key } = payload;
     return axios({
       method: "PUT",
-      url: `travvolt/wallet/update_amount/${key.wallet_Id}`,
+      url: `skyTrails/wallet/update_amount/${key.wallet_Id}`,
       baseURL: `${apiURL.baseURL}`,
       data: data,
       headers: {
@@ -42,7 +42,7 @@ function api() {
   const userB2BLogin = (payload) => {
     return axios({
       method: "POST",
-      url: "/travvolt/b2b/login",
+      url: "/skyTrails/b2b/login",
       baseURL: `${apiURL.baseURL}`,
       data: payload,
       headers: {
@@ -54,7 +54,7 @@ function api() {
   const userB2BRegistration = (formData1) => {
     return axios({
       method: "POST",
-      url: "/travvolt/b2b/register",
+      url: "/skyTrails/b2b/register",
       baseURL: `${apiURL.baseURL}`,
       data: formData1,
       headers: {
@@ -90,7 +90,7 @@ function api() {
   const activeStatus = (payload) => {
     return axios({
       method: "POST",
-      url: "/travvolt/user/update",
+      url: "/skyTrails/user/update",
       baseURL: `${apiURL.baseURL}`,
       data: payload,
       headers: {
@@ -101,7 +101,7 @@ function api() {
   const markUpStatus = (payload) => {
     return axios({
       method: "POST",
-      url: "/travvolt/user/setmarkup",
+      url: "/skyTrails/user/setmarkup",
       baseURL: `${apiURL.baseURL}`,
       data: payload,
       headers: {
@@ -116,7 +116,7 @@ function api() {
     // console.log({ payload, emtPayload });
     return axios({
       method: "POST",
-      url: "/travvolt/flight/search/oneway",
+      url: "/skyTrails/flight/search/oneway",
       baseURL: `${apiURL.baseURL}`,
       data: payload,
       headers: {
@@ -132,7 +132,7 @@ function api() {
     // console.log({ payload, emtPayload });
     return axios({
       method: "POST",
-      url: "/travvolt/flight/search/return",
+      url: "/skyTrails/flight/search/return",
       baseURL: `${apiURL.baseURL}`,
       data: payload,
       headers: {
@@ -160,7 +160,7 @@ function api() {
   const flightRuleSearch = (payload) => {
     return axios({
       method: "POST",
-      url: "/travvolt/flight/farerule",
+      url: "/skyTrails/flight/farerule",
       baseURL: `${apiURL.baseURL}`,
       data: payload,
       headers: {
@@ -172,7 +172,7 @@ function api() {
   const flightQuoteSearch = (payload) => {
     return axios({
       method: "POST",
-      url: "/travvolt/flight/farequote",
+      url: "/skyTrails/flight/farequote",
       baseURL: `${apiURL.baseURL}`,
       data: payload,
       headers: {
@@ -184,7 +184,7 @@ function api() {
   const flightBookGDS = (payload) => {
     return axios({
       method: "POST",
-      url: "/travvolt/flight/booking",
+      url: "/skyTrails/flight/booking",
       baseURL: `${apiURL.baseURL}`,
       data: payload,
       headers: {
@@ -196,7 +196,7 @@ function api() {
   const flightGetTicketLcc = (payload) => {
     return axios({
       method: "POST",
-      url: "/travvolt/flight/getticketlcc",
+      url: "/skyTrails/flight/getticketlcc",
       baseURL: `${apiURL.baseURL}`,
       data: payload,
       headers: {
@@ -208,7 +208,7 @@ function api() {
   const flightGetTicketNonLcc = (payload) => {
     return axios({
       method: "POST",
-      url: "/travvolt/flight/getticketnonlcc",
+      url: "/skyTrails/flight/getticketnonlcc",
       baseURL: `${apiURL.baseURL}`,
       data: payload,
       headers: {
@@ -221,7 +221,7 @@ function api() {
   const createPackage = (formData2) => {
     return axios({
       method: "POST",
-      url: "/travvolt/international/create",
+      url: "/skyTrails/international/create",
       baseURL: `${apiURL.baseURL}`,
       data: formData2,
       headers: {
@@ -236,7 +236,7 @@ function api() {
     const { destination, days } = payload;
     // ?filter=${days}&keyword=${destination}
     return axios.get(
-      `http://localhost:8000/travvolt/international/getAll?filter=${days}&keyword=${destination}`
+      `http://localhost:8000/skyTrails/international/getAll?filter=${days}&keyword=${destination}`
     );
   };
 
@@ -244,7 +244,7 @@ function api() {
     console.log("getOnePacked", payload);
     const { id } = payload;
     return axios.get(
-      `http://localhost:8000/travvolt/international/getone/${id}`
+      `http://localhost:8000/skyTrails/international/getone/${id}`
     );
   };
 
@@ -254,7 +254,7 @@ function api() {
     console.log("bookingHolidayRequest api", payload);
     return axios({
       method: "POST",
-      url: "/travvolt/international/pakageBookingrequest",
+      url: "/skyTrails/international/pakageBookingrequest",
       baseURL: `${apiURL.baseURL}`,
       data: payload,
       headers: {
@@ -267,7 +267,7 @@ function api() {
     console.log("bookingHolidayRequest api", payload);
     return axios({
       method: "POST",
-      url: "/travvolt/international/pakageBooking/",
+      url: "/skyTrails/international/pakageBooking/",
       baseURL: `${apiURL.baseURL}`,
       data: payload,
       headers: {
@@ -280,7 +280,7 @@ function api() {
     console.log(formData3);
     return axios({
       method: "POST",
-      url: "/travvolt/forex/createForex",
+      url: "/skyTrails/forex/createForex",
       baseURL: `${apiURL.baseURL}`,
       data: formData3,
       headers: {
@@ -292,7 +292,7 @@ function api() {
   const createForexForCustomer = (formData3) => {
     return axios({
       method: "POST",
-      url: "travvolt/forex/createCustomerforex",
+      url: "skyTrails/forex/createCustomerforex",
       baseURL: `${apiURL.baseURL}`,
       data: formData3,
       headers: {
@@ -303,17 +303,17 @@ function api() {
 
   // Forex data for dashboard
   const forexData = () => {
-    return axios.get("https://api.travvolt.com/travvolt/forex/getAllForex");
+    return axios.get("https://api.skyTrails.com/skyTrails/forex/getAllForex");
   };
   const forexCustomerData = () => {
     return axios.get(
-      "https://api.travvolt.com/travvolt/forex/getAllCustomerforex"
+      "https://api.skyTrails.com/skyTrails/forex/getAllCustomerforex"
     );
   };
 
   // visa data for dashboard
   const visaData = () => {
-    return axios.get("http://localhost:8000/travvolt/visa/getAllVisa");
+    return axios.get("http://localhost:8000/skyTrails/visa/getAllVisa");
   };
 
   // create Visa
@@ -321,7 +321,7 @@ function api() {
     console.log("api.js", formData4.payload);
     return axios({
       method: "POST",
-      url: "travvolt/visa/createVisa",
+      url: "skyTrails/visa/createVisa",
       baseURL: `${apiURL.baseURL}`,
       data: formData4,
       headers: {
@@ -335,7 +335,7 @@ function api() {
     console.log("bus result api", payload);
     return axios({
       method: "POST",
-      url: "/travvolt/bus/search" ,
+      url: "/skyTrails/bus/search" ,
       baseURL: `${apiURL.baseURL}`,
       data: payload,
       headers: {
@@ -348,7 +348,7 @@ function api() {
   const hotelSearch = (payload) => {
     return axios({
       method: "POST",
-      url: "/travvolt/hotel/search/dedup",
+      url: "/skyTrails/hotel/search/dedup",
       baseURL: `${apiURL.baseURL}`,
       data: payload,
       headers: {
@@ -360,7 +360,7 @@ function api() {
   const hotelSearchInfo = (payload) => {
     return axios({
       method: "POST",
-      url: "/travvolt/hotel/searchinfo",
+      url: "/skyTrails/hotel/searchinfo",
       baseURL: `${apiURL.baseURL}`,
       data: payload,
       headers: {
@@ -372,7 +372,7 @@ function api() {
   const hotelRoomInfo = (payload) => {
     return axios({
       method: "POST",
-      url: "/travvolt/hotel/room",
+      url: "/skyTrails/hotel/room",
       baseURL: `${apiURL.baseURL}`,
       data: payload,
       headers: {
@@ -384,7 +384,7 @@ function api() {
   const hotelBlockRoom = (payload) => {
     return axios({
       method: "POST",
-      url: "/travvolt/hotel/blockroom",
+      url: "/skyTrails/hotel/blockroom",
       baseURL: `${apiURL.baseURL}`,
       data: payload,
       headers: {
@@ -396,7 +396,7 @@ function api() {
   const hotelBookRoom = (payload) => {
     return axios({
       method: "POST",
-      url: "/travvolt/hotel/bookroom",
+      url: "/skyTrails/hotel/bookroom",
       baseURL: `${apiURL.baseURL}`,
       data: payload,
       headers: {
@@ -411,7 +411,7 @@ const hotelBookingDetails = (payload) => {
    console.log("payload of api 👍") 
     return axios({ 
       method: "POST", 
-      url: "/travvolt/hotel/bookingdetails", 
+      url: "/skyTrails/hotel/bookingdetails", 
       baseURL: `${apiURL.baseURL}`, 
       data: payload, 
       headers: { 
@@ -428,7 +428,7 @@ const hotelBookingDetails = (payload) => {
   const busBlock = (payload) => {
     return axios({
       method: "POST",
-      url: "/travvolt/bus/block",
+      url: "/skyTrails/bus/block",
       baseURL: `${apiURL.baseURL}`,
       data: payload,
       headers: {
@@ -439,7 +439,7 @@ const hotelBookingDetails = (payload) => {
   const busBook=(payload)=>{
     return axios({
       method: "POST",
-      url: "/travvolt/bus/book",
+      url: "/skyTrails/bus/book",
       baseURL: `${apiURL.baseURL}`,
       data: payload,
       headers: {
@@ -451,7 +451,7 @@ const hotelBookingDetails = (payload) => {
   const busBookDetails=(payload)=>{
     return axios({
       method: "POST",
-      url: "/travvolt/bus/bookingdetails",
+      url: "/skyTrails/bus/bookingdetails",
       baseURL: `${apiURL.baseURL}`,
       data: payload,
       headers: {
@@ -462,7 +462,7 @@ const hotelBookingDetails = (payload) => {
   const busBookingDataSave=(payload)=>{
     return axios({
       method: "POST",
-      url: "/travvolt/busBooking/addBusBookingData",
+      url: "/skyTrails/busBooking/addBusBookingData",
       baseURL: `${apiURL.baseURL}`,
       data: payload,
       headers: {

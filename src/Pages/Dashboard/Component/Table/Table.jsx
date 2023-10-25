@@ -137,7 +137,7 @@ export default function Tables() {
   // const [activeSwitch, setActiveSwitch] = useState(true);
 
   useEffect(() => {
-    axios.get("http://localhost:8000/travvolt/user/getallusers");
+    axios.get("http://localhost:8000/skyTrails/user/getallusers");
   }, []);
 
   // -------- Activate or Deactivate--------//

@@ -57,7 +57,7 @@ const Busdetail = () => {
 
     try {
       axios
-        .post("http://localhost:8000/travvolt/bus/seatlayout", requestData, {
+        .post("http://localhost:8000/skyTrails/bus/seatlayout", requestData, {
           headers: {
             "Content-Type": "application/json",
           },
