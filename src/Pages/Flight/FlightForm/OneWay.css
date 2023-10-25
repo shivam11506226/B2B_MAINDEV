@@ -5,30 +5,29 @@
 }
 
 .form_input input {
-  width: 100%;
-  height: 100%;
-  padding-left: 25px;
-  border-radius: 20px;
-  border: 2px solid #70707069;
+  width: 332px;
+  height: 56px;
+  border-radius: 8px;
+border: 1px solid #5C85A4;
+background: #FFFBFB;
 }
 
 .form_input .lable {
   font-size: 13px;
-  color: #4e4c4c;
+ 
   font-weight: 700;
   font-family: "Quicksand", sans-serif;
 }
 
 .form_input .from_input::placeholder,
 .to_input::placeholder {
-  color: #4e4c4ca1;
   font-size: 18px;
   font-weight: 700;
   font-family: "Quicksand", sans-serif;
 }
 
 .form_lable {
-  color: #4e4c4c;
+ 
   font-size: 13px;
   font-weight: 700;
   font-family: "Quicksand", sans-serif;
@@ -44,18 +43,30 @@
 }
 
 .form_lable1 {
-  color: #4e4c4c;
+ 
   
   font-weight: Bold;
   margin-bottom: 1rem;
 }
-.form_input_select {
-  width: 78%;
+
+.form_input_select1 {
+  width:350px;
   border: 10px;
   border-radius: 10px;
-  height: 2.5rem;
-  border: 3px solid #70707069;
+  height:40px;
+  color: #9E9E9E;
+
+font-family: Montserrat;
+font-size: 16px;
+font-style: normal;
+font-weight: 300;
+line-height: normal;
+
+border: 1px solid #5C85A4;
+background: #FFFBFB;
+  
 }
+
 
 .formFlightSearch {
   margin-top: 20px;
@@ -90,7 +101,7 @@
   width: 170px;
   border-radius: 10px;
   font-size: 11px;
-  border: 2px solid #70707069;
+  border: 1px solid #5C85A4;
   font: Quicksand, SemiBold;
   height: 30px;
   padding: 5px;
@@ -118,35 +129,38 @@
 
 
 #cssbuttons-io-button {
-  background: #00bdc4;
+
   color: white;
   font-family: inherit;
   padding: 0.35em;
   padding-left: 1.2em;
   font-size: 17px;
   font-weight: 500;
-  border-radius: 0.9em;
-  border: none;
+
+
+  
   letter-spacing: 0.05em;
   display: flex;
   align-items: center;
   box-shadow: inset 0 0 1.6em -0.6em #714da6;
-  overflow: hidden;
-  position: relative;
+  
+  margin-left: 150px;
   height: 2.8em;
   padding-right: 3.3em;
+  width:300px;
+height: 95px;
 }
 
 #cssbuttons-io-button #icon {
   background: white;
   margin-left: 1em;
-  position: absolute;
+ 
   display: flex;
   align-items: center;
   justify-content: center;
   height: 2.2em;
   width: 2.2em;
-  border-radius: 0.7em;
+ 
   box-shadow: 0.1em 0.1em 0.6em 0.2em #7b52b9;
   right: 0.3em;
   transition: all 0.3s;
@@ -214,4 +228,21 @@
     grid-template-columns: repeat(4,1fr);
     
   }
+}
+
+.toggle-label {
+  display: inline-block;
+  background-color: #00BDC4; /* Background color for the label when it's active */
+  color: white;
+  padding: 10px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+input[type="checkbox"] {
+  display: none; /* Hide the actual checkbox input */
+}
+
+input[type="checkbox"]:checked + .toggle-label {
+  background-color: #8D8985; /* Background color for the label when it's not active */
 }

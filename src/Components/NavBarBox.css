@@ -7,7 +7,8 @@
 }
 .active-nav {
    border-radius: 5px;  
-   background-image:linear-gradient(white,#D4F1F4);
+  background-color: brown;
+   border:"5px solid red"
 }
 .squre:hover{
   background-color: rgb(240, 186, 153);

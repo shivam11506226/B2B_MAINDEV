@@ -77,6 +77,7 @@ import { ipAction, tokenAction } from "../Redux/IP/actionIp";
 import GotoTopBtn from "../Components/GotoTopBtn";
 import FlightresultReturn from "../Pages/Flight/flightresult/FlightresultReturn/FlightresultReturn";
 import Headers from "../Components/Headers";
+import InnerNavbar1 from "../Layout/InnerNavbar1";
 const MainPage = () => {
   const dispatch = useDispatch();
   const location = useLocation();
@@ -120,12 +121,20 @@ const MainPage = () => {
         <Header />
        
       </div> */}
-        <Headers/>
+      <div style={{width:"100%",height:"200px",
+        position: "fixed",
+        display: "flex"}}>
+
+      </div>
+       <Headers/>
+        {location.pathname === "/" ? null : <InnerNavbar />} 
+      
+       
       {!isLoginRoute && !isRegisterRoute && !isDashboard && !isLogin && (
-        <div className="mainBox" >
+        <div className="mainBox"  >
           {/* header of main dashboard */}
         
-          
+        
           {/* all routes of inner navbar */}
           <div className="componentsContainer">
             <Routes>
@@ -376,7 +385,7 @@ const MainPage = () => {
       {/* {!isLoginRoute && reducerState?.adminAuth?.adminData?.data ? (
         <FooterAdmin />
       ) : ( */}
-      <Footer />
+      {/* <Footer /> */}
       {/* )} */}
     </>
   );

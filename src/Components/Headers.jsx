@@ -1,4 +1,3 @@
-
 import STLOGO from "../Images/ST-Main-Logo.png";
 import * as React from "react";
 import { useState, useEffect } from "react";
@@ -9,7 +8,6 @@ import MenuItem from "@mui/material/MenuItem";
 import Fade from "@mui/material/Fade";
 import { Box, Button, Typography, Paper, makeStyles } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-
 import { useDispatch, useSelector, useReducer } from "react-redux";
 import { logoutAction } from "../Redux/Auth/logIn/actionLogin";
 import Modal from "@mui/material/Modal";
@@ -23,188 +21,188 @@ import login from "../Images/login.png";
 import { motion } from "framer-motion";
 import color from "../../src/color/color.js";
 import {
-    FormControl,
-    FormLabel,
-    Input,
-    FormErrorMessage,
-    FormHelperText,
-  } from "@chakra-ui/react";
-  const style = {
-    position: "absolute",
-    top: "50%",
-    left: "50%",
-    transform: "translate(-50%, -50%)",
-    width: 400,
-    bgcolor: "background.paper",
-    border: "2px solid #000",
-    boxShadow: 24,
-    p: 4,
-  };
+  FormControl,
+  FormLabel,
+  Input,
+  FormErrorMessage,
+  FormHelperText,
+} from "@chakra-ui/react";
+const style = {
+  border: "10px solid #000",
+  boxShadow: 24,
+  p: 4,
+};
 function Headers() {
-    const [scrollYvalue, setScrollYValue] = useState(0);
-    const reducerState = useSelector((state) => state);
-    const [openModal, setOpenModal] = React.useState(false);
-    const [amount, setAmount] = React.useState("");
-    const [userData, setUserData] = useState(null);
-    const handleOpenModal = () => setOpenModal(true);
-    const handleCloseModal = () => setOpenModal(false);
-    const dispatch = useDispatch();
-    const navigate = useNavigate();
-    const openLoginpage = () => {
-      navigate("/Registration");
+  const [scrollYvalue, setScrollYValue] = useState(0);
+  const reducerState = useSelector((state) => state);
+  const [openModal, setOpenModal] = React.useState(false);
+  const [amount, setAmount] = React.useState("");
+  const [userData, setUserData] = useState(null);
+  const handleOpenModal = () => setOpenModal(true);
+  const handleCloseModal = () => setOpenModal(false);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const openLoginpage = () => {
+    navigate("/Registration");
+  };
+
+  const openRegistration = () => {
+    navigate("/Login");
+  };
+
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const open = Boolean(anchorEl);
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+  const handleSubmit = () => {
+    dispatch(logoutAction());
+    window.location.reload();
+  };
+  // Edit package
+  const editPackage = () => {
+    navigate("/EditHolidayPackage");
+  };
+
+  useEffect(() => {
+    const updateSrollYPosition = () => {
+      setScrollYValue(window.scrollY);
     };
-  
-    const openRegistration = () => {
-      navigate("/Login");
+    window.addEventListener("scroll", updateSrollYPosition);
+
+    return () => window.removeEventListener("scroll", updateSrollYPosition);
+  });
+
+  const handlePayment = (e) => {
+    e.preventDefault();
+    const data = {
+      _id: reducerState?.logIn?.loginData?.data?.data?.id,
+      amount: amount,
     };
-  
-    const [anchorEl, setAnchorEl] = React.useState(null);
-    const open = Boolean(anchorEl);
-    const handleClick = (event) => {
-      setAnchorEl(event.currentTarget);
+
+    // axios
+    //   .post("http://localhost:8000/updateBalance", data)
+    //   .then((res) => {
+    //     console.log(res.data);
+    //     handleRazorpay(res.data.data);
+    //   })
+    //   .catch((err) => {
+    //     console.log(err);
+    //   });
+    handleRazorpay(data);
+
+    // alert(amount);
+    setAmount("");
+    handleCloseModal();
+  };
+
+  const handleRazorpay = (data) => {
+    console.log("handleRazorpay called");
+    const options = {
+      key: "rzp_test_rSxJ8wZCLzTJck",
+      amount: amount * 100,
+      currency: "INR",
+      name: "The SkyTrails",
+      description: "Test Transaction",
+      image: STLOGO,
+      order_id: data.id,
+      handler: function (response) {
+        console.log(response);
+        // Check if the Razorpay payment is successful
+        if (response.razorpay_payment_id) {
+          // Payment was successful, now update the user's balance
+          const paymentData = {
+            _id: reducerState?.logIn?.loginData?.data?.data?.id,
+            amount: amount,
+          };
+
+          axios
+            .post("http://localhost:8000/updateBalance", paymentData)
+            .then((balanceUpdateResponse) => {
+              console.log("new data response", balanceUpdateResponse);
+
+              // Handle any further actions after a successful payment and database update
+            })
+            .catch((balanceUpdateError) => {
+              console.error("Error updating user balance:", balanceUpdateError);
+              // Handle the error from the database update, if needed.
+            });
+          // console.log(response)
+          const paymentVerifyData = {
+            razorpay_order_id: response.data.id,
+            razorpay_payment_id: response.razorpay_payment_id,
+            razorpay_signature: data.razorpay_signature,
+          };
+
+          console.log("paymentVeriy", paymentVerifyData);
+
+          axios
+            .post("http://localhost:8000/payVerify", paymentVerifyData)
+            .then((verificationResponse) => {
+              console.log(verificationResponse.data);
+
+              // Handle any further actions after a successful payment verification
+              // You can update the user's balance here if the payment was successful
+            })
+            .catch((verificationError) => {
+              console.error("Error verifying payment:", verificationError);
+              // Handle the error from the payment verification, if needed.
+            });
+        } else {
+          // Payment was not successful, handle it as needed
+          console.log("Razorpay payment was not successful");
+          // Handle the unsuccessful payment scenario, e.g., display an error message.
+        }
+      },
     };
-    const handleClose = () => {
-      setAnchorEl(null);
-    };
-    const handleSubmit = () => {
-      dispatch(logoutAction());
-      window.location.reload();
-    };
-    // Edit package
-    const editPackage = () => {
-      navigate("/EditHolidayPackage");
-    };
-  
-    useEffect(() => {
-      const updateSrollYPosition = () => {
-        setScrollYValue(window.scrollY);
-      };
-      window.addEventListener("scroll", updateSrollYPosition);
-  
-      return () => window.removeEventListener("scroll", updateSrollYPosition);
-    });
-  
-    const handlePayment = (e) => {
-      e.preventDefault();
-      const data = {
-        _id: reducerState?.logIn?.loginData?.data?.data?.id,
-        amount: amount,
-      };
-  
-      // axios
-      //   .post("http://localhost:8000/updateBalance", data)
-      //   .then((res) => {
-      //     console.log(res.data);
-      //     handleRazorpay(res.data.data);
-      //   })
-      //   .catch((err) => {
-      //     console.log(err);
-      //   });
-      handleRazorpay(data);
-  
-      // alert(amount);
-      setAmount("");
-      handleCloseModal();
-    };
-  
-    const handleRazorpay = (data) => {
-      console.log("handleRazorpay called");
-      const options = {
-        key: "rzp_test_rSxJ8wZCLzTJck",
-        amount: amount * 100,
-        currency: "INR",
-        name: "The SkyTrails",
-        description: "Test Transaction",
-        image: STLOGO,
-        order_id: data.id,
-        handler: function (response) {
-          console.log(response);
-          // Check if the Razorpay payment is successful
-          if (response.razorpay_payment_id) {
-            // Payment was successful, now update the user's balance
-            const paymentData = {
-              _id: reducerState?.logIn?.loginData?.data?.data?.id,
-              amount: amount,
-            };
-  
-            axios
-              .post("http://localhost:8000/updateBalance", paymentData)
-              .then((balanceUpdateResponse) => {
-                console.log("new data response", balanceUpdateResponse);
-  
-                // Handle any further actions after a successful payment and database update
-              })
-              .catch((balanceUpdateError) => {
-                console.error("Error updating user balance:", balanceUpdateError);
-                // Handle the error from the database update, if needed.
-              });
-            // console.log(response)
-            const paymentVerifyData = {
-              razorpay_order_id: response.data.id,
-              razorpay_payment_id: response.razorpay_payment_id,
-              razorpay_signature: data.razorpay_signature,
-            };
-  
-            console.log("paymentVeriy", paymentVerifyData);
-  
-            axios
-              .post("http://localhost:8000/payVerify", paymentVerifyData)
-              .then((verificationResponse) => {
-                console.log(verificationResponse.data);
-  
-                // Handle any further actions after a successful payment verification
-                // You can update the user's balance here if the payment was successful
-              })
-              .catch((verificationError) => {
-                console.error("Error verifying payment:", verificationError);
-                // Handle the error from the payment verification, if needed.
-              });
-          } else {
-            // Payment was not successful, handle it as needed
-            console.log("Razorpay payment was not successful");
-            // Handle the unsuccessful payment scenario, e.g., display an error message.
-          }
-        },
-      };
-      // console.log("option data", options)
-      const rzp = new window.Razorpay(options);
-      rzp.open();
-    };
-  
-    //get user detail for update balance
-    const userId = reducerState?.logIn?.loginData?.data?.data?.id;
-  
-    useEffect(() => {
-      // Make a GET request to the API endpoint
-      axios
-        .get(`http://localhost:8000/travvolt/user/${userId}`)
-        .then((response) => {
-          // Handle the response data
-          const user = response.data.data;
-          setUserData(user);
-          console.log("user data", response?.data?.data?.balance);
-        })
-        .catch((error) => {
-          console.error(error);
-          // Handle errors, e.g., display an error message
-        });
-    }, []);
+    // console.log("option data", options)
+    const rzp = new window.Razorpay(options);
+    rzp.open();
+  };
+
+  //get user detail for update balance
+  const userId = reducerState?.logIn?.loginData?.data?.data?.id;
+
+  useEffect(() => {
+    // Make a GET request to the API endpoint
+    axios
+      .get(`http://localhost:8000/travvolt/user/${userId}`)
+      .then((response) => {
+        // Handle the response data
+        const user = response.data.data;
+        setUserData(user);
+        console.log("user data", response?.data?.data?.balance);
+      })
+      .catch((error) => {
+        console.error(error);
+        // Handle errors, e.g., display an error message
+      });
+  }, []);
   return (
-    <div style={{
-      width: '100%',
-      height: 118,
-      background: 'white',
-     
-      position: 'fixed',
-      display:"flex",
-      
-      justifyContent:"space-between"
-     }}>
+    <div
+      style={{
+        width: "100%",
+        height: 118,
+        background: "white",
+        zIndex: 2,
+        position: "fixed",
+        display: "flex",
+
+        justifyContent: "space-between",
+      }}
+    >
       {/* Add your header content here */}
-      <div style={{  justifyContent: "center",
-          alignItems: "center", display: "flex"
-         }}>
-      <a href="/">
+      <div
+        style={{
+          justifyContent: "center",
+          alignItems: "center",
+          display: "flex",
+        }}
+      >
+        <a href="/">
           <img
             src={STLOGO}
             style={{ width: "100%", height: "220px" }}
@@ -212,7 +210,7 @@ function Headers() {
           />
         </a>
       </div>
-      <div style={{ alignItems: "center", gap: "25px"}}>
+      <div style={{ alignItems: "center", gap: "25px" }}>
         <div
           className="welcome"
           style={{
@@ -235,8 +233,6 @@ function Headers() {
               fontStyle: "normal",
               fontWeight: "400",
               lineHeight: "normal",
-             
-             
             }}
           >
             Contact your representative
@@ -324,7 +320,7 @@ function Headers() {
               fontSize: 16,
               fontFamily: "Montserrat",
               fontWeight: "400",
-            
+
               wordWrap: "break-word",
             }}
           >
@@ -459,7 +455,7 @@ function Headers() {
                 fontSize: 16,
                 fontFamily: "Montserrat",
                 fontWeight: "400",
-               
+
                 wordWrap: "break-word",
               }}
             >
