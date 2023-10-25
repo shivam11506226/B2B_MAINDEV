@@ -65,112 +65,125 @@ const Flight = () => {
       {loader ? (
         <Loader />
       ) : (
-       <Box display={"flex"} justifyContent={"center"} alignSelf={"center"}  zIndex={-12}>
-         <Box  bgColor={"#F8F3F3"} margin={"auto"} border={"2px solid red"} marginTop={"100px"} >
-          {/* step by step updating part */}
+        <Box
+          display={"flex"}
+          justifyContent={"center"}
+          alignSelf={"center"}
+          alignItems={"center"}
+        >
           <Box
-            position="fixed"
-            width={"88%"}
-            display="flex"
-            justifyContent={"space-around"}
-            boxShadow="base"
-
-           height="80px"
-            top={300}
-             background="#21325D"
-            zIndex={4}
-
+            bgColor={"#F8F3F3"}
           >
-            <HStack p="5px">
-              <Box
-                display="flex"
-                justifyContent="center"
-                w="25px"
-                h="25px"
-                borderRadius="50%"
-                bg="#0096FF"
-                color="white"
-              >
-                <Text>1</Text>
-              </Box>
+            {/* step by step updating part */}
+            <Box
+              position="sticky"
+              // width={"94%"}
+              display="flex"
+              justifyContent={"space-around"}
+              boxShadow="base"
+              height="80px"
+              top={270}
+              background="#21325D"
+              zIndex={8}
+            >
+              <HStack p="5px">
+                <Box
+                  display="flex"
+                  justifyContent="center"
+                  w="25px"
+                  h="25px"
+                  borderRadius="50%"
+                  bg="#0096FF"
+                  color="white"
+                >
+                  <Text>1</Text>
+                </Box>
 
-              <Box color="white" fontWeight="bold">
-                Flight Search
-              </Box>
-            </HStack>
-            <HStack p="5px">
-              <Box
-                display="flex"
-                justifyContent="center"
-                // align="center"
-                w="25px"
-                h="25px"
-                borderRadius="50%"
-                bg="#0096FF"
-                color="white"
-              >
-                <Text>2</Text>
-              </Box>
+                <Box color="white" fontWeight="bold">
+                  Flight Search
+                </Box>
+              </HStack>
+              <HStack p="5px">
+                <Box
+                  display="flex"
+                  justifyContent="center"
+                  // align="center"
+                  w="25px"
+                  h="25px"
+                  borderRadius="50%"
+                  bg="#0096FF"
+                  color="white"
+                >
+                  <Text>2</Text>
+                </Box>
 
-              <Box fontWeight="normal" color="white">Flight Result</Box>
-            </HStack>
-            <HStack p="5px">
-              <Box
-                display="flex"
-                justifyContent="center"
-                w="25px"
-                h="25px"
-                borderRadius="50%"
-                bg="#0096FF"
-                color="white"
-              >
-                <Text>3</Text>
-              </Box>
+                <Box fontWeight="normal" color="white">
+                  Flight Result
+                </Box>
+              </HStack>
+              <HStack p="5px">
+                <Box
+                  display="flex"
+                  justifyContent="center"
+                  w="25px"
+                  h="25px"
+                  borderRadius="50%"
+                  bg="#0096FF"
+                  color="white"
+                >
+                  <Text>3</Text>
+                </Box>
 
-              <Box fontWeight="normal" color="white">Passenger Details</Box>
-            </HStack>
-            <HStack p="5px">
-              <Box
-                display="flex"
-                justifyContent="center"
-                // align="center"
-                w="25px"
-                h="25px"
-                borderRadius="50%"
-                bg="#0096FF"
-                color="white"
-              >
-                <Text>4</Text>
-              </Box>
+                <Box fontWeight="normal" color="white">
+                  Passenger Details
+                </Box>
+              </HStack>
+              <HStack p="5px">
+                <Box
+                  display="flex"
+                  justifyContent="center"
+                  // align="center"
+                  w="25px"
+                  h="25px"
+                  borderRadius="50%"
+                  bg="#0096FF"
+                  color="white"
+                >
+                  <Text>4</Text>
+                </Box>
 
-              <Box fontWeight="normal" color="white">Review Booking</Box>
-            </HStack>
-            <HStack p="5px">
-              <Box
-                display="flex"
-                justifyContent="center"
-                // align="center"
-                w="25px"
-                h="25px"
-                borderRadius="50%"
-                bg="#0096FF"
-                color="white"
-              >
-                <Text>5</Text>
-              </Box>
+                <Box fontWeight="normal" color="white">
+                  Review Booking
+                </Box>
+              </HStack>
+              <HStack p="5px">
+                <Box
+                  display="flex"
+                  justifyContent="center"
+                  // align="center"
+                  w="25px"
+                  h="25px"
+                  borderRadius="50%"
+                  bg="#0096FF"
+                  color="white"
+                >
+                  <Text>5</Text>
+                </Box>
 
-              <Box fontWeight="normal" color="white">Booking Confirmation</Box>
-            </HStack>
+                <Box fontWeight="normal" color="white">
+                  Booking Confirmation
+                </Box>
+              </HStack>
+            </Box>
+            <Box className="flightNavBar">{/* <FlightNavBar /> */}</Box>
+            <Box className="flightNavBarContainer">
+              <FlightAllRoute />
+            </Box>
+
+            {/* 👍Tabs of flight */}
+            <StyledTabs />
           </Box>
-          <Box className="flightNavBar">{/* <FlightNavBar /> */}</Box>
-          <Box className="flightNavBarContainer">
-            <FlightAllRoute />
-          </Box>
-
-          {/* 👍Tabs of flight */}
-          <StyledTabs />
         </Box>
-       </Box>
       )}
     </>
   );
