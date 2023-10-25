@@ -127,7 +127,7 @@ function LinaerStepper() {
         >
           <img src={tra} style={{ width: "100%" }}></img>
         </Box>
-        <Typography className="logo_text">Travvolt</Typography>
+        <Typography className="logo_text">skyTrails</Typography>
       </Box>
 
       <Paper style={{ height: "500px", overflow: "scroll" }}>

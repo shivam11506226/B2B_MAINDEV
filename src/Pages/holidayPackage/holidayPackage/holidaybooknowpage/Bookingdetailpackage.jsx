@@ -215,7 +215,7 @@ const Bookingdetailpackage = () => {
               </Typography>
             </Box>
             <Typography color="#666666" fontSize="12px" fontWeight="bold">
-              Upon arrival at the Cochin Airport, a Travvolt representative will
+              Upon arrival at the Cochin Airport, a skyTrails representative will
               be there to greet you and provide assistance in boarding the
               designated vehicle that will drive you to Munnar. An exotic
               location, Munnar is popular across the country for its tea

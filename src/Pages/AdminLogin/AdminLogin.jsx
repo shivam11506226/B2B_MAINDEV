@@ -136,7 +136,7 @@ const AdminLogin = () => {
               textAlign="center"
             >
               <Typography color="black" fontSize="10px">
-                By proceeding, you agree to Travvolt{" "}
+                By proceeding, you agree to skyTrails{" "}
                 <Link href="#" underline="always" color="#FF8900">
                   {"Privacy Policy"}
                 </Link>{" "}

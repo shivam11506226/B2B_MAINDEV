@@ -5,7 +5,7 @@ export const data = [
   //     {tittle:'Import PNR',
   //     path:"/flights/calenderfare"
   // },
-  //     {tittle:'TRAVVOLT Cryptic Screen ',
+  //     {tittle:'skyTrails Cryptic Screen ',
   //     path:"/flights/calenderfare"
   // },
 ];

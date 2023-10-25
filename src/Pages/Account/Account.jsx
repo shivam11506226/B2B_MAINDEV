@@ -24,7 +24,7 @@ const Account = () => {
     }
 
     try {
-      const response = await fetch("http://localhost:8000/travvolt/user/changepassword", {
+      const response = await fetch("http://localhost:8000/skyTrails/user/changepassword", {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",
@@ -536,7 +536,7 @@ const Account = () => {
                   marginTop: "15px",
                 }}
               >
-                Please contact Travvolt if you want to change your EmailId
+                Please contact skyTrails if you want to change your EmailId
               </Typography>
             </Box>
 
@@ -612,7 +612,7 @@ const Account = () => {
                   marginTop: "15px",
                 }}
               >
-                Please contact Travvolt if you want to change your Mobile Number
+                Please contact skyTrails if you want to change your Mobile Number
               </Typography>
             </Box>
 

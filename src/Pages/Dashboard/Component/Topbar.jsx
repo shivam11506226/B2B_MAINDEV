@@ -129,7 +129,7 @@ function ResponsiveAppBar() {
               textDecoration: "none",
             }}
           >
-            Travvolt
+            skyTrails
           </Typography> */}
           <a href="/admin/dashboard">
             <img
@@ -191,7 +191,7 @@ function ResponsiveAppBar() {
               textDecoration: "none",
             }}
           >
-            Travvolt
+            skyTrails
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
             {/* {pages.map((page) => (

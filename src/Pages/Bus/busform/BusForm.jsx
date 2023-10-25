@@ -55,7 +55,7 @@ const BusForm = () => {
       // make an API call to get search results
 
       const results = await axios.get(
-        `http://localhost:8000/travvolt/city/searchCityBusData?keyword=${fromQuery}`
+        `http://localhost:8000/skyTrails/city/searchCityBusData?keyword=${fromQuery}`
       );
       if (mounted) {
         setFromSearchResults(results?.data?.data);
@@ -80,7 +80,7 @@ const BusForm = () => {
       // make an API call to get search results
 
       const results = await axios.get(
-        `http://localhost:8000/travvolt/city/searchCityBusData?keyword=${toQuery}`
+        `http://localhost:8000/skyTrails/city/searchCityBusData?keyword=${toQuery}`
       );
       if (mounted) {
         setToSearchResults(results?.data?.data);

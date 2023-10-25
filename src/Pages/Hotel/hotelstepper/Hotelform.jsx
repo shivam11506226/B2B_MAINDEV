@@ -102,7 +102,7 @@ const HotelForm = () => {
     try {
       setLoading(true);
       const response = await axios.post(
-        `${apiURL.baseURL}/travvolt/city/hotelCitySearch?keyword=${searchTerm} `
+        `${apiURL.baseURL}/skyTrails/city/hotelCitySearch?keyword=${searchTerm} `
       );
       setResults(response.data.data);
       console.log("cities", response.data.data);

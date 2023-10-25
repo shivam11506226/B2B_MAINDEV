@@ -169,7 +169,7 @@ function Headers() {
   useEffect(() => {
     // Make a GET request to the API endpoint
     axios
-      .get(`http://localhost:8000/travvolt/user/${userId}`)
+      .get(`http://localhost:8000/skyTrails/user/${userId}`)
       .then((response) => {
         // Handle the response data
         const user = response.data.data;

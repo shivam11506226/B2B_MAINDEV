@@ -60,7 +60,7 @@ const GSTform = () => {
                         <Box display='flex' alignItems='center' justifyContent='space-between' my={2}>
                             <Typography sx={{ fontSize: '14px', fontWeight: 'bold', color: '#666666' }} textAlign='Left'>Company Name:</Typography>
                             <Box sx={{ width: '50%', boxShadow: '0px 3px 6px #00000029', borderRadius: '10px', height: 'auto' }}>
-                                <input type='text' className='gst_input' placeholder='Travvolt (Skd Tour & Travel)'></input>
+                                <input type='text' className='gst_input' placeholder='skyTrails (Skd Tour & Travel)'></input>
                             </Box>
                         </Box>
                         <Box display='flex' alignItems='center' justifyContent='space-between' my={2}>

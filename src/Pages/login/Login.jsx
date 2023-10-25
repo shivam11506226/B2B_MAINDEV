@@ -76,7 +76,7 @@ const Login = () => {
                   >
                     <img src={StLogo} style={{ width: "250px" }}></img>
                   </Box>
-                  {/* <Typography className="logo_text">Travvolt</Typography> */}
+                  {/* <Typography className="logo_text">skyTrails</Typography> */}
                 </Box>
                 <Box
                   sx={{ displayf: "flex", justifyContent: "center" }}
@@ -308,7 +308,7 @@ const Login = () => {
                         textAlign="center"
                       >
                         <Typography color="black" fontSize="10px">
-                          By proceeding, you agree to Travvolt{" "}
+                          By proceeding, you agree to skyTrails{" "}
                           <Link href="#" underline="always" color="#FF8900">
                             {"Privacy Policy"}
                           </Link>{" "}

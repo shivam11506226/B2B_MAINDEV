@@ -71,7 +71,7 @@ const VisaData = () => {
   const handleDelete = async  (id) => {
     try {
       // Make an HTTP DELETE request to your backend API to delete the data by _id
-      await fetch(`http://localhost:8000/travvolt/deleteVisa/${id}`, {
+      await fetch(`http://localhost:8000/skyTrails/deleteVisa/${id}`, {
         method: "DELETE",
       });
 
