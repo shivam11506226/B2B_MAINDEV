@@ -39,7 +39,7 @@
   height: 50px !important;
   padding-left: 25px !important;
   border-radius: 10px !important;
-  border: 3px solid #70707069 !important;
+  border: 1px solid #5C85A4 !important;
 }
 
 .form_input .lable {
@@ -85,7 +85,7 @@
   border: 10px;
   border-radius: 10px !important;
   height: 50px !important;
-  border: 3px solid #0f0d0d69 !important;
+  border: 1px solid #5C85A4 !important;
 }
 
 /*end  */

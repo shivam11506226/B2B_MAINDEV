@@ -68,15 +68,20 @@ import Dashboard from "../Pages/Dashboard/Component/Dashboard";
 import AdminLogin from "../Pages/AdminLogin/AdminLogin";
 import CreateHolidayPackage from "../Pages/HotelPackage/createholidaypackage/CreateHolidayPackage";
 import EditHolidayPackage from "../Pages/Dashboard/Component/Table/packageUpdate/EditPackage";
-
+import MainBox from "../Layout/MainBox";
 import { useLocation, Navigate } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector, useReducer } from "react-redux";
 import { ipAction, tokenAction } from "../Redux/IP/actionIp";
-import Slider from "../Pages/Banner/Slider";
+// import Slider from "../Pages/Banner/Slider";
 import GotoTopBtn from "../Components/GotoTopBtn";
 import FlightresultReturn from "../Pages/Flight/flightresult/FlightresultReturn/FlightresultReturn";
+
 import FlightReturnInternational from "../Pages/Flight/flightresult/FlightresultReturn/FlightReturnInternational";
+
+import Headers from "../Components/Headers";
+import InnerNavbar1 from "../Layout/InnerNavbar1";
+
 const MainPage = () => {
   const dispatch = useDispatch();
   const location = useLocation();
@@ -116,20 +121,35 @@ const MainPage = () => {
 
   return (
     <>
-      {!isLoginRoute && !isRegisterRoute && !isDashboard && !isLogin && (
-        <div className="mainBox">
-          {/* header of main dashboard */}
-          <div className="header_section">
-            <Header />
-            {/* inner navbar contain all pages */}
-            <InnerNavbar />
-          </div>
+      {/* <div className="header_section" style={{ width: "100vw" }}>
+        <Header />
+       
+      </div> */}
+      <div style={{width:"100%",height:"200px",
+        position: "fixed",
+        display: "flex"}}>
 
+      </div>
+       <Headers/>
+        {location.pathname === "/" ? null : <InnerNavbar />} 
+      
+       
+      {!isLoginRoute && !isRegisterRoute && !isDashboard && !isLogin && (
+        <div className="mainBox"  >
+          {/* header of main dashboard */}
+        
+        
           {/* all routes of inner navbar */}
           <div className="componentsContainer">
             <Routes>
+              
               <Route
                 element={<Active />}
+                style={{ color: "inherit", textDecoration: "inherit" }}
+              />
+               <Route
+                path="/"
+                element={<MainBox/>}
                 style={{ color: "inherit", textDecoration: "inherit" }}
               />
               <Route
@@ -165,7 +185,7 @@ const MainPage = () => {
 
               {/* <Route path="/" element={<Banner />} /> */}
 
-              <Route path="/" element={<Slider />} />
+              {/* <Route path="/" element={<Slider />} /> */}
 
               <Route
                 exact
@@ -353,7 +373,9 @@ const MainPage = () => {
 
           {/* main page footer */}
           {/* {!isLoginRoute && <Footer />} */}
+        
         </div>
+        
       )}
       <GotoTopBtn />
       <div>
@@ -372,7 +394,7 @@ const MainPage = () => {
       {/* {!isLoginRoute && reducerState?.adminAuth?.adminData?.data ? (
         <FooterAdmin />
       ) : ( */}
-      <Footer />
+      {/* <Footer /> */}
       {/* )} */}
     </>
   );

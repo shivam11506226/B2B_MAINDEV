@@ -86,7 +86,7 @@ const FlightresultReturn = () => {
 
   return (
     <Box>
-      <Box display={"flex"} justifyContent={"space-around"}>
+      <Box display={"flex"} justifyContent={"space-around"} >
         <Box
           sx={{
             border: "1px solid red",
@@ -137,9 +137,12 @@ const FlightresultReturn = () => {
             />
           )}
         </Box>
+        <Box 
+        sx={{display:"flex",alignItems:"center",justifyContent:"center"}}>
         <Button variant="contained" onClick={handleFareRuleAndQuote}>
-          Book Now
+          Book Nows
         </Button>
+        </Box>
       </Box>
 
       <Box

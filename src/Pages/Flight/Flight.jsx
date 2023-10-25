@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import "./Flight.css";
+
 import { Button } from "react-bootstrap";
-import "bootstrap/dist/css/bootstrap.min.css";
+
 import { Box, Flex, HStack, Spacer, Text } from "@chakra-ui/react";
 import Loader from "../Loader/Loader";
 
@@ -65,16 +65,21 @@ const Flight = () => {
       {loader ? (
         <Loader />
       ) : (
-        <Box className="flightContainer">
+       <Box display={"flex"} justifyContent={"center"} alignSelf={"center"}  zIndex={-12}>
+         <Box  bgColor={"#F8F3F3"} margin={"auto"} border={"2px solid red"} marginTop={"100px"} >
           {/* step by step updating part */}
           <Box
-            w="100%"
+            position="fixed"
+            width={"88%"}
             display="flex"
             justifyContent={"space-around"}
             boxShadow="base"
-            border="1px solid gray"
-            borderRadius="10px"
-            flexWrap="wrap"
+
+           height="80px"
+            top={300}
+             background="#21325D"
+            zIndex={4}
+
           >
             <HStack p="5px">
               <Box
@@ -89,7 +94,7 @@ const Flight = () => {
                 <Text>1</Text>
               </Box>
 
-              <Box color="#FDDA0D" fontWeight="bold">
+              <Box color="white" fontWeight="bold">
                 Flight Search
               </Box>
             </HStack>
@@ -107,7 +112,7 @@ const Flight = () => {
                 <Text>2</Text>
               </Box>
 
-              <Box fontWeight="normal">Flight Result</Box>
+              <Box fontWeight="normal" color="white">Flight Result</Box>
             </HStack>
             <HStack p="5px">
               <Box
@@ -122,7 +127,7 @@ const Flight = () => {
                 <Text>3</Text>
               </Box>
 
-              <Box fontWeight="normal">Passenger Details</Box>
+              <Box fontWeight="normal" color="white">Passenger Details</Box>
             </HStack>
             <HStack p="5px">
               <Box
@@ -138,7 +143,7 @@ const Flight = () => {
                 <Text>4</Text>
               </Box>
 
-              <Box fontWeight="normal">Review Booking</Box>
+              <Box fontWeight="normal" color="white">Review Booking</Box>
             </HStack>
             <HStack p="5px">
               <Box
@@ -154,7 +159,7 @@ const Flight = () => {
                 <Text>5</Text>
               </Box>
 
-              <Box fontWeight="normal">Booking Confirmation</Box>
+              <Box fontWeight="normal" color="white">Booking Confirmation</Box>
             </HStack>
           </Box>
           <Box className="flightNavBar">{/* <FlightNavBar /> */}</Box>
@@ -165,6 +170,7 @@ const Flight = () => {
           {/* 👍Tabs of flight */}
           <StyledTabs />
         </Box>
+       </Box>
       )}
     </>
   );

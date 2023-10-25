@@ -14,7 +14,7 @@ import AdvanceSearch from './FlightForm/AdvanceSearch';
 // import { styled } from '@mui/system'; // Import from @mui/system
 import Slide from '@mui/material/Slide'; 
 import Zoom from '@mui/material/Zoom';
-const animationDuration = 800;
+
 
 const StyledTabs = styled(Tabs)(({ theme }) => ({
   display: 'flex',
@@ -27,18 +27,19 @@ const StyledTabs = styled(Tabs)(({ theme }) => ({
 }));
 
 const StyledTab = styled(Tab)(({ theme }) => ({
-  minWidth: 'auto',
+  Width: '254px',
   padding: theme.spacing(1, 2), // Adjust padding as needed
-  borderRadius: 55,
+  height:'48px',
   boxShadow: 'rgba(0, 0, 0, 0.24) 0px 3px 8px', 
   font: '14px',
   margin:'12px 8px',
   borderBottom: 'none', 
   color:'#252525',
   fontWeight:'600',
+  background:'#D9D9D9',
   '&.Mui-selected': {
-    background:'#00BDC4',
-    color:'white',
+    background:'#FFFBFB',
+    color:'black',
   },
 }));
 
@@ -46,9 +47,9 @@ function CustomTabPanel(props) {
   const { children, value, index, ...other } = props;
 
   return (
-    <Slide direction="up" in={value === index} timeout={animationDuration}>
+    <Slide direction="up" in={value === index} >
       <div role="tabpanel" hidden={value !== index} id={`simple-tabpanel-${index}`} aria-labelledby={`simple-tab-${index}`} {...other}>
-        <Box sx={{ p: 3 }}>
+        <Box sx={{ p: 3 }} style={{marginTop:"18px"}}>
           <Typography>{children}</Typography>
         </Box>
       </div>
@@ -78,9 +79,9 @@ export default function StyledTabsExample() {
 
   return (
     <Box sx={{ width: '100%' }}>
-      <StyledTabs value={value} onChange={handleChange} aria-label="styled tabs example" style={{marginLeft:'28px',marginBottom:'-40px'}}>
-        <StyledTab label="One Way" {...a11yProps(0)} />
-        <StyledTab label="Return" {...a11yProps(1)} />
+      <StyledTabs value={value} onChange={handleChange} aria-label="styled tabs example" style={{marginTop:"20px"}}>
+        <StyledTab label="One Way" {...a11yProps(0)} style={{width:"254px",height:"48px"}}/>
+        <StyledTab label="Return" {...a11yProps(1)} style={{width:"254px",height:"48px"}}/>
         {/* <StyledTab label="Off Share" {...a11yProps(2)} />
         <StyledTab label="Multi Stop" {...a11yProps(3)} />
         <StyledTab label="Calendar Fare" {...a11yProps(4)} />

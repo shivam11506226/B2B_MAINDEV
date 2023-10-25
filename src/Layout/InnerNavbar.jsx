@@ -16,7 +16,7 @@ function InnerNavbar() {
   };
 
   return (
-    <div className="innerNav">
+    <div className="innerNav" style={{marginTop:"118px"}}>
       {InnerBarLogo.map(({ avatar, name, path }, index) => {
         return (
           <Flex
@@ -24,7 +24,9 @@ function InnerNavbar() {
             justifyContent="space-around"
             borderRadius="15px"
             w="8%"
+            height="80%"
             key={index}
+            zIndex={2}
         
           >
             <NavLink
@@ -36,7 +38,7 @@ function InnerNavbar() {
                 textDecoration: "none",
                 color: "#252525",
                 font: "Quicksand, Bold",
-                height: "100%",
+                height: "70%",
                 justifyContent: "space-around",
                 width:"100px",
               }}
@@ -49,9 +51,7 @@ function InnerNavbar() {
           </Flex>
           
         );
-        {
-          /* </Square> */
-        }
+      
       })}
         <Dropdown/>
     </div>

@@ -8,7 +8,7 @@ export const InnerBarLogo = [
   },
   {
     avatar: require("./Images/hotelbed.png"),
-    name: "Hotel",   
+    name: "Hotels",   
     path: "/hotel",
   },
   //   {
@@ -23,14 +23,10 @@ export const InnerBarLogo = [
   // },
   {
     avatar: require("./Images/beach-chair.png"),
-    name: "Holiday Package",
+    name: "Islandhopper",
     path: "/holidaypackage",
   },
-  {
-    avatar: require("./Images/binoculars.png"),
-    name: "Sightseeing",
-    path: "/sightseeing",
-  },
+ 
   //   {
   //     avatar: require("./Images/train.png"),
   //     name: "Train",
@@ -38,8 +34,13 @@ export const InnerBarLogo = [
   //   },
   {
     avatar: require("./Images/schoolbus.png"),
-    name: "Bus",
+    name: "Transfer",
     path: "/bus", 
+  },
+  {
+    avatar: require("./Images/binoculars.png"),
+    name: "Sightseeing",
+    path: "/sightseeing",
   },
   // {
   //   avatar: require("./Images/taxi.png"),
@@ -83,9 +84,19 @@ export const InnerBarLogo = [
   // },
   {
     avatar: require("./Images/passport.png"),
-    name: "Visa",
+    name: "Package",
     path: "/visa",
   },
+  {
+    avatar: require("./Images/Safety.png"),
+    name: "Insurance",
+    path: "/visa",
+  },
+  {
+    avatar: require("./Images/group.png"),
+    name: "Administration",
+    path: "/visa",
+  }
   //   {
   //     avatar: require("./Images/personal.png"),
   //     name: "Service Request",
