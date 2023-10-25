@@ -240,7 +240,7 @@ height: 95px;
 }
 
 input[type="checkbox"] {
-  display: none; /* Hide the actual checkbox input */
+  /* display: none; */
 }
 
 input[type="checkbox"]:checked + .toggle-label {
