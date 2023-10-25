@@ -23,6 +23,9 @@ const Leftdetail = () => {
   const ResultIndex = sessionStorage.getItem("ResultIndex");
   const [farePrice, setFarePrice] = useState("");
   const fareValue = reducerState?.flightFare?.flightQuoteData?.Results;
+  const isPassportRequired =
+    reducerState?.flightFare?.flightQuoteData?.Results
+      ?.IsPassportRequiredAtTicket;
   console.log("fareValue", fareValue);
   const fareRule = reducerState?.flightFare?.flightRuleData?.FareRules;
   const data = reducerState?.oneWay?.oneWayData?.data?.data?.Response;
@@ -214,7 +217,8 @@ const Leftdetail = () => {
       dispatch(PassengersAction(passengerData));
       navigate("/Flightresult/passengerdetail/flightreviewbooking");
     } else {
-      alert("Book not allowed for LCCs. Please do Ticket directly");
+       dispatch(PassengersAction(passengerData));
+       navigate("/Flightresult/passengerdetail/flightreviewbooking");
     }
 
     // if()
@@ -375,8 +379,8 @@ const Leftdetail = () => {
                     <div className="mb-2">
                       <span className=" p-2 ">Passenger {i + 1}</span>
                       <Box p={15} display="flex">
-                      <Box>
-                      <div className="hotel_form_input">
+                        <Box>
+                          <div className="hotel_form_input">
                             <label className="form_lable">Title*</label>
                             <select
                               name="Title"
@@ -510,6 +514,44 @@ const Leftdetail = () => {
                           </div>
                         </Box>
                       </Box>
+                      {isPassportRequired == true ? (
+                        <Box p={15} display="flex">
+                          <Box>
+                            <div className="form_input">
+                              <label className="form_lable">PassportNo*</label>
+                              <input
+                                name="PassportNo"
+                                type="text"
+                                required
+                                placeholder="Enter Passport No"
+                                onChange={(e) => handleServiceChange(e, i)}
+                              />
+                            </div>
+                          </Box>
+                        </Box>
+                      ) : (
+                        ""
+                      )}
+                      {isPassportRequired == true ? (
+                        <Box p={15} display="flex">
+                          <Box>
+                            <div className="form_input">
+                              <label className="form_lable">
+                                PassportExpiry*
+                              </label>
+                              <input
+                                name="PassportExpiry"
+                                type="date"
+                                required
+                                placeholder="Enter Passport date"
+                                onChange={(e) => handleServiceChange(e, i)}
+                              />
+                            </div>
+                          </Box>
+                        </Box>
+                      ) : (
+                        ""
+                      )}
                     </div>
                   );
                 })}
@@ -531,6 +573,7 @@ const Leftdetail = () => {
                               </label>
                               <input
                                 name="FirstName"
+                                type="text"
                                 placeholder="Enter your name"
                                 onChange={(e) =>
                                   handleServiceChange(e, i + Number(adults))
@@ -583,6 +626,46 @@ const Leftdetail = () => {
                               />
                             </div>
                           </Box>
+                          {isPassportRequired == true ? (
+                            <Box p={15} display="flex">
+                              <Box>
+                                <div className="form_input">
+                                  <label className="form_lable">
+                                    PassportNo*
+                                  </label>
+                                  <input
+                                    name="PassportNo"
+                                    type="text"
+                                    required
+                                    placeholder="Enter Passport No"
+                                    onChange={(e) => handleServiceChange(e, i)}
+                                  />
+                                </div>
+                              </Box>
+                            </Box>
+                          ) : (
+                            ""
+                          )}
+                          {isPassportRequired == true ? (
+                            <Box p={15} display="flex">
+                              <Box>
+                                <div className="form_input">
+                                  <label className="form_lable">
+                                    PassportExpiry*
+                                  </label>
+                                  <input
+                                    name="PassportExpiry"
+                                    type="date"
+                                    required
+                                    placeholder="Enter Passport date"
+                                    onChange={(e) => handleServiceChange(e, i)}
+                                  />
+                                </div>
+                              </Box>
+                            </Box>
+                          ) : (
+                            ""
+                          )}
                         </Box>
                       </div>
                     );
@@ -670,6 +753,46 @@ const Leftdetail = () => {
                               />
                             </div>
                           </Box>
+                          {isPassportRequired == true ? (
+                            <Box p={15} display="flex">
+                              <Box>
+                                <div className="form_input">
+                                  <label className="form_lable">
+                                    PassportNo*
+                                  </label>
+                                  <input
+                                    name="PassportNo"
+                                    type="text"
+                                    required
+                                    placeholder="Enter Passport No"
+                                    onChange={(e) => handleServiceChange(e, i)}
+                                  />
+                                </div>
+                              </Box>
+                            </Box>
+                          ) : (
+                            ""
+                          )}
+                          {isPassportRequired == true ? (
+                            <Box p={15} display="flex">
+                              <Box>
+                                <div className="form_input">
+                                  <label className="form_lable">
+                                    PassportExpiry*
+                                  </label>
+                                  <input
+                                    name="PassportExpiry"
+                                    type="date"
+                                    required
+                                    placeholder="Enter Passport date"
+                                    onChange={(e) => handleServiceChange(e, i)}
+                                  />
+                                </div>
+                              </Box>
+                            </Box>
+                          ) : (
+                            ""
+                          )}
                         </Box>
                       </div>
                     );

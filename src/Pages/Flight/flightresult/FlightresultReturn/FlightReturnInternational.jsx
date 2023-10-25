@@ -1,18 +1,18 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector, useReducer } from "react-redux";
 import { Grid, Box, Typography, Button } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 import FlightresultOne from "./FlightresultOne";
 import FlightReturn from "./FlightReturn";
 import SingleDataReturn from "./SingleDataReturn";
-import MultipleDataReturn from "./MultipleDataReturn";
-import { useNavigate } from "react-router-dom";
+import MultipleDataReturnInternational from "./MultipleDataReturnInternational";
 import {
   quoteAction,
   ruleAction,
   setLoading,
 } from "../../../../Redux/FlightFareQuoteRule/actionFlightQuote";
-import { Wrap } from "@chakra-ui/react";
-const FlightresultReturn = () => {
+
+const FlightReturnInternational = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const reducerState = useSelector((state) => state);
@@ -21,28 +21,11 @@ const FlightresultReturn = () => {
   let statusRule = reducerState?.flightFare?.isLoadingRuleDone || false;
   let statusQuote = reducerState?.flightFare?.isLoadingQuoteDone || false;
   const initialGoFlight = result[0][0];
-  console.log(result[0][0], "resultArr");
-  let initialReturnFlight = result[1][0];
-  console.log("initialReturnFlight", initialReturnFlight);
+  let initialReturnFlight = result[0][0];
   const [ongoFlight, setOngoFlight] = useState(initialGoFlight);
   const [incomeGlight, setIncomeFlight] = useState(initialReturnFlight);
-
   useEffect(() => {
-    if (result[1] === undefined) {
-      initialReturnFlight = result[0][0];
-      // navigate("/FlightResultInternational");
-      console.log("truee");
-    } else {
-      initialReturnFlight = result[1][0];
-      console.log("falsee");
-    }
-
-    setIncomeFlight(initialReturnFlight);
-    console.log("initialReturnFlight", incomeGlight);
-  }, []);
-  useEffect(() => {
-    sessionStorage.setItem("flightDetailsONGo", JSON.stringify(ongoFlight));
-    sessionStorage.setItem("flightDetailsIncome", JSON.stringify(incomeGlight));
+     sessionStorage.setItem("flightDetailsONGo", JSON.stringify(ongoFlight));
     setOngoFlight(initialGoFlight);
     setIncomeFlight(initialReturnFlight);
   }, [initialGoFlight, initialReturnFlight]);
@@ -52,7 +35,6 @@ const FlightresultReturn = () => {
       dispatch(setLoading("data"));
     }
   }, [statusQuote, statusRule]);
-
   const receiveChildData = (data) => {
     console.log("callbackData", data);
     const onnGoingFlight =
@@ -66,13 +48,12 @@ const FlightresultReturn = () => {
       setIncomeFlight(incomingFlight);
     }
   };
-
   const handleFareRuleAndQuote = () => {
     const payload = {
       EndUserIp: reducerState?.ip?.ipData,
       TokenId: reducerState?.ip?.tokenData,
       TraceId: reducerState?.return?.returnData?.data?.data?.Response?.TraceId,
-      ResultIndex: `${ongoFlight?.ResultIndex},${incomeGlight?.ResultIndex}`,
+      ResultIndex: `${ongoFlight?.ResultIndex}`,
     };
     console.log(payload);
     dispatch(ruleAction(payload));
@@ -82,60 +63,23 @@ const FlightresultReturn = () => {
   console.log("ongoFlight", ongoFlight);
   console.log("incomeGlight", incomeGlight);
   console.log("reducerrrState", reducerState);
-  // console.log("initialReturnFlight", initialReturnFlight);
 
   return (
     <Box>
-      <Box display={"flex"} justifyContent={"space-around"}>
+      <Box>
         <Box
           sx={{
             border: "1px solid red",
           }}
         >
-          {ongoFlight?.Segments[0].length == 1 ? (
-            <SingleDataReturn
-              flight={ongoFlight?.Segments[0][0]}
-              wholeFlight={ongoFlight}
-              stop={ongoFlight?.Segments[0].length}
-              index={ongoFlight?.ResultIndex}
-              fare={ongoFlight?.Fare?.PublishedFare}
-              IsLCC={ongoFlight.IsLCC}
-            />
-          ) : (
-            <MultipleDataReturn
-              flight={ongoFlight?.Segments[0]}
-              stop={ongoFlight?.Segments[0].length}
-              wholeFlight={ongoFlight}
-              index={ongoFlight?.ResultIndex}
-              fare={ongoFlight?.Fare?.PublishedFare}
-              IsLCC={ongoFlight.IsLCC}
-            />
-          )}
-        </Box>
-        <Box
-          sx={{
-            border: "1px solid red",
-          }}
-        >
-          {incomeGlight?.Segments[0]?.length == 1 ? (
-            <SingleDataReturn
-              flight={incomeGlight?.Segments[0][0]}
-              wholeFlight={incomeGlight}
-              stop={incomeGlight?.Segments[0].length}
-              index={incomeGlight?.ResultIndex}
-              fare={incomeGlight?.Fare?.PublishedFare}
-              IsLCC={incomeGlight?.IsLCC}
-            />
-          ) : (
-            <MultipleDataReturn
-              flight={incomeGlight?.Segments[0]}
-              wholeFlight={incomeGlight}
-              stop={incomeGlight?.Segments[0].length}
-              index={incomeGlight?.ResultIndex}
-              fare={incomeGlight?.Fare?.PublishedFare}
-              IsLCC={incomeGlight?.IsLCC}
-            />
-          )}
+          <MultipleDataReturnInternational
+            flight={ongoFlight?.Segments}
+            wholeFlight={ongoFlight}
+            stop={ongoFlight?.Segments.length}
+            index={ongoFlight?.ResultIndex}
+            fare={ongoFlight?.Fare?.PublishedFare}
+            IsLCC={ongoFlight.IsLCC}
+          />
         </Box>
         <Button variant="contained" onClick={handleFareRuleAndQuote}>
           Book Now
@@ -159,4 +103,4 @@ const FlightresultReturn = () => {
   );
 };
 
-export default FlightresultReturn;
+export default FlightReturnInternational;

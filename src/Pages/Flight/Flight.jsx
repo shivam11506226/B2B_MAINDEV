@@ -20,10 +20,13 @@ const Flight = () => {
 
   console.log("reducerState", reducerState);
   useEffect(() => {
-    if (reducerState?.oneWay?.isLoading||reducerState?.return?.isLoading === true) {
+    if (
+      reducerState?.oneWay?.isLoading ||
+      reducerState?.return?.isLoading === true
+    ) {
       setLoader(true);
     }
-  }, [reducerState?.oneWay?.isLoading || reducerState?.return?.isLoading ]);
+  }, [reducerState?.oneWay?.isLoading || reducerState?.return?.isLoading]);
   // useEffect(() => {
   //   if (reducerState?.oneWay?.oneWayData?.data?.data?.Response?.Results||reducerState?.return?.returnData?.data?.data?.Response?.Results) {
   //     navigate("/Flightresult");
@@ -32,19 +35,30 @@ const Flight = () => {
   // }, [reducerState?.oneWay?.oneWayData?.data?.data?.Response?.Results||reducerState?.return?.returnData?.data?.data?.Response?.Results]);
 
   useEffect(() => {
-    const oneWayResults = reducerState?.oneWay?.oneWayData?.data?.data?.Response?.Results;
-    const returnResults = reducerState?.return?.returnData?.data?.data?.Response?.Results;
-  
+    const oneWayResults =
+      reducerState?.oneWay?.oneWayData?.data?.data?.Response?.Results;
+    const returnResults =
+      reducerState?.return?.returnData?.data?.data?.Response?.Results;
+
     if (oneWayResults) {
       navigate("/Flightresult");
     } else if (returnResults) {
-      navigate("/FlightresultReturn");
+      // navigate("/FlightresultReturn");
+      if (returnResults[1] !== undefined) {
+        navigate("/FlightresultReturn");
+      } else {
+        navigate("/FlightResultInternational");
+      }
     }
-  
+
     if (oneWayResults || returnResults) {
       setLoader(false);
     }
-  }, [reducerState?.oneWay?.oneWayData?.data?.data?.Response?.Results, reducerState?.return?.returnData?.data?.data?.Response?.Results, navigate]);
+  }, [
+    reducerState?.oneWay?.oneWayData?.data?.data?.Response?.Results,
+    reducerState?.return?.returnData?.data?.data?.Response?.Results,
+    navigate,
+  ]);
 
   return (
     <>
@@ -61,7 +75,6 @@ const Flight = () => {
             border="1px solid gray"
             borderRadius="10px"
             flexWrap="wrap"
-           
           >
             <HStack p="5px">
               <Box
