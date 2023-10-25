@@ -3,7 +3,6 @@ import { Grid, Box, Typography, Checkbox } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import "../SingleData.css";
 import Nonrefundable from "../Nonrefundable";
-
 import { useDispatch, useSelector, useReducer } from "react-redux";
 import Luggage from "../Luggage";
 import { PropagateLoader } from "react-spinners";

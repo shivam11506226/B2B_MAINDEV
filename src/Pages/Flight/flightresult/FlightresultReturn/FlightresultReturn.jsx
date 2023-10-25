@@ -9,24 +9,49 @@ import { useNavigate } from "react-router-dom";
 import {
   quoteAction,
   ruleAction,
+  setLoading,
 } from "../../../../Redux/FlightFareQuoteRule/actionFlightQuote";
 import { Wrap } from "@chakra-ui/react";
 const FlightresultReturn = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const reducerState = useSelector((state) => state);
-
   const result =
     reducerState?.return?.returnData?.data?.data?.Response?.Results;
+  let statusRule = reducerState?.flightFare?.isLoadingRuleDone || false;
+  let statusQuote = reducerState?.flightFare?.isLoadingQuoteDone || false;
   const initialGoFlight = result[0][0];
-  const initialReturnFlight = result[1][0];
+  console.log(result[0][0], "resultArr");
+  let initialReturnFlight = result[1][0];
+  console.log("initialReturnFlight", initialReturnFlight);
   const [ongoFlight, setOngoFlight] = useState(initialGoFlight);
   const [incomeGlight, setIncomeFlight] = useState(initialReturnFlight);
 
   useEffect(() => {
+    if (result[1] === undefined) {
+      initialReturnFlight = result[0][0];
+      // navigate("/FlightResultInternational");
+      console.log("truee");
+    } else {
+      initialReturnFlight = result[1][0];
+      console.log("falsee");
+    }
+
+    setIncomeFlight(initialReturnFlight);
+    console.log("initialReturnFlight", incomeGlight);
+  }, []);
+  useEffect(() => {
+    sessionStorage.setItem("flightDetailsONGo", JSON.stringify(ongoFlight));
+    sessionStorage.setItem("flightDetailsIncome", JSON.stringify(incomeGlight));
     setOngoFlight(initialGoFlight);
     setIncomeFlight(initialReturnFlight);
   }, [initialGoFlight, initialReturnFlight]);
+  useEffect(() => {
+    if (statusQuote && statusRule) {
+      navigate("/FlightresultReturn/Passengerdetail");
+      dispatch(setLoading("data"));
+    }
+  }, [statusQuote, statusRule]);
 
   const receiveChildData = (data) => {
     console.log("callbackData", data);
@@ -52,13 +77,12 @@ const FlightresultReturn = () => {
     console.log(payload);
     dispatch(ruleAction(payload));
     dispatch(quoteAction(payload));
-    navigate("/FlightresultReturn/Passengerdetail");
-
     console.log("reducerrrState", reducerState);
   };
   console.log("ongoFlight", ongoFlight);
   console.log("incomeGlight", incomeGlight);
   console.log("reducerrrState", reducerState);
+  // console.log("initialReturnFlight", initialReturnFlight);
 
   return (
     <Box>
@@ -72,6 +96,7 @@ const FlightresultReturn = () => {
             <SingleDataReturn
               flight={ongoFlight?.Segments[0][0]}
               wholeFlight={ongoFlight}
+              stop={ongoFlight?.Segments[0].length}
               index={ongoFlight?.ResultIndex}
               fare={ongoFlight?.Fare?.PublishedFare}
               IsLCC={ongoFlight.IsLCC}
@@ -79,6 +104,7 @@ const FlightresultReturn = () => {
           ) : (
             <MultipleDataReturn
               flight={ongoFlight?.Segments[0]}
+              stop={ongoFlight?.Segments[0].length}
               wholeFlight={ongoFlight}
               index={ongoFlight?.ResultIndex}
               fare={ongoFlight?.Fare?.PublishedFare}
@@ -91,10 +117,11 @@ const FlightresultReturn = () => {
             border: "1px solid red",
           }}
         >
-          {incomeGlight?.Segments[0].length == 1 ? (
+          {incomeGlight?.Segments[0]?.length == 1 ? (
             <SingleDataReturn
               flight={incomeGlight?.Segments[0][0]}
               wholeFlight={incomeGlight}
+              stop={incomeGlight?.Segments[0].length}
               index={incomeGlight?.ResultIndex}
               fare={incomeGlight?.Fare?.PublishedFare}
               IsLCC={incomeGlight?.IsLCC}
@@ -103,6 +130,7 @@ const FlightresultReturn = () => {
             <MultipleDataReturn
               flight={incomeGlight?.Segments[0]}
               wholeFlight={incomeGlight}
+              stop={incomeGlight?.Segments[0].length}
               index={incomeGlight?.ResultIndex}
               fare={incomeGlight?.Fare?.PublishedFare}
               IsLCC={incomeGlight?.IsLCC}

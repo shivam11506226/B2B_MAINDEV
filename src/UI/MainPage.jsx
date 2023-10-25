@@ -20,7 +20,7 @@ import HotelSearch from "../Pages/Hotel/hotelsearch/HotelSearch";
 import Booknow from "../Pages/Flight/booknow/Booknow";
 import Passengerdetail from "../Pages/Flight/passengerdetail/Passengerdetail";
 import FlightReviewbooking from "../Pages/Flight/flightreviewbooking/FlightReviewbooking";
-import ReturnPassenger from "../Pages/Flight/flightresult/FlightresultReturn/ReturnPassenger/PassengerReturn"
+import ReturnPassenger from "../Pages/Flight/flightresult/FlightresultReturn/ReturnPassenger/PassengerReturn";
 import Flightbookingconfirmation from "../Pages/Flight/flightbookingconfirmation/Flightbookingconfirmation";
 import HolidayPackage from "../Pages/holidayPackage/HolidayPackage";
 import HolidayPackageResult from "../Pages/holidayPackage/holidaypackageresult/HolidayPackageResult";
@@ -76,8 +76,12 @@ import { ipAction, tokenAction } from "../Redux/IP/actionIp";
 // import Slider from "../Pages/Banner/Slider";
 import GotoTopBtn from "../Components/GotoTopBtn";
 import FlightresultReturn from "../Pages/Flight/flightresult/FlightresultReturn/FlightresultReturn";
+
+import FlightReturnInternational from "../Pages/Flight/flightresult/FlightresultReturn/FlightReturnInternational";
+
 import Headers from "../Components/Headers";
 import InnerNavbar1 from "../Layout/InnerNavbar1";
+
 const MainPage = () => {
   const dispatch = useDispatch();
   const location = useLocation();
@@ -162,6 +166,11 @@ const MainPage = () => {
               />
               <Route
                 exact
+                path="FlightResultInternational"
+                element={<FlightReturnInternational />}
+              />
+              <Route
+                exact
                 path="/hotel/hotelsearch"
                 element={<HotelSearch />}
               />
@@ -191,13 +200,13 @@ const MainPage = () => {
               />
               <Route
                 exact
-                path="/Flightresult/passengerdetail"
+                path="/passengerdetail"
                 element={<Passengerdetail />}
               />
               <Route
-              exact
-              path="/FlightresultReturn/Passengerdetail"
-              element={<ReturnPassenger/>}
+                exact
+                path="/FlightresultReturn/Passengerdetail"
+                element={<ReturnPassenger />}
               />
               <Route
                 exact

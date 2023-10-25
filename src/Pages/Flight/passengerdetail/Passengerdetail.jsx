@@ -13,10 +13,7 @@ import { NavLink, Routes, Route } from "react-router-dom";
 import Leftdetail from "./Leftdetail";
 import Rightdetail from "./Rightdetail";
 import { useDispatch, useSelector, useReducer } from "react-redux";
-import {
-  quoteAction,
-  ruleAction,
-} from "../../../Redux/FlightFareQuoteRule/actionFlightQuote";
+
 import { useNavigate } from "react-router-dom";
 
 const Flight = (props) => {
@@ -25,21 +22,11 @@ const Flight = (props) => {
   const reducerState = useSelector((state) => state);
   console.log("Props", props);
   const ResultIndex = sessionStorage.getItem("ResultIndex");
-  console.log("reducerState", reducerState);
+  console.log("reducerStateDemount", reducerState);
   console.log("resultIndex", ResultIndex);
-
-  const payload = {
-    EndUserIp: reducerState?.ip?.ipData,
-    TokenId: reducerState?.ip?.tokenData,
-    TraceId: reducerState?.oneWay?.oneWayData?.data?.data?.Response?.TraceId ||reducerState?.return?.returnData?.data?.data?.Response?.TraceId,
-    ResultIndex: ResultIndex,
-  };
-
-  useEffect(() => {
-    dispatch(ruleAction(payload));
-    dispatch(quoteAction(payload));
-  }, []);
-
+  function backRoute(){
+    navigate("/FlightResult")
+  }
   return (
     <div className="flightContainer">
       {/* step by step updating part */}
@@ -100,7 +87,8 @@ const Flight = (props) => {
       </Flex>
 
       <Grid container spacing={3}>
-        <Grid item xs={12} md={9}>
+        <Grid item xs={12} md={8}>
+          <Button onClick={backRoute} variant="Contained">Go Back</Button>
           <Box>
             <Leftdetail />
           </Box>

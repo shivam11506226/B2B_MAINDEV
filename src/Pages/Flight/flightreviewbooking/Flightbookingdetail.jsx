@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import {
   bookAction,
   bookActionGDS,
+  bookTicketGDS,
 } from "../../../Redux/FlightBook/actionFlightBook";
 import axios from "axios";
 const Flightbookingdetail = () => {
@@ -16,7 +17,12 @@ const Flightbookingdetail = () => {
   const [loading, setLoading] = useState(false);
   const [paymentOption, setPaymentOption] = useState(false);
   const reducerState = useSelector((state) => state);
-  const ResultIndex = JSON.parse(sessionStorage.getItem("flightDetailsONGo")).ResultIndex;
+  const isPassportRequired =
+    reducerState?.flightFare?.flightQuoteData?.Results
+      ?.IsPassportRequiredAtTicket;
+  const ResultIndex =
+    sessionStorage.getItem("ResultIndex") ||
+    JSON.parse(sessionStorage.getItem("flightDetailsONGo")).ResultIndex;
   console.log(
     "passengerAgreement",
     passengerAgreement,
@@ -42,7 +48,8 @@ const Flightbookingdetail = () => {
 
     if (reducerState?.flightBook?.flightBookDataGDS?.Response) {
       setLoading(false);
-      navigate("/Flightbookingconfirmation");
+      getTicketForNonLCC();
+      // navigate("/Flightbookingconfirmation");
     } else if (reducerState?.flightBook?.flightBookDataGDS?.Error) {
       setLoading(false);
       let error =
@@ -59,22 +66,63 @@ const Flightbookingdetail = () => {
     setLoading(true);
     const payloadGDS = {
       ResultIndex: ResultIndex,
-      Passengers: Passengers,
 
       EndUserIp: reducerState?.ip?.ipData,
       TokenId: reducerState?.ip?.tokenData,
-      TraceId: reducerState?.oneWay?.oneWayData?.data?.data?.Response?.TraceId||reducerState?.return?.returnData?.data?.data?.Response?.TraceId,
+      TraceId:
+        reducerState?.oneWay?.oneWayData?.data?.data?.Response?.TraceId ||
+        reducerState?.return?.returnData?.data?.data?.Response?.TraceId,
+      Passengers: Passengers
     };
     //alert("Submitted");
     if (fareValue?.IsLCC === false) {
       dispatch(bookActionGDS(payloadGDS));
-
       //navigate("/Flightresult/passengerdetail/flightreviewbooking");
     } else {
-      alert("Book not allowed for LCCs. Please do Ticket directly");
+      getTicketForLCC()
+      // alert("Book not allowed for LCCs. Please do Ticket directly");
+
     }
     //navigate("/Flightbookingconfirmation");
   };
+
+  const getTicketForNonLCC = () => {
+    const payLoadDomestic = {
+      EndUserIp: reducerState?.ip?.ipData,
+      TokenId: reducerState?.ip?.tokenData,
+      TraceId: reducerState?.oneWay?.oneWayData?.data?.data?.Response?.TraceId,
+      PNR: reducerState?.flightBook?.flightBookDataGDS?.Response?.PNR,
+      BookingId:
+        reducerState?.flightBook?.flightBookDataGDS?.Response?.BookingId,
+    };
+    const payLoadInternational = {
+      EndUserIp: reducerState?.ip?.ipData,
+      TokenId: reducerState?.ip?.tokenData,
+      TraceId: reducerState?.oneWay?.oneWayData?.data?.data?.Response?.TraceId,
+      PNR: reducerState?.flightBook?.flightBookDataGDS?.Response?.PNR,
+      BookingId:
+        reducerState?.flightBook?.flightBookDataGDS?.Response?.BookingId,
+      Passport: [...Passengers],
+    };
+    if (isPassportRequired) {
+      dispatch(bookTicketGDS(payLoadInternational));
+    } else {
+      dispatch(bookTicketGDS(payLoadDomestic));
+    }
+  };
+
+  const getTicketForLCC=()=>{
+    const payloadLcc = {
+      ResultIndex: ResultIndex,
+      EndUserIp: reducerState?.ip?.ipData,
+      TokenId: reducerState?.ip?.tokenData,
+      TraceId: reducerState?.oneWay?.oneWayData?.data?.data?.Response?.TraceId,
+      Passengers: [...Passengers],
+    };
+    dispatch(bookAction(payloadLcc));
+    
+   
+  }
 
   return (
     <Box>

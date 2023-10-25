@@ -6,7 +6,7 @@ import Nonrefundable from "../Nonrefundable";
 import { useDispatch, useSelector, useReducer } from "react-redux";
 import Luggage from "../Luggage";
 
-const MultipleDataReturn = (props) => {
+const MultipleDataReturnInternational = (props) => {
   const navigate = useNavigate();
   const reducerState = useSelector((state) => state);
   const flight = props.flight;
@@ -43,21 +43,24 @@ const MultipleDataReturn = (props) => {
   };
 
   return (
-    <div
-      onClick={() => {
+    <Box
+      onClick={(e) => {
+        e.stopPropagation();
         props.onSelect(props.index);
         handleClick(props.wholeFlight, props.index);
       }}
+      border={props.isSelected ? "2px solid red" : ""}
     >
-      <Box border={props.isSelected ? "2px solid red" : ""}>
+      <Box>
+        {console.log("flightInternational", flight)}
         {flight?.map((data, index) => {
-          const img = data?.Airline?.AirlineCode;
+          const img = data[0]?.Airline?.AirlineCode;
 
-          const time = `${Math.floor(data?.Duration / 60)}hr ${
-            data.Duration % 60
+          const time = `${Math.floor(data[0]?.Duration / 60)}hr ${
+            data[0].Duration % 60
           }min`;
 
-          const dateString = data?.Origin?.DepTime;
+          const dateString = data[0]?.Origin?.DepTime;
           const date1 = new Date(dateString);
           const time1 = date1.toLocaleTimeString();
 
@@ -68,7 +71,7 @@ const MultipleDataReturn = (props) => {
           const year1 = date1.getFullYear();
           const formattedDate1 = `${day1} ${month1} ${year1}`;
 
-          const dateString1 = data?.Destination?.ArrTime;
+          const dateString1 = data[0]?.Destination?.ArrTime;
           const date2 = new Date(dateString1);
           const time2 = date2.toLocaleTimeString();
 
@@ -114,11 +117,11 @@ const MultipleDataReturn = (props) => {
                       </Box>
                       <Box px={1}>
                         <Typography className="flight_name">
-                          {data?.Airline?.AirlineName}
+                          {data[0]?.Airline?.AirlineName}
                         </Typography>
                         <Typography className="flight_class">
-                          {data?.Airline?.AirlineCode}{" "}
-                          {data?.Airline?.FlightNumber}
+                          {data[0]?.Airline?.AirlineCode}{" "}
+                          {data[0]?.Airline?.FlightNumber}
                         </Typography>
                         <Typography>
                           {IsLCC ? (
@@ -157,7 +160,7 @@ const MultipleDataReturn = (props) => {
                         </p>
                       </Typography>
                       <Typography className="flight_class">
-                        {data?.Origin?.Airport?.CityName}
+                        {data[0]?.Origin?.Airport?.CityName}
                       </Typography>
                     </Box>
                   </Grid>
@@ -194,7 +197,7 @@ const MultipleDataReturn = (props) => {
                         </p>
                       </Typography>
                       <Typography className="flight_class">
-                        {data?.Destination?.Airport?.CityName}
+                        {data[0]?.Destination?.Airport?.CityName}
                       </Typography>
                     </Box>
                   </Grid>
@@ -224,39 +227,39 @@ const MultipleDataReturn = (props) => {
                   </Grid>
                 </Grid>
               </Box>
-              {index === flight.length - 1 && (
-                <Box
+              {/* {index === flight[0].length - 1 && ( */}
+              <Box
+                display="flex"
+                justifyContent="space-between"
+                alignItems="center"
+              >
+                <Typography
+                  className="seat_left"
                   display="flex"
-                  justifyContent="space-between"
                   alignItems="center"
                 >
-                  <Typography
-                    className="seat_left"
-                    display="flex"
-                    alignItems="center"
-                  >
-                    {data?.NoOfSeatAvailable} Seats Left
-                  </Typography>
-                  <Box display="flex">
-                    <Luggage
-                      destination={data?.Destination?.Airport?.AirportCode}
-                      origin={flight[0]?.Origin?.Airport?.AirportCode}
-                      cabin={data?.CabinBaggage}
-                      checkin={data?.Baggage}
-                      fareClass={data?.Airline?.FareClass}
-                    />
-                    {/* <Fairrule /> */}
-                    <Nonrefundable />
-                  </Box>
-                  <Grid
-                    md={2}
-                    sm={2}
-                    py={3}
-                    display="flex"
-                    justifyContent="center"
-                    alignItems="center"
-                  >
-                    {/* <button
+                  {data[0]?.NoOfSeatAvailable} Seats Left
+                </Typography>
+                <Box display="flex">
+                  <Luggage
+                    destination={data[0]?.Destination?.Airport?.AirportCode}
+                    origin={data[0]?.Origin?.Airport?.AirportCode}
+                    cabin={data[0]?.CabinBaggage}
+                    checkin={data[0]?.Baggage}
+                    fareClass={data[0]?.Airline?.FareClass}
+                  />
+                  {/* <Fairrule /> */}
+                  <Nonrefundable />
+                </Box>
+                <Grid
+                  md={2}
+                  sm={2}
+                  py={3}
+                  display="flex"
+                  justifyContent="center"
+                  alignItems="center"
+                >
+                  {/* <button
                       onClick={() => {
                         console.log("indexKey inside loop", indexKey);
                         handleClick(indexKey);
@@ -281,16 +284,15 @@ const MultipleDataReturn = (props) => {
                       </div>
                       <span id="span1">Book Now</span>
                     </button> */}
-                  </Grid>
-                </Box>
-              )}
+                </Grid>
+              </Box>
+              {/* )} */}
             </div>
           );
         })}
       </Box>
-    </div>
+    </Box>
   );
 };
 
-
-export default MultipleDataReturn;
+export default MultipleDataReturnInternational;

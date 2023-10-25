@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import { Grid, Box, Typography, Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import Fairrule from "./Fairrule";
@@ -7,14 +7,30 @@ import Nonrefundable from "./Nonrefundable";
 import { useDispatch, useSelector, useReducer } from "react-redux";
 import LuggageIcon from "@mui/icons-material/Luggage";
 import Luggage from "./Luggage";
+import {
+  quoteAction,
+  ruleAction,
+  setLoading,
+} from "../../../Redux/FlightFareQuoteRule/actionFlightQuote";
+
 
 const MultipleData = (props) => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const reducerState = useSelector((state) => state);
+  let statusRule = reducerState?.flightFare?.isLoadingRuleDone || false;
+  let statusQuote = reducerState?.flightFare?.isLoadingQuoteDone || false;
+  console.log("isLoadingRuleDone", statusRule);
+  console.log("isLoadingQuoteDone", statusQuote);
+
   const flight = props.flight;
   const IsLCC = props.IsLCC;
-  console.log("flight multiple", flight);
-  const indexKey = props.index;
+  // console.log("flight single", flight);
+
+  const results =
+    reducerState?.oneWay?.oneWayData?.data?.data?.Response?.Results ||
+    reducerState?.return?.returnData?.data?.data?.Response?.Results;
+    const indexKey = props.index;
   const fare =
     reducerState?.logIn?.loginData.length > 0
       ? `${Math.round(
@@ -27,14 +43,27 @@ const MultipleData = (props) => {
   // )}`;
   const img = flight?.Airline?.AirlineCode;
   const stop = props.stop;
-  const results =
-    reducerState?.oneWay?.oneWayData?.data?.data?.Response?.Results||reducerState?.return?.returnData?.data?.data?.Response?.Results;
+  
   // console.log("Results", results);
   const handleClick = (ResultIndex) => {
     console.log("Handel Click Index Key", ResultIndex);
-    navigate("passengerdetail");
+    // navigate("passengerdetail");
     sessionStorage.setItem("ResultIndex", ResultIndex);
+    const payload = {
+      EndUserIp: reducerState?.ip?.ipData,
+      TokenId: reducerState?.ip?.tokenData,
+      TraceId: reducerState?.oneWay?.oneWayData?.data?.data?.Response?.TraceId,
+      ResultIndex: ResultIndex,
+    };
+    dispatch(ruleAction(payload));
+    dispatch(quoteAction(payload));
   };
+  useEffect(() => {
+    if (statusQuote && statusRule) {
+      navigate("/passengerdetail");
+      dispatch(setLoading("hjbb"));
+    }
+  }, [statusQuote, statusRule]);
 
   return (
     <div key={indexKey}>
