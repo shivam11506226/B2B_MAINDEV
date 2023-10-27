@@ -72,16 +72,15 @@ const Flightbookingdetail = () => {
       TraceId:
         reducerState?.oneWay?.oneWayData?.data?.data?.Response?.TraceId ||
         reducerState?.return?.returnData?.data?.data?.Response?.TraceId,
-      Passengers: Passengers
+      Passengers: Passengers,
     };
     //alert("Submitted");
     if (fareValue?.IsLCC === false) {
       dispatch(bookActionGDS(payloadGDS));
       //navigate("/Flightresult/passengerdetail/flightreviewbooking");
     } else {
-      getTicketForLCC()
+      getTicketForLCC();
       // alert("Book not allowed for LCCs. Please do Ticket directly");
-
     }
     //navigate("/Flightbookingconfirmation");
   };
@@ -111,7 +110,7 @@ const Flightbookingdetail = () => {
     }
   };
 
-  const getTicketForLCC=()=>{
+  const getTicketForLCC = () => {
     const payloadLcc = {
       ResultIndex: ResultIndex,
       EndUserIp: reducerState?.ip?.ipData,
@@ -120,19 +119,39 @@ const Flightbookingdetail = () => {
       Passengers: [...Passengers],
     };
     dispatch(bookAction(payloadLcc));
-    
-   
-  }
+  };
 
   return (
-    <Box>
-      <Typography color="#008FCC" fontWeight="bold" fontSize="16px">
-        Booking Details
-      </Typography>
-      <Box className="mid_header" px={5} py={2} my={2}>
-        <Typography color="#252525" fontWeight="bold" fontSize="16px" mb={2}>
-          Flight Information
-        </Typography>
+    <Box style={{width:"920px"}}>
+      <div
+        style={{
+          width: 900,
+          height: 49,
+          paddingLeft: 20,
+          paddingRight: 20,
+          paddingTop: 10,
+          paddingBottom: 10,
+          background: "#DFE6F7",
+          borderRadius: 4,
+          justifyContent: "flex-start",
+          alignItems: "center",
+          gap: 10,
+          display: "inline-flex",
+        }}
+      >
+        <div
+          style={{
+            color: "black",
+            fontSize: 24,
+            fontFamily: "Montserrat",
+            fontWeight: "600",
+            wordWrap: "break-word",
+          }}
+        >
+          Review Booking
+        </div>
+      </div>
+      <Box  py={2} my={2} style={{background: '#D8DFF2',borderRadius: 4.04,width:'900px'}}>
         {fareQuote?.map((data) => {
           return data?.map((data1) => {
             const dateString = data1?.Origin?.DepTime;
@@ -165,27 +184,32 @@ const Flightbookingdetail = () => {
               formattedDate1.split(" ");
             const desiredFormat1 = `${day1}-${month1}-${year1} ${time1} ${ampm1}`;
             return (
-              <Grid container spacing={3} pt={1.5}>
+              <Grid sx={{display:"flex"}} >
                 <Grid item md={2}>
-                  <Box className="mid_header" p={1}>
+                  <Box >
                     <Typography
                       sx={{
-                        color: "#252525",
-                        fontSize: "10px",
+                        color: "black",
+                        fontSize: "16px",
                         textAlign: "center",
-                        fontWeight: "bold",
+                        fontWeight: "600",
+                        fontFamily: 'Montserrat',
+                        wordWrap: 'break-word'
                       }}
-                    >
+                                          >
                       Flight No.
                     </Typography>
-                    <Divider color="gray" mar />
+                   
                     <Typography
                       sx={{
-                        color: "#3D7AD9",
-                        fontSize: "10px",
+                        color: "black",
+                        fontSize: "16px",
+                        fontFamily: 'Montserrat',
                         textAlign: "center",
-                        fontWeight: "bold",
+                        fontWeight: "400",
+
                       }}
+                   
                       pt={1}
                     >
                       {data1?.Airline?.AirlineCode}-
@@ -194,25 +218,29 @@ const Flightbookingdetail = () => {
                   </Box>
                 </Grid>
                 <Grid item md={2}>
-                  <Box className="mid_header" p={1}>
+                  <Box >
                     <Typography
                       sx={{
-                        color: "#252525",
-                        fontSize: "10px",
+                        color: "black",
+                        fontSize: "16px",
                         textAlign: "center",
-                        fontWeight: "bold",
+                        fontWeight: "600",
+                        fontFamily: 'Montserrat',
+                        wordWrap: 'break-word'
                       }}
                     >
                       Origin
                     </Typography>
-                    <Divider color="gray" mar />
+                   
                     <Typography
-                      sx={{
-                        color: "#3D7AD9",
-                        fontSize: "10px",
-                        textAlign: "center",
-                        fontWeight: "bold",
-                      }}
+                     sx={{
+                      color: "black",
+                      fontSize: "16px",
+                      fontFamily: 'Montserrat',
+                      textAlign: "center",
+                      fontWeight: "400",
+
+                    }}
                       pt={1}
                     >
                       {data1?.Origin?.Airport?.AirportCode}
@@ -220,24 +248,28 @@ const Flightbookingdetail = () => {
                   </Box>
                 </Grid>
                 <Grid item md={2}>
-                  <Box className="mid_header" p={1}>
+                  <Box  >
                     <Typography
                       sx={{
-                        color: "#252525",
-                        fontSize: "10px",
+                        color: "black",
+                        fontSize: "16px",
                         textAlign: "center",
-                        fontWeight: "bold",
+                        fontWeight: "600",
+                        fontFamily: 'Montserrat',
+                        wordWrap: 'break-word'
                       }}
                     >
                       Destination
                     </Typography>
-                    <Divider color="gray" mar />
+                  
                     <Typography
                       sx={{
-                        color: "#3D7AD9",
-                        fontSize: "10px",
+                        color: "black",
+                        fontSize: "16px",
+                        fontFamily: 'Montserrat',
                         textAlign: "center",
-                        fontWeight: "bold",
+                        fontWeight: "400",
+
                       }}
                       pt={1}
                     >
@@ -245,25 +277,29 @@ const Flightbookingdetail = () => {
                     </Typography>
                   </Box>
                 </Grid>
-                <Grid item md={2}>
-                  <Box className="mid_header" p={1}>
+                <Grid item md={3}>
+                  <Box  >
                     <Typography
-                      sx={{
-                        color: "#252525",
-                        fontSize: "10px",
-                        textAlign: "center",
-                        fontWeight: "bold",
-                      }}
+                     sx={{
+                      color: "black",
+                      fontSize: "16px",
+                      textAlign: "center",
+                      fontWeight: "600",
+                      fontFamily: 'Montserrat',
+                      wordWrap: 'break-word'
+                    }}
                     >
-                      Dep Date Time
+                     Departure Date  Time
                     </Typography>
-                    <Divider color="gray" mar />
+                  
                     <Typography
                       sx={{
-                        color: "#3D7AD9",
-                        fontSize: "10px",
+                        color: "black",
+                        fontSize: "16px",
+                        fontFamily: 'Montserrat',
                         textAlign: "center",
-                        fontWeight: "bold",
+                        fontWeight: "400",
+
                       }}
                       pt={1}
                     >
@@ -271,26 +307,30 @@ const Flightbookingdetail = () => {
                     </Typography>
                   </Box>
                 </Grid>
-                <Grid item md={2}>
-                  <Box className="mid_header" p={1}>
+                <Grid item md={3}>
+                  <Box  >
                     <Typography
-                      sx={{
-                        color: "#252525",
-                        fontSize: "10px",
+                       sx={{
+                        color: "black",
+                        fontSize: "16px",
                         textAlign: "center",
-                        fontWeight: "bold",
+                        fontWeight: "600",
+                        fontFamily: 'Montserrat',
+                        wordWrap: 'break-word'
                       }}
                     >
-                      Arr Date Time
+                     Arrival Date  Time
                     </Typography>
-                    <Divider color="gray" mar />
+                  
                     <Typography
-                      sx={{
-                        color: "#3D7AD9",
-                        fontSize: "10px",
-                        textAlign: "center",
-                        fontWeight: "bold",
-                      }}
+                     sx={{
+                      color: "black",
+                      fontSize: "16px",
+                      fontFamily: 'Montserrat',
+                      textAlign: "center",
+                      fontWeight: "400",
+
+                    }}
                       pt={1}
                     >
                       {desiredFormat1}
@@ -298,24 +338,28 @@ const Flightbookingdetail = () => {
                   </Box>
                 </Grid>
                 <Grid item md={2}>
-                  <Box className="mid_header" p={1}>
+                  <Box >
                     <Typography
                       sx={{
-                        color: "#252525",
-                        fontSize: "10px",
+                        color: "black",
+                        fontSize: "16px",
                         textAlign: "center",
-                        fontWeight: "bold",
+                        fontWeight: "600",
+                        fontFamily: 'Montserrat',
+                        wordWrap: 'break-word'
                       }}
                     >
                       Class
                     </Typography>
-                    <Divider color="gray" mar />
+                  
                     <Typography
                       sx={{
-                        color: "#3D7AD9",
-                        fontSize: "10px",
+                        color: "black",
+                        fontSize: "16px",
+                        fontFamily: 'Montserrat',
                         textAlign: "center",
-                        fontWeight: "bold",
+                        fontWeight: "400",
+
                       }}
                       pt={1}
                     >
@@ -328,43 +372,75 @@ const Flightbookingdetail = () => {
           });
         })}
       </Box>
+      <div
+        style={{
+          width: 900,
+          height: 49,
+          paddingLeft: 20,
+          paddingRight: 20,
+          paddingTop: 10,
+          paddingBottom: 10,
+          background: "#DFE6F7",
+          borderRadius: 4,
+          justifyContent: "flex-start",
+          alignItems: "center",
+          gap: 10,
+          display: "inline-flex",
+        }}
+      >
+        <div
+          style={{
+            color: "black",
+            fontSize: 24,
+            fontFamily: "Montserrat",
+            fontWeight: "600",
+            wordWrap: "break-word",
+          }}
+        >
+          Passenger Details
+        </div>
+      </div>
 
-      <Box className="mid_header" px={5} py={2} my={2}>
-        <Box display="flex" justifyContent="space-between">
-          <Typography color="#252525" fontWeight="bold" fontSize="16px" mb={2}>
-            Passenger Details
-          </Typography>
-          {/* <Link fontWeight="bold" fontSize="12px">
-            Change Passenger Details
-          </Link> */}
-        </Box>
+     
 
+      <Box className="mid-headers" style={{padding:"18px"}}>
         {Passengers?.map((passenger, key) => {
           console.log("Value", passenger);
           return (
-            <Box className="mid_header" key={key} px={5} py={2} my={2}>
+            <div className="mid_header" key={key} px={5} py={2}>
               <Box>
                 <Typography
-                  color="#6B6B6B"
+                  color="#0048FF"
                   fontWeight="bold"
                   fontSize="16px"
-                  mb={2}
+                  mb="2px"
+                 
+                  fontFamily="Montserrat"
+                 
                 >
-                  Passenger {key + 1} (
+                  Passenger {key + 1} <span style={{
+                color: "black",
+                fontSize: 16,
+                fontFamily: "Montserrat",
+                fontWeight: "500",
+                wordWrap: "break-word",
+              }}>
+                  (
                   {passenger.PaxType === 1
                     ? "Adult"
                     : passenger.PaxType === 2
                     ? "Child"
                     : "Infant"}
                   )
+                  </span>
                 </Typography>
               </Box>
               <Grid container spacing={3}>
                 <Grid item md={3}>
-                  <Typography color="#3D7AD9" fontWeight="bold" fontSize="16px">
+                  <Typography color="#3D7AD9" fontWeight="bold" fontSize="16px" style={{color: 'black', fontSize: 16.14, fontFamily: 'Montserrat', fontWeight: '600', wordWrap: 'break-word'}} >
                     Name:
                   </Typography>
-                  <Typography color="#3D7AD9" fontWeight="bold" fontSize="16px">
+                  <Typography color="#3D7AD9" fontWeight="bold" fontSize="16px" style={{color: 'black', fontSize: 16.14, fontFamily: 'Montserrat', fontWeight: '600', wordWrap: 'break-word'}}>
                     Gender:
                   </Typography>
                   {passenger.AddressLine1 && (
@@ -372,66 +448,92 @@ const Flightbookingdetail = () => {
                       color="#3D7AD9"
                       fontWeight="bold"
                       fontSize="16px"
+                      style={{color: 'black', fontSize: 16.14, fontFamily: 'Montserrat', fontWeight: '600', wordWrap: 'break-word'}}
                     >
                       Address:
                     </Typography>
                   )}
-                  <Typography color="#3D7AD9" fontWeight="bold" fontSize="16px">
+                  <Typography color="#3D7AD9" fontWeight="bold" fontSize="16px" style={{color: 'black', fontSize: 16.14, fontFamily: 'Montserrat', fontWeight: '600', wordWrap: 'break-word'}}>
                     Seat Preferences:
                   </Typography>
                 </Grid>
                 <Grid item md={9}>
-                  <Typography color="#FF8900" fontWeight="bold" fontSize="16px">
+                  <Typography color="#FF8900" fontWeight="bold" fontSize="16px" style={{color: 'black', fontSize: 16.14, fontFamily: 'Montserrat', fontWeight: '400', wordWrap: 'break-word'}}>
                     {passenger.Title} {passenger.FirstName} {passenger.LastName}
                   </Typography>
-                  <Typography color="#FF8900" fontWeight="bold" fontSize="16px">
-                    {passenger.Gender == 1
+                  <Typography color="#FF8900" fontWeight="bold" fontSize="16px"  style={{color: 'black', fontSize: 16.14, fontFamily: 'Montserrat', fontWeight: '400', wordWrap: 'break-word'}}>
+                    {passenger.Gender === 1
                       ? "Female"
-                      : passenger.Gender == 2
+                      : passenger.Gender === 2
                       ? "Male"
                       : "Transgender"}
                   </Typography>
                   {passenger.AddressLine1 && (
                     <Typography
-                      color="#FF8900"
-                      fontWeight="bold"
-                      fontSize="16px"
+                     
+                     
+                      style={{color: 'black', fontSize: 16.14, fontFamily: 'Montserrat', fontWeight: '400', wordWrap: 'break-word'}}
                     >
                       {passenger.AddressLine1}, {passenger.City},{" "}
                       {passenger.Nationality}
                     </Typography>
                   )}
-                  <Typography color="#FF8900" fontWeight="bold" fontSize="16px">
+                  <Typography   style={{color: 'black', fontSize: 16.14, fontFamily: 'Montserrat', fontWeight: '400', wordWrap: 'break-word'}}>
                     8D
                   </Typography>
                 </Grid>
               </Grid>
-            </Box>
+            </div>
           );
         })}
       </Box>
-      <Box className="Top_header" p={5}>
+      <div
+        style={{
+          width: 900,
+          height: 49,
+          paddingLeft: 20,
+          paddingRight: 20,
+          paddingTop: 10,
+          paddingBottom: 10,
+          background: "#DFE6F7",
+          borderRadius: 4,
+          justifyContent: "flex-start",
+          alignItems: "center",
+          gap: 10,
+          display: "inline-flex",
+        }}
+      >
+        <div
+          style={{
+            color: "black",
+            fontSize: 24,
+            fontFamily: "Montserrat",
+            fontWeight: "600",
+            wordWrap: "break-word",
+          }}
+        >
+          Fare Rules
+        </div>
+      </div>
+      <Box className="Top_header" p={5} width={900}>
         {fareRules.map((rule) => (
           <Box>
-            <Typography
-              color="#008FCC"
-              fontSize="30px"
-              fontWeight="bold"
-              textAlign="center"
-            >
-              Fare Rule
-            </Typography>
-            <Typography
-              color="#707070"
-              fontSize="20px"
-              fontWeight="bold"
-              textAlign="center"
-            >
-              {rule.Origin} - {rule.Destination}
-            </Typography>
+           
             <div
-              className="fs-6 mt-3"
+              style={{
+                color: "black",
+                fontSize: 16.14,
+                fontFamily: "Montserrat",
+                fontWeight: "600",
+                wordWrap: "break-word",
+              }}
+            >
+              QP: {rule.Origin} - {rule.Destination}
+            </div>
+            <div
+              
               dangerouslySetInnerHTML={createMarkup(rule.FareRuleDetail)}
+              style={{border:"2px solid red",padding:"20px"}}
             />
             {/* <Grid container spacing={1} mt={1}>
               <Grid item xs={6} md={6}>
@@ -636,55 +738,162 @@ const Flightbookingdetail = () => {
           </Grid>
         </Box> */}
       </Box>
-      <Box className="mid_header" my={2} py={4} px={5}>
-        <Box>
-          <Typography color="#252525" fontWeight="bold" fontSize="16px" mb={2}>
-            Passenger Agreement
-          </Typography>
-        </Box>
-        <Box display="flex" alignItems="center">
-          <input
-            className="inputSelect"
-            type="checkbox"
-            value={passengerAgreement}
-            onChange={() => setPassengerAgreement(!passengerAgreement)}
-          />{" "}
-          <Typography color="#252525" fontWeight="bold" fontSize="16px" ml={2}>
-            I have reviewed and agreed on the fares and commission offered for
-            this booking.
-          </Typography>
-        </Box>
-        <Typography color="#FF0000" fontWeight="bold" fontSize="16px">
-          Note : You can earn more commission if you checked the Travel
-          Insurance.
-        </Typography>
+
+      <Box display="flex" alignItems="center">
+        <input
+          className="inputSelect"
+          type="checkbox"
+          value={passengerAgreement}
+          onChange={() => setPassengerAgreement(!passengerAgreement)}
+        />{" "}
       </Box>
-      <Box className="mid_header" my={2} py={4} px={5}>
-        <Box>
-          <Typography color="#252525" fontWeight="bold" fontSize="16px" mb={2}>
-            Payment Option (s)
-          </Typography>
-        </Box>
-        <Box display="flex" alignItems="center">
-          <input
-            className="inputSelect"
-            type="checkbox"
-            value={paymentOption}
-            onChange={() => setPaymentOption(!paymentOption)}
-          />{" "}
-          <Typography color="#252525" fontWeight="bold" fontSize="16px" ml={2}>
-            I have reviewed and agreed on the fares and commission offered for
-            this booking.
-          </Typography>
-        </Box>
-        <Typography color="#FF0000" fontWeight="bold" fontSize="16px">
-          Important Note : For Online payment, It is advised to use Mozilla
-          Firefox or Internet Explorer browsers for making bookings on portal
-          and avoid Chrome browser. We are working on Chrome Browser issue with
-          our payment gateway merchants..
-        </Typography>
+      <div
+        style={{
+          width: 900,
+          height: 49,
+          paddingLeft: 20,
+          paddingRight: 20,
+          paddingTop: 10,
+          paddingBottom: 10,
+          background: "#DFE6F7",
+          borderRadius: 4,
+          justifyContent: "flex-start",
+          alignItems: "center",
+          gap: 10,
+          display: "inline-flex",
+        }}
+      >
+        <div
+          style={{
+            color: "black",
+            fontSize: 24,
+            fontFamily: "Montserrat",
+            fontWeight: "600",
+            wordWrap: "break-word",
+          }}
+        >
+          Terms & Conditions{" "}
+        </div>
+      </div>
+      <div
+        style={{
+          color: "#E73C33",
+          fontSize: 16.14,
+          fontFamily: "Montserrat",
+          fontWeight: "500",
+          wordWrap: "break-word",
+          marginTop:"10px",
+          marginBottom:"10px"
+        }}
+      >
+        Note: You can earn more commission if you checked Travel Insurance
+      </div>
+      <div
+        style={{
+          width: 728,
+          height: 44,
+          paddingLeft: 24,
+          paddingRight: 24,
+          paddingTop: 12,
+          paddingBottom: 12,
+          border: "1px #BBBBBB solid",
+          justifyContent: "flex-start",
+          alignItems: "center",
+          gap: 5,
+          display: "inline-flex",
+          marginTop:"10px",
+          marginBottom:"20px"
+        }}
+      >
+        <div
+          style={{
+            width: 16,
+            height: 16,
+            background: "white",
+            borderRadius: 1,
+            border: "0.95px #5C85A4 solid",
+          }}
+        />
+        <div
+          style={{
+            color: "black",
+            fontSize: 16.14,
+            fontFamily: "Montserrat",
+            fontWeight: "500",
+            wordWrap: "break-word",
+          }}
+        >
+          I have reviewed and agreed on the fare and commission offered on this
+          booking.
+        </div>
+      </div>
+      <div style={{display:"flex", marginTop:"10px",
+          marginBottom:"10px",gap:"40px"}}>
+      <div
+        style={{
+          color: "#000080",
+          fontSize: 16.14,
+          fontFamily: "Montserrat",
+          fontWeight: "500",
+          wordWrap: "break-word",
+        }}
+      >
+        You have 2,000,000 as your Cash balance
+      </div>
+      <form
+          // action="/Flightbookingconfirmation"
+          className="formFlightSearch"
+          textAlign="center"
+          onSubmit={handleSubmit}
+        >
+            <button
+        style={{
+          width: 241,
+          height: 63,
+          paddingLeft: 63.63,
+          paddingRight: 63.63,
+          paddingTop: 21.21,
+          paddingBottom: 21.21,
+          background: "#21325D",
+          borderRadius: 5.3,
+          justifyContent: "center",
+          alignItems: "center",
+          gap: 15.91,
+          display: "inline-flex",
+          border:"1px solid #21325D",
+          color:"white",
+          cursor:"pointer",
+          marginTop:"-35px"
+
+        }}
+        type="submit"
+        disabled={
+          !passengerAgreement || !paymentOption
+            ? true
+            : loading
+            ? true
+            : false
+        }
+        >
+            {" "}
+              {loading ? "Loading..." : "Ticket"}{" "}
+        </button>
+        </form>
+      
+      
+      </div>
+      
+
+      <Box display="flex" alignItems="center">
+        <input
+          className="inputSelect"
+          type="checkbox"
+          value={paymentOption}
+          onChange={() => setPaymentOption(!paymentOption)}
+        />{" "}
       </Box>
-      <Box textAlign="center">
+
+      {/* <Box textAlign="center">
         <form
           // action="/Flightbookingconfirmation"
           className="formFlightSearch"
@@ -711,11 +920,7 @@ const Flightbookingdetail = () => {
             </Button>
           </Box>
         </form>
-
-        <Typography color="#005778" fontWeight="bold" fontSize="18px" mt={5}>
-          Copyright © 2023 THE SKY TRAILS All Rights Reserved
-        </Typography>
-      </Box>
+      </Box> */}
     </Box>
   );
 };

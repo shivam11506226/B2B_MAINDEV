@@ -41,9 +41,10 @@ export default function Popularfilter() {
       <Grid container spacing={3}>
         <Grid item xs={12} md={3}>
           <Box
-            backgroundColor="#F5F5F5"
-            boxShadow="1px 1px 8px gray"
-            borderRadius="10px"
+            backgroundColor="#FFF"
+            
+            borderRadius="8px"
+            border="1px solid #5C85A4"
           >
             <Typography justifyContent="center" display="flex" pt={3}>
               Popular Filter
@@ -397,34 +398,79 @@ export default function Popularfilter() {
             </Box>
           </Box>
         </Grid>
-        <Grid item xs={12} md={9}>
-          <Box>
+        <Grid item xs={9} md={9}>
+        
             <Box
               display="flex"
-              px={2}
-              backgroundColor="#F5F5F5"
-              boxShadow="1px 1px 8px gray"
+              
+              background= "#FFFBFB"
+              
+              borderRadius= "8" 
+              border="1px #9E9E9E solid"
+              width="973px"
+height="50px"
+flexShrink="0"
+alignItems="center"
+marginLeft="20px"
             >
-              <Grid md={2} sm={4}>
-                <Button sx={{ color: "black" }}>Sorting By:</Button>
+
+
+
+
+
+
+
+
+              <Grid md={3} sm={4}>
+                <Button sx={{color: "#000",
+fontFamily:"Montserrat",
+fontSize:"12px",
+fontStyle:"normal",
+fontWeight: "500",
+lineHeight:"normal"}}>Showing 95 Results</Button>
               </Grid>
               <Grid md={2} sm={4}>
-                <Button sx={{ color: "black" }}>Departure</Button>
+                <Button sx={{ color:"#21325D",
+fontFamily:"Montserrat",
+fontSize:"12px",
+fontStyle:"normal",
+fontWeight: "500",
+lineHeight:"normal" }}>Departure</Button>
               </Grid>
               <Grid md={2} sm={4}>
-                <Button sx={{ color: "black" }}>Duration</Button>
+              <Button sx={{ color:"#21325D",
+fontFamily:"Montserrat",
+fontSize:"12px",
+fontStyle:"normal",
+fontWeight: "500",
+lineHeight:"normal"}}>Duration</Button>
               </Grid>
               <Grid md={2} sm={4}>
-                <Button sx={{ color: "black" }}>Arrival</Button>
+              <Button sx={{ color:"#21325D",
+fontFamily:"Montserrat",
+fontSize:"12px",
+fontStyle:"normal",
+fontWeight: "500",
+lineHeight:"normal" }}>Arrival</Button>
               </Grid>
               <Grid md={2} sm={4}>
-                <Button sx={{ color: "black" }}>Pub Price</Button>
+              <Button sx={{ color:"#21325D",
+fontFamily:"Montserrat",
+fontSize:"12px",
+fontStyle:"normal",
+fontWeight: "500",
+lineHeight:"normal" }}>Publish Fare</Button>
               </Grid>
               <Grid md={2} sm={4}>
-                <Button sx={{ color: "black" }}>Offer Price</Button>
+              <Button sx={{ color:"#21325D",
+fontFamily:"Montserrat",
+fontSize:"12px",
+fontStyle:"normal",
+fontWeight: "500",
+lineHeight:"normal"}}>Offer Fare</Button>
               </Grid>
             </Box>
-          </Box>
+         
           <Flightdetail />
         </Grid>
       </Grid>

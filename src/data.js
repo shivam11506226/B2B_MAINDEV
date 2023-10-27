@@ -84,7 +84,7 @@ export const InnerBarLogo = [
   // },
   {
     avatar: require("./Images/passport.png"),
-    name: "Package",
+    name: "Visa",
     path: "/visa",
   },
   {

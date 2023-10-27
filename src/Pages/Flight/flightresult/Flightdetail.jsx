@@ -41,11 +41,10 @@ const Flightdetail = () => {
         mt={3}
         pb={2}
         px={2}
-        backgroundColor="#F5F5F5"
-        boxShadow="1px 1px 8px gray"
-        borderRadius="10px"
+        
+       
       >
-        <div className="row">
+        {/* <div className="row">
           <div
             className={`btn btn-primary m-3 text-center p-2 fs-5 col ${
               filter === 1 ? "active" : ""
@@ -70,7 +69,7 @@ const Flightdetail = () => {
           >
             Best
           </div>
-        </div>
+        </div> */}
         {result?.map((flight1) => {
           {
             /* console.log("flight1", flight1); */
@@ -80,7 +79,7 @@ const Flightdetail = () => {
             /* console.log("ResultIndex", ResultIndex); */
           }
           return (
-            <div key={ResultIndex}>
+            <div key={ResultIndex} >
               {flight1?.Segments?.map((flight, Index) => {
                 console.log("flight", flight);
                 const length = flight.length;

@@ -79,6 +79,7 @@ const Flight = () => {
             top={300}
              background="#21325D"
             zIndex={4}
+            border={"2px solid red"}
 
           >
             <HStack p="5px">
