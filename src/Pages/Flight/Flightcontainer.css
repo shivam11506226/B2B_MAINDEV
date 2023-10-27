@@ -1,9 +1,0 @@
-@media (max-width: 600px) {
-    .styled-tabs {
-      flex-direction: column;
-    }
-
-    .styled-tab {
-      width: 100%;
-    }
-  }
