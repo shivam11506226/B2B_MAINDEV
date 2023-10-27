@@ -33,10 +33,10 @@ const FlightReviewbooking = () => {
     }
   }, [reducerState]);
   return (
-    <div className="flightContainer">
+    <div className="flightContainer" style={{border:"2px solid red"}}>
       {/* step by step updating part */}
 
-      <Flex
+      {/* <Flex
         w="100%"
         h="50"
         mb="20"
@@ -91,12 +91,12 @@ const FlightReviewbooking = () => {
             </Text>
           </Flex>
         </form>
-      </Flex>
+      </Flex> */}
 
       {loading ? (
         <div>Loading...</div>
       ) : (
-        <Grid container spacing={3}>
+        <Grid container spacing={6}>
           <Grid item xs={12} md={9}>
             <Box>
               <Flightbookingdetail />

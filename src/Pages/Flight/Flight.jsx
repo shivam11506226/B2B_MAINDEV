@@ -72,7 +72,20 @@ const Flight = () => {
           alignItems={"center"}
         >
           <Box
-            bgColor={"#F8F3F3"}
+
+            position="fixed"
+            width={"88%"}
+            display="flex"
+            justifyContent={"space-around"}
+            boxShadow="base"
+
+           height="80px"
+            top={300}
+             background="#21325D"
+            zIndex={4}
+            border={"2px solid red"}
+
+
           >
             {/* step by step updating part */}
             <Box

@@ -94,7 +94,8 @@
   border: 10px;
   border-radius: 10px;
   height: 3.1rem;
-  border: 3px solid #70707069;
+  border:1px #5C85A4 solid;
+  
 }
 .nhotel_input_select {
   width: 100%;

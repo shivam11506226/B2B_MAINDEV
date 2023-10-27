@@ -31,30 +31,37 @@ const KeyValue = ({ data, value }) => {
     <>
       <Grid item xs={12} md={6}>
         <Box>
-          <Typography
-            sx={{
-              color: "#616161",
-              fontSize: "10px",
-              fontWeight: "bold",
-            }}
-          >
-            {data}:
-          </Typography>
+          
+          <div
+                              style={{
+                                color: "black",
+                                fontSize: 16,
+                                fontFamily: "Montserrat",
+                                fontWeight: "400",
+                                wordWrap: "break-word",
+                              }}
+                            >
+                               {data}:
+                             </div>
         </Box>
       </Grid>
       <Grid item xs={12} md={6}>
         <Box textAlign="right">
-          <Typography
-            sx={{
-              color: "#FF8900",
-              fontSize: "10px",
-              fontWeight: "bold",
-            }}
-          >
-            Rs. {value}.00
-          </Typography>
+        
+          <div
+                              style={{
+                                color: "black",
+                                fontSize: 11.47,
+                                fontFamily: "Montserrat",
+                                fontWeight: "400",
+                                wordWrap: "break-word",
+                              }}
+                            >
+                              Rs. {value}.00
+                            </div>
         </Box>
       </Grid>
+      
     </>
   );
 };
@@ -73,19 +80,42 @@ export default function Popularfilter() {
   let total = 0;
 
   return (
-    <Box sx={{ flexGrow: 1, background: "#FCFFFF" }}>
+    <Box sx={{ flexGrow: 1, background: "#FCFFFF"}}>
       <Box
         backgroundColor="white"
-        boxShadow="1px 1px 8px gray"
+        
         borderRadius="10px"
-        p={3}
+        border= '1px #5C85A4 solid'
+        p="10px"
+      
+        
       >
-        <Typography
-          sx={{ color: "#616161", fontSize: "12px", fontWeight: "bold" }}
-          mb={2}
+        <div
+          style={{
+            width: 263,
+            height: 49,
+            padding: 10,
+            background: "#B8CCFF",
+            borderTopLeftRadius: 4,
+            borderTopRightRadius: 4,
+            justifyContent: "flex-start",
+            alignItems: "center",
+            gap: 10,
+            display: "inline-flex",
+          }}
         >
-          Sale Summary
-        </Typography>
+          <div
+            style={{
+              color: "black",
+              fontSize: 24,
+              fontFamily: "Montserrat",
+              fontWeight: "600",
+              wordWrap: "break-word",
+            }}
+          >
+            Fare Summary
+          </div>
+        </div>
 
         {fareQuote === 0 ? (
           <>
@@ -107,41 +137,52 @@ export default function Popularfilter() {
                     <Grid container>
                       <Grid item xs={12} md={4}>
                         <Box>
-                          <Typography
-                            sx={{
-                              color: "#616161",
-                              fontSize: "10px",
-                              fontWeight: "bold",
+                          <div
+                            style={{
+                              color: "black",
+                              fontSize: 16,
+                              fontFamily: "Montserrat",
+                              fontWeight: "600",
+                              wordWrap: "break-word",
                             }}
                           >
+                            {" "}
                             {formattedDate}
-                          </Typography>
+                          </div>
                         </Box>
                       </Grid>
                       <Grid item xs={12} md={4}>
                         <Box textAlign="center">
-                          <Typography
-                            sx={{
-                              color: "#616161",
-                              fontSize: "10px",
-                              fontWeight: "bold",
-                            }}
-                          >
-                            {data1?.Airline?.FlightNumber}
-                          </Typography>
+                          <Box>
+                            <div
+                              style={{
+                                color: "black",
+                                fontSize: 16,
+                                fontFamily: "Montserrat",
+                                fontWeight: "600",
+                                wordWrap: "break-word",
+                              }}
+                            >
+                              {" "}
+                              {data1?.Airline?.FlightNumber}
+                            </div>
+                          </Box>
                         </Box>
                       </Grid>
                       <Grid item xs={12} md={4}>
                         <Box textAlign="right">
-                          <Typography
-                            sx={{
-                              color: "#616161",
-                              fontSize: "10px",
-                              fontWeight: "bold",
+                          <div
+                            style={{
+                              color: "black",
+                              fontSize: 16,
+                              fontFamily: "Montserrat",
+                              fontWeight: "600",
+                              wordWrap: "break-word",
                             }}
                           >
+                            {" "}
                             {data1?.Airline?.FareClass} Class
-                          </Typography>
+                          </div>
                         </Box>
                       </Grid>
                     </Grid>
@@ -156,46 +197,67 @@ export default function Popularfilter() {
                     <Grid container>
                       <Grid item xs={12} md={4}>
                         <Box>
-                          <Typography
-                            sx={{
-                              color: "#616161",
-                              fontSize: "10px",
-                              fontWeight: "bold",
+                          <div
+                            style={{
+                              color: "black",
+                              fontSize: 16,
+                              fontFamily: "Montserrat",
+                              fontWeight: "400",
+                              wordWrap: "break-word",
                             }}
                           >
+                            {" "}
                             Dept:
-                          </Typography>
-                          <Typography
-                            sx={{
-                              color: "#616161",
-                              fontSize: "10px",
-                              fontWeight: "bold",
+                          </div>
+
+                          <div
+                            style={{
+                              color: "black",
+                              fontSize: 16,
+                              fontFamily: "Montserrat",
+                              fontWeight: "400",
+                              wordWrap: "break-word",
                             }}
                           >
+                            {" "}
                             Arr:
-                          </Typography>
+                          </div>
                         </Box>
                       </Grid>
+                      <Divider
+                        style={{
+                          height: "2px",
+                          background: "#D3D3D3",
+                          marginTop: "10px",
+                          marginBottom: "10px",
+                        }}
+                      />
                       <Grid item xs={12} md={4}>
                         <Box textAlign="center">
-                          <Typography
-                            sx={{
-                              color: "#0052D0",
-                              fontSize: "10px",
-                              fontWeight: "bold",
+                          <div
+                            style={{
+                              color: "black",
+                              fontSize: 16,
+                              fontFamily: "Montserrat",
+                              fontWeight: "400",
+                              wordWrap: "break-word",
                             }}
                           >
+                            {" "}
                             {data1?.Origin?.Airport?.AirportCode}
-                          </Typography>
-                          <Typography
-                            sx={{
-                              color: "#0052D0",
-                              fontSize: "10px",
-                              fontWeight: "bold",
+                          </div>
+                          <div
+                            style={{
+                              color: "black",
+                              fontSize: 16,
+                              fontFamily: "Montserrat",
+                              fontWeight: "400",
+                              wordWrap: "break-word",
                             }}
                           >
+                            {" "}
                             {data1?.Destination?.Airport?.AirportCode}
-                          </Typography>
+                          </div>
                         </Box>
                       </Grid>
                     </Grid>
@@ -211,35 +273,13 @@ export default function Popularfilter() {
                 marginBottom: "10px",
               }}
             />
-            <Grid container>
-              <Grid item xs={12} md={6}>
-                <Box>
-                  <Typography
-                    sx={{
-                      color: "#616161",
-                      fontSize: "10px",
-                      fontWeight: "bold",
-                    }}
-                  >
-                    Fare / Pax Type
-                  </Typography>
-                </Box>
-              </Grid>
-
-              <Grid item xs={12} md={6}>
-                <Box textAlign="right">
-                  <Typography
-                    sx={{
-                      color: "#616161",
-                      fontSize: "10px",
-                      fontWeight: "bold",
-                    }}
-                  >
-                    Amount
-                  </Typography>
-                </Box>
-              </Grid>
-            </Grid>
+           
+            <div style={{width: 270, height: 36, paddingLeft: 10, paddingRight: 10, paddingTop: 8, paddingBottom: 8, background: '#DFE6F7', justifyContent: 'flex-start', alignItems: 'center', gap: 10, display: 'inline-flex'}}>
+  <div style={{justifyContent: 'space-between',  gap: 100, display: 'flex'}}>
+    <div style={{color: 'black', fontSize: 16, fontFamily: 'Montserrat', fontWeight: '350',marginLeft:"-6px"}}> Fare / Pax Type</div>
+    <div style={{width: 12, height: 25.21, color: '#21325D'}}>Amount</div>
+  </div>
+</div>
             <Divider
               style={{
                 height: "2px",
@@ -255,33 +295,63 @@ export default function Popularfilter() {
               })}
 
               <Grid item xs={12} md={6}>
-                <Box>
-                  <Typography
-                    sx={{
-                      color: "#616161",
-                      fontSize: "10px",
-                      fontWeight: "bold",
+              <div
+              style={{
+                width: 270,
+                height: 34,
+                padding: 7,
+                background: "#B8CCFF",
+                justifyContent: "flex-start",
+                alignItems: "center",
+                gap: 123,
+                display: "inline-flex",
+              }}
+            >
+              <div
+                style={{
+                  justifyContent: "flex-start",
+                  alignItems: "center",
+                  gap: 115,
+                  display: "flex",
+                }}
+              >
+                <div
+                  style={{
+                    color: "black",
+                    fontSize: 15,
+                    fontFamily: "Montserrat",
+                    fontWeight: "350",
+                    wordWrap: "break-word",
+                  }}
+                >
+                  Total 
+                </div>
+                <div
+                  style={{
+                    justifyContent: "space-between",
+                    alignItems: "center",
+                    gap: 120,
+                    display: "flex",
+                  }}
+                >
+                  <div
+                    style={{
+                      color: "black",
+                      fontSize: 11.47,
+                      fontFamily: "Montserrat",
+                      fontWeight: "400",
+                      marginLeft:"50px"
+                      
                     }}
-                    my={1}
                   >
-                    Total:
-                  </Typography>
-                </Box>
+                   Rs. {total}.00
+                  </div>
+                </div>
+              </div>
+            </div>
+                
               </Grid>
-              <Grid item xs={12} md={6}>
-                <Box textAlign="right">
-                  <Typography
-                    sx={{
-                      color: "#FF8900",
-                      fontSize: "10px",
-                      fontWeight: "bold",
-                    }}
-                    my={1}
-                  >
-                    Rs. {total}.00
-                  </Typography>
-                </Box>
-              </Grid>
+             
             </Grid>
             <Divider
               style={{
@@ -291,16 +361,7 @@ export default function Popularfilter() {
                 marginBottom: "10px",
               }}
             />
-            <Typography
-              sx={{
-                color: "#616161",
-                fontSize: "12px",
-                fontWeight: "bold",
-              }}
-              my={1}
-            >
-              Total Fare (Inc. Taxes)
-            </Typography>
+           
             <Grid container>
               {fareValue?.FareBreakdown?.map((data) => {
                 return (
@@ -309,39 +370,191 @@ export default function Popularfilter() {
                       <>
                         <Grid item xs={12} md={6}>
                           <Box>
+                            <div
+                              style={{
+                                color: "black",
+                                fontSize: 16,
+                                fontFamily: "Montserrat",
+                                fontWeight: "400",
+                                wordWrap: "break-word",
+                              }}
+                            >
+                              {" "}
+                              <span>Adult x {data?.PassengerCount}</span>{" "}
+                            </div>
+                            <div
+                              style={{
+                                width: 290.65,
+                                height: 20,
+                                justifyContent: "flex-start",
+                                alignItems: "flex-start",
+                                gap: 113,
+                                display: "inline-flex",
+                              }}
+                            >
+                              <div
+                                style={{
+                                  color: "black",
+                                  fontSize: 16,
+                                  fontFamily: "Montserrat",
+                                  fontWeight: "400",
+                                  wordWrap: "break-word",
+                                }}
+                              >
+                                Total Base Fare
+                              </div>
+                              <div
+                                style={{
+                                  justifyContent: "flex-start",
+                                  alignItems: "center",
+                                  gap: 2.29,
+                                  display: "flex",
+                                }}
+                              >
+                                <div
+                                  style={{
+                                    color: "black",
+                                    fontSize: 11.47,
+                                    fontFamily: "Montserrat",
+                                    fontWeight: "400",
+                                    wordWrap: "break-word",
+                                    marginLeft:"6px"
+                                  }}
+                                >
+                                  {" "}
+                                  Rs. {fareValue?.Fare?.BaseFare}
+                                </div>
+                              </div>
+                            </div>
+                            <div
+                              style={{
+                                width: 290.65,
+                                height: 20,
+                                justifyContent: "flex-start",
+                                alignItems: "flex-start",
+                                gap: 113,
+                                display: "inline-flex",
+                              
+                              }}
+                            >
+                              <div
+                                style={{
+                                  color: "black",
+                                  fontSize: 16,
+                                  fontFamily: "Montserrat",
+                                  fontWeight: "400",
+                                  wordWrap: "break-word",
+                                }}
+                              >
+                                Total Tax
+                              </div>
+                              <div
+                                style={{
+                                  justifyContent: "flex-start",
+                                  alignItems: "center",
+                                  gap: 2.29,
+                                  display: "flex",
+                                }}
+                              >
+                                <div
+                                  style={{
+                                    color: "black",
+                                    fontSize: 11.47,
+                                    fontFamily: "Montserrat",
+                                    fontWeight: "400",
+                                    wordWrap: "break-word",
+                                    marginLeft:"46px"
+                                  }}
+                                >
+                                  {" "}
+                                   Rs. {fareValue?.Fare?.Tax}
+                                </div>
+                              </div>
+                            </div>
+                            <div
+                              style={{
+                                width: 270,
+                                height: 36,
+                                paddingLeft: 10,
+                                paddingRight: 10,
+                                paddingTop: 8,
+                                paddingBottom: 8,
+                                background: "#DFE6F7",
+                                justifyContent: "flex-start",
+                                alignItems: "center",
+                                gap: 10,
+                                display: "inline-flex",
+                                marginBottom:"5px",
+                                marginTop:"5px"
+                              }}
+                            >
+                              <div
+                                style={{
+                                  justifyContent: "flex-start",
+                                  alignItems: "center",
+                                  gap: 80,
+                                  display: "flex",
+                                }}
+                              >
+                                <div
+                                  style={{
+                                    width: 150,
+                                    color: "black",
+                                    fontSize: 15,
+                                    fontFamily: "Montserrat",
+                                    fontWeight: "300",
+                                    wordWrap: "break-word",
+                                  }}
+                                >
+                                  Additional Charges
+                                </div>
+
+                                <div
+                                  style={{
+                                    color: "black",
+                                    fontSize: 11.47,
+                                    fontFamily: "Montserrat",
+                                    fontWeight: "350",
+                                    wordWrap: "break-word",
+                                    width:"200px",
+                                    marginLeft:"-20px"
+                                  }}
+                                >
+                                 
+                                 
+                                    {" "}
+                                    Rs. {fareValue?.Fare?.OtherCharges}
+                                 
+                                </div>
+                              </div>
+                            </div>
                             <Typography
                               sx={{
                                 color: "#616161",
                                 fontSize: "10px",
                                 fontWeight: "bold",
                               }}
-                            >
-                              <span>Adult x {data?.PassengerCount}</span>
-                            </Typography>
-                            <Typography
-                              sx={{
-                                color: "#616161",
-                                fontSize: "10px",
-                                fontWeight: "bold",
-                              }}
-                            >
-                              Excess Baggage
-                            </Typography>
-                            <Typography
-                              sx={{
-                                color: "#616161",
-                                fontSize: "10px",
-                                fontWeight: "bold",
-                              }}
-                            >
-                              Meal
-                            </Typography>
+                            ></Typography>
+                           
+                          
                           </Box>
                         </Grid>
 
                         <Grid item xs={12} md={6}>
                           <Box textAlign="right">
-                            <Typography
+                            <div
+                              style={{
+                                color: "black",
+                                fontSize: 11.47,
+                                fontFamily: "Montserrat",
+                                fontWeight: "400",
+                                wordWrap: "break-word",
+                              }}
+                            >
+                              {" "}
+                              Rs. {data?.BaseFare + data?.Tax}
+                            </div>
+                            {/* <Typography
                               sx={{
                                 color: "#FF8900",
                                 fontSize: "10px",
@@ -349,25 +562,7 @@ export default function Popularfilter() {
                               }}
                             >
                               Rs. {data?.BaseFare + data?.Tax}
-                            </Typography>
-                            <Typography
-                              sx={{
-                                color: "#FF8900",
-                                fontSize: "10px",
-                                fontWeight: "bold",
-                              }}
-                            >
-                              Rs. 00.00
-                            </Typography>
-                            <Typography
-                              sx={{
-                                color: "#FF8900",
-                                fontSize: "10px",
-                                fontWeight: "bold",
-                              }}
-                            >
-                              Rs. 00.00
-                            </Typography>
+                            </Typography> */}
                           </Box>
                         </Grid>
                       </>
@@ -510,113 +705,64 @@ export default function Popularfilter() {
                 );
               })}
             </Grid>
-            <Box
-              sx={{
-                background: "#FFFFFF",
-                border: "1px solid #D1D1D1",
-                borderRadius: "10px",
-                padding: "10px",
-                marginY: "10px",
+                        <div
+              style={{
+                width: 270,
+                height: 34,
+                padding: 7,
+                background: "#B8CCFF",
+                justifyContent: "flex-start",
+                alignItems: "center",
+                gap: 123,
+                display: "inline-flex",
               }}
             >
-              <Grid container>
-                <Grid item xs={12} md={6}>
-                  <Box>
-                    <Typography
-                      sx={{
-                        color: "#616161",
-                        fontSize: "10px",
-                        fontWeight: "bold",
-                      }}
-                    >
-                      Total Base. Fare
-                    </Typography>
-                    <Typography
-                      sx={{
-                        color: "#616161",
-                        fontSize: "10px",
-                        fontWeight: "bold",
-                      }}
-                    >
-                      Total Tax
-                    </Typography>
-                    <Typography
-                      sx={{
-                        color: "#616161",
-                        fontSize: "10px",
-                        fontWeight: "bold",
-                      }}
-                    >
-                      Other Charges
-                    </Typography>
-                  </Box>
-                </Grid>
-
-                <Grid item xs={12} md={6}>
-                  <Box textAlign="right">
-                    <Typography
-                      sx={{
-                        color: "#FF8900",
-                        fontSize: "10px",
-                        fontWeight: "bold",
-                      }}
-                    >
-                      Rs. {fareValue?.Fare?.BaseFare}
-                    </Typography>
-                    <Typography
-                      sx={{
-                        color: "#FF8900",
-                        fontSize: "10px",
-                        fontWeight: "bold",
-                      }}
-                    >
-                      Rs. {fareValue?.Fare?.Tax}
-                    </Typography>
-                    <Typography
-                      sx={{
-                        color: "#FF8900",
-                        fontSize: "10px",
-                        fontWeight: "bold",
-                      }}
-                    >
-                      Rs. {fareValue?.Fare?.OtherCharges}
-                    </Typography>
-                  </Box>
-                </Grid>
-              </Grid>
-            </Box>
-            <Grid container>
-              <Grid item xs={12} md={6}>
-                <Box>
-                  <Typography
-                    sx={{
-                      color: "#616161",
-                      fontSize: "10px",
-                      fontWeight: "bold",
+              <div
+                style={{
+                  justifyContent: "flex-start",
+                  alignItems: "center",
+                  gap: 115,
+                  display: "flex",
+                }}
+              >
+                <div
+                  style={{
+                    color: "black",
+                    fontSize: 15,
+                    fontFamily: "Montserrat",
+                    fontWeight: "350",
+                    wordWrap: "break-word",
+                  }}
+                >
+                  Total Pub. Fare:
+                </div>
+                <div
+                  style={{
+                    justifyContent: "flex-start",
+                    alignItems: "center",
+                    gap: 2.29,
+                    display: "flex",
+                  }}
+                >
+                  <div
+                    style={{
+                      color: "black",
+                      fontSize: 11.47,
+                      fontFamily: "Montserrat",
+                      fontWeight: "400",
+                      wordWrap: "break-word",
                     }}
                   >
-                    Total Payable:
-                  </Typography>
-                </Box>
-              </Grid>
-
-              <Grid item xs={12} md={6}>
-                <Box textAlign="right">
-                  <Typography
-                    sx={{
-                      color: "#FF8900",
-                      fontSize: "10px",
-                      fontWeight: "bold",
-                    }}
-                  >
+                    {" "}
                     Rs.{" "}
                     {fareValue?.Fare?.BaseFare +
                       fareValue?.Fare?.Tax +
                       fareValue?.Fare?.OtherCharges}
-                  </Typography>
-                </Box>
-              </Grid>
-            </Grid>
+                  </div>
+                </div>
+              </div>
+            </div>
+
             {/* </>
               );
              })} */}

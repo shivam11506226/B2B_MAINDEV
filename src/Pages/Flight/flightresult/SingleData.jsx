@@ -99,12 +99,20 @@ function SingleData(props) {
 
   return (
     <div>
+      
+
       <Box
-        p={2}
-        mb={2}
-        backgroundColor="#F5F5F5"
-        boxShadow="1px 1px 8px gray"
+
+        className="container"
+
+        border="1px solid #9E9E9E"
+        background="#FFFBFB"
         borderRadius="10px"
+        width="977px"
+        height="143px"
+        paddingTop="20px"
+
+
       >
         <Box display="flex" justifyContent="space-between">
           <Grid
@@ -114,7 +122,7 @@ function SingleData(props) {
               justifyContent: "space-between",
             }}
           >
-            <Grid md={2} sm={2} py={3}>
+            <Grid  >
               <Box
                 display="flex"
                 justifyContent="center"
@@ -122,8 +130,8 @@ function SingleData(props) {
               >
                 <Box
                   sx={{
-                    width: "auto",
-                    height: "40px",
+                    width: "60px",
+
                     backgroundColor: "white",
                   }}
                 >
@@ -132,83 +140,119 @@ function SingleData(props) {
                     alt="flight"
                     style={{
                       width: "-webkit-fill-available",
-                      height: "40px",
-                      backgroundColor: "white",
+                      // height: "40px",
+                      // backgroundColor: "white",
+
+                      height: "30px"
                     }}
                   />
                 </Box>
-                <Box px={1}>
-                  <Typography className="flight_name">
+                <Box >
+                  <Typography className="" sx={{ color: ' #5C0FD9' }}>
                     {flight?.Airline?.AirlineName}
                   </Typography>
-                  <Typography className="flight_class">
+                  <Typography
+                    className="flight_class_code"
+
+                  >
                     {flight?.Airline?.AirlineCode}{" "}
-                    {flight?.Airline?.FlightNumber}
+                    <span>
+
+                      {flight?.Airline?.FlightNumber}
+                    </span>
                   </Typography>
-                  <Typography className="mt-2">
-                    {IsLCC ? (
-                      <span
-                        className="text-danger"
-                        style={{ fontSize: "12px" }}
-                      >
-                        Not Available
-                      </span>
-                    ) : (
-                      <span
-                        className="text-success"
-                        style={{ fontSize: "12px" }}
-                      >
-                        Available
-                      </span>
-                    )}
-                  </Typography>
+
                 </Box>
               </Box>
             </Grid>
-            <Grid md={2} sm={1} py={3} display="flex" justifyContent="center">
+            {/* <Grid display="flex" justifyContent="center">
               <Box px={1}>
-                <Typography className="flight_name">
-                  <span style={{ fontSize: "11px" }}>{formattedDate}</span>
-                  <p style={{ paddingBottom: "5px", margin: 0 }}>{time1}</p>
+                <Typography className="flight_name1">
+                  {flight?.Airline?.AirlineName}
                 </Typography>
                 <Typography className="flight_class">
-                  {flight?.Origin?.Airport?.CityName}
+                  Economy
                 </Typography>
               </Box>
+            </Grid> */}
+            <Grid display="flex" justifyContent="center">
+              <Box px={1} className="time_container">
+
+                <Typography className="flight_city">
+                  {flight?.Origin?.Airport?.CityName}
+                  {/* <span style={{ fontSize: "11px" }}>{formattedDate}</span> */}
+
+                </Typography>
+                <Typography className="flight_city">
+                  {time1.substr(0, 5)}
+
+                </Typography>
+                {/* <Typography className="terminal">
+                  Terminal 2
+                </Typography> */}
+              </Box>
             </Grid>
-            <Grid md={2} sm={2} py={4}>
+            <Grid >
               <Box display="flex" justifyContent="center">
+
                 <Box>
-                  <Box px={1} textAlign="center">
-                    <Typography className="flight_class">{time}</Typography>
-                  </Box>
-                  <Box px={1} textAlign="center">
-                    <Typography className="flight_class">
+                  
+                  <Box  textAlign="center">
+                    <Box px={1} textAlign="center">
+                  <Typography style={{color: '#BBBBBB', fontSize: '12px', fontFamily: 'Montserrat', fontWeight: '700'}}>{time}</Typography>
+                </Box>
+                    
+                    <svg xmlns="http://www.w3.org/2000/svg" width="77" height="2" viewBox="0 0 77 2" fill="none">
+                      <line x1="0.5" y1="1" x2="76.5" y2="1" stroke="#49DF4F" stroke-width="2" />
+                    </svg>
+                    <Typography id="stop">
                       Direct Flight
                     </Typography>
+                    <Typography className="seat_left1">
+                      {flight?.NoOfSeatAvailable} Seats Left
+                    </Typography>
+                  </Box>
+                  <Box display="flex" justifyContent="center" textAlign="center">
+                    
                   </Box>
                 </Box>
               </Box>
             </Grid>
-            <Grid md={2} sm={1} py={3} display="flex" justifyContent="center">
+            <Grid display="flex" justifyContent="center">
               <Box px={1}>
-                <Typography className="flight_name">
-                  {" "}
-                  <Typography className="flight_name">
-                    <span style={{ fontSize: "11px" }}>{formattedDate1}</span>
-                    <p style={{ paddingBottom: "5px", margin: 0 }}>{time2}</p>
-                  </Typography>
-                </Typography>
-                <Typography className="flight_class">
+                <Typography className="flight_city">
                   {flight?.Destination?.Airport?.CityName}
+                  {/* <span style={{ fontSize: "11px" }}>{formattedDate}</span> */}
+
                 </Typography>
+                <Typography className="flight_city">
+                  {time2.substr(0, 5)}
+
+                </Typography>
+                {/* <Typography className="terminal">
+                  Terminal 2
+                </Typography> */}
               </Box>
             </Grid>
+            <Grid
+
+              display="flex"
+              // justifyContent="center"
+              // alignItems="center"
+              flexDirection="column"
+            // gap={2}
+            >
+              <Box >
+                <Typography className="flight_price1">₹{fare}</Typography>
+              </Box>
+              <Box className="publish">
+                <Typography className="publish_text">Publish</Typography>
+              </Box>
+            </Grid>
+
           </Grid>
-          <Grid
-            md={2}
-            sm={2}
-            py={3}
+          {/* <Grid
+          
             display="flex"
             justifyContent="center"
             alignItems="center"
@@ -216,244 +260,258 @@ function SingleData(props) {
             <Box px={1}>
               <Typography className="flight_price">₹{fare}</Typography>
             </Box>
-          </Grid>
+          </Grid> */}
+
+
           <Grid
-            md={2}
-            sm={2}
-            py={3}
-            display="flex"
-            justifyContent="center"
-            alignItems="center"
+
+display="flex"
+marginTop="-5px"
+
+flexDirection="column"
+gap={2}
+px={2}
+
           >
+            {/* <Box display="flex"> */}
+            <Luggage
+              destination={flight?.Destination?.Airport?.AirportCode}
+              origin={flight?.Origin?.Airport?.AirportCode}
+              cabin={flight?.CabinBaggage}
+              checkin={flight?.Baggage}
+              fareClass={flight?.Airline?.FareClass}
+            />
+
+            <Nonrefundable />
+            {/* </Box> */}
+          </Grid>
+          {/* <Grid display="flex" justifyContent="center">
             <Box px={1}>
-              <Typography className="flight_price">₹{fare}</Typography>
+              <Typography className="flight_city">
+                {flight?.Destination?.Airport?.CityName}
+             
+              </Typography>
+              <Typography className="flight_city">
+                {time2.substr(0, 5)}
+
+              </Typography>
+           
             </Box>
+          </Grid> */}
+          <Grid display="flex" direction='column' 
+            alignItems="center" marginTop="-5px">
+            <Box px={1}>
+              <Button variant="contained" id="buttons"
+                onClick={() => {
+                  console.log("indexKey inside loop", indexKey);
+                  handleClick(indexKey);
+                }}
+              >
+
+                Book</Button>
+
+            </Box>
+            {/* <Box px={1}>
+
+
+              <FormGroup>
+                <FormControlLabel control={<Checkbox />} label="Share" />
+
+              </FormGroup>
+            </Box> */}
+
           </Grid>
         </Box>
         {reducerState?.return?.returnData?.data?.data?.Response?.Results[1] ? (
-          <Box display="flex" justifyContent="space-between">
-            {(() => {
-              //return data
 
-              const imgReturn = results[1][0]?.AirlineCode;
 
-              const timeReturn = `${Math.floor(
-                results[1][0]?.Segments[0][0]?.Duration / 60
-              )}hr ${results[1][0]?.Segments[0][0]?.Duration % 60}min`;
 
-              console.log(
-                "data return flight array",
-                results[1][0]?.Segments[0][0]?.Airline
-              );
+          <Box display="flex" justifyContent="space-between" style={{ backgroundColor: "blue", pending: "10px" }}>
+            {
 
-              //return flight dateFormate
-              const dateStringReturn =
-                results[1][0]?.Segments[0][0]?.Origin?.DepTime;
-              const dateReturn = new Date(dateStringReturn);
-              const timeReturn1 = dateReturn.toLocaleTimeString([], {
-                hour: "2-digit",
-                minute: "2-digit",
-              });
 
-              const dayReturn = dateReturn.getDate();
-              const monthReturn = dateReturn.toLocaleString("default", {
-                month: "short",
-              });
-              const yearReturn = dateReturn.getFullYear();
+              (() => {
+                //return data
 
-              const formattedDateReturn = `${dayReturn} ${monthReturn} ${yearReturn}`;
+                const imgReturn = results[1][0]?.AirlineCode;
 
-              // arrival
-              const dateStringReturn1 =
-                results[1][0]?.Segments[0][0]?.Destination?.ArrTime;
-              const dateReturn1 = new Date(dateStringReturn1);
-              const timeReturn2 = dateReturn1.toLocaleTimeString([], {
-                hour: "2-digit",
-                minute: "2-digit",
-              });
+                const timeReturn = `${Math.floor(results[1][0]?.Segments[0][0]?.Duration / 60)}hr ${results[1][0]?.Segments[0][0]?.Duration % 60
+                  }min`;
 
-              const dayReturn1 = dateReturn1.getDate();
-              const monthReturn1 = dateReturn1.toLocaleString("default", {
-                month: "short",
-              });
-              const yearReturn1 = dateReturn1.getFullYear();
+                console.log("data return flight array", results[1][0]?.Segments[0][0]?.Airline)
 
-              const formattedDateReturn1 = `${dayReturn1} ${monthReturn1} ${yearReturn1}`;
-              const fareReturn = Math.round(results[1][0]?.Fare?.PublishedFare);
+                //return flight dateFormate
+                const dateStringReturn = results[1][0]?.Segments[0][0]?.Origin?.DepTime;
+                const dateReturn = new Date(dateStringReturn);
+                const timeReturn1 = dateReturn.toLocaleTimeString([], {
+                  hour: "2-digit",
+                  minute: "2-digit",
+                });
 
-              return (
-                <>
-                  <Grid
-                    container
-                    style={{
-                      display: "flex",
-                      justifyContent: "space-between",
-                    }}
-                  >
-                    <Grid md={2} sm={2} py={3}>
-                      <Box
-                        display="flex"
-                        justifyContent="center"
-                        flexDirection="column"
-                      >
+                const dayReturn = dateReturn.getDate();
+                const monthReturn = dateReturn.toLocaleString("default", {
+                  month: "short",
+                });
+                const yearReturn = dateReturn.getFullYear();
+
+                const formattedDateReturn = `${dayReturn} ${monthReturn} ${yearReturn}`;
+
+                // arrival
+                const dateStringReturn1 = results[1][0]?.Segments[0][0]?.Destination?.ArrTime;
+                const dateReturn1 = new Date(dateStringReturn1);
+                const timeReturn2 = dateReturn1.toLocaleTimeString([], {
+                  hour: "2-digit",
+                  minute: "2-digit",
+                });
+
+                const dayReturn1 = dateReturn1.getDate();
+                const monthReturn1 = dateReturn1.toLocaleString("default", {
+                  month: "short",
+                });
+                const yearReturn1 = dateReturn1.getFullYear();
+
+                const formattedDateReturn1 = `${dayReturn1} ${monthReturn1} ${yearReturn1}`;
+                const fareReturn = Math.round(results[1][0]?.Fare?.PublishedFare);
+
+
+                return (
+                  <>
+                    <Grid
+                      container
+                      style={{
+                        display: "flex",
+                        justifyContent: "space-between",
+
+                      }}
+                    >
+                      <Grid >
                         <Box
-                          sx={{
-                            width: "auto",
-                            height: "40px",
-                            backgroundColor: "white",
-                          }}
+                          display="flex"
+                          justifyContent="center"
+                          flexDirection="column"
                         >
-                          <img
-                            src={`${process.env.PUBLIC_URL}/FlightImages/${imgReturn}.png`}
-                            alt="flight"
-                            style={{
-                              width: "-webkit-fill-available",
+                          <Box
+                            sx={{
+                              width: "auto",
                               height: "40px",
                               backgroundColor: "white",
                             }}
-                          />
+                          >
+                            <img
+                              src={`${process.env.PUBLIC_URL}/FlightImages/${imgReturn}.png`}
+                              alt="flight"
+                              style={{
+                                width: "-webkit-fill-available",
+                                height: "40px",
+                                backgroundColor: "white",
+                              }}
+                            />
+                          </Box>
+                          <Box px={1}>
+                            <Typography className="flight_name" >
+                              {results[1][0]?.Segments[0][0]?.Airline?.AirlineName}
+                            </Typography>
+                            <Typography className="flight_class">
+                              {results[1][0]?.Segments[0][0]?.Airline?.AirlineCode}{" "}
+                              {results[1][0]?.Segments[0][0]?.Airline?.FlightNumber}
+                            </Typography>
+                            <Typography className="mt-2">
+                              {IsLCC ? (
+                                <span
+                                  className="text-danger"
+                                  style={{ fontSize: "12px" }}
+                                >
+                                  Not Available
+                                </span>
+                              ) : (
+                                <span
+                                  className="text-success"
+                                  style={{ fontSize: "12px" }}
+                                >
+                                  Available
+                                </span>
+                              )}
+                            </Typography>
+                          </Box>
                         </Box>
+                      </Grid>
+                      <Grid md={2} sm={1} py={3} display="flex" justifyContent="center">
                         <Box px={1}>
                           <Typography className="flight_name">
-                            {
-                              results[1][0]?.Segments[0][0]?.Airline
-                                ?.AirlineName
-                            }
+                            <span style={{ fontSize: "11px" }}>{formattedDateReturn}</span>
+                            <p style={{ paddingBottom: "5px", margin: 0 }}>{timeReturn1}</p>
                           </Typography>
                           <Typography className="flight_class">
-                            {
-                              results[1][0]?.Segments[0][0]?.Airline
-                                ?.AirlineCode
-                            }{" "}
-                            {
-                              results[1][0]?.Segments[0][0]?.Airline
-                                ?.FlightNumber
-                            }
-                          </Typography>
-                          <Typography className="mt-2">
-                            {IsLCC ? (
-                              <span
-                                className="text-danger"
-                                style={{ fontSize: "12px" }}
-                              >
-                                Not Available
-                              </span>
-                            ) : (
-                              <span
-                                className="text-success"
-                                style={{ fontSize: "12px" }}
-                              >
-                                Available
-                              </span>
-                            )}
+                            {results[1][0]?.Segments[0][0]?.Origin?.Airport?.CityName}
                           </Typography>
                         </Box>
-                      </Box>
-                    </Grid>
-                    <Grid
-                      md={2}
-                      sm={1}
-                      py={3}
-                      display="flex"
-                      justifyContent="center"
-                    >
-                      <Box px={1}>
-                        <Typography className="flight_name">
-                          <span style={{ fontSize: "11px" }}>
-                            {formattedDateReturn}
-                          </span>
-                          <p style={{ paddingBottom: "5px", margin: 0 }}>
-                            {timeReturn1}
-                          </p>
-                        </Typography>
-                        <Typography className="flight_class">
-                          {
-                            results[1][0]?.Segments[0][0]?.Origin?.Airport
-                              ?.CityName
-                          }
-                        </Typography>
-                      </Box>
-                    </Grid>
-                    <Grid md={2} sm={2} py={4}>
-                      <Box display="flex" justifyContent="center">
-                        <Box>
-                          <Box px={1} textAlign="center">
-                            <Typography className="flight_class">
-                              {timeReturn}
-                            </Typography>
-                          </Box>
-                          <Box px={1} textAlign="center">
-                            <Typography className="flight_class">
-                              Direct Flight
-                            </Typography>
+                      </Grid>
+                      <Grid md={2} sm={2} py={4}>
+                        <Box display="flex" justifyContent="center">
+                          <Box>
+                            <Box px={1} textAlign="center">
+                              <Typography className="flight_class">{timeReturn}</Typography>
+                            </Box>
+                            <Box px={1} textAlign="center">
+                              <Typography className="flight_class">
+                                Direct Flight
+                              </Typography>
+                            </Box>
                           </Box>
                         </Box>
-                      </Box>
-                    </Grid>
-                    <Grid
-                      md={2}
-                      sm={1}
-                      py={3}
-                      display="flex"
-                      justifyContent="center"
-                    >
-                      <Box px={1}>
-                        <Typography className="flight_name">
-                          {" "}
+                      </Grid>
+                      <Grid display="flex" justifyContent="center">
+                        <Box px={1}>
                           <Typography className="flight_name">
-                            <span style={{ fontSize: "11px" }}>
-                              {formattedDateReturn1}
-                            </span>
-                            <p style={{ paddingBottom: "5px", margin: 0 }}>
-                              {timeReturn2}
-                            </p>
+                            {" "}
+                            <Typography className="flight_name">
+                              <span style={{ fontSize: "11px" }}>{formattedDateReturn1}</span>
+                              <p style={{ paddingBottom: "5px", margin: 0 }}>{timeReturn2}</p>
+                            </Typography>
                           </Typography>
-                        </Typography>
-                        <Typography className="flight_class">
-                          {
-                            results[1][0]?.Segments[0][0]?.Destination?.Airport
-                              ?.CityName
-                          }
-                        </Typography>
+                          <Typography className="flight_class">
+                            {results[1][0]?.Segments[0][0]?.Destination?.Airport?.CityName}
+                          </Typography>
+                        </Box>
+                      </Grid>
+                    </Grid>
+                    <Grid
+
+                      display="flex"
+                      justifyContent="center"
+                      alignItems="center"
+                    >
+                      <Box >
+                        <Typography className="flight_price" >₹{fareReturn}</Typography>
                       </Box>
                     </Grid>
-                  </Grid>
-                  <Grid
-                    md={2}
-                    sm={2}
-                    py={3}
-                    display="flex"
-                    justifyContent="center"
-                    alignItems="center"
-                  >
-                    <Box px={1}>
-                      <Typography className="flight_price">
-                        ₹{fareReturn}
-                      </Typography>
-                    </Box>
-                  </Grid>
-                  <Grid
-                    md={2}
-                    sm={2}
-                    py={3}
-                    display="flex"
-                    justifyContent="center"
-                    alignItems="center"
-                  >
-                    <Box px={1}>
-                      <Typography className="flight_price">
-                        ₹{fareReturn}
-                      </Typography>
-                    </Box>
-                  </Grid>
-                </>
-              );
-            })()}
-          </Box>
-        ) : (
-          ""
-        )}
-        <Box display="flex" justifyContent="space-between" alignItems="center">
+                    <Grid
+
+                      display="flex"
+                      justifyContent="center"
+                      alignItems="center"
+                    >
+                      <Box px={1}>
+                        <Typography className="flight_price">₹{fareReturn}</Typography>
+                      </Box>
+                    </Grid>
+                  </>
+                )
+
+              })()
+            }
+
+
+          </Box>) : ""}
+        {/* <Box className="saverFare" p={2}>
+          <Typography className="saverFareP" variant="p" >
+            This is saver Fare. - e5170
+          </Typography>
+
+        </Box> */}
+
+
+        {/* <Box display="flex" justifyContent="space-between" alignItems="center">
           <Typography className="seat_left" display="flex" alignItems="center">
             {flight?.NoOfSeatAvailable} Seats Left
           </Typography>
@@ -465,7 +523,7 @@ function SingleData(props) {
               checkin={flight?.Baggage}
               fareClass={flight?.Airline?.FareClass}
             />
-            {/* <Fairrule /> */}
+            
             <Nonrefundable />
           </Box>
           <Grid
@@ -502,7 +560,7 @@ function SingleData(props) {
               <span id="id2">Book Now</span>
             </button>
           </Grid>
-        </Box>
+        </Box> */}
       </Box>
     </div>
   );
