@@ -131,7 +131,8 @@ const MainPage = () => {
 
       </div>
        <Headers/>
-        {location.pathname === "/" ? null : <InnerNavbar />} 
+       {location.pathname === "/" || location.pathname === "/Login" ? null : <InnerNavbar />}
+
       
        
       {!isLoginRoute && !isRegisterRoute && !isDashboard && !isLogin && (
