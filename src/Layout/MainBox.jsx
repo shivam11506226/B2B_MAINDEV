@@ -17,7 +17,6 @@ function MainBox() {
         alignItem: "center",
         justifyContent:"center",
         borderRadius: "10px",
-        marginTop:"15%",
         height:"350px"
       }}
     >

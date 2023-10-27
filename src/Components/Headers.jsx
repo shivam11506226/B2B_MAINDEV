@@ -298,7 +298,7 @@ function Headers() {
                 wordWrap: "break-word",
               }}
             >
-              {userData?.balance}
+              {userData?.balance||reducerState?.logIn?.loginData?.data?.data?.balance}
             </div>
           </div>
           <div
