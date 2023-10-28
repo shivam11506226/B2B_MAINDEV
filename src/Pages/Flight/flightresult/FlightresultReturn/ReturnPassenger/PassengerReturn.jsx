@@ -14,7 +14,7 @@ import Rightdetail from "./Rightdetail";
 import { useDispatch, useSelector, useReducer } from "react-redux";
 
 import { useNavigate } from "react-router-dom";
-
+import Flightnavbar from "../../../Flightnavbar";
 const Flight = (props) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -24,10 +24,10 @@ const Flight = (props) => {
   console.log("reducerState", reducerState);
   console.log("resultIndex", ResultIndex);
   return (
-    <div className="flightContainer">
+    <div className="flightContainer" style={{marginTop:"80px"}}>
       {/* step by step updating part */}
 
-      <Flex
+      {/* <Flex
         w="100%"
         h="50"
         mb="20"
@@ -80,8 +80,8 @@ const Flight = (props) => {
             Booking Confirmation
           </Text>
         </Flex>
-      </Flex>
-
+      </Flex> */}
+       <Flightnavbar/>
       <Grid container spacing={3}>
         <Grid item xs={12} md={9}>
           <Box>

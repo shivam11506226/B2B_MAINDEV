@@ -91,158 +91,126 @@ function SingleDataReturn(props) {
 
   return (
     <div
-      onClick={() => {
-        props.onSelect(props.index);
-       handleClick(props.wholeFlight, props.index);
-      }}
+    onClick={() => {
+      props.onSelect(props.index);
+      handleClick(props.wholeFlight, props.index);
+    }}
+  >
+
+
+    <Box
+      display="flex"
+      flexDirection="column"
+      // border={props.isSelected ? "2px solid red" : ""}
+      width="418px"
+      height="86px"
+      alignItems="space-between"
+      justifyContent="space-between"
+
     >
-      <Box>
-        <Box
-          display="flex"
-          justifyContent="space-between"
-          border={props.isSelected ? "2px solid red" : ""}
-        >
-          <Grid
-            container
-            style={{
-              display: "flex",
-              justifyContent: "space-between",
-            }}
-          >
-            <Grid md={2} sm={2} py={3}>
-              <Box
-                display="flex"
-                justifyContent="center"
-                flexDirection="column"
-              >
-                <Box
-                  sx={{
-                    width: "auto",
-                    height: "40px",
-                    backgroundColor: "white",
-                  }}
-                >
-                  <img
-                    src={`${process.env.PUBLIC_URL}/FlightImages/${img}.png`}
-                    alt="flight"
-                    style={{
-                      width: "-webkit-fill-available",
-                      height: "40px",
-                      backgroundColor: "white",
-                    }}
-                  />
-                </Box>
-                <Box px={1}>
-                  <Typography className="flight_name">
-                    {flight?.Airline?.AirlineName}
-                  </Typography>
-                  <Typography className="flight_class">
-                    {flight?.Airline?.AirlineCode}{" "}
-                    {flight?.Airline?.FlightNumber}
-                  </Typography>
-                  <Typography className="mt-2">
-                    {IsLCC ? (
-                      <span
-                        className="text-danger"
-                        style={{ fontSize: "12px" }}
-                      >
-                        Not Available
-                      </span>
-                    ) : (
-                      <span
-                        className="text-success"
-                        style={{ fontSize: "12px" }}
-                      >
-                        Available
-                      </span>
-                    )}
-                  </Typography>
-                </Box>
-              </Box>
-            </Grid>
-            <Grid md={2} sm={1} py={3} display="flex" justifyContent="center">
-              <Box px={1}>
-                <Typography className="flight_name">
-                  <span style={{ fontSize: "11px" }}>{formattedDate}</span>
-                  <p style={{ paddingBottom: "5px", margin: 0 }}>{time1}</p>
-                </Typography>
-                <Typography className="flight_class">
-                  {flight?.Origin?.Airport?.CityName}
-                </Typography>
-              </Box>
-            </Grid>
-            <Grid md={2} sm={2} py={4}>
-              <Box display="flex" justifyContent="center">
-                <Box>
-                  <Box px={1} textAlign="center">
-                    <Typography className="flight_class">{time}</Typography>
-                  </Box>
-                  <Box px={1} textAlign="center">
-                    <Typography className="flight_class">
-                      Direct Flight
-                    </Typography>
-                  </Box>
-                </Box>
-              </Box>
-            </Grid>
-            <Grid md={2} sm={1} py={3} display="flex" justifyContent="center">
-              <Box px={1}>
-                <Typography className="flight_name">
-                  {" "}
-                  <Typography className="flight_name">
-                    <span style={{ fontSize: "11px" }}>{formattedDate1}</span>
-                    <p style={{ paddingBottom: "5px", margin: 0 }}>{time2}</p>
-                  </Typography>
-                </Typography>
-                <Typography className="flight_class">
-                  {flight?.Destination?.Airport?.CityName}
-                </Typography>
-              </Box>
-            </Grid>
-          </Grid>
-          <Grid
-            md={2}
-            sm={2}
-            py={3}
-            display="flex"
-            justifyContent="center"
-            alignItems="center"
-          >
-            <Box px={1}>
-              <Typography className="flight_price">₹{fare}</Typography>
-            </Box>
-          </Grid>
-          <Grid
-            md={2}
-            sm={2}
-            py={3}
-            display="flex"
-            justifyContent="center"
-            alignItems="center"
-          >
-            <Box px={1}>
-              <Typography className="flight_price">₹{fare}</Typography>
-            </Box>
-          </Grid>
-        </Box>
-        <Box display="flex" justifyContent="space-between" alignItems="center">
-          <Typography className="seat_left" display="flex" alignItems="center">
-            {flight?.NoOfSeatAvailable} Seats Left
+      <Box
+        sx={{
+          width: "auto",
+          display: "flex",
+          // backgroundColor: 'blue',
+          alignItems: 'center',
+          height:"30px",
+          gap:'7px'
+
+
+        }}
+      >
+        <img
+          src={`${process.env.PUBLIC_URL}/FlightImages/${img}.png`}
+          alt="flight"
+          style={{
+            width: "60px",
+            height: "30px",
+            backgroundColor: "white",
+          }}
+        />
+        <Box>
+
+          <Typography style={{ color: '#071C2C', fontSize: '16px', fontFamily: 'Montserrat', fontWeight: '600', wordWrap: 'break-word' }}>
+            {flight?.Airline?.AirlineName}
           </Typography>
-          <Box display="flex">
-            <Luggage
-              destination={flight?.Destination?.Airport?.AirportCode}
-              origin={flight?.Origin?.Airport?.AirportCode}
-              cabin={flight?.CabinBaggage}
-              checkin={flight?.Baggage}
-              fareClass={flight?.Airline?.FareClass}
-            />
-            {/* <Fairrule /> */}
-            <Nonrefundable />
-          </Box>
+          <Typography style={{ color: '#BBBBBB', fontSize: '12px', fontFamily: 'Montserrat', fontWeight: '600', wordWrap: 'break-word' }}>
+            {flight?.Airline?.FlightNumber}
+          </Typography>
         </Box>
       </Box>
-    </div>
+      <Grid
+        container
+        style={{
+          display: "flex",
+          // backgroundColor: "yellow",
+          height: "32px",
+          justifyContent: "space-between",
+        }}
+      >
+
+        <Grid display="flex" justifyContent="center">
+          <Box >
+            <Typography  textAlign='center' style={{
+              color: '#071C2C', fontSize: '16px', fontFamily: 'Montserrat', fontWeight: '600', wordWrap: 'break-word'
+            }}>
+
+              {time1.substring(0, 5)}
+            </Typography>
+            <Typography style={{ color: '#BBBBBB', fontSize: '12px', fontFamily: 'Montserrat', fontWeight: '600', wordWrap: 'break-word' }}>
+              {flight?.Origin?.Airport?.CityName}
+            </Typography>
+          </Box>
+        </Grid>
+        <Grid >
+          <Box display="flex" justifyContent="center">
+            <Box>
+              <Box px={1} textAlign="center">
+                <Typography style={{color: '#BBBBBB', fontSize: '12px', fontFamily: 'Montserrat', fontWeight: '700'}}>{time}</Typography>
+              </Box>
+              <Box style={{width: 76, height: 0, border: '2px #49DF4F solid'}} />
+              <Box px={1} textAlign="center">
+              <Typography style={{color: '#BBBBBB', fontSize: '12px', fontFamily: 'Montserrat', fontWeight: '700'}}>
+                  Direct Flight
+                </Typography>
+              </Box>
+            </Box>
+          </Box>
+        </Grid>
+        <Grid display="flex" justifyContent="center">
+          <Box >
+            <Typography  textAlign='center' style={{
+              color: '#071C2C', fontSize: '16px', fontFamily: 'Montserrat', fontWeight: '600', wordWrap: 'break-word'
+            }}>
+
+              {time2.substring(0, 5)}
+            </Typography>
+            <Typography style={{ color: '#BBBBBB', fontSize: '12px', fontFamily: 'Montserrat', fontWeight: '600', wordWrap: 'break-word' }}>
+              {flight?.Destination?.Airport?.CityName}
+            </Typography>
+          </Box>
+        </Grid>
+        <Grid
+
+          display="flex"
+          justifyContent="center"
+          alignItems="center"
+        >
+          <Box >
+            <Typography style={{
+              color: '#071C2C', fontSize: '16px', fontFamily: 'Montserrat', fontWeight: '600', wordWrap: 'break-word'
+            }}>₹{fare}</Typography>
+             <Typography style={{ color: '#BBBBBB', fontSize: '12px', fontFamily: 'Montserrat', fontWeight: '600', wordWrap: 'break-word' }}>
+             Per Adult
+            </Typography>
+          </Box>
+        </Grid>
+      </Grid>
+
+
+    </Box>
+
+  </div>
   );
 }
 

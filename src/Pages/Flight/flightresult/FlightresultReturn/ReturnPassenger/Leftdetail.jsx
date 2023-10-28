@@ -7,6 +7,7 @@ import "./passenger.css";
 import { Typography, Button } from "@mui/material";
 import { useDispatch, useSelector, useReducer } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import groupimg from "../../../../../Images/Groupl.png";
 import {
   bookAction,
   bookActionGDS,
@@ -218,8 +219,8 @@ const Leftdetail = () => {
       navigate("/Flightresult/passengerdetail/flightreviewbooking");
     } else {
       // alert("Book not allowed for LCCs. Please do Ticket directly");
-       dispatch(PassengersAction(passengerData));
-       navigate("/Flightresult/passengerdetail/flightreviewbooking");
+      dispatch(PassengersAction(passengerData));
+      navigate("/Flightresult/passengerdetail/flightreviewbooking");
     }
 
     // if()
@@ -354,24 +355,28 @@ const Leftdetail = () => {
   return (
     <div>
       <form onSubmit={handleSubmit}>
-        <Box className="Top_header" p={5}>
-          <Box p={15}>
-            <Typography className="Top_txt">Enter Passenger Details</Typography>
-            <Typography className="sub_txt">
-              (Please add correct details of the passenger as mentioned in ID
-              Proof with mobile number so that Airline can inform them in case
-              of any change in the flight timing.)
+        {/* <Box className="" p={5}>
+          <Box p={15} display='flex' justifyContent='space-between' alignItems='center' >
+            <Typography className="Top_txt1">Passenger Details</Typography>
+            <Typography className="sub_txt1">
+              Name Format as per airline guidelines
             </Typography>
           </Box>
-        </Box>
+        </Box> */}
+        <div style={{ display: "flex", justifyContent: "space-between" }}>
+          <div className="leftdiv">Passenger Details</div>
+          <div className="rightdiv">Name Format as per airline guidelines</div>
+        </div>
 
-        <Box className="mid_header" p={5} mt={25}>
-          <Typography className="Top_txt">Travellers</Typography>
-
+        <Box
+          // className="mid_header"
+          p={5}
+          mt={25}
+        >
           <div className="services">
             <form onSubmit={handleSubmit}>
-              <Box className="mid_header" p={5} mt={25}>
-                <Typography className="p-2 Top_txt text-dark">
+              <Box className="mid_header1" p={5} mt={25}>
+                <Typography className="p-2 Top_txt1 text-dark1">
                   Adult: {adults}
                 </Typography>
 
@@ -382,10 +387,19 @@ const Leftdetail = () => {
                       <Box p={15} display="flex">
                         <Box>
                           <div className="hotel_form_input">
-                            <label className="form_lable">Title*</label>
+                            <label className="form_lable1_1">
+                              Title
+                              <span
+                                style={{
+                                  color: "red",
+                                }}
+                              >
+                                *
+                              </span>
+                            </label>
                             <select
                               name="Title"
-                              className="hotel_input_select"
+                              className="hotel_input_select border_input1"
                               onChange={(e) => handleServiceChange(e, i)}
                             >
                               <option value="Mr">Mr.</option>
@@ -394,12 +408,20 @@ const Leftdetail = () => {
                             </select>
                           </div>
                         </Box>
-                        <Box>
-                          <div className="form_input">
-                            <label hotel_form_input className="form_lable">
-                              First name*
+                        <Box marginLeft={15}>
+                          <div className="form_input1">
+                            <label hotel_form_input className="form_lable1_1">
+                              First name
+                              <span
+                                style={{
+                                  color: "red",
+                                }}
+                              >
+                                *
+                              </span>
                             </label>
                             <input
+                              className="form_input_input"
                               name="FirstName"
                               placeholder="Enter your name"
                               onChange={(e) => handleServiceChange(e, i)}
@@ -407,50 +429,36 @@ const Leftdetail = () => {
                           </div>
                         </Box>
                         <Box marginLeft={15}>
-                          <div className="form_input">
-                            <label hotel_form_input className="form_lable">
-                              Last name*
+                          <div className="form_input1">
+                            <label hotel_form_input className="form_lable1_1">
+                              Last name
+                              <span
+                                style={{
+                                  color: "red",
+                                }}
+                              >
+                                *
+                              </span>
                             </label>
                             <input
+                              id="br"
                               name="LastName"
                               placeholder="Enter your last name"
                               onChange={(e) => handleServiceChange(e, i)}
                             />
                           </div>
                         </Box>
-                      </Box>
-                      <Box p={15} display="flex">
-                        <Box>
-                          <div className="hotel_form_input">
-                            <label className="form_lable">Gender*</label>
-                            <select
-                              name="Gender"
-                              className="hotel_input_select"
-                              onChange={(e) => handleServiceChange(e, i)}
-                            >
-                              <option value="1">Female</option>
-                              <option value="2">Male</option>
-                              <option value="3">Transgender</option>
-                            </select>
-                          </div>
-                        </Box>
                         <Box marginLeft={15}>
-                          <div className="form_input">
-                            <label hotel_form_input className="form_lable">
-                              Mobile*
-                            </label>
-                            <input
-                              name="ContactNo"
-                              type="text"
-                              placeholder="Enter your number"
-                              onChange={(e) => handleServiceChange(e, i)}
-                            />
-                          </div>
-                        </Box>
-                        <Box marginLeft={15}>
-                          <div className="form_input">
-                            <label hotel_form_input className="form_lable">
-                              Date Of Birth*
+                          <div className="form_input1">
+                            <label hotel_form_input className="form_lable1_1">
+                              Date Of Birth
+                              <span
+                                style={{
+                                  color: "red",
+                                }}
+                              >
+                                *
+                              </span>
                             </label>
                             <input
                               type="date"
@@ -461,11 +469,103 @@ const Leftdetail = () => {
                           </div>
                         </Box>
                       </Box>
+
+                      {/* <Box p={15} display="flex">
+                        <Box>
+                          <div className="form_input1">
+                            <label className="form_lable">Country<span style={{
+                              color: 'red'
+                            }}>*</span></label>
+                            <input
+                              name="Nationality"
+                              type="text"
+                              placeholder="Enter your Country"
+                              onChange={(e) => handleServiceChange(e, i)}
+                            />
+                          </div>
+                        </Box>
+                      </Box> */}
+                      {/* <Box p={15} display="flex">
+                        <Box>
+                          <div className="form_input1">
+                            <label className="form_lable">Country<span style={{
+                              color:'red'
+                            }}>*</span></label>
+                             <MuiPhoneNumber defaultCountry={'us'} />
+                            <input
+                              name="Nationality"
+                              type="text"
+                              placeholder="Enter your Country"
+                              onChange={(e) => handleServiceChange(e, i)}
+                            />
+                          </div>
+                        </Box>
+                      </Box> */}
+                    </div>
+                  );
+                })}
+              </Box>
+              <Box className="mid_header1" p={5} mt={25}>
+                <Typography className="p-2 Top_txt text-dark">
+                  Contact Details
+                </Typography>
+
+                {Array.from({ length: adults }, (err, i) => {
+                  return (
+                    <div className="mb-2">
+                      {/* <span className=" p-2 ">Passenger {i + 1}</span> */}
                       <Box p={15} display="flex">
                         <Box>
-                          <div className="form_input">
+                          <div className="form_input1">
+                            <label className="form_lable">
+                              Country
+                              <span
+                                style={{
+                                  color: "red",
+                                }}
+                              >
+                                *
+                              </span>
+                            </label>
+                            <input
+                              name="Nationality"
+                              type="text"
+                              placeholder="Enter your Country"
+                              onChange={(e) => handleServiceChange(e, i)}
+                            />
+                          </div>
+                        </Box>
+                        <Box marginLeft={15}>
+                          <div className="form_input1">
                             <label hotel_form_input className="form_lable">
-                              Email**
+                              Mobile
+                              <span
+                                style={{
+                                  color: "red",
+                                }}
+                              >
+                                *
+                              </span>
+                            </label>
+                            <input
+                              name="ContactNo"
+                              type="text"
+                              placeholder="Enter your number"
+                              onChange={(e) => handleServiceChange(e, i)}
+                            />
+                          </div>
+                        </Box>
+                        <Box marginLeft={15}>
+                          <div className="form_input1">
+                            <label hotel_form_input className="form_lable">
+                              Email
+                              <span
+                                style={{
+                                  color: "red",
+                                }}
+                              >
+                                *
+                              </span>
                             </label>
                             <input
                               name="Email"
@@ -476,9 +576,16 @@ const Leftdetail = () => {
                           </div>
                         </Box>
                         <Box marginLeft={15}>
-                          <div className="form_input">
+                          <div className="form_input1">
                             <label hotel_form_input className="form_lable">
-                              Address*
+                              Address
+                              <span
+                                style={{
+                                  color: "red",
+                                }}
+                              >
+                                *
+                              </span>
                             </label>
                             <input
                               name="AddressLine1"
@@ -488,24 +595,15 @@ const Leftdetail = () => {
                             />
                           </div>
                         </Box>
-                        <Box marginLeft={15}>
-                          <div className="form_input">
-                            <label hotel_form_input className="form_lable">
-                              City*
-                            </label>
-                            <input
-                              name="City"
-                              type="text"
-                              placeholder="Enter your City"
-                              onChange={(e) => handleServiceChange(e, i)}
-                            />
-                          </div>
-                        </Box>
                       </Box>
-                      <Box p={15} display="flex">
+
+                      {/* <Box p={15} display="flex">
                         <Box>
-                          <div className="form_input">
-                            <label className="form_lable">Country*</label>
+                          <div className="form_input1">
+                            <label className="form_lable">Country<span style={{
+                              color:'red'
+                            }}>*</span></label>
+                             <MuiPhoneNumber defaultCountry={'us'} />
                             <input
                               name="Nationality"
                               type="text"
@@ -514,63 +612,32 @@ const Leftdetail = () => {
                             />
                           </div>
                         </Box>
-                      </Box>
-                      {isPassportRequired == true ? (
-                        <Box p={15} display="flex">
-                          <Box>
-                            <div className="form_input">
-                              <label className="form_lable">PassportNo*</label>
-                              <input
-                                name="PassportNo"
-                                type="text"
-                                required
-                                placeholder="Enter Passport No"
-                                onChange={(e) => handleServiceChange(e, i)}
-                              />
-                            </div>
-                          </Box>
-                        </Box>
-                      ) : (
-                        ""
-                      )}
-                      {isPassportRequired == true ? (
-                        <Box p={15} display="flex">
-                          <Box>
-                            <div className="form_input">
-                              <label className="form_lable">
-                                PassportExpiry*
-                              </label>
-                              <input
-                                name="PassportExpiry"
-                                type="date"
-                                required
-                                placeholder="Enter Passport No"
-                                onChange={(e) => handleServiceChange(e, i)}
-                              />
-                            </div>
-                          </Box>
-                        </Box>
-                      ) : (
-                        ""
-                      )}
+                      </Box> */}
                     </div>
                   );
                 })}
               </Box>
               {childs > 0 && (
-                <Box className="mid_header" p={5} mt={25}>
+                <Box className="mid_header1" p={5} mt={25}>
                   <Typography className="p-2 Top_txt text-dark">
                     Childs: {childs}
                   </Typography>
                   {Array.from({ length: childs }, (err, i) => {
                     return (
                       <div className="mb-2">
-                        <span className=" p-2 ">Child {i + 1}</span>
+                        <span className=" p-2 ">Passenger {i + 1}</span>
                         <Box p={15} display="flex">
                           <Box>
-                            <div className="form_input">
+                            <div className="form_input1">
                               <label hotel_form_input className="form_lable">
-                                First name*
+                                First name
+                                <span
+                                  style={{
+                                    color: "red",
+                                  }}
+                                >
+                                  *
+                                </span>
                               </label>
                               <input
                                 name="FirstName"
@@ -582,9 +649,16 @@ const Leftdetail = () => {
                             </div>
                           </Box>
                           <Box marginLeft={15}>
-                            <div className="form_input">
+                            <div className="form_input1">
                               <label hotel_form_input className="form_lable">
-                                Last name*
+                                Last name
+                                <span
+                                  style={{
+                                    color: "red",
+                                  }}
+                                >
+                                  *
+                                </span>
                               </label>
                               <input
                                 name="LastName"
@@ -597,10 +671,19 @@ const Leftdetail = () => {
                           </Box>
                           <Box marginLeft={15}>
                             <div className="hotel_form_input">
-                              <label className="form_lable">Gender*</label>
+                              <label className="form_lable">
+                                Gender
+                                <span
+                                  style={{
+                                    color: "red",
+                                  }}
+                                >
+                                  *
+                                </span>
+                              </label>
                               <select
                                 name="Gender"
-                                className="hotel_input_select"
+                                className="hotel_input_select border_input1 "
                                 onChange={(e) =>
                                   handleServiceChange(e, i + Number(adults))
                                 }
@@ -612,9 +695,16 @@ const Leftdetail = () => {
                             </div>
                           </Box>
                           <Box marginLeft={15}>
-                            <div className="form_input">
+                            <div className="form_input1">
                               <label hotel_form_input className="form_lable">
-                                Date Of Birth*
+                                Date Of Birth
+                                <span
+                                  style={{
+                                    color: "red",
+                                  }}
+                                >
+                                  *
+                                </span>
                               </label>
                               <input
                                 type="date"
@@ -626,46 +716,6 @@ const Leftdetail = () => {
                               />
                             </div>
                           </Box>
-                          {isPassportRequired == true ? (
-                            <Box p={15} display="flex">
-                              <Box>
-                                <div className="form_input">
-                                  <label className="form_lable">
-                                    PassportNo*
-                                  </label>
-                                  <input
-                                    name="PassportNo"
-                                    type="text"
-                                    required
-                                    placeholder="Enter Passport No"
-                                    onChange={(e) => handleServiceChange(e, i)}
-                                  />
-                                </div>
-                              </Box>
-                            </Box>
-                          ) : (
-                            ""
-                          )}
-                          {isPassportRequired == true ? (
-                            <Box p={15} display="flex">
-                              <Box>
-                                <div className="form_input">
-                                  <label className="form_lable">
-                                    PassportNo*
-                                  </label>
-                                  <input
-                                    name="PassportNo"
-                                    type="text"
-                                    required
-                                    placeholder="Enter Passport No"
-                                    onChange={(e) => handleServiceChange(e, i)}
-                                  />
-                                </div>
-                              </Box>
-                            </Box>
-                          ) : (
-                            ""
-                          )}
                         </Box>
                       </div>
                     );
@@ -673,7 +723,7 @@ const Leftdetail = () => {
                 </Box>
               )}
               {infants > 0 && (
-                <Box className="mid_header" p={5} mt={25}>
+                <Box className="mid_header1" p={5} mt={25}>
                   <Typography className="p-2 Top_txt text-dark">
                     Infants: {infants}
                   </Typography>
@@ -683,9 +733,16 @@ const Leftdetail = () => {
                         <span className=" p-2 ">Infant {i + 1}</span>
                         <Box p={15} display="flex">
                           <Box>
-                            <div className="form_input">
+                            <div className="form_input1">
                               <label hotel_form_input className="form_lable">
-                                First name*
+                                First name
+                                <span
+                                  style={{
+                                    color: "red",
+                                  }}
+                                >
+                                  *
+                                </span>
                               </label>
                               <input
                                 name="FirstName"
@@ -700,9 +757,16 @@ const Leftdetail = () => {
                             </div>
                           </Box>
                           <Box marginLeft={15}>
-                            <div className="form_input">
+                            <div className="form_input1">
                               <label hotel_form_input className="form_lable">
-                                Last name*
+                                Last name
+                                <span
+                                  style={{
+                                    color: "red",
+                                  }}
+                                >
+                                  *
+                                </span>
                               </label>
                               <input
                                 name="LastName"
@@ -718,10 +782,19 @@ const Leftdetail = () => {
                           </Box>
                           <Box marginLeft={15}>
                             <div className="hotel_form_input">
-                              <label className="form_lable">Gender*</label>
+                              <label className="form_lable">
+                                Gender
+                                <span
+                                  style={{
+                                    color: "red",
+                                  }}
+                                >
+                                  *
+                                </span>
+                              </label>
                               <select
                                 name="Gender"
-                                className="hotel_input_select"
+                                className="hotel_input_select border_input1"
                                 onChange={(e) =>
                                   handleServiceChange(
                                     e,
@@ -736,9 +809,16 @@ const Leftdetail = () => {
                             </div>
                           </Box>
                           <Box marginLeft={15}>
-                            <div className="form_input">
+                            <div className="form_input1">
                               <label hotel_form_input className="form_lable">
-                                Date Of Birth*
+                                Date Of Birth
+                                <span
+                                  style={{
+                                    color: "red",
+                                  }}
+                                >
+                                  *
+                                </span>
                               </label>
                               <input
                                 type="date"
@@ -753,63 +833,218 @@ const Leftdetail = () => {
                               />
                             </div>
                           </Box>
-                          {isPassportRequired == true ? (
-                            <Box p={15} display="flex">
-                              <Box>
-                                <div className="form_input">
-                                  <label className="form_lable">
-                                    PassportNo*
-                                  </label>
-                                  <input
-                                    name="PassportNo"
-                                    type="text"
-                                    required
-                                    placeholder="Enter Passport No"
-                                    onChange={(e) => handleServiceChange(e, i)}
-                                  />
-                                </div>
-                              </Box>
-                            </Box>
-                          ) : (
-                            ""
-                          )}
-                          {isPassportRequired == true ? (
-                            <Box p={15} display="flex">
-                              <Box>
-                                <div className="form_input">
-                                  <label className="form_lable">
-                                    PassportNo*
-                                  </label>
-                                  <input
-                                    name="PassportNo"
-                                    type="text"
-                                    required
-                                    placeholder="Enter Passport No"
-                                    onChange={(e) => handleServiceChange(e, i)}
-                                  />
-                                </div>
-                              </Box>
-                            </Box>
-                          ) : (
-                            ""
-                          )}
                         </Box>
                       </div>
                     );
                   })}
                 </Box>
               )}
+              {/* <Box className="mid_header1" p={5} mt={25}>
+                <Typography className="p-2 Top_txt text-dark">
+                  Add GST Details
+                </Typography>
+
+              </Box> */}
+              <div
+                style={{
+                  width: 973,
+                  height: 45,
+                  paddingLeft: 16,
+                  paddingRight: 16,
+                  paddingTop: 8,
+                  paddingBottom: 8,
+                  background: "rgba(187, 187, 187, 0.30)",
+                  borderRadius: 4,
+                  justifyContent: "flex-start",
+                  alignItems: "center",
+                  gap: 16,
+                  display: "inline-flex",
+                  marginTop: "20px",
+                }}
+              >
+                <div
+                  style={{
+                    color: "black",
+                    fontSize: 24,
+                    fontFamily: "Montserrat",
+                    fontWeight: "600",
+                    wordWrap: "break-word",
+                  }}
+                >
+                  Add GST Details
+                </div>
+                <div style={{ width: 16, height: 16, position: "relative" }}>
+                  <div
+                    style={{
+                      width: 16,
+                      height: 16,
+                      left: 0,
+                      top: 0,
+                      position: "absolute",
+
+                      borderRadius: 9999,
+                    }}
+                  />
+
+                  <div
+                    style={{
+                      width: 10.33,
+                      height: 0,
+                      left: 28,
+                      top: 3,
+                      position: "absolute",
+                      transform: "rotate(90deg)",
+                      transformOrigin: "0 0",
+                    }}
+                  >
+                    {" "}
+                    <img src={groupimg} alt="" />
+                  </div>
+                </div>
+              </div>
+
+              <Box className="mid_header1" p={5} mt={25}>
+                {/* <Typography className="p-2 Top_txt text-dark">
+                  Contact Details
+                </Typography> */}
+
+                <div className="mb-2">
+                  {/* <span className=" p-2 ">Passenger {i + 1}</span> */}
+                  <Box p={15} display="flex">
+                    <Box>
+                      <div className="form_input1">
+                        <label className="form_lable">
+                          GST Number
+                          <span
+                            style={{
+                              color: "red",
+                            }}
+                          >
+                            *
+                          </span>
+                        </label>
+                        <input
+                          name="Nationality"
+                          type="text"
+                          placeholder="Enter your Country"
+                          onChange={(e, i) => handleServiceChange(e, i)}
+                        />
+                      </div>
+                    </Box>
+                    <Box marginLeft={15}>
+                      <div className="form_input1">
+                        <label hotel_form_input className="form_lable">
+                          GST Company Name
+                          <span
+                            style={{
+                              color: "red",
+                            }}
+                          >
+                            *
+                          </span>
+                        </label>
+                        <input
+                          name="ContactNo"
+                          type="text"
+                          placeholder="Enter GST Number"
+                          onChange={(e, i) => handleServiceChange(e, i)}
+                        />
+                      </div>
+                    </Box>
+                    <Box marginLeft={15}>
+                      <div className="form_input1">
+                        <label hotel_form_input className="form_lable">
+                          GST Company Contact
+                          <span
+                            style={{
+                              color: "red",
+                            }}
+                          >
+                            *
+                          </span>
+                        </label>
+                        <input
+                          name="Email"
+                          type="email"
+                          placeholder="company name"
+                          onChange={(e, i) => handleServiceChange(e, i)}
+                        />
+                      </div>
+                    </Box>
+                    <Box marginLeft={15}>
+                      <div className="form_input1">
+                        <label className="form_lable">
+                          Company Address
+                          <span
+                            style={{
+                              color: "red",
+                            }}
+                          >
+                            *
+                          </span>
+                        </label>
+                        <input
+                          name="Email"
+                          type="email"
+                          placeholder="Company Address"
+                          onChange={(e, i) => handleServiceChange(e, i)}
+                        />
+                      </div>
+                    </Box>
+
+                    <Box marginLeft={15}>
+                      <div className="form_input1">
+                        <label className="form_lable">
+                          GST Company Email
+                          <span
+                            style={{
+                              color: "red",
+                            }}
+                          >
+                            *
+                          </span>
+                        </label>
+                        <input
+                          name="Nationality"
+                          type="text"
+                          placeholder="Enter Company Email"
+                          onChange={(e, i) => handleServiceChange(e, i)}
+                        />
+                      </div>
+                    </Box>
+                  </Box>
+                </div>
+                {/* ); */}
+                {/* })} */}
+              </Box>
+              <Box
+                // className="mid_header"
+                p={5}
+                mt={25}
+              >
+                <div
+                  style={{
+                    color: "black",
+                    fontSize: 24,
+                    fontFamily: "Montserrat",
+                    fontWeight: "600",
+                    wordWrap: "break-word",
+                  }}
+                >
+                  Baggage & Meal Services
+                </div>{" "}
+              </Box>
             </form>
           </div>
         </Box>
         {/* <Box className="mid_header" p={5} mt={25}>
-          <Typography className="Top_txt">Travellers</Typography>
+          <Typography className="Top_txt1">Travellers</Typography>
 
           <div className="services">
             <Box className="mid_header" p={5} mt={25}>
               <Box p={15} display="flex">
                 <Box>
-                  <div className="form_input">
+                  <div className="form_input1">
                     <label hotel_form_input className="form_lable">
                       First name*
                     </label>
@@ -817,7 +1052,7 @@ const Leftdetail = () => {
                   </div>
                 </Box>
                 <Box marginLeft={15}>
-                  <div className="form_input">
+                  <div className="form_input1">
                     <label hotel_form_input className="form_lable">
                       Last name*
                     </label>
@@ -837,7 +1072,7 @@ const Leftdetail = () => {
                   </div>
                 </Box>
                 <Box marginLeft={15}>
-                  <div className="form_input">
+                  <div className="form_input1">
                     <label hotel_form_input className="form_lable">
                       Mobile*
                     </label>
@@ -849,7 +1084,7 @@ const Leftdetail = () => {
                   </div>
                 </Box>
                 <Box marginLeft={15}>
-                  <div className="form_input">
+                  <div className="form_input1">
                     <label hotel_form_input className="form_lable">
                       Date Of Birth*
                     </label>
@@ -863,7 +1098,7 @@ const Leftdetail = () => {
               </Box>
               <Box p={15} display="flex">
                 <Box>
-                  <div className="form_input">
+                  <div className="form_input1">
                     <label hotel_form_input className="form_lable">
                       Email**
                     </label>
@@ -875,7 +1110,7 @@ const Leftdetail = () => {
                   </div>
                 </Box>
                 <Box marginLeft={15}>
-                  <div className="form_input">
+                  <div className="form_input1">
                     <label hotel_form_input className="form_lable">
                       Address*
                     </label>
@@ -887,7 +1122,7 @@ const Leftdetail = () => {
                   </div>
                 </Box>
                 <Box marginLeft={15}>
-                  <div className="form_input">
+                  <div className="form_input1">
                     <label hotel_form_input className="form_lable">
                       City*
                     </label>
@@ -901,7 +1136,7 @@ const Leftdetail = () => {
               </Box>
               <Box p={15} display="flex">
                 <Box>
-                  <div className="form_input">
+                  <div className="form_input1">
                     <label className="form_lable">Country*</label>
                     <input
                       name="country"
@@ -915,15 +1150,15 @@ const Leftdetail = () => {
           </div>
         </Box> */}
 
-        <Box className="mid_header" p={5} mt={25}>
-          <Box px={20}>
+        <Box className="mid_header1" p={5} mt={25}>
+          {/* <Box px={20}>
             <Typography
               sx={{ fontSize: "14px", color: "#616161", fontWeight: "bold" }}
             >
               Baggage Details:
             </Typography>
-          </Box>
-          <Box
+          </Box> */}
+          {/* <Box
             className="inner_box"
             display="flex"
             justifyContent="space-around"
@@ -1022,7 +1257,7 @@ const Leftdetail = () => {
               );
               // });
             })}
-          </Box>
+          </Box> */}
           <Grid container spacing={1}>
             <Grid item xs={6} md={4}>
               <Box p={17}>
@@ -1036,8 +1271,9 @@ const Leftdetail = () => {
             </Grid>
             <Grid item xs={6} md={4}>
               <Box py={17}>
-                <div className="form_input">
+                <div className="form_input1">
                   <label hotel_form_input className="form_lable">
+                  
                     {data?.Origin}-{data?.Destination}
                   </label>
                   <input type="text" placeholder="No Excess / Extra Baggage" />
@@ -1056,7 +1292,7 @@ const Leftdetail = () => {
             </Grid>
             <Grid item xs={6} md={4}>
               <Box py={17}>
-                <div className="form_input">
+                <div className="form_input1">
                   <label hotel_form_input className="form_lable">
                     {data?.Origin}-{data?.Destination}
                   </label>
@@ -1066,8 +1302,15 @@ const Leftdetail = () => {
             </Grid>
             <Grid item xs={6} md={4}></Grid>
           </Grid>
-          <Box className="Top_header" m={15}>
-            <Box p={17}>
+
+          <Box className="mid_header1" m={15}>
+            <Box
+              display="flex"
+              flexDirection="column"
+              alignItems="center"
+              justifyContent="center"
+              marginTop="10px"
+            >
               <Typography
                 color="#008FCC"
                 fontSize="16px"
@@ -1084,6 +1327,8 @@ const Leftdetail = () => {
               >
                 {data?.Origin}-{data?.Destination}
               </Typography>
+            </Box>
+            <Box p={17}>
               <Grid container spacing={1} mt={1}>
                 <Grid item xs={6} md={6}>
                   <Box textAlign="center">
@@ -1224,7 +1469,7 @@ const Leftdetail = () => {
                         );
                       })}
                   </Typography>
-                  <Typography
+                  {/* <Typography
                     color="#008FCC "
                     fontSize="14px"
                     textAlign="left"
@@ -1232,8 +1477,8 @@ const Leftdetail = () => {
                   >
                     {" "}
                     Subject to change without prior notice.{" "}
-                  </Typography>
-                  <Typography
+                  </Typography> */}
+                  {/* <Typography
                     color="#008FCC "
                     fontSize="14px"
                     textAlign="left"
@@ -1242,21 +1487,26 @@ const Leftdetail = () => {
                     {" "}
                     Note : We should receive the request at least four hours
                     prior to Airline Fare Rules Policy.{" "}
-                  </Typography>
+                  </Typography> */}
                 </Grid>
               </Grid>
             </Box>
             {/* ); })} */}
           </Box>
-          <Box className="mid_header" py={5} px={17} m={15}>
+          {/* <Box className="mid_header1" py={5} px={17} m={15}>
             <Box px={17}>
-              <Box display="flex">
+              <Box display="flex" alignItems="center">
                 <input
                   className="inputSelect"
                   type="radio"
                   // defaultChecked="checked"
                 />{" "}
-                <Typography color="#252525" fontWeight="bold" fontSize="16px">
+                <Typography
+                  color="#252525"
+                  fontWeight="bold"
+                  marginLeft="5px"
+                  fontSize="16px"
+                >
                   No Assistance and Insurance Required
                 </Typography>
               </Box>
@@ -1266,7 +1516,12 @@ const Leftdetail = () => {
                   type="radio"
                   // defaultChecked="checked"
                 />{" "}
-                <Typography color="#252525" fontWeight="bold" fontSize="16px">
+                <Typography
+                  color="#252525"
+                  fontWeight="bold"
+                  marginLeft="5px"
+                  fontSize="16px"
+                >
                   Travel Assistance and Insurance for only Rs. 161.00 per
                   Passenger (Terms & Conditions)
                 </Typography>
@@ -1280,8 +1535,8 @@ const Leftdetail = () => {
                 </Typography>
               </Box>
             </Box>
-          </Box>
-          <Box py={4}>
+          </Box> */}
+          {/* <Box py={4}>
             <ul color="red">
               <li
                 style={{
@@ -1305,8 +1560,9 @@ const Leftdetail = () => {
                 any, will be charged
               </li>
             </ul>
-          </Box>
-          <Box className="Top_header" py={5} my={15} mx={15}>
+          </Box> */}
+
+          {/* <Box className="Top_header" py={5} my={15} mx={15}>
             <Typography
               color="#707070"
               fontSize="14px"
@@ -1318,20 +1574,30 @@ const Leftdetail = () => {
             >
               Special Service
             </Typography>
-          </Box>
+          </Box> */}
 
-          <Box textAlign="center" pb={15}>
-            <form action="" className="formFlightSearch">
-              <Button my={1} colorScheme="teal" type="submit">
-                Select Seat (s)
-              </Button>
-            </form>
-            {/* <form className="formFlightSearch"> */}
-            <Button my={1} colorScheme="teal" type="submit">
-              Proceed to Booking Review
-            </Button>
-            {/* </form> */}
-          </Box>
+         
+          <button
+            style={{
+              width: 200,
+              height: 63,
+
+              background: "#21325D",
+              borderRadius: 5.3,
+              justifyContent: "center",
+              alignItems: "center",
+
+              display: "inline-flex",
+              border: "1px solid #21325D",
+              color: "white",
+              cursor: "pointer",
+              marginTop: "10px",
+              marginLeft: "28px",
+            }}
+            type="submit"
+          >
+            Proceed to Book
+          </button>
         </Box>
       </form>
     </div>

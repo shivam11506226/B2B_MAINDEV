@@ -1455,7 +1455,7 @@ const Leftdetail = () => {
               border: "1px solid #21325D",
               color: "white",
               cursor: "pointer",
-              marginTop: "-35px",
+              marginTop: "10px",
               marginLeft: "28px",
             }}
             type="submit"

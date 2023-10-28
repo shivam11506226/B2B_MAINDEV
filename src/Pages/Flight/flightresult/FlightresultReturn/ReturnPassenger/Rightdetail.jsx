@@ -12,6 +12,11 @@ import "./passenger.css";
 import { Spacer } from "@chakra-ui/react";
 import { useDispatch, useSelector, useReducer } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import Accordion from '@mui/material/Accordion';
+import AccordionSummary from '@mui/material/AccordionSummary';
+import AccordionDetails from '@mui/material/AccordionDetails';
+
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 const label = { inputProps: { "aria-label": "Checkbox demo" } };
 
 const Item = styled(Paper)(({ theme }) => ({
@@ -73,19 +78,24 @@ export default function Popularfilter() {
   let total = 0;
 
   return (
-    <Box sx={{ flexGrow: 1, background: "#FCFFFF" }}>
+    <Box sx={{ flexGrow: 1, background: "#FCFFFF", border: "2px solid #5C85A4", borderRadius: "10px" }}>
       <Box
-        backgroundColor="white"
-        boxShadow="1px 1px 8px gray"
-        borderRadius="10px"
+        // backgroundColor="white"
+
+
+
         p={3}
+
       >
-        <Typography
-          sx={{ color: "#616161", fontSize: "12px", fontWeight: "bold" }}
-          mb={2}
-        >
-          Sale Summary
-        </Typography>
+        <Box sx={{ backgroundColor: '#B8CCFF', display: 'flex', alignItems: 'center', height: '40px', paddingX: "10px", marginBottom: '20px' }}>
+
+          <Typography
+            sx={{ color: "#000000", fontSize: "18px", fontWeight: "bold", backgroundColor: '#B8CCFF', }}
+
+          >
+            Fare Summary
+          </Typography>
+        </Box>
 
         {fareQuote === 0 ? (
           <>
@@ -109,7 +119,7 @@ export default function Popularfilter() {
                         <Box>
                           <Typography
                             sx={{
-                              color: "#616161",
+                              color: "#000000",
                               fontSize: "10px",
                               fontWeight: "bold",
                             }}
@@ -122,7 +132,7 @@ export default function Popularfilter() {
                         <Box textAlign="center">
                           <Typography
                             sx={{
-                              color: "#616161",
+                              color: "#000000",
                               fontSize: "10px",
                               fontWeight: "bold",
                             }}
@@ -135,7 +145,7 @@ export default function Popularfilter() {
                         <Box textAlign="right">
                           <Typography
                             sx={{
-                              color: "#616161",
+                              color: "#000000",
                               fontSize: "10px",
                               fontWeight: "bold",
                             }}
@@ -211,7 +221,341 @@ export default function Popularfilter() {
                 marginBottom: "10px",
               }}
             />
-            <Grid container>
+            <div>
+              <Accordion>
+                <AccordionSummary
+                  expandIcon={<ExpandMoreIcon />}
+                  aria-controls="panel1a-content"
+                  id="panel1a-header"
+                  width="100%"
+                  style={{backgroundColor:'#DFE6F7'}}
+                >
+                  <Typography>Fare / Pax Type</Typography>
+                </AccordionSummary>
+                <AccordionDetails>
+                  <Grid container>
+                    {fareValue?.Fare?.TaxBreakup?.map((obj) => {
+                      total += obj.value;
+                      return <KeyValue data={obj.key} value={obj.value} />;
+                    })}
+
+                    <Grid item xs={12} md={6}>
+                      <Box>
+                        <Typography
+                          sx={{
+                            color: "#616161",
+                            fontSize: "10px",
+                            fontWeight: "bold",
+                          }}
+                          my={1}
+                        >
+                          Total:
+                        </Typography>
+                      </Box>
+                    </Grid>
+                    <Grid item xs={12} md={6}>
+                      <Box textAlign="right">
+                        <Typography
+                          sx={{
+                            color: "#000000",
+                            fontSize: "10px",
+                            fontWeight: "400",
+                          }}
+                          my={1}
+                        >
+                          ₹ {total}.00
+                        </Typography>
+                      </Box>
+                    </Grid>
+                  </Grid>
+                </AccordionDetails>
+              </Accordion>
+              <Divider
+              style={{
+                height: "2px",
+                background: "#D3D3D3",
+                marginTop: "10px",
+                marginBottom: "10px",
+              }}
+            />
+              <Accordion>
+                <AccordionSummary
+                  expandIcon={<ExpandMoreIcon />}
+                  aria-controls="panel2a-content"
+                  id="panel2a-header"
+                  style={{backgroundColor:'#DFE6F7'}}
+                >
+                  <Typography>Total Fare </Typography>
+                </AccordionSummary>
+                <AccordionDetails>
+                  <Grid container>
+                    {fareValue?.FareBreakdown?.map((data) => {
+                      return (
+                        <>
+                          {data?.PassengerType === 1 && (
+                            <>
+                              <Grid item xs={12} md={6}>
+                                <Box>
+                                  <Typography
+                                    sx={{
+                                      color: "#616161",
+                                      fontSize: "10px",
+                                      fontWeight: "bold",
+                                    }}
+                                  >
+                                    <span>Adult x {data?.PassengerCount}</span>
+                                  </Typography>
+                                  <Typography
+                                    sx={{
+                                      color: "#616161",
+                                      fontSize: "10px",
+                                      fontWeight: "bold",
+                                    }}
+                                  >
+                                    Excess Baggage
+                                  </Typography>
+                                  <Typography
+                                    sx={{
+                                      color: "#616161",
+                                      fontSize: "10px",
+                                      fontWeight: "bold",
+                                    }}
+                                  >
+                                    Meal
+                                  </Typography>
+                                </Box>
+                              </Grid>
+
+                              <Grid item xs={12} md={6}>
+                                <Box textAlign="right">
+                                  <Typography
+                                    sx={{
+                                      color: "#000000",
+                                      fontSize: "10px",
+                                      fontWeight: "400",
+                                    }}
+                                  >
+                                    ₹ {data?.BaseFare + data?.Tax}
+                                  </Typography>
+                                  <Typography
+                                    sx={{
+                                      color: "#000000",
+                                      fontSize: "10px",
+                                      fontWeight: "400",
+                                    }}
+                                  >
+                                    ₹ 00.00
+                                  </Typography>
+                                  <Typography
+                                    sx={{
+                                      color: "#000000",
+                                      fontSize: "10px",
+                                      fontWeight: "400",
+                                    }}
+                                  >
+                                    ₹ 00.00
+                                  </Typography>
+                                </Box>
+                              </Grid>
+                            </>
+                          )}
+                          {data?.PassengerType === 2 && (
+                            <>
+                              <Grid item xs={12} md={6}>
+                                <Box>
+                                  <Typography
+                                    sx={{
+                                      color: "#616161",
+                                      fontSize: "10px",
+                                      fontWeight: "bold",
+                                    }}
+                                  >
+                                    <span>Child x {data?.PassengerCount}</span>
+                                  </Typography>
+                                  <Typography
+                                    sx={{
+                                      color: "#616161",
+                                      fontSize: "10px",
+                                      fontWeight: "bold",
+                                    }}
+                                  >
+                                    Excess Baggage
+                                  </Typography>
+                                  <Typography
+                                    sx={{
+                                      color: "#616161",
+                                      fontSize: "10px",
+                                      fontWeight: "bold",
+                                    }}
+                                  >
+                                    Meal
+                                  </Typography>
+                                </Box>
+                              </Grid>
+
+                              <Grid item xs={12} md={6}>
+                                <Box textAlign="right">
+                                  <Typography
+                                    sx={{
+                                      color: "#000000",
+                                      fontSize: "10px",
+                                      fontWeight: "400",
+                                    }}
+                                  >
+                                    ₹ {data?.BaseFare + data?.Tax}
+                                  </Typography>
+                                  <Typography
+                                    sx={{
+                                      color: "#000000",
+                                      fontSize: "10px",
+                                      fontWeight: "400",
+                                    }}
+                                  >
+                                    ₹ 00.00
+                                  </Typography>
+                                  <Typography
+                                    sx={{
+                                      color: "#000000",
+                                      fontSize: "10px",
+                                      fontWeight: "400",
+                                    }}
+                                  >
+                                    ₹ 00.00
+                                  </Typography>
+                                </Box>
+                              </Grid>
+                            </>
+                          )}
+                          {data?.PassengerType === 3 && (
+                            <>
+                              <Grid item xs={12} md={6}>
+                                <Box>
+                                  <Typography
+                                    sx={{
+                                      color: "#616161",
+                                      fontSize: "10px",
+                                      fontWeight: "bold",
+                                    }}
+                                  >
+                                    <span>Infant x {data?.PassengerCount}</span>
+                                  </Typography>
+                                  <Typography
+                                    sx={{
+                                      color: "#616161",
+                                      fontSize: "10px",
+                                      fontWeight: "bold",
+                                    }}
+                                  >
+                                    Excess Baggage
+                                  </Typography>
+                                  <Typography
+                                    sx={{
+                                      color: "#616161",
+                                      fontSize: "10px",
+                                      fontWeight: "bold",
+                                    }}
+                                  >
+                                    Meal
+                                  </Typography>
+                                </Box>
+                              </Grid>
+
+                              <Grid item xs={12} md={6}>
+                                <Box textAlign="right">
+                                  <Typography
+                                    sx={{
+                                      color: "#000000",
+                                      fontSize: "10px",
+                                      fontWeight: "400",
+                                    }}
+                                  >
+                                    ₹ {data?.BaseFare + data?.Tax}
+                                  </Typography>
+                                  <Typography
+                                    sx={{
+                                      color: "#000000",
+                                      fontSize: "10px",
+                                      fontWeight: "400",
+                                    }}
+                                  >
+                                    ₹ 00.00
+                                  </Typography>
+                                  <Typography
+                                    sx={{
+                                      color: "#000000",
+                                      fontSize: "10px",
+                                      fontWeight: "400",
+                                    }}
+                                  >
+                                    ₹ 00.00
+                                  </Typography>
+                                </Box>
+                              </Grid>
+                            </>
+                          )}
+                        </>
+                      );
+                    })}
+                  </Grid>
+                </AccordionDetails>
+              </Accordion>
+              <Divider
+              style={{
+                height: "2px",
+                background: "#D3D3D3",
+                marginTop: "10px",
+                marginBottom: "10px",
+              }}
+            />
+              <Accordion>
+                <AccordionSummary
+                  expandIcon={<ExpandMoreIcon />}
+                  aria-controls="panel2a-content"
+                  id="panel2a-header"
+                  style={{backgroundColor:'#DFE6F7'}}
+                >
+                  <Typography>Additional Charges</Typography>
+                </AccordionSummary>
+                <AccordionDetails>
+                  <Grid container>
+
+                    <Grid item xs={12} md={6}>
+                      <Box>
+                        <Typography
+                          sx={{
+                            color: "#616161",
+                            fontSize: "10px",
+                            fontWeight: "bold",
+                          }}
+                        >
+                          Total GST
+                        </Typography>
+                      </Box>
+                    </Grid>
+
+                    <Grid item xs={12} md={6}>
+                      <Box textAlign="right">
+                        <Typography
+                          sx={{
+                            color: "#616161",
+                            fontSize: "10px",
+                            fontWeight: "bold",
+                          }}
+                        >
+                         ₹ 00.00
+                        </Typography>
+                      </Box>
+                    </Grid>
+                  </Grid>
+                </AccordionDetails>
+              </Accordion>
+            </div>
+
+
+
+
+            {/* <Grid container>
+
               <Grid item xs={12} md={6}>
                 <Box>
                   <Typography
@@ -272,13 +616,13 @@ export default function Popularfilter() {
                 <Box textAlign="right">
                   <Typography
                     sx={{
-                      color: "#FF8900",
+                      color: "#000000",
                       fontSize: "10px",
-                      fontWeight: "bold",
+                      fontWeight: "400",
                     }}
                     my={1}
                   >
-                    Rs. {total}.00
+                    ₹ {total}.00
                   </Typography>
                 </Box>
               </Grid>
@@ -343,30 +687,30 @@ export default function Popularfilter() {
                           <Box textAlign="right">
                             <Typography
                               sx={{
-                                color: "#FF8900",
+                                color: "#000000",
                                 fontSize: "10px",
-                                fontWeight: "bold",
+                                fontWeight: "400",
                               }}
                             >
-                              Rs. {data?.BaseFare + data?.Tax}
+                              ₹ {data?.BaseFare + data?.Tax}
                             </Typography>
                             <Typography
                               sx={{
-                                color: "#FF8900",
+                                color: "#000000",
                                 fontSize: "10px",
-                                fontWeight: "bold",
+                                fontWeight: "400",
                               }}
                             >
-                              Rs. 00.00
+                              ₹ 00.00
                             </Typography>
                             <Typography
                               sx={{
-                                color: "#FF8900",
+                                color: "#000000",
                                 fontSize: "10px",
-                                fontWeight: "bold",
+                                fontWeight: "400",
                               }}
                             >
-                              Rs. 00.00
+                              ₹ 00.00
                             </Typography>
                           </Box>
                         </Grid>
@@ -410,30 +754,30 @@ export default function Popularfilter() {
                           <Box textAlign="right">
                             <Typography
                               sx={{
-                                color: "#FF8900",
+                                color: "#000000",
                                 fontSize: "10px",
-                                fontWeight: "bold",
+                                fontWeight: "400",
                               }}
                             >
-                              Rs. {data?.BaseFare + data?.Tax}
+                              ₹ {data?.BaseFare + data?.Tax}
                             </Typography>
                             <Typography
                               sx={{
-                                color: "#FF8900",
+                                color: "#000000",
                                 fontSize: "10px",
-                                fontWeight: "bold",
+                                fontWeight: "400",
                               }}
                             >
-                              Rs. 00.00
+                              ₹ 00.00
                             </Typography>
                             <Typography
                               sx={{
-                                color: "#FF8900",
+                                color: "#000000",
                                 fontSize: "10px",
-                                fontWeight: "bold",
+                                fontWeight: "400",
                               }}
                             >
-                              Rs. 00.00
+                              ₹ 00.00
                             </Typography>
                           </Box>
                         </Grid>
@@ -477,30 +821,30 @@ export default function Popularfilter() {
                           <Box textAlign="right">
                             <Typography
                               sx={{
-                                color: "#FF8900",
+                                color: "#000000",
                                 fontSize: "10px",
-                                fontWeight: "bold",
+                                fontWeight: "400",
                               }}
                             >
-                              Rs. {data?.BaseFare + data?.Tax}
+                              ₹ {data?.BaseFare + data?.Tax}
                             </Typography>
                             <Typography
                               sx={{
-                                color: "#FF8900",
+                                color: "#000000",
                                 fontSize: "10px",
-                                fontWeight: "bold",
+                                fontWeight: "400",
                               }}
                             >
-                              Rs. 00.00
+                              ₹ 00.00
                             </Typography>
                             <Typography
                               sx={{
-                                color: "#FF8900",
+                                color: "#000000",
                                 fontSize: "10px",
-                                fontWeight: "bold",
+                                fontWeight: "400",
                               }}
                             >
-                              Rs. 00.00
+                              ₹ 00.00
                             </Typography>
                           </Box>
                         </Grid>
@@ -556,42 +900,42 @@ export default function Popularfilter() {
                   <Box textAlign="right">
                     <Typography
                       sx={{
-                        color: "#FF8900",
+                        color: "#000000",
                         fontSize: "10px",
                         fontWeight: "bold",
                       }}
                     >
-                      Rs. {fareValue?.Fare?.BaseFare}
+                      ₹ {fareValue?.Fare?.BaseFare}
                     </Typography>
                     <Typography
                       sx={{
-                        color: "#FF8900",
+                        color: "#000000",
                         fontSize: "10px",
                         fontWeight: "bold",
                       }}
                     >
-                      Rs. {fareValue?.Fare?.Tax}
+                      ₹ {fareValue?.Fare?.Tax}
                     </Typography>
                     <Typography
                       sx={{
-                        color: "#FF8900",
+                        color: "#000000",
                         fontSize: "10px",
                         fontWeight: "bold",
                       }}
                     >
-                      Rs. {fareValue?.Fare?.OtherCharges}
+                      ₹ {fareValue?.Fare?.OtherCharges}
                     </Typography>
                   </Box>
                 </Grid>
               </Grid>
-            </Box>
-            <Grid container>
+            </Box> */}
+            <Grid container sx={{ backgroundColor: '#B8CCFF', display: 'flex', alignItems: 'center', height: '40px', paddingX: "10px",marginY:"20px" }}>
               <Grid item xs={12} md={6}>
                 <Box>
                   <Typography
                     sx={{
-                      color: "#616161",
-                      fontSize: "10px",
+                      color: "#000000",
+                      fontSize: "12px",
                       fontWeight: "bold",
                     }}
                   >
@@ -604,12 +948,12 @@ export default function Popularfilter() {
                 <Box textAlign="right">
                   <Typography
                     sx={{
-                      color: "#FF8900",
-                      fontSize: "10px",
-                      fontWeight: "bold",
+                      color: "#000000",
+                      fontSize: "11px",
+                      fontWeight: "600",
                     }}
                   >
-                    Rs.{" "}
+                    ₹{" "}
                     {fareValue?.Fare?.BaseFare +
                       fareValue?.Fare?.Tax +
                       fareValue?.Fare?.OtherCharges}
@@ -622,8 +966,8 @@ export default function Popularfilter() {
              })} */}
           </>
         ) : (
-          <Grid container>
-            <Grid item xs={12} md={4}>
+          // <Grid container>
+          //   <Grid item xs={12} md={4}>
               <Box>
                 <Typography
                   sx={{
@@ -636,10 +980,11 @@ export default function Popularfilter() {
                     reducerState?.flightFare?.flightQuoteData?.Error
                       ?.ErrorMessage
                   }
+                  
                 </Typography>
               </Box>
-            </Grid>
-          </Grid>
+          //   </Grid>
+          // </Grid>
         )}
       </Box>
     </Box>

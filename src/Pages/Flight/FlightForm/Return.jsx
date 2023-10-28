@@ -216,7 +216,7 @@ const Return = () => {
     >
       {/* Type of return  */}
 
-      <div className="d-flex flex-row mb-3 gap-5">
+      {/* <div className="d-flex flex-row mb-3 gap-5">
         <div className="form-check d-flex align-items-center gap-2">
           <input
             type="radio"
@@ -244,7 +244,7 @@ const Return = () => {
           ></input>
           <label>GDS Special Return</label>
         </div>
-      </div>
+      </div> */}
 
       {/* arrival and departure input box */}
       <div className="row w-100">
@@ -397,7 +397,7 @@ const Return = () => {
           </div>
         </div>
 
-        <div className="col-xs-12 col-md-2">
+        {/* <div className="col-xs-12 col-md-2">
           <div className="form_input">
             <label className="form_lable"></label>
             <select name="" id="" className="form_input_select">
@@ -411,10 +411,10 @@ const Return = () => {
               <option mx={5}>Night</option>
             </select>
           </div>
-        </div>
+        </div> */}
       </div>
 
-      <div
+      {/* <div
         className="d-flex mt-3  p-1 align-items-center gap-2"
         style={{ width: "100%" }}
       >
@@ -431,9 +431,9 @@ const Return = () => {
           {/* <div className=" d-flex align-items-center gap-1 bg-secondary rounded p-2">
             <input type="radio" name="fareType"></input>
             <label className="text-white">Student Fares</label>
-          </div> */}
+          </div> 
         </div>
-      </div>
+      </div> */}
 
       <div className="row" style={{ width: "100%" }}>
         <div className="col-xs-9">
@@ -506,19 +506,19 @@ const Return = () => {
         </div>
       </div>
 
-      <div className="row" style={{ width: "100%" }}>
+      {/* <div className="row" style={{ width: "100%" }}>
         <label className="form_lable1">-More options: Airline prefrence</label>
-      </div>
-      <div className="row" style={{ width: "100%" }}>
+      </div> */}
+      {/* <div className="row" style={{ width: "100%" }}>
         <div className="col-12 col-md-3 col-lg-3 mb-3">
           <div className="showDirectFligthDiv">
             <input name="direct" type="checkbox" />{" "}
             <span>Show direct flights</span>
           </div>
         </div>
-      </div>
+      </div> */}
 
-      <label
+      {/* <label
         style={{
           fontSize: "20px",
           fontWeight: "400",
@@ -540,9 +540,9 @@ const Return = () => {
           />
           Select All / Unselect All
         </span>
-      </label>
+      </label> */}
 
-      <Box>
+      {/* <Box>
         <div>
           <div
             className="grid-container"
@@ -572,9 +572,66 @@ const Return = () => {
             ))}
           </div>
         </div>
-      </Box>
+      </Box> */}
+        <div className="col-xs-12">
+            <div
+              className="row"
+              style={{
+                width: "100%",
+                gap: "40px",
+             
+                display: "flex",
+                height: "55px",
+              }}
+            >
+              <div
+                className="col-6 col-md-3 col-lg-2 mb-3"
+                style={{ width: "250px" }}
+              >
+                <div className="form_input">
+                  <label className="form_lable">Preferred Airline</label>
 
-      <Box className="row">
+                  <select name="adult" id="" className="form_input_select1">
+                    <option value="1">Select Airline </option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                  </select>
+                </div>
+              </div>
+
+              <div className="col-6 col-md-3 col-lg-2 mb-3">
+                <button
+                  type="submit"
+                  id="cssbuttons-io-button"
+                  style={{ backgroundColor: "#21325D", borderRadius: "8px" }}
+                >
+                  {" "}
+                  Search Flight
+                  <div id="icon">
+                    <svg
+                      height="24"
+                      width="24"
+                      viewBox="0 0 24 24"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path d="M0 0h24v24H0z" fill="none"></path>
+                      <path
+                        d="M16.172 11l-5.364-5.364 1.414-1.414L20 12l-7.778 7.778-1.414-1.414L16.172 13H4v-2z"
+                        fill="currentColor"
+                      ></path>
+                    </svg>
+                  </div>
+                </button>
+              </div>
+            </div>
+          </div>
+      {/* <Box className="row">
         <Flex direction="row" justifyContent="center" marginLeft="330px">
           <button type="submit" id="cssbuttons-io-button">
             {" "}
@@ -595,7 +652,7 @@ const Return = () => {
             </div>
           </button>
         </Flex>
-      </Box>
+      </Box> */}
     </form>
   );
 };
