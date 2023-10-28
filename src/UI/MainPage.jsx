@@ -130,8 +130,9 @@ const MainPage = () => {
         display: "flex"}}>
 
       </div>
-       <Headers/>
+       {/* <Headers/> */}
        {location.pathname === "/" || location.pathname === "/Login" ? null : <InnerNavbar />}
+       { location.pathname === "/Login" ? null : <Headers />}
 
       
        

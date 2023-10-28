@@ -21,12 +21,17 @@ const FlightresultOne = ({ sendDataToParent }) => {
     // result = res.sort((a, b) => a.Segments[0][0].Duration - b.Fare.OfferedFare);
     return (
       <Box
-        mt={3}
-        pb={2}
-        px={2}
-        backgroundColor="#F5F5F5"
-        boxShadow="1px 1px 8px gray"
-        borderRadius="10px"
+      mt={2}
+        
+      backgroundColor="#F5F5F5"
+      height="118px"
+      display="flex"
+      justifyContent='center'
+      alignItems='center'        
+      boxShadow="1px 1px 8px gray"
+      borderRadius="10px"
+      paddingLeft="10px"
+      paddingRight="10px"
       >
         {/* <div className="row">
           <div

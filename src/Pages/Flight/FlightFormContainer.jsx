@@ -33,13 +33,15 @@ const StyledTab = styled(Tab)(({ theme }) => ({
   boxShadow: 'rgba(0, 0, 0, 0.24) 0px 3px 8px', 
   font: '14px',
   margin:'12px 8px',
-  borderBottom: 'none', 
+  
   color:'#252525',
   fontWeight:'600',
   background:'#D9D9D9',
   '&.Mui-selected': {
     background:'#FFFBFB',
     color:'black',
+    border: '3px solid #D9D9D9', 
+    borderRadius:"8px"
   },
 }));
 
