@@ -1,14 +1,14 @@
 import React, { useState } from "react";
-import AccountDetails from "./AccountDetails"; // Import the Account component
-import Queue from "./Queue"; // Import the Queue component
-import Tickets from "./Ticket"; // Import the Tickets component
+import BusTicket from "./BusTicket"; // Import the Account component
+import FlightTicket from "./FlightTicket"; // Import the Queue component
+import HotelTicket from "./HotelTicket"; // Import the Tickets component
 import Stack from "@mui/material/Stack";
 import { Button, Box   } from "@mui/material";
 import color from "../../color/color";
 
 
-const Account = () => {
-  const [activeButton, setActiveButton] = useState("Account");
+const Ticket = () => {
+  const [activeButton, setActiveButton] = useState("Bus");
 
   const handleButtonClick = (buttonName) => {
     setActiveButton(buttonName);
@@ -16,9 +16,8 @@ const Account = () => {
 
   return (
     
-      <div className="button-container" style={{background: "white",
-      padding: '2rem'}}>
-        <Box sx={{ flexGrow: 1 }} my={2}>
+      <>
+        
     
 
       <Stack spacing={2} direction="row">
@@ -31,9 +30,9 @@ const Account = () => {
             color: "white",
             boxShadow: "0px 3px 6px #00000029",
           }}
-          onClick={() => handleButtonClick("Account")}
+          onClick={() => handleButtonClick("Bus")}
         >
-          Account
+          Bus
         </Button>
         <Button
           variant="contained"
@@ -44,9 +43,9 @@ const Account = () => {
             color: "white",
             boxShadow: "0px 3px 6px #00000029",
           }}
-          onClick={() => handleButtonClick("Queue")}
+          onClick={() => handleButtonClick("Flight")}
         >
-          Queue
+          Flight
         </Button>
         <Button
           variant="contained"
@@ -57,18 +56,17 @@ const Account = () => {
             color: "white",
             boxShadow: "0px 3px 6px #00000029",
           }}
-          onClick={() => handleButtonClick("Tickets")}
+          onClick={() => handleButtonClick("Hotel")}
         >
-          Tickets
+          Hotel
         </Button>
       </Stack>
-      </Box>
-      
-      {activeButton === "Account" && <AccountDetails />}
-      {activeButton === "Queue" && <Queue />}
-      {activeButton === "Tickets" && <Tickets />}
-      </div>
+            
+      {activeButton === "Bus" && <BusTicket />}
+      {activeButton === "Flight" && <FlightTicket />}
+      {activeButton === "Hotel" && <HotelTicket />}
+      </>
   );
 };
 
-export default Account;
+export default Ticket;
