@@ -1,536 +1,695 @@
-import React from 'react';
-import Stack from '@mui/material/Stack';
-import { Button, Box, Typography, Input } from '@mui/material';
-import Paper from '@mui/material/Paper';
-import Grid from '@mui/material/Grid';
-import Checkbox from "@mui/material/Checkbox";
-import RadioButtonCheckedIcon from "@mui/icons-material/RadioButtonChecked";
-import RadioButtonUncheckedIcon from "@mui/icons-material/RadioButtonUnchecked";
-import FormGroup from '@mui/material/FormGroup';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import FormControl from "@mui/material/FormControl";
-import NativeSelect from "@mui/material/NativeSelect";
+import React, { useState,useEffect } from "react";
+import Stack from "@mui/material/Stack";
+import { Button, Box, Typography, Input } from "@mui/material";
+import Paper from "@mui/material/Paper";
+import Grid from "@mui/material/Grid";
+import color from "../../color/color";
+import { useSelector } from "react-redux";
+import axios from 'axios';
+const Account = () => {
+  const reducerState = useSelector((state) => state);
+  
+  console.log("login details",reducerState);
+  const [user, setUser]=useState('');
+
+  const [oldPassword, setOldPassword] = useState("");
+  const [newPassword, setNewPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
+  const [successMessage, setSuccessMessage] = useState("");
+
+  const userId = reducerState?.logIn?.loginData?.data?.data?.id;
 
 
+  useEffect(() => {
+    // Make a GET request to the API endpoint
+    axios
+      .get(`http://localhost:8000/skyTrails/user/${userId}`)
+      .then((response) => {
+        // Handle the response data
+        const user = response.data.data;
+        setUser(user);
+        console.log("user data", response?.data?.data);
+      })
+      .catch((error) => {
+        console.error(error);
+        // Handle errors, e.g., display an error message
+      });
+  }, [userId]);
 
+//   console.log("users", user)
 
-const label = { inputProps: { "aria-label": "Checkbox demo" } };
-const AccountDetails = () => {
-    return (
-        <div className='flightContainer'>
-            <Stack spacing={2} direction="row">
-                <Button variant="contained" type='submit' sx={{ backgroundColor: '#006FFF', borderRadius: '10px', color: 'white', boxShadow: '0px 3px 6px #00000029' }}>Text</Button>
-                <Button type='submit' sx={{ backgroundColor: '#fff', borderRadius: '10px', color: '#006FFF', boxShadow: '0px 3px 6px #00000029' }}>Contained</Button>
-                <Button type='submit' sx={{ backgroundColor: '#fff', borderRadius: '10px', color: '#006FFF', boxShadow: '0px 3px 6px #00000029' }}>Outlined</Button>
-            </Stack>
-            <Box sx={{ flexGrow: 1 }} my={2}>
-                <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
-                    <Grid item xs={2} sm={4} md={6}>
-                        <Box sx={{ boxShadow: '0px 3px 6px #00000029', borderRadius: '10px', padding: '15px' }}>
-                            <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
-                                <Grid item xs={2} sm={4} md={4}>
-                                    <Box sx={{ textAlign: 'left', }}>
-                                        <Box display="flex" alignItems="center">
-                                            <Checkbox
-                                                {...label}
-                                                icon={<RadioButtonUncheckedIcon />}
-                                                checkedIcon={<RadioButtonCheckedIcon style={{ color: '#FF8900' }} />}
-                                            />
-                                            <Box display="flex" justifyContent="space-between">
-                                                <Typography color="#FF8900" fontSize="14px" fontWeight="bold">
-                                                    Show Fare
-                                                </Typography>
-                                            </Box>
-                                        </Box>
-                                    </Box>
-                                </Grid>
-                                <Grid item xs={2} sm={4} md={8}>
-                                    <Box display="flex" alignItems="center">
-                                        <Checkbox
-                                            {...label}
-                                            icon={<RadioButtonUncheckedIcon />}
-                                            checkedIcon={<RadioButtonCheckedIcon style={{ color: '#FF8900' }} />}
-                                        />
-                                        <Box display="flex" justifyContent="space-between">
-                                            <Typography color="#FF8900" fontSize="14px" fontWeight="bold">
-                                                Hide Fare
-                                            </Typography>
-                                        </Box>
-                                    </Box>
-                                </Grid>
-                            </Grid>
-                            <FormGroup>
-                                <Box display='flex' alignItems='center'>
-                                    <FormControlLabel control={<Checkbox defaultChecked />} /><Typography sx={{ fontSize: '14px', fontWeight: 'bold', color: '#666666' }}>Show Agent Logo On Hotel Voucher</Typography>
-                                </Box>
-                                <Box display='flex' alignItems='center'>
-                                    <FormControlLabel control={<Checkbox />} /><Typography sx={{ fontSize: '14px', fontWeight: 'bold', color: '#666666' }}>Display Logo on E-Ticket</Typography>
-                                </Box>
-                                <Box display='flex' alignItems='center'>
-                                    <FormControlLabel control={<Checkbox />} /><Typography sx={{ fontSize: '14px', fontWeight: 'bold', color: '#666666' }}>Show Hotel Ad on E-Ticket</Typography>
-                                </Box>
-                            </FormGroup>
-                            <Typography sx={{ fontSize: '14px', fontWeight: 'bold', color: '#666666' }}>Select if you want to display fare in form in e-ticket</Typography>
-                        </Box>
-                        <Box sx={{ boxShadow: '0px 3px 6px #00000029', borderRadius: '10px', padding: '15px' }} my={2}>
-                            <Typography sx={{ fontSize: '18px', fontWeight: 'bold', color: '#006FFF' }} mb={2}>Service Charge</Typography>
-                            <Box display='flex'>
-                                <Box sx={{ textAlign: 'left', }}>
-                                    <Box display="flex" alignItems="center">
-                                        <Checkbox
-                                            {...label}
-                                            icon={<RadioButtonUncheckedIcon />}
-                                            checkedIcon={<RadioButtonCheckedIcon style={{ color: '#FF8900' }} />}
-                                        />
-                                        <Box display="flex" justifyContent="space-between">
-                                            <Typography color="#FF8900" fontSize="14px" fontWeight="bold">
-                                                Show All Fares
-                                            </Typography>
-                                        </Box>
-                                    </Box>
-                                </Box>
-                                <Box sx={{ textAlign: 'left', }}>
-                                    <Box display="flex" alignItems="center">
-                                        <Checkbox
-                                            {...label}
-                                            icon={<RadioButtonUncheckedIcon />}
-                                            checkedIcon={<RadioButtonCheckedIcon style={{ color: '#FF8900' }} />}
-                                        />
-                                        <Box display="flex" justifyContent="space-between">
-                                            <Typography color="#FF8900" fontSize="14px" fontWeight="bold">
-                                                Show All Fares
-                                            </Typography>
-                                        </Box>
-                                    </Box>
-                                </Box>
-                            </Box>
-                            <Box display='flex' alignItems='center'>
-                                <FormControlLabel control={<Checkbox defaultChecked />} /><Typography sx={{ fontSize: '14px', fontWeight: 'bold', color: '#666666' }}>Show Agent Logo On Hotel Voucher</Typography>
-                            </Box>
-                            <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
+    if (newPassword !== confirmPassword) {
+      setErrorMessage("New password and confirm password do not match");
+      return;
+    }
 
-                                <Grid item xs={2} sm={4} md={4}>
-                                    <Box sx={{ textAlign: 'left', }}>
-                                        <Typography sx={{ fontSize: '14px', color: '#006FFF', fontWeight: '600' }}>Airline</Typography>
-                                    </Box>
-                                    <Box sx={{ textAlign: 'left', }} mt={3}>
-                                        <Typography sx={{ fontSize: '14px', color: '#666666', fontWeight: '600' }}>Air Arabia</Typography>
-                                    </Box>
-                                    <Box sx={{ textAlign: 'left', }} mt={3}>
-                                        <Typography sx={{ fontSize: '14px', color: '#666666', fontWeight: '600' }}>Air Asia</Typography>
-                                    </Box>
-                                    <Box sx={{ textAlign: 'left', }} mt={3}>
-                                        <Typography sx={{ fontSize: '14px', color: '#666666', fontWeight: '600' }}>Air Asia Corporate</Typography>
-                                    </Box>
-                                    <Box sx={{ textAlign: 'left', }} mt={3}>
-                                        <Typography sx={{ fontSize: '14px', color: '#666666', fontWeight: '600' }}>Air Asia Coupon</Typography>
-                                    </Box>
-                                    <Box sx={{ textAlign: 'left', }} mt={3}>
-                                        <Typography sx={{ fontSize: '14px', color: '#666666', fontWeight: '600' }}>GoAir API5</Typography>
-                                    </Box>
-                                    <Box sx={{ textAlign: 'left', }} mt={3}>
-                                        <Typography sx={{ fontSize: '14px', color: '#666666', fontWeight: '600' }}>Air India</Typography>
-                                    </Box>
-                                    <Box sx={{ textAlign: 'left', }} mt={3}>
-                                        <Typography sx={{ fontSize: '14px', color: '#666666', fontWeight: '600' }}>Indigo Marine</Typography>
-                                    </Box>
-                                    <Box sx={{ textAlign: 'left', }} mt={3}>
-                                        <Typography sx={{ fontSize: '14px', color: '#666666', fontWeight: '600' }}>Air Arabia</Typography>
-                                    </Box>
-                                    <Box sx={{ textAlign: 'left', }} mt={3}>
-                                        <Typography sx={{ fontSize: '14px', color: '#666666', fontWeight: '600' }}>Spice Jet API1</Typography>
-                                    </Box>
-                                    <Box sx={{ textAlign: 'left', }} mt={2}>
-                                        <Typography sx={{ fontSize: '14px', color: '#666666', fontWeight: '600' }}>TruJet</Typography>
-                                    </Box>
-                                    <Box sx={{ textAlign: 'left', }} mt={2}>
-                                        <Typography sx={{ fontSize: '14px', color: '#666666', fontWeight: '600' }}>AllianceAir</Typography>
-                                    </Box>
-                                    <Box sx={{ textAlign: 'left', }} mt={2}>
-                                        <Typography sx={{ fontSize: '14px', color: '#666666', fontWeight: '600' }}>VietJet</Typography>
-                                    </Box>
-                                    <Box sx={{ textAlign: 'left', }} mt={3}>
-                                        <Typography sx={{ fontSize: '14px', color: '#666666', fontWeight: '600' }}>Private Fare</Typography>
-                                    </Box>
-                                    
-                                </Grid>
-                                <Grid item xs={2} sm={4} md={4}>
-                                    <Box sx={{ textAlign: 'center', }} my={1}>
-                                        <Typography sx={{ fontSize: '14px', color: '#006FFF', fontWeight: '600' }}>Airline</Typography>
-                                    </Box>
-                                    <Box sx={{ textAlign: 'center', }} my={1}>
-                                        <Box className="input_area" >
-                                            <FormControl>
-                                                <NativeSelect
-                                                    defaultValue={0}
-                                                    inputProps={{
-                                                        name: "price",
-                                                    }}
-                                                >
-                                                    <option value={10}>Fixed</option>
-                                                    <option value={20}>Fixed</option>
-                                                    <option value={30}>Fixed</option>
-                                                </NativeSelect>
-                                            </FormControl>
-                                        </Box>
-                                    </Box>
-                                    <Box sx={{ textAlign: 'center', }} my={1}>
-                                        <Box className="input_area" >
-                                            <FormControl>
-                                                <NativeSelect
-                                                    defaultValue={0}
-                                                    inputProps={{
-                                                        name: "price",
-                                                    }}
-                                                >
-                                                    <option value={10}>Fixed</option>
-                                                    <option value={20}>Fixed</option>
-                                                    <option value={30}>Fixed</option>
-                                                </NativeSelect>
-                                            </FormControl>
-                                        </Box>
-                                    </Box>
-                                    <Box sx={{ textAlign: 'center', }} my={1}>
-                                        <Box className="input_area" >
-                                            <FormControl>
-                                                <NativeSelect
-                                                    defaultValue={0}
-                                                    inputProps={{
-                                                        name: "price",
-                                                    }}
-                                                >
-                                                    <option value={10}>Fixed</option>
-                                                    <option value={20}>Fixed</option>
-                                                    <option value={30}>Fixed</option>
-                                                </NativeSelect>
-                                            </FormControl>
-                                        </Box>
-                                    </Box>
-                                    <Box sx={{ textAlign: 'center', }} my={1}>
-                                        <Box className="input_area" >
-                                            <FormControl>
-                                                <NativeSelect
-                                                    defaultValue={0}
-                                                    inputProps={{
-                                                        name: "price",
-                                                    }}
-                                                >
-                                                    <option value={10}>Fixed</option>
-                                                    <option value={20}>Fixed</option>
-                                                    <option value={30}>Fixed</option>
-                                                </NativeSelect>
-                                            </FormControl>
-                                        </Box>
-                                    </Box>
-                                    <Box sx={{ textAlign: 'center', }} my={1}>
-                                        <Box className="input_area" >
-                                            <FormControl>
-                                                <NativeSelect
-                                                    defaultValue={0}
-                                                    inputProps={{
-                                                        name: "price",
-                                                    }}
-                                                >
-                                                    <option value={10}>Fixed</option>
-                                                    <option value={20}>Fixed</option>
-                                                    <option value={30}>Fixed</option>
-                                                </NativeSelect>
-                                            </FormControl>
-                                        </Box>
-                                    </Box>
-                                    <Box sx={{ textAlign: 'center', }} my={1}>
-                                        <Box className="input_area" >
-                                            <FormControl>
-                                                <NativeSelect
-                                                    defaultValue={0}
-                                                    inputProps={{
-                                                        name: "price",
-                                                    }}
-                                                >
-                                                    <option value={10}>Fixed</option>
-                                                    <option value={20}>Fixed</option>
-                                                    <option value={30}>Fixed</option>
-                                                </NativeSelect>
-                                            </FormControl>
-                                        </Box>
-                                    </Box>
-                                    <Box sx={{ textAlign: 'center', }} my={1}>
-                                        <Box className="input_area" >
-                                            <FormControl>
-                                                <NativeSelect
-                                                    defaultValue={0}
-                                                    inputProps={{
-                                                        name: "price",
-                                                    }}
-                                                >
-                                                    <option value={10}>Fixed</option>
-                                                    <option value={20}>Fixed</option>
-                                                    <option value={30}>Fixed</option>
-                                                </NativeSelect>
-                                            </FormControl>
-                                        </Box>
-                                    </Box>
-                                    <Box sx={{ textAlign: 'center', }} my={1}>
-                                        <Box className="input_area" >
-                                            <FormControl>
-                                                <NativeSelect
-                                                    defaultValue={0}
-                                                    inputProps={{
-                                                        name: "price",
-                                                    }}
-                                                >
-                                                    <option value={10}>Fixed</option>
-                                                    <option value={20}>Fixed</option>
-                                                    <option value={30}>Fixed</option>
-                                                </NativeSelect>
-                                            </FormControl>
-                                        </Box>
-                                    </Box>
-                                    <Box sx={{ textAlign: 'center', }} my={1}>
-                                        <Box className="input_area" >
-                                            <FormControl>
-                                                <NativeSelect
-                                                    defaultValue={0}
-                                                    inputProps={{
-                                                        name: "price",
-                                                    }}
-                                                >
-                                                    <option value={10}>Fixed</option>
-                                                    <option value={20}>Fixed</option>
-                                                    <option value={30}>Fixed</option>
-                                                </NativeSelect>
-                                            </FormControl>
-                                        </Box>
-                                    </Box>
-                                    <Box sx={{ textAlign: 'center', }} my={1}>
-                                        <Box className="input_area" >
-                                            <FormControl>
-                                                <NativeSelect
-                                                    defaultValue={0}
-                                                    inputProps={{
-                                                        name: "price",
-                                                    }}
-                                                >
-                                                    <option value={10}>Fixed</option>
-                                                    <option value={20}>Fixed</option>
-                                                    <option value={30}>Fixed</option>
-                                                </NativeSelect>
-                                            </FormControl>
-                                        </Box>
-                                    </Box>
-                                    <Box sx={{ textAlign: 'center', }} my={1}>
-                                        <Box className="input_area" >
-                                            <FormControl>
-                                                <NativeSelect
-                                                    defaultValue={0}
-                                                    inputProps={{
-                                                        name: "price",
-                                                    }}
-                                                >
-                                                    <option value={10}>Fixed</option>
-                                                    <option value={20}>Fixed</option>
-                                                    <option value={30}>Fixed</option>
-                                                </NativeSelect>
-                                            </FormControl>
-                                        </Box>
-                                    </Box>
-                                    <Box sx={{ textAlign: 'center', }} my={1}>
-                                        <Box className="input_area" >
-                                            <FormControl>
-                                                <NativeSelect
-                                                    defaultValue={0}
-                                                    inputProps={{
-                                                        name: "price",
-                                                    }}
-                                                >
-                                                    <option value={10}>Fixed</option>
-                                                    <option value={20}>Fixed</option>
-                                                    <option value={30}>Fixed</option>
-                                                </NativeSelect>
-                                            </FormControl>
-                                        </Box>
-                                    </Box>
-                                    <Box sx={{ textAlign: 'center', }} my={1}>
-                                        <Box className="input_area" >
-                                            <FormControl>
-                                                <NativeSelect
-                                                    defaultValue={0}
-                                                    inputProps={{
-                                                        name: "price",
-                                                    }}
-                                                >
-                                                    <option value={10}>Fixed</option>
-                                                    <option value={20}>Fixed</option>
-                                                    <option value={30}>Fixed</option>
-                                                </NativeSelect>
-                                            </FormControl>
-                                        </Box>
-                                    </Box>
-                                </Grid>
-                                <Grid item xs={2} sm={4} md={4}>
-                                    <Box sx={{ textAlign: 'right', }} my={1}>
-                                        <Typography sx={{ fontSize: '14px', color: '#006FFF', fontWeight: '600' }}>Value</Typography>
-                                    </Box>
-                                    <Box sx={{ textAlign: 'right', }} my={1}>
-                                        <Box className="input_area" >
-                                            <Input type='text' placeholder='0' />
-                                        </Box>
-                                    </Box>
-                                    <Box sx={{ textAlign: 'right', }} my={1}>
-                                        <Box className="input_area" >
-                                            <Input type='text' placeholder='0' />
-                                        </Box>
-                                    </Box>
-                                    <Box sx={{ textAlign: 'right', }} my={1}>
-                                        <Box className="input_area" >
-                                            <Input type='text' placeholder='0' />
-                                        </Box>
-                                    </Box>
-                                    <Box sx={{ textAlign: 'right', }} my={1}>
-                                        <Box className="input_area" >
-                                            <Input type='text' placeholder='0' />
-                                        </Box>
-                                    </Box>
-                                    <Box sx={{ textAlign: 'right', }} my={1}>
-                                        <Box className="input_area" >
-                                            <Input type='text' placeholder='0' />
-                                        </Box>
-                                    </Box>
-                                    <Box sx={{ textAlign: 'right', }} my={1}>
-                                        <Box className="input_area" >
-                                            <Input type='text' placeholder='0' />
-                                        </Box>
-                                    </Box>
-                                    <Box sx={{ textAlign: 'right', }} my={1}>
-                                        <Box className="input_area" >
-                                            <Input type='text' placeholder='0' />
-                                        </Box>
-                                    </Box>
-                                    <Box sx={{ textAlign: 'right', }} my={1}>
-                                        <Box className="input_area" >
-                                            <Input type='text' placeholder='0' />
-                                        </Box>
-                                    </Box>
-                                    <Box sx={{ textAlign: 'right', }} my={1}>
-                                        <Box className="input_area" >
-                                            <Input type='text' placeholder='0' />
-                                        </Box>
-                                    </Box>
-                                    <Box sx={{ textAlign: 'right', }} my={1}>
-                                        <Box className="input_area" >
-                                            <Input type='text' placeholder='0' />
-                                        </Box>
-                                    </Box>
-                                    <Box sx={{ textAlign: 'right', }} my={1}>
-                                        <Box className="input_area" >
-                                            <Input type='text' placeholder='0' />
-                                        </Box>
-                                    </Box>
-                                    <Box sx={{ textAlign: 'right', }} my={1}>
-                                        <Box className="input_area" >
-                                            <Input type='text' placeholder='0' />
-                                        </Box>
-                                    </Box>
-                                    <Box sx={{ textAlign: 'right', }} my={1}>
-                                        <Box className="input_area" >
-                                            <Input type='text' placeholder='0' />
-                                        </Box>
-                                    </Box>
-                                </Grid>
-                            </Grid>
-                            
-                        <Typography sx={{ fontSize: '12px', color: '#252525', fontWeight: '600' }}>The values that has to be set as service fee</Typography>
-                        </Box>
+    try {
+      const response = await fetch("http://localhost:8000/skyTrails/user/changepassword", {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          _id: reducerState?.logIn?.loginData?.data?.data?.id,
+          oldpassword: oldPassword,
+          changepassword: newPassword,
+          confirmpassword: confirmPassword,
+        }),
+      });
 
+      if (response.ok) {
+        setSuccessMessage("Password changed successfully");
+        setOldPassword("");
+        setNewPassword("");
+        setConfirmPassword("");
+      } else {
+        
+        const data = await response.json();
+        setErrorMessage(data.message);
+      }
+    } catch (error) {
+      
+      setErrorMessage("An error occurred while changing the password");
+    }
+    setOldPassword("");
+    setNewPassword("");
+    setConfirmPassword("");
 
-                    </Grid>
-                    <Grid item xs={2} sm={4} md={6}>
-                        <Box sx={{ boxShadow: '0px 3px 6px #00000029', borderRadius: '10px', padding: '15px' }}>
-                            <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
-                                <Grid item xs={2} sm={4} md={4}>
-                                    <Box sx={{ textAlign: 'left', }}>
-                                        <Box display="flex" alignItems="center">
-                                            <Checkbox
-                                                {...label}
-                                                icon={<RadioButtonUncheckedIcon />}
-                                                checkedIcon={<RadioButtonCheckedIcon style={{ color: '#FF8900' }} />}
-                                            />
-                                            <Box display="flex" justifyContent="space-between">
-                                                <Typography color="#FF8900" fontSize="14px" fontWeight="bold">
-                                                    Show All Fares
-                                                </Typography>
-                                            </Box>
-                                        </Box>
-                                    </Box>
-                                    <Box sx={{ textAlign: 'left', }}>
-                                        <Box display="flex" alignItems="center">
-                                            <Checkbox
-                                                {...label}
-                                                icon={<RadioButtonUncheckedIcon />}
-                                                checkedIcon={<RadioButtonCheckedIcon style={{ color: '#FF8900' }} />}
-                                            />
-                                            <Box display="flex" justifyContent="space-between">
-                                                <Typography color="#FF8900" fontSize="14px" fontWeight="bold">
-                                                    Show Only Published Fares
-                                                </Typography>
-                                            </Box>
-                                        </Box>
-                                    </Box>
-                                </Grid>
-                                <Grid item xs={2} sm={4} md={8}>
-                                    <Box display="flex" alignItems="center">
-                                        <Checkbox
-                                            {...label}
-                                            icon={<RadioButtonUncheckedIcon />}
-                                            checkedIcon={<RadioButtonCheckedIcon style={{ color: '#FF8900' }} />}
-                                        />
-                                        <Box display="flex" justifyContent="space-between">
-                                            <Typography color="#FF8900" fontSize="14px" fontWeight="bold">
-                                                Hide All Fare
-                                            </Typography>
-                                        </Box>
-                                    </Box>
-                                    <Box display="flex" alignItems="center">
-                                        <Checkbox
-                                            {...label}
-                                            icon={<RadioButtonUncheckedIcon />}
-                                            checkedIcon={<RadioButtonCheckedIcon style={{ color: '#FF8900' }} />}
-                                        />
-                                        <Box display="flex" justifyContent="space-between">
-                                            <Typography color="#FF8900" fontSize="14px" fontWeight="bold">
-                                                Show Offer Fares
-                                            </Typography>
-                                        </Box>
-                                    </Box>
-                                </Grid>
-                            </Grid>
-                            <FormGroup>
-                                <Box display='flex' alignItems='center'>
-                                    <FormControlLabel control={<Checkbox defaultChecked />} /><Typography sx={{ fontSize: '14px', fontWeight: 'bold', color: '#666666' }}>Hide Transaction fee for Non Lcc</Typography>
-                                </Box>
-                                <Box display='flex' alignItems='center'>
-                                    <FormControlLabel control={<Checkbox />} /><Typography sx={{ fontSize: '14px', fontWeight: 'bold', color: '#666666' }}>Hide Coupon Fares</Typography>
-                                </Box>
-                                <Box display='flex' alignItems='center'>
-                                    <FormControlLabel control={<Checkbox />} /><Typography sx={{ fontSize: '14px', fontWeight: 'bold', color: '#666666' }}>Required Origin/Destination List For Domestic Search</Typography>
-                                </Box>
-                            </FormGroup>
-                            <Typography sx={{ fontSize: '14px', fontWeight: 'bold', color: '#666666' }}>Select if you want fare (Offered and Published) during search results</Typography>
-                        </Box>
+  };
+  return (
+   
+      
+        <Grid
+          container
+          spacing={{ xs: 2, md: 3 }}
+          columns={{ xs: 4, sm: 8, md: 12 }}
+        >
+          <Grid item xs={2} sm={4} md={6}>
+            <form onSubmit={handleSubmit}>
+            <Box
+              sx={{
+                boxShadow: "0px 3px 6px #00000029",
+                borderRadius: "10px",
+                padding: "15px",
+                margin: "0 auto",
+                marginTop: "20px",
+              }}
+            >
+              <Typography
+                sx={{
+                  fontSize: "24px",
+                  fontWeight: "bold",
+                  color: color.bluedark,
+                }}
+                mb={2}
+              >
+                Change Password
+              </Typography>
+              <Box
+                sx={{
+                  display: "flex",
+                  alignItems: "center",
+                  marginBottom: "15px",
+                }}
+              >
+                <Typography
+                  sx={{
+                    fontSize: "14px",
+                    color: "#666666",
+                    fontWeight: "500",
+                    width: "150px",
+                    marginLeft: "10px",
+                  }}
+                >
+                  Enter Old Password*
+                </Typography>
+                <Input
+                  type="password"
+                  border="none"
+                  name="oldpassword"
+                  value={oldPassword}
+                  onChange={(e) => setOldPassword(e.target.value)}
+                  required
+                  sx={{
+                    flexGrow: 1,
+                    padding: "10px",
+                    borderRadius: "5px",
+                    backgroundColor: "white",
+                  }}
+                />
+              </Box>
+              <Box
+                sx={{
+                  display: "flex",
+                  alignItems: "center",
+                  marginBottom: "15px",
+                }}
+              >
+                <Typography
+                  sx={{
+                    fontSize: "14px",
+                    color: "#666666",
+                    fontWeight: "500",
+                    width: "150px",
+                    marginLeft: "10px",
+                  }}
+                >
+                  Enter New Password*
+                </Typography>
+                <Input
+                  type="password"
+                  border="none"
+                  name="newpassword"
+                  value={newPassword}
+                  onChange={(e) => setNewPassword(e.target.value)}
+                  required
+                  sx={{
+                    flexGrow: 1,
+                    padding: "10px",
+                    borderRadius: "5px",
+                    backgroundColor: "white",
+                  }}
+                />
+              </Box>
+              <Box
+                sx={{
+                  display: "flex",
+                  alignItems: "center",
+                  marginBottom: "20px",
+                }}
+              >
+                <Typography
+                  sx={{
+                    fontSize: "14px",
+                    color: "#666666",
+                    fontWeight: "500",
+                    width: "150px",
+                    marginLeft: "10px",
+                  }}
+                >
+                  Confirm Password*
+                </Typography>
+                <Input
+                  type="password"
+                  border="none"
+                  name="confirmpassword"
+                  value={confirmPassword}
+                  onChange={(e) => setConfirmPassword(e.target.value)}
+                  required
+                  sx={{
+                    flexGrow: 1,
+                    padding: "10px",
+                    borderRadius: "5px",
+                    backgroundColor: "white",
+                  }}
+                />
+              </Box>
+              
+              <Box sx={{ display: "flex", justifyContent: "center" }} my={2}>
+             
+                <Button
+                  variant="contained"
+                  type="submit"
+                  sx={{
+                    borderRadius: "10px",
+                    color: "white",
+                    fontSize: "16px",
+                    backgroundColor: color.bluedark,
+                  }}
+                >
+                  Change Password
+                </Button>                
+              </Box>
+              <Box style={{ color: 'red' }}>{errorMessage}</Box>
+              {successMessage && <Box style={{color:'green'}}>{successMessage}</Box>}
 
-
-                        <Box sx={{ padding: '15px', display: 'flex', justifyContent: 'right' }} my={2} >
-                            <form action='/'>
-                                <Button type='submit' color='primary' variant='contained' sx={{ borderRadius: '10px', boxShadow: '0px 3px 6px #00000029' }}>Save Change</Button>
-                            </form>
-                        </Box>
-
-                    </Grid>
-                </Grid>
             </Box>
-        </div>
-    )
-}
+            </form>
 
-export default AccountDetails
+            <Box
+              sx={{
+                boxShadow: "0px 3px 6px #00000029",
+                borderRadius: "10px",
+                padding: "20px",
+                margin: "0 auto",
+                marginTop: "20px",
+              }}
+            >
+              <Typography
+                sx={{
+                  fontSize: "24px",
+                  fontWeight: "bold",
+                  color: color.bluedark,
+                  marginBottom: "15px",
+                }}
+              >
+                Agency Detail
+              </Typography>
+              <Grid container spacing={2}>
+                <Grid item xs={12} md={6}>
+                  <Box sx={{ textAlign: "left" }} my={1}>
+                    <Typography
+                      sx={{
+                        fontSize: "16px",
+                        color: "#666666",
+                        fontWeight: "500",
+                      }}
+                    >
+                      User Name:
+                    </Typography>
+                    <Typography
+                      sx={{
+                        fontSize: "16px",
+                        color: "#666666",
+                        fontWeight: "500",
+                      }}
+                    >
+                      Agency:
+                    </Typography>
+                  </Box>
+                </Grid>
+                <Grid item xs={12} md={6}>
+                  <Box sx={{ textAlign: "left" }} my={1}>
+                    <Typography
+                      sx={{
+                        fontSize: "16px",
+                        color: "#252525",
+                        fontWeight: "500",
+                      }}
+                    >
+                      {`${user?.personal_details?.first_name} ${user?.personal_details?.last_name}`}
+                    </Typography>
+                    <Typography
+                      sx={{
+                        fontSize: "16px",
+                        color: "#252525",
+                        fontWeight: "500",
+                      }}
+                    >
+                      {user?.agency_details?.agency_name}
+                    </Typography>
+                  </Box>
+                </Grid>
+              </Grid>
+            </Box>
+
+            <Box
+              sx={{
+                boxShadow: "0px 3px 6px #00000029",
+                borderRadius: "10px",
+                padding: "20px",
+                margin: "0 auto",
+                marginTop: "20px",
+              }}
+            >
+              <Typography
+                sx={{
+                  fontSize: "24px",
+                  fontWeight: "bold",
+                  color: color.bluedark,
+                  marginBottom: "15px",
+                }}
+              >
+                Agency Address
+              </Typography>
+              <Grid container spacing={2}>
+                <Grid item xs={12} md={6}>
+                  <Box sx={{ textAlign: "left" }} my={1}>
+                    <Typography
+                      sx={{
+                        fontSize: "16px",
+                        color: "#666666",
+                        fontWeight: "500",
+                      }}
+                    >
+                      Address:
+                    </Typography>
+                    <Typography
+                      sx={{
+                        fontSize: "16px",
+                        color: "#666666",
+                        fontWeight: "500",
+                      }}
+                    >
+                      Pin Code:
+                    </Typography>
+                    <Typography
+                      sx={{
+                        fontSize: "16px",
+                        color: "#666666",
+                        fontWeight: "500",
+                      }}
+                    >
+                      State:
+                    </Typography>
+                  </Box>
+                </Grid>
+                <Grid item xs={12} md={6}>
+                  <Box sx={{ textAlign: "left" }} my={1}>
+                    <Typography
+                      sx={{
+                        fontSize: "16px",
+                        color: "#252525",
+                        fontWeight: "500",
+                      }}
+                    >
+                      {`${user?.agency_details?.address} ${user?.agency_details?.address_2}`}
+                    </Typography>
+                    <Typography
+                      sx={{
+                        fontSize: "16px",
+                        color: "#252525",
+                        fontWeight: "500",
+                      }}
+                    >
+                      {user?.agency_details?.pincode}
+                    </Typography>
+                    <Typography
+                      sx={{
+                        fontSize: "16px",
+                        color: "#252525",
+                        fontWeight: "500",
+                      }}
+                    >
+                      {user?.agency_details?.state}
+                    </Typography>
+                  </Box>
+                </Grid>
+              </Grid>
+            </Box>
+
+            <Box
+              sx={{
+                boxShadow: "0px 3px 6px #00000029",
+                borderRadius: "10px",
+                padding: "20px",
+                margin: "0 auto",
+                marginTop: "20px",
+              }}
+            >
+              <Typography
+                sx={{
+                  fontSize: "24px",
+                  fontWeight: "bold",
+                  color: color.bluedark,
+                  marginBottom: "15px",
+                }}
+              >
+                Residence Address
+              </Typography>
+              <Grid container spacing={2}>
+                <Grid item xs={12} md={6}>
+                  <Box sx={{ textAlign: "left" }} my={1}>
+                    <Typography
+                      sx={{
+                        fontSize: "16px",
+                        color: "#666666",
+                        fontWeight: "500",
+                      }}
+                    >
+                      Address:
+                    </Typography>
+                    <Typography
+                      sx={{
+                        fontSize: "16px",
+                        color: "#666666",
+                        fontWeight: "500",
+                      }}
+                    >
+                      Pin Code:
+                    </Typography>
+                    <Typography
+                      sx={{
+                        fontSize: "16px",
+                        color: "#666666",
+                        fontWeight: "500",
+                      }}
+                    >
+                      State:
+                    </Typography>
+                  </Box>
+                </Grid>
+                <Grid item xs={12} md={6}>
+                  <Box sx={{ textAlign: "left" }} my={1}>
+                    <Typography
+                      sx={{
+                        fontSize: "16px",
+                        color: "#252525",
+                        fontWeight: "500",
+                      }}
+                    >
+                      {`${user?.personal_details?.address_details?.residential_address} ${user?.personal_details?.address_details?.address_2}`}
+                    </Typography>
+                    <Typography
+                      sx={{
+                        fontSize: "16px",
+                        color: "#252525",
+                        fontWeight: "500",
+                      }}
+                    >
+                      {user?.personal_details?.address_details?.pincode}
+                    </Typography>
+                    <Typography
+                      sx={{
+                        fontSize: "16px",
+                        color: "#252525",
+                        fontWeight: "500",
+                      }}
+                    >
+                      {user?.personal_details?.address_details?.state}
+                    </Typography>
+                  </Box>
+                </Grid>
+              </Grid>
+            </Box>
+          </Grid>
+          <Grid item xs={2} sm={4} md={6}>
+            <Box
+              sx={{
+                boxShadow: "0px 3px 6px #00000029",
+                borderRadius: "10px",
+                padding: "20px",
+              }}
+              my={2}
+            >
+              <Typography
+                sx={{
+                  fontSize: "24px",
+                  fontWeight: "bold",
+                  color: color.bluedark,
+                  marginBottom: "15px",
+                }}
+              >
+                Email Address
+              </Typography>
+              <Grid container spacing={2}>
+                <Grid item xs={12} md={6}>
+                  <Box sx={{ textAlign: "left" }} my={1}>
+                    <Typography
+                      sx={{
+                        fontSize: "16px",
+                        color: "#666666",
+                        fontWeight: "500",
+                      }}
+                    >
+                      Current Email:
+                    </Typography>
+                  </Box>
+                </Grid>
+                <Grid item xs={12} md={6}>
+                  <Box sx={{ textAlign: "left" }} my={1}>
+                    <Typography
+                      sx={{
+                        fontSize: "16px",
+                        color: "#252525",
+                        fontWeight: "500",
+                      }}
+                    >
+                      {user?.personal_details?.email}
+                    </Typography>
+                  </Box>
+                </Grid>
+              </Grid>
+              <Typography
+                sx={{
+                  fontSize: "16px",
+                  color: "#666666",
+                  fontWeight: "500",
+                  marginTop: "15px",
+                }}
+              >
+                Please contact skyTrails if you want to change your EmailId
+              </Typography>
+            </Box>
+
+            <Box
+              sx={{
+                boxShadow: "0px 3px 6px #00000029",
+                borderRadius: "10px",
+                padding: "20px",
+              }}
+              my={2}
+            >
+              <Typography
+                sx={{
+                  fontSize: "24px",
+                  fontWeight: "bold",
+                  color: color.bluedark,
+                  marginBottom: "15px",
+                }}
+              >
+                Mobile Number
+              </Typography>
+              <Grid container spacing={2}>
+                <Grid item xs={12} md={6}>
+                  <Box sx={{ textAlign: "left" }} my={1}>
+                    <Typography
+                      sx={{
+                        fontSize: "16px",
+                        color: "#666666",
+                        fontWeight: "500",
+                      }}
+                    >
+                      Mobile :
+                    </Typography>
+                    <Typography
+                      sx={{
+                        fontSize: "16px",
+                        color: "#666666",
+                        fontWeight: "500",
+                      }}
+                    >
+                      Agency Phone :
+                    </Typography>
+                  </Box>
+                </Grid>
+                <Grid item xs={12} md={6}>
+                  <Box sx={{ textAlign: "left" }} my={1}>
+                    <Typography
+                      sx={{
+                        fontSize: "16px",
+                        color: "#252525",
+                        fontWeight: "500",
+                      }}
+                    >
+                      {`${user?.personal_details?.mobile?.country_code} ${user?.personal_details?.mobile?.mobile_number}`}
+                    </Typography>
+                    <Typography
+                      sx={{
+                        fontSize: "16px",
+                        color: "#252525",
+                        fontWeight: "500",
+                      }}
+                    >
+                       {`${user?.agency_details?.agency_mobile?.country_code} ${user?.agency_details?.agency_mobile?.mobile_number}`}
+                    </Typography>
+                  </Box>
+                </Grid>
+              </Grid>
+              <Typography
+                sx={{
+                  fontSize: "16px",
+                  color: "#666666",
+                  fontWeight: "500",
+                  marginTop: "15px",
+                }}
+              >
+                Please contact skyTrails if you want to change your Mobile Number
+              </Typography>
+            </Box>
+
+            <Box
+              sx={{
+                boxShadow: "0px 3px 6px #00000029",
+                borderRadius: "10px",
+                padding: "20px",
+              }}
+              my={2}
+            >
+              <Typography
+                sx={{
+                  fontSize: "24px",
+                  fontWeight: "bold",
+                  color: color.bluedark,
+                  marginBottom: "15px",
+                }}
+              >
+                Threshold Balance
+              </Typography>
+              <Grid container spacing={2}>
+                <Grid item xs={12} md={6}>
+                  <Box sx={{ textAlign: "left" }} my={1}>
+                    <Typography
+                      sx={{
+                        fontSize: "16px",
+                        color: "#666666",
+                        fontWeight: "500",
+                      }}
+                    >
+                      Cash Amount :
+                    </Typography>
+                  </Box>
+                </Grid>
+                <Grid item xs={12} md={6}>
+                  <Box sx={{ textAlign: "left" }} my={1}>
+                    <Typography
+                      sx={{
+                        fontSize: "16px",
+                        color: color.red1,
+                        fontWeight: "500",
+                      }}
+                    >
+                      ₹ {user?.balance}
+                    </Typography>
+                  </Box>
+                </Grid>
+              </Grid>
+              <Typography
+                sx={{
+                  fontSize: "16px",
+                  color: "#666666",
+                  fontWeight: "500",
+                  marginTop: "15px",
+                }}
+              >
+                Email me when my balance is below the threshold Limit
+              </Typography>
+            </Box>
+
+            <Box
+              sx={{
+                boxShadow: "0px 3px 6px #00000029",
+                borderRadius: "10px",
+                padding: "20px",
+                display: "flex",
+              }}
+              my={2}
+            >
+              {/* <form action="/">
+                <Button
+                  type="submit"
+                  color="primary"
+                  variant="contained"
+                  sx={{
+                    borderRadius: "10px",
+                    boxShadow: "0px 3px 6px #00000029",
+                    marginLeft: "auto",
+                    backgroundColor: color.bluedark,
+                  }}
+                >
+                  Save Change
+                </Button>
+              </form> */}
+            </Box>
+          </Grid>
+        </Grid>
+      
+  
+  );
+};
+
+export default Account;
