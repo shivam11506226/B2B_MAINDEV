@@ -7,7 +7,7 @@ import "./passenger.css";
 import { Typography, Button } from "@mui/material";
 import { useDispatch, useSelector, useReducer } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import groupimg from "../../../Images/Groupl.png"
+import groupimg from "../../../Images/Groupl.png";
 import {
   bookAction,
   bookActionGDS,
@@ -353,15 +353,26 @@ const Leftdetail = () => {
   console.log("fareQuoteData", reducerState);
   return (
     <div>
-      <form onSubmit={handleSubmit} style={{border:"1px solid red"}}>
-        <div style={{display:"flex",justifyContent:"space-between"}}>
+      <form onSubmit={handleSubmit}>
+        <div style={{ display: "flex", justifyContent: "space-between" }}>
           <div className="leftdiv">Passenger Details</div>
           <div className="rightdiv">Name Format as per airline guidelines</div>
         </div>
 
         <div className="services">
           <form onSubmit={handleSubmit}>
-            <Box className="mid_header" p={5} mt={25} mb={10}>
+            <Box
+              className="mid_header"
+              p={5}
+              mt={25}
+              mb={10}
+              style={{
+                borderRadius: "4.587px",
+                border: "1.147px solid #9E9E9E",
+
+                background: "#FFFBFB",
+              }}
+            >
               <Typography className="p-2 Top_txt text-dark">
                 Adult: {adults}
               </Typography>
@@ -371,7 +382,7 @@ const Leftdetail = () => {
                   <div className="mb-2">
                     <span className=" p-2 ">Passenger {i + 1}</span>
                     <Box p={15} display="flex">
-                      <Box  marginRight={15}>
+                      <Box marginRight={15}>
                         <div className="form_input">
                           <label className="form_lable">Title*</label>
                           <select
@@ -477,8 +488,27 @@ const Leftdetail = () => {
                 );
               })}
             </Box>
-            <div style={{color: 'black', fontSize: 24, fontFamily: 'Montserrat', fontWeight: '600'}}>Contact Details</div>
-            <Box className="mid_header" p={5} mt={10}>
+            <div
+              style={{
+                color: "black",
+                fontSize: 24,
+                fontFamily: "Montserrat",
+                fontWeight: "600",
+              }}
+            >
+              Contact Details
+            </div>
+            <Box
+              className="mid_header"
+              p={5}
+              mt={10}
+              style={{
+                borderRadius: "4.587px",
+                border: "1.147px solid #9E9E9E",
+
+                background: "#FFFBFB",
+              }}
+            >
               {Array.from({ length: adults }, (err, i) => {
                 return (
                   <div className="mb-2">
@@ -624,7 +654,7 @@ const Leftdetail = () => {
             </Box>
             <div
               style={{
-                width: 862,
+                width: 822,
                 height: 45,
                 paddingLeft: 16,
                 paddingRight: 16,
@@ -658,11 +688,11 @@ const Leftdetail = () => {
                     left: 0,
                     top: 0,
                     position: "absolute",
-                   
+
                     borderRadius: 9999,
                   }}
                 />
-             
+
                 <div
                   style={{
                     width: 10.33,
@@ -672,9 +702,11 @@ const Leftdetail = () => {
                     position: "absolute",
                     transform: "rotate(90deg)",
                     transformOrigin: "0 0",
-                    
                   }}
-                >  <img src={groupimg} alt="" /></div>
+                >
+                  {" "}
+                  <img src={groupimg} alt="" />
+                </div>
               </div>
             </div>
             <div
@@ -1048,7 +1080,18 @@ const Leftdetail = () => {
           </div>
         </Box> */}
 
-        <Box className="mid_header" p={5} mt={25} mb={10}>
+        <Box
+          className="mid_header"
+          p={5}
+          mt={25}
+          mb={10}
+          style={{
+            borderRadius: "4.587px",
+            border: "1.147px solid #9E9E9E",
+
+            background: "#FFFBFB",
+          }}
+        >
           <Box px={20}>
             <Typography
               sx={{ fontSize: "14px", color: "#616161", fontWeight: "bold" }}
@@ -1199,26 +1242,20 @@ const Leftdetail = () => {
           </Grid>
           <Grid container spacing={1}>
             <Grid item xs={6} md={4}>
-             
               <Box px={17} py={5}>
-              <Grid container spacing={1} mt={1}>
-                <Grid item xs={6} md={6}>
-                
-                   
-               
-                   
+                <Grid container spacing={1} mt={1}>
+                  <Grid item xs={6} md={6}>
                     {fareRule &&
                       fareRule.length > 0 &&
                       fareRule.map((dat) => {
                         console.log("Dat", dat);
                         return (
-                          
                           <Box my={2}>
                             <Accordion
                               style={{ width: "700px" }}
                               defaultActiveKey={null}
                             >
-                              <Accordion.Item >
+                              <Accordion.Item>
                                 <Accordion.Header>
                                   <p>Detailed Fare Rules</p>
                                 </Accordion.Header>
@@ -1231,15 +1268,11 @@ const Leftdetail = () => {
                                 </Accordion.Body>
                               </Accordion.Item>
                             </Accordion>
-                           
                           </Box>
-                          
                         );
                       })}
-                    
-                
 
-{/*                
+                    {/*                
                  <p style={{width:"100%"}}>
                  The Fare Basis Code is:{" "}
                     {fareQuoteData?.FareRules[0]?.FareBasisCode}
@@ -1249,13 +1282,7 @@ const Leftdetail = () => {
                     Seat: Chargeable
                  </p> */}
 
-
-
-
-
-
-
-                  {/* <Typography
+                    {/* <Typography
                     color="#008FCC "
                     fontSize="14px"
                     textAlign="left"
@@ -1274,18 +1301,15 @@ const Leftdetail = () => {
                     Note : We should receive the request at least four hours
                     prior to Airline Fare Rules Policy.{" "}
                   </Typography> */}
+                  </Grid>
                 </Grid>
-              </Grid>
-            </Box>
+              </Box>
             </Grid>
-           
           </Grid>
-          
 
-         
           <Box className="mid_header1" m={15}>
-            <Box display='flex' flexDirection='column'  >
-            <Typography
+            <Box display="flex" flexDirection="column">
+              <Typography
                 color="#008FCC"
                 fontSize="16px"
                 fontWeight="bold"
@@ -1305,7 +1329,6 @@ const Leftdetail = () => {
               </Typography>
             </Box>
             <Box p={17}>
-              
               <Grid container spacing={1} mt={1}>
                 <Grid item xs={6} md={6}>
                   <Box textAlign="center">
@@ -1394,7 +1417,7 @@ const Leftdetail = () => {
             </Box>
             {/* {fareQuoteData?.FareRules[0]?.map((value) => {
               return ( */}
-           
+
             {/* ); })} */}
           </Box>
 
@@ -1419,28 +1442,26 @@ const Leftdetail = () => {
             </Button>
           </div> */}
           <button
-        style={{
-          width:200,
-          height: 63,
-         
-          background: "#21325D",
-          borderRadius: 5.3,
-          justifyContent: "center",
-          alignItems: "center",
-         
-          display: "inline-flex",
-          border:"1px solid #21325D",
-          color:"white",
-          cursor:"pointer",
-          marginTop:"-35px"
+            style={{
+              width: 200,
+              height: 63,
 
-        }}
-        type="submit"
-        
-        >
+              background: "#21325D",
+              borderRadius: 5.3,
+              justifyContent: "center",
+              alignItems: "center",
+
+              display: "inline-flex",
+              border: "1px solid #21325D",
+              color: "white",
+              cursor: "pointer",
+              marginTop: "-35px",
+              marginLeft: "28px",
+            }}
+            type="submit"
+          >
             Proceed to Book
-        </button>
-        
+          </button>
         </Box>
       </form>
     </div>

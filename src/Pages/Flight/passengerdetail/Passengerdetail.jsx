@@ -28,14 +28,14 @@ const Flight = (props) => {
     navigate("/FlightResult")
   }
   return (
-    <div className="flightContainer">
+    <div className="flightContainer" style={{marginTop:"80px"}}>
       {/* step by step updating part */}
 
       <Flightnavbar/>
 
-      <Grid container spacing={1} style={{border:"2px solid red",margin:"auto"}}>
+      <Grid container style={{margin:"auto",display:"flex",gap:"30px",width:"95%"}}>
         <Grid item xs={12} md={8}>
-          <Button onClick={backRoute} variant="Contained">Go Back</Button>
+          <Button onClick={backRoute} >Go Back</Button>
          
             <Leftdetail />
         

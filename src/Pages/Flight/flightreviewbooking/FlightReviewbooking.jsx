@@ -14,7 +14,7 @@ import Fairsummary from "./Fairsummary";
 import Flightbookingdetail from "./Flightbookingdetail";
 import Rightdetail from "../passengerdetail/Rightdetail";
 import { useDispatch, useSelector } from "react-redux";
-
+import Flightnavbar from "../Flightnavbar";
 const FlightReviewbooking = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -33,71 +33,16 @@ const FlightReviewbooking = () => {
     }
   }, [reducerState]);
   return (
-    <div className="flightContainer" style={{border:"2px solid red"}}>
-      {/* step by step updating part */}
+    <div className="flightContainer" style={{marginTop:"80px"}}>
+    
 
-      {/* <Flex
-        w="100%"
-        h="50"
-        mb="20"
-        borderRadius="20px"
-        m="auto"
-        className="shadow-sm p-3 mb-5 bg-white rounded "
-      >
-        <Flex w="19%" h="90%">
-          <Box w="25px" h="25" borderRadius="50%" bg="#1DBCF0" color="white">
-            <Text ml="6px">1</Text>
-          </Box>
-          <Text ml="10" fontWeight="bold">
-            Flight Search
-          </Text>
-        </Flex>
-        <Spacer />
-        <Flex w="19%" h="90%">
-          <Box w="25px" h="25" borderRadius="50%" bg="#1DBCF0" color="white">
-            <Text ml="6px">2</Text>
-          </Box>
-          <Text ml="10" fontWeight="bold">
-            Flight Result
-          </Text>
-        </Flex>
-        <Spacer />
-
-        <Flex w="19%" h="90%">
-          <Box w="25px" h="25" borderRadius="50%" bg="#1DBCF0" color="white">
-            <Text ml="6px">3</Text>
-          </Box>
-          <Text ml="10" fontWeight="bold">
-            Passenger Details
-          </Text>
-        </Flex>
-        <Spacer />
-        <Flex w="19%" h="90%">
-          <Box w="25px" h="25" borderRadius="50%" bg="#1DBCF0" color="white">
-            <Text ml="6px">4</Text>
-          </Box>
-          <Text ml="10" fontWeight="bold">
-            Review Booking
-          </Text>
-        </Flex>
-        <Spacer />
-        <form>
-          <Flex w="19%" h="90%">
-            <Box w="25px" h="25" borderRadius="50%" bg="#1DBCF0" color="white">
-              <Text ml="6px">5</Text>
-            </Box>
-            <Text ml="10" fontWeight="bold">
-              Booking Confirmation
-            </Text>
-          </Flex>
-        </form>
-      </Flex> */}
-
-      {loading ? (
+     
+      {/* {loading ? (
         <div>Loading...</div>
-      ) : (
-        <Grid container spacing={6}>
-          <Grid item xs={12} md={9}>
+      ) : ( */}
+         <Flightnavbar/>
+        <Grid container style={{margin:"auto",display:"flex",gap:"30px",width:"95%"}}>
+          <Grid item xs={12} md={8}>
             <Box>
               <Flightbookingdetail />
             </Box>
@@ -109,7 +54,7 @@ const FlightReviewbooking = () => {
             </Box>
           </Grid>
         </Grid>
-      )}
+      {/* )} */}
     </div>
   );
 };

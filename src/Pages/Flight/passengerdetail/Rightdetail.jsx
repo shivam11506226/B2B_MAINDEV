@@ -87,12 +87,12 @@ export default function Popularfilter() {
         borderRadius="10px"
         border= '1px #5C85A4 solid'
         p="10px"
-      
+        marginTop="8px"
         
       >
         <div
           style={{
-            width: 263,
+            width: 290,
             height: 49,
             padding: 10,
             background: "#B8CCFF",
@@ -274,10 +274,10 @@ export default function Popularfilter() {
               }}
             />
            
-            <div style={{width: 270, height: 36, paddingLeft: 10, paddingRight: 10, paddingTop: 8, paddingBottom: 8, background: '#DFE6F7', justifyContent: 'flex-start', alignItems: 'center', gap: 10, display: 'inline-flex'}}>
-  <div style={{justifyContent: 'space-between',  gap: 100, display: 'flex'}}>
+            <div style={{width: 290, height: 36, paddingLeft: 10, paddingRight: 10, paddingTop: 8, paddingBottom: 8, background: '#DFE6F7', justifyContent: 'flex-start', alignItems: 'center', gap: 10, display: 'inline-flex'}}>
+  <div style={{justifyContent: 'space-between',  gap: 120, display: 'flex'}}>
     <div style={{color: 'black', fontSize: 16, fontFamily: 'Montserrat', fontWeight: '350',marginLeft:"-6px"}}> Fare / Pax Type</div>
-    <div style={{width: 12, height: 25.21, color: '#21325D'}}>Amount</div>
+    <div style={{width: 20, height: 25.21, color: '#21325D'}}>Amount</div>
   </div>
 </div>
             <Divider
@@ -297,13 +297,13 @@ export default function Popularfilter() {
               <Grid item xs={12} md={6}>
               <div
               style={{
-                width: 270,
+                width: 290,
                 height: 34,
                 padding: 7,
                 background: "#B8CCFF",
                 justifyContent: "flex-start",
                 alignItems: "center",
-                gap: 123,
+                gap: 250,
                 display: "inline-flex",
               }}
             >
@@ -311,7 +311,7 @@ export default function Popularfilter() {
                 style={{
                   justifyContent: "flex-start",
                   alignItems: "center",
-                  gap: 115,
+                  gap: 120,
                   display: "flex",
                 }}
               >
@@ -340,7 +340,7 @@ export default function Popularfilter() {
                       fontSize: 11.47,
                       fontFamily: "Montserrat",
                       fontWeight: "400",
-                      marginLeft:"50px"
+                      marginLeft:"70px"
                       
                     }}
                   >
@@ -386,7 +386,7 @@ export default function Popularfilter() {
                               style={{
                                 width: 290.65,
                                 height: 20,
-                                justifyContent: "flex-start",
+                                justifyContent: "space-between",
                                 alignItems: "flex-start",
                                 gap: 113,
                                 display: "inline-flex",
@@ -430,7 +430,7 @@ export default function Popularfilter() {
                               style={{
                                 width: 290.65,
                                 height: 20,
-                                justifyContent: "flex-start",
+                                justifyContent: "space-between",
                                 alignItems: "flex-start",
                                 gap: 113,
                                 display: "inline-flex",
@@ -473,7 +473,7 @@ export default function Popularfilter() {
                             </div>
                             <div
                               style={{
-                                width: 270,
+                                width: 290,
                                 height: 36,
                                 paddingLeft: 10,
                                 paddingRight: 10,
@@ -482,7 +482,7 @@ export default function Popularfilter() {
                                 background: "#DFE6F7",
                                 justifyContent: "flex-start",
                                 alignItems: "center",
-                                gap: 10,
+                                gap: 30,
                                 display: "inline-flex",
                                 marginBottom:"5px",
                                 marginTop:"5px"
@@ -516,8 +516,8 @@ export default function Popularfilter() {
                                     fontFamily: "Montserrat",
                                     fontWeight: "350",
                                     wordWrap: "break-word",
-                                    width:"200px",
-                                    marginLeft:"-20px"
+                                   
+                                   
                                   }}
                                 >
                                  
@@ -707,7 +707,7 @@ export default function Popularfilter() {
             </Grid>
                         <div
               style={{
-                width: 270,
+                width: 290,
                 height: 34,
                 padding: 7,
                 background: "#B8CCFF",
@@ -719,9 +719,9 @@ export default function Popularfilter() {
             >
               <div
                 style={{
-                  justifyContent: "flex-start",
+                  justifyContent: "space-between",
                   alignItems: "center",
-                  gap: 115,
+                  gap: 125,
                   display: "flex",
                 }}
               >
@@ -740,7 +740,7 @@ export default function Popularfilter() {
                   style={{
                     justifyContent: "flex-start",
                     alignItems: "center",
-                    gap: 2.29,
+                    gap:5,
                     display: "flex",
                   }}
                 >
@@ -751,6 +751,7 @@ export default function Popularfilter() {
                       fontFamily: "Montserrat",
                       fontWeight: "400",
                       wordWrap: "break-word",
+                      
                     }}
                   >
                     {" "}

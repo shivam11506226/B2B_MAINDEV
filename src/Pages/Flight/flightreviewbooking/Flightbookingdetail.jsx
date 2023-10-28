@@ -125,7 +125,7 @@ const Flightbookingdetail = () => {
     <Box style={{width:"920px"}}>
       <div
         style={{
-          width: 900,
+          width: 822,
           height: 49,
           paddingLeft: 20,
           paddingRight: 20,
@@ -151,7 +151,7 @@ const Flightbookingdetail = () => {
           Review Booking
         </div>
       </div>
-      <Box  py={2} my={2} style={{background: '#D8DFF2',borderRadius: 4.04,width:'900px'}}>
+      <Box  py={2} my={2} style={{background: '#D8DFF2',borderRadius: 4.04,width:'822px'}}>
         {fareQuote?.map((data) => {
           return data?.map((data1) => {
             const dateString = data1?.Origin?.DepTime;
@@ -374,7 +374,7 @@ const Flightbookingdetail = () => {
       </Box>
       <div
         style={{
-          width: 900,
+          width: 822,
           height: 49,
           paddingLeft: 20,
           paddingRight: 20,
@@ -403,7 +403,7 @@ const Flightbookingdetail = () => {
 
      
 
-      <Box className="mid-headers" style={{padding:"18px"}}>
+      <Box className="mid-headers" style={{padding:"18px",width:"822px"}}>
         {Passengers?.map((passenger, key) => {
           console.log("Value", passenger);
           return (
@@ -489,7 +489,7 @@ const Flightbookingdetail = () => {
       </Box>
       <div
         style={{
-          width: 900,
+          width: 822,
           height: 49,
           paddingLeft: 20,
           paddingRight: 20,
@@ -515,7 +515,7 @@ const Flightbookingdetail = () => {
           Fare Rules
         </div>
       </div>
-      <Box className="Top_header" p={5} width={900}>
+      <Box className="Top_header" p={5} width={822}>
         {fareRules.map((rule) => (
           <Box>
            
@@ -533,7 +533,7 @@ const Flightbookingdetail = () => {
             <div
               
               dangerouslySetInnerHTML={createMarkup(rule.FareRuleDetail)}
-              style={{border:"2px solid red",padding:"20px"}}
+              style={{padding:"20px"}}
             />
             {/* <Grid container spacing={1} mt={1}>
               <Grid item xs={6} md={6}>
@@ -739,17 +739,10 @@ const Flightbookingdetail = () => {
         </Box> */}
       </Box>
 
-      <Box display="flex" alignItems="center">
-        <input
-          className="inputSelect"
-          type="checkbox"
-          value={passengerAgreement}
-          onChange={() => setPassengerAgreement(!passengerAgreement)}
-        />{" "}
-      </Box>
+     
       <div
         style={{
-          width: 900,
+          width: 822,
           height: 49,
           paddingLeft: 20,
           paddingRight: 20,
@@ -775,6 +768,46 @@ const Flightbookingdetail = () => {
           Terms & Conditions{" "}
         </div>
       </div>
+      <div
+        style={{
+          width: 822,
+          height: 49,
+          paddingLeft: 20,
+          paddingRight: 20,
+          paddingTop: 10,
+          paddingBottom: 10,
+          background: "#DFE6F7",
+          borderRadius: 4,
+          justifyContent: "flex-start",
+          alignItems: "center",
+          gap: 10,
+          display: "flex",
+          marginTop:"10px"
+        }}
+      >
+        
+          <Box display="flex" alignItems="center">
+        <input
+          className="inputSelect"
+          type="checkbox"
+          value={passengerAgreement}
+          onChange={() => setPassengerAgreement(!passengerAgreement)}
+        />{" "}
+      </Box>
+      <Box display="flex" alignItems="center">
+        <input
+          className="inputSelect"
+          type="checkbox"
+          value={paymentOption}
+          onChange={() => setPaymentOption(!paymentOption)}
+        />{" "}
+      </Box>
+      </div>
+
+
+
+
+
       <div
         style={{
           color: "#E73C33",
@@ -884,14 +917,7 @@ const Flightbookingdetail = () => {
       </div>
       
 
-      <Box display="flex" alignItems="center">
-        <input
-          className="inputSelect"
-          type="checkbox"
-          value={paymentOption}
-          onChange={() => setPaymentOption(!paymentOption)}
-        />{" "}
-      </Box>
+     
 
       {/* <Box textAlign="center">
         <form
