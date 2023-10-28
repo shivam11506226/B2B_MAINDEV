@@ -64,6 +64,6 @@ font-family: Montserrat;
 font-size: 16px;
 font-style: normal;
 font-weight: 400;
-line-height: normal;
-text-decoration-line: underline;
+line-height: -10px;
+border-bottom: 1px solid #0048FF;
 }

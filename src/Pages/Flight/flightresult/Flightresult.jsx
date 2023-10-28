@@ -12,7 +12,7 @@ import Flightnavbar from "../Flightnavbar";
 const Flightresult = () => {
   return (
     <React.Fragment>
-      <div className="flightContainer" style={{width:"100%"}}>
+      <div className="flightContainer" style={{width:"100%",marginTop:"50px"}}>
         {/* step by step updating part */}
         <Flightnavbar/>
         <Box>
@@ -35,32 +35,9 @@ const Flightresult = () => {
                 justifyContent="end"
                 alignItems="center"
               >
-                <Box>
-                  <Typography className="city">New Delhi</Typography>
-                  <Typography className="city">
-                    Indira Gandhi International Airport, India
-                  </Typography>
-                </Box>
+                
               </Grid>
-              <Grid
-                item
-                xs={12}
-                sm={12}
-                md={2}
-                display="flex"
-                justifyContent="space-around"
-                alignItems="center"
-              >
-                <Box>
-                  <FlightTakeoffIcon className="flightup" />
-                </Box>
-                <Box>
-                  <Typography className="duration">- - - -</Typography>
-                </Box>
-                <Box>
-                  <FlightLandIcon className="flightup" />
-                </Box>
-              </Grid>
+             
               <Grid
                 item
                 xs={12}
@@ -70,12 +47,7 @@ const Flightresult = () => {
                 justifyContent="start"
                 alignItems="center"
               >
-                <Box>
-                  <Typography className="city2">Mumbai</Typography>
-                  <Typography className="city2">
-                    Chhatrapati Shivaji International Airport, India
-                  </Typography>
-                </Box>
+                
               </Grid>
             </Grid>
           </div>
