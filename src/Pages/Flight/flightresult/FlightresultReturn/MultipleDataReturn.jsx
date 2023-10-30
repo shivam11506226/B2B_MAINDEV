@@ -1,4 +1,4 @@
-import { Grid, Box, Typography } from "@mui/material";
+import { Grid, Box, Typography,Radio } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 
 import "../MultiData.css";
@@ -198,6 +198,12 @@ const MultipleDataReturn = (props) => {
               Per Adult
             </Typography>
           </Box>
+          {props.showRadio && (<Radio
+        checked={props.isSelected}
+        onClick={props.onSelect}
+        color="primary"
+      /> 
+          )}
         </Grid>
       </Grid>
 
