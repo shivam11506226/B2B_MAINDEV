@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector, useReducer } from "react-redux";
-import { Grid, Box, Typography, Button, Card } from "@mui/material";
+import { useDispatch, useSelector } from "react-redux";
+import {  Box, Typography, Button } from "@mui/material";
 import FlightresultOne from "./FlightresultOne";
 import FlightReturn from "./FlightReturn";
 import SingleDataReturn from "./SingleDataReturn";
@@ -11,7 +11,7 @@ import {
   quoteAction,
   ruleAction,
 } from "../../../../Redux/FlightFareQuoteRule/actionFlightQuote";
-import { Center, Wrap } from "@chakra-ui/react";
+
 import "./FlightresultReturn.css"
 import Flightnavbar from "../../Flightnavbar";
 const FlightresultReturn = () => {
@@ -128,7 +128,7 @@ const FlightresultReturn = () => {
 
           }}
         >
-          {ongoFlight?.Segments[0].length == 1 ? (
+          {ongoFlight?.Segments[0].length === 1 ? (
 
 
 
@@ -166,7 +166,7 @@ const FlightresultReturn = () => {
 
           }}
         >
-          {incomeGlight?.Segments[0].length == 1 ? (
+          {incomeGlight?.Segments[0].length === 1 ? (
             <SingleDataReturn
               flight={incomeGlight?.Segments[0][0]}
               wholeFlight={incomeGlight}
