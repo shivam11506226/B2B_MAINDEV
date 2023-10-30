@@ -215,7 +215,7 @@ const Login = () => {
                 <Box style={{ width: "100%", justifyContent: 'center', alignItems: 'center', display: 'flex', marginTop: "30px" }}>
 
 
-                  <Button border=  {agencyPage === 1 ? "1px solid blue" : "1px solid blue"} onClick={() => setAgencyPage(1)} style={{ width: '400px', height: '50px', background: '#FFFFFF', justifyContent: 'center', alignItems: 'center', display: 'flex',border: agencyPage===1?"1px solid blue":'1px solid #D9D9D9'}}>
+                  <Button border=  {agencyPage === 1 ? "55px solid #0048FF" : "55px solid #0048FF"} onClick={() => setAgencyPage(1)} style={{ width: '400px', height: '50px', background: '#FFFFFF', justifyContent: 'center', alignItems: 'center', display: 'flex',border: agencyPage===1?"3px solid #0048FF":'3px solid #D9D9D9'}}>
 
                     <Typography
                       sx={{
@@ -227,7 +227,7 @@ const Login = () => {
                       Personal Details
                     </Typography>
                   </Button>
-                  <Button  onClick={() => setAgencyPage(2)} style={{ width: '400px', height: '50px', background: '#FFFFFF', justifyContent: 'center', alignItems: 'center', display: 'flex',border: agencyPage===2?"1px solid blue":'1px solid #D9D9D9' }}>
+                  <Button  onClick={() => setAgencyPage(2)} style={{ width: '400px', height: '50px', background: '#FFFFFF', justifyContent: 'center', alignItems: 'center', display: 'flex',border: agencyPage===2?"3px solid #0048FF":'3px solid #D9D9D9' }}>
 
                     <Typography
                       sx={{
@@ -239,7 +239,7 @@ const Login = () => {
                       Agency Details
                     </Typography>
                   </Button>
-                  <Button  onClick={() => setAgencyPage(3)} style={{ width: '400px', height: '50px', background: '#FFFFFF', justifyContent: 'center', alignItems: 'center', display: 'flex',border: agencyPage===3?"1px solid blue":'1px solid #D9D9D9' }}>
+                  <Button  onClick={() => setAgencyPage(3)} style={{ width: '400px', height: '50px', background: '#FFFFFF', justifyContent: 'center', alignItems: 'center', display: 'flex',border: agencyPage===3?"3px solid #0048FF":'3px solid #D9D9D9' }}>
 
                     <Typography
                       sx={{

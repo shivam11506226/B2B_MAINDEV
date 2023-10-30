@@ -93,6 +93,7 @@
 .input_size {
   display: flex !important;
   justify-content: center !important;
+  z-index: 1;
 }
 
 .registrationNNContainer {

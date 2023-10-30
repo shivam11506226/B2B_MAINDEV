@@ -196,21 +196,21 @@ const CreateHolidayPackage = () => {
   const styles1 = {
     container: {
       display: "flex",
-      marginLeft: "-6px",
-      marginTop: "10px",
+      marginLeft:"-6px",
+      marginTop:"10px"
     },
     input: {
-      color: "color.bluedark",
+      color:"color.bluedark",
       paddingLeft: "15px",
       paddingRight: "15px",
       fontSize: "16px",
-      border: "color.bluedark",
+      border:"color.bluedark",
       borderRadius: "5px",
       width: "55px",
       textAlign: "center",
     },
     button: {
-      backgroundColor: color.bluedark,
+      backgroundColor:color.bluedark,
       color: "#fff",
       borderRadius: "5px",
       marginLeft: "5px",
@@ -388,193 +388,100 @@ const CreateHolidayPackage = () => {
   };
 
   return (
-    <div
-      style={{
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        flexDirection: "column",
-        backgroundColor: "#FFFFFF",
-      }}
-    >
-      <Box
-        style={{
-          width: "895px",
-          height: "70px",
-          background: "#22344F",
-          borderRadius: "8px",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-      >
-        <Typography
-          style={{
-            fontSize: "18px",
-
-            color: "white",
-            fontSize: 32,
-            fontFamily: "Montserrat",
-            fontWeight: "700",
-            wordWrap: "break-word",
-          }}
-        >
-          Create Holiday Package
-        </Typography>
-      </Box>
-      <Grid
-        container
-        direction="column"
-        justifyContent="center"
-        marginTop="30px"
-        alignItems="center"
-        border="none"
-        borderRadius="10px"
-        width="100%"
-      >
-        <form
-          onSubmit={handleCreatePackage}
-          style={
-            {
-              // backgroundColor: 'yellow', display: 'flex', flexDirection: "column", justifyContent: "center",
-              // alignItems: "center",width:"100%"
-            }
-          }
-        >
-          <Grid
-            item
-            xs={2}
-            md={8}
-            width="100%"
-            direction="column"
-            justifyContent="center"
-            alignItems="center"
-          >
+    <div>
+      <Grid>
+        <form onSubmit={handleCreatePackage}>
+          <Grid item xs={2} md={8}>
             <Box
               sx={{
-                backgroundColor: "#DFE6F7",
-                marginBottom:"30px",
-                boxShadow: "0 2px 6px gray",
-                display: "flex",
-                justifyContent: "center",
-                flexDirection: "column",
-                width: "895px",
-                borderRadius: "10px",
-                padding: "0px 70px",
+                width: "100%",
+                backgroundColor: "white",
+            
+               
               }}
             >
-              <div
-              //  style={{ display: "flex", justifyContent: "space-between" }}
-              >
-                <div style={{ flex: 1, marginLeft: "10px", marginTop: "30px" }}>
-                  <Typography
-                    style={{
-                      fontSize: "20px",
-                      color: "#000",
-
-                      fontFamily: "Montserrat",
-                    }}
-                  >
-                    {" "}
-                    Package Title <span style={{ color: "red" }}>*</span>
-                  </Typography>
-                  <Box
-                    style={{
-                      // boxShadow: "0px 7px 11px rgba(0, 0, 0, 0.29)",
-                      paddingTop: "10px",
-                      paddingBottom: "10px",
-                      borderRadius: "px",
-                      padding: "5px",
-                      border: "1px solid #5C85A4",
-                      backgroundColor: "#FFFBFB",
-                      // Changed background color
-                      width: "100%", // Adjusted width to fill available space
-                      marginTop: "10px",
-                    }}
-                  >
-                    <input
-                      type="text"
-                      name="package_title"
-                      placeholder="Enter Your Package Title"
-                      style={{
-                        border: "none",
-                        textDecoration: "none",
-                        width: "100%",
-                        padding: "5px", // Added padding for input
-                        borderRadius: "5px", // Added border radius for input
-                      }}
-                    />
-                  </Box>
-                </div>
-
-                <div
-                  style={{
-                    flex: 1,
-                    marginLeft: "10px",
-                    //   marginRight: "20px"
-                  }}
-                >
-                  <Box>
-                    <Typography
-                      style={{
-                        fontSize: "20px",
-                        color: "#000",
-
-                        fontFamily: "Montserrat",
-                      }}
-                    >
-                      Upload a picture of the package{" "}
-                      <span style={{ color: "red" }}>*</span>
-                    </Typography>
-                    {/* <Typography style={{ fontSize: "10px", color: "#666666" }}>
-                      Please select from auto suggestions
-                    </Typography> */}
-                    <input
-                      style={{
-                        paddingTop: "10px",
-                        paddingBottom: "10px",
-                        borderRadius: "px",
-                        padding: "5px",
-                        border: "1px solid #5C85A4",
-                        backgroundColor: "#FFFBFB",
-                        color: "#000000",
-                        // Changed background color
-                        width: "100%", // Adjusted width to fill available space
-                        marginTop: "10px",
-                      }}
-                      name="user_card_document"
-                      id="user_card_document"
-                      className="input_file"
-                      type="file"
-                    />
-                  </Box>
-                </div>
-              </div>
-
-              <Box
-                style={{
-                  paddingTop: "10px",
-                  marginTop: "10px",
-                  marginLeft: "10px",
-                }}
-              >
+              <Box>
                 <Typography
                   style={{
-                    fontSize: "20px",
-                    color: "#000",
-
-                    fontFamily: "Montserrat",
+                    fontSize: "18px",
+                    color: "#006FFF",
+                    textAlign: " center",
                   }}
                 >
+                  Create Holiday Package
+                </Typography>
+              </Box>
+             
+              <div style={{ display: "flex", justifyContent: "space-between" }}>
+            <div style={{ flex: 1, marginLeft:"10px"}}>
+              <Typography style={{ fontSize: "16px" }}>
+                {" "}
+                Give the package a title <span style={{ color: "red" }}>*</span>
+              </Typography>
+              <Box
+                style={{
+                  boxShadow: "0px 7px 11px rgba(0, 0, 0, 0.29)",
+                  paddingTop: "10px",
+                  paddingBottom: "10px",
+                  borderRadius: "10px",
+                  padding: "5px",
+                  background: "#EFEFEF", // Changed background color
+                  width: "100%", // Adjusted width to fill available space
+                  marginTop: "10px",
+                }}
+              >
+                <input
+                  type="text"
+                  name="package_title"
+                  placeholder="Enter Your Package Title"
+                 
+                  style={{
+                    border: "none",
+                    textDecoration: "none",
+                    width: "100%",
+                    padding: "5px", // Added padding for input
+                    borderRadius: "5px", // Added border radius for input
+                  }}
+                />
+              </Box>
+            </div>
+
+            <div style={{ flex: 1, marginLeft: "20px", marginRight:"20px" }}>
+              <Box >
+                <Typography style={{ fontSize: "16px", color: "#252525" }}>
+                  Upload a picture of the package{" "}
+                  <span style={{ color: "red" }}>*</span>
+                </Typography>
+                <Typography style={{ fontSize: "10px", color: "#666666" }}>
+                  Please select from auto suggestions
+                </Typography>
+                <input
+                  style={{
+                    border: "1px solid grey",
+                    padding: "5px",
+                    width: "100%", // Adjusted width to fill available space
+                    borderRadius: "10px",
+                    color: "#006FFF",
+                  }}
+                  name="user_card_document"
+                  id="user_card_document"
+                  type="file"
+                />
+              </Box>
+            </div>
+          </div>
+
+              <Box style={{ paddingTop: "10px",width:"48%",marginTop:"10px",marginLeft:"10px"}}>
+                <Typography style={{ fontSize: "16px" }}>
                   What destinations does this package cover?
                   <span style={{ color: "red" }}>*</span>
                 </Typography>
                 {/* <Typography style={{ fontSize: "10px" }}>
                   Please select from auto suggestions
                 </Typography> */}
-                {/* <Typography style={{ fontSize: "14px", paddingTop: "3px" }}>
+                <Typography style={{ fontSize: "14px", paddingTop: "3px" }}>
                   Destinations..
-                </Typography> */}
+                </Typography>
                 <Paper
                   sx={{
                     display: "flex",
@@ -583,16 +490,13 @@ const CreateHolidayPackage = () => {
                     listStyle: "none",
                     p: 1,
                     m: 0,
-                    width: "100%",
-                    height: "45px",
-                    border: "1px solid #5C85A4",
                   }}
                   component="ul"
                 >
                   {chipData.map((data, index) => {
                     let icon;
                     return (
-                      <ListItem key={data.key} width="565px" height="50px">
+                      <ListItem key={data.key}>
                         <Chip
                           icon={icon}
                           label={data.addMore}
@@ -620,12 +524,7 @@ const CreateHolidayPackage = () => {
                         handleAddChip();
                       }
                     }}
-                    style={{
-                      padding: "3px",
-                      border: "1px solid #5C85A4",
-                      width: "90%",
-                      height: "45px",
-                    }}
+                    style={{ padding: "3px" }}
                   />
                   <Button
                     onClick={handleAddChip}
@@ -638,71 +537,36 @@ const CreateHolidayPackage = () => {
                 </div>
               </Box>
 
-              <Box my={3} style={{ marginLeft: "18px" }}>
-                <Typography
-                  style={{
-                    fontSize: "20px",
-                    color: "#000",
+              <Box my={5} style={{marginLeft:"20px"}}>
+            <Typography style={{ fontSize: "16px", color: "#252525" }}>
+              How Many Days?
+            </Typography>
+            <Box style={styles1.container}>
+              <Button
+                onClick={() => (days === 0 ? setDays(0) : setDays(days - 1))}
+                style={styles1.button}
+              >
+                <RemoveIcon style={{ fontSize: "16px" }} />
+              </Button>
+              <input
+                style={styles1.input}
+                type="number"
+                value={days}
+                onChange={(e) => setDays(Number(e.target.value))}
+              />
+              <Button onClick={() => setDays(days + 1)} style={styles1.button}>
+                <AddIcon style={{ fontSize: "16px" }} />
+              </Button>
+            </Box>
+          </Box>
 
-                    fontFamily: "Montserrat",
-                  }}
-                >
-                  How Many Days?
-                </Typography>
-                <Box style={styles1.container}>
-                  <Button
-                    onClick={() =>
-                      days === 0 ? setDays(0) : setDays(days - 1)
-                    }
-                    style={styles1.button}
-                  >
-                    <RemoveIcon style={{ fontSize: "16px" }} />
-                  </Button>
-                  <input
-                    style={styles1.input}
-                    type="number"
-                    value={days}
-                    onChange={(e) => setDays(Number(e.target.value))}
-                  />
-                  <Button
-                    onClick={() => setDays(days + 1)}
-                    style={styles1.button}
-                  >
-                    <AddIcon style={{ fontSize: "16px" }} />
-                  </Button>
-                </Box>
-              </Box>
-
-              <Box my={1} style={{ marginLeft: "18px" }}>
-                <Typography
-                  style={{
-                    fontSize: "20px",
-                    color: "#000",
-
-                    fontFamily: "Montserrat",
-                  }}
-                >
+              <Box my={2} style={{marginLeft:"20px"}}>
+                 <Typography style={{ fontSize: "16px" }}>
                   What is the schedule?<span style={{ color: "red" }}>*</span>
                 </Typography>
-                <Box
-                  display="flex"
-                  gap="15px"
-                  style={{
-                    // boxShadow: "0px 7px 11px rgba(0, 0, 0, 0.29)",
-                    paddingTop: "10px",
-                    paddingBottom: "10px",
-                    borderRadius: "4px",
-                    padding: "5px",
-                    border: "1px solid #5C85A4",
-                    backgroundColor: "#FFFBFB",
-                    // Changed background color
-                    width: "300px", // Adjusted width to fill available space
-                    marginTop: "10px",
-                    paddingLeft: "10px",
-                  }}
-                >
+                <Box display="flex" gap="15px">
                   <Box display="flex" alignItems="center" gap="5px">
-                    <Box className="radio">
+                    <Box>
                       <input
                         type="radio"
                         name="schedule"
@@ -713,25 +577,20 @@ const CreateHolidayPackage = () => {
                     </Box>
                     <Box>
                       <Typography
-                        style={{
-                          fontSize: "20px",
-                          color: "#000",
-
-                          fontFamily: "Montserrat",
-                        }}
+                        style={{ fontSize: "14px", color: "#252525" }}
                       >
                         Flexible
                       </Typography>
-                      {/* <Typography
+                      <Typography
                         style={{ fontSize: "10px", color: "#666666" }}
                       >
                         can be booked anytime
-                      </Typography> */}
+                      </Typography>
                     </Box>
                   </Box>
 
                   <Box display="flex" alignItems="center" gap="5px">
-                    <Box className="radio">
+                    <Box>
                       <input
                         type="radio"
                         name="schedule"
@@ -741,55 +600,28 @@ const CreateHolidayPackage = () => {
                     </Box>
                     <Box>
                       <Typography
-                        style={{
-                          fontSize: "20px",
-                          color: "#000",
-
-                          fontFamily: "Montserrat",
-                        }}
+                        style={{ fontSize: "14px", color: "#252525" }}
                       >
                         Fixed Departure
                       </Typography>
-                      {/* <Typography
+                      <Typography
                         style={{ fontSize: "10px", color: "#666666" }}
                       >
                         Departure are scheduled
-                      </Typography> */}
+                      </Typography>
                     </Box>
                   </Box>
                 </Box>
               </Box>
-              <Box my={1} style={{ marginLeft: "18px" }}>
-                <Typography
-                  style={{
-                    fontSize: "20px",
-                    color: "#000",
-
-                    fontFamily: "Montserrat",
-                  }}
-                >
+              <Box>
+                <Typography style={{ fontSize: "16px",marginLeft:"20px"}}>
                   Set up package pricing<span style={{ color: "red" }}>*</span>
                 </Typography>
-                <Box display="flex" style={{ marginTop: "17px" }}>
+                <Box display="flex" style={{marginLeft:"20px"}}>
                   <Box ml={1}>
-                    <FormControl style={{ border: "1px sold black" }}>
-                      <NativeSelect
-                        style={{
-                          fontSize: "20px",
-                          color: "#000",
-
-                          fontFamily: "Montserrat",
-                        }}
-                      >
-                        <option
-                          value={10}
-                          style={{
-                            fontSize: "20px",
-                            color: "#000",
-
-                            fontFamily: "Montserrat",
-                          }}
-                        >
+                    <FormControl>
+                      <NativeSelect>
+                        <option value={10} style={{ padding: "4px" }}>
                           INR
                         </option>
                         {/* <option value={10}>INR</option>
@@ -803,31 +635,14 @@ const CreateHolidayPackage = () => {
                       type="text"
                       name="amount"
                       placeholder="Amount"
+                      style={{ textDecoration: "none" }}
                       onChange={handleAmount}
-                      style={{
-                        paddingTop: "10px",
-                        paddingBottom: "10px",
-                        borderRadius: "4px",
-                        padding: "5px",
-                        border: "1px solid #5C85A4",
-                        backgroundColor: "#FFFBFB",
-                        // Changed background color
-                        // width: "565px",
-                        // Adjusted width to fill available space
-                        // marginTop: "10px",
-                        paddingLeft: "10px",
-                        textDecoration: "none",
-                      }}
                     />
                     <span
                       style={{
-                        fontSize: "20px",
-                        color: "#000",
-
-                        fontFamily: "Montserrat",
                         display: "block",
-                        alignSelf: "center",
-                        paddingLeft: "8px",
+                        alignSelf: "end",
+                        paddingLeft: "3px",
                       }}
                     >
                       Per Person
@@ -836,38 +651,19 @@ const CreateHolidayPackage = () => {
                 </Box>
               </Box>
 
-              <Box style={{ fontSize: "16px", marginLeft: "20px" }}>
-                <Typography
-                  style={{
-                    color: "#5C85A4",
-
-                    fontFamily: "Montserrat",
-                    fontsize: "24px",
-                    fontStyle: "normal",
-                    fontWeight: "600",
-                    lineHeight: "normal",
-                  }}
-                >
+              <Box style={{ fontSize: "16px", marginLeft: "29px" }}>
+                <Typography style={{ fontSize: "16px", marginTop: "29px" }}>
+                  Inclusions / Exclusions<span style={{ color: "red" }}>*</span>
+                </Typography>
+                <Typography style={{ fontSize: "10px", color: "#FF8900" }}>
                   Select ( ) for inclusion / ( ) for exclusions / leave
                   unselected for Not Applicable
                 </Typography>
-                <Typography
-                  style={{
-                    marginTop: "20px",
-                    color: "#000",
-                    fontFamily: "Montserrat",
-                    fontSize: "24px",
-                    fontStyle: "normal",
-                    fontWeight: "600",
-                    lineHeight: "normal",
-                  }}
-                >
-                  Inclusions / Exclusions<span style={{ color: "red" }}>*</span>
-                </Typography>
               </Box>
               <Grid container spacing={10}>
+                <Grid item lg={1}></Grid>
                 <Grid item lg={5} mt={3}>
-                  <Box style={{ marginLeft: "20px" }}>
+                  <Box>
                     <Box
                       display="flex"
                       justifyContent="space-between"
@@ -876,7 +672,6 @@ const CreateHolidayPackage = () => {
                       <Box
                         display="flex"
                         textAlign="center"
-                        gap="10px"
                         alignItems="center"
                       >
                         <CommitIcon />
@@ -890,7 +685,7 @@ const CreateHolidayPackage = () => {
                           Flexibility
                         </Typography>
                       </Box>
-                      <Box display="flex" gap="10px">
+                      <Box display="flex">
                         <Checkbox
                           value="true"
                           name="flexibility"
@@ -916,7 +711,7 @@ const CreateHolidayPackage = () => {
                       justifyContent="space-between"
                       alignItems="center"
                     >
-                      <Box display="flex" gap="10px">
+                      <Box display="flex">
                         <TramIcon />
                         <Typography
                           sx={{
@@ -928,7 +723,7 @@ const CreateHolidayPackage = () => {
                           Train
                         </Typography>
                       </Box>
-                      <Box display="flex" gap="10px">
+                      <Box display="flex">
                         <Checkbox
                           value="true"
                           name="train"
@@ -954,7 +749,7 @@ const CreateHolidayPackage = () => {
                       justifyContent="space-between"
                       alignItems="center"
                     >
-                      <Box display="flex" gap="10px">
+                      <Box display="flex">
                         <DirectionsBusIcon />
                         <Typography
                           sx={{
@@ -966,7 +761,7 @@ const CreateHolidayPackage = () => {
                           Bus
                         </Typography>
                       </Box>
-                      <Box display="flex" gap="10px">
+                      <Box display="flex">
                         <Checkbox
                           value="true"
                           name="bus"
@@ -992,7 +787,7 @@ const CreateHolidayPackage = () => {
                       justifyContent="space-between"
                       alignItems="center"
                     >
-                      <Box display="flex" gap="10px">
+                      <Box display="flex">
                         <DirectionsCarIcon />
                         <Typography
                           sx={{
@@ -1004,7 +799,7 @@ const CreateHolidayPackage = () => {
                           Cab
                         </Typography>
                       </Box>
-                      <Box display="flex" gap="10px">
+                      <Box display="flex">
                         <Checkbox
                           value="true"
                           name="cab"
@@ -1030,7 +825,7 @@ const CreateHolidayPackage = () => {
                       justifyContent="space-between"
                       alignItems="center"
                     >
-                      <Box display="flex" gap="10px">
+                      <Box display="flex">
                         <TwoWheelerIcon />
                         <Typography
                           sx={{
@@ -1042,7 +837,7 @@ const CreateHolidayPackage = () => {
                           Moterbike
                         </Typography>
                       </Box>
-                      <Box display="flex" gap="10px">
+                      <Box display="flex">
                         <Checkbox
                           value="true"
                           name="moterBike"
@@ -1068,7 +863,7 @@ const CreateHolidayPackage = () => {
                       justifyContent="space-between"
                       alignItems="center"
                     >
-                      <Box display="flex" gap="10px">
+                      <Box display="flex">
                         <ApartmentIcon />
                         <Typography
                           sx={{
@@ -1080,7 +875,7 @@ const CreateHolidayPackage = () => {
                           Hotel
                         </Typography>
                       </Box>
-                      <Box display="flex" gap="10px">
+                      <Box display="flex">
                         <Checkbox
                           value="true"
                           name="hotel"
@@ -1106,7 +901,7 @@ const CreateHolidayPackage = () => {
                       justifyContent="space-between"
                       alignItems="center"
                     >
-                      <Box display="flex" gap="10px">
+                      <Box display="flex">
                         <HolidayVillageIcon />
                         <Typography
                           sx={{
@@ -1118,7 +913,7 @@ const CreateHolidayPackage = () => {
                           Homestays
                         </Typography>
                       </Box>
-                      <Box display="flex" gap="10px">
+                      <Box display="flex">
                         <Checkbox
                           value="true"
                           name="homeStays"
@@ -1144,7 +939,7 @@ const CreateHolidayPackage = () => {
                       justifyContent="space-between"
                       alignItems="center"
                     >
-                      <Box display="flex" gap="10px">
+                      <Box display="flex">
                         <LocationCityIcon />
                         <Typography
                           sx={{
@@ -1156,7 +951,7 @@ const CreateHolidayPackage = () => {
                           Guesthouse
                         </Typography>
                       </Box>
-                      <Box display="flex" gap="10px">
+                      <Box display="flex">
                         <Checkbox
                           value="true"
                           name="guestHouse"
@@ -1182,7 +977,7 @@ const CreateHolidayPackage = () => {
                       justifyContent="space-between"
                       alignItems="center"
                     >
-                      <Box display="flex" gap="10px">
+                      <Box display="flex">
                         <CabinIcon />
                         <Typography
                           sx={{
@@ -1194,7 +989,7 @@ const CreateHolidayPackage = () => {
                           Camp
                         </Typography>
                       </Box>
-                      <Box display="flex" gap="10px">
+                      <Box display="flex">
                         <Checkbox
                           value="true"
                           name="camp"
@@ -1220,7 +1015,7 @@ const CreateHolidayPackage = () => {
                       justifyContent="space-between"
                       alignItems="center"
                     >
-                      <Box display="flex" gap="10px">
+                      <Box display="flex">
                         <BlurOnIcon />
                         <Typography
                           sx={{
@@ -1232,7 +1027,7 @@ const CreateHolidayPackage = () => {
                           Cruise
                         </Typography>
                       </Box>
-                      <Box display="flex" gap="10px">
+                      <Box display="flex">
                         <Checkbox
                           value="true"
                           name="cruise"
@@ -1258,7 +1053,7 @@ const CreateHolidayPackage = () => {
                       justifyContent="space-between"
                       alignItems="center"
                     >
-                      <Box display="flex" gap="10px">
+                      <Box display="flex">
                         <DeckIcon />
                         <Typography
                           sx={{
@@ -1270,7 +1065,7 @@ const CreateHolidayPackage = () => {
                           Sightseeing
                         </Typography>
                       </Box>
-                      <Box display="flex" gap="10px">
+                      <Box display="flex">
                         <Checkbox
                           value="true"
                           name="sightSeeing"
@@ -1296,7 +1091,7 @@ const CreateHolidayPackage = () => {
                       justifyContent="space-between"
                       alignItems="center"
                     >
-                      <Box display="flex" gap="10px">
+                      <Box display="flex">
                         <EngineeringIcon />
                         <Typography
                           sx={{
@@ -1308,7 +1103,7 @@ const CreateHolidayPackage = () => {
                           Guide
                         </Typography>
                       </Box>
-                      <Box display="flex" gap="10px">
+                      <Box display="flex">
                         <Checkbox
                           value="true"
                           name="guide"
@@ -1334,7 +1129,7 @@ const CreateHolidayPackage = () => {
                       justifyContent="space-between"
                       alignItems="center"
                     >
-                      <Box display="flex" gap="10px">
+                      <Box display="flex">
                         <FastfoodIcon />
                         <Typography
                           sx={{
@@ -1346,7 +1141,7 @@ const CreateHolidayPackage = () => {
                           Meals
                         </Typography>
                       </Box>
-                      <Box display="flex" gap="10px">
+                      <Box display="flex">
                         <Checkbox
                           {...label}
                           value="true"
@@ -1373,7 +1168,7 @@ const CreateHolidayPackage = () => {
                       justifyContent="space-between"
                       alignItems="center"
                     >
-                      <Box display="flex" gap="10px">
+                      <Box display="flex">
                         <DinnerDiningIcon />
                         <Typography
                           sx={{
@@ -1385,7 +1180,7 @@ const CreateHolidayPackage = () => {
                           Daily Breakfast
                         </Typography>
                       </Box>
-                      <Box display="flex" gap="10px">
+                      <Box display="flex">
                         <Checkbox
                           value="true"
                           name="breakfast"
@@ -1411,7 +1206,7 @@ const CreateHolidayPackage = () => {
                       justifyContent="space-between"
                       alignItems="center"
                     >
-                      <Box display="flex" gap="10px">
+                      <Box display="flex">
                         <LiquorIcon />
                         <Typography
                           sx={{
@@ -1423,7 +1218,7 @@ const CreateHolidayPackage = () => {
                           Complimentary Drink
                         </Typography>
                       </Box>
-                      <Box display="flex" gap="10px">
+                      <Box display="flex">
                         <Checkbox
                           value="true"
                           name="drink"
@@ -1449,7 +1244,7 @@ const CreateHolidayPackage = () => {
                       justifyContent="space-between"
                       alignItems="center"
                     >
-                      <Box display="flex" gap="10px">
+                      <Box display="flex">
                         <ArticleIcon />
                         <Typography
                           sx={{
@@ -1461,7 +1256,7 @@ const CreateHolidayPackage = () => {
                           Visa
                         </Typography>
                       </Box>
-                      <Box display="flex" gap="10px">
+                      <Box display="flex">
                         <Checkbox
                           value="true"
                           name="visa"
@@ -1491,7 +1286,7 @@ const CreateHolidayPackage = () => {
                       justifyContent="space-between"
                       alignItems="center"
                     >
-                      <Box display="flex" gap="10px">
+                      <Box display="flex">
                         <AccountBalanceIcon />
                         <Typography
                           sx={{
@@ -1503,7 +1298,7 @@ const CreateHolidayPackage = () => {
                           Travel Insurance
                         </Typography>
                       </Box>
-                      <Box display="flex" gap="10px">
+                      <Box display="flex">
                         <Checkbox
                           value="true"
                           name="travelInsurance"
@@ -1529,7 +1324,7 @@ const CreateHolidayPackage = () => {
                       justifyContent="space-between"
                       alignItems="center"
                     >
-                      <Box display="flex" gap="10px">
+                      <Box display="flex">
                         <ParaglidingIcon />
                         <Typography
                           sx={{
@@ -1541,7 +1336,7 @@ const CreateHolidayPackage = () => {
                           Safe to Travel
                         </Typography>
                       </Box>
-                      <Box display="flex" gap="10px">
+                      <Box display="flex">
                         <Checkbox
                           value="true"
                           name="safeTravel"
@@ -1567,7 +1362,7 @@ const CreateHolidayPackage = () => {
                       justifyContent="space-between"
                       alignItems="center"
                     >
-                      <Box display="flex" gap="10px">
+                      <Box display="flex">
                         <NaturePeopleIcon />
                         <Typography
                           sx={{
@@ -1579,7 +1374,7 @@ const CreateHolidayPackage = () => {
                           Wildlife
                         </Typography>
                       </Box>
-                      <Box display="flex" gap="10px">
+                      <Box display="flex">
                         <Checkbox
                           value="true"
                           name="wildlife"
@@ -1605,7 +1400,7 @@ const CreateHolidayPackage = () => {
                       justifyContent="space-between"
                       alignItems="center"
                     >
-                      <Box display="flex" gap="10px">
+                      <Box display="flex">
                         <LandslideIcon />
                         <Typography
                           sx={{
@@ -1617,7 +1412,7 @@ const CreateHolidayPackage = () => {
                           Heritage
                         </Typography>
                       </Box>
-                      <Box display="flex" gap="10px">
+                      <Box display="flex">
                         <Checkbox
                           value="true"
                           name="heritage"
@@ -1643,7 +1438,7 @@ const CreateHolidayPackage = () => {
                       justifyContent="space-between"
                       alignItems="center"
                     >
-                      <Box display="flex" gap="10px">
+                      <Box display="flex">
                         <KitesurfingIcon />
                         <Typography
                           sx={{
@@ -1655,7 +1450,7 @@ const CreateHolidayPackage = () => {
                           Adventure
                         </Typography>
                       </Box>
-                      <Box display="flex" gap="10px">
+                      <Box display="flex">
                         <Checkbox
                           value="true"
                           name="adventure"
@@ -1681,7 +1476,7 @@ const CreateHolidayPackage = () => {
                       justifyContent="space-between"
                       alignItems="center"
                     >
-                      <Box display="flex" gap="10px">
+                      <Box display="flex">
                         <PoolIcon />
                         <Typography
                           sx={{
@@ -1693,7 +1488,7 @@ const CreateHolidayPackage = () => {
                           Beach
                         </Typography>
                       </Box>
-                      <Box display="flex" gap="10px">
+                      <Box display="flex">
                         <Checkbox
                           value="true"
                           name="beach"
@@ -1719,7 +1514,7 @@ const CreateHolidayPackage = () => {
                       justifyContent="space-between"
                       alignItems="center"
                     >
-                      <Box display="flex" gap="10px">
+                      <Box display="flex">
                         <DownhillSkiingIcon />
                         <Typography
                           sx={{
@@ -1731,7 +1526,7 @@ const CreateHolidayPackage = () => {
                           Hill Station
                         </Typography>
                       </Box>
-                      <Box display="flex" gap="10px">
+                      <Box display="flex">
                         <Checkbox
                           value="true"
                           name="hillStation"
@@ -1757,7 +1552,7 @@ const CreateHolidayPackage = () => {
                       justifyContent="space-between"
                       alignItems="center"
                     >
-                      <Box display="flex" gap="10px">
+                      <Box display="flex">
                         <ForestIcon />
                         <Typography
                           sx={{
@@ -1769,7 +1564,7 @@ const CreateHolidayPackage = () => {
                           Nature
                         </Typography>
                       </Box>
-                      <Box display="flex" gap="10px">
+                      <Box display="flex">
                         <Checkbox
                           value="true"
                           name="nature"
@@ -1795,7 +1590,7 @@ const CreateHolidayPackage = () => {
                       justifyContent="space-between"
                       alignItems="center"
                     >
-                      <Box display="flex" gap="10px">
+                      <Box display="flex">
                         <SelfImprovementIcon />
                         <Typography
                           sx={{
@@ -1807,7 +1602,7 @@ const CreateHolidayPackage = () => {
                           Wellness
                         </Typography>
                       </Box>
-                      <Box display="flex" gap="10px">
+                      <Box display="flex">
                         <Checkbox
                           value="true"
                           name="wellness"
@@ -1833,7 +1628,7 @@ const CreateHolidayPackage = () => {
                       justifyContent="space-between"
                       alignItems="center"
                     >
-                      <Box display="flex" gap="10px">
+                      <Box display="flex">
                         <FitnessCenterIcon />
                         <Typography
                           sx={{
@@ -1845,7 +1640,7 @@ const CreateHolidayPackage = () => {
                           Hidden Gem
                         </Typography>
                       </Box>
-                      <Box display="flex" gap="10px">
+                      <Box display="flex">
                         <Checkbox
                           value="true"
                           name="hiddenGem"
@@ -1871,7 +1666,7 @@ const CreateHolidayPackage = () => {
                       justifyContent="space-between"
                       alignItems="center"
                     >
-                      <Box display="flex" gap="10px">
+                      <Box display="flex">
                         <FolderDeleteIcon />
                         <Typography
                           sx={{
@@ -1883,7 +1678,7 @@ const CreateHolidayPackage = () => {
                           Price Inclusive Tax
                         </Typography>
                       </Box>
-                      <Box display="flex" gap="10px">
+                      <Box display="flex">
                         <Checkbox
                           value="true"
                           name="tax"
@@ -1909,7 +1704,7 @@ const CreateHolidayPackage = () => {
                       justifyContent="space-between"
                       alignItems="center"
                     >
-                      <Box display="flex" gap="10px">
+                      <Box display="flex">
                         <LocalOfferIcon />
                         <Typography
                           sx={{
@@ -1921,7 +1716,7 @@ const CreateHolidayPackage = () => {
                           50% Off
                         </Typography>
                       </Box>
-                      <Box display="flex" gap="10px">
+                      <Box display="flex">
                         <Checkbox
                           value="true"
                           name="discount"
@@ -1947,7 +1742,7 @@ const CreateHolidayPackage = () => {
                       justifyContent="space-between"
                       alignItems="center"
                     >
-                      <Box display="flex" gap="10px">
+                      <Box display="flex">
                         <KayakingIcon />
                         <Typography
                           sx={{
@@ -1985,7 +1780,7 @@ const CreateHolidayPackage = () => {
                       justifyContent="space-between"
                       alignItems="center"
                     >
-                      <Box display="flex" gap="10px">
+                      <Box display="flex">
                         <SportsKabaddiIcon />
                         <Typography
                           sx={{
@@ -1997,7 +1792,7 @@ const CreateHolidayPackage = () => {
                           Optional Activities
                         </Typography>
                       </Box>
-                      <Box display="flex" gap="10px">
+                      <Box display="flex">
                         <Checkbox
                           value="true"
                           name="optionalActivities"
@@ -2023,7 +1818,7 @@ const CreateHolidayPackage = () => {
                       justifyContent="space-between"
                       alignItems="center"
                     >
-                      <Box display="flex" gap="10px">
+                      <Box display="flex">
                         <BookmarkAddIcon />
                         <Typography
                           sx={{
@@ -2061,7 +1856,7 @@ const CreateHolidayPackage = () => {
                       justifyContent="space-between"
                       alignItems="center"
                     >
-                      <Box display="flex" gap="10px">
+                      <Box display="flex">
                         <WifiPasswordIcon />
                         <Typography
                           sx={{
@@ -2073,7 +1868,7 @@ const CreateHolidayPackage = () => {
                           WIFI
                         </Typography>
                       </Box>
-                      <Box display="flex" gap="10px">
+                      <Box display="flex">
                         <Checkbox
                           value="true"
                           name="wifi"
@@ -2099,29 +1894,15 @@ const CreateHolidayPackage = () => {
                 <Grid item lg={1}></Grid>
               </Grid>
               {/* ------------------------------ */}
-              <Box my={2} style={{ marginLeft: "25px" }}>
-                <Typography
-                  style={{
-                    fontSize: "20px",
-                    color: "#000",
-
-                    fontFamily: "Montserrat",
-                  }}
-                >
+              <Box my={2} style={{marginLeft:"25px"}}>
+                <Typography style={{ fontSize: "16px", color: "#252525" }}>
                   Hotel Details<span style={{ color: "red" }}>*</span>
                 </Typography>
-                <Typography
-                  style={{
-                    fontSize: "16px",
-                    color: "#BBBBBB",
-                    fontWeight: "400",
-                  }}
-                >
+                <Typography style={{ fontSize: "14px", color: "#666666" }}>
                   {/* + Add Hotel Details */}
                   {/* <input type="text" name="hotel_details" placeholder="Add Hotel Details" style={{ textDecoration: 'none', width: '100%' }} onChange={handleHotel} /> */}
                   <textarea
                     className="style_Textarea"
-                    backgroundColor="#FFFBFB"
                     name="hotel_details"
                     id="hotel_details"
                     placeholder="Add Hotel Details ..."
@@ -2131,32 +1912,11 @@ const CreateHolidayPackage = () => {
                   ></textarea>
                 </Typography>
               </Box>
-              <Box
-                my={2}
-                style={{
-                  marginLeft: "20px",
-                  fontSize: "16px",
-                  color: "#BBBBBB",
-                  fontWeight: "400",
-                }}
-              >
-                <Typography
-                  style={{
-                    fontSize: "20px",
-                    color: "#000",
-
-                    fontFamily: "Montserrat",
-                  }}
-                >
+              <Box my={2}>
+                <Typography style={{ fontSize: "16px", color: "#252525",marginLeft:"20px"  }}>
                   Inclusion Note
                 </Typography>
-                <Typography
-                  style={{
-                    fontSize: "16px",
-                    color: "#BBBBBB",
-                    fontWeight: "400",
-                  }}
-                >
+                <Typography style={{ fontSize: "14px", color: "#666666",marginLeft:"20px" }}>
                   {/* <input type="text" name="insclusion_note" placeholder="Add Details" style={{ textDecoration: 'none', width: '100%' }} /> */}
                   <textarea
                     className="style_Textarea"
@@ -2168,33 +1928,12 @@ const CreateHolidayPackage = () => {
                   ></textarea>
                 </Typography>
               </Box>
-              <Box
-                my={2}
-                style={{
-                  marginLeft: "20px",
-                  fontSize: "16px",
-                  color: "#BBBBBB",
-                  fontWeight: "400",
-                }}
-              >
-                <Typography
-                  style={{
-                    fontSize: "20px",
-                    color: "#000",
-
-                    fontFamily: "Montserrat",
-                  }}
-                >
+              <Box my={2}>
+                <Typography style={{ fontSize: "16px", color: "#252525",marginLeft:"20px" }}>
                   Exclusion Note
-                  {/* <p> What's explicitly excluded?</p> */}
+                  <p> What's explicitly excluded?</p>
                 </Typography>
-                <Typography
-                  style={{
-                    fontSize: "16px",
-                    color: "#BBBBBB",
-                    fontWeight: "400",
-                  }}
-                >
+                <Typography style={{ fontSize: "14px", color: "#666666",marginLeft:"20px"  }}>
                   {/* <input type="text" name="exclusion_note" placeholder="Add Hotel Details" style={{ textDecoration: 'none', width: '100%' }} /> */}
                   <textarea
                     className="style_Textarea"
@@ -2206,30 +1945,16 @@ const CreateHolidayPackage = () => {
                   ></textarea>
                 </Typography>
               </Box>
-              <Box my={2} style={{ marginLeft: "20px" }}>
-                <Typography
-                  style={{
-                    fontSize: "20px",
-                    color: "#000",
-
-                    fontFamily: "Montserrat",
-                  }}
-                >
+              <Box my={2} style={{marginLeft:"20px"}}>
+                <Typography style={{ fontSize: "16px", color: "#252525" }}>
                   Detailed Itinerary<span style={{ color: "red" }}>*</span>
                 </Typography>
                 {Array.from({ length: days }, (_, i) => (
                   <>
-                    <Accordion style={{ width: "560px" }}>
+                    <Accordion style={{ width: "700px" }}>
                       <Accordion.Item eventKey={i}>
-                        <Accordion.Header
-                          style={{
-                            border: "1px solid #5C85A4",
-                            backgroundColor: "#FFFBFB",
-                          }}
-                        >
-                          <p
-                            style={{ fontSize: "20px", color: "#000000" }}
-                          >{`Days ${i + 1}`}</p>
+                        <Accordion.Header>
+                          <p>{`Days ${i + 1}`}</p>
                         </Accordion.Header>
                         <Accordion.Body>
                           {/* ⬇️⬇️⬇️⬇️⬇️ Text editor */}
@@ -2254,22 +1979,8 @@ const CreateHolidayPackage = () => {
                   </>
                 ))}
               </Box>
-              <Box
-                style={{
-                  marginLeft: "20px",
-                  fontSize: "16px",
-                  color: "#BBBBBB",
-                  fontWeight: "400",
-                }}
-              >
-                <Typography
-                  style={{
-                    fontSize: "20px",
-                    color: "#000",
-
-                    fontFamily: "Montserrat",
-                  }}
-                >
+              <Box my={2} marginLeft="20px">
+                <Typography style={{ fontSize: "16px", color: "#252525" }}>
                   Overview<span style={{ color: "red" }}>*</span>
                 </Typography>
 
@@ -2280,19 +1991,13 @@ const CreateHolidayPackage = () => {
                   cols="95"
                   rows="5"
                 ></textarea>
-              </Box>
-              <Box style={{ marginLeft: "20px" }}>
-                <Typography
-                  style={{
-                    fontSize: "20px",
-                    color: "#000",
 
-                    fontFamily: "Montserrat",
-                  }}
-                >
+              </Box>
+              <Box my={2}  marginLeft="20" >
+                <Typography style={{ fontSize: "16px", color: "#252525",marginLeft:"20px"}}>
                   Select Tags<span style={{ color: "red" }}>*</span>
                 </Typography>
-                <Typography style={{ fontSize: "14px", color: "#666666" }}>
+                <Typography style={{ fontSize: "14px", color: "#666666",marginLeft:"20px" }}>
                   Select tags most relevant to your packages
                 </Typography>
               </Box>
@@ -2525,30 +2230,9 @@ const CreateHolidayPackage = () => {
                   </label>
                 </div>
               </div>
-              <Box
-                my={2}
-                style={{
-                  marginLeft: "20px",
-                  fontSize: "16px",
-                  color: "#BBBBBB",
-                  fontWeight: "400",
-                }}
-              >
-                <Typography
-                  style={{
-                    fontSize: "16px",
-                    color: "#BBBBBB",
-                    fontWeight: "400",
-                  }}
-                >
-                  <p
-                    style={{
-                      fontSize: "20px",
-                      color: "#000",
-
-                      fontFamily: "Montserrat",
-                    }}
-                  >
+              <Box my={2} style={{marginLeft:"20px"}}>
+                <Typography style={{ fontSize: "16px", color: "#252525" }}>
+                  <p style={{marginLeft:"8px",fontSize:"20px"}}>
                     Term & Conditions<span style={{ color: "red" }}>*</span>{" "}
                   </p>
                   <textarea
@@ -2559,23 +2243,9 @@ const CreateHolidayPackage = () => {
                     rows="5"
                   ></textarea>
                 </Typography>
-                <p
-                  style={{
-                    fontSize: "20px",
-                    color: "#000",
-
-                    fontFamily: "Montserrat",
-                  }}
-                >
-                  Write a descriptive summary of the T&C.....
-                </p>
-                <Typography
-                  style={{
-                    fontSize: "16px",
-                    color: "#BBBBBB",
-                    fontWeight: "400",
-                  }}
-                >
+                Write a descriptive summary of the T&C.....
+                <Typography style={{ fontSize: "14px", color: "#666666",marginLeft:"5px"}}>
+                  
                   <textarea
                     className="style_Textarea"
                     name="term_Conditions"
@@ -2585,22 +2255,9 @@ const CreateHolidayPackage = () => {
                   ></textarea>
                 </Typography>
               </Box>
-              <Box my={2} style={{ marginLeft: "20px" }}>
-                <Typography
-                  style={{
-                    fontSize: "16px",
-                    color: "#BBBBBB",
-                    fontWeight: "400",
-                  }}
-                >
-                  <p
-                    style={{
-                      fontSize: "20px",
-                      color: "#000",
-
-                      fontFamily: "Montserrat",
-                    }}
-                  >
+              <Box my={2} style={{marginLeft:"20px"}}>
+                <Typography style={{ fontSize: "20px", color: "#252525" }}>
+                  <p>
                     {" "}
                     Cancellation Policy<span style={{ color: "red" }}>
                       *
@@ -2615,21 +2272,8 @@ const CreateHolidayPackage = () => {
                     rows="5"
                   ></textarea>
                 </Typography>
-                <Typography
-                  style={{
-                    fontSize: "16px",
-                    color: "#BBBBBB",
-                    fontWeight: "400",
-                  }}
-                >
-                  <p
-                    style={{
-                      fontSize: "20px",
-                      color: "#000",
-
-                      fontFamily: "Montserrat",
-                    }}
-                  >
+                <Typography style={{ fontSize: "14px", color: "#666666" }}>
+                  <p>
                     Write a descriptive summary of the Cancellation Policy......
                   </p>
                   <textarea
@@ -2641,21 +2285,15 @@ const CreateHolidayPackage = () => {
                   ></textarea>
                 </Typography>
               </Box>
-              <Box
-                my={2}
-                marginLeft="20px"
-                display="flex"
-                justifyContent="start"
-              >
+              <Box my={2} display="flex" justifyContent="center">
                 <Box mx={1}>
                   <Button
+                   
                     style={{
-                      textDecoration: "underline",
-                      // border: "1px solid",
-                      borderColor: color.red1,
-                      // borderRadius: "px",
-                      // color: color.red1,
-                      color: "#000000",
+                      border: "1px solid",
+                      borderColor:color.red1,
+                      borderRadius: "10px",
+                      color:color.red1,
                     }}
                   >
                     Save As Draft
@@ -2665,12 +2303,14 @@ const CreateHolidayPackage = () => {
                   <Button
                     variant="primary"
                     type="submit"
+                   
                     style={{
                       border: "1px solid #707070",
-                      borderRadius: "px",
-                      backgroundColor: color.bluedark,
+                      borderRadius: "10px",
+                     backgroundColor:color.bluedark,
                       color: "#fff",
-                      marginBottom: "20px",
+                      marginBottom:"20px",
+                      
                     }}
                   >
                     Submit Request
@@ -2679,7 +2319,7 @@ const CreateHolidayPackage = () => {
               </Box>
             </Box>
           </Grid>
-          {/* <Grid item xs={2} md={2}></Grid> */}
+          <Grid item xs={2} md={2}></Grid>
         </form>
       </Grid>
     </div>
