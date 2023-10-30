@@ -131,7 +131,7 @@ const MainPage = () => {
 
       </div>
        {/* <Headers/> */}
-       {location.pathname === "/" || location.pathname === "/Login" ? null : <InnerNavbar />}
+       {location.pathname === "/" || location.pathname === "/Login"  || location.pathname === "/Registration" ? null : <InnerNavbar />}
        { location.pathname === "/Login" ? null : <Headers />}
 
       
