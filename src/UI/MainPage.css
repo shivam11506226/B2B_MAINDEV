@@ -3,18 +3,29 @@
 }
 
 .mainBox {
-  background-image: url("../Images/mainImage.png");
-  background-repeat: no-repeat;
- 
+  position: relative;
   padding-top: 40px;
   /* padding-left: 20px;
   padding-right: 20px; */
-  height:1000px;
-  background-size: cover;
+  height: 1000px;
   padding-bottom: 20px;
-  border:"2px solid red"
  
 }
+
+.mainBox::before {
+  content: "";
+  background-image: url("../Images/mainImage.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  opacity: 0.8; /* Adjust the opacity value as needed (0.5 for 50%) */
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: -1;
+}
+
 .header_section{
   position: sticky;
   /* width: 85% !important;
