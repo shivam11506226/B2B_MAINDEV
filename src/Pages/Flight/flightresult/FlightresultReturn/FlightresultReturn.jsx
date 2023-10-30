@@ -6,6 +6,7 @@ import FlightReturn from "./FlightReturn";
 import SingleDataReturn from "./SingleDataReturn";
 import MultipleDataReturn from "./MultipleDataReturn";
 import { useNavigate } from "react-router-dom";
+import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt';
 import {
   quoteAction,
   ruleAction,
@@ -63,6 +64,33 @@ const FlightresultReturn = () => {
   console.log("reducerrrState", reducerState);
   console.warn("ongoFlight@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@", ongoFlight)
 
+  const destination=result[0][0]?.Segments[0][0]?.Destination?.Airport?.CityName;
+  const origin=result[0][0]?.Segments[0][0]?.Origin?.Airport?.CityName;
+  // console.log(result[1][0]?.Segments[0][0]?.Destination?.ArrTime,"Hellllllllll")
+  const onGoTime=result[0][0]?.Segments[0][0]?.Destination?.ArrTime;
+  const IncomeTime=result[1][0]?.Segments[0][0]?.Destination?.ArrTime
+
+  // convert date in formate
+
+  function convertISOToCustomFormat(isoDate) {
+    const months = [
+      'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+      'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'
+    ];
+  
+    const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+  
+    const date = new Date(isoDate);
+    const day = days[date.getUTCDay()];
+    const month = months[date.getUTCMonth()];
+    const dayOfMonth = date.getUTCDate();
+  
+    return `${day}, ${dayOfMonth} ${month}`;
+  }
+  const onGoingTime = convertISOToCustomFormat(onGoTime);
+  const onComingTime=convertISOToCustomFormat(IncomeTime)
+
+  
   return (
     <Box >
       {/* <Box style={{ width: 977, height: 61, background: '#FFFBFB', borderRadius: 4, border: '1px #9E9E9E solid', display: 'flex', justifyContent: 'center', alignItems: 'center', }} >
@@ -82,17 +110,9 @@ const FlightresultReturn = () => {
         gap: "5px",
        
         width:"100%",
-        // borderRadius: "5px",
-        // display: "none"
-        // padding: "5px",
-       marginTop:"40px",
-       marign:"auto"
-
-
-
-
-
-
+        position:'fixed',
+        bottom:'2px',
+        zIndex:'2'
       }}>
 
         <Box
@@ -119,6 +139,7 @@ const FlightresultReturn = () => {
               index={ongoFlight?.ResultIndex}
               fare={ongoFlight?.Fare?.PublishedFare}
               IsLCC={ongoFlight.IsLCC}
+              showRadio={false}
             />
 
           ) : (
@@ -128,6 +149,7 @@ const FlightresultReturn = () => {
               index={ongoFlight?.ResultIndex}
               fare={ongoFlight?.Fare?.PublishedFare}
               IsLCC={ongoFlight.IsLCC}
+              showRadio={false}
             />
           )}
         </Box>
@@ -151,6 +173,7 @@ const FlightresultReturn = () => {
               index={incomeGlight?.ResultIndex}
               fare={incomeGlight?.Fare?.PublishedFare}
               IsLCC={incomeGlight?.IsLCC}
+              showRadio={false}
             />
           ) : (
             <MultipleDataReturn
@@ -159,6 +182,7 @@ const FlightresultReturn = () => {
               index={incomeGlight?.ResultIndex}
               fare={incomeGlight?.Fare?.PublishedFare}
               IsLCC={incomeGlight?.IsLCC}
+              showRadio={false}
             />
           )}
         </Box>
@@ -222,14 +246,11 @@ const FlightresultReturn = () => {
         
       >
         <Box backgroundColor="#BBBBBB" paddingX="8px" paddingY="8px" borderRadius="10px" width='-webkit-autofill' marginTop="10px" marginBottom="10px">
-          <Box backgroundColor="#FFFFFF" height="104px" padding="24px" display='flex' width='442px' justifyContent='center' alignItems='center' flexDirection='column' gap={3} mt='5px' borderRadius="8px">
+          <Box backgroundColor="#FFFFFF" height="104px" padding="24px" display='flex' width='442px' justifyContent='center' alignItems='center' flexDirection='column' mt="5px" borderRadius="8px">
             <Box>
 
-              <Typography className="flight_price_total" variant="h1" component="h2" style={{
-
-
-              }}>
-                {`${ongoFlight?.Origin?.Airport?.CityName}->Bengaluru Fri,20 Oct`}
+              <Typography className="flight_price_total" variant="h1" component="h2">
+              {origin} <ArrowRightAltIcon /> {destination} {onGoingTime}
               </Typography>
             </Box>
             <Box display="flex" justifyContent="space-between" width='400px' alignItems='center' fontSize="10px" mt='8px' color='#071C2C'  >
@@ -256,14 +277,11 @@ const FlightresultReturn = () => {
           <FlightresultOne sendDataToParent={receiveChildData} />
         </Box>
         <Box backgroundColor="#BBBBBB" paddingX="8px" paddingY="8px" marginTop="10px" marginBottom="10px" borderRadius="10px">
-          <Box backgroundColor="#FFFFFF" height="104px" padding="24px" display='flex' width='100%' justifyContent='center' alignItems='center' flexDirection='column' gap={3} mt='5px' borderRadius="8px">
+          <Box backgroundColor="#FFFFFF" height="104px" padding="24px" display='flex' width='100%' justifyContent='center' alignItems='center' flexDirection='column'mt='5px' borderRadius="8px">
             <Box>
 
-              <Typography className="flight_price_total" variant="h1" component="h2" style={{
-
-
-              }}>
-                {`${ongoFlight?.Origin?.Airport?.CityName}->Bengaluru Fri,20 Oct`}
+              <Typography className="flight_price_total" variant="h1" component="h2">
+              {destination} <ArrowRightAltIcon /> {origin} {onComingTime}
               </Typography>
             </Box>
             <Box display="flex" justifyContent="space-between" flex={1} width='100%' alignItems='center' fontSize="10px" mt='8px' color='#071C2C'  >

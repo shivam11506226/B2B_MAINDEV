@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Grid, Box, Typography, Checkbox } from "@mui/material";
+import { Grid, Box, Typography, Checkbox,Radio } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import "../SingleData.css";
 import Nonrefundable from "../Nonrefundable";
@@ -11,6 +11,7 @@ function SingleDataReturn(props) {
   // console.log("Props", props);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  
   const reducerState = useSelector((state) => state);
   const flight = props.flight;
   const wholeFlight=props.wholeFlight
@@ -204,6 +205,12 @@ function SingleDataReturn(props) {
              Per Adult
             </Typography>
           </Box>
+          {props.showRadio && (<Radio
+        checked={props.isSelected}
+        onClick={props.onSelect}
+        color="primary"
+      /> 
+          )}
         </Grid>
       </Grid>
 

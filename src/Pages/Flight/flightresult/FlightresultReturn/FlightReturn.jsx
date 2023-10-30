@@ -81,6 +81,7 @@ const FlightresultOne = ({ sendDataToParent }) => {
                   IsLCC={flight1.IsLCC}
                   isSelected={flight1?.ResultIndex === selectedFlightIndex}
                   onSelect={() => setSelectedFlightIndex(flight1?.ResultIndex)}
+                  showRadio={true}
                 />
               </Box>
             ) : (
@@ -98,6 +99,7 @@ const FlightresultOne = ({ sendDataToParent }) => {
                   IsLCC={flight1.IsLCC}
                   isSelected={flight1?.ResultIndex === selectedFlightIndex}
                   onSelect={() => setSelectedFlightIndex(flight1?.ResultIndex)}
+                  showRadio={true}
                 />
               </Box>
             );
