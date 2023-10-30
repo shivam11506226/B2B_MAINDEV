@@ -23,8 +23,8 @@ function InnerNavbar() {
             direction="column"
             justifyContent="space-around"
             borderRadius="15px"
-            w="8%"
-            height="80%"
+            w="10%"
+            height="85%"
             key={index}
             zIndex={2}
         
@@ -38,9 +38,11 @@ function InnerNavbar() {
                 textDecoration: "none",
                 color: "#252525",
                 font: "Quicksand, Bold",
-                height: "70%",
+                height: "75%",
                 justifyContent: "space-around",
                 width:"100px",
+                
+               
               }}
             >
               {/* components call from other components for blue print */}
