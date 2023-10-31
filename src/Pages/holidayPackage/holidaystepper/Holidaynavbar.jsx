@@ -1,6 +1,6 @@
 import React from 'react'
 import { Box, Flex, HStack, Spacer, Text } from "@chakra-ui/react";
-function Flightnavbar() {
+function Holidaynavbar() {
   return (
     <div style={{width:"80%",margin:"auto"}}>
       
@@ -13,7 +13,7 @@ function Flightnavbar() {
             boxShadow="base"
 
            height="80px"
-            top={200}
+            top={250}
              background="#21325D"
             zIndex={4}
            margin={"auto"}
@@ -33,7 +33,7 @@ function Flightnavbar() {
               </Box>
 
               <Box color="white" fontWeight="bold">
-                Flight Search
+              Holiday Package Search
               </Box>
             </HStack>
             <HStack p="5px">
@@ -50,7 +50,7 @@ function Flightnavbar() {
                 <Text>2</Text>
               </Box>
 
-              <Box fontWeight="normal" color="white">Flight Result</Box>
+              <Box fontWeight="normal" color="white">Holiday package Result</Box>
             </HStack>
             <HStack p="5px">
               <Box
@@ -65,7 +65,7 @@ function Flightnavbar() {
                 <Text>3</Text>
               </Box>
 
-              <Box fontWeight="normal" color="white">Passenger Details</Box>
+              <Box fontWeight="normal" color="white">Guest Details</Box>
             </HStack>
             <HStack p="5px">
               <Box
@@ -104,4 +104,4 @@ function Flightnavbar() {
   )
 }
 
-export default Flightnavbar
+export default Holidaynavbar

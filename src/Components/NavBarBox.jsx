@@ -21,11 +21,11 @@ const NavBarBox = ({ avatar, name, path }, index) => {
       >
         <Center pt="10px">
           <div>
-            <img src={avatar} alt={name} tint className="avatarImage" style={{width:"34px",height:"34px"}}/>
+            <img src={avatar}  alt="" className="avatarImage" style={{width:"34px",height:"34px"}}/>
           
           </div>
         </Center>
-        <Text fontWeight="bold" fontSize="12px" style={{ textAlign: "center" ,color:color.bluedark}}>
+        <Text fontWeight="bold" fontSize="12px" style={{ textAlign: "center" }}>
           {name}
         </Text>
 

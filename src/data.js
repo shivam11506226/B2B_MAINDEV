@@ -1,105 +1,106 @@
-import { fontSize } from "@mui/system";
+// import { fontSize } from "@mui/system";
+
+// export const InnerBarLogo = [
+//   {
+//     avatar: require("./Images/flight.png"),
+//     name: "Flights",
+//     path: "/flights",
+//   },
+//   {
+//     avatar: require("./Images/hotelbed.png"),
+//     name: "Hotels",   
+//     path: "/hotel",
+//   },
+ 
+//   {
+//     avatar: require("./Images/beach-chair.png"),
+//     name: "Islandhopper",
+//     path: "/holidaypackage",
+//   },
+ 
+//   {
+//     avatar: require("./Images/schoolbus.png"),
+//     name: "Transfer",
+//     path: "/bus", 
+//   },
+//   {
+//     avatar: require("./Images/binoculars.png"),
+//     name: "Sightseeing",
+//     path: "/sightseeing",
+//   },
+
+//   {
+//     avatar: require("./Images/passport.png"),
+//     name: "Visa",
+//     path: "/visa",
+//   },
+//   {
+//     avatar: require("./Images/Safety.png"),
+//     name: "Insurance",
+//     path: "/visa",
+//   },
+//   {
+//     avatar: require("./Images/group.png"),
+//     name: "Administration",
+//     path: "/Account",
+//   }
+  
+// ];
+import React from 'react';
+import {
+  FaPlane, // Flight icon
+  FaHotel, // Hotel icon
+  // Add more icons here for other items
+  FaGlobe, // Islandhopper icon
+  FaBus, // Transfer icon
+  FaBinoculars, // Sightseeing icon
+  FaPassport, // Visa icon
+  FaShieldAlt, // Insurance icon
+  FaUser, // Administration icon
+} from 'react-icons/fa'; // You need to import the specific icons you want to use
 
 export const InnerBarLogo = [
   {
-    avatar: require("./Images/flight.png"),
+    avatar: <FaPlane />,
     name: "Flights",
     path: "/flights",
   },
   {
-    avatar: require("./Images/hotelbed.png"),
-    name: "Hotels",   
+    avatar: <FaHotel />,
+    name: "Hotels",
     path: "/hotel",
   },
-  //   {
-  //     avatar: require("./Images/luggage.png"),
-  //     name: "Assistance & Inssurance",
-  //     path: "/activities",
-  //   },            
-  // {
-  //     avatar: require("./Images/home.png"),
-  //     name: "Home Package",
-  //     path: "/homepackage"
-  // },
+  // Add more items with icons as needed
   {
-    avatar: require("./Images/beach-chair.png"),
+    avatar: <FaGlobe />,
     name: "Islandhopper",
     path: "/holidaypackage",
   },
- 
-  //   {
-  //     avatar: require("./Images/train.png"),
-  //     name: "Train",
-  //     path: "/train",
-  //   },
   {
-    avatar: require("./Images/schoolbus.png"),
+    avatar: <FaBus />,
     name: "Transfer",
-    path: "/bus", 
+    path: "/bus",
   },
   {
-    avatar: require("./Images/binoculars.png"),
+    avatar: <FaBinoculars />,
     name: "Sightseeing",
     path: "/sightseeing",
   },
-  // {
-  //   avatar: require("./Images/taxi.png"),
-  //   name: "Transfer",
-  //   path: "/transfer",
-  // },
-  // {
-  //   avatar: require("./Images/currency-exchange.png"),
-  //   name: "Forex",
-  //   path: "/forex",
-  // },
-  // {
-  //   avatar: require("./Images/24-hours-support.png"),
-  //   name: "Services",
-  //   path: "/services",
-  // },
-  // {
-  //   avatar: require("./Images/user.png"),
-  //   name: "Account",
-  //   path: "/account",
-  // },
-  // //   {
-  // //     avatar: require("./Images/add-to-queue.png"),
-  // //     name: "Queues",
-  // //     path: "/queues",
-  // //   },
-  // //   {
-  // //     avatar: require("./Images/document.png"),
-  // //     name: "Reports",
-  // //     path: "/reports",
-  // //   },
-  // {
-  //   avatar: require("./Images/businessman.png"),
-  //   name: "Admin",
-  //   path: "/admin",
-  // },
-  // {
-  //   avatar: require("./Images/accounting.png"),
-  //   name: "GST",
-  //   path: "/gst",
-  // },
   {
-    avatar: require("./Images/passport.png"),
+    avatar: <FaPassport />,
     name: "Visa",
     path: "/visa",
   },
   {
-    avatar: require("./Images/Safety.png"),
+    avatar: <FaShieldAlt />,
     name: "Insurance",
-    path: "/visa",
+    path: "/insurance",
   },
   {
-    avatar: require("./Images/group.png"),
+    avatar: <FaUser />,
     name: "Administration",
-    path: "/Account",
+    path: "/account",
   }
-  //   {
-  //     avatar: require("./Images/personal.png"),
-  //     name: "Service Request",
-  //     path: "/servicerequest",
-  //   },
 ];
+
+

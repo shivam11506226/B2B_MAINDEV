@@ -185,7 +185,7 @@ function Headers() {
     <div
       style={{
         width: "100%",
-        height: 118,
+        height: 115,
         background: "white",
         zIndex: 2,
         position: "fixed",
@@ -514,7 +514,7 @@ function Headers() {
             <div
               className="Frame160"
               style={{
-                padding: 8,
+                padding: 6,
                 background: "#D2F8E7",
                 borderRadius: 4,
                 border: "1px #21325D solid",

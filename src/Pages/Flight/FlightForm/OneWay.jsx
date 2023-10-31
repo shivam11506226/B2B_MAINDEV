@@ -546,7 +546,7 @@ const OneWay = () => {
               className="row"
               style={{
                 width: "100%",
-                gap: "40px",
+               
              
                 display: "flex",
                 height: "55px",
@@ -554,7 +554,7 @@ const OneWay = () => {
             >
               <div
                 className="col-6 col-md-3 col-lg-2 mb-3"
-                style={{ width: "250px" }}
+                style={{ width: "311px" }}
               >
                 <div className="form_input">
                   <label className="form_lable">Preferred Airline</label>
@@ -573,7 +573,7 @@ const OneWay = () => {
                 </div>
               </div>
 
-              <div className="col-6 col-md-3 col-lg-2 mb-3">
+             
                 <button
                   type="submit"
                   id="cssbuttons-io-button"
@@ -596,7 +596,7 @@ const OneWay = () => {
                     </svg>
                   </div>
                 </button>
-              </div>
+             
             </div>
           </div>
         </div>

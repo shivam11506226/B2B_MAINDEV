@@ -4,16 +4,19 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { Box, Flex, Spacer, Text,HStack } from "@chakra-ui/react";
 import HolidayForm from "../holidayform/HolidayForm";
 import color from "../../../color/color"
+import Holidaynavbar from "./Holidaynavbar"
 const Holidaystepper = () => {
   return (
-    <div className="flightContainer">
-      <Box
+    <div>
+      <Holidaynavbar/>
+        <div style={{backgroundColor:"#F8F3F3",marginTop:"20px",width:"90%",margin:"auto",borderRadius:"12px"}}>
+      {/* <Box
         w="100%"
         display="flex"
         justifyContent={"space-around"}
         boxShadow="base"
         border="1px solid gray"
-        borderRadius="10px"
+      
         flexWrap="wrap"
       >
         <HStack p="5px">
@@ -96,20 +99,22 @@ const Holidaystepper = () => {
 
           <Box fontWeight="normal">Booking Confirmation</Box>
         </HStack>
-      </Box>
+      </Box> */}
 
-
+   
 
 
 
       
-      <div>
+      <div >
         <HolidayForm />
       </div>
       {/* <div className='flightNavBarContainer'>
   <HotelAllRoute  />
   </div> */}
     </div>
+    </div>
+  
   );
 };
 

@@ -45,3 +45,8 @@
   opacity: 1;
 
 }
+
+
+/* Define styles for the active-nav class */
+
+/* <div  color={className===null ? "red" : "55px solid #0048FF"}> */
