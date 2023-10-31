@@ -1,7 +1,7 @@
 import React from "react";
 import { InnerBarLogo } from "../data";
 import { Link } from "react-router-dom";
-
+import color from "../color/color";
 function MainBox() {
   return (
     <div
@@ -17,7 +17,7 @@ function MainBox() {
         alignItem: "center",
         justifyContent:"center",
         borderRadius: "10px",
-        height:"350px"
+        height:"310px"
       }}
     >
       {InnerBarLogo.map(({ avatar, name, path }, index) => (
@@ -25,8 +25,8 @@ function MainBox() {
           <div
             style={{
               width: "180px",
-              height: "133.48px",
-              padding: "5px",
+          
+             
               display: "flex",
               flexDirection: "column",
               justifyContent: "center",
@@ -34,22 +34,8 @@ function MainBox() {
               gap: "24px",
             }}
           >
-            <img
-              src={avatar}
-              alt={name}
-              className="avatarImage"
-              style={{
-                width: "60px",
-                height: "60px",
-                padding: "8px",
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "center",
-                alignItems: "center",
-                gap: "24px",
-              }}
-            />
-            <div
+             <div style={{fontSize:"40px",color:color.bluedark}}>{avatar}</div>
+             <div
               style={{
                 color: "black",
                 fontSize: "20px",

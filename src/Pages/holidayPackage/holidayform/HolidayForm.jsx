@@ -99,6 +99,10 @@ const HolidayForm = () => {
           xs={12}
           display="flex"
          marginTop="10px"
+         height="300px"
+         padding="30px"
+         justifyContent="center"
+        
           
         >
           <Box>
@@ -106,7 +110,7 @@ const HolidayForm = () => {
             className="search__Input"
             id="filled-basic"
             label="Search From Destination"
-            variant="filled"
+           
             name="destination"
             onChange={handleDestinationChange}
             inputRef={destinationInputRef}
@@ -120,7 +124,7 @@ const HolidayForm = () => {
             className="search__Input"
             id="filled-basic"
             label="Days"
-            variant="filled"
+           
             name="days"
             type="number"
             onChange={handleDaysSearchChange}

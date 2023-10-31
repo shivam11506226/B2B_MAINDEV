@@ -20,7 +20,7 @@
   font-weight: bold !important;
   letter-spacing: 0px !important;
 
-  color: #000000 !important;
+  color: #000000 ;
   opacity: 1 !important;
 }
 
@@ -109,12 +109,7 @@
   border-radius: 5px;
   text-align: center;
 }
-.active-nav {
-  box-shadow: 0px 4px 24px #00000061;
-  border-radius: 5px;
-  text-align: center;
-  background-color: #eff3ff;
-}
+
 
 .login_field {
   background: #ffffff 0% 0% no-repeat padding-box;

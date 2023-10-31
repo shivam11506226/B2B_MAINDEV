@@ -74,7 +74,7 @@ const Login = () => {
                     }}
                   
                   >
-                    <img src={StLogo} style={{ width: "250px" }}></img>
+                    <img src={StLogo} alt="" style={{ width: "250px" }}></img>
                   </Box>
                   {/* <Typography className="logo_text">skyTrails</Typography> */}
                 </Box>
