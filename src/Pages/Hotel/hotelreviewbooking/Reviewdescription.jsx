@@ -9,7 +9,7 @@ import {
   Accordion,
   AccordionDetails,
   AccordionSummary,
-  Modal
+  Modal,
 } from "@mui/material";
 import CircularProgress from "@mui/material/CircularProgress";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
@@ -25,11 +25,7 @@ import StarBorderOutlinedIcon from "@mui/icons-material/StarBorderOutlined";
 import "./review.css";
 import { useDispatch, useSelector, useReducer } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import {
-  hotelBookRoomAction,
-  fetchBookRoomHotel,
-  HotelDetailsAction,
-} from "../../../Redux/Hotel/hotel";
+import { PassengersAction } from "../../../Redux/Passengers/passenger";
 import Custombutton from "../../../Custombuttom/Button";
 import { useEffect } from "react";
 const styleLoader = {
@@ -39,117 +35,146 @@ const styleLoader = {
   transform: "translate(-50%, -50%)",
   width: 400,
   bgcolor: "transparent",
-  display:"flex",
-  justifyContent:"center"
+  display: "flex",
+  justifyContent: "center",
 };
 
 const Flightdetail = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const reducerState = useSelector((state) => state);
+  const noOfRooms =
+    reducerState?.hotelSearchResult?.ticketData?.data?.data?.HotelSearchResult
+      ?.RoomGuests;
   let bookingStatus =
-    reducerState?.hotelSearchResult?.bookRoom?.BookResult?.Status || false
-     console.log(bookingStatus);
-     const[bookingSuccess,setBookingSuccess]=useState(bookingStatus)
-  console.log("State Data", reducerState);
-  
-  const TotalGuest = sessionStorage.getItem("totalGuest");
-  const HotelIndex =sessionStorage.getItem("HotelIndex");
-  const ResultIndex =sessionStorage.getItem("ResultIndex");
+    reducerState?.hotelSearchResult?.bookRoom?.BookResult?.Status || false;
+  const HotelIndex = sessionStorage.getItem("HotelIndex");
+  console.log(noOfRooms, "noOfRooms");
+  const ResultIndex = sessionStorage.getItem("ResultIndex");
   const HotelCode = sessionStorage.getItem("HotelCode");
-  
-  // radio Butoon
-  const [selectedValue, setSelectedValue] = React.useState("a");
+  console.log(bookingStatus);
+  const [bookingSuccess, setBookingSuccess] = useState(bookingStatus);
+  const [passengerData, setPassengerData] = useState([]);
+  console.log("State Data", reducerState);
+
   useEffect(() => {
     if (bookingStatus == 1) {
       setBookingSuccess(false);
       navigate("/Guestdetail");
     }
   }, [bookingStatus]);
-  const handleChange = (event) => {
-    setSelectedValue(event.target.value);
-  };
-  const emailRef = useRef();
-  const phoneRef = useRef();
-  const passengerTemplate = {
-    Title: "mr",
-    FirstName: "",
-    MiddleName: null,
-    LastName: "",
-    Phoneno: "",
-    Email: "",
-    PaxType: 1,
-    LeadPassenger: true,
-    Age: parseInt(30),
-    PassportNo: null,
-    PassportIssueDate: null,
-    PassportExpDate: null,
-    PAN: "DNIPS1199Q",
+
+  useEffect(() => {
+    //  console.log(handleSettingPassengerArr(noOfRooms))
+    const allPassengerData = handleSettingPassengerArr(noOfRooms);
+    console.log("allPassengerData", allPassengerData);
+    setPassengerData(allPassengerData);
+    console.log(passengerData, "passengerData");
+  }, []);
+
+  const handleSettingPassengerArr = (roomCombination) => {
+    const passengerData = [];
+    const adultTempelate = {
+      Title: "mr",
+      FirstName: "",
+      MiddleName: null,
+      LastName: "",
+      Phoneno: "",
+      Email: "",
+      PaxType: "",
+      LeadPassenger: Boolean(),
+      Age: "",
+      PassportNo: null,
+      PassportIssueDate: null,
+      PassportExpDate: null,
+      PAN: "",
+      RoomIndex: "",
+    };
+
+    const childTempelate = {
+      Title: "mr",
+      FirstName: "",
+      MiddleName: null,
+      LastName: "",
+      Phoneno: "",
+      Email: "",
+      PaxType: "",
+      LeadPassenger: "",
+      Age: "",
+      PassportNo: null,
+      PassportIssueDate: null,
+      PassportExpDate: null,
+      PAN: "",
+      RoomIndex: "",
+    };
+    console.log(roomCombination);
+    roomCombination.map((item, indexRoom) => {
+      const adultCount = item?.NoOfAdults;
+      const childCount = item?.NoOfChild;
+      if (adultCount > 0) {
+        Array.from({ length: adultCount }, (value, index) => {
+          if (index == 0) {
+            passengerData.push({
+              ...adultTempelate,
+              RoomIndex: indexRoom,
+              PaxType: 1,
+              adultIndex: index,
+              LeadPassenger: true,
+            });
+          } else {
+            passengerData.push({
+              ...adultTempelate,
+              RoomIndex: indexRoom,
+              PaxType: 1,
+              adultIndex: index,
+              LeadPassenger: false,
+            });
+          }
+        });
+      }
+      if (childCount > 0) {
+        Array.from({ length: childCount }, (value, index) => {
+          passengerData.push({
+            ...childTempelate,
+            RoomIndex: indexRoom,
+            Age: item?.ChildAge[index],
+            PaxType: 2,
+            childIndex: index,
+          });
+        });
+      }
+    });
+    return passengerData;
   };
 
-  const childPassenger = {
-    Title: "mr",
-    FirstName: "",
-    MiddleName: null,
-    LastName: "",
-    Phoneno: "",
-    Email: "",
-    PaxType: 2,
-    LeadPassenger: true,
-    Age: parseInt(0),
-    PassportNo: null,
-    PassportIssueDate: null,
-    PassportExpDate: null,
-  };
+  const emailRef = useRef();
+  const phoneRef = useRef();
 
   const [accordionExpanded, setAccordionExpanded] = React.useState(false);
   const handleAccordionChange = (index) => (event, isExpanded) => {
     setAccordionExpanded(isExpanded ? index : false);
   };
 
-  const passengerLists = [];
-  for (let i = 0; i < TotalGuest; i++) {
-    passengerLists.push({
-      ...passengerTemplate,
-      // IsLeadPax: i === 0, // Set the first passenger as the lead passenger
-    });
-  }
-
-  // const passengerChildLists = [];
-  // for (let i = 0; i < childCount; i++) {
-  //   passengerChildLists.push({
-  //     ...childPassenger,
-  //     IsLeadPax: false, // Set the first passenger as the lead passenger
-  //   });
-  // }
-
-  const [passengerList, setPassengerList] = useState(passengerLists);
-  const allPassenger = [passengerLists];
-  const [passengerData, setPassengerData] = useState(allPassenger.flat());
-  const [Value, setValue] = React.useState("c");
-  const handleClick = (event) => {
-    setValue(event.target.value);
-  };
   const hotelInfo = reducerState?.hotelSearchResult?.hotelInfo?.HotelInfoResult;
   const hotelRoom =
     reducerState?.hotelSearchResult?.hotelRoom?.GetHotelRoomResult;
   const hotelCancellationPolicies =
     reducerState?.hotelSearchResult?.blockRoom?.BlockRoomResult
-      ?.HotelRoomsDetails[0]
-    const cancellationStartingDate =
-      hotelCancellationPolicies?.CancellationPolicies[0]?.FromDate;
-      const cancellationFormattedStartingDate = moment(
-        cancellationStartingDate
-      ).format("MMMM DD, YYYY");
-    const cancellationEndingDate =
-      hotelCancellationPolicies?.CancellationPolicies[0]?.ToDate;
-    const cancellationFormattedEndingDate = moment(
-      cancellationEndingDate
-    ).format("MMMM DD, YYYY");
+      ?.HotelRoomsDetails[0];
+  const cancellationStartingDate =
+    hotelCancellationPolicies?.CancellationPolicies[0]?.FromDate;
+  const cancellationFormattedStartingDate = moment(
+    cancellationStartingDate
+  ).format("MMMM DD, YYYY");
+  const cancellationEndingDate =
+    hotelCancellationPolicies?.CancellationPolicies[0]?.ToDate;
+  const cancellationFormattedEndingDate = moment(cancellationEndingDate).format(
+    "MMMM DD, YYYY"
+  );
 
-    const cancellationCharge =
-      hotelCancellationPolicies?.CancellationPolicies[0]?.Charge
- 
+  const cancellationCharge =
+    hotelCancellationPolicies?.CancellationPolicies[0]?.Charge;
+
   const hotelData = hotelRoom?.HotelRoomsDetails[HotelIndex];
   const bookingId =
     reducerState?.hotelSearchResult?.bookRoom?.BookResult?.BookingId;
@@ -175,132 +200,142 @@ const Flightdetail = () => {
   });
   const year = date1.getFullYear();
   const formattedDate = `${day} ${month} ${year}`;
-  const handleServiceChange = (e, index) => {
+
+  const handleServiceChange = (e, roomIndex, knowIndex) => {
+    console.log(roomIndex, knowIndex, "roomIndex", "knowIndex");
+    console.log(passengerData);
     const { name, value } = e.target;
-    const updatedPassenger=[...passengerData]
-    updatedPassenger[index]={
-      ...updatedPassenger[index],
-      [name]:value,
+    const filteredPassenger = passengerData.filter((item, index) => {
+      return (
+        item.RoomIndex == roomIndex && item?.adultIndex == knowIndex?.adultIndex
+      );
+    });
+    console.log("filteredPassenger", filteredPassenger);
+    const newFilteredPassenger = { ...filteredPassenger[0] };
+    newFilteredPassenger[name] = value;
+    const indexFind = passengerData.indexOf(filteredPassenger[0]);
+    if (indexFind !== -1) {
+      passengerData[indexFind] = newFilteredPassenger;
     }
-    // const list = [...passengerData];
-    // list[index][name] = value;
-    setPassengerData(updatedPassenger);
-    
-    
+    console.log("passengerDataNew", passengerData);
   };
 
-  const handleClickBooking = async () => {
-    // sessionStorage.setItem("HotelIndex", HotelIndex);
-
-    const email = emailRef.current.value;
-    const phoneno = phoneRef.current.value;
-    const smoking = hotelRoom?.HotelRoomsDetails[HotelIndex]?.SmokingPreference;
-    var SmokingPreference;
-    if (smoking == "NoPreference") {
-      SmokingPreference = 0;
-    }
-    if (smoking == "Smoking") {
-      SmokingPreference = 1;
-    }
-    if (smoking == "NonSmoking") {
-      SmokingPreference = 2;
-    }
-    if (smoking == "Either") {
-      SmokingPreference = 3;
-    }
-    const payload = {
-      ResultIndex: ResultIndex,
-      HotelCode: HotelCode,
-      HotelName: hotelInfo?.HotelDetails?.HotelName,
-      GuestNationality: "IN",
-      NoOfRooms:
-        reducerState?.hotelSearchResult?.ticketData?.data?.data
-          ?.HotelSearchResult?.NoOfRooms,
-      ClientReferenceNo: 0,
-      IsVoucherBooking: true,
-      HotelRoomsDetails: [
-        {
-          RoomIndex: hotelRoom?.HotelRoomsDetails[HotelIndex]?.RoomIndex,
-          RoomTypeCode: hotelRoom?.HotelRoomsDetails[HotelIndex]?.RoomTypeCode,
-          RoomTypeName: hotelRoom?.HotelRoomsDetails[HotelIndex]?.RoomTypeName,
-          RatePlanCode: hotelRoom?.HotelRoomsDetails[HotelIndex]?.RatePlanCode,
-          BedTypeCode: null,
-          SmokingPreference: SmokingPreference,
-          Supplements: null,
-          Price: {
-            CurrencyCode:
-              hotelRoom?.HotelRoomsDetails[HotelIndex]?.Price?.CurrencyCode,
-            RoomPrice:
-              hotelRoom?.HotelRoomsDetails[HotelIndex]?.Price?.RoomPrice,
-            Tax: hotelRoom?.HotelRoomsDetails[HotelIndex]?.Price?.Tax,
-            ExtraGuestCharge:
-              hotelRoom?.HotelRoomsDetails[HotelIndex]?.Price?.ExtraGuestCharge,
-            ChildCharge:
-              hotelRoom?.HotelRoomsDetails[HotelIndex]?.Price?.ChildCharge,
-            OtherCharges:
-              hotelRoom?.HotelRoomsDetails[HotelIndex]?.Price?.OtherCharges,
-            Discount: hotelRoom?.HotelRoomsDetails[HotelIndex]?.Price?.Discount,
-            PublishedPrice:
-              hotelRoom?.HotelRoomsDetails[HotelIndex]?.Price?.PublishedPrice,
-            PublishedPriceRoundedOff:
-              hotelRoom?.HotelRoomsDetails[HotelIndex]?.Price
-                ?.PublishedPriceRoundedOff,
-            OfferedPrice:
-              hotelRoom?.HotelRoomsDetails[HotelIndex]?.Price?.OfferedPrice,
-            OfferedPriceRoundedOff:
-              hotelRoom?.HotelRoomsDetails[HotelIndex]?.Price
-                ?.OfferedPriceRoundedOff,
-            AgentCommission:
-              hotelRoom?.HotelRoomsDetails[HotelIndex]?.Price?.AgentCommission,
-            AgentMarkUp:
-              hotelRoom?.HotelRoomsDetails[HotelIndex]?.Price?.AgentMarkUp,
-            ServiceTax:
-              hotelRoom?.HotelRoomsDetails[HotelIndex]?.Price?.ServiceTax,
-            TCS: hotelRoom?.HotelRoomsDetails[HotelIndex]?.Price?.TCS,
-            TDS: hotelRoom?.HotelRoomsDetails[HotelIndex]?.Price?.TDS,
-            ServiceCharge:
-              hotelRoom?.HotelRoomsDetails[HotelIndex]?.Price?.ServiceCharge,
-            TotalGSTAmount:
-              hotelRoom?.HotelRoomsDetails[HotelIndex]?.Price?.TotalGSTAmount,
-            GST: {
-              CGSTAmount:
-                hotelRoom?.HotelRoomsDetails[HotelIndex]?.GST?.CGSTAmount,
-              CGSTRate: hotelRoom?.HotelRoomsDetails[HotelIndex]?.GST?.CGSTRate,
-              CessAmount:
-                hotelRoom?.HotelRoomsDetails[HotelIndex]?.GST?.CessAmount,
-              CessRate: hotelRoom?.HotelRoomsDetails[HotelIndex]?.GST?.CessRate,
-              IGSTAmount:
-                hotelRoom?.HotelRoomsDetails[HotelIndex]?.GST?.IGSTAmount,
-              IGSTRate: hotelRoom?.HotelRoomsDetails[HotelIndex]?.GST?.IGSTRate,
-              SGSTAmount:
-                hotelRoom?.HotelRoomsDetails[HotelIndex]?.GST?.SGSTAmount,
-              SGSTRate: hotelRoom?.HotelRoomsDetails[HotelIndex]?.GST?.SGSTRate,
-              TaxableAmount:
-                hotelRoom?.HotelRoomsDetails[HotelIndex]?.GST?.TaxableAmount,
-            },
-          },
-          HotelPassenger: passengerData,
-        },
-      ],
-      EndUserIp: reducerState?.ip?.ipData,
-      TokenId: reducerState?.ip?.tokenData,
-      TraceId:
-        reducerState?.hotelSearchResult?.ticketData?.data?.data
-          ?.HotelSearchResult?.TraceId,
-    };
-
-    const hotelDetailsPayload = {
-      BookingId: await bookingId,
-      EndUserIp: reducerState?.ip?.ipData,
-      TokenId: reducerState?.ip?.tokenData,
-    };
-    console.log("hotelDetailsPayload", hotelDetailsPayload);
-    // Dispatch the hotelBookRoomAction
-    //  bookingStatus = true;
-    setBookingSuccess(true);
-    dispatch(hotelBookRoomAction([payload, hotelDetailsPayload]));
-   
+  const handleClickSavePassenger = () => {
+    dispatch(PassengersAction(passengerData));
   };
+
+  // const handleClickBooking = async () => {
+
+  //   // sessionStorage.setItem("HotelIndex", HotelIndex);
+
+  //   const email = emailRef.current.value;
+  //   const phoneno = phoneRef.current.value;
+  //   const smoking = hotelRoom?.HotelRoomsDetails[HotelIndex]?.SmokingPreference;
+  //   var SmokingPreference;
+  //   if (smoking == "NoPreference") {
+  //     SmokingPreference = 0;
+  //   }
+  //   if (smoking == "Smoking") {
+  //     SmokingPreference = 1;
+  //   }
+  //   if (smoking == "NonSmoking") {
+  //     SmokingPreference = 2;
+  //   }
+  //   if (smoking == "Either") {
+  //     SmokingPreference = 3;
+  //   }
+  //   const payload = {
+  //     ResultIndex: ResultIndex,
+  //     HotelCode: HotelCode,
+  //     HotelName: hotelInfo?.HotelDetails?.HotelName,
+  //     GuestNationality: "IN",
+  //     NoOfRooms:
+  //       reducerState?.hotelSearchResult?.ticketData?.data?.data
+  //         ?.HotelSearchResult?.NoOfRooms,
+  //     ClientReferenceNo: 0,
+  //     IsVoucherBooking: true,
+  //     HotelRoomsDetails: [
+  //       {
+  //         RoomIndex: hotelRoom?.HotelRoomsDetails[HotelIndex]?.RoomIndex,
+  //         RoomTypeCode: hotelRoom?.HotelRoomsDetails[HotelIndex]?.RoomTypeCode,
+  //         RoomTypeName: hotelRoom?.HotelRoomsDetails[HotelIndex]?.RoomTypeName,
+  //         RatePlanCode: hotelRoom?.HotelRoomsDetails[HotelIndex]?.RatePlanCode,
+  //         BedTypeCode: null,
+  //         SmokingPreference: SmokingPreference,
+  //         Supplements: null,
+  //         Price: {
+  //           CurrencyCode:
+  //             hotelRoom?.HotelRoomsDetails[HotelIndex]?.Price?.CurrencyCode,
+  //           RoomPrice:
+  //             hotelRoom?.HotelRoomsDetails[HotelIndex]?.Price?.RoomPrice,
+  //           Tax: hotelRoom?.HotelRoomsDetails[HotelIndex]?.Price?.Tax,
+  //           ExtraGuestCharge:
+  //             hotelRoom?.HotelRoomsDetails[HotelIndex]?.Price?.ExtraGuestCharge,
+  //           ChildCharge:
+  //             hotelRoom?.HotelRoomsDetails[HotelIndex]?.Price?.ChildCharge,
+  //           OtherCharges:
+  //             hotelRoom?.HotelRoomsDetails[HotelIndex]?.Price?.OtherCharges,
+  //           Discount: hotelRoom?.HotelRoomsDetails[HotelIndex]?.Price?.Discount,
+  //           PublishedPrice:
+  //             hotelRoom?.HotelRoomsDetails[HotelIndex]?.Price?.PublishedPrice,
+  //           PublishedPriceRoundedOff:
+  //             hotelRoom?.HotelRoomsDetails[HotelIndex]?.Price
+  //               ?.PublishedPriceRoundedOff,
+  //           OfferedPrice:
+  //             hotelRoom?.HotelRoomsDetails[HotelIndex]?.Price?.OfferedPrice,
+  //           OfferedPriceRoundedOff:
+  //             hotelRoom?.HotelRoomsDetails[HotelIndex]?.Price
+  //               ?.OfferedPriceRoundedOff,
+  //           AgentCommission:
+  //             hotelRoom?.HotelRoomsDetails[HotelIndex]?.Price?.AgentCommission,
+  //           AgentMarkUp:
+  //             hotelRoom?.HotelRoomsDetails[HotelIndex]?.Price?.AgentMarkUp,
+  //           ServiceTax:
+  //             hotelRoom?.HotelRoomsDetails[HotelIndex]?.Price?.ServiceTax,
+  //           TCS: hotelRoom?.HotelRoomsDetails[HotelIndex]?.Price?.TCS,
+  //           TDS: hotelRoom?.HotelRoomsDetails[HotelIndex]?.Price?.TDS,
+  //           ServiceCharge:
+  //             hotelRoom?.HotelRoomsDetails[HotelIndex]?.Price?.ServiceCharge,
+  //           TotalGSTAmount:
+  //             hotelRoom?.HotelRoomsDetails[HotelIndex]?.Price?.TotalGSTAmount,
+  //           GST: {
+  //             CGSTAmount:
+  //               hotelRoom?.HotelRoomsDetails[HotelIndex]?.GST?.CGSTAmount,
+  //             CGSTRate: hotelRoom?.HotelRoomsDetails[HotelIndex]?.GST?.CGSTRate,
+  //             CessAmount:
+  //               hotelRoom?.HotelRoomsDetails[HotelIndex]?.GST?.CessAmount,
+  //             CessRate: hotelRoom?.HotelRoomsDetails[HotelIndex]?.GST?.CessRate,
+  //             IGSTAmount:
+  //               hotelRoom?.HotelRoomsDetails[HotelIndex]?.GST?.IGSTAmount,
+  //             IGSTRate: hotelRoom?.HotelRoomsDetails[HotelIndex]?.GST?.IGSTRate,
+  //             SGSTAmount:
+  //               hotelRoom?.HotelRoomsDetails[HotelIndex]?.GST?.SGSTAmount,
+  //             SGSTRate: hotelRoom?.HotelRoomsDetails[HotelIndex]?.GST?.SGSTRate,
+  //             TaxableAmount:
+  //               hotelRoom?.HotelRoomsDetails[HotelIndex]?.GST?.TaxableAmount,
+  //           },
+  //         },
+  //         HotelPassenger: passengerData,
+  //       },
+  //     ],
+  //     EndUserIp: reducerState?.ip?.ipData,
+  //     TokenId: reducerState?.ip?.tokenData,
+  //     TraceId:
+  //       reducerState?.hotelSearchResult?.ticketData?.data?.data
+  //         ?.HotelSearchResult?.TraceId,
+  //   };
+
+  //   const hotelDetailsPayload = {
+  //     BookingId: await bookingId,
+  //     EndUserIp: reducerState?.ip?.ipData,
+  //     TokenId: reducerState?.ip?.tokenData,
+  //   };
+  //   console.log("hotelDetailsPayload", hotelDetailsPayload);
+  //   // Dispatch the hotelBookRoomAction
+  //   //  bookingStatus = true;
+  //   setBookingSuccess(true);
+  //   dispatch(hotelBookRoomAction([payload, hotelDetailsPayload]));
+  // };
 
   return (
     <Box borderRadius="10px">
@@ -423,7 +458,7 @@ const Flightdetail = () => {
               mr={5}
               sx={{ fontSize: "16px", color: "#666666", fontWeight: "bold" }}
             >
-              {TotalGuest}
+              {noOfRooms.length}
             </Typography>
           </Box>
         </Box>
@@ -469,87 +504,261 @@ const Flightdetail = () => {
           </Typography>
           <Box>
             <Box>
-              {TotalGuest > 0 &&
-                Array.from({ length: TotalGuest }, (_, index) => (
+              {noOfRooms.length > 0 &&
+                Array.from({ length: noOfRooms.length }, (_, roomIndex) => (
                   <Box>
-                    <div mb={2} key={index} className="services" py={1}>
+                    <div mb={2} key={roomIndex} className="services" py={1}>
                       <Accordion
-                        expanded={accordionExpanded === index}
-                        onChange={handleAccordionChange(index)}
+                        expanded={accordionExpanded === roomIndex}
+                        onChange={handleAccordionChange(roomIndex)}
                       >
                         <AccordionSummary
                           expandIcon={<ExpandMoreIcon />}
                           aria-controls="panel1a-content"
                           id="panel1a-header"
                         >
-                          <Typography>Guest {index + 1}</Typography>
+                          <Typography>Room {roomIndex + 1}</Typography>
                         </AccordionSummary>
                         <AccordionDetails>
-                          <Box>
-                            <Grid container spacing={3} my={1}>
-                              <Grid item xs={12} sm={12} md={4}>
+                          {noOfRooms[roomIndex]?.NoOfAdults > 0 &&
+                            Array.from(
+                              { length: noOfRooms[roomIndex]?.NoOfAdults },
+                              (_, adultIndex) => (
                                 <Box>
-                                  <div className="form_input">
-                                    <label
-                                      hotel_form_input
-                                      className="form_lable"
-                                    >
-                                      First name*
-                                    </label>
-                                    <input
-                                      name="FirstName"
-                                      placeholder="Enter your name"
-                                      value={passengerData.FirstName}
-                                      onChange={(e) =>
-                                        handleServiceChange(e, index)
-                                      }
-                                    />
-                                  </div>
+                                  Adult {adultIndex + 1}
+                                  {adultIndex == 0 ? "(Lead Guest)" : ""}
+                                  <Grid container spacing={3} my={1}>
+                                    <Grid item xs={12} sm={12} md={4}>
+                                      <Box>
+                                        <div className="form_input">
+                                          <label
+                                            hotel_form_input
+                                            className="form_lable"
+                                          >
+                                            First name*
+                                          </label>
+                                          <input
+                                            name="FirstName"
+                                            placeholder="Enter your name"
+                                            // value={passengerData.FirstName}
+                                            onChange={(e) =>
+                                              setTimeout(() => {
+                                                handleServiceChange(
+                                                  e,
+                                                  roomIndex,
+                                                  { adultIndex: adultIndex }
+                                                );
+                                              }, 500)
+                                            }
+                                          />
+                                        </div>
+                                      </Box>
+                                    </Grid>
+                                    <Grid item xs={12} sm={12} md={4} py={1}>
+                                      <Box>
+                                        <div className="form_input">
+                                          <label
+                                            hotel_form_input
+                                            className="form_lable"
+                                          >
+                                            Last name*
+                                          </label>
+                                          <input
+                                            name="LastName"
+                                            placeholder="Enter your last name"
+                                            // value={passengerData.LastName}
+                                            onChange={(e) =>
+                                              setTimeout(() => {
+                                                handleServiceChange(
+                                                  e,
+                                                  roomIndex,
+                                                  { adultIndex: adultIndex }
+                                                );
+                                              }, 300)
+                                            }
+                                          />
+                                        </div>
+                                      </Box>
+                                    </Grid>
+                                    <Grid item xs={12} sm={12} md={4} py={1}>
+                                      <Box>
+                                        <div className="form_input">
+                                          <label
+                                            hotel_form_input
+                                            className="form_lable"
+                                          >
+                                            age*
+                                          </label>
+                                          <input
+                                            name="Age"
+                                            type="text"
+                                            placeholder="Enter Age"
+                                            // value={passengerData.Age}
+                                            onChange={(e) =>
+                                              setTimeout(() => {
+                                                handleServiceChange(
+                                                  e,
+                                                  roomIndex,
+                                                  { adultIndex: adultIndex }
+                                                );
+                                              }, 300)
+                                            }
+                                          />
+                                        </div>
+                                      </Box>
+                                    </Grid>
+                                    <Grid item xs={12} sm={12} md={4} py={1}>
+                                      <Box>
+                                        <div className="form_input">
+                                          <label
+                                            hotel_form_input
+                                            className="form_lable"
+                                          >
+                                            PanNo*
+                                          </label>
+                                          <input
+                                            name="PAN"
+                                            type="text"
+                                            placeholder="Enter PanNo"
+                                            // value={passengerData.PAN}
+                                            onChange={(e) =>
+                                              setTimeout(() => {
+                                                handleServiceChange(
+                                                  e,
+                                                  roomIndex,
+                                                  { adultIndex: adultIndex }
+                                                );
+                                              }, 300)
+                                            }
+                                          />
+                                        </div>
+                                      </Box>
+                                    </Grid>
+                                  </Grid>
                                 </Box>
-                              </Grid>
-                              <Grid item xs={12} sm={12} md={4} py={1}>
+                              )
+                            )}
+                          {noOfRooms[roomIndex]?.NoOfChild > 0 &&
+                            Array.from(
+                              {
+                                length: noOfRooms[roomIndex]?.NoOfChild,
+                              },
+                              (_, childIndex) => (
                                 <Box>
-                                  <div className="form_input">
-                                    <label
-                                      hotel_form_input
-                                      className="form_lable"
-                                    >
-                                      Last name*
-                                    </label>
-                                    <input
-                                      name="LastName"
-                                      placeholder="Enter your last name"
-                                      value={passengerData.LastName}
-                                      onChange={(e) =>
-                                        handleServiceChange(e, index)
-                                      }
-                                    />
-                                  </div>
+                                  Child {childIndex + 1}
+                                  <Grid container spacing={3} my={1}>
+                                    <Grid item xs={12} sm={12} md={4}>
+                                      <Box>
+                                        <div className="form_input">
+                                          <label
+                                            hotel_form_input
+                                            className="form_lable"
+                                          >
+                                            First name*
+                                          </label>
+                                          <input
+                                            name="FirstName"
+                                            placeholder="Enter your name"
+                                            // value={passengerData.FirstName}
+                                            onChange={(e) =>
+                                              setTimeout(() => {
+                                                handleServiceChange(
+                                                  e,
+                                                  roomIndex,
+                                                  { childIndex: childIndex }
+                                                );
+                                              })
+                                            }
+                                          />
+                                        </div>
+                                      </Box>
+                                    </Grid>
+                                    <Grid item xs={12} sm={12} md={4} py={1}>
+                                      <Box>
+                                        <div className="form_input">
+                                          <label
+                                            hotel_form_input
+                                            className="form_lable"
+                                          >
+                                            Last name*
+                                          </label>
+                                          <input
+                                            name="LastName"
+                                            placeholder="Enter your last name"
+                                            // value={passengerData.LastName}
+                                            onChange={(e) =>
+                                              setTimeout(() => {
+                                                handleServiceChange(
+                                                  e,
+                                                  roomIndex,
+                                                  { childIndex: childIndex }
+                                                );
+                                              })
+                                            }
+                                          />
+                                        </div>
+                                      </Box>
+                                    </Grid>
+                                    <Grid item xs={12} sm={12} md={4} py={1}>
+                                      <Box>
+                                        <div className="form_input">
+                                          <label
+                                            hotel_form_input
+                                            className="form_lable"
+                                          >
+                                            age*
+                                          </label>
+                                          <input
+                                            name="Age"
+                                            type="text"
+                                            placeholder="Enter Age"
+                                            value={
+                                              noOfRooms[roomIndex]?.ChildAge[
+                                                childIndex
+                                              ]
+                                            }
+                                            // onChange={(e) =>
+                                            //   handleServiceChange(
+                                            //     e,
+                                            //     roomIndex,
+                                            //     { childIndex: childIndex }
+                                            //   )
+                                            // }
+                                          />
+                                        </div>
+                                      </Box>
+                                    </Grid>
+                                    <Grid item xs={12} sm={12} md={4} py={1}>
+                                      <Box>
+                                        <div className="form_input">
+                                          <label
+                                            hotel_form_input
+                                            className="form_lable"
+                                          >
+                                            PanNo*
+                                          </label>
+                                          <input
+                                            name="PAN"
+                                            type="text"
+                                            placeholder="Enter PanNo"
+                                            // value={passengerData.PAN}
+                                            onChange={(e) =>
+                                              setTimeout(() => {
+                                                handleServiceChange(
+                                                  e,
+                                                  roomIndex,
+                                                  { childIndex: childIndex }
+                                                );
+                                              })
+                                            }
+                                          />
+                                        </div>
+                                      </Box>
+                                    </Grid>
+                                  </Grid>
                                 </Box>
-                              </Grid>
-                              <Grid item xs={12} sm={12} md={4} py={1}>
-                                <Box>
-                                  <div className="form_input">
-                                    <label
-                                      hotel_form_input
-                                      className="form_lable"
-                                    >
-                                      age*
-                                    </label>
-                                    <input
-                                      name="Age"
-                                      type="text"
-                                      placeholder="Enter Age"
-                                      value={passengerData.Age}
-                                      onChange={(e) =>
-                                        handleServiceChange(e, index)
-                                      }
-                                    />
-                                  </div>
-                                </Box>
-                              </Grid>
-                            </Grid>
-                          </Box>
+                              )
+                            )}
                         </AccordionDetails>
                       </Accordion>
 
@@ -570,7 +779,7 @@ const Flightdetail = () => {
                       name="Email"
                       ref={emailRef}
                       placeholder="Enter your Email"
-                      value={passengerData.Email}
+                      // value={passengerData.Email}
                       onChange={(e) => handleServiceChange(e, 0)}
                     />
                   </div>
@@ -587,7 +796,7 @@ const Flightdetail = () => {
                       name="Phoneno"
                       ref={phoneRef}
                       placeholder="Enter your name"
-                      value={passengerData.Phoneno}
+                      // value={passengerData.Phoneno}
                       onChange={(e) => handleServiceChange(e, 0)}
                     />
                   </div>
@@ -757,48 +966,14 @@ const Flightdetail = () => {
           >
             Hotel Norms
           </Typography>
-          <ol>
-            <li sx={{ fontSize: "14px", color: "#252525", fontWeight: "bold" }}>
-              When people think of Goa, they're probably thinking about long,
-              sandy beaches, but much of the state is also covered by forest.
-            </li>
-            <li sx={{ fontSize: "14px", color: "#252525", fontWeight: "bold" }}>
-              Around 20% of the land in Goa falls into the beautiful Western
-              Ghats of India, a vast mountain range and treasure house of
-              biodiversity.
-            </li>
-            <li sx={{ fontSize: "14px", color: "#252525", fontWeight: "bold" }}>
-              The forests here are teeming with exotic wildlife, including
-              Indian giant squirrels, mongoose, Slender Loris, Indian macaques
-              and sloth bears.
-            </li>
-            <li sx={{ fontSize: "14px", color: "#252525", fontWeight: "bold" }}>
-              Goa is widely known as India's party district, and is visited by
-              thousands of sun-seeking tourists each year.
-            </li>
-            <li sx={{ fontSize: "14px", color: "#252525", fontWeight: "bold" }}>
-              The state has fulfilled popular demand, with close to 7,000 bars
-              across the state to choose from – and plenty of cheap alcohol.
-              North Goa is generally more lively, although South Goa has its
-              fair share of beach parties too.
-            </li>
-          </ol>
         </Box>
 
         {/* <form> */}
         <Box display={"flex"} justifyContent={"center"} mt={2}>
-          {/* <Button
-              className="continue_btn"
-              type="submit"
-              variant="contained"
-              onClick={handleClickBooking}
-            >
-              Proceed to Booking Review
-            </Button> */}
           <Custombutton
-            title={"Proceed to Booking"}
+            title={"Proceed to Booking Review"}
             type={"submit"}
-            onClick={handleClickBooking}
+            onClick={handleClickSavePassenger}
           />
         </Box>
         {/* </form> */}
