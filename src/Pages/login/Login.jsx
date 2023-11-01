@@ -36,7 +36,20 @@ import { useNavigate } from "react-router-dom";
 import "./login.css";
 import { Button } from "@mui/material";
 import { fontWeight } from "@mui/system";
-import color from "../../color/color.js"
+import {
+  FaPlane, // Flight icon
+  FaHotel, // Hotel icon
+  // Add more icons here for other items
+  FaGlobe, // Islandhopper icon
+  FaBus, // Transfer icon
+  FaBinoculars, // Sightseeing icon
+  FaPassport, // Visa icon
+  FaShieldAlt, // Insurance icon
+  FaUser, // Administration icon
+} from "react-icons/fa";
+import { GiCardboardBox } from "react-icons/gi";
+
+import color from "../../color/color.js";
 const Login = () => {
   const reducerState = useSelector((state) => state);
   const navigate = useNavigate();
@@ -53,195 +66,163 @@ const Login = () => {
     <React.Fragment>
       <div className="loginContainer">
         {/* step by step updating part */}
-
+    
         <Box>
           <div>
-            <Grid container px={10} py={5}>
-              <Grid item xs={12} sm={12} lg={9}>
+            <Grid container px={10}>
+              <Grid item xs={12} sm={12} lg={9} >
                 <Box
                   display="flex"
                   justifyContant="center"
                   alignItems="center"
                   textAlign="center"
-                  // marginTop="10px"
+                 
                   font="Quicksand, Bold"
-                  
                 >
                   <Box
                     sx={{
                       width: "69px",
-                      height: "69px",
+                      height: "45px",
                     }}
-                  
                   >
                     <img src={StLogo} alt="" style={{ width: "250px" }}></img>
                   </Box>
-                  {/* <Typography className="logo_text">skyTrails</Typography> */}
+                 
                 </Box>
-                <Box
-                  sx={{ displayf: "flex", justifyContent: "center" }}
-                  mt={10}
-                >
-                  <Typography
-                    sx={{
-                      fontSize: "24px",
-                      fontWeight: "600",
-                      textAlign: "center",
-                      marginTop: "30px",
-                      font: "Quicksand, Bold",
+
+                {/* <Grid container mt={15} lg={5} style={{border:"1px solid red"}}>
+                  <Grid
+                    item
+                    xs={12}
+                    sm={12}
+                    lg={10}
+                    textAlign="center"
+                    style={{
+                      border: "2px solid black",
+                      borderRadius:"12px",
+                      backgroundColor:"#fff",
+                      boxShadow:"0px 4px 12px 4px rgba(0, 0, 0, 0.25)"
                     }}
                   >
-                    Our Services
-                  </Typography>
-                  <Grid container mt={5}>
-                    <Grid item xs={12} sm={12} lg={1} textAlign="center"></Grid>
-                    <Grid item xs={12} sm={12} lg={10} textAlign="center">
-                      <Box display="flex" justifyContent="space-around">
-                        <Box textAlign="center" >
-                          <img src={flight} style={{width:"100%",height:"80px"}}/>
-                          <Typography
-                            sx={{
-                              fontSize: "15px",
-                              fontWeight: "bold",
-                              color:color.bluedark,
-                            }}
-                          >
-                            Flights
-                          </Typography>
-                        </Box>
-                        <Box textAlign="center">
-                          <img src={hotelbed} style={{width:"100%",height:"80px"}}/>
-                          <Typography
-                            sx={{
-                              fontSize: "15px",
-                              fontWeight: "bold",
-                              color:color.bluedark,
-                            }}
-                          >
-                            Hotel
-                          </Typography>
-                        </Box>
-                        <Box textAlign="center">
-                          <img src={schoolbus} style={{width:"100%",height:"80px"}}/>
-                          <Typography
-                            sx={{
-                              fontSize: "15px",
-                              fontWeight: "bold",
-                              color:color.bluedark,
-                            }}
-                          >
-                            Bus
-                          </Typography>
-                        </Box>
-                        <Box textAlign="center">
-                          <img src={taxi} style={{width:"100%",height:"80px"}}/>
-                          <Typography
-                            sx={{
-                              fontSize: "15px",
-                              fontWeight: "bold",
-                              color:color.bluedark,
-                            }}
-                          >
-                            Taxi
-                          </Typography>
-                        </Box>
-                        <Box textAlign="center">
-                          <img src={accounting} style={{width:"100%",height:"80px"}}/>
-                          <Typography
-                            sx={{
-                              fontSize: "15px",
-                              fontWeight: "bold",
-                              color:color.bluedark,
-                            }}
-                          >
-                            GST
-                          </Typography>
-                        </Box>
+                    <Typography
+                      sx={{
+                        fontSize: "24px",
+                        fontWeight: "600",
+                        textAlign: "center",
+                        marginTop: "30px",
+                        font: "Quicksand, Bold",
+                      }}
+                    >
+                      Our Services
+                    </Typography>
+                    <Box display="flex" justifyContent="center" py={4}>
+                      <Box textAlign="center" px={1}>
+                        <FaPlane
+                          style={{ fontSize: "35px", color: color.bluedark }}
+                        />
+                        <Typography
+                          sx={{
+                            fontSize: "15px",
+                            fontWeight: "bold",
+                            color: color.bluedark,
+                          }}
+                        >
+                          Flights
+                        </Typography>
                       </Box>
-                      <Box display="flex" justifyContent="center" py={4}>
-                        <Box textAlign="center" px={3}>
-                          <img src={insurence} style={{width:"100%",height:"80px"}}/>
-                          <Typography
-                            sx={{
-                              fontSize: "15px",
-                              fontWeight: "bold",
-                              color:color.bluedark,
-                            }}
-                          >
-                            Sightseeing
-                          </Typography>
-                        </Box>
-                        <Box textAlign="center" px={3}>
-                          <img src={beachchair} style={{width:"100%",height:"80px"}}/>
-                          <Typography
-                            sx={{
-                              fontSize: "15px",
-                              fontWeight: "bold",
-                              color:color.bluedark,
-                            }}
-                          >
-                            Holiday Package
-                          </Typography>
-                        </Box>
-                        <Box textAlign="center" px={3}>
-                          <img src={passport} style={{width:"100%",height:"80px"}}/>
-                          <Typography
-                            sx={{
-                              fontSize: "15px",
-                              fontWeight: "bold",
-                              color:color.bluedark,
-                            }}
-                          >
-                            Visa
-                          </Typography>
-                        </Box>
-                        <Box textAlign="center" px={3}>
-                          <img src={forex} style={{width:"100%",height:"80px"}}/>
-                          <Typography
-                            sx={{
-                              fontSize: "15px",
-                              fontWeight: "bold",
-                              color:color.bluedark,
-                            }}
-                          >
-                            Forex
-                          </Typography>
-                        </Box>
+                      <Box textAlign="center" px={3}>
+                        <FaHotel
+                          style={{ fontSize: "35px", color: color.bluedark }}
+                        />
+                        <Typography
+                          sx={{
+                            fontSize: "15px",
+                            fontWeight: "bold",
+                            color: color.bluedark,
+                          }}
+                        >
+                          Hotel
+                        </Typography>
                       </Box>
-                      <Box display="flex" justifyContent="center">
-                        <Box textAlign="center" px={2}>
-                          <img src={luggagex} style={{height:"80px"}}/>
-                          <Typography
-                            sx={{
-                              fontSize: "15px",
-                              fontWeight: "bold",
-                              color:color.bluedark,
-                            }}
-                          >
-                            Assistance & Insurance
-                          </Typography>
-                        </Box>
-                        <Box textAlign="center" px={2}>
-                          <img src={airportt} style={{height:"80px"}}/>
-                          <Typography
-                            sx={{
-                              fontSize: "15px",
-                              fontWeight: "bold",
-                              color:color.bluedark,
-                            }}
-                          >
-                            Fixed Departure
-                          </Typography>
-                        </Box>
+                      
+                    </Box>
+                    <Box
+                      display="flex"
+                      justifyContent="center"
+                      py={1}
+                      px={5}
+                      
+                    >
+                      <Box textAlign="center" px={3}>
+                        <FaBus
+                          style={{ fontSize: "35px", color: color.bluedark }}
+                        />
+                        <Typography
+                          sx={{
+                            fontSize: "15px",
+                            fontWeight: "bold",
+                            color: color.bluedark,
+                          }}
+                        >
+                          Transfer
+                        </Typography>
                       </Box>
-                    </Grid>
-                    <Grid item xs={12} sm={12} lg={1} textAlign="center"></Grid>
+
+                      <Box textAlign="center" px={3}>
+                        <GiCardboardBox
+                          style={{ fontSize: "35px", color: color.bluedark }}
+                        />
+                        <Typography
+                          sx={{
+                            fontSize: "15px",
+                            fontWeight: "bold",
+                            color: color.bluedark,
+                          }}
+                        >
+                          Package
+                        </Typography>
+                      </Box>
+                    </Box>
+
+                    <Box display="flex" justifyContent="center" py={4}>
+                    
+                      <Box textAlign="center" px={3}>
+                        <FaPassport
+                          style={{ fontSize: "35px", color: color.bluedark }}
+                        />
+                        <Typography
+                          sx={{
+                            fontSize: "15px",
+                            fontWeight: "bold",
+                            color: color.bluedark,
+                          }}
+                        >
+                          Forex
+                        </Typography>
+                      </Box>
+                      <Box textAlign="center" px={3}>
+                        <FaShieldAlt
+                          style={{ fontSize: "35px", color: color.bluedark }}
+                        />
+                        <Typography
+                          sx={{
+                            fontSize: "15px",
+                            fontWeight: "bold",
+                            color: color.bluedark,
+                          }}
+                        >
+                          Insurance
+                        </Typography>
+                      </Box>
+                    </Box>
                   </Grid>
-                </Box>
+
+
+                </Grid> */}
               </Grid>
               <Grid item xs={12} sm={12} lg={3}>
                 <form action="/Registration">
-                  <Box textAlign="right">
+                  <Box textAlign="right" >
                     <Button
                       type="submit"
                       variant="contained"
@@ -251,20 +232,25 @@ const Login = () => {
                         color: "#254B70",
                         fontWeight: "bold",
                         borderRadius: "10px",
+                        marginTop: "100px",
                       }}
                     >
                       Register
                     </Button>
                   </Box>
                 </form>
-                <form action="/">
+                {/* <form action="/" style={{border:"1px solid pink"}}>
                   {reducerState.logIn.loginData?.data?.data?.message && (
                     <Alert severity="success">
                       Thankyou ! for Registering, we'll contact you ASAP
                     </Alert>
                   )}
-                  <Box pt={5} className="login_field">
-                    <Typography className="Login_min" font="Bold" style={{color:color.bluedark}}>
+                  <Box pt={5} className="login_field" style={{border:"2px solid black"}}>
+                    <Typography
+                      className="Login_min"
+                      font="Bold"
+                      style={{ color: color.bluedark }}
+                    >
                       Login
                     </Typography>
                     <Box py={2}>
@@ -297,7 +283,7 @@ const Login = () => {
                     <Box>
                       <Capchacode email={email} password={password} />
 
-                      <Typography className="forget_pass">
+                      <Typography className="forget_pass" style={{textAlign:"center"}}>
                         Forgot Password
                       </Typography>
 
@@ -307,37 +293,207 @@ const Login = () => {
                         mt={2}
                         textAlign="center"
                       >
-                        <Typography color="black" fontSize="10px">
-                          By proceeding, you agree to skyTrails{" "}
-                          <Link href="#" underline="always" color="#FF8900">
-                            {"Privacy Policy"}
-                          </Link>{" "}
-                          ,{" "}
-                          <Link href="#" underline="always" color="#FF8900">
-                            {"User Agreement"}
-                          </Link>{" "}
-                          and{" "}
-                          <Link href="#" underline="always" color="#FF8900">
-                            {"Terms of Service"}
-                          </Link>
+                      
+                      </Box>
+                    </Box>
+                  </Box>
+                </form> */}
+              </Grid>
+             
+            </Grid>
+          </div>
+        </Box>
+
+        <div style={{display:"flex",width:"50%",margin:"auto",gap:"100px",height:"400px",marginTop:"20px"}}>
+        <Grid container  lg={12} >
+                  <Grid
+                    item
+                    xs={12}
+                    sm={12}
+                    lg={12}
+                    textAlign="center"
+                    style={{
+                     
+                      borderRadius:"12px",
+                      backgroundColor:"#fff",
+                      boxShadow:"0px 4px 12px 4px rgba(0, 0, 0, 0.25)"
+                    }}
+                  >
+                    <Typography
+                      sx={{
+                        fontSize: "24px",
+                        fontWeight: "600",
+                        textAlign: "center",
+                        marginTop: "30px",
+                        font: "Quicksand, Bold",
+                      }}
+                    >
+                      Our Services
+                    </Typography>
+                    <Box display="flex" justifyContent="center" py={4}>
+                      <Box textAlign="center" px={3}>
+                        <FaPlane
+                          style={{ fontSize: "35px", color: color.bluedark }}
+                        />
+                        <Typography
+                          sx={{
+                            fontSize: "15px",
+                            fontWeight: "bold",
+                            color: color.bluedark,
+                          }}
+                        >
+                          Flights
                         </Typography>
+                      </Box>
+                      <Box textAlign="center" px={3}>
+                        <FaHotel
+                          style={{ fontSize: "35px", color: color.bluedark }}
+                        />
+                        <Typography
+                          sx={{
+                            fontSize: "15px",
+                            fontWeight: "bold",
+                            color: color.bluedark,
+                          }}
+                        >
+                          Hotel
+                        </Typography>
+                      </Box>
+                      
+                    </Box>
+                    <Box
+                      display="flex"
+                      justifyContent="center"
+                      py={1}
+                      px={5}
+                      
+                    >
+                      <Box textAlign="center" px={3}>
+                        <FaBus
+                          style={{ fontSize: "35px", color: color.bluedark }}
+                        />
+                        <Typography
+                          sx={{
+                            fontSize: "15px",
+                            fontWeight: "bold",
+                            color: color.bluedark,
+                          }}
+                        >
+                          Transfer
+                        </Typography>
+                      </Box>
+
+                      <Box textAlign="center" px={3}>
+                        <GiCardboardBox
+                          style={{ fontSize: "35px", color: color.bluedark }}
+                        />
+                        <Typography
+                          sx={{
+                            fontSize: "15px",
+                            fontWeight: "bold",
+                            color: color.bluedark,
+                          }}
+                        >
+                          Package
+                        </Typography>
+                      </Box>
+                    </Box>
+
+                    <Box display="flex" justifyContent="center" py={4}>
+                    
+                      <Box textAlign="center" px={3}>
+                        <FaPassport
+                          style={{ fontSize: "35px", color: color.bluedark }}
+                        />
+                        <Typography
+                          sx={{
+                            fontSize: "15px",
+                            fontWeight: "bold",
+                            color: color.bluedark,
+                          }}
+                        >
+                          Forex
+                        </Typography>
+                      </Box>
+                      <Box textAlign="center" px={3}>
+                        <FaShieldAlt
+                          style={{ fontSize: "35px", color: color.bluedark }}
+                        />
+                        <Typography
+                          sx={{
+                            fontSize: "15px",
+                            fontWeight: "bold",
+                            color: color.bluedark,
+                          }}
+                        >
+                          Insurance
+                        </Typography>
+                      </Box>
+                    </Box>
+                  </Grid>
+
+
+                </Grid>
+                <form action="/">
+                  {reducerState.logIn.loginData?.data?.data?.message && (
+                    <Alert severity="success">
+                      Thankyou ! for Registering, we'll contact you ASAP
+                    </Alert>
+                  )}
+                  <Box  className="login_field" style={{marginTop:"10px"}}>
+                    <Typography
+                      className="Login_min"
+                      font="Bold"
+                      style={{ color: color.bluedark }}
+                    >
+                      Login
+                    </Typography>
+                    <Box py={2} >
+                      <div className="form_input">
+                        <label className="form_lable">Email*</label>
+
+                        <input
+                          style={{ height: "60px", width: "400px" }}
+                          name="email"
+                          type="email"
+                          placeholder="Enter your Email Address"
+                          value={email}
+                          onChange={(event) => setEmail(event.target.value)}
+                        />
+                      </div>
+                    </Box>
+                    <Box py={2}>
+                      <div className="form_input">
+                        <label className="form_lable">Password*</label>
+
+                        <input
+                          style={{ height: "60px", width: "400px" }}
+                          type="password"
+                          placeholder="Enter Your Password"
+                          value={password}
+                          onChange={(event) => setPassword(event.target.value)}
+                        />
+                      </div>
+                    </Box>
+                    <Box>
+                      <Capchacode email={email} password={password} />
+
+                      <Typography className="forget_pass" style={{textAlign:"center"}}>
+                        Forgot Password
+                      </Typography>
+
+                      <Box
+                        display="flex"
+                        justifyContent="center"
+                        mt={2}
+                        textAlign="center"
+                      >
+                      
                       </Box>
                     </Box>
                   </Box>
                 </form>
-              </Grid>
-              <Grid
-                item
-                xs={12}
-                sm={12}
-                lg={3}
-                display="flex"
-                justifyContent="start"
-                alignItems="center"
-              ></Grid>
-            </Grid>
-          </div>
-        </Box>
+        </div>
       </div>
     </React.Fragment>
   );
