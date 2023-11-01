@@ -43,6 +43,8 @@ import { adminSignOut } from "../../../Redux/Auth/AdminSignOut/actionAdminSignOu
 import STLOGO from "../../../Images/ST-Main-Logo.png";
 import RiseLoader from "react-spinners/RiseLoader";
 import HotelBookings from './Table/HotelBookings/HotelBookings';
+import FlightBookings from './Table/FlightBookings/Flightbookings';
+import BusBookings from './Table/BusBookings/BusBookings';
 const drawerWidth = 240;
 
 const openedMixin = (theme) => ({
@@ -529,6 +531,64 @@ export default function VerticalTabs() {
                 />
               </ListItemButton>
             </ListItem>
+            <ListItem
+             disablePadding
+             sx={{ display: "block" }}
+             onClick={() => handleMenuItemClick("Flight Bookings")}>
+            <ListItemButton
+                sx={{
+                  minHeight: 48,
+                  justifyContent: open ? "initial" : "center",
+                  px: 2.5,
+                  ...((menuData === "Flight Bookings"
+                    ? activeMenuItemClass
+                    : inactiveMenuItemClass) || {}),
+                }}
+              >
+                <ListItemIcon
+                  sx={{
+                    minWidth: 0,
+                    mr: open ? 3 : "auto",
+                    justifyContent: "center",
+                  }}
+                >
+                  <PeopleOutlinedIcon />
+                </ListItemIcon>
+                <ListItemText
+                  primary="Flight Bookings"
+                  sx={{ opacity: open ? 1 : 0 }}
+                />
+              </ListItemButton>
+            </ListItem>
+            <ListItem
+             disablePadding
+             sx={{ display: "block" }}
+             onClick={() => handleMenuItemClick("Bus Bookings")}>
+            <ListItemButton
+                sx={{
+                  minHeight: 48,
+                  justifyContent: open ? "initial" : "center",
+                  px: 2.5,
+                  ...((menuData === "Bus Bookings"
+                    ? activeMenuItemClass
+                    : inactiveMenuItemClass) || {}),
+                }}
+              >
+                <ListItemIcon
+                  sx={{
+                    minWidth: 0,
+                    mr: open ? 3 : "auto",
+                    justifyContent: "center",
+                  }}
+                >
+                  <PeopleOutlinedIcon />
+                </ListItemIcon>
+                <ListItemText
+                  primary="Bus Bookings"
+                  sx={{ opacity: open ? 1 : 0 }}
+                />
+              </ListItemButton>
+            </ListItem>
           </List>
           <Divider />
         </Drawer>
@@ -559,6 +619,8 @@ export default function VerticalTabs() {
               {menuData === "Forex" && <ForexData />}
               {menuData === "Visa Request" && <VisaData />}
               {menuData === "Hotel Bookings" && <HotelBookings />}
+              {menuData === "Flight Bookings" && <FlightBookings />}
+              {menuData === "Bus Bookings" && <BusBookings />}
             </div>
           )}
         </Box>
