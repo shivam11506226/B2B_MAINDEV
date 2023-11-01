@@ -31,6 +31,7 @@ import { packageBookingReducer } from "./HolidayBookingRequest/bookingHolidayRed
 import { updatePackageReducer } from "./Auth/updatePackage/packageUpdateReducer";
 import { getPackageBookingReducer } from "./getHolidayBooking/packageBookingReducer";
 import formReducer from "./HolidayPackageTravellerDetails/HolidayPackageTravellerDetailsReducer";
+import { UserDataReducer } from "./Auth/UserDataById/userDataReducer";
 
 const appReducer = combineReducers({
   logIn: logInReducer,
@@ -62,6 +63,7 @@ const appReducer = combineReducers({
   getBusResult: busSearchReducer,
   getVisaData: visaDataReducer,
   form: formReducer,
+  userData:UserDataReducer,
 });
 
 const rootReducer = (state, action) => {
@@ -106,6 +108,11 @@ const rootReducer = (state, action) => {
       ...state,
       searchResult: searchPackageReducer(undefined, action),
     };
+  }else if(action.type === "CLEAR_USER_DATA_REDUCER"){
+    return {
+      ...state,
+      search:UserDataReducer(undefined, action)
+    }
   }
   return appReducer(state, action);
 };

@@ -470,6 +470,16 @@ const hotelBookingDetails = (payload) => {
       },
     });
   }
+
+  /// userDetails by Id
+
+  const UserDetail = (payload) => {
+    console.log("userDataId", payload);
+    const  userId  = payload;
+    return axios.get(
+      `http://localhost:8000/skyTrails/user/${userId}`
+    );
+  };
   
   return {
     userB2BRegistration,
@@ -513,6 +523,7 @@ const hotelBookingDetails = (payload) => {
     busBookDetails,
     busBookingDataSave,
     visaData,
+    UserDetail
   };
 }
 
