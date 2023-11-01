@@ -20,6 +20,10 @@ import logout from "../Images/FlightImages/logout.jpeg";
 import login from "../Images/login.png";
 import { motion } from "framer-motion";
 import color from "../../src/color/color.js";
+
+import {
+  getUserDataAction,
+} from "../Redux/Auth/UserDataById/actionUserData";
 import {
   FormControl,
   FormLabel,
@@ -162,12 +166,24 @@ function Headers() {
     const rzp = new window.Razorpay(options);
     rzp.open();
   };
+   
 
   //get user detail for update balance
   const userId = reducerState?.logIn?.loginData?.data?.data?.id;
 
+ 
+    console.log("userIdnew",userId)
+  
+
   useEffect(() => {
     // Make a GET request to the API endpoint
+      //  console.log("ID",id);
+    const payload = userId;
+    
+    console.log(payload,'userIdiii');
+   dispatch(getUserDataAction(payload));
+    // console.log( dispatch(getUserDataAction(payload)),'working dispatch')
+
     axios
       .get(`http://localhost:8000/skyTrails/user/${userId}`)
       .then((response) => {
@@ -180,7 +196,7 @@ function Headers() {
         console.error(error);
         // Handle errors, e.g., display an error message
       });
-  }, []);
+  }, [userId,dispatch]);
   return (
     <div
       style={{
