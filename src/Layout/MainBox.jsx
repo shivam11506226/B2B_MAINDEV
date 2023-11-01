@@ -9,15 +9,14 @@ function MainBox() {
         backgroundColor: "white",
         width: "800px",
         display: "flex",
-        flexShrink: 0,
-       
         gap: "20px",
         flexWrap: "wrap",
         margin:"auto",
         alignItem: "center",
         justifyContent:"center",
         borderRadius: "10px",
-        height:"310px"
+        height:"310px",
+        marginTop:"-60px"
       }}
     >
       {InnerBarLogo.map(({ avatar, name, path }, index) => (

@@ -13,7 +13,7 @@ function Holidaynavbar() {
             boxShadow="base"
 
            height="80px"
-            top={250}
+            top={200}
              background="#21325D"
             zIndex={4}
            margin={"auto"}

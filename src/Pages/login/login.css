@@ -112,16 +112,19 @@
 
 
 .login_field {
-  background: #ffffff 0% 0% no-repeat padding-box;
+  /* background: #ffffff 0% 0% no-repeat padding-box;
   box-shadow: 0px 4px 24px #00000061;
-  border-radius: 30px;
+  border-radius: 30px; */
+  border-radius: 12px;
+background: #FFF;
+box-shadow: 0px 4px 12px 4px rgba(0, 0, 0, 0.25);
   opacity: 1;
   padding: 25px;
   margin-top: 50px;
 }
 
 .forget_pass {
-  text-align: right !important;
+ 
   font-size: 14px !important;
   font-weight: bold !important;
   letter-spacing: 0px !important;
