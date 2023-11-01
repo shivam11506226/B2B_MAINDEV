@@ -42,7 +42,7 @@ import { useDispatch, useSelector, useReducer } from "react-redux";
 import { adminSignOut } from "../../../Redux/Auth/AdminSignOut/actionAdminSignOut";
 import STLOGO from "../../../Images/ST-Main-Logo.png";
 import RiseLoader from "react-spinners/RiseLoader";
-
+import HotelBookings from './Table/HotelBookings/HotelBookings';
 const drawerWidth = 240;
 
 const openedMixin = (theme) => ({
@@ -497,6 +497,37 @@ export default function VerticalTabs() {
                   sx={{ opacity: open ? 1 : 0 }}
                 />
               </ListItemButton>
+
+             
+            </ListItem>
+            <ListItem
+             disablePadding
+             sx={{ display: "block" }}
+             onClick={() => handleMenuItemClick("Hotel Bookings")}>
+            <ListItemButton
+                sx={{
+                  minHeight: 48,
+                  justifyContent: open ? "initial" : "center",
+                  px: 2.5,
+                  ...((menuData === "Hotel Bookings"
+                    ? activeMenuItemClass
+                    : inactiveMenuItemClass) || {}),
+                }}
+              >
+                <ListItemIcon
+                  sx={{
+                    minWidth: 0,
+                    mr: open ? 3 : "auto",
+                    justifyContent: "center",
+                  }}
+                >
+                  <PeopleOutlinedIcon />
+                </ListItemIcon>
+                <ListItemText
+                  primary="Hotel Bookings"
+                  sx={{ opacity: open ? 1 : 0 }}
+                />
+              </ListItemButton>
             </ListItem>
           </List>
           <Divider />
@@ -527,6 +558,7 @@ export default function VerticalTabs() {
               {menuData === "Edit Holiday Package" && <PackageDetails />}
               {menuData === "Forex" && <ForexData />}
               {menuData === "Visa Request" && <VisaData />}
+              {menuData === "Hotel Bookings" && <HotelBookings />}
             </div>
           )}
         </Box>

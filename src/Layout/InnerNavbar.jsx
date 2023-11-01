@@ -3,11 +3,12 @@ import "./InnerNavbar.css";
 import { Flex, Box, Spacer, Center, Text, Square } from "@chakra-ui/react";
 import { Menu, MenuItem, Button } from "@material-ui/core";
 import { InnerBarLogo } from "../data";
-import { NavLink } from "react-router-dom";
+import { NavLink,useLocation } from "react-router-dom";
 import NavBarBox from "../Components/NavBarBox";
 import { InnerBarMoreLogo } from "../data1";
 import color from "../color/color";
 import Dropdown from "./Dropdown";
+
 function InnerNavbar() {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [className, setclassName] = useState(false);
@@ -15,6 +16,7 @@ function InnerNavbar() {
   const toggleDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen);
   };
+  
 
   return (
     // <div className="innerNav" style={{marginTop:"118px"}}>
