@@ -200,16 +200,17 @@ function Headers() {
         // Handle errors, e.g., display an error message
       });
 
-  }, []);
+      
 
-  const location = useLocation();
-  const { pathname } = location;
-
-  if (pathname === '/admin/dashboard') {
-    return null; // If the path matches '/admin/dashboard', the header is not rendered
-  }
+ 
 
   }, [userId,dispatch]);
+  const location = useLocation();
+      const { pathname } = location;
+    
+      if (pathname === '/admin/dashboard') {
+        return null; // If the path matches '/admin/dashboard', the header is not rendered
+   }
 
   return (
     <div
