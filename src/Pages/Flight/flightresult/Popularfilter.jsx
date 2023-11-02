@@ -39,10 +39,9 @@ export default function Popularfilter() {
   return (
     <Box sx={{ flexGrow: 1 }}>
       <Grid container spacing={3}>
-        <Grid item xs={12} md={3}>
+        {/* <Grid item xs={12} md={3}>
           <Box
             backgroundColor="#FFF"
-            
             borderRadius="8px"
             border="1px solid #5C85A4"
           >
@@ -397,80 +396,105 @@ export default function Popularfilter() {
               </form>
             </Box>
           </Box>
-        </Grid>
-        <Grid item xs={9} md={9}>
-        
-            <Box
-              display="flex"
-              
-              background= "#FFFBFB"
-              
-              borderRadius= "8" 
-              border="1px #9E9E9E solid"
-              width="973px"
-height="50px"
-flexShrink="0"
-alignItems="center"
-marginLeft="20px"
-            >
+        </Grid> */}
+        <Grid item xs={12} md={12} >
+          {/* <Box
+            display="flex"
+            background="#FFFBFB"
+            borderRadius="8"
+            border="1px #9E9E9E solid"
+            width="973px"
+            height="50px"
+            flexShrink="0"
+            alignItems="center"
+            marginLeft="20px"
+          >
+            <Grid md={3} sm={4}>
+              <Button
+                sx={{
+                  color: "#000",
+                  fontFamily: "Montserrat",
+                  fontSize: "12px",
+                  fontStyle: "normal",
+                  fontWeight: "500",
+                  lineHeight: "normal",
+                }}
+              >
+                Showing 95 Results
+              </Button>
+            </Grid>
+            <Grid md={2} sm={4}>
+              <Button
+                sx={{
+                  color: "#21325D",
+                  fontFamily: "Montserrat",
+                  fontSize: "12px",
+                  fontStyle: "normal",
+                  fontWeight: "500",
+                  lineHeight: "normal",
+                }}
+              >
+                Departure
+              </Button>
+            </Grid>
+            <Grid md={2} sm={4}>
+              <Button
+                sx={{
+                  color: "#21325D",
+                  fontFamily: "Montserrat",
+                  fontSize: "12px",
+                  fontStyle: "normal",
+                  fontWeight: "500",
+                  lineHeight: "normal",
+                }}
+              >
+                Duration
+              </Button>
+            </Grid>
+            <Grid md={2} sm={4}>
+              <Button
+                sx={{
+                  color: "#21325D",
+                  fontFamily: "Montserrat",
+                  fontSize: "12px",
+                  fontStyle: "normal",
+                  fontWeight: "500",
+                  lineHeight: "normal",
+                }}
+              >
+                Arrival
+              </Button>
+            </Grid>
+            <Grid md={2} sm={4}>
+              <Button
+                sx={{
+                  color: "#21325D",
+                  fontFamily: "Montserrat",
+                  fontSize: "12px",
+                  fontStyle: "normal",
+                  fontWeight: "500",
+                  lineHeight: "normal",
+                }}
+              >
+                Publish Fare
+              </Button>
+            </Grid>
+            <Grid md={2} sm={4}>
+              <Button
+                sx={{
+                  color: "#21325D",
+                  fontFamily: "Montserrat",
+                  fontSize: "12px",
+                  fontStyle: "normal",
+                  fontWeight: "500",
+                  lineHeight: "normal",
+                }}
+              >
+                Offer Fare
+              </Button>
+            </Grid>
+          </Box> */}
 
-
-
-
-
-
-
-
-              <Grid md={3} sm={4}>
-                <Button sx={{color: "#000",
-fontFamily:"Montserrat",
-fontSize:"12px",
-fontStyle:"normal",
-fontWeight: "500",
-lineHeight:"normal"}}>Showing 95 Results</Button>
-              </Grid>
-              <Grid md={2} sm={4}>
-                <Button sx={{ color:"#21325D",
-fontFamily:"Montserrat",
-fontSize:"12px",
-fontStyle:"normal",
-fontWeight: "500",
-lineHeight:"normal" }}>Departure</Button>
-              </Grid>
-              <Grid md={2} sm={4}>
-              <Button sx={{ color:"#21325D",
-fontFamily:"Montserrat",
-fontSize:"12px",
-fontStyle:"normal",
-fontWeight: "500",
-lineHeight:"normal"}}>Duration</Button>
-              </Grid>
-              <Grid md={2} sm={4}>
-              <Button sx={{ color:"#21325D",
-fontFamily:"Montserrat",
-fontSize:"12px",
-fontStyle:"normal",
-fontWeight: "500",
-lineHeight:"normal" }}>Arrival</Button>
-              </Grid>
-              <Grid md={2} sm={4}>
-              <Button sx={{ color:"#21325D",
-fontFamily:"Montserrat",
-fontSize:"12px",
-fontStyle:"normal",
-fontWeight: "500",
-lineHeight:"normal" }}>Publish Fare</Button>
-              </Grid>
-              <Grid md={2} sm={4}>
-              <Button sx={{ color:"#21325D",
-fontFamily:"Montserrat",
-fontSize:"12px",
-fontStyle:"normal",
-fontWeight: "500",
-lineHeight:"normal"}}>Offer Fare</Button>
-              </Grid>
-            </Box>
-         
           <Flightdetail />
         </Grid>
       </Grid>
