@@ -125,11 +125,7 @@ const MainPage = () => {
         <Header />
        
       </div> */}
-      <div style={{width:"100%",height:"200px",
-        position: "fixed",
-        display: "flex"}}>
-
-      </div>
+    
        {/* <Headers/> */}
        {location.pathname === "/" || location.pathname === "/Login"  || location.pathname === "/Registration" ? null : <InnerNavbar />}
        { location.pathname === "/Login" ? null : <Headers />}

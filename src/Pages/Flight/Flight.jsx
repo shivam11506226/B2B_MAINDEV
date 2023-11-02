@@ -73,7 +73,7 @@ const Flight = () => {
           alignSelf={"center"}
           alignItems={"center"}
         >
-         <Flightnavbar/>
+         {/* <Flightnavbar/> */}
        
         </Box>
         <StyledTabs/>

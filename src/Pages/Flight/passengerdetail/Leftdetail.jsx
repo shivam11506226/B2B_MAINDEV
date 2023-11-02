@@ -13,6 +13,7 @@ import {
   bookActionGDS,
 } from "../../../Redux/FlightBook/actionFlightBook";
 import { PassengersAction } from "../../../Redux/Passengers/passenger";
+import Headers from "../../../Components/Headers";
 const Leftdetail = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -214,7 +215,8 @@ const Leftdetail = () => {
     //   TraceId: reducerState?.oneWay?.oneWayData?.data?.data?.Response?.TraceId,
     // };
 
-    if (fareValue?.IsLCC == false) {
+
+    if (fareValue?.IsLCC === false) {
       dispatch(PassengersAction(passengerData));
       navigate("/Flightresult/passengerdetail/flightreviewbooking");
     } else {

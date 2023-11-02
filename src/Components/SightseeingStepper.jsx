@@ -5,7 +5,7 @@ import color from "../color/color"
 const Stepper = () => {
   return (
     <div>
-      
+{/*       
        <Box
         w="100%"
         display="flex"
@@ -95,7 +95,7 @@ const Stepper = () => {
 
           <Box fontWeight="normal">Booking Confirmation</Box>
         </HStack>
-      </Box>
+      </Box> */}
     </div>
   )
 }
