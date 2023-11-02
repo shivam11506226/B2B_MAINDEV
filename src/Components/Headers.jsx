@@ -7,7 +7,7 @@ import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import Fade from "@mui/material/Fade";
 import { Box, Button, Typography, Paper, makeStyles } from "@mui/material";
-import { useNavigate } from "react-router-dom";
+import { useNavigate,Link } from "react-router-dom";
 import { useDispatch, useSelector, useReducer } from "react-redux";
 import { logoutAction } from "../Redux/Auth/logIn/actionLogin";
 import Modal from "@mui/material/Modal";
@@ -173,16 +173,18 @@ function Headers() {
   const userId = reducerState?.logIn?.loginData?.data?.data?.id;
 
  
-    console.log("userIdnew",userId)
+    // console.log("userIdnew",userId)
   
 
   useEffect(() => {
     // Make a GET request to the API endpoint
       //  console.log("ID",id);
+      if(userId){
     const payload = userId;
     
-    console.log(payload,'userIdiii');
+    // console.log(payload,'userIdiii');
    dispatch(getUserDataAction(payload));
+      }
     // console.log( dispatch(getUserDataAction(payload)),'working dispatch')
 
     axios
@@ -230,13 +232,13 @@ function Headers() {
           display: "flex",
         }}
       >
-        <a href="/">
+        <Link to="/">
           <img
             src={STLOGO}
             style={{ width: "100%", height: "220px" }}
             alt="logo"
           />
-        </a>
+        </Link>
       </div>
       <div style={{ alignItems: "center", gap: "25px" }}>
         <div
