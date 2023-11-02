@@ -31,6 +31,7 @@ import {
   FormErrorMessage,
   FormHelperText,
 } from "@chakra-ui/react";
+import { useLocation } from 'react-router-dom';
 const style = {
   border: "10px solid #000",
   boxShadow: 24,
@@ -196,7 +197,18 @@ function Headers() {
         console.error(error);
         // Handle errors, e.g., display an error message
       });
+
+  }, []);
+
+  const location = useLocation();
+  const { pathname } = location;
+
+  if (pathname === '/admin/dashboard') {
+    return null; // If the path matches '/admin/dashboard', the header is not rendered
+  }
+
   }, [userId,dispatch]);
+
   return (
     <div
       style={{
