@@ -99,7 +99,7 @@ export const InnerBarLogo = [
   {
     avatar: <FaUser />,
     name: "Administration",
-    path: "/account",
+    path: "/Administration",
   }
 ];
 

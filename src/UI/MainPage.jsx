@@ -57,6 +57,7 @@ import InsuranceReviewBooking from "../Pages/assistance&inssurance/insurancerevi
 import InsuranceBookingConfirmation from "../Pages/assistance&inssurance/insurancebookingconfirmation/InsuranceBookingConfirmation";
 import Admin from "../Pages/admin/Admin";
 import AdminUserForm from "../Pages/admin/AdminUserForm";
+import Administration from "../Pages/Account/Administration";
 import Account from "../Pages/Account/Account";
 import AccountDetails from "../Pages/Account/AccountDetails";
 import Reports from "../Pages/reports/Reports";
@@ -68,6 +69,8 @@ import Dashboard from "../Pages/Dashboard/Component/Dashboard";
 import AdminLogin from "../Pages/AdminLogin/AdminLogin";
 import CreateHolidayPackage from "../Pages/HotelPackage/createholidaypackage/CreateHolidayPackage";
 import EditHolidayPackage from "../Pages/Dashboard/Component/Table/packageUpdate/EditPackage";
+import UserProfile from "../Pages/Dashboard/Component/Table/Profile/ProfileDetails";
+import Queue from "../Pages/Account/Queue";
 import MainBox from "../Layout/MainBox";
 import { useLocation, Navigate } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
@@ -350,12 +353,9 @@ const MainPage = () => {
               />
               <Route exact path="/admin" element={<Admin />} />
               <Route exact path="/AdminUserForm" element={<AdminUserForm />} />
-              <Route exact path="/account" element={<Account />} />
-              <Route
-                exact
-                path="/AccountDetails"
-                element={<AccountDetails />}
-              />
+              <Route exact path="/Administration" element={<Administration />} />
+              <Route exact path="/accounts" element={<Account />} />
+              <Route exact path="/AccountDetails" element={<AccountDetails />} />
               <Route exact path="/reports" element={<Reports />} />
               <Route exact path="/services" element={<Services />} />
               <Route exact path="/gst" element={<GSTform />} />
@@ -369,6 +369,16 @@ const MainPage = () => {
                 exact
                 path="/EditHolidayPackage"
                 element={<EditHolidayPackage />}
+              ></Route>
+              <Route
+                exact
+                path="/UserProfile"
+                element={<UserProfile />}
+              ></Route>
+              <Route
+                exact
+                path="/Queue"
+                element={<Queue />}
               ></Route>
             </Routes>
           </div>
