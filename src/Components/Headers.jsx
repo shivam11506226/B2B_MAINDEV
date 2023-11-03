@@ -7,7 +7,7 @@ import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import Fade from "@mui/material/Fade";
 import { Box, Button, Typography, Paper, makeStyles } from "@mui/material";
-import { useNavigate } from "react-router-dom";
+import { useNavigate,Link } from "react-router-dom";
 import { useDispatch, useSelector, useReducer } from "react-redux";
 import { logoutAction } from "../Redux/Auth/logIn/actionLogin";
 import Modal from "@mui/material/Modal";
@@ -20,6 +20,10 @@ import logout from "../Images/FlightImages/logout.jpeg";
 import login from "../Images/login.png";
 import { motion } from "framer-motion";
 import color from "../../src/color/color.js";
+
+import {
+  getUserDataAction,
+} from "../Redux/Auth/UserDataById/actionUserData";
 import {
   FormControl,
   FormLabel,
@@ -28,6 +32,7 @@ import {
   FormHelperText,
 } from "@chakra-ui/react";
 import { useLocation } from 'react-router-dom';
+import { balanceSubtractRequest } from "../Redux/Auth/balaceSubtract/actionBalnceSubtract.js";
 const style = {
   border: "10px solid #000",
   boxShadow: 24,
@@ -38,7 +43,7 @@ function Headers() {
   const reducerState = useSelector((state) => state);
   const [openModal, setOpenModal] = React.useState(false);
   const [amount, setAmount] = React.useState("");
-  const [userData, setUserData] = useState(null);
+  // const [userData, setUserData] = useState(null);
   const handleOpenModal = () => setOpenModal(true);
   const handleCloseModal = () => setOpenModal(false);
   const dispatch = useDispatch();
@@ -101,7 +106,7 @@ function Headers() {
   };
 
   const handleRazorpay = (data) => {
-    console.log("handleRazorpay called");
+    // console.log("handleRazorpay called");
     const options = {
       key: "rzp_test_rSxJ8wZCLzTJck",
       amount: amount * 100,
@@ -111,7 +116,7 @@ function Headers() {
       image: STLOGO,
       order_id: data.id,
       handler: function (response) {
-        console.log(response);
+        // console.log(response);
         // Check if the Razorpay payment is successful
         if (response.razorpay_payment_id) {
           // Payment was successful, now update the user's balance
@@ -123,7 +128,7 @@ function Headers() {
           axios
             .post("http://localhost:8000/updateBalance", paymentData)
             .then((balanceUpdateResponse) => {
-              console.log("new data response", balanceUpdateResponse);
+              // console.log("new data response", balanceUpdateResponse);
 
               // Handle any further actions after a successful payment and database update
             })
@@ -138,12 +143,12 @@ function Headers() {
             razorpay_signature: data.razorpay_signature,
           };
 
-          console.log("paymentVeriy", paymentVerifyData);
+          // console.log("paymentVeriy", paymentVerifyData);
 
           axios
             .post("http://localhost:8000/payVerify", paymentVerifyData)
             .then((verificationResponse) => {
-              console.log(verificationResponse.data);
+              // console.log(verificationResponse.data);
 
               // Handle any further actions after a successful payment verification
               // You can update the user's balance here if the payment was successful
@@ -163,28 +168,61 @@ function Headers() {
     const rzp = new window.Razorpay(options);
     rzp.open();
   };
+   
 
   //get user detail for update balance
   const userId = reducerState?.logIn?.loginData?.data?.data?.id;
 
+ 
+    // console.log("userIdnew",userId)
+  
+
   useEffect(() => {
     // Make a GET request to the API endpoint
-    axios
-      .get(`http://localhost:8000/skyTrails/user/${userId}`)
-      .then((response) => {
-        // Handle the response data
-        const user = response.data.data;
-        setUserData(user);
-        console.log("user data", response?.data?.data?.balance);
-      })
-      .catch((error) => {
-        console.error(error);
-        // Handle errors, e.g., display an error message
-      });
-  }, []);
+      //  console.log("ID",id);
+      if(userId){
+    const payload = userId;
+    
+    // console.log(payload,'userIdiii');
+   dispatch(getUserDataAction(payload));
+      }
 
+  //     if(userId){
+  //       const balancePayload={
+  //         _id:userId,
+  //         amount:100
+  //       }
+
+  //  dispatch(balanceSubtractRequest(balancePayload))
+  //     }
+    // console.log( dispatch(getUserDataAction(payload)),'working dispatch')
+
+    // axios
+    //   .get(`http://localhost:8000/skyTrails/user/${userId}`)
+    //   .then((response) => {
+    //     // Handle the response data
+    //     const user = response.data.data;
+    //     setUserData(user);
+    //     console.log("user data", response?.data?.data?.balance);
+    //   })
+    //   .catch((error) => {
+    //     console.error(error);
+    //     // Handle errors, e.g., display an error message
+    //   });
+
+      
+
+ 
+
+  }, [userId,dispatch]);
+
+  const userData=reducerState?.userData?.userData?.data?.data;
   const location = useLocation();
-  const { pathname } = location;
+      const { pathname } = location;
+    
+      if (pathname === '/admin/dashboard') {
+        return null; // If the path matches '/admin/dashboard', the header is not rendered
+   }
 
   const isAdminPath = pathname === "/adminLogin" || pathname === "/admin/dashboard";
 
@@ -212,13 +250,13 @@ function Headers() {
           display: "flex",
         }}
       >
-        <a href="/">
+        <Link to="/">
           <img
             src={STLOGO}
             style={{ width: "100%", height: "220px" }}
             alt="logo"
           />
-        </a>
+        </Link>
       </div>
       <div style={{ alignItems: "center", gap: "25px" }}>
         <div
@@ -265,7 +303,7 @@ function Headers() {
                 width: 8,
                 left: 70,
                 height: 12,
-                marginTop: "-7px",
+                marginTop:-2,
                 position: "absolute",
               }}
             >
@@ -280,7 +318,7 @@ function Headers() {
                   d="M3 7.33333H2.51333L5.91333 10.8733C6.32 11.3 6.02 12 5.43333 12C5.25333 12 5.08 11.9267 4.95333 11.7933L0.933333 7.60667C0.76 7.43333 0.666667 7.19333 0.666667 6.95333C0.666667 6.42667 1.09333 6 1.62 6H3C4.17333 6 5.14667 5.13333 5.30667 4H0.666667C0.3 4 0 3.7 0 3.33333C0 2.96667 0.3 2.66667 0.666667 2.66667H5.10667C4.73333 1.88 3.93333 1.33333 3 1.33333H0.666667C0.3 1.33333 0 1.03333 0 0.666667C0 0.3 0.3 0 0.666667 0H7.33333C7.7 0 8 0.3 8 0.666667C8 1.03333 7.7 1.33333 7.33333 1.33333H5.82667C6.14667 1.72 6.38667 2.17333 6.52667 2.66667H7.33333C7.7 2.66667 8 2.96667 8 3.33333C8 3.7 7.7 4 7.33333 4H6.65333C6.48 5.86667 4.90667 7.33333 3 7.33333Z"
                   fill="black"
                 />
-              </svg>
+              </svg> 
             </div>
             <div
               style={{
@@ -318,6 +356,7 @@ function Headers() {
               fontFamily: "Montserrat",
               fontWeight: "400",
               wordWrap: "break-word",
+              marginLeft:"10px"
             }}
           >
             |
