@@ -12,6 +12,7 @@ import "./passenger.css";
 import { Spacer } from "@chakra-ui/react";
 import { useDispatch, useSelector, useReducer } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import Headers from "../../../Components/Headers";
 const label = { inputProps: { "aria-label": "Checkbox demo" } };
 
 const Item = styled(Paper)(({ theme }) => ({
@@ -31,37 +32,38 @@ const KeyValue = ({ data, value }) => {
     <>
       <Grid item xs={12} md={6}>
         <Box>
-          
           <div
-                              style={{
-                                color: "black",
-                                fontSize: 16,
-                                fontFamily: "Montserrat",
-                                fontWeight: "400",
-                                wordWrap: "break-word",
-                              }}
-                            >
-                               {data}:
-                             </div>
+            style={{
+              color: "black",
+              fontSize: 16,
+              fontFamily: "Montserrat",
+              fontWeight: "400",
+              wordWrap: "break-word",
+            }}
+          >
+            {data}:
+          </div>
         </Box>
       </Grid>
       <Grid item xs={12} md={6}>
-        <Box textAlign="right">
-        
+        <Box>
           <div
-                              style={{
-                                color: "black",
-                                fontSize: 11.47,
-                                fontFamily: "Montserrat",
-                                fontWeight: "400",
-                                wordWrap: "break-word",
-                              }}
-                            >
-                              Rs. {value}.00
-                            </div>
+            style={{
+              color: "#000",
+              fontSize: 16,
+              fontFamily: "Montserrat",
+              fontWeight: "400",
+              wordWrap: "break-word",
+              width: "100px",
+              textAlign: "left",
+              marginLeft:"70px"
+              
+            }}
+          >
+            Rs. {value}.00
+          </div>
         </Box>
       </Grid>
-      
     </>
   );
 };
@@ -80,15 +82,13 @@ export default function Popularfilter() {
   let total = 0;
 
   return (
-    <Box sx={{ flexGrow: 1, background: "#FCFFFF"}}>
+    <Box sx={{ flexGrow: 1, background: "#FCFFFF" }}>
       <Box
         backgroundColor="white"
-        
         borderRadius="10px"
-        border= '1px #5C85A4 solid'
+        border="1px #5C85A4 solid"
         p="10px"
         marginTop="8px"
-        
       >
         <div
           style={{
@@ -273,13 +273,46 @@ export default function Popularfilter() {
                 marginBottom: "10px",
               }}
             />
-           
-            <div style={{width: 290, height: 36, paddingLeft: 10, paddingRight: 10, paddingTop: 8, paddingBottom: 8, background: '#DFE6F7', justifyContent: 'flex-start', alignItems: 'center', gap: 10, display: 'inline-flex'}}>
-  <div style={{justifyContent: 'space-between',  gap: 120, display: 'flex'}}>
-    <div style={{color: 'black', fontSize: 16, fontFamily: 'Montserrat', fontWeight: '350',marginLeft:"-6px"}}> Fare / Pax Type</div>
-    <div style={{width: 20, height: 25.21, color: '#21325D'}}>Amount</div>
-  </div>
-</div>
+
+            <div
+              style={{
+                width: 290,
+                height: 36,
+                paddingLeft: 10,
+                paddingRight: 10,
+                paddingTop: 8,
+                paddingBottom: 8,
+                background: "#DFE6F7",
+                justifyContent: "flex-start",
+                alignItems: "center",
+                gap: 10,
+                display: "inline-flex",
+              }}
+            >
+              <div
+                style={{
+                  justifyContent: "space-between",
+                  gap: 120,
+                  display: "flex",
+                }}
+              >
+                <div
+                  style={{
+                    color: "black",
+                    fontSize: 16,
+                    fontFamily: "Montserrat",
+                    fontWeight: "350",
+                    marginLeft: "-6px",
+                  }}
+                >
+                  {" "}
+                  Fare / Pax Type
+                </div>
+                <div style={{ width: 20, height: 25.21, color: "#21325D" }}>
+                  Amount
+                </div>
+              </div>
+            </div>
             <Divider
               style={{
                 height: "2px",
@@ -295,63 +328,61 @@ export default function Popularfilter() {
               })}
 
               <Grid item xs={12} md={6}>
-              <div
-              style={{
-                width: 290,
-                height: 34,
-                padding: 7,
-                background: "#B8CCFF",
-                justifyContent: "flex-start",
-                alignItems: "center",
-                gap: 250,
-                display: "inline-flex",
-              }}
-            >
-              <div
-                style={{
-                  justifyContent: "flex-start",
-                  alignItems: "center",
-                  gap: 120,
-                  display: "flex",
-                }}
-              >
                 <div
                   style={{
-                    color: "black",
-                    fontSize: 15,
-                    fontFamily: "Montserrat",
-                    fontWeight: "350",
-                    wordWrap: "break-word",
-                  }}
-                >
-                  Total 
-                </div>
-                <div
-                  style={{
-                    justifyContent: "space-between",
+                    width: 296,
+                    height: 34,
+                    padding: 7,
+                    background: "#B8CCFF",
+                    justifyContent: "flex-start",
                     alignItems: "center",
-                    gap: 120,
-                    display: "flex",
+                    gap: 250,
+                    display: "inline-flex",
                   }}
                 >
                   <div
                     style={{
-                      color: "black",
-                      fontSize: 11.47,
-                      fontFamily: "Montserrat",
-                      fontWeight: "400",
-                      marginLeft:"70px"
-                      
+                      justifyContent: "flex-start",
+                      alignItems: "center",
+                      gap: 120,
+                      display: "flex",
                     }}
                   >
-                   Rs. {total}.00
+                    <div
+                      style={{
+                        color: "black",
+                        fontSize: 16,
+                        fontFamily: "Montserrat",
+                        fontWeight: "350",
+                        wordWrap: "break-word",
+                      }}
+                    >
+                      Total
+                    </div>
+                    <div
+                      style={{
+                        justifyContent: "space-between",
+                        alignItems: "center",
+                        gap: 120,
+                        display: "flex",
+                      }}
+                    >
+                      <div
+                        style={{
+                          color: "black",
+                          fontSize: 16,
+                          fontFamily: "Montserrat",
+                          fontWeight: "400",
+                          marginLeft: "55px",
+                          width:"100px"
+                        }}
+                      >
+                        Rs. {total}.00
+                      </div>
+                    </div>
                   </div>
                 </div>
-              </div>
-            </div>
-                
               </Grid>
-             
             </Grid>
             <Divider
               style={{
@@ -361,7 +392,7 @@ export default function Popularfilter() {
                 marginBottom: "10px",
               }}
             />
-           
+
             <Grid container>
               {fareValue?.FareBreakdown?.map((data) => {
                 return (
@@ -390,6 +421,8 @@ export default function Popularfilter() {
                                 alignItems: "flex-start",
                                 gap: 113,
                                 display: "inline-flex",
+                                
+
                               }}
                             >
                               <div
@@ -414,11 +447,12 @@ export default function Popularfilter() {
                                 <div
                                   style={{
                                     color: "black",
-                                    fontSize: 11.47,
+                                    fontSize: 16,
                                     fontFamily: "Montserrat",
                                     fontWeight: "400",
                                     wordWrap: "break-word",
-                                    marginLeft:"6px"
+                                    marginLeft:"-20px"
+                                    
                                   }}
                                 >
                                   {" "}
@@ -434,7 +468,6 @@ export default function Popularfilter() {
                                 alignItems: "flex-start",
                                 gap: 113,
                                 display: "inline-flex",
-                              
                               }}
                             >
                               <div
@@ -459,21 +492,21 @@ export default function Popularfilter() {
                                 <div
                                   style={{
                                     color: "black",
-                                    fontSize: 11.47,
+                                    fontSize: 16,
                                     fontFamily: "Montserrat",
                                     fontWeight: "400",
                                     wordWrap: "break-word",
-                                    marginLeft:"46px"
+                                    marginLeft: "46px",
                                   }}
                                 >
                                   {" "}
-                                   Rs. {fareValue?.Fare?.Tax}
+                                  Rs. {fareValue?.Fare?.Tax}
                                 </div>
                               </div>
                             </div>
                             <div
                               style={{
-                                width: 290,
+                                width: 296,
                                 height: 36,
                                 paddingLeft: 10,
                                 paddingRight: 10,
@@ -484,8 +517,8 @@ export default function Popularfilter() {
                                 alignItems: "center",
                                 gap: 30,
                                 display: "inline-flex",
-                                marginBottom:"5px",
-                                marginTop:"5px"
+                                marginBottom: "5px",
+                                marginTop: "5px",
                               }}
                             >
                               <div
@@ -512,19 +545,14 @@ export default function Popularfilter() {
                                 <div
                                   style={{
                                     color: "black",
-                                    fontSize: 11.47,
+                                    fontSize: 16,
                                     fontFamily: "Montserrat",
                                     fontWeight: "350",
                                     wordWrap: "break-word",
-                                   
-                                   
                                   }}
                                 >
-                                 
-                                 
-                                    {" "}
-                                    Rs. {fareValue?.Fare?.OtherCharges}
-                                 
+                                  {" "}
+                                  Rs. {fareValue?.Fare?.OtherCharges}
                                 </div>
                               </div>
                             </div>
@@ -535,8 +563,6 @@ export default function Popularfilter() {
                                 fontWeight: "bold",
                               }}
                             ></Typography>
-                           
-                          
                           </Box>
                         </Grid>
 
@@ -545,10 +571,12 @@ export default function Popularfilter() {
                             <div
                               style={{
                                 color: "black",
-                                fontSize: 11.47,
+                                fontSize: 16,
                                 fontFamily: "Montserrat",
                                 fontWeight: "400",
                                 wordWrap: "break-word",
+                                marginLeft:"28px",
+                                width:"100px"
                               }}
                             >
                               {" "}
@@ -705,9 +733,9 @@ export default function Popularfilter() {
                 );
               })}
             </Grid>
-                        <div
+            <div
               style={{
-                width: 290,
+                width: 300,
                 height: 34,
                 padding: 7,
                 background: "#B8CCFF",
@@ -732,6 +760,7 @@ export default function Popularfilter() {
                     fontFamily: "Montserrat",
                     fontWeight: "350",
                     wordWrap: "break-word",
+                    width:"90%"
                   }}
                 >
                   Total Pub. Fare:
@@ -740,18 +769,19 @@ export default function Popularfilter() {
                   style={{
                     justifyContent: "flex-start",
                     alignItems: "center",
-                    gap:5,
+                    gap: 5,
                     display: "flex",
                   }}
                 >
                   <div
                     style={{
                       color: "black",
-                      fontSize: 11.47,
+                      fontSize: 16,
                       fontFamily: "Montserrat",
                       fontWeight: "400",
                       wordWrap: "break-word",
-                      
+                      width:"90px",
+                     
                     }}
                   >
                     {" "}

@@ -33,14 +33,14 @@ const FlightReviewbooking = () => {
     }
   }, [reducerState]);
   return (
-    <div className="flightContainer" style={{marginTop:"80px"}}>
+    <div className="flightContainer" style={{marginTop:"-20px"}}>
     
 
      
       {/* {loading ? (
         <div>Loading...</div>
       ) : ( */}
-         <Flightnavbar/>
+         {/* <Flightnavbar/> */}
         <Grid container style={{margin:"auto",display:"flex",gap:"30px",width:"95%"}}>
           <Grid item xs={12} md={8}>
             <Box>

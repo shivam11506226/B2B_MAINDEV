@@ -8,7 +8,7 @@ import Holidaynavbar from "./Holidaynavbar"
 const Holidaystepper = () => {
   return (
     <div>
-      <Holidaynavbar/>
+      {/* <Holidaynavbar/> */}
         <div style={{backgroundColor:"#F8F3F3",marginTop:"20px",width:"90%",margin:"auto",borderRadius:"12px"}}>
       {/* <Box
         w="100%"

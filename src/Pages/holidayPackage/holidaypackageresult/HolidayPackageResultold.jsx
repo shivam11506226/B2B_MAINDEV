@@ -29,7 +29,7 @@ import LocationCityIcon from "@mui/icons-material/LocationCity";
 import FastfoodIcon from "@mui/icons-material/Fastfood";
 
 import { Grid, Box as MuiBox, Typography, Button } from "@mui/material";
-
+import Holidaynavbar from "../holidaystepper/Holidaynavbar";
 import colors from "../../../color/color"; //color.js
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -80,7 +80,7 @@ const HolidayPackageResult = () => {
       <div className="flightContainer">
         {/* step by step updating part */}
 
-       
+       <Holidaynavbar/>
         <div>
           <Grid container spacing={3}>
             <Grid sm={12} xs={12} md={12} item>

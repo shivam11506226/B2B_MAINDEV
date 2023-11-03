@@ -1,13 +1,10 @@
 import React, { useState } from "react";
 import "./InnerNavbar.css";
-import { Flex, Box, Spacer, Center, Text, Square } from "@chakra-ui/react";
-import { Menu, MenuItem, Button } from "@material-ui/core";
+import { NavLink, useLocation } from "react-router-dom";
 import { InnerBarLogo } from "../data";
-import { NavLink } from "react-router-dom";
-import NavBarBox from "../Components/NavBarBox";
-import { InnerBarMoreLogo } from "../data1";
-import color from "../color/color";
+import { Flex } from "@chakra-ui/react"; // Import Flex from Chakra UI
 import Dropdown from "./Dropdown";
+
 function InnerNavbar() {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [className, setclassName] = useState(false);
@@ -15,9 +12,19 @@ function InnerNavbar() {
   const toggleDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen);
   };
+  
+  const location = useLocation();
+  const { pathname } = location;
+
+  const isAdminPath = pathname === "/adminLogin" || pathname === "/admin/dashboard";
+
+  if (isAdminPath) {
+    return null; // Don't render the InnerNavbar for admin paths
+  }
 
   return (
-    <div className="innerNav" style={{ marginTop: "110px", height: "15%" }}>
+    
+    <div className="innerNav" style={{ marginTop: "110px", height:"15%" }}>
       {InnerBarLogo.map(({ avatar, name, path }, index) => (
         <Flex
           direction="column"
@@ -26,7 +33,7 @@ function InnerNavbar() {
           key={index}
           zIndex={2}
         >
-          <NavLink
+           <NavLink
             to={path}
             className={({ isActive }) =>
               isActive ? "active-nav logoname" : "logoname"
@@ -41,10 +48,8 @@ function InnerNavbar() {
               textAlign: "center",
             }}
           >
-            <div
-              style={{ fontSize: "30px" }}
-              color={className === false ? "#21325D" : "white"}
-            >
+
+            <div style={{ fontSize: "30px" }} color={false ? "#21325D" : "white"}>
               {avatar}
             </div>
             <span
@@ -52,10 +57,10 @@ function InnerNavbar() {
                 textAlign: "center",
                 fontFamily: "Montserrat",
                 fontSize: "16px",
-                fontstyle: "normal",
+                fontStyle: "normal", // Fixed typo in fontStyle
                 fontWeight: "400",
               }}
-              color={className === false ? "#21325D" : "white"}
+              color={false ? "#21325D" : "white"}
             >
               {name}
             </span>

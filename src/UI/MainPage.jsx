@@ -102,7 +102,7 @@ const MainPage = () => {
       location.pathname !== "/adminLogin"
     ) {
       navigate("/Login");
-    } else if (location.pathname == "/admin/dashboard") {
+    } else if (location.pathname === "/admin/dashboard") {
       if (!reducerState?.adminAuth?.adminData?.data) {
         navigate("/admin/dashboard");
       } else {
@@ -128,11 +128,7 @@ const MainPage = () => {
         <Header />
        
       </div> */}
-      <div style={{width:"100%",height:"200px",
-        position: "fixed",
-        display: "flex"}}>
-
-      </div>
+    
        {/* <Headers/> */}
        {location.pathname === "/" || location.pathname === "/Login"  || location.pathname === "/Registration" ? null : <InnerNavbar />}
        { location.pathname === "/Login" ? null : <Headers />}

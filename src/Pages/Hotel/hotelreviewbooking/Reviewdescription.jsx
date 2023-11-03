@@ -79,16 +79,16 @@ const Flightdetail = () => {
       FirstName: "",
       MiddleName: null,
       LastName: "",
-      Phoneno: "",
-      Email: "",
+      Phoneno: null,
+      Email: null,
       PaxType: "",
       LeadPassenger: Boolean(),
       Age: "",
       PassportNo: null,
-      PassportIssueDate: null,
-      PassportExpDate: null,
+      PassportIssueDate: "0001-01-01T00: 00: 00",
+      PassportExpDate: "0001-01-01T00: 00: 00",
       PAN: "",
-      RoomIndex: "",
+      roomIndex: "",
     };
 
     const childTempelate = {
@@ -96,16 +96,16 @@ const Flightdetail = () => {
       FirstName: "",
       MiddleName: null,
       LastName: "",
-      Phoneno: "",
-      Email: "",
+      Phoneno: null,
+      Email: null,
       PaxType: "",
-      LeadPassenger: "",
+      LeadPassenger: Boolean(),
       Age: "",
       PassportNo: null,
-      PassportIssueDate: null,
-      PassportExpDate: null,
+      PassportIssueDate: "0001-01-01T00: 00: 00",
+      PassportExpDate: "0001-01-01T00: 00: 00",
       PAN: "",
-      RoomIndex: "",
+      roomIndex: "",
     };
     console.log(roomCombination);
     roomCombination.map((item, indexRoom) => {
@@ -116,7 +116,7 @@ const Flightdetail = () => {
           if (index == 0) {
             passengerData.push({
               ...adultTempelate,
-              RoomIndex: indexRoom,
+              roomIndex: indexRoom,
               PaxType: 1,
               adultIndex: index,
               LeadPassenger: true,
@@ -124,7 +124,7 @@ const Flightdetail = () => {
           } else {
             passengerData.push({
               ...adultTempelate,
-              RoomIndex: indexRoom,
+              roomIndex: indexRoom,
               PaxType: 1,
               adultIndex: index,
               LeadPassenger: false,
@@ -136,10 +136,11 @@ const Flightdetail = () => {
         Array.from({ length: childCount }, (value, index) => {
           passengerData.push({
             ...childTempelate,
-            RoomIndex: indexRoom,
+            roomIndex: indexRoom,
             Age: item?.ChildAge[index],
             PaxType: 2,
             childIndex: index,
+            LeadPassenger: false,
           });
         });
       }
@@ -207,7 +208,7 @@ const Flightdetail = () => {
     const { name, value } = e.target;
     const filteredPassenger = passengerData.filter((item, index) => {
       return (
-        item.RoomIndex == roomIndex && item?.adultIndex == knowIndex?.adultIndex
+        item.roomIndex == roomIndex && item?.adultIndex == knowIndex?.adultIndex
       );
     });
     console.log("filteredPassenger", filteredPassenger);
@@ -222,6 +223,7 @@ const Flightdetail = () => {
 
   const handleClickSavePassenger = () => {
     dispatch(PassengersAction(passengerData));
+    navigate("/Guestdetail");
   };
 
   // const handleClickBooking = async () => {

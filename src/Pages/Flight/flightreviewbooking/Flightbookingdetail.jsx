@@ -10,13 +10,16 @@ import {
   bookTicketGDS,
 } from "../../../Redux/FlightBook/actionFlightBook";
 import axios from "axios";
+
 const Flightbookingdetail = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [userData, setUserData] = useState(null);
   const [passengerAgreement, setPassengerAgreement] = useState(false);
   const [loading, setLoading] = useState(false);
   const [paymentOption, setPaymentOption] = useState(false);
   const reducerState = useSelector((state) => state);
+  // console.log(userBalance,"hdhdhd")
   const isPassportRequired =
     reducerState?.flightFare?.flightQuoteData?.Results
       ?.IsPassportRequiredAtTicket;
@@ -40,6 +43,24 @@ const Flightbookingdetail = () => {
   const Passengers = reducerState?.passengers?.passengersData;
   //   const Passengers = sessionStorage.getItem("Passengers");
   //   console.log("Passengers", Passengers);
+  const userId = reducerState?.logIn?.loginData?.data?.data?.id;
+
+  useEffect(() => {
+    // Make a GET request to the API endpoint
+    axios
+      .get(`http://localhost:8000/skyTrails/user/${userId}`)
+      .then((response) => {
+        // Handle the response data
+        const user = response.data.data;
+        setUserData(user);
+        console.log("user data", response?.data?.data?.balance);
+      })
+      .catch((error) => {
+        console.error(error);
+        // Handle errors, e.g., display an error message
+      });
+  }, []);
+  const userBalance = userData?.balance;
   useEffect(() => {
     console.log(
       "reducerState?.flightBook?.flightBookDataGDS",
@@ -63,26 +84,40 @@ const Flightbookingdetail = () => {
   }
   const handleSubmit = (e) => {
     e.preventDefault();
-    setLoading(true);
-    const payloadGDS = {
-      ResultIndex: ResultIndex,
-
-      EndUserIp: reducerState?.ip?.ipData,
-      TokenId: reducerState?.ip?.tokenData,
-      TraceId:
-        reducerState?.oneWay?.oneWayData?.data?.data?.Response?.TraceId ||
-        reducerState?.return?.returnData?.data?.data?.Response?.TraceId,
-      Passengers: Passengers,
-    };
-    //alert("Submitted");
-    if (fareValue?.IsLCC === false) {
-      dispatch(bookActionGDS(payloadGDS));
-      //navigate("/Flightresult/passengerdetail/flightreviewbooking");
+    if (
+      userBalance <
+      (fareValue?.Fare?.BaseFare || 0) +
+        (fareValue?.Fare?.Tax || 0) +
+        (fareValue?.Fare?.OtherCharges || 0)
+    ) {
+      alert("Balance is insufficient for this transaction.");
+      console.log("balance");
     } else {
-      getTicketForLCC();
-      // alert("Book not allowed for LCCs. Please do Ticket directly");
+      setLoading(true);
+      const payloadGDS = {
+        ResultIndex: ResultIndex,
+
+        EndUserIp: reducerState?.ip?.ipData,  
+        TokenId: reducerState?.ip?.tokenData,
+        TraceId:
+          reducerState?.oneWay?.oneWayData?.data?.data?.Response?.TraceId ||
+          reducerState?.return?.returnData?.data?.data?.Response?.TraceId,
+        Passengers: Passengers,
+      };
+      //alert("Submitted");
+      if (fareValue?.IsLCC === false) {
+        dispatch(bookActionGDS(payloadGDS));
+        //navigate("/Flightresult/passengerdetail/flightreviewbooking");
+      } else {
+        getTicketForLCC();
+        // alert("Book not allowed for LCCs. Please do Ticket directly");
+      }
+      //navigate("/Flightbookingconfirmation");
+      // if(userData?.balance||reducerState?.logIn?.loginData?.data?.data?.balance< fareValue?.Fare?.BaseFare +
+      //   fareValue?.Fare?.Tax +
+      //   fareValue?.Fare?.OtherCharges
+      //   )
     }
-    //navigate("/Flightbookingconfirmation");
   };
 
   const getTicketForNonLCC = () => {
@@ -122,7 +157,7 @@ const Flightbookingdetail = () => {
   };
 
   return (
-    <Box style={{width:"920px"}}>
+    <Box style={{ width: "920px" }}>
       <div
         style={{
           width: 822,
@@ -151,7 +186,11 @@ const Flightbookingdetail = () => {
           Review Booking
         </div>
       </div>
-      <Box  py={2} my={2} style={{background: '#D8DFF2',borderRadius: 4.04,width:'822px'}}>
+      <Box
+        py={2}
+        my={2}
+        style={{ background: "#D8DFF2", borderRadius: 4.04, width: "822px" }}
+      >
         {fareQuote?.map((data) => {
           return data?.map((data1) => {
             const dateString = data1?.Origin?.DepTime;
@@ -184,32 +223,30 @@ const Flightbookingdetail = () => {
               formattedDate1.split(" ");
             const desiredFormat1 = `${day1}-${month1}-${year1} ${time1} ${ampm1}`;
             return (
-              <Grid sx={{display:"flex"}} >
+              <Grid sx={{ display: "flex" }}>
                 <Grid item md={2}>
-                  <Box >
+                  <Box>
                     <Typography
                       sx={{
                         color: "black",
                         fontSize: "16px",
                         textAlign: "center",
                         fontWeight: "600",
-                        fontFamily: 'Montserrat',
-                        wordWrap: 'break-word'
+                        fontFamily: "Montserrat",
+                        wordWrap: "break-word",
                       }}
-                                          >
+                    >
                       Flight No.
                     </Typography>
-                   
+
                     <Typography
                       sx={{
                         color: "black",
                         fontSize: "16px",
-                        fontFamily: 'Montserrat',
+                        fontFamily: "Montserrat",
                         textAlign: "center",
                         fontWeight: "400",
-
                       }}
-                   
                       pt={1}
                     >
                       {data1?.Airline?.AirlineCode}-
@@ -218,29 +255,28 @@ const Flightbookingdetail = () => {
                   </Box>
                 </Grid>
                 <Grid item md={2}>
-                  <Box >
+                  <Box>
                     <Typography
                       sx={{
                         color: "black",
                         fontSize: "16px",
                         textAlign: "center",
                         fontWeight: "600",
-                        fontFamily: 'Montserrat',
-                        wordWrap: 'break-word'
+                        fontFamily: "Montserrat",
+                        wordWrap: "break-word",
                       }}
                     >
                       Origin
                     </Typography>
-                   
-                    <Typography
-                     sx={{
-                      color: "black",
-                      fontSize: "16px",
-                      fontFamily: 'Montserrat',
-                      textAlign: "center",
-                      fontWeight: "400",
 
-                    }}
+                    <Typography
+                      sx={{
+                        color: "black",
+                        fontSize: "16px",
+                        fontFamily: "Montserrat",
+                        textAlign: "center",
+                        fontWeight: "400",
+                      }}
                       pt={1}
                     >
                       {data1?.Origin?.Airport?.AirportCode}
@@ -248,28 +284,27 @@ const Flightbookingdetail = () => {
                   </Box>
                 </Grid>
                 <Grid item md={2}>
-                  <Box  >
+                  <Box>
                     <Typography
                       sx={{
                         color: "black",
                         fontSize: "16px",
                         textAlign: "center",
                         fontWeight: "600",
-                        fontFamily: 'Montserrat',
-                        wordWrap: 'break-word'
+                        fontFamily: "Montserrat",
+                        wordWrap: "break-word",
                       }}
                     >
                       Destination
                     </Typography>
-                  
+
                     <Typography
                       sx={{
                         color: "black",
                         fontSize: "16px",
-                        fontFamily: 'Montserrat',
+                        fontFamily: "Montserrat",
                         textAlign: "center",
                         fontWeight: "400",
-
                       }}
                       pt={1}
                     >
@@ -278,28 +313,27 @@ const Flightbookingdetail = () => {
                   </Box>
                 </Grid>
                 <Grid item md={3}>
-                  <Box  >
-                    <Typography
-                     sx={{
-                      color: "black",
-                      fontSize: "16px",
-                      textAlign: "center",
-                      fontWeight: "600",
-                      fontFamily: 'Montserrat',
-                      wordWrap: 'break-word'
-                    }}
-                    >
-                     Departure Date  Time
-                    </Typography>
-                  
+                  <Box>
                     <Typography
                       sx={{
                         color: "black",
                         fontSize: "16px",
-                        fontFamily: 'Montserrat',
+                        textAlign: "center",
+                        fontWeight: "600",
+                        fontFamily: "Montserrat",
+                        wordWrap: "break-word",
+                      }}
+                    >
+                      Departure Date Time
+                    </Typography>
+
+                    <Typography
+                      sx={{
+                        color: "black",
+                        fontSize: "16px",
+                        fontFamily: "Montserrat",
                         textAlign: "center",
                         fontWeight: "400",
-
                       }}
                       pt={1}
                     >
@@ -308,29 +342,28 @@ const Flightbookingdetail = () => {
                   </Box>
                 </Grid>
                 <Grid item md={3}>
-                  <Box  >
+                  <Box>
                     <Typography
-                       sx={{
+                      sx={{
                         color: "black",
                         fontSize: "16px",
                         textAlign: "center",
                         fontWeight: "600",
-                        fontFamily: 'Montserrat',
-                        wordWrap: 'break-word'
+                        fontFamily: "Montserrat",
+                        wordWrap: "break-word",
                       }}
                     >
-                     Arrival Date  Time
+                      Arrival Date Time
                     </Typography>
-                  
-                    <Typography
-                     sx={{
-                      color: "black",
-                      fontSize: "16px",
-                      fontFamily: 'Montserrat',
-                      textAlign: "center",
-                      fontWeight: "400",
 
-                    }}
+                    <Typography
+                      sx={{
+                        color: "black",
+                        fontSize: "16px",
+                        fontFamily: "Montserrat",
+                        textAlign: "center",
+                        fontWeight: "400",
+                      }}
                       pt={1}
                     >
                       {desiredFormat1}
@@ -338,28 +371,27 @@ const Flightbookingdetail = () => {
                   </Box>
                 </Grid>
                 <Grid item md={2}>
-                  <Box >
+                  <Box>
                     <Typography
                       sx={{
                         color: "black",
                         fontSize: "16px",
                         textAlign: "center",
                         fontWeight: "600",
-                        fontFamily: 'Montserrat',
-                        wordWrap: 'break-word'
+                        fontFamily: "Montserrat",
+                        wordWrap: "break-word",
                       }}
                     >
                       Class
                     </Typography>
-                  
+
                     <Typography
                       sx={{
                         color: "black",
                         fontSize: "16px",
-                        fontFamily: 'Montserrat',
+                        fontFamily: "Montserrat",
                         textAlign: "center",
                         fontWeight: "400",
-
                       }}
                       pt={1}
                     >
@@ -401,9 +433,7 @@ const Flightbookingdetail = () => {
         </div>
       </div>
 
-     
-
-      <Box className="mid-headers" style={{padding:"18px",width:"822px"}}>
+      <Box className="mid-headers" style={{ padding: "18px", width: "822px" }}>
         {Passengers?.map((passenger, key) => {
           console.log("Value", passenger);
           return (
@@ -414,33 +444,56 @@ const Flightbookingdetail = () => {
                   fontWeight="bold"
                   fontSize="16px"
                   mb="2px"
-                 
                   fontFamily="Montserrat"
-                 
                 >
-                  Passenger {key + 1} <span style={{
-                color: "black",
-                fontSize: 16,
-                fontFamily: "Montserrat",
-                fontWeight: "500",
-                wordWrap: "break-word",
-              }}>
-                  (
-                  {passenger.PaxType === 1
-                    ? "Adult"
-                    : passenger.PaxType === 2
-                    ? "Child"
-                    : "Infant"}
-                  )
+                  Passenger {key + 1}{" "}
+                  <span
+                    style={{
+                      color: "black",
+                      fontSize: 16,
+                      fontFamily: "Montserrat",
+                      fontWeight: "500",
+                      wordWrap: "break-word",
+                    }}
+                  >
+                    (
+                    {passenger.PaxType === 1
+                      ? "Adult"
+                      : passenger.PaxType === 2
+                      ? "Child"
+                      : "Infant"}
+                    )
                   </span>
                 </Typography>
               </Box>
               <Grid container spacing={3}>
                 <Grid item md={3}>
-                  <Typography color="#3D7AD9" fontWeight="bold" fontSize="16px" style={{color: 'black', fontSize: 16.14, fontFamily: 'Montserrat', fontWeight: '600', wordWrap: 'break-word'}} >
+                  <Typography
+                    color="#3D7AD9"
+                    fontWeight="bold"
+                    fontSize="16px"
+                    style={{
+                      color: "black",
+                      fontSize: 16.14,
+                      fontFamily: "Montserrat",
+                      fontWeight: "600",
+                      wordWrap: "break-word",
+                    }}
+                  >
                     Name:
                   </Typography>
-                  <Typography color="#3D7AD9" fontWeight="bold" fontSize="16px" style={{color: 'black', fontSize: 16.14, fontFamily: 'Montserrat', fontWeight: '600', wordWrap: 'break-word'}}>
+                  <Typography
+                    color="#3D7AD9"
+                    fontWeight="bold"
+                    fontSize="16px"
+                    style={{
+                      color: "black",
+                      fontSize: 16.14,
+                      fontFamily: "Montserrat",
+                      fontWeight: "600",
+                      wordWrap: "break-word",
+                    }}
+                  >
                     Gender:
                   </Typography>
                   {passenger.AddressLine1 && (
@@ -448,20 +501,59 @@ const Flightbookingdetail = () => {
                       color="#3D7AD9"
                       fontWeight="bold"
                       fontSize="16px"
-                      style={{color: 'black', fontSize: 16.14, fontFamily: 'Montserrat', fontWeight: '600', wordWrap: 'break-word'}}
+                      style={{
+                        color: "black",
+                        fontSize: 16.14,
+                        fontFamily: "Montserrat",
+                        fontWeight: "600",
+                        wordWrap: "break-word",
+                      }}
                     >
                       Address:
                     </Typography>
                   )}
-                  <Typography color="#3D7AD9" fontWeight="bold" fontSize="16px" style={{color: 'black', fontSize: 16.14, fontFamily: 'Montserrat', fontWeight: '600', wordWrap: 'break-word'}}>
+                  <Typography
+                    color="#3D7AD9"
+                    fontWeight="bold"
+                    fontSize="16px"
+                    style={{
+                      color: "black",
+                      fontSize: 16.14,
+                      fontFamily: "Montserrat",
+                      fontWeight: "600",
+                      wordWrap: "break-word",
+                    }}
+                  >
                     Seat Preferences:
                   </Typography>
                 </Grid>
                 <Grid item md={9}>
-                  <Typography color="#FF8900" fontWeight="bold" fontSize="16px" style={{color: 'black', fontSize: 16.14, fontFamily: 'Montserrat', fontWeight: '400', wordWrap: 'break-word'}}>
+                  <Typography
+                    color="#FF8900"
+                    fontWeight="bold"
+                    fontSize="16px"
+                    style={{
+                      color: "black",
+                      fontSize: 16.14,
+                      fontFamily: "Montserrat",
+                      fontWeight: "400",
+                      wordWrap: "break-word",
+                    }}
+                  >
                     {passenger.Title} {passenger.FirstName} {passenger.LastName}
                   </Typography>
-                  <Typography color="#FF8900" fontWeight="bold" fontSize="16px"  style={{color: 'black', fontSize: 16.14, fontFamily: 'Montserrat', fontWeight: '400', wordWrap: 'break-word'}}>
+                  <Typography
+                    color="#FF8900"
+                    fontWeight="bold"
+                    fontSize="16px"
+                    style={{
+                      color: "black",
+                      fontSize: 16.14,
+                      fontFamily: "Montserrat",
+                      fontWeight: "400",
+                      wordWrap: "break-word",
+                    }}
+                  >
                     {passenger.Gender === 1
                       ? "Female"
                       : passenger.Gender === 2
@@ -470,15 +562,27 @@ const Flightbookingdetail = () => {
                   </Typography>
                   {passenger.AddressLine1 && (
                     <Typography
-                     
-                     
-                      style={{color: 'black', fontSize: 16.14, fontFamily: 'Montserrat', fontWeight: '400', wordWrap: 'break-word'}}
+                      style={{
+                        color: "black",
+                        fontSize: 16.14,
+                        fontFamily: "Montserrat",
+                        fontWeight: "400",
+                        wordWrap: "break-word",
+                      }}
                     >
                       {passenger.AddressLine1}, {passenger.City},{" "}
                       {passenger.Nationality}
                     </Typography>
                   )}
-                  <Typography   style={{color: 'black', fontSize: 16.14, fontFamily: 'Montserrat', fontWeight: '400', wordWrap: 'break-word'}}>
+                  <Typography
+                    style={{
+                      color: "black",
+                      fontSize: 16.14,
+                      fontFamily: "Montserrat",
+                      fontWeight: "400",
+                      wordWrap: "break-word",
+                    }}
+                  >
                     8D
                   </Typography>
                 </Grid>
@@ -518,7 +622,6 @@ const Flightbookingdetail = () => {
       <Box className="Top_header" p={5} width={822}>
         {fareRules.map((rule) => (
           <Box>
-           
             <div
               style={{
                 color: "black",
@@ -531,9 +634,8 @@ const Flightbookingdetail = () => {
               QP: {rule.Origin} - {rule.Destination}
             </div>
             <div
-              
               dangerouslySetInnerHTML={createMarkup(rule.FareRuleDetail)}
-              style={{padding:"20px"}}
+              style={{ padding: "20px" }}
             />
             {/* <Grid container spacing={1} mt={1}>
               <Grid item xs={6} md={6}>
@@ -739,7 +841,6 @@ const Flightbookingdetail = () => {
         </Box> */}
       </Box>
 
-     
       <div
         style={{
           width: 822,
@@ -782,31 +883,26 @@ const Flightbookingdetail = () => {
           alignItems: "center",
           gap: 10,
           display: "flex",
-          marginTop:"10px"
+          marginTop: "10px",
         }}
       >
-        
-          <Box display="flex" alignItems="center">
-        <input
-          className="inputSelect"
-          type="checkbox"
-          value={passengerAgreement}
-          onChange={() => setPassengerAgreement(!passengerAgreement)}
-        />{" "}
-      </Box>
-      <Box display="flex" alignItems="center">
-        <input
-          className="inputSelect"
-          type="checkbox"
-          value={paymentOption}
-          onChange={() => setPaymentOption(!paymentOption)}
-        />{" "}
-      </Box>
+        <Box display="flex" alignItems="center">
+          <input
+            className="inputSelect"
+            type="checkbox"
+            value={passengerAgreement}
+            onChange={() => setPassengerAgreement(!passengerAgreement)}
+          />{" "}
+        </Box>
+        <Box display="flex" alignItems="center">
+          <input
+            className="inputSelect"
+            type="checkbox"
+            value={paymentOption}
+            onChange={() => setPaymentOption(!paymentOption)}
+          />{" "}
+        </Box>
       </div>
-
-
-
-
 
       <div
         style={{
@@ -815,8 +911,8 @@ const Flightbookingdetail = () => {
           fontFamily: "Montserrat",
           fontWeight: "500",
           wordWrap: "break-word",
-          marginTop:"10px",
-          marginBottom:"10px"
+          marginTop: "10px",
+          marginBottom: "10px",
         }}
       >
         Note: You can earn more commission if you checked Travel Insurance
@@ -834,8 +930,8 @@ const Flightbookingdetail = () => {
           alignItems: "center",
           gap: 5,
           display: "inline-flex",
-          marginTop:"10px",
-          marginBottom:"20px"
+          marginTop: "10px",
+          marginBottom: "20px",
         }}
       >
         <div
@@ -860,64 +956,64 @@ const Flightbookingdetail = () => {
           booking.
         </div>
       </div>
-      <div style={{display:"flex", marginTop:"10px",
-          marginBottom:"10px",gap:"40px"}}>
       <div
         style={{
-          color: "#000080",
-          fontSize: 16.14,
-          fontFamily: "Montserrat",
-          fontWeight: "500",
-          wordWrap: "break-word",
+          display: "flex",
+          marginTop: "10px",
+          marginBottom: "10px",
+          gap: "40px",
         }}
       >
-        You have 2,000,000 as your Cash balance
-      </div>
-      <form
+        <div
+          style={{
+            color: "#000080",
+            fontSize: 16.14,
+            fontFamily: "Montserrat",
+            fontWeight: "500",
+            wordWrap: "break-word",
+          }}
+        >
+          You have 2,000,000 as your Cash balance
+        </div>
+        <form
           // action="/Flightbookingconfirmation"
           className="formFlightSearch"
           textAlign="center"
           onSubmit={handleSubmit}
         >
-            <button
-        style={{
-          width: 241,
-          height: 63,
-          paddingLeft: 63.63,
-          paddingRight: 63.63,
-          paddingTop: 21.21,
-          paddingBottom: 21.21,
-          background: "#21325D",
-          borderRadius: 5.3,
-          justifyContent: "center",
-          alignItems: "center",
-          gap: 15.91,
-          display: "inline-flex",
-          border:"1px solid #21325D",
-          color:"white",
-          cursor:"pointer",
-          marginTop:"-35px"
-
-        }}
-        type="submit"
-        disabled={
-          !passengerAgreement || !paymentOption
-            ? true
-            : loading
-            ? true
-            : false
-        }
-        >
+          <button
+            style={{
+              width: 241,
+              height: 63,
+              paddingLeft: 63.63,
+              paddingRight: 63.63,
+              paddingTop: 21.21,
+              paddingBottom: 21.21,
+              background: "#21325D",
+              borderRadius: 5.3,
+              justifyContent: "center",
+              alignItems: "center",
+              gap: 15.91,
+              display: "inline-flex",
+              border: "1px solid #21325D",
+              color: "white",
+              cursor: "pointer",
+              marginTop: "-35px",
+            }}
+            type="submit"
+            disabled={
+              !passengerAgreement || !paymentOption
+                ? true
+                : loading
+                ? true
+                : false
+            }
+          >
             {" "}
-              {loading ? "Loading..." : "Ticket"}{" "}
-        </button>
+            {loading ? "Loading..." : "Ticket"}{" "}
+          </button>
         </form>
-      
-      
       </div>
-      
-
-     
 
       {/* <Box textAlign="center">
         <form

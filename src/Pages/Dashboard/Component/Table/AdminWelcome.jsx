@@ -7,7 +7,11 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import { CardActionArea } from "@mui/material";
-
+import AccountBalanceIcon from '@mui/icons-material/AccountBalance';
+import AccountBoxIcon from '@mui/icons-material/AccountBox';
+import GroupsIcon from '@mui/icons-material/Groups';
+import MoneyIcon from '@mui/icons-material/Money';
+import TrendingDownIcon from '@mui/icons-material/TrendingDown';
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
   ...theme.typography.body2,
@@ -26,7 +30,6 @@ const AdminWelcome = () => {
       }}
     >
       <Box height={100} />
-      <h1>Welcome to Admin Deshboard</h1>
       <Box height={100} />
       <Box sx={{ flexGrow: 1 }}>
         <Grid container spacing={2}>
@@ -43,12 +46,11 @@ const AdminWelcome = () => {
               <CardActionArea>
                 <CardContent>
                   <Typography gutterBottom variant="h5" component="div">
-                    Lizard
+                    Total Users
+                    <AccountBoxIcon sx={{ position: 'absolute', top: 1, right: 1 }} />
                   </Typography>
                   <Typography variant="body2" color="text.secondary">
-                    Lizards are a widespread group of squamate reptiles, with
-                    over 6,000 species, ranging across all continents except
-                    Antarctica
+                    25
                   </Typography>
                 </CardContent>
               </CardActionArea>
@@ -59,12 +61,11 @@ const AdminWelcome = () => {
               <CardActionArea>
                 <CardContent>
                   <Typography gutterBottom variant="h5" component="div">
-                    Lizard
+                    Total Bookings
+                    <AccountBalanceIcon sx={{ position: 'absolute', top: 1, right: 1 }} />
                   </Typography>
                   <Typography variant="body2" color="text.secondary">
-                    Lizards are a widespread group of squamate reptiles, with
-                    over 6,000 species, ranging across all continents except
-                    Antarctica
+                    50
                   </Typography>
                 </CardContent>
               </CardActionArea>
@@ -75,12 +76,11 @@ const AdminWelcome = () => {
               <CardActionArea>
                 <CardContent>
                   <Typography gutterBottom variant="h5" component="div">
-                    Lizard
+                    Total Agents
+                    <GroupsIcon sx={{ position: 'absolute', top: 1, right: 1 }} />
                   </Typography>
                   <Typography variant="body2" color="text.secondary">
-                    Lizards are a widespread group of squamate reptiles, with
-                    over 6,000 species, ranging across all continents except
-                    Antarctica
+                    30
                   </Typography>
                 </CardContent>
               </CardActionArea>
@@ -91,12 +91,26 @@ const AdminWelcome = () => {
               <CardActionArea>
                 <CardContent>
                   <Typography gutterBottom variant="h5" component="div">
-                    Lizard
+                    Total Profit
+                    <MoneyIcon sx={{ position: 'absolute', top: 1, right: 1 }} />
                   </Typography>
                   <Typography variant="body2" color="text.secondary">
-                    Lizards are a widespread group of squamate reptiles, with
-                    over 6,000 species, ranging across all continents except
-                    Antarctica
+                    30
+                  </Typography>
+                </CardContent>
+              </CardActionArea>
+            </Card>
+          </Grid>
+          <Grid item xs={4}>
+            <Card sx={{ maxWidth: 345 }}>
+              <CardActionArea>
+                <CardContent>
+                  <Typography sx={{ position: 'relative' }} gutterBottom variant="h5" component="div">
+                    Total Earning
+                    <MoneyIcon sx={{ position: 'absolute', top: 0, right: 0 }} />
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary">
+                    10000
                   </Typography>
                 </CardContent>
               </CardActionArea>
@@ -107,28 +121,11 @@ const AdminWelcome = () => {
               <CardActionArea>
                 <CardContent>
                   <Typography gutterBottom variant="h5" component="div">
-                    Lizard
+                    Total canceled
+                    <TrendingDownIcon sx={{ position: 'absolute', top: 1, right: 1 }} />
                   </Typography>
                   <Typography variant="body2" color="text.secondary">
-                    Lizards are a widespread group of squamate reptiles, with
-                    over 6,000 species, ranging across all continents except
-                    Antarctica
-                  </Typography>
-                </CardContent>
-              </CardActionArea>
-            </Card>
-          </Grid>
-          <Grid item xs={4}>
-            <Card sx={{ maxWidth: 345 }}>
-              <CardActionArea>
-                <CardContent>
-                  <Typography gutterBottom variant="h5" component="div">
-                    Lizard
-                  </Typography>
-                  <Typography variant="body2" color="text.secondary">
-                    Lizards are a widespread group of squamate reptiles, with
-                    over 6,000 species, ranging across all continents except
-                    Antarctica
+                    20
                   </Typography>
                 </CardContent>
               </CardActionArea>

@@ -51,13 +51,14 @@ import {
   FaPlane, // Flight icon
   FaHotel, // Hotel icon
   // Add more icons here for other items
-  FaGlobe, // Islandhopper icon
+  FaPackage, // Islandhopper icon
   FaBus, // Transfer icon
   FaBinoculars, // Sightseeing icon
   FaPassport, // Visa icon
   FaShieldAlt, // Insurance icon
   FaUser, // Administration icon
 } from 'react-icons/fa'; // You need to import the specific icons you want to use
+import { GiCardboardBox } from 'react-icons/gi';
 
 export const InnerBarLogo = [
   {
@@ -72,8 +73,8 @@ export const InnerBarLogo = [
   },
   // Add more items with icons as needed
   {
-    avatar: <FaGlobe />,
-    name: "Islandhopper",
+    avatar: <GiCardboardBox />,
+    name: "Package",
     path: "/holidaypackage",
   },
   {

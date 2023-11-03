@@ -12,9 +12,9 @@ import Flightnavbar from "../Flightnavbar";
 const Flightresult = () => {
   return (
     <React.Fragment>
-      <div className="flightContainer" style={{width:"100%",marginTop:"50px"}}>
+      <div className="flightContainer" style={{width:"100%",marginTop:"-80px"}}>
         {/* step by step updating part */}
-        <Flightnavbar/>
+        {/* <Flightnavbar/> */}
         <Box>
       
           <div>

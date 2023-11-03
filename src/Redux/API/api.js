@@ -470,6 +470,32 @@ const hotelBookingDetails = (payload) => {
       },
     });
   }
+
+  /// userDetails by Id
+
+  const UserDetail = (payload) => {
+    // console.log("userDataId", payload);
+    const  userId  = payload;
+    return axios.get(
+      `http://localhost:8000/skyTrails/user/${userId}`
+    );
+  };
+
+
+  // balance subtract api
+
+  const balanceSubtract = (payload) => { 
+    // console.log("balance of api 👍",payload) 
+     return axios({ 
+       method: "POST", 
+       url: "/skyTrails/subtractBalance", 
+       baseURL: `${apiURL.baseURL}`, 
+       data: payload, 
+       headers: { 
+         "Content-Type": "application/json", 
+       }, 
+     }); 
+   };
   
   return {
     userB2BRegistration,
@@ -513,6 +539,8 @@ const hotelBookingDetails = (payload) => {
     busBookDetails,
     busBookingDataSave,
     visaData,
+    UserDetail,
+    balanceSubtract
   };
 }
 

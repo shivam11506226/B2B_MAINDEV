@@ -98,7 +98,7 @@ const HolidayForm = () => {
           sm={12}
           xs={12}
           display="flex"
-         marginTop="10px"
+        
          height="300px"
          padding="30px"
          justifyContent="center"
