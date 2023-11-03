@@ -73,6 +73,10 @@ function Headers() {
     navigate("/EditHolidayPackage");
   };
 
+  const Profile = () => {
+    navigate("/UserProfile");
+  };
+
   useEffect(() => {
     const updateSrollYPosition = () => {
       setScrollYValue(window.scrollY);
@@ -346,7 +350,8 @@ function Headers() {
                 wordWrap: "break-word",
               }}
             >
-              {userData?.balance||reducerState?.logIn?.loginData?.data?.data?.balance}
+              {userData?.balance ||
+                reducerState?.logIn?.loginData?.data?.data?.balance}
             </div>
           </div>
           <div
@@ -474,6 +479,9 @@ function Headers() {
               </MenuItem>
               <MenuItem onClick={editPackage} style={{ fontSize: "15px" }}>
                 My Package
+              </MenuItem>
+              <MenuItem onClick={Profile} style={{ fontSize: "15px" }}>
+                Profile
               </MenuItem>
             </Menu>
           </div>
