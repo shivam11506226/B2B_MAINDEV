@@ -99,7 +99,7 @@ const MainPage = () => {
       location.pathname !== "/adminLogin"
     ) {
       navigate("/Login");
-    } else if (location.pathname == "/admin/dashboard") {
+    } else if (location.pathname === "/admin/dashboard") {
       if (!reducerState?.adminAuth?.adminData?.data) {
         navigate("/admin/dashboard");
       } else {

@@ -1,17 +1,27 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-
+import './BusBookings.css';
+import { Table, TableBody, TableCell, TableRow, Paper,TextField,InputAdornment } from '@mui/material';
+import SearchIcon from '@mui/icons-material/Search';
 const AllBusBooking = () => {
   const [busBookings, setBusBookings] = useState([]);
   const [loading, setLoading] = useState(true);
   const pageSize = 10; // Number of items per page
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
-
+  const [searchTerm, setSearchTerm] = useState('');
   useEffect(() => {
     async function fetchBusBookings() {
       try {
-        const response = await axios.get(`http://localhost:8000/skytrails/api/admin/getAllBusBookingList?page=${currentPage}&size=${pageSize}`);
+        const response = await axios.get(`http://localhost:8000/skytrails/api/admin/getAllBusBookingList`,
+        {
+          params: {
+            page: currentPage,
+            size: pageSize,
+            search: searchTerm,
+          }
+        }
+        )
         setBusBookings(response.data.result.docs);
         setTotalPages(response.data.result.totalPages);
         setLoading(false);
@@ -22,15 +32,30 @@ const AllBusBooking = () => {
     }
 
     fetchBusBookings();
-  }, [currentPage]);
+  },  [currentPage, searchTerm]);
 
   const handlePageChange = (page) => {
     setCurrentPage(page);
   };
-
+  const handleSearch = (event) => {
+    setSearchTerm(event.target.value);
+    setCurrentPage(1); // Reset to the first page when performing a new search
+  };
   return (
-    <div>
-      <h1>All Bus Bookings</h1>
+    <div className="bus-container">
+       <TextField
+        type="text"
+        value={searchTerm}
+        onChange={handleSearch}
+        placeholder="Search by name, ID, etc."
+        InputProps={{
+          startAdornment: (
+            <InputAdornment position="start">
+              <SearchIcon />
+            </InputAdornment>
+          ),
+        }}
+      />
       <table border="1">
         <thead>
           <tr>
@@ -55,7 +80,12 @@ const AllBusBooking = () => {
               <td>{bookings.userId}</td>
               <td>{bookings.name}</td>
               <td>{bookings.email}</td>
-              <td>{bookings.phone}</td> {/* Assuming 'phone' is a string */}
+              <td>
+                {typeof bookings.phone === 'object' ?
+                  `${bookings.phone.country_code}${bookings.phone.mobile_number}` :
+                  bookings.phone
+                }
+              </td>
               <td>{bookings.destination}</td>
               <td>{bookings.origin}</td>
               <td>{bookings.busName}</td>
@@ -67,9 +97,9 @@ const AllBusBooking = () => {
           ))}
         </tbody>
       </table>
-      <div>
+      <div className="paginate">
         {Array.from({ length: totalPages }, (_, i) => (
-          <button key={i + 1} onClick={() => handlePageChange(i + 1)}>
+          <button className="busButton" key={i + 1} onClick={() => handlePageChange(i + 1)}>
             <h5>{i + 1}</h5>
           </button>
         ))}

@@ -186,8 +186,10 @@ function Headers() {
   const location = useLocation();
   const { pathname } = location;
 
-  if (pathname === '/admin/dashboard') {
-    return null; // If the path matches '/admin/dashboard', the header is not rendered
+  const isAdminPath = pathname === "/adminLogin" || pathname === "/admin/dashboard";
+
+  if (isAdminPath) {
+    return null; // Don't render the InnerNavbar for admin paths
   }
   return (
     <div

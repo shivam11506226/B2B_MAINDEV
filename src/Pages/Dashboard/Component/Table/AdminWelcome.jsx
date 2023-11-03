@@ -30,7 +30,6 @@ const AdminWelcome = () => {
       }}
     >
       <Box height={100} />
-      <h1>Welcome to Admin Deshboard</h1>
       <Box height={100} />
       <Box sx={{ flexGrow: 1 }}>
         <Grid container spacing={2}>
