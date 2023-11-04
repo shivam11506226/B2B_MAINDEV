@@ -1,14 +1,50 @@
 import React from "react";
-import BusTicket from "./BusTicket";
+//import BusTicket from "./BusTicket";
+import FlightTicket from "./FlightTicket";
 import "./Queue.css";
 
+// import MovieCard from "./MovieCard";
+ import SearchIcon from "../../Images/search.svg";
+
+// const API_URL = "https://www.omdbapi.com?apikey=b6003d8a";
 const Queue = () => {
+  // const [searchTerm, setSearchTerm] = useState("");
+  // const [movies, setMovies] = useState([]);
+
+  // useEffect(() => {
+  //   searchMovies("Batman");
+  // }, []);
+
+  // const searchMovies = async (title) => {
+  //   const response = await fetch(`${API_URL}&s=${title}`);
+  //   const data = await response.json();
+
+  //   setMovies(data.Search);
+  // };
   return (
     <>
       <div className="main-container">
         <div className="header_queue">
-          <p>Administration_Queues_Your Bookings</p>
+          <h5>Administration_Queues_Your Bookings</h5>
+        </div >
+        <div className="main-search">
+        <div className="heading">
+          <h3>Your Bookings</h3>
         </div>
+        <div className="searchbar">
+        <input
+          // value={searchTerm}
+          // onChange={(e) => setSearchTerm(e.target.value)}
+          placeholder="Search"
+        />
+        <img
+          src={SearchIcon}
+          alt="search"
+          // onClick={() => searchMovies(searchTerm)}
+        />
+        </div>
+        </div>
+        <FlightTicket/>
       </div>
     </>
   );

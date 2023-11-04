@@ -427,9 +427,6 @@ const Header = () => {
               <MenuItem onClick={editPackage} style={{ fontSize: "15px" }}>
                 My Package
               </MenuItem>
-              <MenuItem onClick={editPackage} style={{ fontSize: "15px" }}>
-                Profile
-              </MenuItem>
             </Menu>
           </div>
         </div>
