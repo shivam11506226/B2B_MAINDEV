@@ -93,11 +93,11 @@ const rootReducer = (state, action) => {
       ...state,
       oneWayEMT: oneWayEMTReducer(undefined, action),
     };
-    // } else if (action.type === "CLEAR_PASSENGERS_REDUCER") {
-    //   return {
-    //     ...state,
-    //     passengers: passengersReducer(undefined, action),
-    //   };
+    } else if (action.type === "CLEAR_PASSENGERS_REDUCER") {
+      return {
+        ...state,
+        passengers: passengersReducer(undefined, action),
+      };
   } else if (action.type === "CLEAR_BUS_SEARCH_REDUCER") {
     return {
       ...state,
