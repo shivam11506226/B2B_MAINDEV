@@ -123,6 +123,12 @@ const OneWay = () => {
       mounted = false;
     };
   }, [toQuery]);
+  
+  // Get the current date in the format "YYYY-MM-DD"
+  useEffect(() => {
+    const currentDate = new Date().toISOString().split('T')[0];
+    inputRef.current.min = currentDate;
+  }, []);
 
   useEffect(() => {
     dispatch(clearOneWayReducer());
