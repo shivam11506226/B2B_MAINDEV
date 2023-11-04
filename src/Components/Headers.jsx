@@ -92,7 +92,7 @@ function Headers() {
       _id: reducerState?.logIn?.loginData?.data?.data?.id,
       amount: amount,
     };
-
+   
     // axios
     //   .post("http://localhost:8000/updateBalance", data)
     //   .then((res) => {
@@ -108,7 +108,7 @@ function Headers() {
     setAmount("");
     handleCloseModal();
   };
-
+ 
   const handleRazorpay = (data) => {
     // console.log("handleRazorpay called");
     const options = {
@@ -176,9 +176,9 @@ function Headers() {
 
   //get user detail for update balance
   const userId = reducerState?.logIn?.loginData?.data?.data?.id;
-
- 
-    // console.log("userIdnew",userId)
+  
+  
+    console.log("userIdnew",userId,reducerState)
   
 
   useEffect(() => {
@@ -221,6 +221,8 @@ function Headers() {
   }, [userId,dispatch]);
 
   const userData=reducerState?.userData?.userData?.data?.data;
+
+    
   const location = useLocation();
       const { pathname } = location;
     
@@ -289,6 +291,7 @@ function Headers() {
           >
             Contact your representative
           </p>
+         
           <div
             style={{
               color: "black",
@@ -348,10 +351,15 @@ function Headers() {
                 fontFamily: "Montserrat",
                 fontWeight: "400",
                 wordWrap: "break-word",
+              
+                
               }}
             >
-              {userData?.balance ||
-                reducerState?.logIn?.loginData?.data?.data?.balance}
+
+              {userData?.balance.toFixed(2)||reducerState?.logIn?.loginData?.data?.data?.balance.toFixed(2)}
+              
+              
+
             </div>
           </div>
           <div
@@ -361,7 +369,7 @@ function Headers() {
               fontFamily: "Montserrat",
               fontWeight: "400",
               wordWrap: "break-word",
-              marginLeft:"10px"
+              marginLeft:"30px"
             }}
           >
             |
@@ -374,7 +382,7 @@ function Headers() {
               fontSize: 16,
               fontFamily: "Montserrat",
               fontWeight: "400",
-
+              // marginLeft:"20px",
               wordWrap: "break-word",
             }}
           >
@@ -387,6 +395,7 @@ function Headers() {
               fontFamily: "Montserrat",
               fontWeight: "400",
               wordWrap: "break-word",
+              
             }}
           >
             |

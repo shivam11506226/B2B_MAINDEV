@@ -485,7 +485,7 @@ const hotelBookingDetails = (payload) => {
   // balance subtract api
 
   const balanceSubtract = (payload) => { 
-    // console.log("balance of api 👍",payload) 
+    console.log("balance of api 👍",payload) 
      return axios({ 
        method: "POST", 
        url: "/skyTrails/subtractBalance", 

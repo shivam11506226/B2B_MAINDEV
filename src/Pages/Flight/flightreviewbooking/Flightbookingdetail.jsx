@@ -10,7 +10,12 @@ import {
   bookTicketGDS,
 } from "../../../Redux/FlightBook/actionFlightBook";
 import axios from "axios";
+import Swal from 'sweetalert2';
 
+import { getUserDataAction } from "../../../Redux/Auth/UserDataById/actionUserData";
+import { balanceSubtractRequest } from "../../../Redux/Auth/balaceSubtract/actionBalnceSubtract";
+import {clearPassengersReducer} from "../../../Redux/Passengers/passenger";
+import {clearOneWayReducer} from "../../../Redux/FlightSearch/OneWay/oneWay"
 const Flightbookingdetail = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -44,7 +49,7 @@ const Flightbookingdetail = () => {
   //   const Passengers = sessionStorage.getItem("Passengers");
   //   console.log("Passengers", Passengers);
   const userId = reducerState?.logIn?.loginData?.data?.data?.id;
-
+  //  console.log(userId+"userid")
   useEffect(() => {
     // Make a GET request to the API endpoint
     axios
@@ -60,7 +65,8 @@ const Flightbookingdetail = () => {
         // Handle errors, e.g., display an error message
       });
   }, []);
-  const userBalance = userData?.balance;
+  var userBalance = userData?.balance;
+
   useEffect(() => {
     console.log(
       "reducerState?.flightBook?.flightBookDataGDS",
@@ -84,20 +90,43 @@ const Flightbookingdetail = () => {
   }
   const handleSubmit = (e) => {
     e.preventDefault();
+    const baseFare = fareValue?.Fare?.BaseFare || 0;
+    const tax = fareValue?.Fare?.Tax || 0;
+    const otherCharges = fareValue?.Fare?.OtherCharges || 0;
+
     if (
       userBalance <
       (fareValue?.Fare?.BaseFare || 0) +
         (fareValue?.Fare?.Tax || 0) +
         (fareValue?.Fare?.OtherCharges || 0)
     ) {
-      alert("Balance is insufficient for this transaction.");
-      console.log("balance");
+      // alert("Balance is insufficient for this transaction.");
+      // console.log("balance");
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Balance is insufficient for this transaction.',
+        footer: 'Please recharge',
+        showCancelButton: false,
+        confirmButtonText: 'OK',
+      }).then((result) => {
+        if (result.isConfirmed) {
+          // Redirect to the /flights path
+          navigate('/flights');
+          clearPassengersReducer();
+          // clearOneWayReducer();
+          // dispatch(clearOneWayReducer())
+          // dispatch(clearPassengersReducer())
+          
+        }
+      });
+      
     } else {
       setLoading(true);
       const payloadGDS = {
         ResultIndex: ResultIndex,
 
-        EndUserIp: reducerState?.ip?.ipData,  
+        EndUserIp: reducerState?.ip?.ipData,
         TokenId: reducerState?.ip?.tokenData,
         TraceId:
           reducerState?.oneWay?.oneWayData?.data?.data?.Response?.TraceId ||
@@ -111,12 +140,31 @@ const Flightbookingdetail = () => {
       } else {
         getTicketForLCC();
         // alert("Book not allowed for LCCs. Please do Ticket directly");
+        //  getUserDataAction();
+        //  balanceSubtractRequest();
+        // userBalance =userBalance-(baseFare + tax + otherCharges)
+        // console.log( userBalance+"minus");
       }
       //navigate("/Flightbookingconfirmation");
       // if(userData?.balance||reducerState?.logIn?.loginData?.data?.data?.balance< fareValue?.Fare?.BaseFare +
       //   fareValue?.Fare?.Tax +
       //   fareValue?.Fare?.OtherCharges
       //   )
+     
+      if (userId) {
+        const payload = userId;
+  
+        // console.log(payload,'userIdiii');
+        dispatch(getUserDataAction(payload));
+      }
+      if (userId) {
+        const balancePayload = {
+          _id: userId,
+          amount:baseFare + tax + otherCharges,
+        };
+
+        dispatch(balanceSubtractRequest(balancePayload));
+      }
     }
   };
 
