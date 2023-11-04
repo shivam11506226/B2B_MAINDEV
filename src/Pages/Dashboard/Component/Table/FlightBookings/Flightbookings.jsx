@@ -79,9 +79,9 @@ const AllFlightBooking = () => {
               <td>{booking.pnr}</td>
               <td>{booking.userId}</td>
               <td>{`${booking.firstName} ${booking.lastName}`}</td>
-              <td>{booking.userDetails.email}</td>
+              <td>{booking.userDetails ? booking.userDetails.email : "Empty"}</td>
               <td>
-                {booking.phone ? `${booking.phone.country_code}${booking.phone.mobile_number}` : "Phone details not available"}
+                {booking.phone ? `${booking.phone.country_code}${booking.phone.mobile_number}` : "Empty"}
               </td>
               <td>{booking.flightName}</td>
               <td>{booking.paymentStatus}</td>

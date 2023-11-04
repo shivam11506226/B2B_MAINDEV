@@ -29,7 +29,6 @@ import EditHolidayPackage from "./Table/packageUpdate/EditPackage";
 import { useLocation, useNavigate } from "react-router-dom";
 import ForexData from "./Table/Forex/ForexData";
 import VisaData from "./Table/VisaData/VisaData";
-import AdminWelcome from "./Table/AdminWelcome";
 import { useDispatch, useSelector, useReducer } from "react-redux";
 import { adminSignOut } from "../../../Redux/Auth/AdminSignOut/actionAdminSignOut";
 import STLOGO from "../../../Images/ST-Main-Logo.png";
@@ -38,6 +37,7 @@ import HotelBookings from './Table/HotelBookings/HotelBookings';
 import FlightBookings from './Table/FlightBookings/Flightbookings';
 import BusBookings from './Table/BusBookings/BusBookings';
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
+import AgentRequest from './Table/AgentRequest/AgentRequest'
 import {
   Toolbar,
   IconButton,
@@ -52,6 +52,10 @@ import {
 } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import NotificationsIcon from '@mui/icons-material/Notifications';
+import Groups3Icon from '@mui/icons-material/Groups3';
+import AdminDashboard from './AdminDashboard';
+import CancelTicketRequest from './Table/CancelTicketRequest/CancelTicketRequest'; 
+import OfferList from './Table/OfferList/OfferList'
 const drawerWidth = 240;
 
 const openedMixin = (theme) => ({
@@ -413,6 +417,67 @@ export default function VerticalTabs() {
             <ListItem
               disablePadding
               sx={{ display: "block" }}
+              onClick={() => handleMenuItemClick("AgentRequest")}>
+              <ListItemButton
+                sx={{
+                  minHeight: 48,
+                  justifyContent: open ? "initial" : "center",
+                  px: 2.5,
+                  ...((menuData === "AgentRequest"
+                    ? activeMenuItemClass
+                    : inactiveMenuItemClass) || {}),
+                }}
+              >
+                <ListItemIcon
+                  sx={{
+                    minWidth: 0,
+                    mr: open ? 3 : "auto",
+                    justifyContent: "center",
+                  }}
+                >
+                  <Groups3Icon />
+                </ListItemIcon>
+                <ListItemText
+                  primary="AgentRequest"
+                  sx={{ opacity: open ? 1 : 0 }}
+                />
+              </ListItemButton>
+            </ListItem>
+            <ListItem
+              disablePadding
+              sx={{ display: "block" }}
+              onClick={() => handleMenuItemClick("Cancel Ticket")}
+            >
+              <ListItemButton
+                sx={{
+                  minHeight: 48,
+                  justifyContent: open ? "initial" : "center",
+                  px: 2.5,
+                  ...((menuData === "Cancel Ticket"
+                    ? activeMenuItemClass
+                    : inactiveMenuItemClass) || {}),
+                }}
+              >
+                <ListItemIcon
+                  sx={{
+                    minWidth: 0,
+                    mr: open ? 3 : "auto",
+                    justifyContent: "center",
+                  }}
+                >
+                  <CalendarTodayOutlinedIcon />
+                </ListItemIcon>
+                <ListItemText
+                  primary="Cancel Ticket"
+                  sx={{ opacity: open ? 1 : 0 }}
+                />
+              </ListItemButton>
+
+
+            </ListItem>
+            <ListItem
+              disablePadding
+              sx={{ display: "block" }}
               onClick={() => handleMenuItemClick("User MarkUp Amount")}
             >
               <ListItemButton
@@ -616,7 +681,36 @@ export default function VerticalTabs() {
                 />
               </ListItemButton>
             </ListItem>
-            
+            <ListItem
+              disablePadding
+              sx={{ display: "block" }}
+              onClick={() => handleMenuItemClick("OfferList")}
+            >
+              <ListItemButton
+                sx={{
+                  minHeight: 48,
+                  justifyContent: open ? "initial" : "center",
+                  px: 2.5,
+                  ...((menuData === "OfferList"
+                    ? activeMenuItemClass
+                    : inactiveMenuItemClass) || {}),
+                }}
+              >
+                <ListItemIcon
+                  sx={{
+                    minWidth: 0,
+                    mr: open ? 3 : "auto",
+                    justifyContent: "center",
+                  }}
+                >
+                  <PeopleOutlinedIcon />
+                </ListItemIcon>
+                <ListItemText
+                  primary="OfferList"
+                  sx={{ opacity: open ? 1 : 0 }}
+                />
+              </ListItemButton>
+            </ListItem>
           </List>
           <Divider />
         </Drawer>
@@ -643,8 +737,10 @@ export default function VerticalTabs() {
             </div>
           ) : (
             <div>
-              {menuData === "Home" && <AdminWelcome />}
+              {menuData === 'Home' && <AdminDashboard />}
               {menuData === "User Table" && <Tables />}
+              {menuData === "AgentRequest" && <AgentRequest />}
+              {menuData==="Cancel Ticket"&& <CancelTicketRequest/>}
               {menuData === "User MarkUp Amount" && <MarkUpAmount />}
               {menuData === "Edit Holiday Package" && <PackageDetails />}
               {menuData === "Forex" && <ForexData />}
@@ -652,6 +748,7 @@ export default function VerticalTabs() {
               {menuData === "Hotel Bookings" && <HotelBookings />}
               {menuData === "Flight Bookings" && <FlightBookings />}
               {menuData === "Bus Bookings" && <BusBookings />}
+              {menuData === "OfferList"&&<OfferList />}
             </div>
           )}
           
