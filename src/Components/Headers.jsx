@@ -73,6 +73,10 @@ function Headers() {
     navigate("/EditHolidayPackage");
   };
 
+  const Profile = () => {
+    navigate("/UserProfile");
+  };
+
   useEffect(() => {
     const updateSrollYPosition = () => {
       setScrollYValue(window.scrollY);
@@ -226,6 +230,11 @@ function Headers() {
         return null; // If the path matches '/admin/dashboard', the header is not rendered
    }
 
+  const isAdminPath = pathname === "/adminLogin" || pathname === "/admin/dashboard";
+
+  if (isAdminPath) {
+    return null; // Don't render the InnerNavbar for admin paths
+  }
   return (
     <div
       style={{
@@ -346,9 +355,11 @@ function Headers() {
                 
               }}
             >
+
               {userData?.balance.toFixed(2)||reducerState?.logIn?.loginData?.data?.data?.balance.toFixed(2)}
               
               
+
             </div>
           </div>
           <div
@@ -477,6 +488,9 @@ function Headers() {
               </MenuItem>
               <MenuItem onClick={editPackage} style={{ fontSize: "15px" }}>
                 My Package
+              </MenuItem>
+              <MenuItem onClick={Profile} style={{ fontSize: "15px" }}>
+                Profile
               </MenuItem>
             </Menu>
           </div>
