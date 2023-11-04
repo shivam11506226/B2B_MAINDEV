@@ -1,0 +1,63 @@
+/* FlightTicket.css */
+.container {
+    margin-top: 5rem;
+    margin-right: 342px;
+  }
+  
+  /* .ticket {
+    display: flex;
+    border: 1px solid #ddd;
+    margin: 10px 0;
+    padding: 10px;
+    background-color: #fff;
+    justify-content: space-between;
+    align-items: center;
+  } */
+  .ticketcart{
+    display: flex;
+    border: 1px solid #ddd;
+    margin: 10px 0;
+    padding: 10px;
+    background-color: #fff;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .btn-request button {
+    padding: 12px 12px 12px 12px;
+    border-radius: 1rem;
+    gap: 3px;
+    background: #21325D;
+    color: #fff;
+
+  }
+  
+  .action{
+    display: flex;
+    top: 783px;
+    left: 46px;
+    padding: 8px 20px 8px 20px;
+    border-radius: 4px;
+    gap: 339px;
+    background: #DFE6F7;
+    margin-top: -10px;
+  }
+
+  .action a {
+    margin: 1rem;
+  }
+
+  .action button {
+    padding: 9.94px 29.83px 9.94px 29.83px;
+    border-radius: 2.49px;
+    gap: 7.46px;
+    background: #21325D;
+    font-family: Montserrat;
+    font-size: 10px;
+    font-weight: 600;
+    line-height: 12px;
+    letter-spacing: 0em;
+    text-align: left;
+    color: #FFFFFF;
+
+  }

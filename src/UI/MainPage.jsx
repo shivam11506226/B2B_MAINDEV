@@ -69,7 +69,6 @@ import Dashboard from "../Pages/Dashboard/Component/Dashboard";
 import AdminLogin from "../Pages/AdminLogin/AdminLogin";
 import CreateHolidayPackage from "../Pages/HotelPackage/createholidaypackage/CreateHolidayPackage";
 import EditHolidayPackage from "../Pages/Dashboard/Component/Table/packageUpdate/EditPackage";
-import UserProfile from "../Pages/Dashboard/Component/Table/Profile/ProfileDetails";
 import Queue from "../Pages/Account/Queue";
 import MainBox from "../Layout/MainBox";
 import { useLocation, Navigate } from "react-router-dom";
@@ -365,11 +364,6 @@ const MainPage = () => {
                 exact
                 path="/EditHolidayPackage"
                 element={<EditHolidayPackage />}
-              ></Route>
-              <Route
-                exact
-                path="/UserProfile"
-                element={<UserProfile />}
               ></Route>
               <Route
                 exact
