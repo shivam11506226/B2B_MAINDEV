@@ -47,8 +47,17 @@
  
   height: 100%;
   padding-left: 25px;
-  border-radius: 10px;
-  border: 3px solid #70707069;
+  border-radius: 8px;
+  border: 1px solid #5C85A4;
+  background: #FFFBFB;
+
+}
+#datepic{
+  height: 50px;
+  padding-left: 25px;
+  border-radius: 8px;
+  border: 1px solid #5C85A4;
+  background: #FFFBFB;
 
 }
 
@@ -102,7 +111,10 @@
   border: 10px;
   border-radius: 10px;
   height: 3.1rem;
-  border: 3px solid #70707069;
+ 
+  border-radius: 8px;
+border: 1px solid #5C85A4;
+background: #FFFBFB;
 }
 
 .hotel_submit {

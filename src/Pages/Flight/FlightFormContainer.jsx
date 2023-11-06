@@ -51,7 +51,7 @@ function CustomTabPanel(props) {
   return (
     <Slide direction="up" in={value === index} >
       <div role="tabpanel" hidden={value !== index} id={`simple-tabpanel-${index}`} aria-labelledby={`simple-tab-${index}`} {...other}>
-        <Box style={{backgroundColor:"#F8F3F3",marginTop:"-60px",paddingTop:"50px",width:"90%",margin:"auto",borderRadius:"12px"}}>
+        <Box style={{backgroundColor:"#F8F3F3",marginTop:"-60px",paddingTop:"50px",width:"82%",margin:"auto",borderRadius:"12px"}}>
           <Typography>{children}</Typography>
         </Box>
       </div>
@@ -82,7 +82,7 @@ export default function StyledTabsExample() {
 
   return (
     <Box sx={{ width: '90%',margin:"auto" }}>
-      <StyledTabs value={value} onChange={handleChange} aria-label="styled tabs example" style={{width:"90%",margin:"auto"}} >
+      <StyledTabs value={value} onChange={handleChange} aria-label="styled tabs example" style={{width:"81%",marginTop:"-100px",marginLeft:"110px"}} >
         <StyledTab label="One Way" {...a11yProps(0)} style={{width:"254px",height:"48px",marginTop:"30px"}}/>
         <StyledTab label="Return" {...a11yProps(1)} style={{width:"254px",height:"48px",marginTop:"30px"}}/>
         {/* <StyledTab label="Off Share" {...a11yProps(2)} />
