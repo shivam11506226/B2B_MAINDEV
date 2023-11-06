@@ -10,6 +10,10 @@ import {
   bookTicketGDS,
 } from "../../../Redux/FlightBook/actionFlightBook";
 import axios from "axios";
+import Accordion from '@mui/material/Accordion';
+import AccordionSummary from '@mui/material/AccordionSummary';
+import AccordionDetails from '@mui/material/AccordionDetails';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
 const Flightbookingdetail = () => {
   const dispatch = useDispatch();
@@ -87,8 +91,8 @@ const Flightbookingdetail = () => {
     if (
       userBalance <
       (fareValue?.Fare?.BaseFare || 0) +
-        (fareValue?.Fare?.Tax || 0) +
-        (fareValue?.Fare?.OtherCharges || 0)
+      (fareValue?.Fare?.Tax || 0) +
+      (fareValue?.Fare?.OtherCharges || 0)
     ) {
       alert("Balance is insufficient for this transaction.");
       console.log("balance");
@@ -97,7 +101,7 @@ const Flightbookingdetail = () => {
       const payloadGDS = {
         ResultIndex: ResultIndex,
 
-        EndUserIp: reducerState?.ip?.ipData,  
+        EndUserIp: reducerState?.ip?.ipData,
         TokenId: reducerState?.ip?.tokenData,
         TraceId:
           reducerState?.oneWay?.oneWayData?.data?.data?.Response?.TraceId ||
@@ -407,219 +411,252 @@ const Flightbookingdetail = () => {
       <div
         style={{
           width: 822,
-          height: 49,
-          paddingLeft: 20,
-          paddingRight: 20,
-          paddingTop: 10,
-          paddingBottom: 10,
-          background: "#DFE6F7",
-          borderRadius: 4,
-          justifyContent: "flex-start",
-          alignItems: "center",
-          gap: 10,
-          display: "inline-flex",
-        }}
-      >
-        <div
-          style={{
-            color: "black",
-            fontSize: 24,
-            fontFamily: "Montserrat",
-            fontWeight: "600",
-            wordWrap: "break-word",
-          }}
-        >
-          Passenger Details
-        </div>
-      </div>
+          
 
-      <Box className="mid-headers" style={{ padding: "18px", width: "822px" }}>
-        {Passengers?.map((passenger, key) => {
-          console.log("Value", passenger);
-          return (
-            <div className="mid_header" key={key} px={5} py={2}>
-              <Box>
-                <Typography
-                  color="#0048FF"
-                  fontWeight="bold"
-                  fontSize="16px"
-                  mb="2px"
-                  fontFamily="Montserrat"
-                >
-                  Passenger {key + 1}{" "}
-                  <span
-                    style={{
-                      color: "black",
-                      fontSize: 16,
-                      fontFamily: "Montserrat",
-                      fontWeight: "500",
-                      wordWrap: "break-word",
-                    }}
-                  >
-                    (
-                    {passenger.PaxType === 1
-                      ? "Adult"
-                      : passenger.PaxType === 2
-                      ? "Child"
-                      : "Infant"}
-                    )
-                  </span>
-                </Typography>
-              </Box>
-              <Grid container spacing={3}>
-                <Grid item md={3}>
-                  <Typography
-                    color="#3D7AD9"
-                    fontWeight="bold"
-                    fontSize="16px"
-                    style={{
-                      color: "black",
-                      fontSize: 16.14,
-                      fontFamily: "Montserrat",
-                      fontWeight: "600",
-                      wordWrap: "break-word",
-                    }}
-                  >
-                    Name:
-                  </Typography>
-                  <Typography
-                    color="#3D7AD9"
-                    fontWeight="bold"
-                    fontSize="16px"
-                    style={{
-                      color: "black",
-                      fontSize: 16.14,
-                      fontFamily: "Montserrat",
-                      fontWeight: "600",
-                      wordWrap: "break-word",
-                    }}
-                  >
-                    Gender:
-                  </Typography>
-                  {passenger.AddressLine1 && (
-                    <Typography
-                      color="#3D7AD9"
-                      fontWeight="bold"
-                      fontSize="16px"
-                      style={{
-                        color: "black",
-                        fontSize: 16.14,
-                        fontFamily: "Montserrat",
-                        fontWeight: "600",
-                        wordWrap: "break-word",
-                      }}
-                    >
-                      Address:
-                    </Typography>
-                  )}
-                  <Typography
-                    color="#3D7AD9"
-                    fontWeight="bold"
-                    fontSize="16px"
-                    style={{
-                      color: "black",
-                      fontSize: 16.14,
-                      fontFamily: "Montserrat",
-                      fontWeight: "600",
-                      wordWrap: "break-word",
-                    }}
-                  >
-                    Seat Preferences:
-                  </Typography>
-                </Grid>
-                <Grid item md={9}>
-                  <Typography
-                    color="#FF8900"
-                    fontWeight="bold"
-                    fontSize="16px"
-                    style={{
-                      color: "black",
-                      fontSize: 16.14,
-                      fontFamily: "Montserrat",
-                      fontWeight: "400",
-                      wordWrap: "break-word",
-                    }}
-                  >
-                    {passenger.Title} {passenger.FirstName} {passenger.LastName}
-                  </Typography>
-                  <Typography
-                    color="#FF8900"
-                    fontWeight="bold"
-                    fontSize="16px"
-                    style={{
-                      color: "black",
-                      fontSize: 16.14,
-                      fontFamily: "Montserrat",
-                      fontWeight: "400",
-                      wordWrap: "break-word",
-                    }}
-                  >
-                    {passenger.Gender === 1
-                      ? "Female"
-                      : passenger.Gender === 2
-                      ? "Male"
-                      : "Transgender"}
-                  </Typography>
-                  {passenger.AddressLine1 && (
-                    <Typography
-                      style={{
-                        color: "black",
-                        fontSize: 16.14,
-                        fontFamily: "Montserrat",
-                        fontWeight: "400",
-                        wordWrap: "break-word",
-                      }}
-                    >
-                      {passenger.AddressLine1}, {passenger.City},{" "}
-                      {passenger.Nationality}
-                    </Typography>
-                  )}
-                  <Typography
-                    style={{
-                      color: "black",
-                      fontSize: 16.14,
-                      fontFamily: "Montserrat",
-                      fontWeight: "400",
-                      wordWrap: "break-word",
-                    }}
-                  >
-                    8D
-                  </Typography>
-                </Grid>
-              </Grid>
-            </div>
-          );
-        })}
-      </Box>
-      <div
-        style={{
-          width: 822,
-          height: 49,
-          paddingLeft: 20,
-          paddingRight: 20,
-          paddingTop: 10,
-          paddingBottom: 10,
-          background: "#DFE6F7",
+         
           borderRadius: 4,
           justifyContent: "flex-start",
           alignItems: "center",
-          gap: 10,
-          display: "inline-flex",
+
+          display: "flex",
+          flexDirection:'column',
+          gap:"10px"
+
         }}
       >
-        <div
-          style={{
-            color: "black",
-            fontSize: 24,
-            fontFamily: "Montserrat",
-            fontWeight: "600",
-            wordWrap: "break-word",
-          }}
-        >
-          Fare Rules
-        </div>
-      </div>
-      <Box className="Top_header" p={5} width={822}>
+
+        <Accordion style={{
+          width: 822,
+          // height: 49,
+
+          background: "#DFE6F7",
+          borderRadius: 4,
+          // position:"relative"
+
+        }}>
+          <AccordionSummary
+            expandIcon={<ExpandMoreIcon />}
+            aria-controls="panel1a-content"
+            id="panel1a-header"
+            style={{
+              width: 822,
+              // height: 49,
+
+              background: "#DFE6F7",
+              borderRadius: 4,
+              // position:"absolute",
+              // zIndex:15
+             
+              
+
+            }}
+          >
+            <Typography style={{
+              color: "black",
+              fontSize: 24,
+              fontFamily: "Montserrat",
+              fontWeight: "600",
+              wordWrap: "break-word",
+              
+            }}>Passenger Details </Typography>
+          </AccordionSummary>
+          <AccordionDetails style={{background: "#DFE6F7", height: "auto"}}>
+            <Box className="mid-headers" style={{ padding: "18px", width: "100%" }}>
+              {Passengers?.map((passenger, key) => {
+                console.log("Value", passenger);
+                return (
+                  <div className="mid_header" key={key} px={5} py={2}>
+                    <Box style={{background: "#DFE6F7"}}>
+                      <Typography
+                        color="#0048FF"
+                        fontWeight="bold"
+                        fontSize="16px"
+                        mb="2px"
+                        fontFamily="Montserrat"
+                      >
+                        Passenger {key + 1}{" "}
+                        <span
+                          style={{
+                            color: "black",
+                            fontSize: 16,
+                            fontFamily: "Montserrat",
+                            fontWeight: "500",
+                            wordWrap: "break-word",
+                          }}
+                        >
+                          (
+                          {passenger.PaxType === 1
+                            ? "Adult"
+                            : passenger.PaxType === 2
+                              ? "Child"
+                              : "Infant"}
+                          )
+                        </span>
+                      </Typography>
+                    </Box>
+                    <Grid container >
+                      <Grid item md={3} style={{background: "#DFE6F7"}}>
+                        <Typography
+                          color="#3D7AD9"
+                          fontWeight="bold"
+                          fontSize="16px"
+                          style={{
+                            color: "black",
+                            fontSize: 16.14,
+                            fontFamily: "Montserrat",
+                            fontWeight: "600",
+                            wordWrap: "break-word",
+                          }}
+                        >
+                          Name:
+                        </Typography>
+                        <Typography
+                          color="#3D7AD9"
+                          fontWeight="bold"
+                          fontSize="16px"
+                          style={{
+                            color: "black",
+                            fontSize: 16.14,
+                            fontFamily: "Montserrat",
+                            fontWeight: "600",
+                            wordWrap: "break-word",
+                          }}
+                        >
+                          Gender:
+                        </Typography>
+                        {passenger.AddressLine1 && (
+                          <Typography
+                            color="#3D7AD9"
+                            fontWeight="bold"
+                            fontSize="16px"
+                            style={{
+                              color: "black",
+                              fontSize: 16.14,
+                              fontFamily: "Montserrat",
+                              fontWeight: "600",
+                              wordWrap: "break-word",
+                            }}
+                          >
+                            Address:
+                          </Typography>
+                        )}
+                        <Typography
+                          color="#3D7AD9"
+                          fontWeight="bold"
+                          fontSize="16px"
+                          style={{
+                            color: "black",
+                            fontSize: 16.14,
+                            fontFamily: "Montserrat",
+                            fontWeight: "600",
+                            wordWrap: "break-word",
+                          }}
+                        >
+                          Seat Preferences:
+                        </Typography>
+                      </Grid>
+                      <Grid item md={9} style={{background: "#DFE6F7"}}>
+                        <Typography
+                          color="#FF8900"
+                          fontWeight="bold"
+                          fontSize="16px"
+                          style={{
+                            color: "black",
+                            fontSize: 16.14,
+                            fontFamily: "Montserrat",
+                            fontWeight: "400",
+                            wordWrap: "break-word",
+                          }}
+                        >
+                          {passenger.Title} {passenger.FirstName} {passenger.LastName}
+                        </Typography>
+                        <Typography
+                          color="#FF8900"
+                          fontWeight="bold"
+                          fontSize="16px"
+                          style={{
+                            color: "black",
+                            fontSize: 16.14,
+                            fontFamily: "Montserrat",
+                            fontWeight: "400",
+                            wordWrap: "break-word",
+                          }}
+                        >
+                          {passenger.Gender === 1
+                            ? "Female"
+                            : passenger.Gender === 2
+                              ? "Male"
+                              : "Transgender"}
+                        </Typography>
+                        {passenger.AddressLine1 && (
+                          <Typography
+                            style={{
+                              color: "black",
+                              fontSize: 16.14,
+                              fontFamily: "Montserrat",
+                              fontWeight: "400",
+                              wordWrap: "break-word",
+                            }}
+                          >
+                            {passenger.AddressLine1}, {passenger.City},{" "}
+                            {passenger.Nationality}
+                          </Typography>
+                        )}
+                        <Typography
+                          style={{
+                            color: "black",
+                            fontSize: 16.14,
+                            fontFamily: "Montserrat",
+                            fontWeight: "400",
+                            wordWrap: "break-word",
+                          }}
+                        >
+                          8D
+                        </Typography>
+                      </Grid>
+                    </Grid>
+                  </div>
+                );
+              })}
+            </Box>
+
+          </AccordionDetails>
+        </Accordion>
+
+    
+
+        <Accordion style={{
+          width: 822,
+        
+
+          background: "#DFE6F7",
+          borderRadius: 4,
+          // position:"relative"
+
+        }}>
+          <AccordionSummary
+            expandIcon={<ExpandMoreIcon />}
+            aria-controls="panel1a-content"
+            id="panel1a-header"
+            style={{
+              width: 822,
+              height: 49,
+
+              background: "#DFE6F7",
+              borderRadius: 4,
+
+            }}
+          >
+            <Typography style={{
+              color: "black",
+              fontSize: 24,
+              fontFamily: "Montserrat",
+              fontWeight: "600",
+              wordWrap: "break-word",
+            }}>Fare Rules </Typography>
+          </AccordionSummary>
+          <AccordionDetails style={{ height: "auto"}}>
+          <Box className="Top_header" p={5} width={822}>
         {fareRules.map((rule) => (
           <Box>
             <div
@@ -841,7 +878,9 @@ const Flightbookingdetail = () => {
         </Box> */}
       </Box>
 
-      <div
+          </AccordionDetails>
+        </Accordion>
+        <div
         style={{
           width: 822,
           height: 49,
@@ -869,7 +908,13 @@ const Flightbookingdetail = () => {
           Terms & Conditions{" "}
         </div>
       </div>
-      <div
+      </div>
+
+   
+  
+
+     
+      {/* <div
         style={{
           width: 822,
           height: 49,
@@ -900,9 +945,9 @@ const Flightbookingdetail = () => {
             type="checkbox"
             value={paymentOption}
             onChange={() => setPaymentOption(!paymentOption)}
-          />{" "}
+          />
         </Box>
-      </div>
+      </div> */}
 
       <div
         style={{
@@ -934,15 +979,15 @@ const Flightbookingdetail = () => {
           marginBottom: "20px",
         }}
       >
-        <div
-          style={{
-            width: 16,
-            height: 16,
-            background: "white",
-            borderRadius: 1,
-            border: "0.95px #5C85A4 solid",
-          }}
-        />
+         <input
+            className="inputSelect"
+            type="checkbox"
+            value={paymentOption}
+            onChange={() => {
+              setPaymentOption(!paymentOption)
+              setPassengerAgreement(!passengerAgreement)}
+            }
+          />
         <div
           style={{
             color: "black",
@@ -1005,8 +1050,8 @@ const Flightbookingdetail = () => {
               !passengerAgreement || !paymentOption
                 ? true
                 : loading
-                ? true
-                : false
+                  ? true
+                  : false
             }
           >
             {" "}
