@@ -1,7 +1,7 @@
 
 
 /* FlightBookings.css */
-.flight-container {
+.cancel-container {
     padding-top: 80px; /* Adjust this value based on the top bar's height */
     margin: 0 auto;
     max-width: 1200px;
@@ -27,7 +27,7 @@
   }
   
  
-  .flightButton{
+  .cancelButton{
     margin: 5px;
     border: none;
     padding: 1px 10px;

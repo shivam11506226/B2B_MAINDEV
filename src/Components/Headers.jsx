@@ -73,9 +73,6 @@ function Headers() {
     navigate("/EditHolidayPackage");
   };
 
-  const Profile = () => {
-    navigate("/UserProfile");
-  };
 
   useEffect(() => {
     const updateSrollYPosition = () => {
@@ -488,9 +485,6 @@ function Headers() {
               </MenuItem>
               <MenuItem onClick={editPackage} style={{ fontSize: "15px" }}>
                 My Package
-              </MenuItem>
-              <MenuItem onClick={Profile} style={{ fontSize: "15px" }}>
-                Profile
               </MenuItem>
             </Menu>
           </div>

@@ -292,7 +292,7 @@ const Busdetail = () => {
                   </Typography>
                 </Box>
               </Grid>
-              <Grid item lg={1}>
+              {/* <Grid item lg={1}>
                 <Box>
                   <Typography
                     sx={{
@@ -307,7 +307,7 @@ const Busdetail = () => {
                     {item?.OperatorId}
                   </Typography>
                 </Box>
-              </Grid>
+              </Grid> */}
               <Grid item lg={1}>
                 <Box>
                   <Typography
@@ -589,7 +589,7 @@ const Busdetail = () => {
                 <label>Origin</label>
                 <select
                   value={selectedOrigin} // Bind the selected value to the state variable.
-                  onChange={(e) => setSelectedOrigin(e.target.value)} // Use onChange to handle value changes.
+                  onClick={(e) => setSelectedOrigin(e.target.value)} // Use onChange to handle value changes.
                   style={{ borderRadius: "10px", width: "120px" }}
                 >
                   {origin.map((name, index) => (
@@ -612,7 +612,7 @@ const Busdetail = () => {
                 <label>Destination</label>
                 <select
                   value={selectedDropPoint}
-                  onChange={(e) => setSelectedDropPoint(e.target.value)}
+                  onClick={(e) => setSelectedDropPoint(e.target.value)}
                   style={{ borderRadius: "10px", width: "120px" }}
                 >
                   {destination.map((name, index) => (

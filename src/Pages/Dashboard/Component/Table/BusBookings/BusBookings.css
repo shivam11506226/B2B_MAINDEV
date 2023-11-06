@@ -56,10 +56,3 @@ button.active {
   background-color: #f3f4f4;
 }
 
-.bush1 {
-  font-size: 24px;
-  margin-bottom: 20px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}

@@ -33,22 +33,22 @@ const Leftdetail = () => {
   const data = reducerState?.oneWay?.oneWayData?.data?.data?.Response;
   const passengerTemplate = {
     Title: "Mr",
-    FirstName: "Unit",
-    LastName: "test",
+    FirstName: "",
+    LastName: "",
     PaxType: 1,
-    DateOfBirth: "1987-12-06T00:00:00",
+    DateOfBirth: "",
     Gender: 1,
     PassportNo: "",
     PassportExpiry: "",
-    AddressLine1: "123, Test",
+    AddressLine1: "",
     AddressLine2: "",
     Fare: farePrice,
-    City: "Gurgaon",
+    City: "",
     CountryCode: "IN",
     CellCountryCode: "+91-",
-    ContactNo: "1234567890",
-    Nationality: "IN",
-    Email: "harsh@tbtq.in",
+    ContactNo: "",
+    Nationality: "",
+    Email: "",
     IsLeadPax: true,
     FFAirlineCode: null,
     FFNumber: "",
@@ -60,8 +60,8 @@ const Leftdetail = () => {
   };
   const childPassenger = {
     Title: "Mr",
-    FirstName: "Raj",
-    LastName: "test",
+    FirstName: "",
+    LastName: "",
     PaxType: 2,
     DateOfBirth: "",
     Gender: 1,
@@ -74,8 +74,8 @@ const Leftdetail = () => {
   };
   const infantPassenger = {
     Title: "Mr",
-    FirstName: "Raj",
-    LastName: "test",
+    FirstName: "",
+    LastName: "",
     PaxType: 3,
     DateOfBirth: "",
     Gender: 1,
@@ -203,9 +203,26 @@ const Leftdetail = () => {
   // }, [reducerState?.flightBook?.flightBookDataGDS?.Error?.ErrorCode, navigate]);
 
   const fareQuoteData = reducerState?.flightFare?.flightQuoteData?.Results;
+  const hii = { h11: "hii", h1: 'h2', h3: 'h3', h4: "" }
+  // const ps = Object.keys(hii)
 
-  function handleSubmit(event) {
+  async function validate() {
+    const ps1 = await Object.values(passengerTemplate).filter((x) => x !== '')
+    const ps2 = await Object.values(childPassenger).filter((x) => x !== '')
+    const ps3 = await Object.values(infantPassenger).filter((x) => x !== '')
+
+    if (ps1.length > 0 || ps2.length > 0 || ps3.length > 0) {
+      return false
+
+    }
+    else {
+      return true
+    }
+  }
+  validate()
+  async function handleSubmit(event) {
     event.preventDefault();
+
     // const payloadGDS = {
     //   ResultIndex: ResultIndex,
     //   Passengers: passengerData,
@@ -214,15 +231,27 @@ const Leftdetail = () => {
     //   TokenId: reducerState?.ip?.tokenData,
     //   TraceId: reducerState?.oneWay?.oneWayData?.data?.data?.Response?.TraceId,
     // };
-
-
-    if (fareValue?.IsLCC === false) {
-      dispatch(PassengersAction(passengerData));
-      navigate("/Flightresult/passengerdetail/flightreviewbooking");
-    } else {
-      dispatch(PassengersAction(passengerData));
-      navigate("/Flightresult/passengerdetail/flightreviewbooking");
+    const valid = await passengerData.filter((item) => (
+      item.FirstName === '' || item.LastName === "" || item.DateOfBirth === ""
+    )
+    )
+    console.log(valid, "nooooooooooooooooooooooooooooo")
+    console.log(passengerData,"passengerDatammmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm")
+    if(valid.length === 0) {
+      console.log("yessssssssssssssssssssssssssssss")
+      if (fareValue?.IsLCC === false) {
+        dispatch(PassengersAction(passengerData));
+        navigate("/Flightresult/passengerdetail/flightreviewbooking");
+      } else {
+        dispatch(PassengersAction(passengerData));
+        navigate("/Flightresult/passengerdetail/flightreviewbooking");
+      }
     }
+    else{
+      alert("Please fill all the details")
+    }
+
+
 
     // if()
 
@@ -355,7 +384,7 @@ const Leftdetail = () => {
   console.log("fareQuoteData", reducerState);
   return (
     <div>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={(e) => handleSubmit(e)} validate>
         <div style={{ display: "flex", justifyContent: "space-between" }}>
           <div className="leftdiv">Passenger Details</div>
           <div className="rightdiv">Name Format as per airline guidelines</div>
@@ -389,7 +418,12 @@ const Leftdetail = () => {
                           <label className="form_lable">Title*</label>
                           <select
                             name="Title"
-                            className="hotel_input_select"
+                            className="form_input_select"
+                            style={{
+                              paddingLeft: '25px', fontSize: '16px',
+                              fontWeight: '400',
+                              fontFamily: "Quicksand"
+                            }}
                             onChange={(e) => handleServiceChange(e, i)}
                           >
                             <option value="Mr">Mr.</option>
@@ -405,6 +439,7 @@ const Leftdetail = () => {
                             name="FirstName"
                             placeholder="Enter your name"
                             onChange={(e) => handleServiceChange(e, i)}
+                            required
                           />
                         </div>
                       </Box>
@@ -417,7 +452,7 @@ const Leftdetail = () => {
                             name="LastName"
                             placeholder="Enter your last name"
                             onChange={(e) => handleServiceChange(e, i)}
-                          />
+                            required />
                         </div>
                       </Box>
                       <Box marginLeft={15}>
@@ -428,8 +463,10 @@ const Leftdetail = () => {
                           <input
                             type="date"
                             name="DateOfBirth"
-                            className="deaprture_input"
+                            className="deaprture_input form_input_select"
+
                             onChange={(e) => handleServiceChange(e, i)}
+                            required
                           />
                         </div>
                       </Box>
@@ -459,6 +496,7 @@ const Leftdetail = () => {
                               required
                               placeholder="Enter Passport No"
                               onChange={(e) => handleServiceChange(e, i)}
+
                             />
                           </div>
                         </Box>
@@ -479,6 +517,7 @@ const Leftdetail = () => {
                               required
                               placeholder="Enter Passport date"
                               onChange={(e) => handleServiceChange(e, i)}
+
                             />
                           </div>
                         </Box>
@@ -525,6 +564,7 @@ const Leftdetail = () => {
                             type="text"
                             placeholder="Enter your number"
                             onChange={(e) => handleServiceChange(e, i)}
+                            required
                           />
                         </div>
                       </Box>
@@ -543,8 +583,8 @@ const Leftdetail = () => {
                         </div>
                       </Box>
                     </Box>
-                    <Box p={15} display="flex">
-                      {/* <Box marginLeft={15}>
+                    {/* <Box p={15} display="flex"> */}
+                    {/* <Box marginLeft={15}>
                           <div className="form_input">
                             <label hotel_form_input className="form_lable">
                               Mobile*
@@ -557,7 +597,7 @@ const Leftdetail = () => {
                             />
                           </div>
                         </Box> */}
-                    </Box>
+                    {/* </Box> */}
                     {/* <Box p={15} display="flex">
                         <Box>
                           <div className="form_input">
@@ -643,6 +683,7 @@ const Leftdetail = () => {
                               required
                               placeholder="Enter Passport date"
                               onChange={(e) => handleServiceChange(e, i)}
+
                             />
                           </div>
                         </Box>
@@ -724,7 +765,7 @@ const Leftdetail = () => {
               Baggage & Meal Services
             </div>
             {childs > 0 && (
-              <Box className="mid_header" p={5} mt={25}>
+              <Box className="mid_header" style={{ border: "1.147px solid #9E9E9E", }} p={5} mt={25}>
                 <Typography className="p-2 Top_txt text-dark">
                   Childs: {childs}
                 </Typography>
@@ -745,6 +786,7 @@ const Leftdetail = () => {
                               onChange={(e) =>
                                 handleServiceChange(e, i + Number(adults))
                               }
+                              required
                             />
                           </div>
                         </Box>
@@ -759,6 +801,7 @@ const Leftdetail = () => {
                               onChange={(e) =>
                                 handleServiceChange(e, i + Number(adults))
                               }
+                              required
                             />
                           </div>
                         </Box>
@@ -767,7 +810,8 @@ const Leftdetail = () => {
                             <label className="form_lable">Gender*</label>
                             <select
                               name="Gender"
-                              className="hotel_input_select"
+                              className="form_input_select"
+
                               onChange={(e) =>
                                 handleServiceChange(e, i + Number(adults))
                               }
@@ -786,10 +830,12 @@ const Leftdetail = () => {
                             <input
                               type="date"
                               name="DateOfBirth"
-                              className="deaprture_input"
+                              className="deaprture_input form_input_select"
+
                               onChange={(e) =>
                                 handleServiceChange(e, i + Number(adults))
                               }
+                              required
                             />
                           </div>
                         </Box>
@@ -806,6 +852,7 @@ const Leftdetail = () => {
                                   required
                                   placeholder="Enter Passport No"
                                   onChange={(e) => handleServiceChange(e, i)}
+
                                 />
                               </div>
                             </Box>
@@ -826,6 +873,7 @@ const Leftdetail = () => {
                                   required
                                   placeholder="Enter Passport date"
                                   onChange={(e) => handleServiceChange(e, i)}
+
                                 />
                               </div>
                             </Box>
@@ -840,7 +888,7 @@ const Leftdetail = () => {
               </Box>
             )}
             {infants > 0 && (
-              <Box className="mid_header" p={5} mt={25}>
+              <Box className="mid_header" style={{ border: "1.147px solid #9E9E9E", }} p={5} mt={25}>
                 <Typography className="p-2 Top_txt text-dark">
                   Infants: {infants}
                 </Typography>
@@ -857,6 +905,7 @@ const Leftdetail = () => {
                             <input
                               name="FirstName"
                               placeholder="Enter your name"
+                              required
                               onChange={(e) =>
                                 handleServiceChange(
                                   e,
@@ -874,6 +923,7 @@ const Leftdetail = () => {
                             <input
                               name="LastName"
                               placeholder="Enter your last name"
+                              required
                               onChange={(e) =>
                                 handleServiceChange(
                                   e,
@@ -888,7 +938,7 @@ const Leftdetail = () => {
                             <label className="form_lable">Gender*</label>
                             <select
                               name="Gender"
-                              className="hotel_input_select"
+                              className="form_input_select"
                               onChange={(e) =>
                                 handleServiceChange(
                                   e,
@@ -910,7 +960,8 @@ const Leftdetail = () => {
                             <input
                               type="date"
                               name="DateOfBirth"
-                              className="deaprture_input"
+                              className="deaprture_input form_input_select"
+                              required
                               onChange={(e) =>
                                 handleServiceChange(
                                   e,
@@ -933,6 +984,7 @@ const Leftdetail = () => {
                                   required
                                   placeholder="Enter Passport No"
                                   onChange={(e) => handleServiceChange(e, i)}
+
                                 />
                               </div>
                             </Box>
@@ -1114,7 +1166,7 @@ const Leftdetail = () => {
               const len = data1.length;
               return (
                 <>
-                  <Box width="120px">
+                  <Box width="120px" height='40px'>
                     <Typography
                       color="#252525"
                       fontSize="14px"
@@ -1127,8 +1179,8 @@ const Leftdetail = () => {
                     <Button
                       style={{
                         width: "156px",
-                        height: "22px",
-                        fontSize: "9px",
+                        height: "30px",
+                        fontSize: "12px",
                         alignItems: "center",
                         display: "flex",
                         backgroundColor: "white",
@@ -1136,6 +1188,7 @@ const Leftdetail = () => {
                         justifyContent: "center",
                         borderRadius: "10px",
                         border: "1px solid #D1D1D1",
+                        borderRadius: '4px'
                       }}
                     >
                       {data1[0]?.Origin?.Airport?.AirportCode}-
@@ -1155,8 +1208,8 @@ const Leftdetail = () => {
                     <Button
                       style={{
                         width: "156px",
-                        height: "22px",
-                        fontSize: "9px",
+                        height: "30px",
+                        fontSize: "12px",
                         alignItems: "center",
                         display: "flex",
                         backgroundColor: "white",
@@ -1164,6 +1217,7 @@ const Leftdetail = () => {
                         justifyContent: "center",
                         borderRadius: "10px",
                         border: "1px solid #D1D1D1",
+                        borderRadius: '4px'
                       }}
                     >
                       {data1[0]?.CabinBaggage ? data1[0]?.CabinBaggage : "7 Kg"}
@@ -1182,8 +1236,8 @@ const Leftdetail = () => {
                     <Button
                       style={{
                         width: "156px",
-                        height: "22px",
-                        fontSize: "9px",
+                        height: "30px",
+                        fontSize: "12px",
                         alignItems: "center",
                         display: "flex",
                         backgroundColor: "white",
@@ -1191,6 +1245,7 @@ const Leftdetail = () => {
                         justifyContent: "center",
                         borderRadius: "10px",
                         border: "1px solid #D1D1D1",
+                        borderRadius: '4px'
                       }}
                     >
                       {data1[0]?.Baggage}

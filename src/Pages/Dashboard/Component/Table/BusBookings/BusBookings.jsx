@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './BusBookings.css';
-import { Table, TableBody, TableCell, TableRow, Paper,TextField,InputAdornment } from '@mui/material';
+import { Table, TableBody, TableCell, TableRow, Paper, TextField, InputAdornment } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 const AllBusBooking = () => {
   const [busBookings, setBusBookings] = useState([]);
@@ -14,13 +14,13 @@ const AllBusBooking = () => {
     async function fetchBusBookings() {
       try {
         const response = await axios.get(`http://localhost:8000/skytrails/api/admin/getAllBusBookingList`,
-        {
-          params: {
-            page: currentPage,
-            size: pageSize,
-            search: searchTerm,
+          {
+            params: {
+              page: currentPage,
+              size: pageSize,
+              search: searchTerm,
+            }
           }
-        }
         )
         setBusBookings(response.data.result.docs);
         setTotalPages(response.data.result.totalPages);
@@ -32,7 +32,7 @@ const AllBusBooking = () => {
     }
 
     fetchBusBookings();
-  },  [currentPage, searchTerm]);
+  }, [currentPage, searchTerm]);
 
   const handlePageChange = (page) => {
     setCurrentPage(page);
@@ -43,7 +43,7 @@ const AllBusBooking = () => {
   };
   return (
     <div className="bus-container">
-       <TextField
+      <TextField
         type="text"
         value={searchTerm}
         onChange={handleSearch}
@@ -79,11 +79,11 @@ const AllBusBooking = () => {
               <td>{bookings._id}</td>
               <td>{bookings.userId}</td>
               <td>{bookings.name}</td>
-              <td>{bookings.email}</td>
+              <td>{bookings.userDetails ? `${bookings.userDetails.email}` : "Empty"}</td>
               <td>
-                {typeof bookings.phone === 'object' ?
+                {bookings.phone && typeof bookings.phone === 'object' ?
                   `${bookings.phone.country_code}${bookings.phone.mobile_number}` :
-                  bookings.phone
+                  "Empty"
                 }
               </td>
               <td>{bookings.destination}</td>
