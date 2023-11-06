@@ -90,7 +90,6 @@ const HotelBooknow = () => {
     }
     return stars;
   };
-  const hotelContactNo = hotelInfo?.HotelDetails?.HotelContactNo;
 
   return (
     <>
@@ -100,7 +99,7 @@ const HotelBooknow = () => {
         <div className="flightContainer">
           {/* step by step updating part */}
 
-          {/* <Flex
+          <Flex
             w="100%"
             h="50"
             mb="20"
@@ -183,8 +182,8 @@ const HotelBooknow = () => {
                 Booking Confirmation
               </Text>
             </Flex>
-          </Flex> */}
-          {/* <Box className="book_content" py={2}>
+          </Flex>
+          <Box className="book_content" py={2}>
             <Box>
               <Box alignItems="center">
                 <Typography className="main-txt">
@@ -241,88 +240,7 @@ const HotelBooknow = () => {
                 </Typography>
               </Box>
             </Box>
-          </Box> */}
-      <Box
-      className="book_content"
-      display="flex"
-      alignItems="center"
-      borderRadius={8}
-      bgcolor="#FFF"
-      p={10}
-      boxShadow="0px 4px 8px 0px rgba(0, 0, 0, 0.16)"
-     
-      
-    >
-      <Typography className="main-txt" color="#21325D" >
-        {hotelInfo?.HotelDetails?.HotelName}
-      </Typography>
-      <Box display="flex" alignItems="center" style={{marginLeft:"5px"}}>
-        {star(hotelInfo?.HotelDetails?.StarRating)}
-      </Box>
-
-      <Typography
-        className="check-txt"
-        variant="subtitle1"
-        color="textSecondary"
-        display="flex"
-        alignItems="center"
-        
-       
-      >
-        <span
-          style={{
-            color: "#21325D",
-            fontSize: "16px",
-            fontFamily: "Montserrat",
-            fontWeight: 600,
-             whiteSpace: 'nowrap',
-             marginLeft:"5px"
-          }}
-        >
-          Check In:
-        </span>{" "}
-        {
-          reducerState?.hotelSearchResult?.ticketData?.data?.data?.HotelSearchResult?.CheckInDate
-        }
-        <span
-          style={{
-            color: "#21325D",
-            fontSize: "16px",
-            fontFamily: "Montserrat",
-            fontWeight: 600,
-            whiteSpace: 'nowrap',
-            marginLeft:"5px"
-          }}
-        >
-          Check Out:
-        </span>{" "}
-        {
-          reducerState?.hotelSearchResult?.ticketData?.data?.data?.HotelSearchResult?.CheckOutDate
-        }
-      </Typography>
-      <Typography className="third-txt" variant="body1" color="textPrimary" marginLeft="10px">
-        {hotelInfo?.HotelDetails?.Address}
-      </Typography>
-      <Typography
-        variant="body1"
-        color="textPrimary"
-        display="flex"
-        alignItems="center"
-        marginLeft="6px"
-     
-      >
-        Contact No:{" "}
-        <span style={{ color: "#006FFF", fontWeight: "bold" }}>
-          {hotelContactNo ? hotelContactNo :(
-            <span style={{ color: "red", fontWeight: "bold" }}>
-              not available hotel contact no
-            </span>
-          )}
-        </span>
-      </Typography>
-    </Box>
-
-
+          </Box>
           <Box className="book_content" mt={3}>
             <Box py={1}>
               <Box className="accordian_area">

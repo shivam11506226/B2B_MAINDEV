@@ -44,25 +44,21 @@ export default function Popularfilter() {
 
   const result =
     reducerState?.hotelSearchResult?.ticketData?.data?.data?.HotelSearchResult;
-  console.log("result", result);
+  console.log(
+    'result',result)
   const handleClick = (resultIndex, hotelCode) => {
     console.log("Handel Click Index Key", resultIndex, hotelCode);
     navigate("HotelBooknow");
     sessionStorage.setItem("ResultIndex", resultIndex);
     sessionStorage.setItem("HotelCode", hotelCode);
   };
-  const handleModifySearchClick = () => {
-    // Redirect to the /hotel page
-    navigate("/hotel");
-  };
-
   return (
     <Box sx={{ flexGrow: 1 }}>
       <Grid container spacing={3}>
         <Grid item xs={12} md={3}>
           <Box
-            backgroundColor="white"
-            border="1px solid #5C85A4"
+            backgroundColor="#F5F5F5"
+            boxShadow="1px 1px 8px gray"
             borderRadius="10px"
           >
             <Typography justifyContent="center" display="flex" pt={3}>
@@ -112,15 +108,20 @@ export default function Popularfilter() {
                 marginX: "20px",
               }}
             >
-              <Button
-                variant="contained"
-                className="btn_mod"
-                onClick={handleModifySearchClick}
-              >
+              <Button variant="contained" className="btn_mod">
                 Modify Search
               </Button>
             </Box>
-
+            <Divider sx={{ backgroundColor: "gray", marginY: "5px" }} />
+            <Typography
+              pt={1}
+              paddingLeft="22px"
+              justifyContent="start"
+              display="flex"
+              sx={{ fontSize: "12px", fontWeight: "bold" }}
+            >
+              Hotel Name Contains:
+            </Typography>
             <Box
               sx={{
                 display: "flex",
@@ -129,7 +130,7 @@ export default function Popularfilter() {
                 marginX: "20px",
               }}
             >
-              {/* <Button
+              <Button
                 variant="contained"
                 href="#contained-buttons"
                 size="large"
@@ -145,10 +146,20 @@ export default function Popularfilter() {
                 mt={5}
               >
                 Enter Hotel Name
-              </Button> */}
+              </Button>
             </Box>
 
-            {/* <Box
+            <Divider sx={{ backgroundColor: "gray" }} />
+            <Typography
+              pt={1}
+              paddingLeft="22px"
+              justifyContent="start"
+              display="flex"
+              sx={{ fontSize: "12px", fontWeight: "bold" }}
+            >
+              Hot Deals
+            </Typography>
+            <Box
               sx={{
                 display: "flex",
                 marginY: "15px",
@@ -161,8 +172,7 @@ export default function Popularfilter() {
                 checkedIcon={<RadioButtonCheckedIcon />}
               />
               <Typography className="list_text">Hot Deals</Typography>
-            </Box> */}
-
+            </Box>
             <Box
               sx={{
                 display: "flex",
@@ -172,7 +182,7 @@ export default function Popularfilter() {
               }}
             ></Box>
             <Divider sx={{ backgroundColor: "gray" }} />
-            {/* <Typography
+            <Typography
               pt={1}
               paddingLeft="22px"
               justifyContent="start"
@@ -180,13 +190,13 @@ export default function Popularfilter() {
               sx={{ fontSize: "12px", fontWeight: "bold" }}
             >
               Price In Rs.:
-            </Typography> */}
-            {/* <Box display="flex" justifyContent="center">
+            </Typography>
+            <Box display="flex" justifyContent="center">
               <RangeSlider />
-            </Box> */}
+            </Box>
 
             <Divider sx={{ backgroundColor: "gray" }} />
-            {/* <Typography
+            <Typography
               pt={1}
               paddingLeft="22px"
               justifyContent="start"
@@ -194,8 +204,8 @@ export default function Popularfilter() {
               sx={{ fontSize: "12px", fontWeight: "bold" }}
             >
               Star Rating
-            </Typography> */}
-            {/* <Box textAlign="left" pb={3}>
+            </Typography>
+            <Box textAlign="left" pb={3}>
               <form action="">
                 <Box display="flex" alignItems="center">
                   <Checkbox
@@ -206,11 +216,11 @@ export default function Popularfilter() {
                   <Rating />
                 </Box>
               </form>
-            </Box> */}
+            </Box>
           </Box>
         </Grid>
         <Grid item xs={12} md={9}>
-          {/* <Box>
+          <Box>
             <Box
               display="flex"
               px={2}
@@ -236,7 +246,7 @@ export default function Popularfilter() {
                 <Button sx={{ color: "black" }}>Offer Price</Button>
               </Grid>
             </Box>
-          </Box> */}
+          </Box>
 
           {result?.HotelResults?.map((result, index) => {
             const resultIndex = result?.ResultIndex;
@@ -245,115 +255,53 @@ export default function Popularfilter() {
               <Box mt={3} key={index}>
                 <Box
                   p={2}
-                  borderRadius="8px"
-                  border="1.41px solid #BBB"
-                  background=" #FFFBFB"
+                  backgroundColor="#F5F5F5"
+                  boxShadow="1px 1px 8px gray"
+                  borderRadius="10px"
                 >
                   <Box display="flex">
                     <Grid md={7} sm={6}>
                       <Box display="flex">
-                        <Box
-                          sx={{
-                            width: "20%",
-                            height: "30%",
-                            borderRadius: "5px",
-                          }}
-                        >
+                        <Box sx={{ width: "20%", height: "30%",borderRadius:"5px" }}>
                           <img
                             src={result?.HotelPicture}
                             className="flight_img"
                             alt="hotelImage"
-                            style={{ borderRadius: "5px" }}
+                            style={{borderRadius:"5px"}}
                           />
                         </Box>
-                        <Box>
-                          <div
-                            style={{
-                              color: "#071C2C",
-                              fontSize: "20px",
-                              fontFamily: "Montserrat",
-                              fontWeight: 700,
-                              wordWrap: "break-word",
-                              marginLeft: "20px",
-                            }}
-                          >
+                        <Box px={1}>
+                          <Typography className="hotel_name">
                             {result?.HotelName}
-                          </div>
-                          <div
-                            style={{
-                              color: "#071C2C",
-                              fontSize: "14.10px",
-                              fontFamily: "Montserrat",
-                              fontWeight: 500,
-                              wordWrap: "break-word",
-                              marginLeft: "20px",
-                            }}
-                          >
-                            {result?.HotelAddress}
-                          </div>
-
+                          </Typography>
                           <Typography p={0}>
-                            <Link sx={{ fontSize: "13px", marginLeft: "20px" }}>
-                              More Details
-                            </Link>
+                            <Link sx={{ fontSize: "13px" }}>More Details</Link>
                           </Typography>
                         </Box>
                       </Box>
                     </Grid>
                     <Grid md={5} sm={6}>
-                      <Typography display="flex" gap="15px" justifyContent="right">
-                        <div
-                          style={{
-                            color: "black",
-                            fontSize: "14.10px",
-                            fontFamily: "Montserrat",
-                            fontWeight: 600,
-                            wordWrap: "break-word",
-                            marginLeft:"-30px"
-                          }}
-                        >
-                          Offer Price:
-                        </div>
-                        <div
-                          style={{
-                            color: "black",
-                            fontSize: "14.10px",
-                            fontFamily: "Montserrat",
-                            fontWeight: 400,
-                            wordWrap: "break-word",
-                          }}
-                        >
-                          ₹{result?.Price?.OfferedPrice}
-                        </div>
+                      <Typography
+                        color="#006FFF"
+                        fontSize="12px"
+                        fontWeight="bold"
+                        display="flex"
+                        justifyContent="center"
+                      >
+                        Offer Price: ₹{result?.Price?.OfferedPrice}
                       </Typography>
-                      <Typography display="flex" gap="15px" justifyContent="right">
-                        <div
-                          style={{
-                            color: "black",
-                            fontSize: "14.10px",
-                            fontFamily: "Montserrat",
-                            fontWeight: 600,
-                            wordWrap: "break-word",
-                            marginLeft:"50px"
-                          }}
-                        >
-                          Public Price:
-                        </div>
-                        <div
-                          style={{
-                            color: "black",
-                            fontSize: "14.10px",
-                            fontFamily: "Montserrat",
-                            fontWeight: 400,
-                            wordWrap: "break-word",
-                          }}
-                        >
-                           ₹{result?.Price?.PublishedPrice}
-                        </div>
+                      <Typography
+                        color="#FF8900"
+                        fontSize="12px"
+                        fontWeight="bold"
+                        display="flex"
+                        justifyContent="center"
+                      >
+                        Publisher Price: ₹{result?.Price?.PublishedPrice}
                       </Typography>
-                     
-                      <Box display="flex" justifyContent="right" mt={2}>
+                      <Box display="flex" justifyContent="center" mt={2}>
                         <Button
+                          variant="contained"
                           type="submit"
                           onClick={() => {
                             console.log(
@@ -363,9 +311,15 @@ export default function Popularfilter() {
                             );
                             handleClick(resultIndex, hotelCode);
                           }}
-                          style={{ backgroundColor: "#21325D", color: "white" }}
                         >
-                          Book Now
+                          <Typography
+                            color="white"
+                            fontSize="10px"
+                            display="flex"
+                            justifyContent="center"
+                          >
+                            Book Now
+                          </Typography>
                         </Button>
                       </Box>
                     </Grid>
