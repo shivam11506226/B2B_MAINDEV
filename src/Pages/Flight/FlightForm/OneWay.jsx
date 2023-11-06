@@ -16,6 +16,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { Typography } from "@mui/material";
 import { apiURL } from "../../../Constants/constant";
+import { clearPassengersReducer } from "../../../Redux/Passengers/passenger";
 
 const OneWay = () => {
   const dispatch = useDispatch();
@@ -73,6 +74,7 @@ const OneWay = () => {
   const [dateError, setDateError] = useState("");
 
   useEffect(() => {
+    clearPassengersReducer();
     let mounted = true;
 
     const fetchSearchResults = async () => {
@@ -121,6 +123,12 @@ const OneWay = () => {
       mounted = false;
     };
   }, [toQuery]);
+  
+  // Get the current date in the format "YYYY-MM-DD"
+  useEffect(() => {
+    const currentDate = new Date().toISOString().split('T')[0];
+    inputRef.current.min = currentDate;
+  }, []);
 
   useEffect(() => {
     dispatch(clearOneWayReducer());

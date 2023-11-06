@@ -48,6 +48,7 @@ function InnerNavbar() {
               textAlign: "center",
             }}
           >
+
             <div style={{ fontSize: "30px" }} color={false ? "#21325D" : "white"}>
               {avatar}
             </div>

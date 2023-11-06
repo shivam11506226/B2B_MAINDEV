@@ -32,6 +32,7 @@ import {
   FormHelperText,
 } from "@chakra-ui/react";
 import { useLocation } from 'react-router-dom';
+import { balanceSubtractRequest } from "../Redux/Auth/balaceSubtract/actionBalnceSubtract.js";
 const style = {
   border: "10px solid #000",
   boxShadow: 24,
@@ -42,7 +43,7 @@ function Headers() {
   const reducerState = useSelector((state) => state);
   const [openModal, setOpenModal] = React.useState(false);
   const [amount, setAmount] = React.useState("");
-  const [userData, setUserData] = useState(null);
+  // const [userData, setUserData] = useState(null);
   const handleOpenModal = () => setOpenModal(true);
   const handleCloseModal = () => setOpenModal(false);
   const dispatch = useDispatch();
@@ -72,6 +73,7 @@ function Headers() {
     navigate("/EditHolidayPackage");
   };
 
+
   useEffect(() => {
     const updateSrollYPosition = () => {
       setScrollYValue(window.scrollY);
@@ -87,7 +89,7 @@ function Headers() {
       _id: reducerState?.logIn?.loginData?.data?.data?.id,
       amount: amount,
     };
-
+   
     // axios
     //   .post("http://localhost:8000/updateBalance", data)
     //   .then((res) => {
@@ -103,9 +105,9 @@ function Headers() {
     setAmount("");
     handleCloseModal();
   };
-
+ 
   const handleRazorpay = (data) => {
-    console.log("handleRazorpay called");
+    // console.log("handleRazorpay called");
     const options = {
       key: "rzp_test_rSxJ8wZCLzTJck",
       amount: amount * 100,
@@ -115,7 +117,7 @@ function Headers() {
       image: STLOGO,
       order_id: data.id,
       handler: function (response) {
-        console.log(response);
+        // console.log(response);
         // Check if the Razorpay payment is successful
         if (response.razorpay_payment_id) {
           // Payment was successful, now update the user's balance
@@ -127,7 +129,7 @@ function Headers() {
           axios
             .post("http://localhost:8000/updateBalance", paymentData)
             .then((balanceUpdateResponse) => {
-              console.log("new data response", balanceUpdateResponse);
+              // console.log("new data response", balanceUpdateResponse);
 
               // Handle any further actions after a successful payment and database update
             })
@@ -142,12 +144,12 @@ function Headers() {
             razorpay_signature: data.razorpay_signature,
           };
 
-          console.log("paymentVeriy", paymentVerifyData);
+          // console.log("paymentVeriy", paymentVerifyData);
 
           axios
             .post("http://localhost:8000/payVerify", paymentVerifyData)
             .then((verificationResponse) => {
-              console.log(verificationResponse.data);
+              // console.log(verificationResponse.data);
 
               // Handle any further actions after a successful payment verification
               // You can update the user's balance here if the payment was successful
@@ -171,9 +173,9 @@ function Headers() {
 
   //get user detail for update balance
   const userId = reducerState?.logIn?.loginData?.data?.data?.id;
-
- 
-    // console.log("userIdnew",userId)
+  
+  
+    console.log("userIdnew",userId,reducerState)
   
 
   useEffect(() => {
@@ -185,26 +187,39 @@ function Headers() {
     // console.log(payload,'userIdiii');
    dispatch(getUserDataAction(payload));
       }
+
+  //     if(userId){
+  //       const balancePayload={
+  //         _id:userId,
+  //         amount:100
+  //       }
+
+  //  dispatch(balanceSubtractRequest(balancePayload))
+  //     }
     // console.log( dispatch(getUserDataAction(payload)),'working dispatch')
 
-    axios
-      .get(`http://localhost:8000/skyTrails/user/${userId}`)
-      .then((response) => {
-        // Handle the response data
-        const user = response.data.data;
-        setUserData(user);
-        console.log("user data", response?.data?.data?.balance);
-      })
-      .catch((error) => {
-        console.error(error);
-        // Handle errors, e.g., display an error message
-      });
+    // axios
+    //   .get(`http://localhost:8000/skyTrails/user/${userId}`)
+    //   .then((response) => {
+    //     // Handle the response data
+    //     const user = response.data.data;
+    //     setUserData(user);
+    //     console.log("user data", response?.data?.data?.balance);
+    //   })
+    //   .catch((error) => {
+    //     console.error(error);
+    //     // Handle errors, e.g., display an error message
+    //   });
 
       
 
  
 
   }, [userId,dispatch]);
+
+  const userData=reducerState?.userData?.userData?.data?.data;
+
+    
   const location = useLocation();
       const { pathname } = location;
     
@@ -212,6 +227,11 @@ function Headers() {
         return null; // If the path matches '/admin/dashboard', the header is not rendered
    }
 
+  const isAdminPath = pathname === "/adminLogin" || pathname === "/admin/dashboard";
+
+  if (isAdminPath) {
+    return null; // Don't render the InnerNavbar for admin paths
+  }
   return (
     <div
       style={{
@@ -268,6 +288,7 @@ function Headers() {
           >
             Contact your representative
           </p>
+         
           <div
             style={{
               color: "black",
@@ -327,9 +348,15 @@ function Headers() {
                 fontFamily: "Montserrat",
                 fontWeight: "400",
                 wordWrap: "break-word",
+              
+                
               }}
             >
-              {userData?.balance||reducerState?.logIn?.loginData?.data?.data?.balance}
+
+              {userData?.balance.toFixed(2)||reducerState?.logIn?.loginData?.data?.data?.balance.toFixed(2)}
+              
+              
+
             </div>
           </div>
           <div
@@ -339,7 +366,7 @@ function Headers() {
               fontFamily: "Montserrat",
               fontWeight: "400",
               wordWrap: "break-word",
-              marginLeft:"10px"
+              marginLeft:"30px"
             }}
           >
             |
@@ -352,7 +379,7 @@ function Headers() {
               fontSize: 16,
               fontFamily: "Montserrat",
               fontWeight: "400",
-
+              // marginLeft:"20px",
               wordWrap: "break-word",
             }}
           >
@@ -365,6 +392,7 @@ function Headers() {
               fontFamily: "Montserrat",
               fontWeight: "400",
               wordWrap: "break-word",
+              
             }}
           >
             |

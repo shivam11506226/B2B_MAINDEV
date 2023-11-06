@@ -96,7 +96,7 @@ const NavBarBox = ({ avatar, name, path }, index) => {
             }}
           >
             {Holiday.map((k, l) => {
-              if (name === "Islandhopper") {
+              if (name === "Package") {
                 return (
                   <ul>
                     <Box>

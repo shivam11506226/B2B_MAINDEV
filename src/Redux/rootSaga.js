@@ -30,6 +30,7 @@ import { hotelSearchWatcher } from "./Saga/hotelSaga";
 import { watchFormSubmission } from "./Saga/HolidayPackageTravellerDetailsSaga";
 import { getHolidayBookingRequestWatcher } from "./Saga/packageBookingRequestSaga";
 import { userDataWatcher } from "./Saga/userDataSaga";
+import { balanceSubtractWatcher } from "./Saga/balanceSubtractSaga";
 
 export function* rootSaga() {
   yield all([
@@ -65,6 +66,7 @@ export function* rootSaga() {
     hotelSearchWatcher(),
     getHolidayBookingWatcher(),
     watchFormSubmission(),
-    userDataWatcher()
+    userDataWatcher(),
+    balanceSubtractWatcher()
   ]);
 }
