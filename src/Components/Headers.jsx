@@ -259,7 +259,7 @@ function Headers() {
         <Link to="/">
           <img
             src={STLOGO}
-            style={{ width:"100%",height:"200px" }}
+            style={{ width: "100%", height: "220px" }}
             alt="logo"
           />
         </Link>

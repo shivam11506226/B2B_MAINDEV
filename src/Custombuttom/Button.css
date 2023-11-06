@@ -1,8 +1,8 @@
  .button {
   position: relative;
   overflow: hidden;
-  height: 2.5rem;
-  width:10%;
+  height: 2rem;
+  width: auto;
   /* padding: 0 2rem; */
   border-radius: 0.5rem;
  
@@ -18,13 +18,12 @@
 }
 
 .button-content {
- 
+  position: relative;
   z-index: 1;
  /* border: 3PX solid red; */
   text-align: center;
   padding: 0%;
-  margin-top: -5px;
-  
+  margin: 10px auto;
 }
 .button::before{
   content: '';

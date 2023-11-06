@@ -7,7 +7,7 @@ function MainBox() {
     <div
       style={{
         backgroundColor: "white",
-        width: "700px",
+        width: "800px",
         display: "flex",
         gap: "20px",
         flexWrap: "wrap",

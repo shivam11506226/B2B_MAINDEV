@@ -79,24 +79,24 @@ export const InnerBarLogo = [
   },
   {
     avatar: <FaBus />,
-    name: "Bus",
+    name: "Transfer",
     path: "/bus",
   },
-  // {
-  //   avatar: <FaBinoculars />,
-  //   name: "Sightseeing",
-  //   path: "/sightseeing",
-  // },
+  {
+    avatar: <FaBinoculars />,
+    name: "Sightseeing",
+    path: "/sightseeing",
+  },
   {
     avatar: <FaPassport />,
     name: "Visa",
     path: "/visa",
   },
-  // {
-  //   avatar: <FaShieldAlt />,
-  //   name: "Insurance",
-  //   path: "/insurance",
-  // },
+  {
+    avatar: <FaShieldAlt />,
+    name: "Insurance",
+    path: "/insurance",
+  },
   {
     avatar: <FaUser />,
     name: "Administration",
