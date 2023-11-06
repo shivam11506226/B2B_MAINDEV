@@ -14,7 +14,7 @@ const HotelSearch = () => {
     <div className="flightContainer">
       {/* step by step updating part */}
 
-      <Box
+      {/* <Box
         w="100%"
         display="flex"
         justifyContent={"space-around"}
@@ -102,7 +102,7 @@ const HotelSearch = () => {
 
           <Box fontWeight="normal">Booking Confirmation</Box>
         </HStack>
-      </Box>
+      </Box> */}
       <div>
         <Hotelresult />
       </div>

@@ -120,7 +120,7 @@ export default function CustomizedAccordions() {
             <Box display="grid" justifyContent="left" textAlign="left">
               <Typography
                 sx={{
-                  fontSize: "8px",
+                  fontSize: "12px",
                   fontWeight: "bold",
                   color: "#666666",
                 }}
@@ -129,7 +129,7 @@ export default function CustomizedAccordions() {
               </Typography>
               <Typography
                 sx={{
-                  fontSize: "8px",
+                  fontSize: "12px",
                   fontWeight: "bold",
                   color: "#006FFF",
                 }}
