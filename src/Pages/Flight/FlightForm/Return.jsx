@@ -248,12 +248,13 @@ const Return = () => {
 
       {/* arrival and departure input box */}
       <div className="row w-100">
-        <div className="col-xs-12 col-md-2">
+        <div className="col-xs-12 col-md-2 col-lg-2">
           <div className="form_input">
             <label for="from" className="form_lable">
               FROM
             </label>
             <input
+              
               name="from"
               placeholder="Enter city or airport"
               value={from}
@@ -305,7 +306,7 @@ const Return = () => {
         <div className="col-1 d-flex justify-content-center">
           <img src={transfer} alt="name" className="align-self-center" />
         </div>
-        <div className="col-xs-12 col-md-2 ps-0" style={{ marginLeft: "20px" }}>
+        <div className="col-xs-12 col-md-2 ps-0 col-lg-2" style={{ marginLeft: "20px" }}>
           <div className="form_input">
             <label for="to" className="form_lable">
               TO
@@ -360,7 +361,7 @@ const Return = () => {
           </div>
         </div>
 
-        <div className="col-xs-12 col-md-2">
+        <div className="col-xs-12 col-md-2 col-lg-3">
           <div className="form_input">
             <label for="departure" className="form_lable">
               DEPARTURE
@@ -378,7 +379,7 @@ const Return = () => {
             ></input>
           </div>
         </div>
-        <div className="col-xs-12 col-md-2">
+        <div className="col-xs-12 col-md-2 col-lg-3" >
           <div className="form_input">
             <label for="departure" className="form_lable">
               RETURN
@@ -438,7 +439,7 @@ const Return = () => {
       <div className="row" style={{ width: "100%" }}>
         <div className="col-xs-9">
           <div className="row">
-            <div className="col-3 col-md-3 col-lg-2 mb-3">
+            <div className="col-3 col-md-3 col-lg-3 mb-3">
               <div className="form_input">
                 <label className="form_lable">Adult(12+)</label>
 
@@ -456,7 +457,7 @@ const Return = () => {
               </div>
             </div>
 
-            <div className="col-3 col-md-3 col-lg-2 mb-3">
+            <div className="col-3 col-md-3 col-lg-3 mb-3">
               <div className="form_input">
                 <label className="form_lable">Child(2-11)</label>
                 <select name="child" id="" className="form_input_select">
@@ -489,7 +490,7 @@ const Return = () => {
               </div>
             </div>
 
-            <div className="col-3 col-md-3 col-lg-2 mb-3">
+            <div className="col-3 col-md-3 col-lg-3 mb-3">
               <div className="form_input">
                 <label className="form_lable">Class</label>
                 <select name="class" id="" className="form_input_select">
@@ -577,8 +578,8 @@ const Return = () => {
             <div
               className="row"
               style={{
-                width: "100%",
-                gap: "40px",
+                width: "75%",
+               
              
                 display: "flex",
                 height: "55px",
@@ -586,7 +587,7 @@ const Return = () => {
             >
               <div
                 className="col-6 col-md-3 col-lg-2 mb-3"
-                style={{ width: "250px" }}
+                style={{ width: "311px",marginRight:"-137px" }}
               >
                 <div className="form_input">
                   <label className="form_lable">Preferred Airline</label>
