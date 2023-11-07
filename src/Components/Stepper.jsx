@@ -4,7 +4,7 @@ import { Box, Flex, Spacer, Text } from "@chakra-ui/react";
 const Stepper = () => {
   return (
     <div>
-      <Flex
+      {/* <Flex
         w="100%"
         h="50"
         mb="20"
@@ -57,7 +57,7 @@ const Stepper = () => {
             Booking Confirmation
           </Text>
         </Flex>
-      </Flex>
+      </Flex> */}
     </div>
   );
 };

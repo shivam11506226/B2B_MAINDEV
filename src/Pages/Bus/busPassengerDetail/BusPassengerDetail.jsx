@@ -98,178 +98,52 @@ const BusPassengerDetail = () => {
   }
 
   return (
-    <div className="flightContainer">
+    <div className="flightContainer" style={{paddingBottom:"50px"}}>
       <BusStepper />
       <Box sx={{ flexGrow: 1 }}>
         <Grid container spacing={2}>
           <Grid item xs={9}>
-            <Box className="Bus_box">
-              <Box display="flex" justifyContent="space-between">
-                <Box display="flex">
-                  <Typography
-                    sx={{
-                      fontSize: "14px",
-                      fontWeight: "bold",
-                      color: "#252525",
-                    }}
-                  >
-                    Travel:
-                  </Typography>
-                  <Typography
-                    sx={{
-                      fontSize: "14px",
-                      fontWeight: "bold",
-                      color: "#006FFF",
-                    }}
-                    ml={2}
-                  >
-                    Ashok Travels Mandsaur Group
-                  </Typography>
-                </Box>
-                <Box display="flex">
-                  <Typography
-                    sx={{
-                      fontSize: "14px",
-                      fontWeight: "bold",
-                      color: "#252525",
-                      textAlign: "left",
-                    }}
-                  >
-                    From:
-                  </Typography>
-                  <Typography
-                    sx={{
-                      fontSize: "14px",
-                      fontWeight: "bold",
-                      color: "#006FFF",
-                      textAlign: "left",
-                    }}
-                    ml={2}
-                  >
-                    Delhi
-                  </Typography>
-                </Box>
-                <Box display="flex">
-                  <Typography
-                    sx={{
-                      fontSize: "14px",
-                      fontWeight: "bold",
-                      color: "#252525",
-                    }}
-                  >
-                    Travel:
-                  </Typography>
-                  <Typography
-                    sx={{
-                      fontSize: "14px",
-                      fontWeight: "bold",
-                      color: "#006FFF",
-                    }}
-                    ml={2}
-                  >
-                    Ashok Travels Mandsaur Group
-                  </Typography>
-                </Box>
-              </Box>
-              <Box display="flex" justifyContent="space-between">
-                <Box display="flex">
-                  <Typography
-                    sx={{
-                      fontSize: "14px",
-                      fontWeight: "bold",
-                      color: "#252525",
-                    }}
-                  >
-                    Bus Type:
-                  </Typography>
-                  <Typography
-                    sx={{
-                      fontSize: "14px",
-                      fontWeight: "bold",
-                      color: "#006FFF",
-                    }}
-                    ml={2}
-                  >
-                    NON Ac Seater / Sleeper 2+1
-                  </Typography>
-                </Box>
-                <Box display="flex">
-                  <Typography
-                    sx={{
-                      fontSize: "14px",
-                      fontWeight: "bold",
-                      color: "#252525",
-                      textAlign: "left",
-                    }}
-                  >
-                    Depart:
-                  </Typography>
-                  <Typography
-                    sx={{
-                      fontSize: "14px",
-                      fontWeight: "bold",
-                      color: "#006FFF",
-                      textAlign: "left",
-                    }}
-                    ml={2}
-                  >
-                    11 Jan 2023, 19:00
-                  </Typography>
-                </Box>
-                <Box display="flex">
-                  <Typography
-                    sx={{
-                      fontSize: "14px",
-                      fontWeight: "bold",
-                      color: "#252525",
-                    }}
-                  >
-                    Bus Type:
-                  </Typography>
-                  <Typography
-                    sx={{
-                      fontSize: "14px",
-                      fontWeight: "bold",
-                      color: "#006FFF",
-                    }}
-                    ml={2}
-                  >
-                    NON Ac Seater / Sleeper 2+1
-                  </Typography>
-                </Box>
-              </Box>
-            </Box>
+          <Box className="Bus_box" style={{  display: "flex", justifyContent: "space-between" }}>
+      <Box display="flex">
+        <Typography sx={{ fontSize: "14px", fontWeight: "bold", color: "#252525" }}>
+          Travel:
+        </Typography>
+        <Typography sx={{ fontSize: "14px", color: "#000" }} ml={2}>
+          Ashok Travels Mandsaur Group
+        </Typography>
+      </Box>
+      <Box display="flex">
+        <Typography sx={{ fontSize: "14px", fontWeight: "bold", color: "#252525", textAlign: "left" }}>
+          From:
+        </Typography>
+        <Typography sx={{ fontSize: "14px",  color: "#000", textAlign: "left" }} ml={2}>
+          Delhi
+        </Typography>
+      </Box>
+      <Box display="flex">
+        <Typography sx={{ fontSize: "14px", fontWeight: "bold", color: "#252525" }}>
+          Bus Type:
+        </Typography>
+        <Typography sx={{ fontSize: "14px",  color: "#000" }} ml={2}>
+          NON Ac Seater / Sleeper 2+1
+        </Typography>
+      </Box>
+      <Box display="flex">
+        <Typography sx={{ fontSize: "14px", fontWeight: "bold", color: "#252525", textAlign: "left" }}>
+          Depart:
+        </Typography>
+        <Typography sx={{ fontSize: "14px",  color: "#000", textAlign: "left" }} ml={2}>
+          11 Jan 2023, 19:00
+        </Typography>
+      </Box>
+    </Box>
             <Box className="Bus_box" my={3}>
-              <Box
-                className="Bussmal_box"
-                display="flex"
-                justifyContent="space-between"
-                p={1}
-              >
-                <Typography
-                  sx={{
-                    fontSize: "14px",
-                    fontWeight: "bold",
-                    color: "#252525",
-                  }}
-                >
-                  Enter Passenger Details
-                </Typography>
-                <Typography
-                  sx={{
-                    fontSize: "12px",
-                    fontWeight: "bold",
-                    color: "#FF8900",
-                  }}
-                >
-                  Enter Passenger Details
-                </Typography>
-              </Box>
+             
               <Box>
                 {passengerCount > 0 &&
                   Array.from({ length: passengerCount }, (_, index) => (
                     <Box>
-                      <div mb={2} key={index} className="services" py={1}>
+                      <div mb={2} key={index} className="services" py={1} style={{border:"border: 0.5px solid #000;",marginBottom:"10px"}}>
                         <Accordion
                           expanded={accordionExpanded === index}
                           onChange={handleAccordionChange(index)}
@@ -419,7 +293,7 @@ const BusPassengerDetail = () => {
                   ))}
               </Box>
             </Box>
-            <Button onClick={handleSeatBlock}>Book Review</Button>
+            <Button onClick={handleSeatBlock} style={{backgroundColor:"#21325D",color:"white",marginLeft:"19px",marginTop:"-25px"}}>Book Review</Button>
           </Grid>
           <Grid item xs={3}>
             <BusSaleSummary />

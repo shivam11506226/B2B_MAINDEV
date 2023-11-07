@@ -115,7 +115,7 @@ const Busbookingconfirmation = () => {
               <Grid container spacing={2}>
                 <Grid item xs={9}>
                   <Box className="Bus_box">
-                    <Box display="flex" justifyContent="space-between">
+                    {/* <Box display="flex" justifyContent="space-between">
                       <Typography
                         sx={{
                           fontSize: "16px",
@@ -128,7 +128,46 @@ const Busbookingconfirmation = () => {
                       <Link sx={{ fontSize: "12px", fontWeight: "bold" }}>
                         Change Details
                       </Link>
-                    </Box>
+                    </Box> */}
+                    <Box
+  style={{
+    width: '95%',
+    height: '82px',
+    paddingLeft: '48px',
+    paddingRight: '48px',
+    paddingTop: '24px',
+    paddingBottom: '24px',
+    background: '#DBE5FF',
+    boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.16)',
+    borderRadius: '8px',
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    gap: '10px',
+  }}
+>
+  <Box
+    style={{
+      display: 'flex',
+      justifyContent: 'flex-start',
+      alignItems: 'center',
+      gap: '188px',
+    }}
+  >
+    <Typography
+      style={{
+        color: '#21325D',
+        fontSize: '28px',
+        fontFamily: 'Montserrat',
+        fontWeight: 600,
+        wordWrap: 'break-word',
+      }}
+    >
+      Booking Details
+    </Typography>
+  </Box>
+</Box>
+
                     <Box display="flex" justifyContent="space-between">
                       <Box mt={2} textAlign="left">
                         <Box display="flex">
@@ -349,7 +388,7 @@ const Busbookingconfirmation = () => {
 
                   <Box className="Bus_box" mt={2}>
                     <Box>
-                      <Typography
+                      {/* <Typography
                         sx={{
                           fontSize: "16px",
                           fontWeight: "bold",
@@ -357,7 +396,46 @@ const Busbookingconfirmation = () => {
                         }}
                       >
                         Passenger Details
-                      </Typography>
+                      </Typography> */}
+                            <div
+  style={{
+    width: '95%',
+    height: '77px',
+    paddingLeft: '32px',
+    paddingRight: '32px',
+    paddingTop: '24px',
+    paddingBottom: '24px',
+    background: '#E4E4E4',
+    borderRadius: '8px',
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  }}
+>
+  <div
+    style={{
+      color: 'black',
+      fontSize: '24px',
+      fontFamily: 'Montserrat',
+      fontWeight: 600,
+      wordWrap: 'break-word',
+    }}
+  >
+    Passenger Details
+  </div>
+  <div
+    style={{
+      color: '#0048FF',
+      fontSize: '16px',
+      fontFamily: 'Montserrat',
+      fontWeight: 600,
+      wordWrap: 'break-word',
+    }}
+  >
+    (1 Adult)
+  </div>
+</div>
+                      
                       <Typography
                         mt={2}
                         sx={{ fontSize: "12px", fontWeight: "bold" }}
@@ -519,7 +597,7 @@ const Busbookingconfirmation = () => {
                       <Buscancellation />
                     </Box>
                   </Box>
-                  <Box className="Bus_box" mt={2}>
+                  {/* <Box className="Bus_box" mt={2}>
                     <Box>
                       <Typography
                         sx={{
@@ -545,7 +623,7 @@ const Busbookingconfirmation = () => {
                         offered for this booking.
                       </Typography>
                     </Box>
-                  </Box>
+                  </Box> */}
                 </Grid>
                 <Grid item xs={3}>
                   <BusSaleSummary />
@@ -553,7 +631,7 @@ const Busbookingconfirmation = () => {
               </Grid>
             </Box>
             {/* <form action="/Busbookingconfirmation"> */}
-            <Box py={3} textAlign="center">
+            <Box textAlign="center">
               <Button variant="contained" type="submit">
                 Print
               </Button>
