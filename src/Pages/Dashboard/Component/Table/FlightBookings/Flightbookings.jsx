@@ -1,19 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Table, TableBody, TableCell, TableRow, Paper,TextField ,InputAdornment } from '@mui/material';
+import { Table, TableBody, TableCell, TableRow, Paper, TextField, InputAdornment } from '@mui/material';
 import './FlightBooking.css';
 import SearchIcon from '@mui/icons-material/Search';
 const AllFlightBooking = () => {
   const [flightBookings, setFlightBookings] = useState([]);
   const [loading, setLoading] = useState(true);
   const pageSize = 5; // Number of items per page
-  const [currentPage, setCurrentPage] = useState(1); 
+  const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
   const [searchTerm, setSearchTerm] = useState('');
-  useEffect(()=>{
+  useEffect(() => {
     async function fetchFlightBookings() {
-        try {
-          const response = await axios.get(`http://localhost:8000/skytrails/api/admin/getAllFlightBookingList`,
+      try {
+        const response = await axios.get(`http://localhost:8000/skytrails/api/admin/getAllFlightBookingList`,
           {
             params: {
               page: currentPage,
@@ -21,20 +21,20 @@ const AllFlightBooking = () => {
               search: searchTerm,
             }
           }
-          );
-          setFlightBookings(response.data.result.docs);
-          console.log("=>>>",response.data.result.totalPages)
-          setTotalPages(response.data.result.totalPages);
-          setLoading(false);
-        } catch (error) {
-          console.error('Error fetching flight bookings:', error);
-          setLoading(false);
-        }
+        );
+        setFlightBookings(response.data.result.docs);
+        console.log("=>>>", response.data.result.totalPages)
+        setTotalPages(response.data.result.totalPages);
+        setLoading(false);
+      } catch (error) {
+        console.error('Error fetching flight bookings:', error);
+        setLoading(false);
       }
-      fetchFlightBookings();
-  },[currentPage,searchTerm])
+    }
+    fetchFlightBookings();
+  }, [currentPage, searchTerm])
 
- 
+
   const handlePageChange = (page) => {
     setCurrentPage(page);
   };
@@ -44,7 +44,7 @@ const AllFlightBooking = () => {
   };
   return (
     <div className='flight-container'>
-         <TextField
+      <TextField
         type="text"
         value={searchTerm}
         onChange={handleSearch}
@@ -78,10 +78,13 @@ const AllFlightBooking = () => {
             <tr key={booking._id}>
               <td>{booking.pnr}</td>
               <td>{booking.userId}</td>
-              <td>{`${booking.firstName} ${booking.lastName}`}</td>
-              <td>{booking.userDetails ? booking.userDetails.email : "Empty"}</td>
+              <td>{`${booking.passengerDetails[0].firstName} ${booking.passengerDetails[0].lastName}`}</td>
+              <td>{booking.passengerDetails[0].email}</td>
+
               <td>
-                {booking.phone ? `${booking.phone.country_code}${booking.phone.mobile_number}` : "Empty"}
+                {`${booking.passengerDetails[0]?.phone?.country_code || 'N/A'} ${booking.passengerDetails[0]?.phone?.mobile_number || ''}`}
+
+
               </td>
               <td>{booking.flightName}</td>
               <td>{booking.paymentStatus}</td>
@@ -97,7 +100,7 @@ const AllFlightBooking = () => {
       <div className="paginate">
         {Array.from({ length: totalPages }, (_, i) => (
           <button className='flightButton' key={i} onClick={() => handlePageChange(i + 1)}>
-            <h5 className='flightButton'>{i+1}</h5>
+            <h5 className='flightButton'>{i + 1}</h5>
           </button>
         ))}
       </div>
