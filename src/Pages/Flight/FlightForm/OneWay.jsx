@@ -123,7 +123,7 @@ const OneWay = () => {
       mounted = false;
     };
   }, [toQuery]);
-  
+
   // Get the current date in the format "YYYY-MM-DD"
   useEffect(() => {
     const currentDate = new Date().toISOString().split('T')[0];
@@ -265,14 +265,22 @@ const OneWay = () => {
         <div className="row rowcon" style={{ marginTop: "-20px" }}>
           <div
             className="col-xs-12 col-md-2 pe-0"
-            style={{ width: "305px", height: "56px" }}
+            style={{ width: "305px", height: "56px", position: "relative" }}
           >
-            <div className="form_input">
+            <div className="form_input" style={{ position: "absolute", zIndex: 10, }}>
               <label className="form_lable">Departure</label>
               <input
                 name="from"
                 placeholder="Enter city or airport"
                 value={from}
+                onClick={() => (
+                  setdisplayFrom(true),
+                  setdisplayTo(false)
+                )}
+                // onMouseLeave={() => (
+                //   setdisplayFrom(false),
+                //   setdisplayTo(false)
+                // )}
                 onChange={(event) => {
                   handleFromInputChange(event);
                   handleFromSearch(event.target.value);
@@ -285,12 +293,18 @@ const OneWay = () => {
                   style={{
                     backgroundColor: "white",
                     borderRadius: "10px",
-                    zIndex: 1,
+
                     width: "100%",
                     boxShadow: "rgba(0, 0, 0, 0.09) 0px 3px 12px",
                     textAlign: "left",
                     cursor: "pointer",
                     display: displayFrom ? "block" : "none",
+                    overflow: "scroll"
+
+
+
+
+
                   }}
                 >
                   <ul>
@@ -322,14 +336,22 @@ const OneWay = () => {
           </div>
           <div
             className="col-xs-12 col-md-2 ps-0"
-            style={{ width: "305px", height: "56px" }}
+            style={{ width: "305px", height: "56px", position: "relative" }}
           >
-            <div className="form_input" >
+            <div className="form_input" style={{ position: "absolute", zIndex: 10, }} >
               <label className="form_lable">Arrival</label>
               <input
                 name="to"
                 placeholder="Enter city or airport"
                 value={to}
+                onClick={() => (
+                  setdisplayFrom(false),
+                  setdisplayTo(true)
+                )}
+                // onMouseLeave={() => (
+                //   setdisplayFrom(false),
+                //   setdisplayTo(false)
+                // )}
                 onChange={(event) => {
                   handleToInputChange(event);
                   handleToSearch(event.target.value);
@@ -550,6 +572,7 @@ const OneWay = () => {
             </div>
           </div>
           <div className="col-xs-12">
+
           <div
   className="row"
   style={{
@@ -605,10 +628,11 @@ const OneWay = () => {
   </button>
 </div>
 
+
           </div>
         </div>
 
-     
+
 
         {/* <label
       style={{
