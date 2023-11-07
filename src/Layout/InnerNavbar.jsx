@@ -92,7 +92,7 @@ function InnerNavbar() {
 
           </NavLink>
           {/* <NavBarBox avatar={avatar} name={name} path ={path}   /> */}
-          < Flex style={{ position: 'absolute',top:"90px",left:'0px' }} >
+          < Flex style={{ position: 'absolute',top:"100px",left:'-50px' }} >
             {hover && name === Name && (
               <div
                 style={{
@@ -103,19 +103,20 @@ function InnerNavbar() {
                   margin: "0px 30px",
                   boxShadow: "rgba(0, 0, 0, 0.09) 0px 3px 12px",
                   textAlign: "left",
-                  marginTop: "-12px"
+                  marginTop: "-12px",
+                  width: "130px",
                   
 
                 }}
               >
-                {hover && name === Name &&  data.map((k, l) => {
+                {/* {hover && name === Name &&  data.map((k, l) => {
                   if (name === "Flights") {
                     return (
                       <ul>
                         <Box>
                           <Link
                             to={k.path}
-                            // onClick={() => setHover(false)}
+                          
                             style={{
                               textDecoration: "none",
                               color: "grey",
@@ -144,7 +145,7 @@ function InnerNavbar() {
                       </ul>
                     );
                   }
-                })} 
+                })}  */}
                 {hover && name === Name &&  Holiday.map((k, l) => {
                   if (name === "Package") {
                     return (
