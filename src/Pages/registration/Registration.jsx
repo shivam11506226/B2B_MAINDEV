@@ -194,7 +194,9 @@ const Login = () => {
                 mb={5}
               >
                 <Box textAlign="right">
-                  <form action="/Login">
+                  <form onClick={(e)=>{
+                    e.preventDefault()
+                    navigate("/Login")}}>
                     <Box textAlign="right">
                       <Button
                         type="submit"
@@ -283,7 +285,7 @@ const Login = () => {
                     </Alert>
                   )}
                   <Box display='flex' style={{ height: "100%", justifyContant: 'center', alignItems: 'center' }} >
-                    {agencyPage === 1 && <Box flex={1} style={{display:"flex", justifyContant: 'center', alignItems: 'center' }} >
+                    {agencyPage === 1 && <Box flex={1} style={{display:"flex" ,justifyContant: 'center', alignItems: 'center' }} >
                       <img src={r1} alt="r1" />
                     </Box>}
                     {agencyPage === 2 && <Box flex={1} style={{height:'100%', justifyContant: 'center', alignItems: 'space-between', }} >
@@ -1508,7 +1510,7 @@ const Login = () => {
 
                                 <Grid width="100%" display='flex' justifyContent="space-between"
                                   alignItems="center"  >
-                                  <Button onClick={() => setAgencyPage(2)} style={{
+                                  <Button onClick={() => setAgencyPage(1)} style={{
                                     backgroundColor: '#A2B4C1',
                                     width: '140px',
                                     height: '36px',
