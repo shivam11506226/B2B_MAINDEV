@@ -126,7 +126,7 @@ const BusResult = () => {
                   </Typography>
                 </Box>
               </Grid>
-              <Grid item lg={1}>
+              {/* <Grid item lg={1}>
                 <Box>
                   <Typography
                     sx={{
@@ -141,7 +141,7 @@ const BusResult = () => {
                     Publish
                   </Typography>
                 </Box>
-              </Grid>
+              </Grid> */}
               <Grid item lg={1}>
                 <Box>
                   <Typography

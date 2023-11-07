@@ -572,62 +572,63 @@ const OneWay = () => {
             </div>
           </div>
           <div className="col-xs-12">
-            <div
-              className="row"
-              style={{
-                width: "100%",
+
+          <div
+  className="row"
+  style={{
+    width: "75%",
+  
+    display: "flex",
+    height: "55px",
+   
+  }}
+>
+  <div
+    className="col-6 col-md-3 col-lg-2 mb-3"
+    style={{ width: "311px", marginRight: "-125px" }}
+  >
+    <div className="form_input">
+      <label className="form_lable">Preferred Airline</label>
+
+      <select name="adult" id="" className="form_input_select1">
+        <option value="1">Select Airline </option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+        <option value="6">6</option>
+        <option value="7">7</option>
+        <option value="8">8</option>
+        <option value="9">9</option>
+      </select>
+    </div>
+  </div>
+
+  <button
+    type="submit"
+    id="cssbuttons-io-button"
+    style={{ backgroundColor: "#21325D", borderRadius: "8px" }}
+  >
+    {" "}
+    Search Flight
+    <div id="icon">
+      <svg
+        height="24"
+        width="24"
+        viewBox="0 0 24 24"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path d="M0 0h24v24H0z" fill="none"></path>
+        <path
+          d="M16.172 11l-5.364-5.364 1.414-1.414L20 12l-7.778 7.778-1.414-1.414L16.172 13H4v-2z"
+          fill="currentColor"
+        ></path>
+      </svg>
+    </div>
+  </button>
+</div>
 
 
-                display: "flex",
-                height: "55px",
-              }}
-            >
-              <div
-                className="col-6 col-md-3 col-lg-2 mb-3"
-                style={{ width: "311px" }}
-              >
-                <div className="form_input">
-                  <label className="form_lable">Preferred Airline</label>
-
-                  <select name="adult" id="" className="form_input_select1">
-                    <option value="1">Select Airline </option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                    <option value="6">6</option>
-                    <option value="7">7</option>
-                    <option value="8">8</option>
-                    <option value="9">9</option>
-                  </select>
-                </div>
-              </div>
-
-
-              <button
-                type="submit"
-                id="cssbuttons-io-button"
-                style={{ backgroundColor: "#21325D", borderRadius: "8px" }}
-              >
-                {" "}
-                Search Flight
-                <div id="icon">
-                  <svg
-                    height="24"
-                    width="24"
-                    viewBox="0 0 24 24"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path d="M0 0h24v24H0z" fill="none"></path>
-                    <path
-                      d="M16.172 11l-5.364-5.364 1.414-1.414L20 12l-7.778 7.778-1.414-1.414L16.172 13H4v-2z"
-                      fill="currentColor"
-                    ></path>
-                  </svg>
-                </div>
-              </button>
-
-            </div>
           </div>
         </div>
 
