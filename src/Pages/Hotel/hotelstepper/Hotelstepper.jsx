@@ -14,98 +14,11 @@ const Hotelstepper = () => {
   console.log("State Data", reducerState?.hotelSearchResult?.ticketData);
 
   return (
-    <div className="flightContainer">
+    <div className="flightContainer1" style={{width:"55%",margin:"auto",height:"auto",borderRadius: "8px",
+    background:"#FFFBFB",marginTop:"-80px",paddingLeft:"30px",paddingRight:"30px",paddingBottom:"20px"}}>
       {/* step by step updating part */}
 
-      <Box
-        w="100%"
-        display="flex"
-        justifyContent={"space-around"}
-        boxShadow="base"
-        border="1px solid gray"
-        borderRadius="10px"
-      >
-        <HStack p="5px">
-          <Box
-            display="flex"
-            justifyContent="center"
-            w="25px"
-            h="25px"
-            borderRadius="50%"
-            style={{backgroundColor: color.bluedark}}
-            color="white"
-          >
-            <Text>1</Text>
-          </Box>
-
-          <Box color="#FDDA0D" fontWeight="bold">
-            Hotel Search
-          </Box>
-        </HStack>
-        <HStack p="5px">
-          <Box
-            display="flex"
-            justifyContent="center"
-            // align="center"
-            w="25px"
-            h="25px"
-            borderRadius="50%"
-            style={{backgroundColor: color.bluedark}}
-            color="white"
-          >
-            <Text>2</Text>
-          </Box>
-
-          <Box fontWeight="normal">Hotel Result</Box>
-        </HStack>
-        <HStack p="5px">
-          <Box
-            display="flex"
-            justifyContent="center"
-            w="25px"
-            h="25px"
-            borderRadius="50%"
-            style={{backgroundColor: color.bluedark}}
-            color="white"
-          >
-            <Text>3</Text>
-          </Box>
-
-          <Box fontWeight="normal">Guest Details</Box>
-        </HStack>
-        <HStack p="5px">
-          <Box
-            display="flex"
-            justifyContent="center"
-            // align="center"
-            w="25px"
-            h="25px"
-            borderRadius="50%"
-            style={{backgroundColor: color.bluedark}}
-            color="white"
-          >
-            <Text>4</Text>
-          </Box>
-
-          <Box fontWeight="normal">Review Booking</Box>
-        </HStack>
-        <HStack p="5px">
-          <Box
-            display="flex"
-            justifyContent="center"
-            // align="center"
-            w="25px"
-            h="25px"
-            borderRadius="50%"
-            style={{backgroundColor: color.bluedark}}
-            color="white"
-          >
-            <Text>5</Text>
-          </Box>
-
-          <Box fontWeight="normal">Booking Confirmation</Box>
-        </HStack>
-      </Box>
+    
       <div>
         <Hotelform />
       </div>
