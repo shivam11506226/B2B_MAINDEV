@@ -64,22 +64,46 @@ const FlightTicket = () => {
   // for tab
 
 
-  // for checkbox 
+  // for checkbox and form
 
-  const [checkboxes, setCheckboxes] = useState({
-    checkbox1: false,
-    checkbox2: false,
-    checkbox3: false,
-    checkbox4: false,
-    checkbox5: false,
-  });
+  const [reason, setReason] = useState('');
 
-  const handleCheckboxChange = (event) => {
-    const { name, checked } = event.target;
-    setCheckboxes({ ...checkboxes, [name]: checked });
+  const handleReasonChange = (event) => {
+    setReason(event.target.value);
+
+
   };
 
-  // for checkbox 
+  const handleRadioChange = () => {
+    console.log("hii")
+  }
+
+
+
+
+
+
+  // handle submit Bus
+
+
+  const handleSubmitBus = async (event) => {
+    // event.preventDefault(); // Prevent the default form submission
+    // const selectedReasons = Object.keys(checkboxes).filter((key) => checkboxes[key]);
+    // const formData = {
+    //   reasonText: reason,
+    //   selectedReasons,
+    // };
+    // try {
+    //   const response = await axios.post('YOUR_BACKEND_API_URL', formData);
+    //   console.log('Response from the server:', response.data);
+    // } catch (error) {
+    //   console.error('Error sending data to the server:', error);
+    // }
+  };
+
+
+  // for checkbox and form
+
 
 
 
@@ -98,9 +122,22 @@ const FlightTicket = () => {
 
   // for modal
 
-  const [openModal, setOpenModal] = React.useState(false);
-  const handleModalOpen = () => setOpenModal(true);
-  const handleModalClose = () => setOpenModal(false);
+  // first 
+  const [openModalOne, setOpenModalOne] = React.useState(false);
+  const handleModalOpenOne = () => setOpenModalOne(true);
+  const handleModalCloseOne = () => setOpenModalOne(false);
+
+  // second 
+
+  const [openModalTwo, setOpenModalTwo] = React.useState(false);
+  const handleModalOpenTwo = () => setOpenModalTwo(true);
+  const handleModalCloseTwo = () => setOpenModalTwo(false);
+
+  // third
+
+  const [openModalThree, setOpenModalThree] = React.useState(false);
+  const handleModalOpenThree = () => setOpenModalThree(true);
+  const handleModalCloseThree = () => setOpenModalThree(false);
 
   const style = {
     position: 'absolute',
@@ -133,6 +170,36 @@ const FlightTicket = () => {
     }
   };
 
+
+  // handle submit flight 
+
+  console.log(flightData)
+
+  const handleSubmitFlight = async (event) => {
+    event.preventDefault(); // Prevent the default form submission
+    console.log(flightData)
+    const selectedReason = document.querySelector('input[type=radio]:checked');
+    const selectedCheckboxValue = selectedReason ? selectedReason.value : null;
+
+    const formData = {
+      "reason": reason,
+      "changerequest": selectedCheckboxValue,
+      "bookingId": flightData[0]?.bookingId,
+      "agentId": flightData[0]?.userId,
+      "contactNumber": flightData[0]?.passengerDetails[0]?.ContactNo,
+      "id": flightData[0]?._id
+    };
+
+    console.log("post method shaan", formData);
+
+    try {
+      const response = await axios.post('http://localhost:8000/skytrails/user/changeFlightDetailsRequest', formData);
+      console.log('Response from the server:', response.data);
+    } catch (error) {
+      console.error('Error sending data to the server:', error);
+    }
+  };
+
   const fetchHotelData = async () => {
     try {
       setLoading(true);
@@ -151,6 +218,34 @@ const FlightTicket = () => {
       setLoading(false);
     }
   };
+
+
+  // handle submit Hotel
+
+  const handleSubmitHotel = async (event) => {
+    event.preventDefault(); // Prevent the default form submission
+    console.log(flightData)
+    const selectedReason = document.querySelector('input[type=radio]:checked');
+    const selectedCheckboxValue = selectedReason ? selectedReason.value : null;
+
+    const formData = {
+      "reason": reason,
+      "changerequest": selectedCheckboxValue,
+      "bookingId": flightData[0]?.bookingId,
+      "agentId": flightData[0]?.userId,
+      "contactNumber": flightData[0]?.passengerDetails[0]?.ContactNo,
+    };
+
+    console.log("post method shaan", formData);
+
+    try {
+      const response = await axios.post('http://localhost:8000/skytrails/user/changeFlightDetailsRequest', formData);
+      console.log('Response from the server:', response.data);
+    } catch (error) {
+      console.error('Error sending data to the server:', error);
+    }
+  };
+
 
   const fetchBusData = async () => {
     try {
@@ -246,7 +341,7 @@ const FlightTicket = () => {
                     <div className="link">
                       <a href="http://">Fare Rule</a>
                       <a href="http://">View Ticket</a>
-                      <Link onClick={handleModalOpen} to="">Change Request</Link>
+                      <Link onClick={handleModalOpenOne} to="">Change Request</Link>
                     </div>
                     <div className="view">
                       <button>View Invoice</button>
@@ -285,7 +380,7 @@ const FlightTicket = () => {
                     <div className="link">
                       <a href="http://">Fare Rule</a>
                       <a href="http://">View Ticket</a>
-                      <Link onClick={handleModalOpen} to="">Change Request</Link>
+                      <Link onClick={handleModalOpenTwo} to="">Change Request</Link>
                     </div>
                     <div className="view">
                       <button>View Invoice</button>
@@ -328,7 +423,7 @@ const FlightTicket = () => {
                     <div className="link">
                       <a href="http://">Fare Rule</a>
                       <a href="http://">View Ticket</a>
-                      <Link onClick={handleModalOpen} to="">Change Request</Link>
+                      <Link onClick={handleModalOpenThree} to="">Change Request</Link>
                     </div>
                     <div className="view">
                       <button>View Invoice</button>
@@ -355,8 +450,98 @@ const FlightTicket = () => {
 
 
       <Modal
-        open={openModal}
-        onClose={handleModalClose}
+        open={openModalOne}
+        onClose={handleModalCloseOne}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box sx={style}>
+          <div className="modal-box">
+            <div className="modal-header">
+              <h2>Change Request</h2>
+              <p><span>PNR</span>QP-7311 V1</p>
+            </div>
+            <form action="">
+              <div className="input-text" >
+                <label className="bold" htmlFor="reason">Write Your Valid Reason</label>
+                <input type="text" id="reason" onChange={handleReasonChange} />
+              </div>
+              <label className="bold" htmlFor="">Please Select a Valid Reason </label>
+              <div className="input-check">
+
+                <div className="formGroup">
+                  <input
+                    type="radio"
+                    name="checkbox1"
+                    onChange={handleRadioChange}
+                    value={"Change in Travel Plans"}
+                  />
+                  <label>Change in Travel Plans
+                  </label>
+                </div>
+
+                <div className="formGroup">
+                  <input
+                    type="radio"
+                    name="checkbox2"
+                    onChange={handleRadioChange}
+                    value={"Travel Advisory or Warnings"}
+                  />
+                  <label> Travel Advisory or Warnings
+                  </label>
+                </div>
+
+
+
+                <div className="formGroup">
+                  <input
+                    type="radio"
+                    name="checkbox3"
+
+                    onChange={handleRadioChange}
+                    value={"Visa or Documentation Problems"}
+                  />
+                  <label>Visa or Documentation Problems
+                  </label>
+                </div>
+
+                <div className="formGroup">
+                  <input
+                    type="radio"
+                    name="checkbox4"
+                    onChange={handleRadioChange}
+                    value={"Medical Issues"}
+                  />
+                  <label>Medical Issues
+                  </label>
+                </div>
+
+                <div className="formGroup">
+                  <input
+                    type="radio"
+                    name="checkbox5"
+                    onChange={handleRadioChange}
+                    value={"Other"}
+                  />
+                  <label> Other
+                  </label>
+                </div>
+
+              </div>
+              <div className="modal-button">
+                <button type="button" onClick={handleModalCloseOne}>Cancel</button>
+                <button className="second" type="submit" onClick={handleSubmitFlight}>Send Request</button>
+              </div>
+            </form>
+          </div>
+        </Box>
+      </Modal>
+
+
+
+      <Modal
+        open={openModalTwo}
+        onClose={handleModalCloseTwo}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
@@ -378,8 +563,8 @@ const FlightTicket = () => {
                   <input
                     type="checkbox"
                     name="checkbox1"
-                    checked={checkboxes.checkbox1}
-                    onChange={handleCheckboxChange}
+
+                    onChange={handleRadioChange}
                     value={"Change in Travel Plans"}
                   />
                   <label>Change in Travel Plans
@@ -390,8 +575,8 @@ const FlightTicket = () => {
                   <input
                     type="checkbox"
                     name="checkbox2"
-                    checked={checkboxes.checkbox2}
-                    onChange={handleCheckboxChange}
+
+                    onChange={handleRadioChange}
                     value={"Travel Advisory or Warnings"}
                   />
                   <label> Travel Advisory or Warnings
@@ -404,8 +589,8 @@ const FlightTicket = () => {
                   <input
                     type="checkbox"
                     name="checkbox3"
-                    checked={checkboxes.checkbox3}
-                    onChange={handleCheckboxChange}
+
+                    onChange={handleRadioChange}
                     value={"Visa or Documentation Problems"}
                   />
                   <label>Visa or Documentation Problems
@@ -416,8 +601,8 @@ const FlightTicket = () => {
                   <input
                     type="checkbox"
                     name="checkbox4"
-                    checked={checkboxes.checkbox4}
-                    onChange={handleCheckboxChange}
+
+                    onChange={handleRadioChange}
                     value={"Medical Issues"}
                   />
                   <label>Medical Issues
@@ -427,9 +612,9 @@ const FlightTicket = () => {
                 <div className="formGroup">
                   <input
                     type="checkbox"
-                    name="checkbox4"
-                    checked={checkboxes.checkbox5}
-                    onChange={handleCheckboxChange}
+                    name="checkbox5"
+
+                    onChange={handleRadioChange}
                     value={"Other"}
                   />
                   <label> Other
@@ -438,8 +623,101 @@ const FlightTicket = () => {
 
               </div>
               <div className="modal-button">
-                <button className="">Cancel</button>
-                <button className="second">Send Request</button>
+                <button type="button" onClick={handleModalCloseTwo}>Cancel</button>
+                <button className="second" type="submit" onClick={handleSubmitHotel}>Send Request</button>
+              </div>
+            </form>
+          </div>
+        </Box>
+      </Modal>
+
+
+      <Modal
+        open={openModalThree}
+        onClose={handleModalCloseThree}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box sx={style}>
+          <div className="modal-box">
+            <div className="modal-header">
+              <h2>Change Request</h2>
+              <p><span>PNR</span>QP-7311 V1</p>
+            </div>
+            <form action="">
+              <div className="input-text" >
+                <label className="bold" htmlFor="reason">Write Your Valid Reason</label>
+                <input type="text" id="reason" />
+              </div>
+              <label className="bold" htmlFor="">Please Select a Valid Reason </label>
+              <div className="input-check">
+
+                <div className="formGroup">
+                  <input
+                    type="checkbox"
+                    name="checkbox1"
+
+                    onChange={handleRadioChange}
+                    value={"Change in Travel Plans"}
+                  />
+                  <label>Change in Travel Plans
+                  </label>
+                </div>
+
+                <div className="formGroup">
+                  <input
+                    type="checkbox"
+                    name="checkbox2"
+
+                    onChange={handleRadioChange}
+                    value={"Travel Advisory or Warnings"}
+                  />
+                  <label> Travel Advisory or Warnings
+                  </label>
+                </div>
+
+
+
+                <div className="formGroup">
+                  <input
+                    type="checkbox"
+                    name="checkbox3"
+
+                    onChange={handleRadioChange}
+                    value={"Visa or Documentation Problems"}
+                  />
+                  <label>Visa or Documentation Problems
+                  </label>
+                </div>
+
+                <div className="formGroup">
+                  <input
+                    type="checkbox"
+                    name="checkbox4"
+
+                    onChange={handleRadioChange}
+                    value={"Medical Issues"}
+                  />
+                  <label>Medical Issues
+                  </label>
+                </div>
+
+                <div className="formGroup">
+                  <input
+                    type="checkbox"
+                    name="checkbox5"
+
+                    onChange={handleRadioChange}
+                    value={"Other"}
+                  />
+                  <label> Other
+                  </label>
+                </div>
+
+              </div>
+              <div className="modal-button">
+                <button type="button" onClick={handleModalCloseThree}>Cancel</button>
+                <button className="second" type="submit" onClick={handleSubmitBus}>Send Request</button>
               </div>
             </form>
           </div>
