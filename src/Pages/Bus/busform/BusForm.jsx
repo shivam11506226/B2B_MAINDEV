@@ -1,13 +1,17 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import "./busform.css";
-import { Button,Box } from '@mui/material';
-import axios from 'axios';
-import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
-import { busSearchAction, clearBusSearchReducer } from '../../../Redux/busSearch/busSearchAction';
-import color from "../../../color/color.js"
+import { Button, Box } from "@mui/material";
+import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import {
+  busSearchAction,
+  clearBusSearchReducer,
+} from "../../../Redux/busSearch/busSearchAction";
+import color from "../../../color/color.js";
+
 const BusForm = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -20,7 +24,7 @@ const BusForm = () => {
   const [toQuery, setToQuery] = useState("");
   const [from, setFrom] = useState({
     cityId: "",
-    cityName:""
+    cityName: "",
   });
   const [selectedFrom, setSelectedFrom] = useState(null);
   const [to, setTO] = useState("");
@@ -29,21 +33,20 @@ const BusForm = () => {
   const [displayTo, setdisplayTo] = useState(true);
   const [startDate, setStartDate] = useState(null);
   const inputRef = useRef(null);
-  const fromInputRef=useRef(null);
-  const toInputRef=useRef(null)
-  const [fromData,setFromData] = useState([]);
-  const [origin,setOrigin] = useState([]);
+  const fromInputRef = useRef(null);
+  const toInputRef = useRef(null);
+  const [fromData, setFromData] = useState([]);
+  const [origin, setOrigin] = useState([]);
   const [errors, setErrors] = useState({
     from: "",
     to: "",
-    date: ""
+    date: "",
   });
-
 
   useEffect(() => {
     dispatch(clearBusSearchReducer());
   }, [dispatch]);
- 
+
   //============== copied -----=======//
 
   useEffect(() => {
@@ -96,23 +99,23 @@ const BusForm = () => {
     };
   }, [toQuery]);
 
-  console.log("from result",fromSearchResults)
-  console.log("to result",toSearchResults)
+  console.log("from result", fromSearchResults);
+  console.log("to result", toSearchResults);
 
   const handleFromInputChange = (event) => {
-    setErrors({ ...errors, from: "" }); 
+    setErrors({ ...errors, from: "" });
     setFrom(event.target.value);
     setSelectedFrom(null);
   };
 
   const handleFromClick = (result) => {
-    console.log("result",result);
+    console.log("result", result);
     // setFrom(result?.CityId);
-   
-    setFrom(prevState => ({
+
+    setFrom((prevState) => ({
       ...prevState,
       cityId: result?.CityId,
-      cityName: result?.CityId
+      cityName: result?.CityId,
     }));
 
     setSelectedFrom(result?.CityId);
@@ -124,7 +127,6 @@ const BusForm = () => {
     setSelectedTo(result.CityId);
     setdisplayTo(false);
   };
-
 
   const handleFromSearch = (e) => {
     setFromQuery(e);
@@ -141,9 +143,9 @@ const BusForm = () => {
   };
 
   const handleDateInputChange = () => {
-    setErrors({ ...errors, date: "" });  // Clear the error when the user selects a date
+    setErrors({ ...errors, date: "" }); // Clear the error when the user selects a date
   };
-  
+
   // Form validation function
   const validateForm = () => {
     let valid = true;
@@ -169,8 +171,6 @@ const BusForm = () => {
     return valid;
   };
 
-
-
   // form submit data
   function handleSubmit(event) {
     event.preventDefault();
@@ -178,26 +178,28 @@ const BusForm = () => {
     const isValid = validateForm();
     if (isValid) {
       const formData = new FormData(event.target);
-        // Format the selected date as "MM/dd/yyyy"
-    const selectedDate = startDate;
-    let formattedDate = "";
-    if (selectedDate) {
-      const month = selectedDate.getMonth() + 1;
-      const day = selectedDate.getDate();
-      const year = selectedDate.getFullYear();
-      formattedDate = `${year}/${month.toString().padStart(2, '0')}/${day.toString().padStart(2, '0')}`;
-    }
+      // Format the selected date as "MM/dd/yyyy"
+      const selectedDate = startDate;
+      let formattedDate = "";
+      if (selectedDate) {
+        const month = selectedDate.getMonth() + 1;
+        const day = selectedDate.getDate();
+        const year = selectedDate.getFullYear();
+        formattedDate = `${year}/${month.toString().padStart(2, "0")}/${day
+          .toString()
+          .padStart(2, "0")}`;
+      }
       const payload = {
         EndUserIp: reducerState?.ip?.ipData,
         TokenId: reducerState?.ip?.tokenData,
         DateOfJourney: formattedDate,
         DestinationId: formData.get("to"),
-        OriginId : formData.get("from"),
+        OriginId: formData.get("from"),
       };
-      console.log("payload",payload);
+      console.log("payload", payload);
       dispatch(busSearchAction(payload));
-      navigate("/BusResult")
-    }else{
+      navigate("/BusResult");
+    } else {
       // Focus on the first empty field
       if (!from) {
         fromInputRef.current.focus();
@@ -206,19 +208,17 @@ const BusForm = () => {
       } else if (!inputRef.current.value) {
         inputRef.current.focus();
       }
-  }
+    }
   }
 
   // /BusResult
 
-  
-
   return (
-    <div className='container'>
-      <form onSubmit={handleSubmit} >
-      <div className='row'>
-      <div className="col-xs-12 col-md-3">
-          {/* <div className="form_input">
+    <div className="container" style={{marginTop:"-8px"}}>
+      <form onSubmit={handleSubmit}>
+        <div className="row">
+          <div className="col-xs-12 col-md-3" style={{width:"50%"}}>
+            {/* <div className="form_input">
             <label className="form_lable">From City</label>
             <input
                 name="from"
@@ -230,7 +230,7 @@ const BusForm = () => {
                 }}
               />
           </div> */}
-          <div className="form_input">
+            <div className="form_input">
               <label className="form_lable">FROM</label>
               <input
                 name="from"
@@ -241,6 +241,7 @@ const BusForm = () => {
                   handleFromSearch(event.target.value);
                 }}
                 ref={fromInputRef}
+                style={{ width: "100%" }}
               />
               {isLoading && <div>Loading...</div>}
               {fromSearchResults && fromSearchResults.length > 0 && (
@@ -282,9 +283,10 @@ const BusForm = () => {
               )}
               {errors.from && <div className="error">{errors.from}</div>}
             </div>
-        </div>
-      <div className="col-xs-12 col-md-3">
-          {/* <div className="form_input">
+          </div>
+
+          <div className="col-xs-12 col-md-3" style={{width:"50%"}}>
+            {/* <div className="form_input">
             <label className="form_lable">To City</label>
             <input
                 name="to"
@@ -296,7 +298,7 @@ const BusForm = () => {
                 }}
               />
           </div> */}
-          <div className="form_input">
+            <div className="form_input">
               <label className="form_lable">TO</label>
               <input
                 name="to"
@@ -348,53 +350,55 @@ const BusForm = () => {
               )}
               {errors.to && <div className="error">{errors.to}</div>}
             </div>
-        </div>
-        <div className="col-xs-12 col-md-3">
-          <div className="form_input">
-            <label className="form_lable">DEPARTURE</label>
-            
-
-            <DatePicker
-             selected={startDate}
-              name="departure"
-              id="departure"
-              ref={inputRef}
-              placeholderText='Select Date'
-              className="deaprture_input"
-              onChange={date => {
-                setStartDate(date);
-                handleDateInputChange();
-              }}
-              minDate={new Date()}
-            />
           </div>
-          {errors.date && <div className="error">{errors.date}</div>}
         </div>
-      </div>
-   
-      <div className='row' >
-      <div className="col-xs-12">
-          
-            <Box display='flex'>
-            <Button
-            variant='contained'
-              my={4}
-              colorScheme="teal"
-              type="submit"
-              
-              sx={{borderRadius:'20px'}}
-              style={{backgroundColor:color.bluedark}}
-            >
-              Bus Search
-            </Button>
+        
+
+        <div className="row" >
+        <div className="col-xs-12 col-md-3" style={{ width: "50%" }}>
+  <div className="form_input">
+    <label className="form_lable">DEPARTURE</label>
+
+    <div style={{ display: "flex", alignItems: "center" }}>
+     
+      <DatePicker
+        selected={startDate}
+        name="departure"
+        id="departure"
+        ref={inputRef}
+        placeholderText="Select Date"
+        className="deaprture_input"
+        onChange={(date) => {
+          setStartDate(date);
+          handleDateInputChange();
+        }}
+        minDate={new Date()}
+      />
+    </div>
+  </div>
+  {errors.date && <div className="error">{errors.date}</div>}
+</div>
+
+          <div className="col-xs-12 col-md-3" style={{width:"50%"}} >
+          <div className="form_input">
+            <Box display="flex" >
+              <Button
+                variant="contained"
+                my={4}
+                colorScheme="teal"
+                type="submit"
+                sx={{ borderRadius: "20px" }}
+                style={{ backgroundColor: color.bluedark}}
+              >
+                Bus Search
+              </Button>
             </Box>
-         
+            </div>
+          </div>
         </div>
-         
-      </div>
       </form>
     </div>
-  )
-}
+  );
+};
 
-export default BusForm
+export default BusForm;

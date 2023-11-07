@@ -76,7 +76,7 @@ export default function CustomizedTables() {
               <StyledTableCell component="th" scope="row"  style={{color:'#252525' , fontWeight:'bold' , fontSize:'14px'}}>
               After 04:00 on 11 Jan 2023
               </StyledTableCell>
-              <StyledTableCell align="right" style={{color:'#FF8900' , fontWeight:'bold' , fontSize:'14px'}}>100%</StyledTableCell>
+              <StyledTableCell align="right"  style={{color:'#FF8900' , fontWeight:'bold' , fontSize:'14px'}}>100%</StyledTableCell>
             </StyledTableRow>
          
         </TableBody>

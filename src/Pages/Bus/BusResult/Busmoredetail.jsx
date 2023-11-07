@@ -34,13 +34,18 @@ export default function TransitionsModal() {
       <Link
         onClick={handleOpen}
         sx={{
-          fontSize: "10px",
+          fontSize: "14px",
           fontWeight: "bold",
-          color: "#FF8900",
+         
           display: "flex",
           alignItems: "center",
           textAlign: "center",
           cursor: "pointer",
+          textDecoration:"none",
+          color: "#000",
+          fontFamily:"Montserrat",
+
+
         }}
       >
         Bus Details
