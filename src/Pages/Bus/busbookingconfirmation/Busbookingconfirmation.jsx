@@ -11,10 +11,16 @@ import { busBookDetailsAction } from "../../../Redux/busSearch/busSearchAction";
 import userApi from "../../../Redux/API/api";
 import { useEffect } from "react";
 import Busbookingloader from "./Busbookingloader";
+import axios from "axios";
+import Swal from "sweetalert2";
+import { getUserDataAction } from "../../../Redux/Auth/UserDataById/actionUserData";
+import { balanceSubtractRequest } from "../../../Redux/Auth/balaceSubtract/actionBalnceSubtract";
 
 const Busbookingconfirmation = () => {
   const dispatch = useDispatch();
   const [loader, setLoader] = useState(false);
+  const [userData, setUserData] = useState(null);
+  
   console.log("dispatchhhhhhh", dispatch);
   const reducerState = useSelector((state) => state);
   console.log("_______________", reducerState);
@@ -23,12 +29,20 @@ const Busbookingconfirmation = () => {
   //   const busId =
   //     reducerState?.getBusResult?.busBook?.data?.data?.BookResult?.BusId;
   const [busId, setBusId] = useState(0);
-
+  const userId = reducerState?.logIn?.loginData?.data?.data?.id;
+ 
   useEffect(() => {
     if (reducerState?.getBusResult?.isLoadingBook == true) setLoader(true);
+
   }, [reducerState?.getBusResult?.isLoadingBook]);
   useEffect(() => {
     if (reducerState?.getBusResult?.busBook?.data?.data?.BookResult) {
+       if (userId) {
+         const payload = userId;
+
+         // console.log(payload,'userIdiii');
+         dispatch(getUserDataAction(payload));
+       }
       handleGetBookingDetails();
       setBusId(
         reducerState?.getBusResult?.busBook?.data?.data?.BookResult?.BusId
@@ -64,6 +78,9 @@ const Busbookingconfirmation = () => {
     const getDetails =
       reducerState?.getBusResult?.busDetails?.data?.data?.GetBookingDetailResult
         ?.Itinerary;
+    const totalAmount =
+      reducerState?.getBusResult?.busDetails?.data?.data?.GetBookingDetailResult
+        ?.Itinerary?.Price?.PublishedPrice;
 
     const payloadSavedata = {
       userId: reducerState?.logIn?.loginData?.data?.data?.id,
@@ -78,6 +95,7 @@ const Busbookingconfirmation = () => {
       pnr: getDetails?.TicketNo,
       busId: getDetails?.BusId,
       noOfSeats: getDetails?.NoOfSeats,
+      amount: totalAmount,
     };
     userApi.busBookingDataSave(payloadSavedata);
   };
