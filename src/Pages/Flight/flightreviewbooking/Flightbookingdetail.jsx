@@ -31,6 +31,8 @@ const Flightbookingdetail = () => {
   const [loading, setLoading] = useState(false);
   const [paymentOption, setPaymentOption] = useState(false);
   const reducerState = useSelector((state) => state);
+  const markUpamount =
+    reducerState?.userData?.userData?.data?.data?.markup?.flight;
   // console.log(userBalance,"hdhdhd")
   const isPassportRequired =
     reducerState?.flightFare?.flightQuoteData?.Results
@@ -99,35 +101,33 @@ const Flightbookingdetail = () => {
     e.preventDefault();
     const baseFare = fareValue?.Fare?.BaseFare || 0;
     const tax = fareValue?.Fare?.Tax || 0;
-    const otherCharges = fareValue?.Fare?.OtherCharges || 0;
+    const otherCharges = fareValue?.Fare?.OtherCharges + markUpamount || 0;
 
     if (
       userBalance <
       (fareValue?.Fare?.BaseFare || 0) +
-      (fareValue?.Fare?.Tax || 0) +
-      (fareValue?.Fare?.OtherCharges || 0)
+        (fareValue?.Fare?.Tax || 0) +
+        (fareValue?.Fare?.OtherCharges + markUpamount || 0)
     ) {
       // alert("Balance is insufficient for this transaction.");
       // console.log("balance");
       Swal.fire({
-        icon: 'error',
-        title: 'Oops...',
-        text: 'Balance is insufficient for this transaction.',
-        footer: 'Please recharge',
+        icon: "error",
+        title: "Oops...",
+        text: "Balance is insufficient for this transaction.",
+        footer: "Please recharge",
         showCancelButton: false,
-        confirmButtonText: 'OK',
+        confirmButtonText: "OK",
       }).then((result) => {
         if (result.isConfirmed) {
           // Redirect to the /flights path
-          navigate('/flights');
+          navigate("/flights");
           clearPassengersReducer();
           // clearOneWayReducer();
           // dispatch(clearOneWayReducer())
           // dispatch(clearPassengersReducer())
-          
         }
       });
-      
     } else {
       setLoading(true);
       const payloadGDS = {
@@ -157,17 +157,17 @@ const Flightbookingdetail = () => {
       //   fareValue?.Fare?.Tax +
       //   fareValue?.Fare?.OtherCharges
       //   )
-     
+
       if (userId) {
         const payload = userId;
-  
+
         // console.log(payload,'userIdiii');
         dispatch(getUserDataAction(payload));
       }
       if (userId) {
         const balancePayload = {
           _id: userId,
-          amount:baseFare + tax + otherCharges,
+          amount: baseFare + tax + otherCharges + markUpamount,
         };
 
         dispatch(balanceSubtractRequest(balancePayload));
@@ -1060,7 +1060,7 @@ const Flightbookingdetail = () => {
           gap: "40px",
         }}
       >
-        <div
+        {/* <div
           style={{
             color: "#000080",
             fontSize: 16.14,
@@ -1070,7 +1070,7 @@ const Flightbookingdetail = () => {
           }}
         >
           You have 2,000,000 as your Cash balance
-        </div>
+        </div> */}
         <form
           // action="/Flightbookingconfirmation"
           className="formFlightSearch"
