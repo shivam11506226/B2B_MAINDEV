@@ -34,7 +34,7 @@ function InnerNavbar() {
 
   return (
 
-    <div className="innerNav" style={{ marginTop: "110px", height: "15%" }}>
+    <div className="innerNav" style={{ marginTop: "90px", height: "13%" }}>
       {InnerBarLogo.map(({ avatar, name, path }, index) => (
         <Flex
           direction="column"

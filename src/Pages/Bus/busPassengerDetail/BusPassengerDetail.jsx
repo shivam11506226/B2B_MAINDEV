@@ -105,34 +105,34 @@ const BusPassengerDetail = () => {
           <Grid item xs={9}>
           <Box className="Bus_box" style={{  display: "flex", justifyContent: "space-between" }}>
       <Box display="flex">
-        <Typography sx={{ fontSize: "14px", fontWeight: "bold", color: "#252525" }}>
+        <Typography sx={{ fontSize: "14px", fontWeight: "bold", color: "#21325D",fontFamily: "Montserrat" }}>
           Travel:
         </Typography>
-        <Typography sx={{ fontSize: "14px", color: "#000" }} ml={2}>
+        <Typography sx={{ fontSize: "14px", color: "#000",fontFamily: "Montserrat"  }} ml={2}>
           Ashok Travels Mandsaur Group
         </Typography>
       </Box>
       <Box display="flex">
-        <Typography sx={{ fontSize: "14px", fontWeight: "bold", color: "#252525", textAlign: "left" }}>
+        <Typography sx={{ fontSize: "14px", fontWeight: "bold", color: "#21325D", textAlign: "left",fontFamily: "Montserrat"  }}>
           From:
         </Typography>
-        <Typography sx={{ fontSize: "14px",  color: "#000", textAlign: "left" }} ml={2}>
+        <Typography sx={{ fontSize: "14px",  color: "#000", textAlign: "left",fontFamily: "Montserrat" }} ml={2}>
           Delhi
         </Typography>
       </Box>
       <Box display="flex">
-        <Typography sx={{ fontSize: "14px", fontWeight: "bold", color: "#252525" }}>
+        <Typography sx={{ fontSize: "14px", fontWeight: "bold", color: "#21325D",fontFamily: "Montserrat"  }}>
           Bus Type:
         </Typography>
-        <Typography sx={{ fontSize: "14px",  color: "#000" }} ml={2}>
+        <Typography sx={{ fontSize: "14px",  color: "#000",fontFamily: "Montserrat"  }} ml={2}>
           NON Ac Seater / Sleeper 2+1
         </Typography>
       </Box>
       <Box display="flex">
-        <Typography sx={{ fontSize: "14px", fontWeight: "bold", color: "#252525", textAlign: "left" }}>
+        <Typography sx={{ fontSize: "14px", fontWeight: "bold", color: "#21325D", textAlign: "left",fontFamily: "Montserrat" }}>
           Depart:
         </Typography>
-        <Typography sx={{ fontSize: "14px",  color: "#000", textAlign: "left" }} ml={2}>
+        <Typography sx={{ fontSize: "14px",  color: "#000", textAlign: "left",fontFamily: "Montserrat"  }} ml={2}>
           11 Jan 2023, 19:00
         </Typography>
       </Box>

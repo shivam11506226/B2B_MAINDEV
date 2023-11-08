@@ -236,7 +236,7 @@ function Headers() {
     <div
       style={{
         width: "100%",
-        height: 115,
+        height: 100,
         background: "white",
         zIndex: 2,
         position: "fixed",
@@ -483,13 +483,13 @@ function Headers() {
                   ? "Logout"
                   : "Login"}
               </MenuItem>
-              <MenuItem onClick={editPackage} style={{ fontSize: "15px" }}>
+              {/* <MenuItem onClick={editPackage} style={{ fontSize: "15px" }}>
                 My Package
-              </MenuItem>
+              </MenuItem> */}
             </Menu>
           </div>
         </div>
-        <div
+        {/* <div
           style={{
             width: "430px",
             height: "40px",
@@ -598,7 +598,7 @@ function Headers() {
               </div>
             </div>
           </div>
-        </div>
+        </div> */}
       </div>
       <Modal
         open={openModal}
