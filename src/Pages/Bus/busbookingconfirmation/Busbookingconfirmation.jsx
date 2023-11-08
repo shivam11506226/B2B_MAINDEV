@@ -132,18 +132,18 @@ const Busbookingconfirmation = () => {
                     <Box
   style={{
     width: '95%',
-    height: '82px',
-    paddingLeft: '48px',
-    paddingRight: '48px',
-    paddingTop: '24px',
-    paddingBottom: '24px',
+    height: '60px',
+    paddingLeft: '20px',
+    paddingRight: '20px',
+    paddingTop: '12px',
+    paddingBottom: '12px',
     background: '#DBE5FF',
     boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.16)',
     borderRadius: '8px',
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
-    gap: '10px',
+   
   }}
 >
   <Box
@@ -400,11 +400,11 @@ const Busbookingconfirmation = () => {
                             <div
   style={{
     width: '95%',
-    height: '77px',
-    paddingLeft: '32px',
-    paddingRight: '32px',
-    paddingTop: '24px',
-    paddingBottom: '24px',
+    height: '60px',
+    paddingLeft: '20px',
+    paddingRight: '20px',
+    paddingTop: '14px',
+    paddingBottom: '14px',
     background: '#E4E4E4',
     borderRadius: '8px',
     display: 'flex',
@@ -436,15 +436,15 @@ const Busbookingconfirmation = () => {
   </div>
 </div>
                       
-                      <Typography
+                      {/* <Typography
                         mt={2}
                         sx={{ fontSize: "12px", fontWeight: "bold" }}
                       >
                         Passenger 1
-                      </Typography>
+                      </Typography> */}
                     </Box>
-                    <Box display="flex" justifyContent="space-between">
-                      <Box textAlign="left">
+                    <Box display="flex" justifyContent="space-between" marginTop="10px">
+                      <Box textAlign="left" mt={2}>
                         <Box display="flex">
                           <Typography
                             sx={{
@@ -466,6 +466,7 @@ const Busbookingconfirmation = () => {
                             Shivsm singh
                           </Typography>
                         </Box>
+
                         <Box display="flex">
                           <Typography
                             sx={{
@@ -631,11 +632,41 @@ const Busbookingconfirmation = () => {
               </Grid>
             </Box>
             {/* <form action="/Busbookingconfirmation"> */}
-            <Box textAlign="center">
-              <Button variant="contained" type="submit">
+            {/* <Box textAlign="center">
+              <Button backgroundColor="#21325D" type="submit">
                 Print
               </Button>
+            </Box> */}
+            <Box>
+            <button
+            style={{
+              width: 200,
+              height: 53,
+              paddingLeft: 63.63,
+              paddingRight: 63.63,
+              paddingTop: 21.21,
+              paddingBottom: 21.21,
+              background: "#21325D",
+              borderRadius: 5.3,
+              justifyContent: "center",
+              alignItems: "center",
+              gap: 10.91,
+              display: "inline-flex",
+              border: "1px solid #21325D",
+              color: "white",
+              cursor: "pointer",
+              marginLeft:"15px",
+              fontFamily: "Montserrat",
+              fontSize:"20px"
+              
+            }}
+            type="submit"
+           
+          >
+           Print
+          </button>
             </Box>
+          
             {/* </form> */}
           </>
         )}

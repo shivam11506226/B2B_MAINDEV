@@ -115,7 +115,7 @@ const BusSaleSummary = () => {
           <div
             style={{
               color: '#071C2C',
-              fontSize: '12px',
+              fontSize: '16px',
               fontFamily: 'Montserrat',
               fontWeight: 600,
               lineHeight: '16.67px',
@@ -138,7 +138,7 @@ const BusSaleSummary = () => {
         <div
           style={{
             color: '#071C2C',
-            fontSize: '12px',
+            fontSize: '16px',
             fontFamily: 'Montserrat',
             fontWeight: 600,
             wordWrap: 'break-word',
@@ -233,7 +233,7 @@ const BusSaleSummary = () => {
           <div
             style={{
               color: '#071C2C',
-              fontSize: '12px',
+              fontSize: '16px',
               fontFamily: 'Montserrat',
               fontWeight: 600,
               lineHeight: '16.67px',
@@ -256,7 +256,7 @@ const BusSaleSummary = () => {
         <div
           style={{
             color: '#071C2C',
-            fontSize: '12px',
+            fontSize: '16px',
             fontFamily: 'Montserrat',
             fontWeight: 600,
             wordWrap: 'break-word',
@@ -303,7 +303,7 @@ const BusSaleSummary = () => {
           <div
             style={{
               color: '#071C2C',
-              fontSize: '12px',
+              fontSize: '16px',
               fontFamily: 'Montserrat',
               fontWeight: 600,
               lineHeight: '16.67px',
@@ -326,7 +326,7 @@ const BusSaleSummary = () => {
         <div
           style={{
             color: '#071C2C',
-            fontSize: '12px',
+            fontSize: '16px',
             fontFamily: 'Montserrat',
             fontWeight: 600,
             wordWrap: 'break-word',

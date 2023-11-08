@@ -214,10 +214,10 @@ const BusForm = () => {
   // /BusResult
 
   return (
-    <div className="container" style={{marginTop:"-8px"}}>
+    <div className="container" style={{ marginTop: "-8px" }}>
       <form onSubmit={handleSubmit}>
         <div className="row">
-          <div className="col-xs-12 col-md-3" style={{width:"50%"}}>
+          <div className="col-xs-12 col-md-3" style={{ width: "50%" }}>
             {/* <div className="form_input">
             <label className="form_lable">From City</label>
             <input
@@ -285,7 +285,7 @@ const BusForm = () => {
             </div>
           </div>
 
-          <div className="col-xs-12 col-md-3" style={{width:"50%"}}>
+          <div className="col-xs-12 col-md-3" style={{ width: "50%" }}>
             {/* <div className="form_input">
             <label className="form_lable">To City</label>
             <input
@@ -352,49 +352,48 @@ const BusForm = () => {
             </div>
           </div>
         </div>
-        
 
         <div className="row" >
-        <div className="col-xs-12 col-md-3" style={{ width: "50%" }}>
-  <div className="form_input">
-    <label className="form_lable">DEPARTURE</label>
+          <div className="col-xs-12 col-md-3">
+            <div className="form_input">
+              <label className="form_lable">DEPARTURE</label>
 
-    <div style={{ display: "flex", alignItems: "center" }}>
-     
-      <DatePicker
-        selected={startDate}
-        name="departure"
-        id="departure"
-        ref={inputRef}
-        placeholderText="Select Date"
-        className="deaprture_input"
-        onChange={(date) => {
-          setStartDate(date);
-          handleDateInputChange();
-        }}
-        minDate={new Date()}
-      />
-    </div>
-  </div>
-  {errors.date && <div className="error">{errors.date}</div>}
-</div>
+              <div style={{ display: "flex", alignItems: "center" }}>
+                <DatePicker
+                  selected={startDate}
+                  name="departure"
+                  id="departure"
+                  ref={inputRef}
+                  placeholderText="Select Date"
+                  onChange={(date) => {
+                    setStartDate(date);
+                    handleDateInputChange();
+                  }}
+                  minDate={new Date()}
+                  className="datePick"
+                />
+              </div>
+            </div>
+            {errors.date && <div className="error">{errors.date}</div>}
+          </div>
 
-          <div className="col-xs-12 col-md-3" style={{width:"50%"}} >
-          <div className="form_input">
-            <Box display="flex" >
+          <div className="col-xs-6 col-md-3" style={{marginLeft:"190px"}}>
+            <div className="form_input">
+            <Box>
               <Button
                 variant="contained"
-                my={4}
                 colorScheme="teal"
                 type="submit"
                 sx={{ borderRadius: "20px" }}
-                style={{ backgroundColor: color.bluedark}}
+                style={{ backgroundColor: color.bluedark }}
               >
                 Bus Search
               </Button>
             </Box>
-            </div>
-          </div>
+              </div>
+              </div>
+          
+         
         </div>
       </form>
     </div>
