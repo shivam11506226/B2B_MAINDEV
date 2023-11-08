@@ -34,7 +34,7 @@ function InnerNavbar() {
 
   return (
 
-    <div className="innerNav" style={{ marginTop: "90px", height: "13%" }}>
+    <div className="innerNav" style={{ marginTop: "98px", height: "13%",paddingBottom:"10px" }}>
       {InnerBarLogo.map(({ avatar, name, path }, index) => (
         <Flex
           direction="column"
@@ -66,10 +66,11 @@ function InnerNavbar() {
               textDecoration: "none",
               color: "#21325D",
               font: "Quicksand, Bold",
-              height: "85%",
+             
               justifyContent: "space-around",
               width: "100px",
               textAlign: "center",
+              
             }}
 
           >
@@ -84,6 +85,7 @@ function InnerNavbar() {
                 fontSize: "16px",
                 fontStyle: "normal", // Fixed typo in fontStyle
                 fontWeight: "400",
+                marginBottom:"20px"
               }}
               color={false ? "#21325D" : "white"}
             >
@@ -99,11 +101,11 @@ function InnerNavbar() {
                   backgroundColor: "white",
                   borderRadius: "10px",
                   zIndex: 1,
-                  width: "73%",
+                  // width: "73%",
                   margin: "0px 30px",
                   boxShadow: "rgba(0, 0, 0, 0.09) 0px 3px 12px",
                   textAlign: "left",
-                  marginTop: "-12px",
+                  marginTop: "-28px",
                   width: "130px",
                   
                   

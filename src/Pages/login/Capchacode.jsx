@@ -62,7 +62,7 @@ export default function Demo(props) {
 
   return (
     <div>
-      <Box style={{ display: "flex" }} my={1}>
+      {/* <Box style={{ display: "flex" }} my={1}>
         <Box
           className="capt"
           textAlign="center"
@@ -77,7 +77,7 @@ export default function Demo(props) {
           onClick={generateRandomString}
         />
         <input className="textinput" value={text} onChange={handleText}></input>
-      </Box>
+      </Box> */}
       <Box display="flex" justifyContent="space-between" width="100%" mt={3}>
         <Button
           variant="contained"
