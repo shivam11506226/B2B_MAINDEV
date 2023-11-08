@@ -12,12 +12,14 @@ import HolidayRating from "../holidaypackageresult/HolidayRating";
 import FileDownloadDoneIcon from "@mui/icons-material/FileDownloadDone";
 import FastfoodIcon from "@mui/icons-material/Fastfood";
 import color from "../../../color/color";
+import { getUserDataAction } from "../../../Redux/Auth/UserDataById/actionUserData";
 const Holidayreviewbookingdetail = () => {
   const dispatch = useDispatch();
   const reducerState = useSelector((state) => state);
   const onePackage =
     reducerState?.searchOneResult?.OneSearchPackageResult?.data?.data;
   const reducerForm = reducerState?.form?.formEntries;
+  
   console.log(onePackage);
   console.log(reducerForm);
 
