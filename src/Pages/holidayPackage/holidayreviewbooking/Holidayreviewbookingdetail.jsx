@@ -13,15 +13,25 @@ import FileDownloadDoneIcon from "@mui/icons-material/FileDownloadDone";
 import FastfoodIcon from "@mui/icons-material/Fastfood";
 import color from "../../../color/color";
 import { getUserDataAction } from "../../../Redux/Auth/UserDataById/actionUserData";
+
+
+
 const Holidayreviewbookingdetail = () => {
+
   const dispatch = useDispatch();
   const reducerState = useSelector((state) => state);
   const onePackage =
     reducerState?.searchOneResult?.OneSearchPackageResult?.data?.data;
   const reducerForm = reducerState?.form?.formEntries;
-  
+
   console.log(onePackage);
   console.log(reducerForm);
+
+  const packageDetails = reducerState?.packageBookingRequest?.packageRequestData
+  console.log(packageDetails, 'package hotel')
+
+
+
 
   return (
     <Box>
@@ -42,140 +52,90 @@ const Holidayreviewbookingdetail = () => {
             - 1 Room | {reducerForm.length - 1} Adults
           </Typography>
         </Typography>
-        <Typography className="holiday_txt_v" style={{ color: color.red1 }}>
-          Traveller 1 (Adult)
-        </Typography>
-        <Box>
-          <Box mt={1} display="flex">
-            <Typography
-              sx={{
-                fontSize: "16px",
-                color: "#666666",
-                cursor: "pointer",
-              }}
-            >
-              Name:
-            </Typography>
-            <Typography
-              ml={1}
-              sx={{
-                fontSize: "16px",
-                color: "#666666",
-                cursor: "pointer",
-              }}
-            >
-              Dheeraj Vishwakarma
-            </Typography>
-          </Box>
-          <Box mt={1} display="flex">
-            <Typography
-              sx={{
-                fontSize: "16px",
-                color: "#666666",
-                cursor: "pointer",
-              }}
-            >
-              Date of Birth:
-            </Typography>
-            <Typography
-              ml={1}
-              sx={{
-                fontSize: "16px",
-                color: "#666666",
-                cursor: "pointer",
-              }}
-            >
-              02th Jun, 1998
-            </Typography>
-            <Typography
-              sx={{
-                fontSize: "16px",
-                color: "#666666",
-                cursor: "pointer",
-              }}
-              ml={3}
-            >
-              Gender:
-            </Typography>
-            <Typography
-              ml={1}
-              sx={{
-                fontSize: "16px",
-                color: "#666666",
-                cursor: "pointer",
-              }}
-            >
-              Male
-            </Typography>
-          </Box>
-        </Box>
-        <Typography className="holiday_txt_v" style={{ color: color.red1 }}>
-          Traveller 2 (Adult)
-        </Typography>
-        <Box>
-          <Box mt={1} display="flex">
-            <Typography
-              sx={{
-                fontSize: "16px",
-                color: "#666666",
-                cursor: "pointer",
-              }}
-            >
-              Name:
-            </Typography>
-            <Typography
-              ml={1}
-              sx={{
-                fontSize: "16px",
-                color: "#666666",
-                cursor: "pointer",
-              }}
-            >
-              Dheeraj Vishwakarma
-            </Typography>
-          </Box>
-          <Box mt={1} display="flex">
-            <Typography
-              sx={{
-                fontSize: "16px",
-                color: "#666666",
-                cursor: "pointer",
-              }}
-            >
-              Date of Birth:
-            </Typography>
-            <Typography
-              ml={1}
-              sx={{
-                fontSize: "16px",
-                color: "#666666",
-                cursor: "pointer",
-              }}
-            >
-              02th Jun, 1998
-            </Typography>
-            <Typography
-              sx={{
-                fontSize: "16px",
-                color: "#666666",
-                cursor: "pointer",
-              }}
-              ml={3}
-            >
-              Gender:
-            </Typography>
-            <Typography
-              ml={1}
-              sx={{
-                fontSize: "16px",
-                color: "#666666",
-                cursor: "pointer",
-              }}
-            >
-              Male
-            </Typography>
-          </Box>
-        </Box>
+
+
+
+        {
+          packageDetails.travellers.map((item, index) => (
+            <>
+              <Typography className="holiday_txt_v" style={{ color: color.red1 }}>
+                Traveller 1 (Adult)
+              </Typography>
+              <Box>
+                <Box mt={1} display="flex">
+                  <Typography
+                    sx={{
+                      fontSize: "16px",
+                      color: "#666666",
+                      cursor: "pointer",
+                    }}
+                  >
+                    Name:
+                  </Typography>
+
+                  <Typography
+                    ml={1}
+                    sx={{
+                      fontSize: "16px",
+                      color: "#666666",
+                      cursor: "pointer",
+                    }}
+                  >
+                    {item.name}
+                  </Typography>
+
+                </Box>
+                <Box mt={1} display="flex">
+                  <Typography
+                    sx={{
+                      fontSize: "16px",
+                      color: "#666666",
+                      cursor: "pointer",
+                    }}
+                  >
+                    Date of Birth:
+                  </Typography>
+                  <Typography
+                    ml={1}
+                    sx={{
+                      fontSize: "16px",
+                      color: "#666666",
+                      cursor: "pointer",
+                    }}
+                  >
+                    {item.dob}
+                  </Typography>
+                  <Typography
+                    sx={{
+                      fontSize: "16px",
+                      color: "#666666",
+                      cursor: "pointer",
+                    }}
+                    ml={3}
+                  >
+                    Gender:
+                  </Typography>
+                  <Typography
+                    ml={1}
+                    sx={{
+                      fontSize: "16px",
+                      color: "#666666",
+                      cursor: "pointer",
+                    }}
+                  >
+                    {item.gender}
+                  </Typography>
+                </Box>
+              </Box>
+            </>
+
+          ))
+        }
+
+
+
+
+
         <Box py={1}>
           <Typography fontSize="16px" fontWeight="bold" color="#006FFF">
             Contact Details
@@ -199,7 +159,7 @@ const Holidayreviewbookingdetail = () => {
                 cursor: "pointer",
               }}
             >
-              abc@gmail.com
+              {packageDetails.email}
             </Typography>
             <Typography
               ml={2}
@@ -219,7 +179,7 @@ const Holidayreviewbookingdetail = () => {
                 cursor: "pointer",
               }}
             >
-              +91 98712 34561
+              {packageDetails.contactNumber.phone}
             </Typography>
           </Box>
         </Box>

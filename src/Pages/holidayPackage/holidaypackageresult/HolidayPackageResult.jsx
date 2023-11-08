@@ -14,7 +14,7 @@ import DirectionsBusIcon from "@mui/icons-material/DirectionsBus";
 import DirectionsCarIcon from "@mui/icons-material/DirectionsCar";
 import TwoWheelerIcon from "@mui/icons-material/TwoWheeler";
 import ApartmentIcon from "@mui/icons-material/Apartment";
-import HolidayVillageIcon from "@mui/icons-material/HolidayVillage"; 
+import HolidayVillageIcon from "@mui/icons-material/HolidayVillage";
 import CabinIcon from "@mui/icons-material/Cabin";
 import BlurOnIcon from "@mui/icons-material/BlurOn";
 import DeckIcon from "@mui/icons-material/Deck";
@@ -67,12 +67,12 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import FilterAltIcon from '@mui/icons-material/FilterAlt';
 import WhatsAppIcon from '@mui/icons-material/WhatsApp';
 import MailIcon from '@mui/icons-material/Mail';
-import {useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const HolidayPackageResult = () => {
   const reducerState = useSelector((state) => state);
   const dispatch = useDispatch();
-  const navigate=useNavigate()
+  const navigate = useNavigate()
 
   // console.log("holiday details",reducerState?.searchResult?.packageSearchResult?.data?.data?.pakage);
   const filteredPackage =
@@ -94,7 +94,7 @@ const HolidayPackageResult = () => {
       <div className="flightContainer">
         {/* step by step updating part */}
 
-        
+
         <div >
           <Grid container spacing={3} display="flex" alignItems='center' justifyContent='center'>
             {/* <Grid sm={0} xs={0} md={3} item>
@@ -267,7 +267,7 @@ const HolidayPackageResult = () => {
                   </div>
                 </div>
               </MuiBox> */}
-              <MuiBox style={{display:'flex',flexDirection:'column',gap:"15px"}}>
+              <MuiBox style={{ display: 'flex', flexDirection: 'column', gap: "15px" }}>
                 {/* HolidayPackagedetail  */}
                 {filteredPackage?.map((item, index) => {
                   console.log(item, "333333333333333333333333333333333333333333333333333333333333333")
@@ -290,7 +290,7 @@ const HolidayPackageResult = () => {
                           display: "flex",
                           justifyContent: "space-around",
                           alignItems: "center",
-                          width:"100%"
+                          width: "100%"
                         }}
                       >
                         <Grid
@@ -300,8 +300,8 @@ const HolidayPackageResult = () => {
                             justifyContent: "space-between",
                             alignItems: "center",
                             columns: 3,
-                            height:"100%"
-                          
+                            height: "100%"
+
                           }}
                         >
                           <Grid key={index}>
@@ -325,17 +325,17 @@ const HolidayPackageResult = () => {
 
                             </MuiBox>
                           </Grid>
-                          <Grid display="flex"     flexDirection='column' justifyContent="space-between" alignItems='space-between'  height= "210px"  >
+                          <Grid display="flex" flexDirection='column' justifyContent="space-between" alignItems='space-between' height="210px"  >
                             <MuiBox
                               px={1}
-                              display="flex"     flexDirection='column'  alignItems='space-between' justifyContent='space-between'
+                              display="flex" flexDirection='column' alignItems='space-between' justifyContent='space-between'
                               sx={{
-                              
+
                                 // paddingRight: "35px",
                                 // minWidth: "180px",
                                 // marginLeft: "60px",
-                                
-                                
+
+
                               }}
                             >
                               <Typography
