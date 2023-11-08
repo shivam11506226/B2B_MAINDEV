@@ -485,20 +485,21 @@ export default function Popularfilter() {
                               </div>
                               <div
                                 style={{
-                                  justifyContent: "flex-start",
-                                  alignItems: "center",
+                               
+                                 
                                   gap: 2.29,
                                   display: "flex",
                                 }}
                               >
                                 <div
-                                  style={{
+                                   style={{
                                     color: "black",
                                     fontSize: 16,
                                     fontFamily: "Montserrat",
                                     fontWeight: "400",
                                     wordWrap: "break-word",
-                                    marginLeft: "46px",
+                                    marginLeft: "71px",
+                                    width: "100px",
                                   }}
                                 >
                                   {" "}
@@ -742,7 +743,7 @@ export default function Popularfilter() {
                 style={{
                   justifyContent: "space-between",
                   alignItems: "center",
-                  gap: 125,
+                  
                   display: "flex",
                 }}
               >
@@ -752,17 +753,16 @@ export default function Popularfilter() {
                     fontSize: 15,
                     fontFamily: "Montserrat",
                     fontWeight: "350",
-                    wordWrap: "break-word",
-                    width: "90%",
+                   
                   }}
                 >
                   Total Pub. Fare:
                 </div>
                 <div
                   style={{
-                    justifyContent: "flex-start",
-                    alignItems: "center",
-                    gap: 5,
+                    
+                   
+                  justifyContent:"space-between",
                     display: "flex",
                   }}
                 >
@@ -772,8 +772,9 @@ export default function Popularfilter() {
                       fontSize: 16,
                       fontFamily: "Montserrat",
                       fontWeight: "400",
-                      wordWrap: "break-word",
-                      width: "90px",
+                      textAlign:"center",
+                      width:"100px",
+                      marginLeft:"10px"
                     }}
                   >
                     {" "}
