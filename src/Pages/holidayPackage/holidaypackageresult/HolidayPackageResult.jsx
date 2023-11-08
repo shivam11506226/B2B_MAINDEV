@@ -67,12 +67,12 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import FilterAltIcon from '@mui/icons-material/FilterAlt';
 import WhatsAppIcon from '@mui/icons-material/WhatsApp';
 import MailIcon from '@mui/icons-material/Mail';
-
-
+import {useNavigate } from "react-router-dom";
 
 const HolidayPackageResult = () => {
   const reducerState = useSelector((state) => state);
   const dispatch = useDispatch();
+  const navigate=useNavigate()
 
   // console.log("holiday details",reducerState?.searchResult?.packageSearchResult?.data?.data?.pakage);
   const filteredPackage =
