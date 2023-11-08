@@ -167,7 +167,7 @@ const Flightbookingdetail = () => {
       if (userId) {
         const balancePayload = {
           _id: userId,
-          amount: baseFare + tax + otherCharges + markUpamount,
+          amount: baseFare + tax + otherCharges,
         };
 
         dispatch(balanceSubtractRequest(balancePayload));
