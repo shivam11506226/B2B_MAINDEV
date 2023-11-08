@@ -271,7 +271,9 @@ const Return = () => {
               onChange={(event) => {
                 handleFromInputChange(event);
                 handleFromSearch(event.target.value);
+               
               }}
+              style={{width:"11rem"}}
             />
             {isLoading && <div>Loading...</div>}
             {fromSearchResults && fromSearchResults.length > 0 && (
@@ -340,6 +342,7 @@ const Return = () => {
                 handleToInputChange(event);
                 handleToSearch(event.target.value);
               }}
+              style={{width:"11rem"}}
             />
             {isLoading && <div>Loading...</div>}
             {toSearchResults && toSearchResults.length > 0 && (
@@ -399,6 +402,7 @@ const Return = () => {
               min={new Date().toISOString().split("T")[0]}
               value={departureDate}
               onChange={handleDepartureDateChange}
+             
             ></input>
           </div>
         </div>

@@ -163,7 +163,7 @@ const Login = () => {
 
         <Box>
           <div>
-            <Grid container px={10} py={15}>
+            <Grid container px={10} >
               <Grid item xs={12} sm={12} lg={9} mb={5}>
                 <Box
                   display="flex"
@@ -194,7 +194,7 @@ const Login = () => {
                 mb={5}
               >
                 <Box textAlign="right">
-                  <form action="/Login">
+                  <form onSubmit= {()=>navigate("/Login")}>
                     <Box textAlign="right">
                       <Button
                         type="submit"
@@ -235,11 +235,12 @@ const Login = () => {
                 <Box style={{ width: "100%", justifyContent: 'center', alignItems: 'center', display: 'flex', marginTop: "30px" }}>
 
 
-                  <Button border={agencyPage === 1 ? "1px solid blue" : "1px solid blue"} onClick={() => setAgencyPage(1)} style={{ width: '400px', height: '50px', background: '#FFFFFF', justifyContent: 'center', alignItems: 'center', display: 'flex', border: agencyPage === 1 ? "1px solid blue" : '1px solid #D9D9D9' }}>
+                  <Button border={agencyPage === 1 ? "1px solid blue" : "1px solid blue"} onClick={() => setAgencyPage(1)} style={{ width: '400px', height: '40px', background: '#FFFFFF', justifyContent: 'center', alignItems: 'center', display: 'flex', border: agencyPage === 1 ? "1px solid blue" : '1px solid #D9D9D9' }}>
 
                     <Typography
                       sx={{
-                        fontSize: "22px",
+                        fontSize: "20px",
+                        fontFamily: 'Montserrat',
                         fontWeight: "bold",
                       }}
                       style={{ color: "#000000" }}
@@ -247,24 +248,26 @@ const Login = () => {
                       Personal Details
                     </Typography>
                   </Button>
-                  <Button onClick={() => setAgencyPage(2)} style={{ width: '400px', height: '50px', background: '#FFFFFF', justifyContent: 'center', alignItems: 'center', display: 'flex', border: agencyPage === 2 ? "1px solid blue" : '1px solid #D9D9D9' }}>
+                  <Button onClick={() => setAgencyPage(2)} style={{ width: '400px', height: '40px', background: '#FFFFFF', justifyContent: 'center', alignItems: 'center', display: 'flex', border: agencyPage === 2 ? "1px solid blue" : '1px solid #D9D9D9' }}>
 
                     <Typography
                       sx={{
-                        fontSize: "22px",
+                        fontSize: "20px",
                         fontWeight: "bold",
+                        fontFamily: 'Montserrat'
                       }}
                       style={{ color: "#000000" }}
                     >
                       Agency Details
                     </Typography>
                   </Button>
-                  <Button onClick={() => setAgencyPage(3)} style={{ width: '400px', height: '50px', background: '#FFFFFF', justifyContent: 'center', alignItems: 'center', display: 'flex', border: agencyPage === 3 ? "1px solid blue" : '1px solid #D9D9D9' }}>
+                  <Button onClick={() => setAgencyPage(3)} style={{ width: '400px', height: '40px', background: '#FFFFFF', justifyContent: 'center', alignItems: 'center', display: 'flex', border: agencyPage === 3 ? "1px solid blue" : '1px solid #D9D9D9' }}>
 
                     <Typography
                       sx={{
-                        fontSize: "22px",
+                        fontSize: "20px",
                         fontWeight: "bold",
+                        fontFamily: 'Montserrat'
                       }}
                       style={{ color: "#000000" }}
                     >
@@ -275,41 +278,44 @@ const Login = () => {
 
                 <Paper
                   className="paper_pin"
-                  style={{ height: "100%", width: "100%", borderRadius: "20px", marginTop: "10px" }}
+                  style={{ height: "auto", width: "100%", borderRadius: "20px", marginTop: "10px" }}
                 >
                   {reducerState.signUp?.showSuccessMessage && (
                     <Alert severity="success">
                       Thankyou ! for Registering, we'll contact you ASAP
                     </Alert>
                   )}
-                  <Box display='flex' style={{ height: "100%", justifyContant: 'center', alignItems: 'center' }} >
-                    {agencyPage === 1 && <Box flex={1} style={{display:"flex", justifyContant: 'center', alignItems: 'center' }} >
-                      <img src={r1} alt="r1" />
+                  <Box display='flex' style={{ height: "100%", justifyContant: 'center', alignItems: 'space-between' }} >
+                    {agencyPage === 1 && <Box flex={1} style={{ display: "flex",  width: "100%" }} alignItems='center' justifyContent='center' >
+                      <div>
+
+                        <img src={r1} alt="r1" />
+                      </div>
                     </Box>}
-                    {agencyPage === 2 && <Box flex={1} style={{height:'100%', justifyContant: 'center', alignItems: 'space-between', }} >
-                      <Box style={{height:'50%', justifyContant: 'center', alignItems: 'center'}}>
+                    {agencyPage === 2 && <Box flex={1} style={{ height: '100%',gap:"100px",display:"flex" , }} justifyContent='center' alignItems='space-between' flexDirection='column' >
+                      <Box style={{ height: '50%',display:'flex',  alignItems: 'center' , }}  justifyContent='center' >
 
-                      <img src={r2} alt="r1" />
+                        <img src={r2} alt="r1" />
                       </Box>
-                      <Box>
-                      <img src={r3} alt="r1" />
+                      <Box display='flex'  justifyContent='center' alignItems='center'>
+                        <img src={r3} alt="r1" />
 
-                    
-                      </Box>
-                    </Box>}
-                    {agencyPage === 3 && <Box flex={1} style={{height:'100%', justifyContant: 'center', alignItems: 'space-between'}} >
-                      <Box style={{height:'50%', justifyContant: 'center', alignItems: 'center' }}>
 
-                      <img src={r4} alt="r1"  />
-                      </Box>
-                      <Box>
-                      <img src={r5} alt="r1" />
-
-                    
                       </Box>
                     </Box>}
-                    
-                    
+                    {agencyPage === 3 && <Box flex={1} style={{ height: 'auto',gap:"100px",display:"flex" , }} justifyContent='center' alignItems='space-between' flexDirection='column' >
+                      <Box style={{ height: '50%',display:'flex',  alignItems: 'center' , }}  justifyContent='center' >
+
+                        <img src={r4} alt="r1" />
+                      </Box>
+                      <Box display='flex'  justifyContent='center' alignItems='center'>
+                        <img src={r5} alt="r1" />
+
+
+                      </Box>
+                    </Box>}
+
+
                     <Box flex={1}>
 
 

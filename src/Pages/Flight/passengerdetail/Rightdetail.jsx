@@ -76,6 +76,8 @@ export default function Popularfilter() {
   const fareQuote = reducerState?.flightFare?.flightQuoteData?.Error?.ErrorCode;
   const fareRule = reducerState?.flightFare?.flightRuleData?.FareRules;
   const fareValue = reducerState?.flightFare?.flightQuoteData?.Results;
+  const markUpamount =
+    reducerState?.userData?.userData?.data?.data?.markup?.flight;
 
   console.log("fareValue 🤞", fareValue);
 
@@ -321,7 +323,7 @@ export default function Popularfilter() {
                 marginBottom: "10px",
               }}
             />
-            <Grid container>
+            {/* <Grid container>
               {fareValue?.Fare?.TaxBreakup?.map((obj) => {
                 total += obj.value;
                 return <KeyValue data={obj.key} value={obj.value} />;
@@ -383,15 +385,15 @@ export default function Popularfilter() {
                   </div>
                 </div>
               </Grid>
-            </Grid>
-            <Divider
+            </Grid> */}
+            {/* <Divider
               style={{
                 height: "2px",
                 background: "#D3D3D3",
                 marginTop: "10px",
                 marginBottom: "10px",
               }}
-            />
+            /> */}
 
             <Grid container>
               {fareValue?.FareBreakdown?.map((data) => {
@@ -413,7 +415,7 @@ export default function Popularfilter() {
                               {" "}
                               <span>Adult x {data?.PassengerCount}</span>{" "}
                             </div>
-                            <div
+                            {/* <div
                               style={{
                                 width: 290.65,
                                 height: 20,
@@ -459,7 +461,7 @@ export default function Popularfilter() {
                                   Rs. {fareValue?.Fare?.BaseFare}
                                 </div>
                               </div>
-                            </div>
+                            </div> */}
                             <div
                               style={{
                                 width: 290.65,
@@ -483,28 +485,29 @@ export default function Popularfilter() {
                               </div>
                               <div
                                 style={{
-                                  justifyContent: "flex-start",
-                                  alignItems: "center",
+                               
+                                 
                                   gap: 2.29,
                                   display: "flex",
                                 }}
                               >
                                 <div
-                                  style={{
+                                   style={{
                                     color: "black",
                                     fontSize: 16,
                                     fontFamily: "Montserrat",
                                     fontWeight: "400",
                                     wordWrap: "break-word",
-                                    marginLeft: "46px",
+                                    marginLeft: "71px",
+                                    width: "100px",
                                   }}
                                 >
                                   {" "}
-                                  Rs. {fareValue?.Fare?.Tax}
+                                  Rs. {markUpamount}
                                 </div>
                               </div>
                             </div>
-                            <div
+                            {/* <div
                               style={{
                                 width: 296,
                                 height: 36,
@@ -555,7 +558,7 @@ export default function Popularfilter() {
                                   Rs. {fareValue?.Fare?.OtherCharges}
                                 </div>
                               </div>
-                            </div>
+                            </div> */}
                             <Typography
                               sx={{
                                 color: "#616161",
@@ -575,22 +578,13 @@ export default function Popularfilter() {
                                 fontFamily: "Montserrat",
                                 fontWeight: "400",
                                 wordWrap: "break-word",
-                                marginLeft:"28px",
-                                width:"100px"
+                                marginLeft: "28px",
+                                width: "100px",
                               }}
                             >
                               {" "}
                               Rs. {data?.BaseFare + data?.Tax}
                             </div>
-                            {/* <Typography
-                              sx={{
-                                color: "#FF8900",
-                                fontSize: "10px",
-                                fontWeight: "bold",
-                              }}
-                            >
-                              Rs. {data?.BaseFare + data?.Tax}
-                            </Typography> */}
                           </Box>
                         </Grid>
                       </>
@@ -608,7 +602,7 @@ export default function Popularfilter() {
                             >
                               <span>Child x {data?.PassengerCount}</span>
                             </Typography>
-                            <Typography
+                            {/* <Typography
                               sx={{
                                 color: "#616161",
                                 fontSize: "10px",
@@ -616,8 +610,8 @@ export default function Popularfilter() {
                               }}
                             >
                               Excess Baggage
-                            </Typography>
-                            <Typography
+                            </Typography> */}
+                            {/* <Typography
                               sx={{
                                 color: "#616161",
                                 fontSize: "10px",
@@ -625,7 +619,7 @@ export default function Popularfilter() {
                               }}
                             >
                               Meal
-                            </Typography>
+                            </Typography> */}
                           </Box>
                         </Grid>
 
@@ -640,7 +634,7 @@ export default function Popularfilter() {
                             >
                               Rs. {data?.BaseFare + data?.Tax}
                             </Typography>
-                            <Typography
+                            {/* <Typography
                               sx={{
                                 color: "#FF8900",
                                 fontSize: "10px",
@@ -657,7 +651,7 @@ export default function Popularfilter() {
                               }}
                             >
                               Rs. 00.00
-                            </Typography>
+                            </Typography> */}
                           </Box>
                         </Grid>
                       </>
@@ -749,7 +743,7 @@ export default function Popularfilter() {
                 style={{
                   justifyContent: "space-between",
                   alignItems: "center",
-                  gap: 125,
+                  
                   display: "flex",
                 }}
               >
@@ -759,17 +753,16 @@ export default function Popularfilter() {
                     fontSize: 15,
                     fontFamily: "Montserrat",
                     fontWeight: "350",
-                    wordWrap: "break-word",
-                    width:"90%"
+                   
                   }}
                 >
                   Total Pub. Fare:
                 </div>
                 <div
                   style={{
-                    justifyContent: "flex-start",
-                    alignItems: "center",
-                    gap: 5,
+                    
+                   
+                  justifyContent:"space-between",
                     display: "flex",
                   }}
                 >
@@ -779,16 +772,17 @@ export default function Popularfilter() {
                       fontSize: 16,
                       fontFamily: "Montserrat",
                       fontWeight: "400",
-                      wordWrap: "break-word",
-                      width:"90px",
-                     
+                      textAlign:"center",
+                      width:"100px",
+                      marginLeft:"10px"
                     }}
                   >
                     {" "}
                     Rs.{" "}
                     {fareValue?.Fare?.BaseFare +
                       fareValue?.Fare?.Tax +
-                      fareValue?.Fare?.OtherCharges}
+                      fareValue?.Fare?.OtherCharges +
+                      markUpamount}
                   </div>
                 </div>
               </div>

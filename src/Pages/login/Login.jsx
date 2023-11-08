@@ -221,7 +221,7 @@ const Login = () => {
                 </Grid> */}
               </Grid>
               <Grid item xs={12} sm={12} lg={3}>
-                <form action="/Registration">
+                <form onSubmit={()=>navigate("/Registration")}>
                   <Box textAlign="right" >
                     <Button
                       type="submit"

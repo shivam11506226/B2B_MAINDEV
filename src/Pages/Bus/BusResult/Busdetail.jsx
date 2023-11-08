@@ -245,13 +245,21 @@ const Busdetail = () => {
                 <Box>
                   <Typography
                     sx={{
-                      fontSize: "12px",
-                      fontWeight: "bold",
-                      color: "#006FFF",
+                      fontSize: "16px",
+                     
+                      color: "#000",
                       display: "flex",
                       alignItems: "left",
                       textAlign: "left",
                       paddingRight: "12px",
+
+                     
+
+fontFamily: "Montserrat",
+
+fontStyle:"normal",
+fontWeight:"500px"
+
                     }}
                   >
                     {item?.BusType}
@@ -329,29 +337,33 @@ const Busdetail = () => {
                   <Typography
                     sx={{
                       fontSize: "14px",
-                      fontWeight: "bold",
-                      color: "#FF8900",
+                     
+                      color: "#000",
                       display: "flex",
                       alignItems: "left",
                       textAlign: "left",
+                      fontFamily: "Montserrat",
+
+fontStyle:"normal",
+fontWeight:"500px"
                     }}
                   >
                     ₹ {item?.BusPrice?.BasePrice}
                   </Typography>
                 </Box>
               </Grid>
-              <Grid item lg={1}>
+              <Grid item lg={2}>
                 <Box>
                   {/* <form action="/BusPassengerDetail"> */}
                   <Button
                     textAlign="left"
                     onClick={() => handleBuslayout(item?.ResultIndex)}
-                    style={{ backgroundColor: "#21325D", color: "white" }}
+                    style={{ backgroundColor: "#21325D", color: "white",fontSize:"14px" }}
                   >
                     Book Now
                   </Button>
                   {/* </form> */}
-                  <Link
+                  {/* <Link
                     sx={{
                       fontSize: "8px",
                       fontWeight: "bold",
@@ -364,7 +376,7 @@ const Busdetail = () => {
                     }}
                   >
                     Cancellation policy
-                  </Link>
+                  </Link> */}
                 </Box>
               </Grid>
             </Grid>

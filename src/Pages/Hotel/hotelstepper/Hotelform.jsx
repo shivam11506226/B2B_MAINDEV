@@ -27,7 +27,7 @@ const HotelForm = () => {
   const [cityError, setCityError] = useState("");
   const [checkInError, setCheckInError] = useState("");
   const [checkOutError, setCheckOutError] = useState("");
-  const [condition, setCondition] = useState(0);
+  const [condition, setCondition] = useState(1);
   const [formDataDynamic, setFormData] = useState([
     {
       NoOfAdults: 1,
@@ -387,7 +387,6 @@ const HotelForm = () => {
                       onChange={handleConditionChange}
                       className="hotel_input_select"
                     >
-                      <option>0</option>
                       <option>1</option>
                       <option>2</option>
                       <option>3</option>
@@ -401,96 +400,100 @@ const HotelForm = () => {
               </div>
             </Grid>
           </Grid>
-         
+
           <Box>
-  {condition > 0 &&
-    Array.from({ length: condition }).map((_, index) => (
-      <div key={index} className="room-container" style={{ display: "flex", gap: "170px", marginTop: "20px"}}>
-        <h5>Room {index + 1}</h5>
-        <div className="room-input" style={{ display: "flex", alignItems: "center" }}>
-          <label>NoOfAdults:</label>
-          <select
-            value={formDataDynamic[index]?.NoOfAdults || 1}
-            onChange={(e) =>
-              handleFormChange(
-                index,
-                "NoOfAdults",
-                parseInt(e.target.value)
+            {condition > 0 &&
+              Array.from({ length: condition }).map((_, index) => (
+                <div
+                  key={index}
+                  className="room-container"
+                  style={{ display: "flex", gap: "170px", marginTop: "20px" }}
+                >
+                  <h5>Room {index + 1}</h5>
+                  <div
+                    className="room-input"
+                    style={{ display: "flex", alignItems: "center" }}
+                  >
+                    <label>NoOfAdults:</label>
+                    <select
+                      value={formDataDynamic[index]?.NoOfAdults || 1}
+                      onChange={(e) =>
+                        handleFormChange(
+                          index,
+                          "NoOfAdults",
+                          parseInt(e.target.value)
+                        )
+                      }
+                    >
+                      {[1, 2, 3, 4, 5, 6, 7, 8].map((num) => (
+                        <option key={num} value={num}>
+                          {num}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                  <div className="room-input">
+                    <label>NoOfChild:</label>
+                    <select
+                      value={formDataDynamic[index]?.NoOfChild || 0}
+                      onChange={(e) =>
+                        handleFormChange(
+                          index,
+                          "NoOfChild",
+                          parseInt(e.target.value)
+                        )
+                      }
+                    >
+                      {[0, 1, 2, 3, 4].map((childCount) => (
+                        <option key={childCount} value={childCount}>
+                          {childCount}
+                        </option>
+                      ))}
+                    </select>
+                    {formDataDynamic[index]?.NoOfChild > 0 && (
+                      <div className="child-age-container">
+                        <label>ChildAge:</label>
+                        {Array.from({
+                          length: formDataDynamic[index]?.NoOfChild || 0,
+                        }).map((_, childIndex) => (
+                          <div key={childIndex} className="child-age-input">
+                            <input
+                              type="number"
+                              value={
+                                formDataDynamic[index]?.ChildAge?.[
+                                  childIndex
+                                ] || ""
+                              }
+                              onChange={(e) =>
+                                handleChildAgeChange(
+                                  index,
+                                  childIndex,
+                                  e.target.value
+                                )
+                              }
+                            />
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                </div>
+              ))}
+            {condition > 1 && (
+              <button onClick={handleDeleteRoom} className="delete-button">
+                <FaTrash />
+              </button>
+            )}
+          </Box>
 
-              )
-            }
-          >
-            {[1, 2, 3, 4, 5, 6, 7, 8].map((num) => (
-              <option key={num} value={num}>
-                {num}
-              </option>
-            ))}
-          </select>
-        </div>
-        <div className="room-input">
-          <label>NoOfChild:</label>
-          <select
-            value={formDataDynamic[index]?.NoOfChild || 0}
-            onChange={(e) =>
-              handleFormChange(
-                index,
-                "NoOfChild",
-                parseInt(e.target.value)
-              )
-            }
-          >
-            {[0, 1, 2, 3, 4].map((childCount) => (
-              <option key={childCount} value={childCount}>
-                {childCount}
-              </option>
-            ))}
-          </select>
-          {formDataDynamic[index]?.NoOfChild > 0 && (
-          <div className="child-age-container">
-            <label>ChildAge:</label>
-            {Array.from({
-              length: formDataDynamic[index]?.NoOfChild || 0,
-            }).map((_, childIndex) => (
-              <div key={childIndex} className="child-age-input">
-                <input
-                  type="number"
-                  value={
-                    formDataDynamic[index]?.ChildAge?.[childIndex] || ""
-                  }
-                  onChange={(e) =>
-                    handleChildAgeChange(index, childIndex, e.target.value)
-                  }
-                />
-              </div>
-            ))}
-          </div>
-        )}
-        </div>
-       
-      </div>
-    ))}
-  {condition > 1 && (
-    <button onClick={handleDeleteRoom} className="delete-button">
-      <FaTrash />
-    </button>
-  )}
-</Box>
-
-
-
-          <Grid
-            container
-           
-            py={2}
-            style={{ display: "flex", flexWrap: "wrap" }}
-          >
+          <Grid container py={2} style={{ display: "flex", flexWrap: "wrap" }}>
             <Grid item md={6} sm={12} xs={12} display="flex">
               <Box paddingRight={3}>
                 <div className="hotel_form_input">
                   <label className="form_label">Star Rating*</label>
                   <select
                     name="star"
-                    value={values.star}
+                    value={values.star || 5}
                     onChange={handleInputChange}
                     className="hotel_input_select"
                   >
@@ -548,8 +551,6 @@ const HotelForm = () => {
                 </div>
               </Box>
 
-           
-
               {/* <Box px={1}>
                 <div className="hotel_form_input">
                   <label className="form_lable">Child (2-12)*</label>
@@ -588,7 +589,7 @@ const HotelForm = () => {
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
-              width: "500px",
+              width: "650px",
               height: "50px",
               border: "none",
               borderRadius: "8px",
@@ -603,8 +604,7 @@ const HotelForm = () => {
               paddingTop: "32px",
               paddingBottom: "32px",
               margin: "auto",
-              marginTop:"30px",
-             
+              marginTop: "30px",
             }}
             type="submit"
           >

@@ -61,7 +61,7 @@ const BusReviewBooking = () => {
     setTds(tdsTotal);
   }, []);
   const userId = reducerState?.logIn?.loginData?.data?.data?.id;
-  
+
   //    // Make a GET request to the API endpoint
   //    axios
   //      .get(`http://localhost:8000/skyTrails/user/${userId}`)
@@ -96,12 +96,12 @@ const BusReviewBooking = () => {
 
         if (userId) {
           const balancePayload = {
-            _id: userId, amount: tds + publishedPrice,
+            _id: userId,
+            amount: tds + publishedPrice,
           };
 
           dispatch(balanceSubtractRequest(balancePayload));
         }
-       
       } else {
         Swal.fire({
           icon: "error",
@@ -135,7 +135,7 @@ const BusReviewBooking = () => {
         <Grid container spacing={2}>
           <Grid item xs={9}>
             <Box className="Bus_box">
-              <Box display="flex" justifyContent="space-between">
+              {/* <Box display="flex" justifyContent="space-between">
                 <Typography
                   sx={{
                     fontSize: "16px",
@@ -148,10 +148,57 @@ const BusReviewBooking = () => {
                 <Link sx={{ fontSize: "12px", fontWeight: "bold" }}>
                   Change Details
                 </Link>
-              </Box>
-              <Box display="flex" justifyContent="space-between">
-                <Box mt={2} textAlign="left">
-                  <Box display="flex">
+              </Box> */}
+              <div
+                style={{
+                  width: '95%',
+    height: '60px',
+    paddingLeft: '20px',
+    paddingRight: '20px',
+    paddingTop: '14px',
+    paddingBottom: '14px',
+
+                  background: "#DBE5FF",
+                  boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.16)",
+                  borderRadius: "8px",
+                  justifyContent: "flex-start",
+                  alignItems: "center",
+
+                  display: "flex",
+                }}
+              >
+                <div
+                  style={{
+                    justifyContent: "flex-start",
+                    alignItems: "center",
+                    gap: "188px",
+                    display: "flex",
+                  }}
+                >
+                  <div
+                    style={{
+                      color: "#21325D",
+                      fontSize: "28px",
+                      fontFamily: "Montserrat",
+                      fontWeight: 600,
+                      wordWrap: "break-word",
+                    }}
+                  >
+                    Review Booking
+                  </div>
+                </div>
+              </div>
+
+              <Box display="flex" justifyContent="space-between" width="95%">
+                <Box
+                  mt={2}
+                  sx={{
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "flex-start",
+                  }}
+                >
+                  <Box display="flex" alignItems="center">
                     <Typography
                       sx={{
                         fontSize: "12px",
@@ -172,7 +219,7 @@ const BusReviewBooking = () => {
                       Ashok Travels Mandsaur Group
                     </Typography>
                   </Box>
-                  <Box display="flex">
+                  <Box display="flex" alignItems="center">
                     <Typography
                       sx={{
                         fontSize: "12px",
@@ -193,7 +240,7 @@ const BusReviewBooking = () => {
                       Delhi
                     </Typography>
                   </Box>
-                  <Box display="flex">
+                  <Box display="flex" alignItems="center">
                     <Typography
                       sx={{
                         fontSize: "12px",
@@ -211,10 +258,10 @@ const BusReviewBooking = () => {
                       }}
                       ml={2}
                     >
-                      11 Jan, 2023 , 19:00
+                      11 Jan, 2023, 19:00
                     </Typography>
                   </Box>
-                  <Box display="flex">
+                  <Box display="flex" alignItems="center">
                     <Typography
                       sx={{
                         fontSize: "12px",
@@ -235,7 +282,7 @@ const BusReviewBooking = () => {
                       1
                     </Typography>
                   </Box>
-                  <Box display="flex">
+                  <Box display="flex" alignItems="center">
                     <Typography
                       sx={{
                         fontSize: "12px",
@@ -257,8 +304,15 @@ const BusReviewBooking = () => {
                     </Typography>
                   </Box>
                 </Box>
-                <Box mt={2} textAlign="left">
-                  <Box display="flex">
+                <Box
+                  mt={2}
+                  sx={{
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "flex-start",
+                  }}
+                >
+                  <Box display="flex" alignItems="center">
                     <Typography
                       sx={{
                         fontSize: "12px",
@@ -279,7 +333,7 @@ const BusReviewBooking = () => {
                       Ashok Travels Mandsaur Group
                     </Typography>
                   </Box>
-                  <Box display="flex">
+                  <Box display="flex" alignItems="center">
                     <Typography
                       sx={{
                         fontSize: "12px",
@@ -300,7 +354,7 @@ const BusReviewBooking = () => {
                       Delhi
                     </Typography>
                   </Box>
-                  <Box display="flex">
+                  <Box display="flex" alignItems="center">
                     <Typography
                       sx={{
                         fontSize: "12px",
@@ -318,10 +372,10 @@ const BusReviewBooking = () => {
                       }}
                       ml={2}
                     >
-                      12 Jan, 2023 , 13:00
+                      12 Jan, 2023, 13:00
                     </Typography>
                   </Box>
-                  <Box display="flex">
+                  <Box display="flex" alignItems="center">
                     <Typography
                       sx={{
                         fontSize: "12px",
@@ -342,7 +396,7 @@ const BusReviewBooking = () => {
                       1
                     </Typography>
                   </Box>
-                  <Box display="flex">
+                  <Box display="flex" alignItems="center">
                     <Typography
                       sx={{
                         fontSize: "12px",
@@ -369,7 +423,7 @@ const BusReviewBooking = () => {
 
             <Box className="Bus_box" mt={2}>
               <Box>
-                <Typography
+                {/* <Typography
                   sx={{
                     fontSize: "16px",
                     fontWeight: "bold",
@@ -377,16 +431,53 @@ const BusReviewBooking = () => {
                   }}
                 >
                   Passenger Details
-                </Typography>
-                <Typography
-                  mt={2}
-                  sx={{ fontSize: "12px", fontWeight: "bold" }}
+                </Typography> */}
+                <div
+                  style={{
+                    width: '95%',
+    height: '60px',
+    paddingLeft: '20px',
+    paddingRight: '20px',
+    paddingTop: '14px',
+    paddingBottom: '14px',
+                    background: "#E4E4E4",
+                    borderRadius: "8px",
+                    display: "flex",
+                    justifyContent: "space-between",
+                    alignItems: "center",
+                  }}
                 >
-                  Passenger 1
-                </Typography>
+                  <div
+                    style={{
+                      color: "black",
+                      fontSize: "24px",
+                      fontFamily: "Montserrat",
+                      fontWeight: 600,
+                      wordWrap: "break-word",
+                    }}
+                  >
+                    Passenger Details
+                  </div>
+                  <div
+                    style={{
+                      color: "#0048FF",
+                      fontSize: "16px",
+                      fontFamily: "Montserrat",
+                      fontWeight: 600,
+                      wordWrap: "break-word",
+                    }}
+                  >
+                    (1 Adult)
+                  </div>
+                </div>
               </Box>
-              <Box display="flex" justifyContent="space-between">
-                <Box textAlign="left">
+
+              <Box
+                display="flex"
+                justifyContent="space-between"
+                marginTop="10px"
+              >
+                <Box mt={2} textAlign="left">
                   <Box display="flex">
                     <Typography
                       sx={{
@@ -523,7 +614,7 @@ const BusReviewBooking = () => {
               </Box>
             </Box>
 
-            <Box className="Bus_box" mt={2}>
+            {/* <Box className="Bus_box" mt={2} style={{border:"10px solid red"}}>
               <Box>
                 <Typography
                   sx={{
@@ -538,20 +629,70 @@ const BusReviewBooking = () => {
               <Box mt={2}>
                 <Buscancellation />
               </Box>
+            </Box> */}
+            <Box
+              className="Bus_box"
+              mt={2}
+              style={{ borderRadius: "8px", padding: "16px", width: "95%" }}
+            >
+              <Typography
+                sx={{
+                  fontSize: "16px",
+                  fontWeight: "bold",
+                  color: "#252525",
+                }}
+              >
+                Cancellation Policy:
+              </Typography>
+              <Box mt={2}>
+                <Buscancellation />
+              </Box>
             </Box>
+
             <Box className="Bus_box" mt={2}>
-              <Box>
-                <Typography
-                  sx={{
-                    fontSize: "16px",
-                    fontWeight: "bold",
-                    color: "#252525",
+              <div
+                style={{
+                  width: 822,
+                  height: 49,
+                  paddingLeft: 20,
+                  paddingRight: 20,
+                  paddingTop: 10,
+                  paddingBottom: 10,
+                  background: "#DFE6F7",
+                  borderRadius: 4,
+                  justifyContent: "flex-start",
+                  alignItems: "center",
+                  gap: 10,
+                  display: "inline-flex",
+                }}
+              >
+                <div
+                  style={{
+                    color: "black",
+                    fontSize: 24,
+                    fontFamily: "Montserrat",
+                    fontWeight: "600",
+                    wordWrap: "break-word",
                   }}
                 >
-                  Term & Conditions:
-                </Typography>
-              </Box>
-              <Box display="flex">
+                  Terms & Conditions{" "}
+                </div>
+              </div>
+              <div
+                style={{
+                  color: "#E73C33",
+                  fontSize: 16.14,
+                  fontFamily: "Montserrat",
+                  fontWeight: "500",
+                  wordWrap: "break-word",
+                  marginTop: "10px",
+                  marginBottom: "10px",
+                }}
+              >
+                Note: You can earn more commission if you checked Travel
+                Insurance
+              </div>
+              {/* <Box display="flex">
                 <ReadMoreIcon />
                 <Typography
                   ml={2}
@@ -564,7 +705,38 @@ const BusReviewBooking = () => {
                   I have reviewed and agreed on the rates and commission offered
                   for this booking.
                 </Typography>
-              </Box>
+              </Box> */}
+              <div
+                style={{
+                  width: 728,
+                  height: 44,
+                  paddingLeft: 24,
+                  paddingRight: 24,
+                  paddingTop: 12,
+                  paddingBottom: 12,
+                  border: "1px #BBBBBB solid",
+                  justifyContent: "flex-start",
+                  alignItems: "center",
+                  gap: 5,
+                  display: "inline-flex",
+                  marginTop: "10px",
+                  marginBottom: "20px",
+                }}
+              >
+                <input className="inputSelect" type="checkbox" />
+                <div
+                  style={{
+                    color: "black",
+                    fontSize: 16.14,
+                    fontFamily: "Montserrat",
+                    fontWeight: "500",
+                    wordWrap: "break-word",
+                  }}
+                >
+                  I have reviewed and agreed on the fare and commission offered
+                  on this booking.
+                </div>
+              </div>
             </Box>
           </Grid>
           <Grid item xs={3}>
@@ -573,11 +745,58 @@ const BusReviewBooking = () => {
         </Grid>
       </Box>
       {/* <form action="/Busbookingconfirmation"> */}
-      <Box py={3} textAlign="center">
-        <Button variant="contained" type="submit" onClick={handleBookBus}>
-          Book Ticket
-        </Button>
-      </Box>
+
+      <div
+        style={{
+          display: "flex",
+          marginTop: "10px",
+          marginBottom: "10px",
+          gap: "40px",
+        }}
+      >
+        <div
+          style={{
+            color: "#000080",
+            fontSize: 20.14,
+            fontFamily: "Montserrat",
+            fontWeight: "500",
+            wordWrap: "break-word",
+            marginLeft: "15px",
+          }}
+        >
+          You have 2,000,000 as your Cash balance
+        </div>
+        <form
+          // action="/Flightbookingconfirmation"
+          className="formFlightSearch"
+          textAlign="center"
+        >
+          <button
+            style={{
+              width: 241,
+              height: 63,
+              paddingLeft: 63.63,
+              paddingRight: 63.63,
+              paddingTop: 21.21,
+              paddingBottom: 21.21,
+              background: "#21325D",
+              borderRadius: 5.3,
+              justifyContent: "center",
+              alignItems: "center",
+              gap: 15.91,
+              display: "inline-flex",
+              border: "1px solid #21325D",
+              color: "white",
+              cursor: "pointer",
+              marginTop: "-35px",
+            }}
+            type="submit"
+            onClick={handleBookBus}
+          >
+            Book Ticket
+          </button>
+        </form>
+      </div>
       {/* </form> */}
     </div>
   );

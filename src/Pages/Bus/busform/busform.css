@@ -60,3 +60,7 @@
   .error{
     color: red;
 }
+
+.datePick {
+  width: 343px !important;
+}

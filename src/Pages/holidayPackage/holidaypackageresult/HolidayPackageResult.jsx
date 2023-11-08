@@ -67,12 +67,12 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import FilterAltIcon from '@mui/icons-material/FilterAlt';
 import WhatsAppIcon from '@mui/icons-material/WhatsApp';
 import MailIcon from '@mui/icons-material/Mail';
-
-
+import {useNavigate } from "react-router-dom";
 
 const HolidayPackageResult = () => {
   const reducerState = useSelector((state) => state);
   const dispatch = useDispatch();
+  const navigate=useNavigate()
 
   // console.log("holiday details",reducerState?.searchResult?.packageSearchResult?.data?.data?.pakage);
   const filteredPackage =
@@ -96,8 +96,8 @@ const HolidayPackageResult = () => {
 
         
         <div >
-          <Grid container spacing={3}>
-            <Grid sm={5} xs={5} md={5} item>
+          <Grid container spacing={3} display="flex" alignItems='center' justifyContent='center'>
+            {/* <Grid sm={0} xs={0} md={3} item>
               <div style={{ width: 361, height: 642, background: 'white', borderRadius: 8, border: '1px #5C85A4 solid', padding: "10px" }} >
                 <Accordion style={{ border: "none" }} border="none">
                   <AccordionSummary
@@ -147,9 +147,9 @@ const HolidayPackageResult = () => {
                 </Accordion>
 
               </div>
-            </Grid>
-            <Grid sm={7} xs={7} md={7} item>
-              <MuiBox
+            </Grid> */}
+            <Grid sm={8} xs={8} md={8} item>
+              {/* <MuiBox
                 display="flex"
                 alignItems="center"
                 justifyContent="flex-start"
@@ -266,8 +266,8 @@ const HolidayPackageResult = () => {
 
                   </div>
                 </div>
-              </MuiBox>
-              <MuiBox>
+              </MuiBox> */}
+              <MuiBox style={{display:'flex',flexDirection:'column',gap:"15px"}}>
                 {/* HolidayPackagedetail  */}
                 {filteredPackage?.map((item, index) => {
                   console.log(item, "333333333333333333333333333333333333333333333333333333333333333")
@@ -283,12 +283,14 @@ const HolidayPackageResult = () => {
                         borderRadius="10px"
                         border='2px #BBBBBB solid'
                         alignItems="center"
+                        width="100%"
                         // height='247px'
                         // backgroundColor="red"
                         sx={{
                           display: "flex",
                           justifyContent: "space-around",
                           alignItems: "center",
+                          width:"100%"
                         }}
                       >
                         <Grid
@@ -297,7 +299,9 @@ const HolidayPackageResult = () => {
                             display: "flex",
                             justifyContent: "space-between",
                             alignItems: "center",
-                            columns: 3
+                            columns: 3,
+                            height:"100%"
+                          
                           }}
                         >
                           <Grid key={index}>
@@ -312,7 +316,7 @@ const HolidayPackageResult = () => {
                                 <img
                                   src={item?.pakage_img}
                                   style={{
-                                    width: "150px",
+                                    height: "210px",
                                     border: "1px solid gray",
                                     borderRadius: "4px",
                                   }}
@@ -321,13 +325,17 @@ const HolidayPackageResult = () => {
 
                             </MuiBox>
                           </Grid>
-                          <Grid display="flex" flexDirection='column' justifyContent="start" >
+                          <Grid display="flex"     flexDirection='column' justifyContent="space-between" alignItems='space-between'  height= "210px"  >
                             <MuiBox
                               px={1}
+                              display="flex"     flexDirection='column'  alignItems='space-between' justifyContent='space-between'
                               sx={{
+                              
                                 // paddingRight: "35px",
                                 // minWidth: "180px",
                                 // marginLeft: "60px",
+                                
+                                
                               }}
                             >
                               <Typography
@@ -335,7 +343,7 @@ const HolidayPackageResult = () => {
                                 style={{
                                   color: '#071C2C',
                                   fontFamily: 'Montserrat',
-                                  fontSize: '22px',
+                                  fontSize: '26px',
                                   fontWeight: '700'
 
                                 }}
@@ -379,7 +387,7 @@ const HolidayPackageResult = () => {
                                           {" "}
                                           <CommitIcon
                                             style={{
-                                              fontSize: "24px",
+                                              fontSize: "26px",
                                               color: colors.bluedark,
                                             }}
                                           />{" "}
