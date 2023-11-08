@@ -285,16 +285,15 @@ const Login = () => {
                       Thankyou ! for Registering, we'll contact you ASAP
                     </Alert>
                   )}
-                  <Box display='flex' style={{ height: "100%", justifyContant: 'center', alignItems: 'center' }} >
+                  <Box display='flex' style={{ height: "100%", justifyContant: 'center', alignItems: 'space-between' }} >
                     {agencyPage === 1 && <Box flex={1} style={{ display: "flex",  width: "100%" }} alignItems='center' justifyContent='center' >
                       <div>
 
                         <img src={r1} alt="r1" />
                       </div>
                     </Box>}
-                    {agencyPage === 2 && <Box flex={1} style={{ height: 'auto',gap:"100px",display
-                  :"flex" , }} justifyContent='center' alignItems='center' flexDirection='column' >
-                      <Box style={{ height: '50%',display:'flex',  alignItems: 'center' , }}  justifyContent='center' alignItems='center'>
+                    {agencyPage === 2 && <Box flex={1} style={{ height: '100%',gap:"100px",display:"flex" , }} justifyContent='center' alignItems='space-between' flexDirection='column' >
+                      <Box style={{ height: '50%',display:'flex',  alignItems: 'center' , }}  justifyContent='center' >
 
                         <img src={r2} alt="r1" />
                       </Box>
@@ -304,12 +303,12 @@ const Login = () => {
 
                       </Box>
                     </Box>}
-                    {agencyPage === 3 && <Box flex={1} style={{ height: '100%',gap:"50px", justifyContant: 'center', alignItems: 'space-between' }} >
-                      <Box style={{ height: '50%', justifyContant: 'center', alignItems: 'center' }}>
+                    {agencyPage === 3 && <Box flex={1} style={{ height: 'auto',gap:"100px",display:"flex" , }} justifyContent='center' alignItems='space-between' flexDirection='column' >
+                      <Box style={{ height: '50%',display:'flex',  alignItems: 'center' , }}  justifyContent='center' >
 
                         <img src={r4} alt="r1" />
                       </Box>
-                      <Box>
+                      <Box display='flex'  justifyContent='center' alignItems='center'>
                         <img src={r5} alt="r1" />
 
 
