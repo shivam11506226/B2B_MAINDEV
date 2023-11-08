@@ -93,7 +93,7 @@ function InnerNavbar() {
           </NavLink>
           {/* <NavBarBox avatar={avatar} name={name} path ={path}   /> */}
           < Flex style={{ position: 'absolute',top:"100px",left:'-50px' }} >
-            {hover && name === Name && (
+            {hover && name === Name  && Name==="Package"  && (
               <div
                 style={{
                   backgroundColor: "white",
@@ -105,6 +105,7 @@ function InnerNavbar() {
                   textAlign: "left",
                   marginTop: "-12px",
                   width: "130px",
+                  
                   
 
                 }}
