@@ -4,7 +4,7 @@ import color from "../color/color"
 const BusStepper = () => {
   return (
     <div>
-      <Box
+      {/* <Box
         w="100%"
         display="flex"
         justifyContent={"space-around"}
@@ -93,7 +93,7 @@ const BusStepper = () => {
 
           <Box fontWeight="normal">Booking Confirmation</Box>
         </HStack>
-      </Box>
+      </Box> */}
     </div>
   );
 };

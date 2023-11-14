@@ -1,9 +1,21 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import {
-  useNavigate,
-} from "react-router-dom";
-import {  Typography, Grid, TextField,Modal,Box as MuiBox } from "@mui/material";
-import { VStack, Input, Select, HStack, Text,Button,Box} from "@chakra-ui/react";
+  Typography,
+  Grid,
+  TextField,
+  Modal,
+  Box as MuiBox,
+} from "@mui/material";
+import {
+  VStack,
+  Input,
+  Select,
+  HStack,
+  Text,
+  Button,
+  Box,
+} from "@chakra-ui/react";
 import FormControl from "@mui/material/FormControl";
 import NativeSelect from "@mui/material/NativeSelect";
 import FlightTakeoffIcon from "@mui/icons-material/FlightTakeoff";
@@ -24,6 +36,8 @@ import { FaPlus } from "react-icons/fa";
 import Custombutton from "../../../Custombuttom/Button";
 import successGif from "../../../Images/successGif.png";
 import color from "../../../color/color";
+import Swal from "sweetalert2";
+import { balanceSubtractRequest } from "../../../Redux/Auth/balaceSubtract/actionBalnceSubtract";
 const Holidayguestinfo = ({ setadultCount, setchildCount }) => {
   const style = {
     position: "absolute",
@@ -39,7 +53,7 @@ const Holidayguestinfo = ({ setadultCount, setchildCount }) => {
     px: 4,
     pb: 3,
   };
-  
+
   const [formData, setFormData] = useState({
     name: "",
     dob: "",
@@ -49,9 +63,9 @@ const Holidayguestinfo = ({ setadultCount, setchildCount }) => {
     email: "",
     countryCode: "",
     mobile: "",
-    departureCity:""
+    departureCity: "",
   });
-   const navigate = useNavigate();
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const reducerState = useSelector((state) => state);
   const requestSuccess =
@@ -67,6 +81,7 @@ const Holidayguestinfo = ({ setadultCount, setchildCount }) => {
   const packageId =
     reducerState?.searchOneResult?.OneSearchPackageResult?.data?.data?._id;
   const userId = reducerState?.logIn?.loginData?.data?.data?.id;
+  const userBalance = reducerState?.userData?.userData?.data?.data?.balance;
 
   const handlePersonChange = (e) => {
     const { name, value } = e.target;
@@ -83,13 +98,13 @@ const Holidayguestinfo = ({ setadultCount, setchildCount }) => {
     });
     console.log("======================", requestData);
   };
-  const handleSuccessandNavigate=()=>{
-    setShowsuccess((prev)=>!prev)
-    setTimeout(()=>{
-      setShowsuccess((prev) =>prev);
+  const handleSuccessandNavigate = () => {
+    setShowsuccess((prev) => !prev);
+    setTimeout(() => {
+      setShowsuccess((prev) => prev);
       navigate("/Holidayreviewbooking");
-    },2000)
-  }
+    }, 2000);
+  };
 
   const handlePersonRemove = (index) => {
     // Dispatch an action to delete the form entry from Redux
@@ -106,44 +121,74 @@ const Holidayguestinfo = ({ setadultCount, setchildCount }) => {
   };
 
   const handleBookingPackage = (event) => {
-    event.preventDefault();
-    const formData = new FormData();
-    const payload = {
-      pakageid: packageId,
-      userId: userId,
-      travellers: reducerForm.slice(1),
-      email: requestData.email,
-      fullName: "jhhkjds",
-      contactNumber: {
-        contryCode: requestData.countryCode,
-        phone: requestData.mobile,
-      },
+    if (
+      userBalance >=
+      (reducerForm.length - 1) * onePackage?.pakage_amount.amount * 0.05 +
+        (reducerForm.length - 1) * onePackage?.pakage_amount.amount
+    ) {
+      event.preventDefault();
+      const formData = new FormData();
+      const payload = {
+        pakageid: packageId,
+        userId: userId,
+        travellers: reducerForm.slice(1),
+        email: requestData.email,
+        fullName: "jhhkjds",
+        contactNumber: {
+          contryCode: requestData.countryCode,
+          phone: requestData.mobile,
+        },
 
-      sale_summary: {
-        price:
-          (reducerForm.length - 1) * onePackage?.pakage_amount.amount * 0.05 +
-          (reducerForm.length - 1) * onePackage?.pakage_amount.amount,
-        fare_breakup:
-          (reducerForm.length - 1) * onePackage?.pakage_amount.amount * 0.05 +
-          (reducerForm.length - 1) * onePackage?.pakage_amount.amount,
-        total_basic_cost:
-          (reducerForm.length - 1) * onePackage?.pakage_amount.amount,
-        coupon_discount: "-7382",
-        fee_taxes:
-          (reducerForm.length - 1) * onePackage?.pakage_amount.amount * 0.05,
-        gst: (reducerForm.length - 1) * onePackage?.pakage_amount.amount * 0.05,
-        total_gst:
-          (reducerForm.length - 1) * onePackage?.pakage_amount.amount * 0.05,
-      },
-      departureCity: requestData.departureCity,
-      adults: "2",
-      child: "0",
-    };
+        sale_summary: {
+          price:
+            (reducerForm.length - 1) * onePackage?.pakage_amount.amount * 0.05 +
+            (reducerForm.length - 1) * onePackage?.pakage_amount.amount,
+          fare_breakup:
+            (reducerForm.length - 1) * onePackage?.pakage_amount.amount * 0.05 +
+            (reducerForm.length - 1) * onePackage?.pakage_amount.amount,
+          total_basic_cost:
+            (reducerForm.length - 1) * onePackage?.pakage_amount.amount,
+          coupon_discount: "-7382",
+          fee_taxes:
+            (reducerForm.length - 1) * onePackage?.pakage_amount.amount * 0.05,
+          gst:
+            (reducerForm.length - 1) * onePackage?.pakage_amount.amount * 0.05,
+          total_gst:
+            (reducerForm.length - 1) * onePackage?.pakage_amount.amount * 0.05,
+        },
+        departureCity: requestData.departureCity,
+        adults: "2",
+        child: "0",
+      };
 
-    console.log("payload", payload);
-    const holidayData = new FormData();
-    holidayData.append("data", JSON.stringify(payload));
-    dispatch(packageBookingAction(payload));
+      console.log("payload", payload);
+      const holidayData = new FormData();
+      holidayData.append("data", JSON.stringify(payload));
+      dispatch(packageBookingAction(payload));
+      if (userId) {
+        const balancePayload = {
+          _id: userId,
+          amount:
+            (reducerForm.length - 1) * onePackage?.pakage_amount.amount * 0.05 +
+            (reducerForm.length - 1) * onePackage?.pakage_amount.amount,
+        };
+
+        dispatch(balanceSubtractRequest(balancePayload));
+      }
+    } else {
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Balance is insufficient for this transaction.",
+        footer: "Please recharge",
+        showCancelButton: false,
+        confirmButtonText: "OK",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          navigate("/Login");
+        }
+      });
+    }
     handleSuccessandNavigate();
   };
 
@@ -151,7 +196,7 @@ const Holidayguestinfo = ({ setadultCount, setchildCount }) => {
     <Box>
       <form action="/Holidayreviewbooking">
         <Box className="main-head" marginTop={5} mt={5}>
-          <Typography className="holiday_txt" style={{color:color.bluedark}}>
+          <Typography className="holiday_txt" style={{ color: color.bluedark }}>
             {onePackage?.pakage_title}
           </Typography>
           {/* <Typography className="holiday_txt_b">
@@ -162,9 +207,15 @@ const Holidayguestinfo = ({ setadultCount, setchildCount }) => {
             Mar 3, 2023 / From New Delhi
           </Typography> */}
         </Box>
-        <Box className="main-head" mt={5} >
-          <Typography className="holiday_txt" style={{color:color.bluedark}}>Traveller Details</Typography>
-          <Typography className="holiday_txt_b" py={1}  style={{color:color.bluedark}}>
+        <Box className="main-head" mt={5}>
+          <Typography className="holiday_txt" style={{ color: color.bluedark }}>
+            Traveller Details
+          </Typography>
+          <Typography
+            className="holiday_txt_b"
+            py={1}
+            style={{ color: color.bluedark }}
+          >
             {reducerForm.length - 1} Travellers
             {/* <Typography
               fontSize="14px"
@@ -177,59 +228,58 @@ const Holidayguestinfo = ({ setadultCount, setchildCount }) => {
           </Typography>
 
           <Typography className="Top_txt" marginBottom={5} fontWeight="bold">
-        Add Guests
-      </Typography>
-      <HStack spacing={4} style={{marginTop:"-30px"}}>
-        <Box>
-          <Input
-            type="text"
-            name="name"
-            variant="filled"
-            value={formData.name}
-            onChange={handlePersonChange}
-            placeholder="Enter Name"
-            paddingLeft="2px"
-          />
-        </Box>
-        <Box>
-          <Input
-            name="dob"
-            type="date"
-            value={formData.dob}
-            onChange={handlePersonChange}
-            placeholder="Date of Birth"
-            paddingLeft="2px"
-            width="185px"
-          />
-        </Box>
-        <Box>
-          <Select
-            name="gender"
-            value={formData.gender}
-            variant="filled"
-            onChange={handlePersonChange}
-            placeholder="Select Gender"
-          >
-            <option value="male">Male</option>
-            <option value="female">Female</option>
-            <option value="other">Other</option>
-          </Select>
-        </Box>
-        <Button
-          onClick={handlePersonAdd}
-          size="xs"
-          bgColor={color.bluedark}  // Use Chakra UI's bgColor for setting background color
-          borderRadius={4}
-          paddingTop={3}
-          paddingRight={5}
-          paddingBottom={3}
-          paddingLeft={5}
-          color="white"  // Set text color to white for better contrast
-        >
-          Add Guest
-        </Button>
-      </HStack>
-    
+            Add Guests
+          </Typography>
+          <HStack spacing={4} style={{ marginTop: "-30px" }}>
+            <Box>
+              <Input
+                type="text"
+                name="name"
+                variant="filled"
+                value={formData.name}
+                onChange={handlePersonChange}
+                placeholder="Enter Name"
+                paddingLeft="2px"
+              />
+            </Box>
+            <Box>
+              <Input
+                name="dob"
+                type="date"
+                value={formData.dob}
+                onChange={handlePersonChange}
+                placeholder="Date of Birth"
+                paddingLeft="2px"
+                width="185px"
+              />
+            </Box>
+            <Box>
+              <Select
+                name="gender"
+                value={formData.gender}
+                variant="filled"
+                onChange={handlePersonChange}
+                placeholder="Select Gender"
+              >
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+                <option value="other">Other</option>
+              </Select>
+            </Box>
+            <Button
+              onClick={handlePersonAdd}
+              size="xs"
+              bgColor={color.bluedark} // Use Chakra UI's bgColor for setting background color
+              borderRadius={4}
+              paddingTop={3}
+              paddingRight={5}
+              paddingBottom={3}
+              paddingLeft={5}
+              color="white" // Set text color to white for better contrast
+            >
+              Add Guest
+            </Button>
+          </HStack>
 
           {reducerForm.slice(1).map((singleService, index) => {
             return (
@@ -244,9 +294,15 @@ const Holidayguestinfo = ({ setadultCount, setchildCount }) => {
                   justifyContent="space-between"
                   textAlign="center"
                 >
-                  <Text width="18%"   textAlign="center" >{singleService.name}</Text>
-                  <Text width="18%"  textAlign="center">{singleService.dob}</Text>
-                  <Text width="18%"  textAlign="center">{singleService.gender}</Text>
+                  <Text width="18%" textAlign="center">
+                    {singleService.name}
+                  </Text>
+                  <Text width="18%" textAlign="center">
+                    {singleService.dob}
+                  </Text>
+                  <Text width="18%" textAlign="center">
+                    {singleService.gender}
+                  </Text>
 
                   <MdDeleteForever
                     onClick={() => handlePersonRemove(index)}
@@ -254,8 +310,8 @@ const Holidayguestinfo = ({ setadultCount, setchildCount }) => {
                     style={{
                       alignSelf: "start",
                       marginTop: "5px",
-                      width:"18%",
-                      textAlign:"right"
+                      width: "18%",
+                      textAlign: "right",
                     }}
                   />
                 </Box>
@@ -264,7 +320,12 @@ const Holidayguestinfo = ({ setadultCount, setchildCount }) => {
           })}
 
           <Box py={1}>
-            <Typography fontSize="16px" fontWeight="bold" color="#006FFF" marginTop="10px">
+            <Typography
+              fontSize="16px"
+              fontWeight="bold"
+              color="#006FFF"
+              marginTop="10px"
+            >
               Please Enter Contact Details
             </Typography>
             <HStack spacing={4} marginTop="10px">
@@ -289,27 +350,27 @@ const Holidayguestinfo = ({ setadultCount, setchildCount }) => {
                 ></Input>
               </Box>
               <Box>
-              <Select
-                name="countryCode"
-                value={requestData.countryCode}
-                onChange={handleRequestChange}
-                placeholder="Select code"
-                style={{width:"100px"}}
-              >
-                <option value="+91">+91</option>
-                <option value="+511">+511</option>
-                <option value="other">Other</option>
-              </Select>
+                <Select
+                  name="countryCode"
+                  value={requestData.countryCode}
+                  onChange={handleRequestChange}
+                  placeholder="Select code"
+                  style={{ width: "100px" }}
+                >
+                  <option value="+91">+91</option>
+                  <option value="+511">+511</option>
+                  <option value="other">Other</option>
+                </Select>
               </Box>
               <Box>
-              <Input
+                <Input
                   name="departureCity"
                   type="text"
                   value={requestData.departureCity}
                   onChange={handleRequestChange}
                   placeholder="Enter departure city"
                   paddingLeft="2px"
-                  style={{width:"155px"}}
+                  style={{ width: "155px" }}
                 ></Input>
               </Box>
             </HStack>
@@ -917,8 +978,14 @@ const Holidayguestinfo = ({ setadultCount, setchildCount }) => {
       >
         <MuiBox sx={{ ...style, width: 350 }}>
           <img src={successGif} alt="sucess gif" style={{ width: "100%" }} />
-          <Typography textAlign="center" paddingLeft={3} paddingTop={2} fontWeight="bold">Thanku!!Your booking is done</Typography>
-         
+          <Typography
+            textAlign="center"
+            paddingLeft={3}
+            paddingTop={2}
+            fontWeight="bold"
+          >
+            Thanku!!Your booking is done
+          </Typography>
         </MuiBox>
       </Modal>
     </Box>

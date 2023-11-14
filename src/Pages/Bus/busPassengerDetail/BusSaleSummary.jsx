@@ -41,18 +41,27 @@ const BusSaleSummary = () => {
     <Box sx={{ flexGrow: 1 }}>
       <Box
         py={1}
-        backgroundColor="white"
-        boxShadow="1px 1px 8px gray"
-        borderRadius="10px"
+        backgroundColor="#fff"
+        boxShadow="0px 2px 8px 2px rgba(0, 0, 0, 0.15)"
+        borderRadius="8px"
+        padding="24px 20px"
+       
+
+
       >
         <Typography
           textAlign="center"
-          sx={{ fontSize: "16px", fontWeight: "bold" }}
-          pt={3}
+          sx={{ fontSize: "16px", fontWeight: "bold",backgroundColor:"#B8CCFF",width:"95%",margin:"auto",borderRadius:"4px"}}
+          pt={1}
         >
           Sale Summary
         </Typography>
-        <Typography
+
+        
+
+
+
+        {/* <Typography
           pt={1}
           paddingLeft="22px"
           justifyContent="start"
@@ -60,7 +69,7 @@ const BusSaleSummary = () => {
           sx={{ fontSize: "10px", fontWeight: "bold", color: "#006FFF" }}
         >
           Travel: Ashok Travels Mandsaur Group
-        </Typography>
+        </Typography> */}
         <Box
           sx={{
             display: "flex",
@@ -69,29 +78,77 @@ const BusSaleSummary = () => {
             marginX: "20px",
           }}
         ></Box>
-        <Box
-          sx={{
-            display: "flex",
-            justifyContent: "space-between",
-            marginY: "5px",
-            marginX: "20px",
+       
+        <div
+      style={{
+        width: '260px',
+        height: '49px',
+        padding: '8px',
+        background:'#B8CCFF',
+        
+        borderRadius: '4px',
+        borderBottom: '0.50px #071C2C solid',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        display: 'flex',
+        margin:'auto'
+      }}
+    >
+      <div
+        style={{
+          paddingTop: '8px',
+          paddingBottom: '8px',
+          flexDirection: 'column',
+          justifyContent: 'flex-start',
+          alignItems: 'flex-start',
+          display: 'inline-flex',
+        }}
+      >
+        <div
+          style={{
+            justifyContent: 'flex-start',
+            alignItems: 'flex-start',
+            gap: '72px',
+            display: 'inline-flex',
           }}
         >
-          <Box>
-            <Typography
-              sx={{ fontSize: "10px", color: "#666666", fontWeight: "bold" }}
-            >
-              Published Price:
-            </Typography>
-          </Box>
-          <Box>
-            <Typography
-              sx={{ fontSize: "10px", color: "#FF8900", fontWeight: "bold" }}
-            >
-              ₹{publishedPrice}
-            </Typography>
-          </Box>
-        </Box>
+          <div
+            style={{
+              color: '#071C2C',
+              fontSize: '16px',
+              fontFamily: 'Montserrat',
+              fontWeight: 600,
+              lineHeight: '16.67px',
+              wordWrap: 'break-word',
+            }}
+          >
+            Published Price:
+          </div>
+        </div>
+      </div>
+      <div
+        style={{
+          flexDirection: 'column',
+          justifyContent: 'flex-start',
+          alignItems: 'flex-start',
+          gap: '70px',
+          display: 'inline-flex',
+        }}
+      >
+        <div
+          style={{
+            color: '#071C2C',
+            fontSize: '16px',
+            fontFamily: 'Montserrat',
+            fontWeight: 600,
+            wordWrap: 'break-word',
+          }}
+        >
+         ₹{publishedPrice}
+        </div>
+      </div>
+    </div>
+        
         {/* <Box
           sx={{
             display: "flex",
@@ -115,7 +172,7 @@ const BusSaleSummary = () => {
             </Typography>
           </Box>
         </Box> */}
-        <Box
+        {/* <Box
           sx={{
             display: "flex",
             justifyContent: "space-between",
@@ -137,8 +194,155 @@ const BusSaleSummary = () => {
               ₹{tds}
             </Typography>
           </Box>
-        </Box>
-        <Box
+        </Box> */}
+
+        <div
+      style={{
+        width: '260px',
+        height: '49px',
+        padding: '8px',
+        background:'#B8CCFF',
+        
+        borderRadius: '4px',
+        borderBottom: '0.50px #071C2C solid',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        display: 'flex',
+        margin:'auto',
+        marginTop:"10px"
+      }}
+    >
+      <div
+        style={{
+          paddingTop: '8px',
+          paddingBottom: '8px',
+          flexDirection: 'column',
+          justifyContent: 'flex-start',
+          alignItems: 'flex-start',
+          display: 'inline-flex',
+        }}
+      >
+        <div
+          style={{
+            justifyContent: 'flex-start',
+            alignItems: 'flex-start',
+            gap: '72px',
+            display: 'inline-flex',
+          }}
+        >
+          <div
+            style={{
+              color: '#071C2C',
+              fontSize: '16px',
+              fontFamily: 'Montserrat',
+              fontWeight: 600,
+              lineHeight: '16.67px',
+              wordWrap: 'break-word',
+            }}
+          >
+              Taxes:
+          </div>
+        </div>
+      </div>
+      <div
+        style={{
+          flexDirection: 'column',
+          justifyContent: 'flex-start',
+          alignItems: 'flex-start',
+          gap: '70px',
+          display: 'inline-flex',
+        }}
+      >
+        <div
+          style={{
+            color: '#071C2C',
+            fontSize: '16px',
+            fontFamily: 'Montserrat',
+            fontWeight: 600,
+            wordWrap: 'break-word',
+          }}
+        >
+          ₹{tds}
+        </div>
+      </div>
+    </div>
+    <div
+      style={{
+        width: '260px',
+        height: '49px',
+        padding: '8px',
+        background:'#B8CCFF',
+        
+        borderRadius: '4px',
+        borderBottom: '0.50px #071C2C solid',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        display: 'flex',
+        margin:'auto',
+        marginTop:"10px"
+      }}
+    >
+      <div
+        style={{
+          paddingTop: '8px',
+          paddingBottom: '8px',
+          flexDirection: 'column',
+          justifyContent: 'flex-start',
+          alignItems: 'flex-start',
+          display: 'inline-flex',
+        }}
+      >
+        <div
+          style={{
+            justifyContent: 'flex-start',
+            alignItems: 'flex-start',
+            gap: '72px',
+            display: 'inline-flex',
+          }}
+        >
+          <div
+            style={{
+              color: '#071C2C',
+              fontSize: '16px',
+              fontFamily: 'Montserrat',
+              fontWeight: 600,
+              lineHeight: '16.67px',
+              wordWrap: 'break-word',
+            }}
+          >
+              Grand Total:
+          </div>
+        </div>
+      </div>
+      <div
+        style={{
+          flexDirection: 'column',
+          justifyContent: 'flex-start',
+          alignItems: 'flex-start',
+          gap: '70px',
+          display: 'inline-flex',
+        }}
+      >
+        <div
+          style={{
+            color: '#071C2C',
+            fontSize: '16px',
+            fontFamily: 'Montserrat',
+            fontWeight: 600,
+            wordWrap: 'break-word',
+          }}
+        >
+         ₹{tds+publishedPrice}
+        </div>
+      </div>
+    </div>
+
+
+
+
+
+
+        {/* <Box
           sx={{
             display: "flex",
             justifyContent: "space-between",
@@ -160,7 +364,7 @@ const BusSaleSummary = () => {
               ₹{tds+publishedPrice}
             </Typography>
           </Box>
-        </Box>
+        </Box> */}
       </Box>
     </Box>
   );

@@ -19,15 +19,16 @@ const NavBarBox = ({ avatar, name, path }, index) => {
         onMouseEnter={() => setHover(true)}
         onMouseLeave={() => setHover(false)}
       >
-        <Center pt="10px">
+        {/* <Center pt="10px">
           <div>
             <img src={avatar}  alt="" className="avatarImage" style={{width:"34px",height:"34px"}}/>
+            
           
           </div>
         </Center>
         <Text fontWeight="bold" fontSize="12px" style={{ textAlign: "center" }}>
           {name}
-        </Text>
+        </Text> */}
 
         {hover && (
           <div
@@ -40,6 +41,7 @@ const NavBarBox = ({ avatar, name, path }, index) => {
               boxShadow: "rgba(0, 0, 0, 0.09) 0px 3px 12px",
               textAlign: "left",
               marginTop:"-12px"
+              
             }}
           >
             {data.map((k, l) => {

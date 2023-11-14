@@ -230,16 +230,45 @@ function Headers() {
     return null; // If the path matches '/admin/dashboard', the header is not rendered
   }
 
-  const isAdminPath = pathname === "/adminLogin" || pathname === "/admin/dashboard";
+  const isAdminPath = pathname === "/adminLogin" || pathname === "/admin/dashboard" || pathname=== "/Registration";
 
   if (isAdminPath) {
     return null; // Don't render the InnerNavbar for admin paths
   }
   return (
+<<<<<<< HEAD
     <div className="header-container">
       <div className="logo-container">
         <Link to="/">
           <img src={STLOGO} className="logo" alt="logo" />
+=======
+    <div
+      style={{
+        width: "100%",
+        height: 100,
+        background: "white",
+        zIndex: 2,
+        position: "fixed",
+        display: "flex",
+
+        justifyContent: "space-between",
+      }}
+    >
+      {/* Add your header content here */}
+      <div
+        style={{
+          justifyContent: "center",
+          alignItems: "center",
+          display: "flex",
+        }}
+      >
+        <Link to="/">
+          <img
+            src={STLOGO}
+            style={{ width: "100%", height: "220px",marginTop:"30px"}}
+            alt="logo"
+          />
+>>>>>>> 5c2d7eca2062299cb1ee2124fe9e6fd7e3ed4b47
         </Link>
       </div>
       <div className="info-container">
@@ -313,13 +342,13 @@ function Headers() {
                   ? "Logout"
                   : "Login"}
               </MenuItem>
-              <MenuItem onClick={editPackage} style={{ fontSize: "15px" }}>
+              {/* <MenuItem onClick={editPackage} style={{ fontSize: "15px" }}>
                 My Package
-              </MenuItem>
+              </MenuItem> */}
             </Menu>
           </div>
         </div>
-        <div
+        {/* <div
           style={{
             width: "430px",
             height: "40px",
@@ -428,7 +457,7 @@ function Headers() {
               </div>
             </div>
           </div>
-        </div>
+        </div> */}
       </div>
       <Modal
         open={openModal}
