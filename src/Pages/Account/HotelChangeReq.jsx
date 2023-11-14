@@ -230,7 +230,6 @@
 
 
 
-
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import axios from "axios";
@@ -242,6 +241,7 @@ import { Link } from "react-router-dom";
 const Spinner = () => {
     return (
         <div className="spinner">
+
         </div>
     );
 };
@@ -256,14 +256,11 @@ const HotelChangeReq = () => {
     const [totalPages, setTotalPages] = useState(0);
     const [searchTerm, setSearchTerm] = useState('');
     const [openModalTwo, setOpenModalTwo] = React.useState(false);
-    const [selectedHotel, setSelectedHotel] = useState(null); // New state for selected hotel
-    const [reason, setReason] = useState('');
-
     const handleModalOpenTwo = () => setOpenModalTwo(true);
-    const handleModalCloseTwo = () => {
-        setOpenModalTwo(false);
-        setSelectedHotel(null); // Clear the selected hotel when the modal is closed
-    };
+    const handleModalCloseTwo = () => setOpenModalTwo(false);
+
+    const [reason, setReason] = useState('');
+    const [selectedHotel, setSelectedHotel] = useState(null);
 
     const handleReasonChange = (event) => {
         setReason(event.target.value);
@@ -300,40 +297,39 @@ const HotelChangeReq = () => {
 
     const handleSubmitHotel = async (event) => {
         event.preventDefault();
-        if (selectedHotel) {
-            const selectedReason = document.querySelector('input[type=radio]:checked');
-            const selectedCheckboxValue = selectedReason ? selectedReason.value : null;
 
-            const formData = {
-                "reason": reason,
-                "changerequest": selectedCheckboxValue,
-                "bookingId": selectedHotel.bookingId,
-                "id": selectedHotel?._id,
-                "agentId": selectedHotel?.userId,
-                "contactNumber": selectedHotel?.phone,
-                "amount": selectedHotel?.amount,
-            };
+        if (!selectedHotel) {
+            // Handle error, no hotel selected
+            return;
+        }
 
-            console.log("post method data", formData);
+        const selectedReason = document.querySelector('input[type=radio]:checked');
+        const selectedCheckboxValue = selectedReason ? selectedReason.value : null;
 
-            try {
-                const response = await axios.post('http://localhost:8000/skytrails/user/changeHotelDetailsRequest', formData);
-                console.log('Response from the server:', response.data);
-            } catch (error) {
-                console.error('Error sending data to the server:', error);
-            }
+        const formData = {
+            "reason": reason,
+            "changerequest": selectedCheckboxValue,
+            "bookingId": selectedHotel.bookingId,
+            "id": selectedHotel?._id,
+            "agentId": selectedHotel?.userId,
+            "contactNumber": selectedHotel?.phone,
+            "amount": selectedHotel?.amount,
+        };
+        console.log(formData)
+
+        try {
+            const response = await axios.post('http://localhost:8000/skytrails/user/changeHotelDetailsRequest', formData);
+            console.log('Response from the server:', response.data);
+            setOpenModalTwo(false);
+
+        } catch (error) {
+            console.error('Error sending data to the server:', error);
         }
     };
 
     useEffect(() => {
         fetchHotelData();
     }, [currentPage, searchTerm]);
-
-    const handleRequestButtonClick = (hotel) => {
-        setSelectedHotel(hotel); // Set the selected hotel when the button is clicked
-        handleModalOpenTwo();
-        console.log(hotel)
-    };
 
     return (
         <div>
@@ -351,18 +347,24 @@ const HotelChangeReq = () => {
                                     </div>
                                     <div className="innerdiv2">
                                         <p>PNR: {hotel.pnr}</p>
-                                        <p>Reference Code: {hotel.referenceCode}</p>
+                                        <p>Reference Code: { }</p>
                                         <p>Status: {hotel.bookingStatus}</p>
                                     </div>
                                     <div className="btn-request">
-                                        <button type="submit" onClick={() => handleRequestButtonClick(hotel)}>Change Request</button>
+                                        <button onClick={() => {
+                                            handleModalOpenTwo();
+                                            setSelectedHotel(hotel);
+                                        }}>Change Request</button>
                                     </div>
                                 </div>
                                 <div className="action">
                                     <div className="link">
                                         <a href="http://">Fare Rule</a>
                                         <a href="http://">View Ticket</a>
-                                        <Link onClick={handleModalOpenTwo} to="">Change Request</Link>
+                                        <Link onClick={() => {
+                                            handleModalOpenTwo();
+                                            setSelectedHotel(hotel);
+                                        }} to="">Change Request</Link>
                                     </div>
                                     <div className="view">
                                         <button>View Invoice</button>
@@ -383,9 +385,7 @@ const HotelChangeReq = () => {
                     <div className="modal-box">
                         <div className="modal-header">
                             <h2>Change Request</h2>
-                            {selectedHotel && (
-                                <p><span>PNR</span>{selectedHotel.pnr}</p>
-                            )}
+                            <p><span>PNR</span>QP-7311 V1</p>
                         </div>
                         <form action="">
                             <div className="input-text" >
@@ -394,13 +394,15 @@ const HotelChangeReq = () => {
                             </div>
                             <label className="bold" htmlFor="">Please Select a Valid Reason </label>
                             <div className="input-check">
+
                                 <div className="formGroup">
                                     <input
                                         type="radio"
                                         name="checkbox1"
                                         value={"Change in Travel Plans"}
                                     />
-                                    <label>Change in Travel Plans</label>
+                                    <label>Change in Travel Plans
+                                    </label>
                                 </div>
 
                                 <div className="formGroup">
@@ -409,7 +411,8 @@ const HotelChangeReq = () => {
                                         name="checkbox2"
                                         value={"Travel Advisory or Warnings"}
                                     />
-                                    <label> Travel Advisory or Warnings</label>
+                                    <label> Travel Advisory or Warnings
+                                    </label>
                                 </div>
 
                                 <div className="formGroup">
@@ -418,7 +421,8 @@ const HotelChangeReq = () => {
                                         name="checkbox3"
                                         value={"Visa or Documentation Problems"}
                                     />
-                                    <label>Visa or Documentation Problems</label>
+                                    <label>Visa or Documentation Problems
+                                    </label>
                                 </div>
 
                                 <div className="formGroup">
@@ -427,7 +431,8 @@ const HotelChangeReq = () => {
                                         name="checkbox4"
                                         value={"Medical Issues"}
                                     />
-                                    <label>Medical Issues</label>
+                                    <label>Medical Issues
+                                    </label>
                                 </div>
 
                                 <div className="formGroup">
@@ -436,10 +441,10 @@ const HotelChangeReq = () => {
                                         name="checkbox5"
                                         value={"Other"}
                                     />
-                                    <label> Other</label>
+                                    <label> Other
+                                    </label>
                                 </div>
                             </div>
-
                             <div className="modal-button">
                                 <button type="button" onClick={handleModalCloseTwo}>Cancel</button>
                                 <button className="second" type="submit" onClick={handleSubmitHotel}>Send Request</button>
@@ -449,7 +454,7 @@ const HotelChangeReq = () => {
                 </Box>
             </Modal>
         </div>
-    )
-}
+    );
+};
 
 export default HotelChangeReq;

@@ -197,3 +197,21 @@ form label {
   color: #fff;
 
 }
+
+
+.buttonBox {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+}
+
+.buttonBox button {
+  padding: 10px 22px;
+  background-color: #21325D;
+  color: white;
+  border-radius: 8px;
+  font-weight: 700;
+  text-transform: uppercase;
+  border: none;
+  outline: none;
+}

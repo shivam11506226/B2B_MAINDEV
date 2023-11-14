@@ -12,7 +12,7 @@ function InnerNavbar() {
   const toggleDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen);
   };
-  
+
   const location = useLocation();
   const { pathname } = location;
 
@@ -23,8 +23,8 @@ function InnerNavbar() {
   }
 
   return (
-    
-    <div className="innerNav" style={{ marginTop: "110px", height:"15%" }}>
+
+    <div className="innerNav" style={{ height: "15%" }}>
       {InnerBarLogo.map(({ avatar, name, path }, index) => (
         <Flex
           direction="column"
@@ -33,7 +33,7 @@ function InnerNavbar() {
           key={index}
           zIndex={2}
         >
-           <NavLink
+          <NavLink
             to={path}
             className={({ isActive }) =>
               isActive ? "active-nav logoname" : "logoname"
@@ -42,7 +42,7 @@ function InnerNavbar() {
               textDecoration: "none",
               color: "#21325D",
               font: "Quicksand, Bold",
-              height: "85%",
+              // height: "85%",
               justifyContent: "space-around",
               width: "100px",
               textAlign: "center",
