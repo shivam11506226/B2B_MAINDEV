@@ -50,7 +50,7 @@ function CustomTabPanel(props) {
 
   return (
     <Slide direction="up" in={value === index} >
-      <div role="tabpanel" hidden={value !== index} id={`simple-tabpanel-${index}`} aria-labelledby={`simple-tab-${index}`} {...other}>
+       <div role="tabpanel" hidden={value !== index} id={`simple-tabpanel-${index}`} aria-labelledby={`simple-tab-${index}`} {...other} style={{marginTop:"-22px"}}>
         <Box style={{backgroundColor:"#F8F3F3",marginTop:"-60px",width:"90%",margin:"auto",borderRadius:"12px"}}>
           <Typography>{children}</Typography>
         </Box>
@@ -82,9 +82,9 @@ export default function StyledTabsExample() {
 
   return (
     <Box sx={{ width: '90%',margin:"auto" }}>
-      <StyledTabs value={value} onChange={handleChange} aria-label="styled tabs example" style={{width:"90%",margin:"auto"}} >
-        <StyledTab label="One Way" {...a11yProps(0)} style={{width:"254px",height:"48px",marginTop:"30px"}}/>
-        <StyledTab label="Return" {...a11yProps(1)} style={{width:"254px",height:"48px",marginTop:"30px"}}/>
+      <StyledTabs value={value} onChange={handleChange} aria-label="styled tabs example" style={{width:"90%",margin:"auto",marginTop:"-120px"}} >
+        <StyledTab label="One Way" {...a11yProps(0)} style={{width:"254px",height:"48px"}}/>
+        <StyledTab label="Return" {...a11yProps(1)} style={{width:"254px",height:"48px"}}/>
         {/* <StyledTab label="Off Share" {...a11yProps(2)} />
         <StyledTab label="Multi Stop" {...a11yProps(3)} />
         <StyledTab label="Calendar Fare" {...a11yProps(4)} />
