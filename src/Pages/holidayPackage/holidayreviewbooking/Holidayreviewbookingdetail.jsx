@@ -14,11 +14,6 @@ import FastfoodIcon from "@mui/icons-material/Fastfood";
 import color from "../../../color/color";
 import { getUserDataAction } from "../../../Redux/Auth/UserDataById/actionUserData";
 
-<<<<<<< HEAD
-
-
-=======
->>>>>>> 51d842506291252fc9f83fd35af0fc101e7388ce
 const Holidayreviewbookingdetail = () => {
 
   const dispatch = useDispatch();
