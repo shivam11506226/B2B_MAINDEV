@@ -9,13 +9,13 @@ import CssBaseline from "@mui/material/CssBaseline";
 import MenuIcon from "@mui/icons-material/Menu";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
-import ListItem from "@mui/material/ListItem";
-import ListItemButton from "@mui/material/ListItemButton";
-import ListItemIcon from "@mui/material/ListItemIcon";
-import ListItemText from "@mui/material/ListItemText";
+
 import PersonAdd from "@mui/icons-material/PersonAdd";
 import Settings from "@mui/icons-material/Settings";
 import Logout from "@mui/icons-material/Logout";
+
+import { ListItem, ListItemButton, ListItemIcon, ListItemText, Collapse } from '@mui/material';
+
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import PeopleOutlinedIcon from "@mui/icons-material/PeopleOutlined";
 import ContactsOutlinedIcon from "@mui/icons-material/ContactsOutlined";
@@ -36,8 +36,10 @@ import RiseLoader from "react-spinners/RiseLoader";
 import HotelBookings from './Table/HotelBookings/HotelBookings';
 import FlightBookings from './Table/FlightBookings/Flightbookings';
 import BusBookings from './Table/BusBookings/BusBookings';
+import BtoBAgent from './Table/BtoBAgent';
+import BtoCAgent from './Table/BtoCAgent'
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
-import AgentRequest from './Table/AgentRequest/AgentRequest'
+import AgentRequest from './Table/AgentRequest/AgentRequest';
 import {
   Toolbar,
   IconButton,
@@ -209,6 +211,21 @@ export default function VerticalTabs() {
   // const handleTabChange = (tabName) => {
   //   setSelectedTab(tabName);
   // };
+
+
+  const [openCollapse, setOpenCollapse] = useState(false);
+
+  const handleButtonClick = () => {
+    setOpenCollapse(!openCollapse);
+  };
+
+  const [openCollapseTwo, setOpenCollapseTwo] = useState(false);
+
+  const handleButtonClickTwo = () => {
+    setOpenCollapseTwo(!openCollapseTwo);
+  };
+
+
   return (
     <>
       <Box sx={{ display: "flex" }}>
@@ -240,7 +257,7 @@ export default function VerticalTabs() {
               <MenuIcon />
             </IconButton>
             <Typography variant="h4" noWrap component="div">
-              <img src={STLOGO} height={200} alt="logo" />
+              <img src={STLOGO} height={100} margin-top={100} alt="logo" />
             </Typography>
 
             {/* Search Bar */}
@@ -562,39 +579,30 @@ export default function VerticalTabs() {
                 <ListItemText primary="Forex" sx={{ opacity: open ? 1 : 0 }} />
               </ListItemButton>
             </ListItem>
-            <ListItem
-              disablePadding
-              sx={{ display: "block" }}
-              onClick={() => handleMenuItemClick("Visa Request")}
-            >
-              <ListItemButton
-                sx={{
-                  minHeight: 48,
-                  justifyContent: open ? "initial" : "center",
-                  px: 2.5,
-                  ...((menuData === "Visa Request"
-                    ? activeMenuItemClass
-                    : inactiveMenuItemClass) || {}),
-                }}
-              >
-                <ListItemIcon
-                  sx={{
-                    minWidth: 0,
-                    mr: open ? 3 : "auto",
-                    justifyContent: "center",
-                  }}
-                >
-                  <CalendarTodayOutlinedIcon />
-                </ListItemIcon>
-                <ListItemText
-                  primary="Visa Request"
-                  sx={{ opacity: open ? 1 : 0 }}
-                />
-              </ListItemButton>
 
-
-            </ListItem>
-            <ListItem
+            <ListItem disablePadding sx={{ display: 'block' }}>
+        <ListItemButton
+          sx={{
+            minHeight: 48,
+            justifyContent: open ? 'center' : 'center',
+            px: 2.5,
+            // Add your other styles here
+          }}
+          onClick={handleButtonClick}
+        >
+          <ListItemIcon
+            sx={{
+              minWidth: 0,
+              mr: openCollapse ? 3 : '3',
+              justifyContent: 'center',
+            }}
+          >
+            <AccountBoxIcon />
+          </ListItemIcon>
+          <ListItemText primary="AGENT B2B" />
+        </ListItemButton>
+        <Collapse in={openCollapse} timeout="auto" unmountOnExit>
+          <ListItem
               disablePadding
               sx={{ display: "block" }}
               onClick={() => handleMenuItemClick("Hotel Bookings")}>
@@ -623,6 +631,7 @@ export default function VerticalTabs() {
                 />
               </ListItemButton>
             </ListItem>
+
             <ListItem
               disablePadding
               sx={{ display: "block" }}
@@ -680,6 +689,155 @@ export default function VerticalTabs() {
                   sx={{ opacity: open ? 1 : 0 }}
                 />
               </ListItemButton>
+            </ListItem>
+        </Collapse>
+      </ListItem>
+
+      <ListItem disablePadding sx={{ display: 'block' }}>
+        <ListItemButton
+          sx={{
+            minHeight: 48,
+            justifyContent: 'center',
+            px: 2.5,
+            // Add your other styles here
+          }}
+          onClick={handleButtonClickTwo}
+        >
+          <ListItemIcon
+            sx={{
+              minWidth: 0,
+              mr: '3',
+              justifyContent: 'center',
+            }}
+          >
+            <AccountBoxIcon />
+          </ListItemIcon>
+          <ListItemText primary="USER B2C" />
+        </ListItemButton>
+        <Collapse in={openCollapseTwo} timeout="auto" unmountOnExit>
+          <ListItem
+              disablePadding
+              sx={{ display: "block" }}
+              onClick={() => handleMenuItemClick("Hotel Bookings")}>
+              <ListItemButton
+                sx={{
+                  minHeight: 48,
+                  justifyContent: open ? "initial" : "center",
+                  px: 2.5,
+                  ...((menuData === "Hotel Bookings"
+                    ? activeMenuItemClass
+                    : inactiveMenuItemClass) || {}),
+                }}
+              >
+                <ListItemIcon
+                  sx={{
+                    minWidth: 0,
+                    mr: open ? 3 : "auto",
+                    justifyContent: "center",
+                  }}
+                >
+                  <AccountBoxIcon />
+                </ListItemIcon>
+                <ListItemText
+                  primary="Hotel Bookings"
+                  sx={{ opacity: open ? 1 : 0 }}
+                />
+              </ListItemButton>
+            </ListItem>
+
+            <ListItem
+              disablePadding
+              sx={{ display: "block" }}
+              onClick={() => handleMenuItemClick("Flight Bookings")}>
+              <ListItemButton
+                sx={{
+                  minHeight: 48,
+                  justifyContent: open ? "initial" : "center",
+                  px: 2.5,
+                  ...((menuData === "Flight Bookings"
+                    ? activeMenuItemClass
+                    : inactiveMenuItemClass) || {}),
+                }}
+              >
+                <ListItemIcon
+                  sx={{
+                    minWidth: 0,
+                    mr: open ? 3 : "auto",
+                    justifyContent: "center",
+                  }}
+                >
+                  <AccountBoxIcon />
+                </ListItemIcon>
+                <ListItemText
+                  primary="Flight Bookings"
+                  sx={{ opacity: open ? 1 : 0 }}
+                />
+              </ListItemButton>
+            </ListItem>
+            <ListItem
+              disablePadding
+              sx={{ display: "block" }}
+              onClick={() => handleMenuItemClick("Bus Bookings")}>
+              <ListItemButton
+                sx={{
+                  minHeight: 48,
+                  justifyContent: open ? "initial" : "center",
+                  px: 2.5,
+                  ...((menuData === "Bus Bookings"
+                    ? activeMenuItemClass
+                    : inactiveMenuItemClass) || {}),
+                }}
+              >
+                <ListItemIcon
+                  sx={{
+                    minWidth: 0,
+                    mr: open ? 3 : "auto",
+                    justifyContent: "center",
+                  }}
+                >
+                  <AccountBoxIcon />
+                </ListItemIcon>
+                <ListItemText
+                  primary="Bus Bookings"
+                  sx={{ opacity: open ? 1 : 0 }}
+                />
+              </ListItemButton>
+            </ListItem>
+        </Collapse>
+      </ListItem>
+
+           
+            <ListItem
+              disablePadding
+              sx={{ display: "block" }}
+              onClick={() => handleMenuItemClick("Visa Request")}
+            >
+              <ListItemButton
+                sx={{
+                  minHeight: 48,
+                  justifyContent: open ? "initial" : "center",
+                  px: 2.5,
+                  ...((menuData === "Visa Request"
+                    ? activeMenuItemClass
+                    : inactiveMenuItemClass) || {}),
+                }}
+              >
+                <ListItemIcon
+                  sx={{
+                    minWidth: 0,
+                    mr: open ? 3 : "auto",
+                    justifyContent: "center",
+                  }}
+                >
+                  <CalendarTodayOutlinedIcon />
+                </ListItemIcon>
+                <ListItemText
+                  primary="Visa Request"
+                  sx={{ opacity: open ? 1 : 0 }}
+                />
+              </ListItemButton>
+
+
             </ListItem>
             <ListItem
               disablePadding
@@ -749,6 +907,8 @@ export default function VerticalTabs() {
               {menuData === "Flight Bookings" && <FlightBookings />}
               {menuData === "Bus Bookings" && <BusBookings />}
               {menuData === "OfferList"&&<OfferList />}
+              {menuData==="AGENT B2B"&&<BtoBAgent/>}
+              {menuData==="AGENT B2C"&&<BtoCAgent/>}
             </div>
           )}
           
