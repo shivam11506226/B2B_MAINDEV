@@ -5,7 +5,7 @@ import Paper from "@mui/material/Paper";
 import Checkbox from "@mui/material/Checkbox";
 import RadioButtonCheckedIcon from "@mui/icons-material/RadioButtonChecked";
 import RadioButtonUncheckedIcon from "@mui/icons-material/RadioButtonUnchecked";
-
+import hotelNotFound from "../../../Images/hotelNotFound.jpg"
 import Divider from "@mui/material/Divider";
 import { Grid, Radio, Typography, Button } from "@mui/material";
 import RangeSlider from "./RangeSlider";
@@ -44,7 +44,7 @@ export default function Popularfilter() {
 
   const result =
     reducerState?.hotelSearchResult?.ticketData?.data?.data?.HotelSearchResult;
-  console.log("result", result);
+
   const handleClick = (resultIndex, hotelCode) => {
     console.log("Handel Click Index Key", resultIndex, hotelCode);
     navigate("HotelBooknow");
@@ -52,24 +52,71 @@ export default function Popularfilter() {
     sessionStorage.setItem("HotelCode", hotelCode);
   };
   const handleModifySearchClick = () => {
-    // Redirect to the /hotel page
     navigate("/hotel");
   };
 
+
+
+
+  const [sortOption, setSortOption] = useState("lowToHigh");
+  const [filterRating, setFilterRating] = useState(null);
+
+
+  const handleSortChange = (event) => {
+    setSortOption(event.target.value);
+  };
+
+  const handleFilterChange = (event) => {
+    setFilterRating(event.target.value);
+  };
+
+  const sortedAndFilteredResults =
+    result?.HotelResults
+      ?.filter(
+        (hotel) =>
+          !filterRating || hotel?.StarRating === parseInt(filterRating)
+      )
+      ?.sort(
+        (a, b) =>
+          sortOption === "lowToHigh"
+            ? a?.Price?.RoomPrice - b?.Price?.RoomPrice
+            : b?.Price?.RoomPrice - a?.Price?.RoomPrice
+      );
+
+
+  let totalAdults = 0;
+  let totalChildren = 0;
+
+  result?.RoomGuests?.forEach((room) => {
+    totalAdults += room?.NoOfAdults || 0;
+    totalChildren += room?.NoOfChild || 0;
+  });
+
+
+  // Retrieve data from sessionStorage
+  const storedFormData = JSON.parse(sessionStorage.getItem('hotelFormData'));
+  const data = storedFormData.dynamicFormData[0]; // Assuming dynamicFormData is an array with at least one element
+
+  // Calculate total number of guests
+  const totalAdult = data.NoOfAdults || 0;
+  const totalChild = data.NoOfChild || 0;
+
+  console.log("shaan", sortedAndFilteredResults)
   return (
     <Box sx={{ flexGrow: 1 }}>
       <Grid container spacing={3}>
         <Grid item xs={12} md={3}>
-          <Box
-            backgroundColor="white"
-            border="1px solid #5C85A4"
-            borderRadius="10px"
-          >
-            <Typography justifyContent="center" display="flex" pt={3}>
-              Your Hotel Search
-            </Typography>
-            <Divider sx={{ backgroundColor: "gray", marginY: "5px" }} />
-            <Typography
+          <Box className="ModifySearch">
+            <Box
+              backgroundColor="white"
+              border="1px solid #5C85A4"
+              borderRadius="10px"
+            >
+              <Typography justifyContent="center" display="flex" pt={3} color="#21325D" fontWeight="bold">
+                Your Search Query
+              </Typography>
+              <Divider sx={{ backgroundColor: "gray", marginY: "5px" }} />
+              {/* <Typography
               pt={1}
               paddingLeft="22px"
               justifyContent="start"
@@ -77,177 +124,106 @@ export default function Popularfilter() {
               sx={{ fontSize: "12px", fontWeight: "bold" }}
             >
               Popular Filter
-            </Typography>
-            <Box sx={{ display: "flex", marginY: "15px", marginX: "20px" }}>
-              <img src={building} />
-              <Typography className="list_text">New Delhi</Typography>
-            </Box>
-            <Box sx={{ display: "flex", marginY: "15px", marginX: "20px" }}>
-              <img src={night} style={{ width: "8%", height: "20%" }} />
-              <Typography className="list_text">
-                3 Night(s)(05 Feb-08 Feb, 2023)
-              </Typography>
-            </Box>
-            <Box sx={{ display: "flex", marginY: "15px", marginX: "20px" }}>
-              <img src={beds} />
-              <Typography className="list_text">1 Room(s)</Typography>
-            </Box>
-            <Box sx={{ display: "flex", marginY: "15px", marginX: "20px" }}>
-              <img src={unitednations} />
-              <Typography className="list_text">Indian</Typography>
-            </Box>
-            <Box sx={{ display: "flex", marginY: "15px", marginX: "20px" }}>
-              <img src={addgroup} />
-              <Typography className="list_text">2 Adult(s)</Typography>
-            </Box>
-            <Box sx={{ display: "flex", marginY: "15px", marginX: "20px" }}>
-              <img src={review} />
-              <Typography className="list_text">5 Star or more</Typography>
-            </Box>
-            <Box
-              sx={{
-                display: "flex",
-                justifyContent: "center",
-                marginY: "15px",
-                marginX: "20px",
-              }}
-            >
-              <Button
-                variant="contained"
-                className="btn_mod"
-                onClick={handleModifySearchClick}
-              >
-                Modify Search
-              </Button>
-            </Box>
-
-            <Box
-              sx={{
-                display: "flex",
-                justifyContent: "space-around",
-                marginY: "15px",
-                marginX: "20px",
-              }}
-            >
-              {/* <Button
-                variant="contained"
-                href="#contained-buttons"
-                size="large"
-                className="Bton_filter"
+            </Typography> */}
+              <Box sx={{ display: "flex", marginY: "15px", marginX: "20px" }}>
+                <img src={building} />
+                <Typography className="list_text">{storedFormData.city}</Typography>
+              </Box>
+              <Box sx={{ display: "flex", marginY: "15px", marginX: "20px" }}>
+                <img src={night} style={{ width: "8%", height: "20%" }} />
+                <Typography className="list_text">
+                  {result?.CheckInDate} to {result?.CheckOutDate}
+                </Typography>
+              </Box>
+              <Box sx={{ display: "flex", marginY: "15px", marginX: "20px" }}>
+                <img src={beds} />
+                <Typography className="list_text">{result?.NoOfRooms} Room(s)</Typography>
+              </Box>
+              <Box sx={{ display: "flex", marginY: "15px", marginX: "20px" }}>
+                <img src={unitednations} />
+                <Typography className="list_text">Indian</Typography>
+              </Box>
+              <Box sx={{ display: "flex", marginY: "15px", marginX: "20px" }}>
+                <img src={addgroup} />
+                <Typography className="list_text">{totalAdults} Adult(s) {totalChildren} Child(s)</Typography>
+              </Box>
+              <Box sx={{ display: "flex", marginY: "15px", marginX: "20px" }}>
+                <img src={review} />
+                <Typography className="list_text">{storedFormData.star} {' '}Star</Typography>
+              </Box>
+              <Box
                 sx={{
-                  background: "white",
-                  color: "gray",
-                  boxShadow: "2px 2px 8px gray",
-                  borderRadius: "20px",
-                  fontSize: "9px",
-                  width: "100%",
+                  display: "flex",
+                  justifyContent: "center",
+                  marginY: "15px",
+                  marginX: "20px",
                 }}
-                mt={5}
               >
-                Enter Hotel Name
-              </Button> */}
+                <Button
+                  variant="contained"
+                  className="btn_mod"
+                  onClick={handleModifySearchClick}
+                  sx={{ background: "#21325D", color: "white", fontWeight: "700", borderRadius: "10px" }}
+                >
+                  Modify Search
+                </Button>
+              </Box>
+
+              <Box
+                sx={{
+                  display: "flex",
+                  justifyContent: "center",
+                  marginY: "15px",
+                  marginX: "20px",
+                }}
+              ></Box>
+              <Divider sx={{ backgroundColor: "gray" }} />
+
+
+              <Divider sx={{ backgroundColor: "gray" }} />
+
             </Box>
-
-            {/* <Box
-              sx={{
-                display: "flex",
-                marginY: "15px",
-                alignItems: "center",
-              }}
-            >
-              <Checkbox
-                {...label}
-                icon={<RadioButtonUncheckedIcon />}
-                checkedIcon={<RadioButtonCheckedIcon />}
-              />
-              <Typography className="list_text">Hot Deals</Typography>
-            </Box> */}
-
-            <Box
-              sx={{
-                display: "flex",
-                justifyContent: "center",
-                marginY: "15px",
-                marginX: "20px",
-              }}
-            ></Box>
-            <Divider sx={{ backgroundColor: "gray" }} />
-            {/* <Typography
-              pt={1}
-              paddingLeft="22px"
-              justifyContent="start"
-              display="flex"
-              sx={{ fontSize: "12px", fontWeight: "bold" }}
-            >
-              Price In Rs.:
-            </Typography> */}
-            {/* <Box display="flex" justifyContent="center">
-              <RangeSlider />
-            </Box> */}
-
-            <Divider sx={{ backgroundColor: "gray" }} />
-            {/* <Typography
-              pt={1}
-              paddingLeft="22px"
-              justifyContent="start"
-              display="flex"
-              sx={{ fontSize: "12px", fontWeight: "bold" }}
-            >
-              Star Rating
-            </Typography> */}
-            {/* <Box textAlign="left" pb={3}>
-              <form action="">
-                <Box display="flex" alignItems="center">
-                  <Checkbox
-                    {...label}
-                    icon={<RadioButtonUncheckedIcon />}
-                    checkedIcon={<RadioButtonCheckedIcon />}
-                  />
-                  <Rating />
-                </Box>
-              </form>
-            </Box> */}
           </Box>
         </Grid>
         <Grid item xs={12} md={9}>
-          {/* <Box>
-            <Box
-              display="flex"
-              px={2}
-              backgroundColor="#F5F5F5"
-              boxShadow="1px 1px 8px gray"
-            >
-              <Grid md={2} sm={4}>
-                <Button sx={{ color: "black" }}>Sorting By:</Button>
-              </Grid>
-              <Grid md={2} sm={4}>
-                <Button sx={{ color: "black" }}>Departure</Button>
-              </Grid>
-              <Grid md={2} sm={4}>
-                <Button sx={{ color: "black" }}>Duration</Button>
-              </Grid>
-              <Grid md={2} sm={4}>
-                <Button sx={{ color: "black" }}>Arrival</Button>
-              </Grid>
-              <Grid md={2} sm={4}>
-                <Button sx={{ color: "black" }}>Pub Price</Button>
-              </Grid>
-              <Grid md={2} sm={4}>
-                <Button sx={{ color: "black" }}>Offer Price</Button>
-              </Grid>
-            </Box>
-          </Box> */}
 
-          {result?.HotelResults?.map((result, index) => {
+
+          <div className="outerFilterBox">
+            <div className="filterBox">
+              <p>Showing {' '}{sortedAndFilteredResults?.length} {' '} Results</p>
+              <div>
+                <label>Sort By:</label>
+                <select value={sortOption} onChange={handleSortChange}>
+                  <option value="lowToHigh">Low to High</option>
+                  <option value="highToLow">High to Low</option>
+                </select>
+              </div>
+
+              <div>
+                <label>Rating:</label>
+                <select value={filterRating} onChange={handleFilterChange}>
+                  <option value="">All Ratings</option>
+                  <option value="1">1 Star</option>
+                  <option value="2">2 Stars</option>
+                  <option value="3">3 Stars</option>
+                  <option value="4">4 Stars</option>
+                  <option value="5">5 Stars</option>
+                </select>
+              </div>
+
+            </div>
+          </div>
+
+          {sortedAndFilteredResults?.map((result, index) => {
             const resultIndex = result?.ResultIndex;
             const hotelCode = result?.HotelCode;
             return (
-              <Box mt={3} key={index}>
+              <Box key={index} className="hotelResultBox" background="#FFF">
                 <Box
                   p={2}
                   borderRadius="8px"
                   border="1.41px solid #BBB"
-                  background=" #FFFBFB"
+                  style={{ background: "#f1f1f1" }}
                 >
                   <Box display="flex">
                     <Grid md={7} sm={6}>
@@ -259,10 +235,15 @@ export default function Popularfilter() {
                             borderRadius: "5px",
                           }}
                         >
+
                           <img
                             src={result?.HotelPicture}
                             className="flight_img"
                             alt="hotelImage"
+                            onError={(e) => {
+                              e.target.onerror = null; // Prevent infinite loop
+                              e.target.src = hotelNotFound; // Replace with your dummy image path
+                            }}
                             style={{ borderRadius: "5px" }}
                           />
                         </Box>
@@ -309,7 +290,7 @@ export default function Popularfilter() {
                             fontFamily: "Montserrat",
                             fontWeight: 600,
                             wordWrap: "break-word",
-                            marginLeft:"-30px"
+                            marginLeft: "-30px"
                           }}
                         >
                           Offer Price:
@@ -334,7 +315,7 @@ export default function Popularfilter() {
                             fontFamily: "Montserrat",
                             fontWeight: 600,
                             wordWrap: "break-word",
-                            marginLeft:"50px"
+                            marginLeft: "50px"
                           }}
                         >
                           Public Price:
@@ -348,10 +329,10 @@ export default function Popularfilter() {
                             wordWrap: "break-word",
                           }}
                         >
-                           ₹{result?.Price?.PublishedPrice}
+                          ₹{result?.Price?.PublishedPrice}
                         </div>
                       </Typography>
-                     
+
                       <Box display="flex" justifyContent="right" mt={2}>
                         <Button
                           type="submit"
@@ -363,7 +344,8 @@ export default function Popularfilter() {
                             );
                             handleClick(resultIndex, hotelCode);
                           }}
-                          style={{ backgroundColor: "#21325D", color: "white" }}
+                          style={{ backgroundColor: "#21325D", color: "white", padding: "8px 13px" }}
+
                         >
                           Book Now
                         </Button>
@@ -376,6 +358,6 @@ export default function Popularfilter() {
           })}
         </Grid>
       </Grid>
-    </Box>
+    </Box >
   );
 }

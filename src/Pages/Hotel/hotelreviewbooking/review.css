@@ -30,3 +30,70 @@
     color: white;
     opacity: 1;
 }
+
+
+.hotelBookNowOuter {
+    padding: 5px;
+    border-radius: 10px;
+    background: white;
+    box-shadow: 0px 0px 24px -11px;
+}
+
+
+
+
+/* review description area  */
+
+.hotelDetails {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    background-color: #DFE6F7;
+    padding: 15px;
+    border-radius: 8px 8px 0px 0px;
+}
+
+.hotelDetails>div {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    /* gap: ; */
+
+}
+
+.contact {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.rmv-margin .row {
+    margin-top: 0 !important;
+}
+
+.hotelDetails p {
+    margin-bottom: 0 !important;
+}
+
+.hotelName {
+    font-size: 1.6rem;
+    color: #21325D;
+    font-weight: bold;
+}
+
+.roomDetails {
+    padding: 15px;
+    border-radius: 0px 0px 8px 8px;
+    background-color: white;
+}
+
+.roomDetails .title {
+    font-size: 1.2rem;
+    color: #21325D;
+    font-weight: 700;
+}
+
+.roomDetails p {
+    font-weight: 600;
+}

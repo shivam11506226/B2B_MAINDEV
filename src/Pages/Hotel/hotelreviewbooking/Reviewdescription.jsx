@@ -338,181 +338,123 @@ const Flightdetail = () => {
   //   setBookingSuccess(true);
   //   dispatch(hotelBookRoomAction([payload, hotelDetailsPayload]));
   // };
+  const result =
+    reducerState?.hotelSearchResult?.ticketData?.data?.data?.HotelSearchResult;
+  let totalAdults = 0;
+  let totalChildren = 0;
+
+  result?.RoomGuests?.forEach((room) => {
+    totalAdults += room?.NoOfAdults || 0;
+    totalChildren += room?.NoOfChild || 0;
+  });
+
+
+  // Retrieve data from sessionStorage
+  const storedFormData = JSON.parse(sessionStorage.getItem('hotelFormData'));
+  const data = storedFormData.dynamicFormData[0]; // Assuming dynamicFormData is an array with at least one element
+
+  // Calculate total number of guests
+  const totalAdult = data.NoOfAdults || 0;
+  const totalChild = data.NoOfChild || 0;
 
   return (
-    <Box borderRadius="10px">
-      <Box
-        sx={{
-          padding: "15px",
-          borderRadius: "10px",
-          boxShadow: "2px 2px 8px gray",
-          backgroundColor: "white",
-        }}
-      >
-        <Box display="flex" justifyContent="space-between">
-          <Box>
-            <Typography className="mainn-txt">
-              {hotelInfo?.HotelDetails?.HotelName}
-            </Typography>
-          </Box>
-          <Box></Box>
-        </Box>
 
-        <Box alignItems="left">
-          <Box>{star(hotelInfo?.HotelDetails?.StarRating)}</Box>
-        </Box>
-        <Box>
-          <Typography className="checkk-txt">
-            <Typography
-              className="checkk-txt"
-              color="#006FFF !important"
-              pr={1}
-            >
-              {" "}
-              Check In:{" "}
-            </Typography>{" "}
-            {
-              reducerState?.hotelSearchResult?.ticketData?.data?.data
-                ?.HotelSearchResult?.CheckInDate
-            }
-            <Typography className="check-txt" px={1} color="#006FFF !important">
-              Check Out:
-            </Typography>{" "}
-            {
-              reducerState?.hotelSearchResult?.ticketData?.data?.data
-                ?.HotelSearchResult?.CheckOutDate
-            }
-          </Typography>
-        </Box>
-        <Box>
-          <Typography className="thirdd-txt">
-            {hotelInfo?.HotelDetails?.Address}
-          </Typography>
-        </Box>
-        <Box>
-          <Typography className="thirdd-txt">
-            Contact No-:
-            <Typography
-              className="thirdd-txt"
-              color="#006FFF !important"
-              fontWeight="bold"
-              px={1}
-            >
-              +{hotelInfo?.HotelDetails?.HotelContactNo}
-            </Typography>
-          </Typography>
-        </Box>
-      </Box>
-      <Box
-        mt={3}
-        sx={{
-          padding: "15px",
-          borderRadius: "10px",
-          boxShadow: "2px 2px 8px gray",
-          marginTop: "15px",
-          backgroundColor: "white",
-        }}
-      >
-        <Box display="flex" justifyContent="space-between">
-          <Box display="flex">
-            <Typography
-              sx={{ fontSize: "16px", color: "#252525", fontWeight: "bold" }}
-            >
-              No. of Rooms
-            </Typography>
-            <Typography
-              ml={5}
-              sx={{ fontSize: "16px", color: "#252525", fontWeight: "bold" }}
-            >
-              Rooms Type
-            </Typography>
-          </Box>
-          <Box>
-            <Typography
-              sx={{ fontSize: "16px", color: "#252525", fontWeight: "bold" }}
-            >
-              No. of Guest
-            </Typography>
-          </Box>
-        </Box>
-        <Divider sx={{ backgroundColor: "gray", marginY: "5px" }} />
+    <>
+      <div className="container-fluid rmv-margin">
+        {/* <div className="row">
+          <div className="col-lg-12"> */}
+        <div className="row">
 
-        <Box display="flex" justifyContent="space-between">
-          <Box display="flex">
-            <Typography
-              ml={5}
-              sx={{ fontSize: "16px", color: "#666666", fontWeight: "bold" }}
-            >
-              {
-                reducerState?.hotelSearchResult?.ticketData?.data?.data
-                  ?.HotelSearchResult?.NoOfRooms
-              }
-            </Typography>
-            <Typography
-              ml={11}
-              sx={{ fontSize: "16px", color: "#666666", fontWeight: "bold" }}
-            >
-              {hotelData?.RoomTypeName}
-            </Typography>
-          </Box>
-          <Box>
-            <Typography
-              mr={5}
-              sx={{ fontSize: "16px", color: "#666666", fontWeight: "bold" }}
-            >
-              {noOfRooms.length}
-            </Typography>
-          </Box>
-        </Box>
-        <Box>
-          <Typography
-            ml={17}
-            sx={{
-              fontSize: "16px",
-              color: "#006FFF",
-              fontWeight: "bold",
-              cursor: "pointer",
-            }}
-          >
-            Incl:{" "}
-            {hotelData?.Inclusion.map((data) => {
-              return <span>{data}</span>;
-            })}
-          </Typography>
-          <Typography
-            mt={2}
-            sx={{ fontSize: "16px", color: "#FF8900", fontWeight: "bold" }}
-          >
-            Last Cancellation Date: {formattedDate}
-          </Typography>
-        </Box>
-      </Box>
+          {/* hotel details area  */}
 
-      <Box
-        mt={5}
-        sx={{
-          padding: "15px",
-          borderRadius: "10px",
-          boxShadow: "2px 2px 8px gray",
-          marginTop: "15px",
-          backgroundColor: "white",
-        }}
-      >
-        <Box>
-          <Typography
-            sx={{ fontSize: "16px", color: "#252525", fontWeight: "bold" }}
-          >
-            Enter Guest Details
-          </Typography>
-          <Box>
-            <Box>
+
+          <div className="col-lg-12">
+            <div className="hotelDetails">
+              <div>
+                <p className="hotelName">{hotelInfo?.HotelDetails?.HotelName}</p>
+                <Box alignItems="right">
+                  <Box>{star(hotelInfo?.HotelDetails?.StarRating)}</Box>
+                </Box>
+              </div>
+              <div>
+                <p className="text-start w-50" > <b>Address:</b> {hotelInfo?.HotelDetails?.Address}</p>
+                <div>
+                  <p className="text-end"> <b>Check In:</b>{
+                    reducerState?.hotelSearchResult?.ticketData?.data?.data
+                      ?.HotelSearchResult?.CheckInDate
+                  }</p>
+                  <p className="text-end"><b>Check Out:</b>{
+                    reducerState?.hotelSearchResult?.ticketData?.data?.data
+                      ?.HotelSearchResult?.CheckOutDate
+                  }</p>
+                </div>
+              </div>
+              <div>
+                <div className="contact">
+                  <p>{storedFormData?.city}, India</p>
+                  <p>
+                    <b>Contact: {' '}</b>
+                    {hotelInfo?.HotelDetails?.HotelContactNo ? (
+                      hotelInfo.HotelDetails.HotelContactNo
+                    ) : (
+                      "Not Available"
+                    )}
+                  </p>
+                </div>
+                <p><b>Night(s){' '}</b>{storedFormData?.night}</p>
+              </div>
+            </div>
+            {/* </div>
+            </div> */}
+          </div>
+
+
+
+
+          {/* room details area  */}
+
+          <div className="col-lg-12">
+            <div className="roomDetails">
+              <div className="row">
+                <div className="col-lg-9">
+                  <p className="title">{hotelData?.RoomTypeName}</p>
+                  <p>{hotelData?.RoomPromotion}</p>
+                  <p>{hotelData?.RatePlanName}</p>
+                  <p className="text-warning">Last Cancellation Data: {' '} {formattedDate}</p>
+                </div>
+                <div className="col-lg-3 d-flex justify-content-center align-items-center">
+                  <p>{totalAdults}{' '} Adult(s)</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+
+
+
+
+        {/* guest details section  */}
+
+
+        <div className="row">
+          <div className="col-lg-12">
+            <div className="headText">
+              <h2>Guest Details</h2>
+            </div>
+          </div>
+
+          <div className="col-lg-12">
+            <div className="accordianSection">
               {noOfRooms.length > 0 &&
                 Array.from({ length: noOfRooms.length }, (_, roomIndex) => (
-                  <Box>
+                  <Box sx={{ marginBottom: "15px" }}>
                     <div mb={2} key={roomIndex} className="services" py={1}>
                       <Accordion
                         expanded={accordionExpanded === roomIndex}
                         onChange={handleAccordionChange(roomIndex)}
+                        sx={{ marginBottom: "15px" }}
                       >
                         <AccordionSummary
                           expandIcon={<ExpandMoreIcon />}
@@ -716,16 +658,16 @@ const Flightdetail = () => {
                                             placeholder="Enter Age"
                                             value={
                                               noOfRooms[roomIndex]?.ChildAge[
-                                                childIndex
+                                              childIndex
                                               ]
                                             }
-                                            // onChange={(e) =>
-                                            //   handleServiceChange(
-                                            //     e,
-                                            //     roomIndex,
-                                            //     { childIndex: childIndex }
-                                            //   )
-                                            // }
+                                          // onChange={(e) =>
+                                          //   handleServiceChange(
+                                          //     e,
+                                          //     roomIndex,
+                                          //     { childIndex: childIndex }
+                                          //   )
+                                          // }
                                           />
                                         </div>
                                       </Box>
@@ -764,60 +706,85 @@ const Flightdetail = () => {
                         </AccordionDetails>
                       </Accordion>
 
-                      {/* Form end */}
                     </div>
                   </Box>
                 ))}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <Box borderRadius="10px">
+
+        <Box
+          mt={5}
+          sx={{
+            padding: "15px",
+            borderRadius: "10px",
+            boxShadow: "2px 2px 8px gray",
+            marginTop: "15px",
+            backgroundColor: "white",
+          }}
+        >
+          <Box>
+            <Typography
+              sx={{ fontSize: "16px", color: "#252525", fontWeight: "bold" }}
+            >
+              Enter Guest Details
+            </Typography>
+            <Box>
+              <Box>
+
+              </Box>
+
+              <Grid container spacing={3} my={1}>
+                <Grid item xs={12} sm={12} md={4}>
+                  <Box>
+                    <div className="form_input">
+                      <label hotel_form_input className="form_lable">
+                        Email*
+                      </label>
+                      <input
+                        name="Email"
+                        ref={emailRef}
+                        placeholder="Enter your Email"
+                        // value={passengerData.Email}
+                        onChange={(e) => handleServiceChange(e, 0)}
+                      />
+                    </div>
+                  </Box>
+                </Grid>
+
+                <Grid item xs={12} sm={12} md={4}>
+                  <Box>
+                    <div className="form_input">
+                      <label hotel_form_input className="form_lable">
+                        Phone No*
+                      </label>
+                      <input
+                        name="Phoneno"
+                        ref={phoneRef}
+                        placeholder="Enter your name"
+                        // value={passengerData.Phoneno}
+                        onChange={(e) => handleServiceChange(e, 0)}
+                      />
+                    </div>
+                  </Box>
+                </Grid>
+              </Grid>
+
+              <Box
+                mt={1}
+                display="flex"
+                alignItems="center"
+                justifyContent="center"
+              ></Box>
             </Box>
-
-            <Grid container spacing={3} my={1}>
-              <Grid item xs={12} sm={12} md={4}>
-                <Box>
-                  <div className="form_input">
-                    <label hotel_form_input className="form_lable">
-                      Email*
-                    </label>
-                    <input
-                      name="Email"
-                      ref={emailRef}
-                      placeholder="Enter your Email"
-                      // value={passengerData.Email}
-                      onChange={(e) => handleServiceChange(e, 0)}
-                    />
-                  </div>
-                </Box>
-              </Grid>
-
-              <Grid item xs={12} sm={12} md={4}>
-                <Box>
-                  <div className="form_input">
-                    <label hotel_form_input className="form_lable">
-                      Phone No*
-                    </label>
-                    <input
-                      name="Phoneno"
-                      ref={phoneRef}
-                      placeholder="Enter your name"
-                      // value={passengerData.Phoneno}
-                      onChange={(e) => handleServiceChange(e, 0)}
-                    />
-                  </div>
-                </Box>
-              </Grid>
-            </Grid>
-
-            <Box
-              mt={1}
-              display="flex"
-              alignItems="center"
-              justifyContent="center"
-            ></Box>
           </Box>
-        </Box>
 
-        {/* textarea */}
+          {/* textarea */}
 
-        {/* <Box
+          {/* <Box
           className="input_area"
           height="120px"
           sx={{
@@ -837,18 +804,18 @@ const Flightdetail = () => {
             width="100%"
           ></textarea>
         </Box> */}
-        <Typography
-          sx={{
-            fontSize: "13px",
-            color: "#FF8900",
-            fontWeight: "bold",
-            marginTop: "13px",
-          }}
-        >
-          Note: For any additional services, Applicable Charges will be paid
-          directly at Hotel.
-        </Typography>
-        {/* <Box
+          <Typography
+            sx={{
+              fontSize: "13px",
+              color: "#FF8900",
+              fontWeight: "bold",
+              marginTop: "13px",
+            }}
+          >
+            Note: For any additional services, Applicable Charges will be paid
+            directly at Hotel.
+          </Typography>
+          {/* <Box
           className="input_area"
           height="120px"
           sx={{
@@ -867,125 +834,126 @@ const Flightdetail = () => {
             rows="3"
           ></textarea>
         </Box> */}
-        <Box
-          sx={{
-            padding: "15px",
-            borderRadius: "10px",
-            boxShadow: "2px 2px 8px gray",
-            marginTop: "15px",
-          }}
-        >
-          <Typography
-            sx={{ fontSize: "16px", color: "#252525", fontWeight: "bold" }}
+          <Box
+            sx={{
+              padding: "15px",
+              borderRadius: "10px",
+              boxShadow: "2px 2px 8px gray",
+              marginTop: "15px",
+            }}
           >
-            Cancellation & Charges:
-          </Typography>
-          <Typography
-            sx={{ fontSize: "13px", color: "#252525", fontWeight: "bold" }}
-          >
-            Room : {hotelData?.RoomTypeName}
-          </Typography>
-          <Grid container spacing={3} p={1}>
-            <Grid item xs={12} md={5}>
-              <Typography
-                sx={{ fontSize: "13px", color: "#252525", fontWeight: "bold" }}
-              >
-                Cancelled from
-              </Typography>
-              <Typography
-                sx={{
-                  fontSize: "13px",
-                  color: "#006FFF",
-                  fontWeight: "bold",
-                  textAlign: "left",
-                }}
-              >
-                {cancellationFormattedStartingDate}
-              </Typography>
-            </Grid>
-            <Grid item xs={12} md={4}>
-              <Typography
-                sx={{ fontSize: "13px", color: "#252525", fontWeight: "bold" }}
-              >
-                Cancelled before
-              </Typography>
-              <Typography
-                sx={{
-                  fontSize: "13px",
-                  color: "#006FFF",
-                  fontWeight: "bold",
-                  textAlign: "left",
-                }}
-              >
-                {cancellationFormattedEndingDate}
-              </Typography>
-            </Grid>
-            <Grid item xs={12} md={3}>
-              <Typography
-                sx={{
-                  fontSize: "13px",
-                  color: "#252525",
-                  fontWeight: "bold",
-                  textAlign: "center",
-                }}
-              >
-                Cancellation Charges
-              </Typography>
+            <Typography
+              sx={{ fontSize: "16px", color: "#252525", fontWeight: "bold" }}
+            >
+              Cancellation & Charges:
+            </Typography>
+            <Typography
+              sx={{ fontSize: "13px", color: "#252525", fontWeight: "bold" }}
+            >
+              Room : {hotelData?.RoomTypeName}
+            </Typography>
+            <Grid container spacing={3} p={1}>
+              <Grid item xs={12} md={5}>
+                <Typography
+                  sx={{ fontSize: "13px", color: "#252525", fontWeight: "bold" }}
+                >
+                  Cancelled from
+                </Typography>
+                <Typography
+                  sx={{
+                    fontSize: "13px",
+                    color: "#006FFF",
+                    fontWeight: "bold",
+                    textAlign: "left",
+                  }}
+                >
+                  {cancellationFormattedStartingDate}
+                </Typography>
+              </Grid>
+              <Grid item xs={12} md={4}>
+                <Typography
+                  sx={{ fontSize: "13px", color: "#252525", fontWeight: "bold" }}
+                >
+                  Cancelled before
+                </Typography>
+                <Typography
+                  sx={{
+                    fontSize: "13px",
+                    color: "#006FFF",
+                    fontWeight: "bold",
+                    textAlign: "left",
+                  }}
+                >
+                  {cancellationFormattedEndingDate}
+                </Typography>
+              </Grid>
+              <Grid item xs={12} md={3}>
+                <Typography
+                  sx={{
+                    fontSize: "13px",
+                    color: "#252525",
+                    fontWeight: "bold",
+                    textAlign: "center",
+                  }}
+                >
+                  Cancellation Charges
+                </Typography>
+                <Typography
+                  sx={{
+                    fontSize: "13px",
+                    color: "#FF8900",
+                    fontWeight: "bold",
+                    textAlign: "center",
+                  }}
+                >
+                  {cancellationCharge}%
+                </Typography>
+              </Grid>
               <Typography
                 sx={{
                   fontSize: "13px",
                   color: "#FF8900",
                   fontWeight: "bold",
-                  textAlign: "center",
+                  marginTop: "13px",
                 }}
+                ml={2}
               >
-                {cancellationCharge}%
+                Note:{hotelCancellationPolicies?.CancellationPolicy}
               </Typography>
             </Grid>
-            <Typography
-              sx={{
-                fontSize: "13px",
-                color: "#FF8900",
-                fontWeight: "bold",
-                marginTop: "13px",
-              }}
-              ml={2}
-            >
-              Note:{hotelCancellationPolicies?.CancellationPolicy}
-            </Typography>
-          </Grid>
-        </Box>
-        <Box
-          sx={{
-            padding: "15px",
-            borderRadius: "10px",
-            boxShadow: "2px 2px 8px gray",
-            marginTop: "15px",
-          }}
-        >
-          <Typography
-            sx={{ fontSize: "16px", color: "#252525", fontWeight: "bold" }}
+          </Box>
+          <Box
+            sx={{
+              padding: "15px",
+              borderRadius: "10px",
+              boxShadow: "2px 2px 8px gray",
+              marginTop: "15px",
+            }}
           >
-            Hotel Norms
-          </Typography>
-        </Box>
+            <Typography
+              sx={{ fontSize: "16px", color: "#252525", fontWeight: "bold" }}
+            >
+              Hotel Norms
+            </Typography>
+          </Box>
 
-        {/* <form> */}
-        <Box display={"flex"} justifyContent={"center"} mt={2}>
-          <Custombutton
-            title={"Proceed to Booking Review"}
-            type={"submit"}
-            onClick={handleClickSavePassenger}
-          />
+          {/* <form> */}
+          <Box display={"flex"} justifyContent={"center"} mt={2}>
+            <Custombutton
+              title={"Proceed to Booking Review"}
+              type={"submit"}
+              onClick={handleClickSavePassenger}
+            />
+          </Box>
+          {/* </form> */}
         </Box>
-        {/* </form> */}
+        <Modal open={bookingSuccess}>
+          <Box sx={styleLoader}>
+            <CircularProgress size={70} thickness={4} />
+          </Box>
+        </Modal>
       </Box>
-      <Modal open={bookingSuccess}>
-        <Box sx={styleLoader}>
-          <CircularProgress size={70} thickness={4} />
-        </Box>
-      </Modal>
-    </Box>
+    </>
   );
 };
 

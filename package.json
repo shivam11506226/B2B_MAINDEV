@@ -19,6 +19,7 @@
     "animate.css": "^4.1.1",
     "axios": "^1.2.2",
     "bootstrap": "^5.2.3",
+    "dayjs": "^1.11.10",
     "framer-motion": "^6.5.1",
     "moment": "^2.29.4",
     "react": "^18.2.0",
