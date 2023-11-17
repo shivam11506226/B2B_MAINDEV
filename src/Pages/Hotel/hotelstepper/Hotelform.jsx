@@ -32,7 +32,7 @@ const HotelForm = () => {
     {
       NoOfAdults: 1,
       NoOfChild: 0,
-      ChildAge: null,
+      ChildAge: [],
     },
   ]);
 
@@ -48,7 +48,7 @@ const HotelForm = () => {
 
   const initialvalue = {
     City: "",
-    nationality: "",
+    nationality: "IN",
   };
   const [open, setOpen] = useState(false);
   const [loader, setLoader] = useState(false);
@@ -79,7 +79,7 @@ const HotelForm = () => {
   useEffect(() => {
     if (
       reducerState?.hotelSearchResult?.ticketData?.data?.data?.HotelSearchResult
-        ?.HotelResults.length >= 0
+        ?.HotelResults?.length >= 0
     ) {
       setLoader(false);
       navigate("/hotel/hotelsearch");
@@ -143,11 +143,16 @@ const HotelForm = () => {
     setFormData(updatedFormData);
   };
 
+
+
   const handleChildAgeChange = (index, childIndex, value) => {
     const updatedFormData = [...formDataDynamic];
     updatedFormData[index].ChildAge[childIndex] = value;
     setFormData(updatedFormData);
   };
+
+
+
 
   const handleDeleteRoom = () => {
     if (condition > 1) {
@@ -214,15 +219,53 @@ const HotelForm = () => {
   function handleSubmit(event) {
     event.preventDefault();
     const formData = new FormData(event.target);
-    console.log("formData", formData);
-    // Convert input date to desired format
+
+
     const date = new Date(formData.get("departure"));
 
     const day = date.getDate().toString().padStart(2, "0");
     const month = (date.getMonth() + 1).toString().padStart(2, "0");
     const year = date.getFullYear();
     const formattedDate = `${day}/${month}/${year}`;
-    console.log("formate date", formattedDate);
+
+
+    // saving in session storage
+
+    const sessionData = new FormData(event.target);
+
+    // Extract specific fields
+    const city = sessionData.get('City');
+    const checkIn = sessionData.get('checkIn');
+    const checkOut = sessionData.get('checkOut');
+    const room = sessionData.get('room');
+    const star = sessionData.get('star');
+    const night = sessionData.get('night');
+    const nationality = sessionData.get('nationality');
+
+    // Extract data from dynamic form fields
+    const dynamicFormData = formDataDynamic.map((data) => ({
+      NoOfAdults: data.NoOfAdults || 0,
+      NoOfChild: data.NoOfChild || 0,
+      ChildAge: data.ChildAge || [],
+    }));
+
+    // Combine all data into a single object
+    const formFields = {
+      city,
+      checkIn,
+      checkOut,
+      room,
+      star,
+      night,
+      nationality,
+      dynamicFormData,
+    };
+
+    // Save the extracted form data to sessionStorage
+    sessionStorage.setItem('hotelFormData', JSON.stringify(formFields));
+
+    // saving in session storage 
+
 
     // validate Error
 
@@ -253,7 +296,8 @@ const HotelForm = () => {
         CityId: cityid,
         ResultCount: null,
         PreferredCurrency: "INR",
-        GuestNationality: formData.get("nationality"),
+        // GuestNationality: formData.get("nationality"),
+        GuestNationality: "IN",
         NoOfRooms: condition,
         RoomGuests: [...formDataDynamic],
         MaxRating: formData.get("star"),
@@ -263,6 +307,7 @@ const HotelForm = () => {
         EndUserIp: reducerState?.ip?.ipData,
         TokenId: reducerState?.ip?.tokenData,
       };
+      console.log(payload)
 
       // const totalGuest = `${parseInt(formData.get("adult")) + parseInt("0")}`;
       // sessionStorage.setItem("totalGuest", totalGuest);
@@ -287,98 +332,80 @@ const HotelForm = () => {
       {loader ? (
         <Loader />
       ) : (
-        <form onSubmit={handleSubmit}>
-          <Grid
-            container
-            spacing={5}
-            marginTop="-10px"
-            display="inline-block"
-            style={{
-              display: "flex",
-              flexWrap: "wrap",
-            }}
-          >
-            <Grid item md={6} sm={12} xs={12} display="flex">
-              <Box paddingRight={8}>
-                <div className="hotel_form_input">
-                  <label className="form_label">City</label>
+        <div className="container hotelContainer">
+          <form onSubmit={handleSubmit} className="formFlightSearch">
+            <div className="container">
+              <div className="row rowcon g-2 gx-3">
+                <div className=" col-md-12 col-lg-12 col-xs-12 ps-0 mb-3">
+                  <div className="hotel_form_input">
+                    <label className="form_label">City</label>
+                    <input
+                      name="City"
+                      id="CitySearchID"
+                      type="text"
+                      placeholder="Search for a city..."
+                      value={searchTerm}
+                      onChange={(e) => setSearchTerm(e.target.value)}
+                      style={{ position: "relative" }}
+                    />
+                    {cityError !== "" && (
+                      <span className="error">{cityError}</span>
+                    )}
 
-                  <input
-                    name="City"
-                    id="CitySearchID"
-                    type="text"
-                    placeholder="Search for a city..."
-                    value={searchTerm}
-                    onChange={(e) => setSearchTerm(e.target.value)}
-                    style={{ width: "671px" }} // Increase the width to 100%
-                  />
-                  {cityError !== "" && (
-                    <span className="error">{cityError}</span>
-                  )}
-
-                  {loading && <div>Loading...</div>}
-                  {results.length > 0 && (
-                    <ul id="citySearchId">
-                      {results.map((city, index) => (
-                        <li key={index} onClick={() => handleResultClick(city)}>
-                          {city.Destination}
-                        </li>
-                      ))}
-                    </ul>
-                  )}
+                    {loading && <div>Loading...</div>}
+                    {results.length > 0 && (
+                      <ul id="citySearchId">
+                        {results.map((city, index) => (
+                          <li key={index} onClick={() => handleResultClick(city)}>
+                            {city.Destination}
+                          </li>
+                        ))}
+                      </ul>
+                    )}
+                  </div>
                 </div>
-              </Box>
 
-              {/* ... Other input fields ... */}
-            </Grid>
-          </Grid>
-
-          <Grid
-            container
-            spacing={5}
-            py={3}
-            style={{ display: "flex", flexWrap: "wrap" }}
-          >
-            <Grid item md={6} sm={12} xs={12}>
-              <div style={{ display: "flex" }}>
-                <Box paddingRight={3}>
-                  <div className="hotel_form_input" style={{ height: "400px" }}>
+                <div className="col-lg-4 col-md-4 col-xs-12 ps-0 mb-3">
+                  <div className="hotel_form_input">
                     <label className="form_label">Check In</label>
                     <DatePicker
                       selected={values.departure}
                       onChange={handleStartDateChange}
+                      name="checkIn"
                       dateFormat="dd/MM/yyyy"
                       placeholderText="Select Check-In Date"
                       isClearable
-                      id="datepic"
-                      minDate={new Date()} // Disable past dates
+                      // id="datepic"
+                      minDate={new Date()}
                     />
                     {checkInError !== "" && (
                       <span className="error">{checkInError}</span>
                     )}
                   </div>
-                </Box>
+                </div>
 
-                <Box paddingRight={3}>
+
+                <div className="col-lg-4 col-md-4 col-xs-12 ps-0 mb-3">
                   <div className="hotel_form_input">
                     <label className="form_label">Check-Out</label>
                     <DatePicker
                       selected={values.checkOutDeparture}
                       onChange={handleEndDateChange}
+                      name="checkOut"
                       dateFormat="dd/MM/yyyy"
                       placeholderText="Select Check-Out Date"
-                      style={{ height: "40px" }}
                       minDate={values.departure} // Disable dates before Check-In date
                       isClearable
-                      id="datepic"
+                    // id="datepic"
                     />
                     {checkOutError !== "" && (
                       <span className="error">{checkOutError}</span>
                     )}
                   </div>
-                </Box>
+                </div>
 
-                <Box paddingRight={3}>
+
+                <div className="col-lg-4 col-md-4 col-xs-12 ps-0 mb-3">
                   <div className="hotel_form_input">
                     <label className="form_label">Room*</label>
                     <select
@@ -387,6 +414,7 @@ const HotelForm = () => {
                       onChange={handleConditionChange}
                       className="hotel_input_select"
                     >
+                      <option>0</option>
                       <option>1</option>
                       <option>2</option>
                       <option>3</option>
@@ -396,162 +424,220 @@ const HotelForm = () => {
                     </select>
                     {/* Add validation error message if needed */}
                   </div>
-                </Box>
-              </div>
-            </Grid>
-          </Grid>
+                </div>
 
-          <Box>
-            {condition > 0 &&
-              Array.from({ length: condition }).map((_, index) => (
-                <div
-                  key={index}
-                  className="room-container"
-                  style={{ display: "flex", gap: "170px", marginTop: "20px" }}
-                >
-                  <h5>Room {index + 1}</h5>
-                  <div
-                    className="room-input"
-                    style={{ display: "flex", alignItems: "center" }}
-                  >
-                    <label>NoOfAdults:</label>
-                    <select
-                      value={formDataDynamic[index]?.NoOfAdults || 1}
-                      onChange={(e) =>
-                        handleFormChange(
-                          index,
-                          "NoOfAdults",
-                          parseInt(e.target.value)
-                        )
-                      }
-                    >
-                      {[1, 2, 3, 4, 5, 6, 7, 8].map((num) => (
-                        <option key={num} value={num}>
-                          {num}
-                        </option>
-                      ))}
-                    </select>
-                  </div>
-                  <div className="room-input">
-                    <label>NoOfChild:</label>
-                    <select
-                      value={formDataDynamic[index]?.NoOfChild || 0}
-                      onChange={(e) =>
-                        handleFormChange(
-                          index,
-                          "NoOfChild",
-                          parseInt(e.target.value)
-                        )
-                      }
-                    >
-                      {[0, 1, 2, 3, 4].map((childCount) => (
-                        <option key={childCount} value={childCount}>
-                          {childCount}
-                        </option>
-                      ))}
-                    </select>
-                    {formDataDynamic[index]?.NoOfChild > 0 && (
-                      <div className="child-age-container">
-                        <label>ChildAge:</label>
-                        {Array.from({
-                          length: formDataDynamic[index]?.NoOfChild || 0,
-                        }).map((_, childIndex) => (
-                          <div key={childIndex} className="child-age-input">
-                            <input
-                              type="number"
-                              value={
-                                formDataDynamic[index]?.ChildAge?.[
-                                  childIndex
-                                ] || ""
-                              }
-                              onChange={(e) =>
-                                handleChildAgeChange(
-                                  index,
-                                  childIndex,
-                                  e.target.value
-                                )
-                              }
-                            />
+
+
+                {/* <Box> */}
+                <div className="col-lg-12 col-md-12 col-xs-12 ps-0 mb-3">
+                  {condition > 0 &&
+                    Array.from({ length: condition }).map((_, index) => (
+                      <div key={index} className="room-container">
+                        <div className="row">
+                          <div className={`col-lg-4 col-md-4 col-xs-4 ps-0 mb-3 d-flex justify-content-center ${formDataDynamic[index]?.NoOfChild > 0 ? "align-items-start" : "align-items-center"}`}>
+                            <h5>ROOM {index + 1}</h5>
                           </div>
-                        ))}
+                          <div className="col-lg-4 col-md-4 col-xs-4 ps-0 mb-3 d-flex justify-content-center">
+                            <div className="hotel_form_input">
+                              <label className="form_label">No of Adults:</label>
+                              <select
+                                value={formDataDynamic[index]?.NoOfAdults || 1}
+                                className="hotel_input_select"
+                                onChange={(e) =>
+                                  handleFormChange(
+                                    index,
+                                    "NoOfAdults",
+                                    parseInt(e.target.value)
+                                  )
+                                }
+                              >
+                                {[1, 2, 3, 4, 5, 6, 7, 8].map((num) => (
+                                  <option key={num} value={num}>
+                                    {num}
+                                  </option>
+                                ))}
+                              </select>
+                            </div>
+                          </div>
+                          <div className="col-lg-4 col-md-4 col-xs-4 ps-0 mb-3 d-flex justify-content-center">
+                            <div className="hotel_form_input">
+                              <label className="form_label">No of Child:</label>
+                              <select
+                                value={formDataDynamic[index]?.NoOfChild || 0}
+                                className="hotel_input_select"
+                                name="noOfChild"
+                                onChange={(e) =>
+                                  handleFormChange(
+                                    index,
+                                    "NoOfChild",
+                                    parseInt(e.target.value)
+                                  )
+                                }
+                              >
+                                {[0, 1, 2, 3, 4].map((childCount) => (
+                                  <option key={childCount} value={childCount}>
+                                    {childCount}
+                                  </option>
+                                ))}
+                              </select>
+                              {formDataDynamic[index]?.NoOfChild > 0 && (
+                                <div className="child-age-container">
+                                  <label>Child Age:</label>
+                                  {Array.from({
+                                    length: formDataDynamic[index]?.NoOfChild || 0,
+                                  }).map((_, childIndex) => (
+                                    <div key={childIndex} className="child-age-input">
+                                      <select
+                                        value={formDataDynamic[index]?.ChildAge?.[childIndex] || ""}
+                                        className="hotel_input_select"
+                                        onChange={(e) =>
+                                          handleChildAgeChange(index, childIndex, e.target.value)
+                                        }
+                                      >
+                                        {/* Assuming the age range is from 1 to 12 */}
+                                        {Array.from({ length: 12 }, (_, i) => (
+                                          <option key={i} value={i + 1}>
+                                            {i + 1}
+                                          </option>
+                                        ))}
+                                      </select>
+                                    </div>
+                                  ))}
+                                </div>
+                              )}
+
+                            </div>
+                          </div>
+                        </div>
                       </div>
+                    ))}
+                  {condition > 1 && (
+                    <button onClick={handleDeleteRoom} className="delete-button">
+                      <FaTrash />
+                    </button>
+                  )}
+
+                </div>
+
+
+                <div className="col-lg-4 col-md-4 col-xs-12 ps-0 mb-3">
+                  <div className="hotel_form_input">
+                    <label className="form_label">Star Rating*</label>
+                    <select
+                      name="star"
+                      value={values.star || 5}
+                      onChange={handleInputChange}
+                      className="hotel_input_select"
+                    >
+                      <option value="1">1 Star</option>
+                      <option value="2">2 Star</option>
+                      <option value="3">3 Star</option>
+                      <option value="4">4 Star</option>
+                      <option value="5">5 Star</option>
+                    </select>
+                    {error && values.star === "" && (
+                      <label className="error_label">
+                        Please Select a Star Rating{" "}
+                      </label>
                     )}
                   </div>
                 </div>
-              ))}
-            {condition > 1 && (
-              <button onClick={handleDeleteRoom} className="delete-button">
-                <FaTrash />
-              </button>
-            )}
-          </Box>
 
-          <Grid container py={2} style={{ display: "flex", flexWrap: "wrap" }}>
-            <Grid item md={6} sm={12} xs={12} display="flex">
-              <Box paddingRight={3}>
-                <div className="hotel_form_input">
-                  <label className="form_label">Star Rating*</label>
-                  <select
-                    name="star"
-                    value={values.star || 5}
-                    onChange={handleInputChange}
-                    className="hotel_input_select"
-                  >
-                    <option value="1">1 Star</option>
-                    <option value="2">2 Star</option>
-                    <option value="3">3 Star</option>
-                    <option value="4">4 Star</option>
-                    <option value="5">5 Star</option>
-                  </select>
-                  {error && values.star === "" && (
-                    <label className="error_label">
-                      Please Select a Star Rating{" "}
+
+                <div className="col-lg-4 col-md-4 col-xs-12 ps-0 mb-3">
+                  <div className="hotel_form_input">
+                    <label className="form_label">Nights</label>
+                    <input
+                      type="number"
+                      min="0"
+                      name="night"
+                      value={nightdays}
+                      className="hotel_input_select"
+                    />
+                  </div>
+                </div>
+
+                <div className="col-lg-4 col-md-4 col-xs-12 ps-0 mb-3">
+                  <div className="hotel_form_input">
+                    <label className="form_label">
+                      Nationality*
                     </label>
-                  )}
+                    <input
+                      type="text"
+                      name="nationality"
+                      value={values.nationality}
+                      onChange={handleInputChange}
+                      placeholder="IN"
+                      disabled
+                    />
+                    {error && values.nationality.length < 1 ? (
+                      <label
+                        style={{
+                          color: "red",
+                          fontSize: "12px",
+                          textAlign: "left",
+                        }}
+                      >
+                        Please Enter this Field{" "}
+                      </label>
+                    ) : (
+                      ""
+                    )}
+                  </div>
                 </div>
-              </Box>
 
-              <Box paddingRight={3}>
-                <div className="hotel_form_input">
-                  <label className="form_label">Nights</label>
-                  <input
-                    type="number"
-                    min="0"
-                    name="night"
-                    value={nightdays}
-                    className="hotel_input_select"
-                  />
-                </div>
-              </Box>
-              <Box paddingRight={3}>
-                <div className="hotel_form_input">
-                  <label className="form_label">
-                    Nationality(Country Code)*
-                  </label>
-                  <input
-                    type="text"
-                    name="nationality"
-                    value={values.nationality}
-                    onChange={handleInputChange}
-                    placeholder="India"
-                  />
-                  {error && values.nationality.length < 1 ? (
-                    <label
-                      style={{
-                        color: "red",
-                        fontSize: "12px",
-                        textAlign: "left",
-                      }}
-                    >
-                      Please Enter this Field{" "}
-                    </label>
-                  ) : (
-                    ""
-                  )}
-                </div>
-              </Box>
+                {/* <button className="searchButton" type="submit">
+                  Search Hotel
+                </button> */}
 
-              {/* <Box px={1}>
+                <div className="row button-row">
+                  <div className="col-lg-8">
+                    <div className="row">
+                      <div className="col-lg-6 col-md-6 col-md-12 col-xs-12 ps-0 mb-3">
+                        <button
+                          type="submit"
+                          id="cssbuttons-io-button"
+                          style={{ backgroundColor: "#21325D", borderRadius: "8px" }}
+                        >
+                          {" "}
+                          Search Hotel
+                          <div id="icon">
+                            <svg
+                              height="24"
+                              width="24"
+                              viewBox="0 0 24 24"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <path d="M0 0h24v24H0z" fill="none"></path>
+                              <path
+                                d="M16.172 11l-5.364-5.364 1.414-1.414L20 12l-7.778 7.778-1.414-1.414L16.172 13H4v-2z"
+                                fill="currentColor"
+                              ></path>
+                            </svg>
+                          </div>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </form>
+        </div>
+      )}
+    </>
+  );
+};
+
+export default HotelForm;
+
+
+
+
+
+
+{/* <Box px={1}>
                 <div className="hotel_form_input">
                   <label className="form_lable">Child (2-12)*</label>
                   <select
@@ -568,7 +654,7 @@ const HotelForm = () => {
                   </select>
                 </div>
               </Box> */}
-              {/* {isVisible ? (
+{/* {isVisible ? (
                 <Box px={1}>
                   <div className="hotel_form_input">
                     <label className="form_lable">Child Age</label>
@@ -581,39 +667,3 @@ const HotelForm = () => {
                   </div>
                 </Box>
               ) : null} */}
-            </Grid>
-          </Grid>
-
-          <button
-            style={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              width: "650px",
-              height: "50px",
-              border: "none",
-              borderRadius: "8px",
-              color: "white",
-              fontSize: "32px",
-              fontFamily: "Montserrat",
-              fontWeight: 600,
-              wordWrap: "break-word",
-              background: "#21325D",
-              paddingLeft: "96px",
-              paddingRight: "96px",
-              paddingTop: "32px",
-              paddingBottom: "32px",
-              margin: "auto",
-              marginTop: "30px",
-            }}
-            type="submit"
-          >
-            Search Hotel
-          </button>
-        </form>
-      )}
-    </>
-  );
-};
-
-export default HotelForm;

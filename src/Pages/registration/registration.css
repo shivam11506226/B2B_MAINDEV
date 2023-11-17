@@ -5,6 +5,7 @@
   justify-content: center !important;
   padding: 20px;
 }
+
 .registerContainer {
   padding: 20px;
   width: 100%;
@@ -20,6 +21,7 @@
 
   margin-top: 20px;
 }
+
 .flightNavBarContainer {
   width: 80%;
   height: auto;
@@ -35,7 +37,7 @@
 }
 
 .form_input input {
- 
+
   height: 50px !important;
   padding-left: 25px !important;
   /* padding-right: 45px !important; */
@@ -59,7 +61,7 @@
 }
 
 .form_lable {
-  color: #4e4c4c !important;
+  /* color: #4e4c4c !important;
   font-size: 13px !important;
   font-weight: 700 !important;
   font-family: "Quicksand", sans-serif !important;
@@ -71,7 +73,20 @@
   top: 24px;
   transform: translateY(-30px) translateX(10px) !important;
   background: #fff !important;
-  padding: 0px 8px !important;
+  padding: 0px 8px !important; */
+
+  font-size: 15px !important;
+  font-weight: 700 !important;
+  font-family: "Quicksand", sans-serif !important;
+  left: 10px !important;
+  line-height: 14px !important;
+  pointer-events: none !important;
+  position: unset !important;
+  transform-origin: 0 50%;
+  top: 24px;
+  transform: translateY(-6px) translateX(-1px) !important;
+  background: unset !important;
+  padding: 0px 8px;
 }
 
 .form_lable1 {

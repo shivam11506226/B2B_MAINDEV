@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Typography } from "@mui/material";
 import "./Return.css";
 import transfer from "../../../Images/transfer.png";
+import interchange from '../../../Images/interchange.png'
 // import { fontWeight } from '@mui/system'
 import { Button } from "react-bootstrap";
 import { Grid, GridItem, Flex, Box } from "@chakra-ui/react";
@@ -209,223 +210,182 @@ const Return = () => {
   }
 
   return (
-    <form
-      onSubmit={handleSubmit}
-      className="formFlightSearch"
-      style={{ marginLeft: "17px" }}
-    >
-      {/* Type of return  */}
+    <div className="container">
+      <form onSubmit={handleSubmit} className="formFlightSearch" >
+        <div className="container">
+          <div className="row">
+            <div className="col-xs-12 col-md-2 col-lg-2 ps-0 mb-3">
+              <div className="form_input">
+                <label for="from" className="form_lable"> FROM</label>
+                <input
+                  name="from"
+                  placeholder="Enter city or airport"
+                  value={from}
+                  onClick={() => (
+                    setdisplayFrom(true),
+                    setdisplayTo(false)
+                  )}
+                  onMouseLeave={() => (
+                    setdisplayFrom(false),
+                    setdisplayTo(false)
+                  )}
+                  onChange={(event) => {
+                    handleFromInputChange(event);
+                    handleFromSearch(event.target.value);
 
-      {/* <div className="d-flex flex-row mb-3 gap-5">
-        <div className="form-check d-flex align-items-center gap-2">
-          <input
-            type="radio"
-            className="form-check-input mt-0"
-            id="option1"
-            name="returnType"
-          ></input>
-          <label>Normal Return</label>
-        </div>
-        <div className="form-check d-flex align-items-center gap-2">
-          <input
-            type="radio"
-            className="form-check-input mt-0"
-            id="option2"
-            name="returnType"
-          ></input>
-          <label>LCC Special Return</label>
-        </div>
-        <div className="form-check d-flex align-items-center  gap-2">
-          <input
-            type="radio"
-            className="form-check-input mt-0"
-            id="option3"
-            name="returnType"
-          ></input>
-          <label>GDS Special Return</label>
-        </div>
-      </div> */}
+                  }}
 
-      {/* arrival and departure input box */}
-      <div className="row w-100">
+                />
+                {isLoading && <div>Loading...</div>}
+                {fromSearchResults && fromSearchResults.length > 0 && (
+                  <div
+                    style={{
+                      backgroundColor: "white",
+                      borderRadius: "10px",
 
-        <div className="col-xs-12 col-md-2 col-lg-2">
-          <div className="form_input">
-            <label for="from" className="form_lable">
-
-              FROM
-            </label>
-            <input
-              
-              name="from"
-              placeholder="Enter city or airport"
-              value={from}
-              onClick={() => (
-                setdisplayFrom(true),
-                setdisplayTo(false)
-              )}
-              onMouseLeave={() => (
-                setdisplayFrom(false),
-                setdisplayTo(false)
-              )}
-              onChange={(event) => {
-                handleFromInputChange(event);
-                handleFromSearch(event.target.value);
-               
-              }}
-              style={{width:"11rem"}}
-            />
-            {isLoading && <div>Loading...</div>}
-            {fromSearchResults && fromSearchResults.length > 0 && (
-              <div
-                style={{
-                  backgroundColor: "white",
-                  borderRadius: "10px",
-                
-                  width: "100%",
-                  boxShadow: "rgba(0, 0, 0, 0.09) 0px 3px 12px",
-                  textAlign: "left",
-                  cursor: "pointer",
-                  display: displayFrom ? "block" : "none",
-                  position:"absolute",zIndex:"10"
-                }}
-              >
-                <ul>
-                  <Box
-                    sx={{
-                      mb: 2,
-                      display: "flex",
-                      flexDirection: "column",
-                      maxHeight: 150,
-                      overflow: "hidden",
-                      overflowY: "scroll",
+                      width: "100%",
+                      boxShadow: "rgba(0, 0, 0, 0.09) 0px 3px 12px",
+                      textAlign: "left",
+                      cursor: "pointer",
+                      display: displayFrom ? "block" : "none",
+                      position: "absolute", zIndex: "10"
                     }}
                   >
-                    {fromSearchResults.map((result) => (
-                      <li
-                        key={result._id}
-                        onClick={() => handleFromClick(result)}
+                    <ul>
+                      <Box
+                        sx={{
+                          mb: 2,
+                          display: "flex",
+                          flexDirection: "column",
+                          maxHeight: 150,
+                          overflow: "hidden",
+                          overflowY: "scroll",
+                        }}
                       >
-                        <strong>{result.AirportCode}</strong> {result.name}{" "}
-                        {result.code}
-                      </li>
-                    ))}
-                  </Box>
-                </ul>
+                        {fromSearchResults.map((result) => (
+                          <li
+                            key={result._id}
+                            onClick={() => handleFromClick(result)}
+                          >
+                            <strong>{result.AirportCode}</strong> {result.name}{" "}
+                            {result.code}
+                          </li>
+                        ))}
+                      </Box>
+                    </ul>
+                  </div>
+                )}
               </div>
-            )}
-          </div>
-        </div>
-        <div className="col-1 d-flex justify-content-center">
-          <img src={transfer} alt="name" className="align-self-center" />
-        </div>
+            </div>
+            <div className="col-xs-12 col-md-2 col-lg-2 d-flex interchange justify-content-center ps-0 mb-3">
+              <img src={interchange} alt="name" className="align-self-center" />
+            </div>
 
-        <div className="col-xs-12 col-md-2 ps-0 col-lg-2" style={{ marginLeft: "20px" }}>
-          <div className="form_input">
+            <div className="col-xs-12 col-md-2 col-lg-2 ps-0 mb-3">
+              <div className="form_input">
 
-            <label for="to" className="form_lable">
-              TO
-            </label>
-            <input
-              name="to"
-              placeholder="Enter city or airport"
-              value={to}
-              onClick={() => (
-                setdisplayFrom(false),
-                setdisplayTo(true)
-              )}
-              onMouseLeave={() => (
-                setdisplayFrom(false),
-                setdisplayTo(false)
-              )}
-              onChange={(event) => {
-                handleToInputChange(event);
-                handleToSearch(event.target.value);
-              }}
-              style={{width:"11rem"}}
-            />
-            {isLoading && <div>Loading...</div>}
-            {toSearchResults && toSearchResults.length > 0 && (
-              <div
-                style={{
-                  backgroundColor: "white",
-                  borderRadius: "10px",
-                  position:"absolute",
-                  zIndex: "10",
-                  width: "100%",
-                  boxShadow: "rgba(0, 0, 0, 0.09) 0px 3px 12px",
-                  textAlign: "left",
-                  cursor: "pointer",
-                  display: displayTo ? "block" : "none",
-                  
-                }}
-              >
-                <ul>
-                  <Box
-                    sx={{
-                      mb: 2,
-                      display: "flex",
-                      flexDirection: "column",
-                      maxHeight: 150,
-                      overflow: "hidden",
-                      overflowY: "scroll",
+                <label for="to" className="form_lable">
+                  TO
+                </label>
+                <input
+                  name="to"
+                  placeholder="Enter city or airport"
+                  value={to}
+                  onClick={() => (
+                    setdisplayFrom(false),
+                    setdisplayTo(true)
+                  )}
+                  onMouseLeave={() => (
+                    setdisplayFrom(false),
+                    setdisplayTo(false)
+                  )}
+                  onChange={(event) => {
+                    handleToInputChange(event);
+                    handleToSearch(event.target.value);
+                  }}
+                />
+                {isLoading && <div>Loading...</div>}
+                {toSearchResults && toSearchResults.length > 0 && (
+                  <div
+                    style={{
+                      backgroundColor: "white",
+                      borderRadius: "10px",
+                      position: "absolute",
+                      zIndex: "10",
+                      width: "100%",
+                      boxShadow: "rgba(0, 0, 0, 0.09) 0px 3px 12px",
+                      textAlign: "left",
+                      cursor: "pointer",
+                      display: displayTo ? "block" : "none",
+
                     }}
                   >
-                    {toSearchResults.map((result) => (
-                      <li
-                        key={result._id}
-                        onClick={() => handleToClick(result)}
+                    <ul>
+                      <Box
+                        sx={{
+                          mb: 2,
+                          display: "flex",
+                          flexDirection: "column",
+                          maxHeight: 150,
+                          overflow: "hidden",
+                          overflowY: "scroll",
+                        }}
                       >
-                        <strong>{result.AirportCode}</strong> {result.name}{" "}
-                        {result.code}
-                      </li>
-                    ))}
-                  </Box>
-                </ul>
+                        {toSearchResults.map((result) => (
+                          <li
+                            key={result._id}
+                            onClick={() => handleToClick(result)}
+                          >
+                            <strong>{result.AirportCode}</strong> {result.name}{" "}
+                            {result.code}
+                          </li>
+                        ))}
+                      </Box>
+                    </ul>
+                  </div>
+                )}
               </div>
-            )}
-          </div>
-        </div>
+            </div>
 
-        <div className="col-xs-12 col-md-2 col-lg-3">
-          <div className="form_input">
-            <label for="departure" className="form_lable">
-              DEPARTURE
-            </label>
+            <div className="col-xs-12 col-md-3 col-lg-3 ps-0 mb-3">
+              <div className="form_input">
+                <label for="departure" className="form_lable">
+                  DEPARTURE
+                </label>
 
-            <input
-              type="date"
-              name="departure"
-              id="departure"
-              className="deaprture_input"
-              placeholder="Enter city or airport"
-              min={new Date().toISOString().split("T")[0]}
-              value={departureDate}
-              onChange={handleDepartureDateChange}
-             
-            ></input>
-          </div>
-        </div>
-        <div className="col-xs-12 col-md-2 col-lg-3" >
-          <div className="form_input">
-            <label for="departure" className="form_lable">
-              RETURN
-            </label>
+                <input
+                  type="date"
+                  name="departure"
+                  id="departure"
+                  className="deaprture_input"
+                  placeholder="Enter city or airport"
+                  min={new Date().toISOString().split("T")[0]}
+                  value={departureDate}
+                  onChange={handleDepartureDateChange}
 
-            <input
-              type="date"
-              name="departure1"
-              id="departure1"
-              className="deaprture_input"
-              placeholder="Enter city or airport"
-              min={minReturnDate}
-              value={returnDate}
-              onChange={(event) => setReturnDate(event.target.value)}
-            ></input>
-          </div>
-        </div>
+                ></input>
+              </div>
+            </div>
+            <div className="col-xs-12 col-md-3 col-lg-3 ps-0 mb-3" >
+              <div className="form_input">
+                <label for="departure" className="form_lable">
+                  RETURN
+                </label>
 
-        {/* <div className="col-xs-12 col-md-2">
+                <input
+                  type="date"
+                  name="departure1"
+                  id="departure1"
+                  className="deaprture_input"
+                  placeholder="Enter city or airport"
+                  min={minReturnDate}
+                  value={returnDate}
+                  onChange={(event) => setReturnDate(event.target.value)}
+                ></input>
+              </div>
+            </div>
+
+            {/* <div className="col-xs-12 col-md-2">
           <div className="form_input">
             <label className="form_lable"></label>
             <select name="" id="" className="form_input_select">
@@ -440,9 +400,9 @@ const Return = () => {
             </select>
           </div>
         </div> */}
-      </div>
+          </div>
 
-      {/* <div
+          {/* <div
         className="d-flex mt-3  p-1 align-items-center gap-2"
         style={{ width: "100%" }}
       >
@@ -463,85 +423,85 @@ const Return = () => {
         </div>
       </div> */}
 
-      <div className="row" style={{ width: "100%" }}>
-        <div className="col-xs-9">
           <div className="row">
+            <div className="col-xs-9">
+              <div className="row">
 
-            <div className="col-3 col-md-3 col-lg-3 mb-3">
-              <div className="form_input">
+                <div className="col-12 col-md-6 col-lg-3 mb-3 ps-0 mb-3">
+                  <div className="form_input">
 
-                <label className="form_lable">Adult(12+)</label>
+                    <label className="form_lable">Adult(12+)</label>
 
-                <select name="adult" id="" className="form_input_select">
-                  <option value="1">1</option>
-                  <option value="2">2</option>
-                  <option value="3">3</option>
-                  <option value="4">4</option>
-                  <option value="5">5</option>
-                  <option value="6">6</option>
-                  <option value="7">7</option>
-                  <option value="8">8</option>
-                  <option value="9">9</option>
-                </select>
-              </div>
-            </div>
+                    <select name="adult" id="" className="form_input_select">
+                      <option value="1">1</option>
+                      <option value="2">2</option>
+                      <option value="3">3</option>
+                      <option value="4">4</option>
+                      <option value="5">5</option>
+                      <option value="6">6</option>
+                      <option value="7">7</option>
+                      <option value="8">8</option>
+                      <option value="9">9</option>
+                    </select>
+                  </div>
+                </div>
 
 
-            <div className="col-3 col-md-3 col-lg-3 mb-3">
-              <div className="form_input">
+                <div className="col-12 col-md-6 col-lg-3 mb-3 ps-0 mb-3">
+                  <div className="form_input">
 
-                <label className="form_lable">Child(2-11)</label>
-                <select name="child" id="" className="form_input_select">
-                  <option value="0">0</option>
-                  <option value="1">1</option>
-                  <option value="2">2</option>
-                  <option value="3">3</option>
-                  <option value="4">4</option>
-                  <option value="5">5</option>
-                  <option value="6">6</option>
-                  <option value="7">7</option>
-                  <option value="8">8</option>
-                </select>
-              </div>
-            </div>
-            <div className="col-3 col-md-3 col-lg-3 mb-3" style={{position: "relative"  }}>
-              <div className="form_input" style={{position:"absolute",zIndex:"1"}} >
-                <label className="form_lable">Infant(Under 2 Yrs)</label>
-                <select name="infant" id="" className="form_input_select">
-                  <option value="0">0</option>
-                  <option value="1">1</option>
-                  <option value="2">2</option>
-                  <option value="3">3</option>
-                  <option value="4">4</option>
-                  <option value="5">5</option>
-                  <option value="6">6</option>
-                  <option value="7">7</option>
-                  <option value="8">8</option>
-                </select>
-              </div>
-            </div>
+                    <label className="form_lable">Child(2-11)</label>
+                    <select name="child" id="" className="form_input_select">
+                      <option value="0">0</option>
+                      <option value="1">1</option>
+                      <option value="2">2</option>
+                      <option value="3">3</option>
+                      <option value="4">4</option>
+                      <option value="5">5</option>
+                      <option value="6">6</option>
+                      <option value="7">7</option>
+                      <option value="8">8</option>
+                    </select>
+                  </div>
+                </div>
+                <div className="col-3 col-md-6 col-lg-3 mb-3 ps-0 mb-3" style={{ position: "relative" }}>
+                  <div className="form_input" style={{ position: "absolute", zIndex: "1" }} >
+                    <label className="form_lable">Infant(Under 2 Yrs)</label>
+                    <select name="infant" id="" className="form_input_select">
+                      <option value="0">0</option>
+                      <option value="1">1</option>
+                      <option value="2">2</option>
+                      <option value="3">3</option>
+                      <option value="4">4</option>
+                      <option value="5">5</option>
+                      <option value="6">6</option>
+                      <option value="7">7</option>
+                      <option value="8">8</option>
+                    </select>
+                  </div>
+                </div>
 
-            <div className="col-3 col-md-3 col-lg-3 mb-3">
-              <div className="form_input">
-                <label className="form_lable">Class</label>
-                <select name="class" id="" className="form_input_select">
-                  <option value="1">All</option>
-                  <option value="2">Ecomomy</option>
-                  <option value="3">Premimum Economy</option>
-                  <option value="4">Business</option>
-                  <option value="5">Premimum Business</option>
-                  <option value="6">First</option>
-                </select>
+                <div className="col-12 col-md-6 col-lg-3 mb-3 ps-0 mb-3">
+                  <div className="form_input">
+                    <label className="form_lable">Class</label>
+                    <select name="class" id="" className="form_input_select">
+                      <option value="1">All</option>
+                      <option value="2">Ecomomy</option>
+                      <option value="3">Premimum Economy</option>
+                      <option value="4">Business</option>
+                      <option value="5">Premimum Business</option>
+                      <option value="6">First</option>
+                    </select>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      </div>
 
-      {/* <div className="row" style={{ width: "100%" }}>
+          {/* <div className="row" style={{ width: "100%" }}>
         <label className="form_lable1">-More options: Airline prefrence</label>
       </div> */}
-      {/* <div className="row" style={{ width: "100%" }}>
+          {/* <div className="row" style={{ width: "100%" }}>
         <div className="col-12 col-md-3 col-lg-3 mb-3">
           <div className="showDirectFligthDiv">
             <input name="direct" type="checkbox" />{" "}
@@ -550,7 +510,7 @@ const Return = () => {
         </div>
       </div> */}
 
-      {/* <label
+          {/* <label
         style={{
           fontSize: "20px",
           fontWeight: "400",
@@ -574,7 +534,7 @@ const Return = () => {
         </span>
       </label> */}
 
-      {/* <Box>
+          {/* <Box>
         <div>
           <div
             className="grid-container"
@@ -605,24 +565,10 @@ const Return = () => {
           </div>
         </div>
       </Box> */}
-        <div className="col-xs-12">
-            <div
-              className="row"
-              style={{
-                width: "75%",
-               
-             
-                display: "flex",
-                height: "55px",
-              }}
-            >
-              <div
-                className="col-6 col-md-3 col-lg-2 mb-3"
-
-                style={{ width: "311px",marginRight:"-137px" }}
-
-              >
-                <div className="form_input" style={{position:"absolute",zIndex:"1"}}>
+          <div className="col-xs-12">
+            <div className="row bottom-row">
+              <div className="col-md-6 col-lg-6 col-12 col-sm-12 mb-3 ps-0" >
+                <div className="form_input" >
                   <label className="form_lable">Preferred Airline</label>
 
                   <select name="adult" id="" className="form_input_select1">
@@ -639,7 +585,7 @@ const Return = () => {
                 </div>
               </div>
 
-              <div className="col-6 col-md-3 col-lg-2 mb-3">
+              <div className="col-md-6 col-lg-6 col-12 col-sm-12 mb-3 ps-0">
                 <button
                   type="submit"
                   id="cssbuttons-io-button"
@@ -665,7 +611,7 @@ const Return = () => {
               </div>
             </div>
           </div>
-      {/* <Box className="row">
+          {/* <Box className="row">
         <Flex direction="row" justifyContent="center" marginLeft="330px">
           <button type="submit" id="cssbuttons-io-button">
             {" "}
@@ -687,7 +633,9 @@ const Return = () => {
           </button>
         </Flex>
       </Box> */}
-    </form>
+        </div>
+      </form>
+    </div >
   );
 };
 

@@ -7,6 +7,7 @@
   margin: 2px !important;
   cursor: pointer;
 }
+
 .toggle_close {
   background-color: #006fff !important;
   border: none;
@@ -15,6 +16,7 @@
   margin: 2px !important;
   cursor: pointer;
 }
+
 .toggle_button {
   box-shadow: 0px 3px 6px #00000029;
   border-radius: 5px;
@@ -24,7 +26,7 @@
 
 .tag__Container {
   /* margin: 40px 60px; */
-  margin-right:10px;
+  margin-right: 10px;
   /* background-color: #006fff; */
   width: 100%;
   margin: auto;
@@ -122,7 +124,7 @@ transition: background-color 0.2s ease 0s; */
 }
 
 /* When the checkbox is checked, add a blue background */
-.label__container input:checked ~ .checkmark {
+.label__container input:checked~.checkmark {
   background-color: limegreen;
   border: none;
   border-radius: 25px;
@@ -137,7 +139,7 @@ transition: background-color 0.2s ease 0s; */
 }
 
 /* Show the checkmark when checked */
-.label__container input:checked ~ .checkmark:after {
+.label__container input:checked~.checkmark:after {
   display: block;
 }
 
@@ -159,36 +161,43 @@ transition: background-color 0.2s ease 0s; */
   color: #BBBBBB;
   font-weight: 400;
 }
+
 .day_Textarea {
   width: 660px;
   height: 80px;
 }
+
 .flightContainer {
   /* padding: 20px; */
   width: 100%;
   /* height: 100%; */
- 
+
   background: white;
   margin-bottom: 20px;
+  margin: 0px 30px;
+  border-radius: 15px;
+  background: #f1f1f1;
 }
 
-.title_text_1{
-    font-size: 20px;
-    color:#000000
+.title_text_1 {
+  font-size: 20px;
+  color: #000000
 }
 
-.radio input[type='radio']{
+.radio input[type='radio'] {
   width: 20px;
   height: 20px;
   border: 2px solid #e41515;
 }
+
 .radio input[type='radio']:checked {
-color: #5C85A4;
+  color: #5C85A4;
 
 }
-.input_file::file-selector-button{
+
+.input_file::file-selector-button {
   background-color: #000000;
-  color:#FFFFFF;
+  color: #FFFFFF;
   width: 150px;
   height: 40px;
   box-shadow: 0px 6.55555534362793px 13.11111068725586px rgba(0, 0, 0, 0.16);
@@ -197,5 +206,5 @@ color: #5C85A4;
 
 
 
-  
+
 }

@@ -9,16 +9,34 @@ import { Flex, Spacer, Text } from "@chakra-ui/react";
 // import Popularfilter from '../flightresult/Popularfilter';
 import Sailsummary from "../guestdetail/Sailsummary";
 import Reviewdescription from "./Reviewdescription";
-
 import "./review.css";
+import { useSelector } from "react-redux";
+
+
+
 const Guestdetail = () => {
+  const reducerState = useSelector((state) => state);
+  const result =
+    reducerState?.hotelSearchResult?.ticketData?.data?.data?.HotelSearchResult;
+
+  let totalAdults = 0;
+  let totalChildren = 0;
+
+  result?.RoomGuests?.forEach((room) => {
+    totalAdults += room?.NoOfAdults || 0;
+    totalChildren += room?.NoOfChild || 0;
+  });
+
+  const storedFormData = JSON.parse(sessionStorage.getItem('hotelFormData'));
+  const data = storedFormData.dynamicFormData[0];
+  console.log(storedFormData)
   return (
     <React.Fragment>
       <div className="flightContainer">
         {/* step by step updating part */}
 
         <Box>
-          <Flex
+          {/* <Flex
             w="100%"
             h="50"
             mb="20"
@@ -106,8 +124,24 @@ const Guestdetail = () => {
                 Booking Confirmation
               </Text>
             </Flex>
-          </Flex>
-          <div>
+          </Flex> */}
+          <div className="container">
+            <div className="row">
+              <div className="col-lg-12 col-md-12 col-sm-12 mb-3">
+                <div className="hotelBookNowOuter">
+                  <div className="hotelBookNowHeader">
+                    <p>Your Search criteria:{storedFormData?.city},{' '} India</p>
+                    <p>Duration: {storedFormData?.night}{' '}Nights</p>
+                    <p>{storedFormData?.checkIn}- {storedFormData?.checkOut}</p>
+                    <p>Guest(s): {totalAdults}Adult(s) </p>
+                    <p>Room(s): {storedFormData.room}</p>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          {/* <div>
             <Box sx={{ flexGrow: 1 }}>
               <Grid container spacing={3}>
                 <Grid item xs={12} md={9}>
@@ -118,6 +152,17 @@ const Guestdetail = () => {
                 </Grid>
               </Grid>
             </Box>
+          </div> */}
+
+          <div className="container-fluid">
+            <div className="row">
+              <div className="col-lg-9">
+                <Reviewdescription />
+              </div>
+              <div className="col-lg-3">
+                <Sailsummary />
+              </div>
+            </div>
           </div>
         </Box>
       </div>

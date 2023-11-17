@@ -250,28 +250,9 @@ function Headers() {
           <div className="seperator">|</div>
 
           <div className="balance-container">
-            <div className="rupee-logo">
-              <CurrencyRupeeIcon />
+            <div className="balanceBox">
+              <p>Cash Bal: <CurrencyRupeeIcon /> {userData?.balance.toFixed(2) || reducerState?.logIn?.loginData?.data?.data?.balance.toFixed(2)}</p>
             </div>
-            <div
-              className="balanceBox">
-              Cash Bal:{userData?.balance.toFixed(2) || reducerState?.logIn?.loginData?.data?.data?.balance.toFixed(2)}
-            </div>
-            {/* <div
-              style={{
-                left: 80,
-                top: 0,
-                position: "absolute",
-                color: "black",
-                fontSize: 16,
-                fontFamily: "Montserrat",
-                fontWeight: "400",
-                wordWrap: "break-word",
-
-
-              }}
-            >
-            </div> */}
           </div>
           <div className="seperator">|</div>
           <div onClick={handleOpenModal} className="rechargeBox">Recharge</div>
@@ -319,7 +300,7 @@ function Headers() {
             </Menu>
           </div>
         </div>
-        <div
+        {/* <div
           style={{
             width: "430px",
             height: "40px",
@@ -428,7 +409,7 @@ function Headers() {
               </div>
             </div>
           </div>
-        </div>
+        </div> */}
       </div>
       <Modal
         open={openModal}
