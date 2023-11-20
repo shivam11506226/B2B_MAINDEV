@@ -221,14 +221,9 @@ const Return = () => {
                   name="from"
                   placeholder="Enter city or airport"
                   value={from}
-                  onClick={() => (
-                    setdisplayFrom(true),
-                    setdisplayTo(false)
-                  )}
-                  onMouseLeave={() => (
-                    setdisplayFrom(false),
-                    setdisplayTo(false)
-                  )}
+
+                  onClick={() => (setdisplayFrom(true), setdisplayTo(false))}
+
                   onChange={(event) => {
                     handleFromInputChange(event);
                     handleFromSearch(event.target.value);
@@ -291,14 +286,9 @@ const Return = () => {
                   name="to"
                   placeholder="Enter city or airport"
                   value={to}
-                  onClick={() => (
-                    setdisplayFrom(false),
-                    setdisplayTo(true)
-                  )}
-                  onMouseLeave={() => (
-                    setdisplayFrom(false),
-                    setdisplayTo(false)
-                  )}
+
+                  onClick={() => (setdisplayFrom(false), setdisplayTo(true))}
+
                   onChange={(event) => {
                     handleToInputChange(event);
                     handleToSearch(event.target.value);
