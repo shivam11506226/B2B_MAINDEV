@@ -7,6 +7,7 @@ function* oneWayRequest(action) {
   try {
     const data = yield call(userApi.oneWaySearch, action.payload);
     yield put(fetchOneWay(data));
+    
   } catch (error) {
     console.log(error);
   }

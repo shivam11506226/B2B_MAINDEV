@@ -1,18 +1,20 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {  Box, Typography, Button } from "@mui/material";
+import { Box, Typography, Button } from "@mui/material";
 import FlightresultOne from "./FlightresultOne";
 import FlightReturn from "./FlightReturn";
 import SingleDataReturn from "./SingleDataReturn";
 import MultipleDataReturn from "./MultipleDataReturn";
 import { useNavigate } from "react-router-dom";
-import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt';
+import ArrowRightAltIcon from "@mui/icons-material/ArrowRightAlt";
 import {
   quoteAction,
   ruleAction,
+  quoteActionReturn,
+  ruleActionReturn,
 } from "../../../../Redux/FlightFareQuoteRule/actionFlightQuote";
 
-import "./FlightresultReturn.css"
+import "./FlightresultReturn.css";
 import Flightnavbar from "../../Flightnavbar";
 const FlightresultReturn = () => {
   const navigate = useNavigate();
@@ -45,54 +47,70 @@ const FlightresultReturn = () => {
     }
   };
 
-  const handleFareRuleAndQuote = () => {
+  const handleFareRuleAndQuote = async () => {
+    console.log(ongoFlight, "ongoFlight");
+    console.log(incomeGlight, "incomeGlight");
     const payload = {
       EndUserIp: reducerState?.ip?.ipData,
       TokenId: reducerState?.ip?.tokenData,
       TraceId: reducerState?.return?.returnData?.data?.data?.Response?.TraceId,
-      ResultIndex: `${ongoFlight?.ResultIndex},${incomeGlight?.ResultIndex}`,
+      ResultIndex: `${ongoFlight?.ResultIndex}`,
+    };
+    const payloadReturn = {
+      EndUserIp: reducerState?.ip?.ipData,
+      TokenId: reducerState?.ip?.tokenData,
+      TraceId: reducerState?.return?.returnData?.data?.data?.Response?.TraceId,
+      ResultIndex: `${incomeGlight?.ResultIndex}`,
     };
     console.log(payload);
-    dispatch(ruleAction(payload));
-    dispatch(quoteAction(payload));
+    await dispatch(ruleAction(payload));
+    await dispatch(quoteAction(payload));
+    await dispatch(ruleActionReturn(payloadReturn));
+    await dispatch(quoteActionReturn(payloadReturn));
     navigate("/FlightresultReturn/Passengerdetail");
 
     console.log("reducerrrState", reducerState);
   };
-  console.log("ongoFlight", ongoFlight);
-  console.log("incomeGlight", incomeGlight);
-  console.log("reducerrrState", reducerState);
-  console.warn("ongoFlight@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@", ongoFlight)
-
-  const destination=result[0][0]?.Segments[0][0]?.Destination?.Airport?.CityName;
-  const origin=result[0][0]?.Segments[0][0]?.Origin?.Airport?.CityName;
+ 
+  const destination =
+    result[0][0]?.Segments[0][0]?.Destination?.Airport?.CityName;
+  const origin = result[0][0]?.Segments[0][0]?.Origin?.Airport?.CityName;
   // console.log(result[1][0]?.Segments[0][0]?.Destination?.ArrTime,"Hellllllllll")
-  const onGoTime=result[0][0]?.Segments[0][0]?.Destination?.ArrTime;
-  const IncomeTime=result[1][0]?.Segments[0][0]?.Destination?.ArrTime
+  const onGoTime = result[0][0]?.Segments[0][0]?.Destination?.ArrTime;
+  const IncomeTime = result[1][0]?.Segments[0][0]?.Destination?.ArrTime;
 
   // convert date in formate
 
   function convertISOToCustomFormat(isoDate) {
     const months = [
-      'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
-      'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'
+      "Jan",
+      "Feb",
+      "Mar",
+      "Apr",
+      "May",
+      "Jun",
+      "Jul",
+      "Aug",
+      "Sep",
+      "Oct",
+      "Nov",
+      "Dec",
     ];
-  
-    const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-  
+
+    const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+
     const date = new Date(isoDate);
     const day = days[date.getUTCDay()];
     const month = months[date.getUTCMonth()];
     const dayOfMonth = date.getUTCDate();
-  
+
     return `${day}, ${dayOfMonth} ${month}`;
   }
   const onGoingTime = convertISOToCustomFormat(onGoTime);
-  const onComingTime=convertISOToCustomFormat(IncomeTime)
+  const onComingTime = convertISOToCustomFormat(IncomeTime);
 
-  
   return (
-    <Box >
+    <Box>
       {/* <Box style={{ width: 977, height: 61, background: '#FFFBFB', borderRadius: 4, border: '1px #9E9E9E solid', display: 'flex', justifyContent: 'center', alignItems: 'center', }} >
         <Box style={{
           backgroundColor: "red",
@@ -101,38 +119,33 @@ const FlightresultReturn = () => {
         </Box>
       </Box> */}
 
-<Flightnavbar/>
+      {/* <Flightnavbar/> */}
 
-      <Box display={"flex"} justifyContent={"space-around"} style={{
+      <Box
+        display={"flex"}
+        justifyContent={"space-around"}
+        style={{
+          backgroundColor: "white",
+          padding: "10px",
+          gap: "5px",
 
-        backgroundColor: "white",
-        padding: "10px",
-        gap: "5px",
-       
-        width:"100%",
-        position:'fixed',
-        bottom:'2px',
-        zIndex:'2'
-      }}>
-
+          width: "100%",
+          position: "fixed",
+          bottom: "2px",
+          zIndex: "2",
+        }}
+      >
         <Box
-        
           sx={{
             // border: "1px solid blue",
             // backgroundColor: 'white',
             flex: 1,
-            borderRadius: '10px',
+            borderRadius: "10px",
             padding: "5px",
             maxWidth: "418px",
-
-
           }}
         >
           {ongoFlight?.Segments[0].length === 1 ? (
-
-
-
-
             <SingleDataReturn
               flight={ongoFlight?.Segments[0][0]}
               wholeFlight={ongoFlight}
@@ -141,7 +154,6 @@ const FlightresultReturn = () => {
               IsLCC={ongoFlight.IsLCC}
               showRadio={false}
             />
-
           ) : (
             <MultipleDataReturn
               flight={ongoFlight?.Segments[0]}
@@ -158,12 +170,9 @@ const FlightresultReturn = () => {
             // border: "1px solid red",
             // backgroundColor: 'white',
             flex: 1,
-            borderRadius: '10px',
+            borderRadius: "10px",
             padding: "5px",
             maxWidth: "418px",
-
-
-
           }}
         >
           {incomeGlight?.Segments[0].length === 1 ? (
@@ -186,53 +195,58 @@ const FlightresultReturn = () => {
             />
           )}
         </Box>
-        <Box style={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: 'center',
-          flexDirection: 'column',
-          gap: "20px",
-
-
-
-        }}>
-          <Box style={{
+        <Box
+          style={{
             display: "flex",
             alignItems: "center",
-            justifyContent: 'center',
-            flexDirection: 'column',
+            justifyContent: "center",
+            flexDirection: "column",
             gap: "20px",
-
-
-
-          }} >
-            <Typography className="flight_price_total" variant="h1" component="h2" style={{
-
-
-            }}>
+          }}
+        >
+          <Box
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              flexDirection: "column",
+              gap: "20px",
+            }}
+          >
+            <Typography
+              className="flight_price_total"
+              variant="h1"
+              component="h2"
+              style={{}}
+            >
               Total Price
             </Typography>
-            <Typography className="flight_price" variant="h1" component="h2" style={{
-              color: "blue"
-
-            }}>
-              {` ₹ ${Number(ongoFlight?.Fare?.PublishedFare) + Number(incomeGlight?.Fare?.PublishedFare)}`}
+            <Typography
+              className="flight_price"
+              variant="h1"
+              component="h2"
+              style={{
+                color: "blue",
+              }}
+            >
+              {` ₹ ${
+                Number(ongoFlight?.Fare?.PublishedFare) +
+                Number(incomeGlight?.Fare?.PublishedFare)
+              }`}
             </Typography>
           </Box>
 
-
-
-
-          <Button variant="contained" onClick={handleFareRuleAndQuote} style={
-            {
+          <Button
+            variant="contained"
+            onClick={handleFareRuleAndQuote}
+            style={{
               width: "100px",
               borderRadius: "10px",
 
               height: "50px",
               fontSize: "11px",
-
-            }
-          }>
+            }}
+          >
             Book Now
           </Button>
         </Box>
@@ -243,64 +257,178 @@ const FlightresultReturn = () => {
         gap={"10px"}
         // border={"2px solid red"}
         justifyContent={"center"}
-        
       >
-        <Box backgroundColor="#BBBBBB" paddingX="8px" paddingY="8px" borderRadius="10px" width='-webkit-autofill' marginTop="10px" marginBottom="10px">
-          <Box backgroundColor="#FFFFFF" height="104px" padding="24px" display='flex' width='442px' justifyContent='center' alignItems='center' flexDirection='column' mt="5px" borderRadius="8px">
+        <Box
+          backgroundColor="#BBBBBB"
+          paddingX="8px"
+          paddingY="8px"
+          borderRadius="10px"
+          width="-webkit-autofill"
+          marginTop="10px"
+          marginBottom="10px"
+        >
+          <Box
+            backgroundColor="#FFFFFF"
+            height="104px"
+            padding="24px"
+            display="flex"
+            width="442px"
+            justifyContent="center"
+            alignItems="center"
+            flexDirection="column"
+            mt="5px"
+            borderRadius="8px"
+          >
             <Box>
-
-              <Typography className="flight_price_total" variant="h1" component="h2">
-              {origin} <ArrowRightAltIcon /> {destination} {onGoingTime}
+              <Typography
+                className="flight_price_total"
+                variant="h1"
+                component="h2"
+              >
+                {origin} <ArrowRightAltIcon /> {destination} {onGoingTime}
               </Typography>
             </Box>
-            <Box display="flex" justifyContent="space-between" width='400px' alignItems='center' fontSize="10px" mt='8px' color='#071C2C'  >
-              <Box border='1px solid #071C2C' flex={1} style={{
-                fontWeight: '500',
-                fontSize: "12px"
-              }} textAlign='center' >Duration</Box>
-              <Box border='1px solid #071C2C' flex={1} style={{
-                fontWeight: '500',
-                fontSize: "12px"
-              }} textAlign='center' >Arrival</Box>
-              <Box border='1px solid #071C2C' flex={1} style={{
-                fontWeight: '500',
-                fontSize: "12px"
-              }} textAlign='center' >Price</Box>
-              <Box border='1px solid #071C2C' flex={1} textAlign='center' style={{
-                fontWeight: '500',
-                fontSize: "12px"
-              }}>Departure</Box>
+            <Box
+              display="flex"
+              justifyContent="space-between"
+              width="400px"
+              alignItems="center"
+              fontSize="10px"
+              mt="8px"
+              color="#071C2C"
+            >
+              <Box
+                border="1px solid #071C2C"
+                flex={1}
+                style={{
+                  fontWeight: "500",
+                  fontSize: "12px",
+                }}
+                textAlign="center"
+              >
+                Duration
+              </Box>
+              <Box
+                border="1px solid #071C2C"
+                flex={1}
+                style={{
+                  fontWeight: "500",
+                  fontSize: "12px",
+                }}
+                textAlign="center"
+              >
+                Arrival
+              </Box>
+              <Box
+                border="1px solid #071C2C"
+                flex={1}
+                style={{
+                  fontWeight: "500",
+                  fontSize: "12px",
+                }}
+                textAlign="center"
+              >
+                Price
+              </Box>
+              <Box
+                border="1px solid #071C2C"
+                flex={1}
+                textAlign="center"
+                style={{
+                  fontWeight: "500",
+                  fontSize: "12px",
+                }}
+              >
+                Departure
+              </Box>
             </Box>
           </Box>
 
-
           <FlightresultOne sendDataToParent={receiveChildData} />
         </Box>
-        <Box backgroundColor="#BBBBBB" paddingX="8px" paddingY="8px" marginTop="10px" marginBottom="10px" borderRadius="10px">
-          <Box backgroundColor="#FFFFFF" height="104px" padding="24px" display='flex' width='100%' justifyContent='center' alignItems='center' flexDirection='column'mt='5px' borderRadius="8px">
+        <Box
+          backgroundColor="#BBBBBB"
+          paddingX="8px"
+          paddingY="8px"
+          marginTop="10px"
+          marginBottom="10px"
+          borderRadius="10px"
+        >
+          <Box
+            backgroundColor="#FFFFFF"
+            height="104px"
+            padding="24px"
+            display="flex"
+            width="100%"
+            justifyContent="center"
+            alignItems="center"
+            flexDirection="column"
+            mt="5px"
+            borderRadius="8px"
+          >
             <Box>
-
-              <Typography className="flight_price_total" variant="h1" component="h2">
-              {destination} <ArrowRightAltIcon /> {origin} {onComingTime}
+              <Typography
+                className="flight_price_total"
+                variant="h1"
+                component="h2"
+              >
+                {destination} <ArrowRightAltIcon /> {origin} {onComingTime}
               </Typography>
             </Box>
-            <Box display="flex" justifyContent="space-between" flex={1} width='100%' alignItems='center' fontSize="10px" mt='8px' color='#071C2C'  >
-              <Box border='1px solid #071C2C' flex={1} style={{
-                fontWeight: '500',
-                fontSize: "12px"
-              }} textAlign='center' >Duration</Box>
-              <Box border='1px solid #071C2C' flex={1} style={{
-                fontWeight: '500',
-                fontSize: "12px"
-              }} textAlign='center' >Arrival</Box>
-              <Box border='1px solid #071C2C' flex={1} style={{
-                fontWeight: '500',
-                fontSize: "12px"
-              }} textAlign='center' >Price</Box>
-              <Box border='1px solid #071C2C' flex={1} textAlign='center' style={{
-                fontWeight: '500',
-                fontSize: "12px"
-              }}>Departure</Box>
+            <Box
+              display="flex"
+              justifyContent="space-between"
+              flex={1}
+              width="100%"
+              alignItems="center"
+              fontSize="10px"
+              mt="8px"
+              color="#071C2C"
+            >
+              <Box
+                border="1px solid #071C2C"
+                flex={1}
+                style={{
+                  fontWeight: "500",
+                  fontSize: "12px",
+                }}
+                textAlign="center"
+              >
+                Duration
+              </Box>
+              <Box
+                border="1px solid #071C2C"
+                flex={1}
+                style={{
+                  fontWeight: "500",
+                  fontSize: "12px",
+                }}
+                textAlign="center"
+              >
+                Arrival
+              </Box>
+              <Box
+                border="1px solid #071C2C"
+                flex={1}
+                style={{
+                  fontWeight: "500",
+                  fontSize: "12px",
+                }}
+                textAlign="center"
+              >
+                Price
+              </Box>
+              <Box
+                border="1px solid #071C2C"
+                flex={1}
+                textAlign="center"
+                style={{
+                  fontWeight: "500",
+                  fontSize: "12px",
+                }}
+              >
+                Departure
+              </Box>
             </Box>
           </Box>
           <FlightReturn sendDataToParent={receiveChildData} />

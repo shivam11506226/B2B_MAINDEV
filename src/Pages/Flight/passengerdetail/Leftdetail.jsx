@@ -203,23 +203,21 @@ const Leftdetail = () => {
   // }, [reducerState?.flightBook?.flightBookDataGDS?.Error?.ErrorCode, navigate]);
 
   const fareQuoteData = reducerState?.flightFare?.flightQuoteData?.Results;
-  const hii = { h11: "hii", h1: 'h2', h3: 'h3', h4: "" }
+  const hii = { h11: "hii", h1: "h2", h3: "h3", h4: "" };
   // const ps = Object.keys(hii)
 
   async function validate() {
-    const ps1 = await Object.values(passengerTemplate).filter((x) => x !== '')
-    const ps2 = await Object.values(childPassenger).filter((x) => x !== '')
-    const ps3 = await Object.values(infantPassenger).filter((x) => x !== '')
+    const ps1 = await Object.values(passengerTemplate).filter((x) => x !== "");
+    const ps2 = await Object.values(childPassenger).filter((x) => x !== "");
+    const ps3 = await Object.values(infantPassenger).filter((x) => x !== "");
 
     if (ps1.length > 0 || ps2.length > 0 || ps3.length > 0) {
-      return false
-
-    }
-    else {
-      return true
+      return false;
+    } else {
+      return true;
     }
   }
-  validate()
+  validate();
   async function handleSubmit(event) {
     event.preventDefault();
 
@@ -231,14 +229,17 @@ const Leftdetail = () => {
     //   TokenId: reducerState?.ip?.tokenData,
     //   TraceId: reducerState?.oneWay?.oneWayData?.data?.data?.Response?.TraceId,
     // };
-    const valid = await passengerData.filter((item) => (
-      item.FirstName === '' || item.LastName === "" || item.DateOfBirth === ""
-    )
-    )
-    console.log(valid, "nooooooooooooooooooooooooooooo")
-    console.log(passengerData,"passengerDatammmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm")
-    if(valid.length === 0) {
-      console.log("yessssssssssssssssssssssssssssss")
+    const valid = await passengerData.filter(
+      (item) =>
+        item.FirstName === "" || item.LastName === "" || item.DateOfBirth === ""
+    );
+    console.log(valid, "nooooooooooooooooooooooooooooo");
+    console.log(
+      passengerData,
+      "passengerDatammmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm"
+    );
+    if (valid.length === 0) {
+      console.log("yessssssssssssssssssssssssssssss");
       if (fareValue?.IsLCC === false) {
         dispatch(PassengersAction(passengerData));
         navigate("/Flightresult/passengerdetail/flightreviewbooking");
@@ -246,12 +247,9 @@ const Leftdetail = () => {
         dispatch(PassengersAction(passengerData));
         navigate("/Flightresult/passengerdetail/flightreviewbooking");
       }
+    } else {
+      alert("Please fill all the details");
     }
-    else{
-      alert("Please fill all the details")
-    }
-
-
 
     // if()
 
@@ -411,386 +409,45 @@ const Leftdetail = () => {
               {Array.from({ length: adults }, (err, i) => {
                 return (
                   <div className="mb-2">
-                    <span className=" p-2 ">Passenger {i + 1}</span>
-                    <Box p={15} display="flex">
-                      <Box marginRight={15}>
-                        <div className="form_input">
-                          <label className="form_lable">Title*</label>
-                          <select
-                            name="Title"
-                            className="form_input_select"
-                            style={{
-                              paddingLeft: '25px', fontSize: '16px',
-                              fontWeight: '400',
-                              fontFamily: "Quicksand"
-                            }}
-                            onChange={(e) => handleServiceChange(e, i)}
-                          >
-                            <option value="Mr">Mr.</option>
-                            <option value="Mrs">Mrs.</option>
-                            <option value="Miss">Miss</option>
-                          </select>
-                        </div>
-                      </Box>
-                      <Box>
-                        <div className="form_input">
-                          <label className="form_lable">First name*</label>
-                          <input
-                            name="FirstName"
-                            placeholder="Enter your name"
-                            onChange={(e) => handleServiceChange(e, i)}
-                            required
-                          />
-                        </div>
-                      </Box>
-                      <Box marginLeft={15}>
-                        <div className="form_input">
-                          <label hotel_form_input className="form_lable">
-                            Last name*
-                          </label>
-                          <input
-                            name="LastName"
-                            placeholder="Enter your last name"
-                            onChange={(e) => handleServiceChange(e, i)}
-                            required />
-                        </div>
-                      </Box>
-                      <Box marginLeft={15}>
-                        <div className="form_input">
-                          <label hotel_form_input className="form_lable">
-                            Date Of Birth*
-                          </label>
-                          <input
-                            type="date"
-                            name="DateOfBirth"
-                            className="deaprture_input form_input_select"
-
-                            onChange={(e) => handleServiceChange(e, i)}
-                            required
-                          />
-                        </div>
-                      </Box>
-                    </Box>
-
-                    {/* <Box p={15} display="flex">
+                    <div className=" p-2 ">
+                      Passenger {i + 1} {i == 0 ? "Lead" : ""}
+                    </div>
+                    <Grid
+                      container
+                      spacing={{ xs: 2, md: 3 }}
+                      columns={{ xs: 4, sm: 8, md: 12 }}
+                    >
+                      <Grid item md={4}>
                         <Box>
                           <div className="form_input">
-                            <label className="form_lable">Country*</label>
-                            <input
-                              name="Nationality"
-                              type="text"
-                              placeholder="Enter your Country"
+                            <label className="form_lable">Title*</label>
+                            <select
+                              name="Title"
                               onChange={(e) => handleServiceChange(e, i)}
-                            />
+                            >
+                              <option value="Mr">Mr.</option>
+                              <option value="Mrs">Mrs.</option>
+                              <option value="Miss">Miss</option>
+                            </select>
                           </div>
                         </Box>
-                      </Box> */}
-                    {isPassportRequired === true ? (
-                      <Box p={15} display="flex">
+                      </Grid>
+                      <Grid item md={4}>
+                        {" "}
                         <Box>
                           <div className="form_input">
-                            <label className="form_lable">PassportNo*</label>
-                            <input
-                              name="PassportNo"
-                              type="text"
-                              required
-                              placeholder="Enter Passport No"
-                              onChange={(e) => handleServiceChange(e, i)}
-
-                            />
-                          </div>
-                        </Box>
-                      </Box>
-                    ) : (
-                      ""
-                    )}
-                    {isPassportRequired === true ? (
-                      <Box p={15} display="flex">
-                        <Box>
-                          <div className="form_input">
-                            <label className="form_lable">
-                              PassportExpiry*
-                            </label>
-                            <input
-                              name="PassportExpiry"
-                              type="date"
-                              required
-                              placeholder="Enter Passport date"
-                              onChange={(e) => handleServiceChange(e, i)}
-
-                            />
-                          </div>
-                        </Box>
-                      </Box>
-                    ) : (
-                      ""
-                    )}
-                  </div>
-                );
-              })}
-            </Box>
-            <div
-              style={{
-                color: "black",
-                fontSize: 24,
-                fontFamily: "Montserrat",
-                fontWeight: "600",
-              }}
-            >
-              Contact Details
-            </div>
-            <Box
-              className="mid_header"
-              p={5}
-              mt={10}
-              style={{
-                borderRadius: "4.587px",
-                border: "1.147px solid #9E9E9E",
-
-                background: "#FFFBFB",
-              }}
-            >
-              {Array.from({ length: adults }, (err, i) => {
-                return (
-                  <div className="mb-2">
-                    <Box p={15} display="flex">
-                      <Box marginRight={15}>
-                        <div className="form_input">
-                          <label hotel_form_input className="form_lable">
-                            Mobile*
-                          </label>
-                          <input
-                            name="ContactNo"
-                            type="text"
-                            placeholder="Enter your number"
-                            onChange={(e) => handleServiceChange(e, i)}
-                            required
-                          />
-                        </div>
-                      </Box>
-
-                      <Box>
-                        <div className="form_input">
-                          <label hotel_form_input className="form_lable">
-                            Email**
-                          </label>
-                          <input
-                            name="Email"
-                            type="email"
-                            placeholder="Enter your email"
-                            onChange={(e) => handleServiceChange(e, i)}
-                          />
-                        </div>
-                      </Box>
-                    </Box>
-                    {/* <Box p={15} display="flex"> */}
-                    {/* <Box marginLeft={15}>
-                          <div className="form_input">
-                            <label hotel_form_input className="form_lable">
-                              Mobile*
-                            </label>
-                            <input
-                              name="ContactNo"
-                              type="text"
-                              placeholder="Enter your number"
-                              onChange={(e) => handleServiceChange(e, i)}
-                            />
-                          </div>
-                        </Box> */}
-                    {/* </Box> */}
-                    {/* <Box p={15} display="flex">
-                        <Box>
-                          <div className="form_input">
-                            <label hotel_form_input className="form_lable">
-                              Email**
-                            </label>
-                            <input
-                              name="Email"
-                              type="email"
-                              placeholder="Enter your email"
-                              onChange={(e) => handleServiceChange(e, i)}
-                            />
-                          </div>
-                        </Box>
-                        <Box marginLeft={15}>
-                          <div className="form_input">
-                            <label hotel_form_input className="form_lable">
-                              Address*
-                            </label>
-                            <input
-                              name="AddressLine1"
-                              type="text"
-                              placeholder="Enter your Address"
-                              onChange={(e) => handleServiceChange(e, i)}
-                            />
-                          </div>
-                        </Box>
-                        <Box marginLeft={15}>
-                          <div className="form_input">
-                            <label hotel_form_input className="form_lable">
-                              City*
-                            </label>
-                            <input
-                              name="City"
-                              type="text"
-                              placeholder="Enter your City"
-                              onChange={(e) => handleServiceChange(e, i)}
-                            />
-                          </div>
-                        </Box>
-                      </Box> */}
-                    {/* <Box p={15} display="flex">
-                        <Box>
-                          <div className="form_input">
-                            <label className="form_lable">Country*</label>
-                            <input
-                              name="Nationality"
-                              type="text"
-                              placeholder="Enter your Country"
-                              onChange={(e) => handleServiceChange(e, i)}
-                            />
-                          </div>
-                        </Box>
-                      </Box> */}
-                    {isPassportRequired == true ? (
-                      <Box p={15} display="flex">
-                        <Box>
-                          <div className="form_input">
-                            <label className="form_lable">PassportNo*</label>
-                            <input
-                              name="PassportNo"
-                              type="text"
-                              required
-                              placeholder="Enter Passport No"
-                              onChange={(e) => handleServiceChange(e, i)}
-                            />
-                          </div>
-                        </Box>
-                      </Box>
-                    ) : (
-                      ""
-                    )}
-                    {isPassportRequired == true ? (
-                      <Box p={15} display="flex">
-                        <Box>
-                          <div className="form_input">
-                            <label className="form_lable">
-                              PassportExpiry*
-                            </label>
-                            <input
-                              name="PassportExpiry"
-                              type="date"
-                              required
-                              placeholder="Enter Passport date"
-                              onChange={(e) => handleServiceChange(e, i)}
-
-                            />
-                          </div>
-                        </Box>
-                      </Box>
-                    ) : (
-                      ""
-                    )}
-                  </div>
-                );
-              })}
-            </Box>
-            <div
-              style={{
-                width: 822,
-                height: 45,
-                paddingLeft: 16,
-                paddingRight: 16,
-                paddingTop: 8,
-                paddingBottom: 8,
-                background: "rgba(187, 187, 187, 0.30)",
-                borderRadius: 4,
-                justifyContent: "flex-start",
-                alignItems: "center",
-                gap: 16,
-                display: "inline-flex",
-                marginTop: "20px",
-              }}
-            >
-              <div
-                style={{
-                  color: "black",
-                  fontSize: 24,
-                  fontFamily: "Montserrat",
-                  fontWeight: "600",
-                  wordWrap: "break-word",
-                }}
-              >
-                Add GST Details
-              </div>
-              <div style={{ width: 16, height: 16, position: "relative" }}>
-                <div
-                  style={{
-                    width: 16,
-                    height: 16,
-                    left: 0,
-                    top: 0,
-                    position: "absolute",
-
-                    borderRadius: 9999,
-                  }}
-                />
-
-                <div
-                  style={{
-                    width: 10.33,
-                    height: 0,
-                    left: 28,
-                    top: 3,
-                    position: "absolute",
-                    transform: "rotate(90deg)",
-                    transformOrigin: "0 0",
-                  }}
-                >
-                  {" "}
-                  <img src={groupimg} alt="" />
-                </div>
-              </div>
-            </div>
-            <div
-              style={{
-                color: "black",
-                fontSize: 24,
-                fontFamily: "Montserrat",
-                fontWeight: "600",
-                wordWrap: "break-word",
-                marginTop: "20px",
-              }}
-            >
-              Baggage & Meal Services
-            </div>
-            {childs > 0 && (
-              <Box className="mid_header" style={{ border: "1.147px solid #9E9E9E", }} p={5} mt={25}>
-                <Typography className="p-2 Top_txt text-dark">
-                  Childs: {childs}
-                </Typography>
-                {Array.from({ length: childs }, (err, i) => {
-                  return (
-                    <div className="mb-2">
-                      <span className=" p-2 ">Child {i + 1}</span>
-                      <Box p={15} display="flex">
-                        <Box>
-                          <div className="form_input">
-                            <label hotel_form_input className="form_lable">
-                              First name*
-                            </label>
+                            <label className="form_lable">First name*</label>
                             <input
                               name="FirstName"
-                              type="text"
                               placeholder="Enter your name"
-                              onChange={(e) =>
-                                handleServiceChange(e, i + Number(adults))
-                              }
+                              onChange={(e) => handleServiceChange(e, i)}
                               required
                             />
                           </div>
                         </Box>
-                        <Box marginLeft={15}>
+                      </Grid>
+                      <Grid item md={4}>
+                        <Box>
                           <div className="form_input">
                             <label hotel_form_input className="form_lable">
                               Last name*
@@ -798,31 +455,15 @@ const Leftdetail = () => {
                             <input
                               name="LastName"
                               placeholder="Enter your last name"
-                              onChange={(e) =>
-                                handleServiceChange(e, i + Number(adults))
-                              }
+                              onChange={(e) => handleServiceChange(e, i)}
                               required
                             />
                           </div>
                         </Box>
-                        <Box marginLeft={15}>
-                          <div className="hotel_form_input">
-                            <label className="form_lable">Gender*</label>
-                            <select
-                              name="Gender"
-                              className="form_input_select"
-
-                              onChange={(e) =>
-                                handleServiceChange(e, i + Number(adults))
-                              }
-                            >
-                              <option value="1">Female</option>
-                              <option value="2">Male</option>
-                              <option value="3">Transgender</option>
-                            </select>
-                          </div>
-                        </Box>
-                        <Box marginLeft={15}>
+                      </Grid>
+                      <Grid item md={4}>
+                        {" "}
+                        <Box>
                           <div className="form_input">
                             <label hotel_form_input className="form_lable">
                               Date Of Birth*
@@ -830,17 +471,179 @@ const Leftdetail = () => {
                             <input
                               type="date"
                               name="DateOfBirth"
-                              className="deaprture_input form_input_select"
-
-                              onChange={(e) =>
-                                handleServiceChange(e, i + Number(adults))
-                              }
+                              onChange={(e) => handleServiceChange(e, i)}
                               required
                             />
                           </div>
                         </Box>
+                      </Grid>
+                      <Grid item md={4}>
+                        <Box>
+                          <div className="form_input">
+                            <label hotel_form_input className="form_lable">
+                              Email*
+                            </label>
+                            <input
+                              type="text"
+                              name="Email"
+                              placeholder="Enter Email"
+                              onChange={(e) => handleServiceChange(e, i)}
+                              required
+                            />
+                          </div>
+                        </Box>
+                      </Grid>
+                      <Grid item md={4}>
+                        <Box>
+                          <div className="form_input">
+                            <label hotel_form_input className="form_lable">
+                              ContactNo*
+                            </label>
+                            <input
+                              type="text"
+                              name="ContactNo"
+                              placeholder="Enter ContactNo"
+                              onChange={(e) => handleServiceChange(e, i)}
+                              required
+                            />
+                          </div>
+                        </Box>
+                      </Grid>
+
+                      {isPassportRequired === true ? (
+                        <Grid item md={4}>
+                          <Box>
+                            <div className="form_input">
+                              <label className="form_lable">PassportNo*</label>
+                              <input
+                                name="PassportNo"
+                                type="text"
+                                required
+                                placeholder="Enter Passport No"
+                                onChange={(e) => handleServiceChange(e, i)}
+                              />
+                            </div>
+                          </Box>
+                        </Grid>
+                      ) : (
+                        ""
+                      )}
+                      {isPassportRequired === true ? (
+                        <Grid item md={4}>
+                          <Box>
+                            <div className="form_input">
+                              <label className="form_lable">
+                                PassportExpiry*
+                              </label>
+                              <input
+                                name="PassportExpiry"
+                                type="date"
+                                required
+                                placeholder="Enter Passport date"
+                                onChange={(e) => handleServiceChange(e, i)}
+                              />
+                            </div>
+                          </Box>
+                        </Grid>
+                      ) : (
+                        ""
+                      )}
+                    </Grid>
+                  </div>
+                );
+              })}
+            </Box>
+            {childs > 0 && (
+              <Box
+                className="mid_header"
+                style={{ border: "1.147px solid #9E9E9E" }}
+                p={5}
+                mt={25}
+              >
+                <Typography className="p-2 Top_txt text-dark">
+                  Childs: {childs}
+                </Typography>
+                {Array.from({ length: childs }, (err, i) => {
+                  return (
+                    <div className="mb-2">
+                      <div className=" p-2 ">Child {i + 1}</div>
+                      <Grid
+                        container
+                        spacing={{ xs: 2, md: 3 }}
+                        columns={{ xs: 4, sm: 8, md: 12 }}
+                      >
+                        <Grid item md={4}>
+                          <Box>
+                            <div className="form_input">
+                              <label hotel_form_input className="form_lable">
+                                First name*
+                              </label>
+                              <input
+                                name="FirstName"
+                                type="text"
+                                placeholder="Enter your name"
+                                onChange={(e) =>
+                                  handleServiceChange(e, i + Number(adults))
+                                }
+                                required
+                              />
+                            </div>
+                          </Box>
+                        </Grid>
+                        <Grid item md={4}>
+                          <Box>
+                            <div className="form_input">
+                              <label hotel_form_input className="form_lable">
+                                Last name*
+                              </label>
+                              <input
+                                name="LastName"
+                                placeholder="Enter your last name"
+                                onChange={(e) =>
+                                  handleServiceChange(e, i + Number(adults))
+                                }
+                                required
+                              />
+                            </div>
+                          </Box>
+                        </Grid>
+                        <Grid item md={4}>
+                          <Box>
+                            <div className="hotel_form_input">
+                              <label className="form_lable">Gender*</label>
+                              <select
+                                name="Gender"
+                                className="form_input_select"
+                                onChange={(e) =>
+                                  handleServiceChange(e, i + Number(adults))
+                                }
+                              >
+                                <option value="1">Female</option>
+                                <option value="2">Male</option>
+                                <option value="3">Transgender</option>
+                              </select>
+                            </div>
+                          </Box>
+                        </Grid>
+                        <Grid item md={4}>
+                          <Box>
+                            <div className="form_input">
+                              <label hotel_form_input className="form_lable">
+                                Date Of Birth*
+                              </label>
+                              <input
+                                type="date"
+                                name="DateOfBirth"
+                                onChange={(e) =>
+                                  handleServiceChange(e, i + Number(adults))
+                                }
+                                required
+                              />
+                            </div>
+                          </Box>
+                        </Grid>
                         {isPassportRequired == true ? (
-                          <Box p={15} display="flex">
+                          <Grid item md={4}>
                             <Box>
                               <div className="form_input">
                                 <label className="form_lable">
@@ -851,17 +654,18 @@ const Leftdetail = () => {
                                   type="text"
                                   required
                                   placeholder="Enter Passport No"
-                                  onChange={(e) => handleServiceChange(e, i)}
-
+                                  onChange={(e) =>
+                                    handleServiceChange(e, i + Number(adults))
+                                  }
                                 />
                               </div>
                             </Box>
-                          </Box>
+                          </Grid>
                         ) : (
                           ""
                         )}
                         {isPassportRequired == true ? (
-                          <Box p={15} display="flex">
+                          <Grid item md={4}>
                             <Box>
                               <div className="form_input">
                                 <label className="form_lable">
@@ -872,23 +676,29 @@ const Leftdetail = () => {
                                   type="date"
                                   required
                                   placeholder="Enter Passport date"
-                                  onChange={(e) => handleServiceChange(e, i)}
-
+                                  onChange={(e) =>
+                                    handleServiceChange(e, i + Number(adults))
+                                  }
                                 />
                               </div>
                             </Box>
-                          </Box>
+                          </Grid>
                         ) : (
                           ""
                         )}
-                      </Box>
+                      </Grid>
                     </div>
                   );
                 })}
               </Box>
             )}
             {infants > 0 && (
-              <Box className="mid_header" style={{ border: "1.147px solid #9E9E9E", }} p={5} mt={25}>
+              <Box
+                className="mid_header"
+                style={{ border: "1.147px solid #9E9E9E" }}
+                p={5}
+                mt={25}
+              >
                 <Typography className="p-2 Top_txt text-dark">
                   Infants: {infants}
                 </Typography>
@@ -896,83 +706,96 @@ const Leftdetail = () => {
                   return (
                     <div className="mb-2">
                       <span className=" p-2 ">Infant {i + 1}</span>
-                      <Box p={15} display="flex">
-                        <Box>
-                          <div className="form_input">
-                            <label hotel_form_input className="form_lable">
-                              First name*
-                            </label>
-                            <input
-                              name="FirstName"
-                              placeholder="Enter your name"
-                              required
-                              onChange={(e) =>
-                                handleServiceChange(
-                                  e,
-                                  i + Number(adults) + Number(childs)
-                                )
-                              }
-                            />
-                          </div>
-                        </Box>
-                        <Box marginLeft={15}>
-                          <div className="form_input">
-                            <label hotel_form_input className="form_lable">
-                              Last name*
-                            </label>
-                            <input
-                              name="LastName"
-                              placeholder="Enter your last name"
-                              required
-                              onChange={(e) =>
-                                handleServiceChange(
-                                  e,
-                                  i + Number(adults) + Number(childs)
-                                )
-                              }
-                            />
-                          </div>
-                        </Box>
-                        <Box marginLeft={15}>
-                          <div className="hotel_form_input">
-                            <label className="form_lable">Gender*</label>
-                            <select
-                              name="Gender"
-                              className="form_input_select"
-                              onChange={(e) =>
-                                handleServiceChange(
-                                  e,
-                                  i + Number(adults) + Number(childs)
-                                )
-                              }
-                            >
-                              <option value="1">Female</option>
-                              <option value="2">Male</option>
-                              <option value="3">Transgender</option>
-                            </select>
-                          </div>
-                        </Box>
-                        <Box marginLeft={15}>
-                          <div className="form_input">
-                            <label hotel_form_input className="form_lable">
-                              Date Of Birth*
-                            </label>
-                            <input
-                              type="date"
-                              name="DateOfBirth"
-                              className="deaprture_input form_input_select"
-                              required
-                              onChange={(e) =>
-                                handleServiceChange(
-                                  e,
-                                  i + Number(adults) + Number(childs)
-                                )
-                              }
-                            />
-                          </div>
-                        </Box>
+                      <Grid
+                        container
+                        spacing={{ xs: 2, md: 3 }}
+                        columns={{ xs: 4, sm: 8, md: 12 }}
+                      >
+                        <Grid item md={4}>
+                          {" "}
+                          <Box>
+                            <div className="form_input">
+                              <label hotel_form_input className="form_lable">
+                                First name*
+                              </label>
+                              <input
+                                name="FirstName"
+                                placeholder="Enter your name"
+                                required
+                                onChange={(e) =>
+                                  handleServiceChange(
+                                    e,
+                                    i + Number(adults) + Number(childs)
+                                  )
+                                }
+                              />
+                            </div>
+                          </Box>
+                        </Grid>
+                        <Grid item md={4}>
+                          <Box>
+                            <div className="form_input">
+                              <label hotel_form_input className="form_lable">
+                                Last name*
+                              </label>
+                              <input
+                                name="LastName"
+                                placeholder="Enter your last name"
+                                required
+                                onChange={(e) =>
+                                  handleServiceChange(
+                                    e,
+                                    i + Number(adults) + Number(childs)
+                                  )
+                                }
+                              />
+                            </div>
+                          </Box>
+                        </Grid>
+                        <Grid item md={4}>
+                          <Box>
+                            <div className="hotel_form_input">
+                              <label className="form_lable">Gender*</label>
+                              <select
+                                name="Gender"
+                                className="form_input_select"
+                                onChange={(e) =>
+                                  handleServiceChange(
+                                    e,
+                                    i + Number(adults) + Number(childs)
+                                  )
+                                }
+                              >
+                                <option value="1">Female</option>
+                                <option value="2">Male</option>
+                                <option value="3">Transgender</option>
+                              </select>
+                            </div>
+                          </Box>
+                        </Grid>
+                        <Grid item md={4}>
+                          <Box>
+                            <div className="form_input">
+                              <label hotel_form_input className="form_lable">
+                                Date Of Birth*
+                              </label>
+                              <input
+                                type="date"
+                                name="DateOfBirth"
+                                className="deaprture_input form_input_select"
+                                required
+                                onChange={(e) =>
+                                  handleServiceChange(
+                                    e,
+                                    i + Number(adults) + Number(childs)
+                                  )
+                                }
+                              />
+                            </div>
+                          </Box>
+                        </Grid>
                         {isPassportRequired == true ? (
-                          <Box p={15} display="flex">
+                          <Grid item md={4}>
                             <Box>
                               <div className="form_input">
                                 <label className="form_lable">
@@ -983,17 +806,21 @@ const Leftdetail = () => {
                                   type="text"
                                   required
                                   placeholder="Enter Passport No"
-                                  onChange={(e) => handleServiceChange(e, i)}
-
+                                  onChange={(e) =>
+                                    handleServiceChange(
+                                      e,
+                                      i + Number(adults) + Number(childs)
+                                    )
+                                  }
                                 />
                               </div>
                             </Box>
-                          </Box>
+                          </Grid>
                         ) : (
                           ""
                         )}
                         {isPassportRequired == true ? (
-                          <Box p={15} display="flex">
+                          <Grid item md={4}>
                             <Box>
                               <div className="form_input">
                                 <label className="form_lable">
@@ -1004,15 +831,20 @@ const Leftdetail = () => {
                                   type="date"
                                   required
                                   placeholder="Enter Passport date"
-                                  onChange={(e) => handleServiceChange(e, i)}
+                                  onChange={(e) =>
+                                    handleServiceChange(
+                                      e,
+                                      i + Number(adults) + Number(childs)
+                                    )
+                                  }
                                 />
                               </div>
                             </Box>
-                          </Box>
+                          </Grid>
                         ) : (
                           ""
                         )}
-                      </Box>
+                      </Grid>
                     </div>
                   );
                 })}
@@ -1166,7 +998,7 @@ const Leftdetail = () => {
               const len = data1.length;
               return (
                 <>
-                  <Box width="120px" height='40px'>
+                  <Box width="120px" height="40px">
                     <Typography
                       color="#252525"
                       fontSize="14px"
@@ -1188,7 +1020,7 @@ const Leftdetail = () => {
                         justifyContent: "center",
                         borderRadius: "10px",
                         border: "1px solid #D1D1D1",
-                        borderRadius: '4px'
+                        borderRadius: "4px",
                       }}
                     >
                       {data1[0]?.Origin?.Airport?.AirportCode}-
@@ -1217,7 +1049,7 @@ const Leftdetail = () => {
                         justifyContent: "center",
                         borderRadius: "10px",
                         border: "1px solid #D1D1D1",
-                        borderRadius: '4px'
+                        borderRadius: "4px",
                       }}
                     >
                       {data1[0]?.CabinBaggage ? data1[0]?.CabinBaggage : "7 Kg"}
@@ -1245,7 +1077,7 @@ const Leftdetail = () => {
                         justifyContent: "center",
                         borderRadius: "10px",
                         border: "1px solid #D1D1D1",
-                        borderRadius: '4px'
+                        borderRadius: "4px",
                       }}
                     >
                       {data1[0]?.Baggage}

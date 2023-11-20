@@ -8,24 +8,27 @@ import {
   bookAction,
   bookActionGDS,
   bookTicketGDS,
+  bookActionReturn,
+  bookActionGDSReturn,
+  bookTicketGDSReturn,
 } from "../../../Redux/FlightBook/actionFlightBook";
 import axios from "axios";
 
-import Accordion from '@mui/material/Accordion';
-import AccordionSummary from '@mui/material/AccordionSummary';
-import AccordionDetails from '@mui/material/AccordionDetails';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import Accordion from "@mui/material/Accordion";
+import AccordionSummary from "@mui/material/AccordionSummary";
+import AccordionDetails from "@mui/material/AccordionDetails";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
-import Swal from 'sweetalert2';
-
+import Swal from "sweetalert2";
 
 import { getUserDataAction } from "../../../Redux/Auth/UserDataById/actionUserData";
 import { balanceSubtractRequest } from "../../../Redux/Auth/balaceSubtract/actionBalnceSubtract";
-import {clearPassengersReducer} from "../../../Redux/Passengers/passenger";
-import {clearOneWayReducer} from "../../../Redux/FlightSearch/OneWay/oneWay"
+import { clearPassengersReducer } from "../../../Redux/Passengers/passenger";
+import { clearOneWayReducer } from "../../../Redux/FlightSearch/OneWay/oneWay";
 const Flightbookingdetail = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [count, setCount] = useState(1);
   const [userData, setUserData] = useState(null);
   const [passengerAgreement, setPassengerAgreement] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -40,11 +43,15 @@ const Flightbookingdetail = () => {
   const ResultIndex =
     sessionStorage.getItem("ResultIndex") ||
     JSON.parse(sessionStorage.getItem("flightDetailsONGo")).ResultIndex;
+  const ResultIndexReturn =
+    sessionStorage.getItem("ResultIndex") ||
+    JSON.parse(sessionStorage.getItem("flightDetailsIncome")).ResultIndex;
   console.log(
     "passengerAgreement",
     passengerAgreement,
     "paymentOption",
-    paymentOption
+    paymentOption,
+    ResultIndex
   );
   console.log("reducerState", reducerState);
   const fareQuote =
@@ -53,35 +60,13 @@ const Flightbookingdetail = () => {
   //   reducerState?.flightBook?.flightBookDataGDS?.Response;
   const fareRules = reducerState?.flightFare?.flightRuleData?.FareRules;
   const fareValue = reducerState?.flightFare?.flightQuoteData?.Results;
-  console.log(fareValue, "😍Fare value");
+  const fareValueReturn =
+    reducerState?.flightFare?.flightQuoteDataReturn?.Results;
+  console.log(fareValue, "😍Fare value", fareValueReturn);
   const Passengers = reducerState?.passengers?.passengersData;
-  //   const Passengers = sessionStorage.getItem("Passengers");
-  //   console.log("Passengers", Passengers);
+  const PassengersReturn = reducerState?.passengers?.passengerDataReturn;
   const userId = reducerState?.logIn?.loginData?.data?.data?.id;
-  //  console.log(userId+"userid")
   useEffect(() => {
-    // Make a GET request to the API endpoint
-    axios
-      .get(`http://localhost:8000/skyTrails/user/${userId}`)
-      .then((response) => {
-        // Handle the response data
-        const user = response.data.data;
-        setUserData(user);
-        console.log("user data", response?.data?.data?.balance);
-      })
-      .catch((error) => {
-        console.error(error);
-        // Handle errors, e.g., display an error message
-      });
-  }, []);
-  var userBalance = userData?.balance;
-
-  useEffect(() => {
-    console.log(
-      "reducerState?.flightBook?.flightBookDataGDS",
-      reducerState?.flightBook?.flightBookDataGDS
-    );
-
     if (reducerState?.flightBook?.flightBookDataGDS?.Response) {
       setLoading(false);
       getTicketForNonLCC();
@@ -94,84 +79,105 @@ const Flightbookingdetail = () => {
     } else {
     }
   }, [reducerState?.flightBook?.flightBookDataGDS]);
+
+  useEffect(() => {
+    if (reducerState?.flightBook?.flightBookDataGDSReturn?.Response) {
+      setLoading(false);
+      getTicketForNonLCCReturn();
+      // navigate("/Flightbookingconfirmation");
+    } else if (reducerState?.flightBook?.flightBookDataGDSReturn?.Error) {
+      setLoading(false);
+      let error =
+        reducerState?.flightBook?.flightBookDataGDSReturn?.Error?.ErrorMessage;
+      alert(error);
+    } else {
+    }
+  }, [reducerState?.flightBook?.flightBookDataGDSReturn]);
+
   function createMarkup(data) {
     return { __html: data };
   }
+
+  // Handling return booking here(flow Here is LCC to LCC  OR LCC to Non-LCC)
+  useEffect(() => {
+    console.log("bookingLCC");
+    if (fareValueReturn?.IsLCC) {
+      if (
+        reducerState?.flightBook?.flightBookData?.Response &&
+        reducerState?.flightBook?.flightBookData?.Error?.ErrorMessage == ""
+      ) {
+        getTicketForLCCReturn();
+      }
+    } else {
+      if (
+        reducerState?.flightBook?.flightBookData?.Response &&
+        reducerState?.flightBook?.flightBookData?.Error?.ErrorMessage == ""
+      ) {
+        //  getTicketForLCCReturn();
+        const payloadGDSReturn = {
+          ResultIndex: ResultIndexReturn,
+          EndUserIp: reducerState?.ip?.ipData,
+          TokenId: reducerState?.ip?.tokenData,
+          TraceId:
+            reducerState?.oneWay?.oneWayData?.data?.data?.Response?.TraceId ||
+            reducerState?.return?.returnData?.data?.data?.Response?.TraceId,
+          Passengers: PassengersReturn,
+        };
+        dispatch(bookActionGDSReturn(payloadGDSReturn));
+      }
+    }
+  }, [reducerState?.flightBook?.flightBookData?.Response]);
+
+  //Handling return booking here(flow Here is Non-Lcc to Non-Lcc OR Non-Lcc to Lcc)
+
+  useEffect(() => {
+    console.log("booking nonLcc");
+    setCount(count + 1);
+    console.log(count, "count");
+    if (fareValueReturn?.IsLCC) {
+      if (
+        reducerState?.flightBook?.flightBookDataGDS?.Response &&
+        reducerState?.flightBook?.flightBookDataGDS?.Error?.ErrorMessage == ""
+      ) {
+        getTicketForLCCReturn();
+      }
+    } else {
+      if (
+        reducerState?.flightBook?.flightBookDataGDS?.Response &&
+        reducerState?.flightBook?.flightBookDataGDS?.Error?.ErrorMessage == ""
+      ) {
+        // getTicketForLCC();
+        const payloadGDSReturn = {
+          ResultIndex: ResultIndexReturn,
+          EndUserIp: reducerState?.ip?.ipData,
+          TokenId: reducerState?.ip?.tokenData,
+          TraceId:
+            reducerState?.oneWay?.oneWayData?.data?.data?.Response?.TraceId ||
+            reducerState?.return?.returnData?.data?.data?.Response?.TraceId,
+          Passengers: PassengersReturn,
+        };
+        dispatch(bookActionGDSReturn(payloadGDSReturn));
+      }
+    }
+  }, [reducerState?.flightBook?.flightBookDataGDS?.Response]);
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    const baseFare = fareValue?.Fare?.BaseFare || 0;
-    const tax = fareValue?.Fare?.Tax || 0;
-    const otherCharges = fareValue?.Fare?.OtherCharges + markUpamount || 0;
+    const payloadGDS = {
+      ResultIndex: ResultIndex,
+      EndUserIp: reducerState?.ip?.ipData,
+      TokenId: reducerState?.ip?.tokenData,
+      TraceId:
+        reducerState?.oneWay?.oneWayData?.data?.data?.Response?.TraceId ||
+        reducerState?.return?.returnData?.data?.data?.Response?.TraceId,
+      Passengers: Passengers,
+    };
 
-    if (
-      userBalance <
-      (fareValue?.Fare?.BaseFare || 0) +
-        (fareValue?.Fare?.Tax || 0) +
-        (fareValue?.Fare?.OtherCharges + markUpamount || 0)
-    ) {
-      // alert("Balance is insufficient for this transaction.");
-      // console.log("balance");
-      Swal.fire({
-        icon: "error",
-        title: "Oops...",
-        text: "Balance is insufficient for this transaction.",
-        footer: "Please recharge",
-        showCancelButton: false,
-        confirmButtonText: "OK",
-      }).then((result) => {
-        if (result.isConfirmed) {
-          // Redirect to the /flights path
-          navigate("/flights");
-          clearPassengersReducer();
-          // clearOneWayReducer();
-          // dispatch(clearOneWayReducer())
-          // dispatch(clearPassengersReducer())
-        }
-      });
-    } else {
-      setLoading(true);
-      const payloadGDS = {
-        ResultIndex: ResultIndex,
-
-        EndUserIp: reducerState?.ip?.ipData,
-        TokenId: reducerState?.ip?.tokenData,
-        TraceId:
-          reducerState?.oneWay?.oneWayData?.data?.data?.Response?.TraceId ||
-          reducerState?.return?.returnData?.data?.data?.Response?.TraceId,
-        Passengers: Passengers,
-      };
-      //alert("Submitted");
-      if (fareValue?.IsLCC === false) {
-        dispatch(bookActionGDS(payloadGDS));
-        //navigate("/Flightresult/passengerdetail/flightreviewbooking");
-      } else {
-        getTicketForLCC();
-        // alert("Book not allowed for LCCs. Please do Ticket directly");
-        //  getUserDataAction();
-        //  balanceSubtractRequest();
-        // userBalance =userBalance-(baseFare + tax + otherCharges)
-        // console.log( userBalance+"minus");
-      }
-      //navigate("/Flightbookingconfirmation");
-      // if(userData?.balance||reducerState?.logIn?.loginData?.data?.data?.balance< fareValue?.Fare?.BaseFare +
-      //   fareValue?.Fare?.Tax +
-      //   fareValue?.Fare?.OtherCharges
-      //   )
-
-      if (userId) {
-        const payload = userId;
-
-        // console.log(payload,'userIdiii');
-        dispatch(getUserDataAction(payload));
-      }
-      if (userId) {
-        const balancePayload = {
-          _id: userId,
-          amount: baseFare + tax + otherCharges,
-        };
-
-        dispatch(balanceSubtractRequest(balancePayload));
-      }
+    if (fareValue?.IsLCC === false) {
+      dispatch(bookActionGDS(payloadGDS));
+    }
+    if (fareValue?.IsLCC === true) {
+      getTicketForLCC();
     }
   };
 
@@ -199,18 +205,51 @@ const Flightbookingdetail = () => {
       dispatch(bookTicketGDS(payLoadDomestic));
     }
   };
+  const getTicketForNonLCCReturn = () => {
+    const payLoadDomestic = {
+      EndUserIp: reducerState?.ip?.ipData,
+      TokenId: reducerState?.ip?.tokenData,
+      TraceId: reducerState?.oneWay?.oneWayData?.data?.data?.Response?.TraceId,
+      PNR: reducerState?.flightBook?.flightBookDataGDSReturn?.Response?.PNR,
+      BookingId:
+        reducerState?.flightBook?.flightBookDataGDSReturn?.Response?.BookingId,
+    };
+    const payLoadInternational = {
+      EndUserIp: reducerState?.ip?.ipData,
+      TokenId: reducerState?.ip?.tokenData,
+      TraceId: reducerState?.oneWay?.oneWayData?.data?.data?.Response?.TraceId,
+      PNR: reducerState?.flightBook?.flightBookDataGDSReturn?.Response?.PNR,
+      BookingId:
+        reducerState?.flightBook?.flightBookDataGDSReturn?.Response?.BookingId,
+      Passport: [...Passengers],
+    };
+    if (isPassportRequired) {
+      dispatch(bookTicketGDSReturn(payLoadInternational));
+    } else {
+      dispatch(bookTicketGDSReturn(payLoadDomestic));
+    }
+  };
 
   const getTicketForLCC = () => {
     const payloadLcc = {
       ResultIndex: ResultIndex,
       EndUserIp: reducerState?.ip?.ipData,
       TokenId: reducerState?.ip?.tokenData,
-      TraceId: reducerState?.oneWay?.oneWayData?.data?.data?.Response?.TraceId,
+      TraceId: reducerState?.return?.returnData?.data?.data?.Response?.TraceId,
       Passengers: [...Passengers],
     };
     dispatch(bookAction(payloadLcc));
   };
-
+  const getTicketForLCCReturn = () => {
+    const payloadLccReturn = {
+      ResultIndex: ResultIndexReturn,
+      EndUserIp: reducerState?.ip?.ipData,
+      TokenId: reducerState?.ip?.tokenData,
+      TraceId: reducerState?.return?.returnData?.data?.data?.Response?.TraceId,
+      Passengers: [...PassengersReturn],
+    };
+    dispatch(bookActionReturn(payloadLccReturn));
+  };
   return (
     <Box style={{ width: "920px" }}>
       <div
@@ -462,29 +501,26 @@ const Flightbookingdetail = () => {
       <div
         style={{
           width: 822,
-          
 
-         
           borderRadius: 4,
           justifyContent: "flex-start",
           alignItems: "center",
 
           display: "flex",
-          flexDirection:'column',
-          gap:"10px"
-
+          flexDirection: "column",
+          gap: "10px",
         }}
       >
+        <Accordion
+          style={{
+            width: 822,
+            // height: 49,
 
-        <Accordion style={{
-          width: 822,
-          // height: 49,
-
-          background: "#DFE6F7",
-          borderRadius: 4,
-          // position:"relative"
-
-        }}>
+            background: "#DFE6F7",
+            borderRadius: 4,
+            // position:"relative"
+          }}
+        >
           <AccordionSummary
             expandIcon={<ExpandMoreIcon />}
             aria-controls="panel1a-content"
@@ -497,27 +533,30 @@ const Flightbookingdetail = () => {
               borderRadius: 4,
               // position:"absolute",
               // zIndex:15
-             
-              
-
             }}
           >
-            <Typography style={{
-              color: "black",
-              fontSize: 24,
-              fontFamily: "Montserrat",
-              fontWeight: "600",
-              wordWrap: "break-word",
-              
-            }}>Passenger Details </Typography>
+            <Typography
+              style={{
+                color: "black",
+                fontSize: 24,
+                fontFamily: "Montserrat",
+                fontWeight: "600",
+                wordWrap: "break-word",
+              }}
+            >
+              Passenger Details{" "}
+            </Typography>
           </AccordionSummary>
-          <AccordionDetails style={{background: "#DFE6F7", height: "auto"}}>
-            <Box className="mid-headers" style={{ padding: "18px", width: "100%" }}>
+          <AccordionDetails style={{ background: "#DFE6F7", height: "auto" }}>
+            <Box
+              className="mid-headers"
+              style={{ padding: "18px", width: "100%" }}
+            >
               {Passengers?.map((passenger, key) => {
                 console.log("Value", passenger);
                 return (
                   <div className="mid_header" key={key} px={5} py={2}>
-                    <Box style={{background: "#DFE6F7"}}>
+                    <Box style={{ background: "#DFE6F7" }}>
                       <Typography
                         color="#0048FF"
                         fontWeight="bold"
@@ -539,14 +578,14 @@ const Flightbookingdetail = () => {
                           {passenger.PaxType === 1
                             ? "Adult"
                             : passenger.PaxType === 2
-                              ? "Child"
-                              : "Infant"}
+                            ? "Child"
+                            : "Infant"}
                           )
                         </span>
                       </Typography>
                     </Box>
-                    <Grid container >
-                      <Grid item md={3} style={{background: "#DFE6F7"}}>
+                    <Grid container>
+                      <Grid item md={3} style={{ background: "#DFE6F7" }}>
                         <Typography
                           color="#3D7AD9"
                           fontWeight="bold"
@@ -606,7 +645,7 @@ const Flightbookingdetail = () => {
                           Seat Preferences:
                         </Typography>
                       </Grid>
-                      <Grid item md={9} style={{background: "#DFE6F7"}}>
+                      <Grid item md={9} style={{ background: "#DFE6F7" }}>
                         <Typography
                           color="#FF8900"
                           fontWeight="bold"
@@ -619,7 +658,8 @@ const Flightbookingdetail = () => {
                             wordWrap: "break-word",
                           }}
                         >
-                          {passenger.Title} {passenger.FirstName} {passenger.LastName}
+                          {passenger.Title} {passenger.FirstName}{" "}
+                          {passenger.LastName}
                         </Typography>
                         <Typography
                           color="#FF8900"
@@ -636,8 +676,8 @@ const Flightbookingdetail = () => {
                           {passenger.Gender === 1
                             ? "Female"
                             : passenger.Gender === 2
-                              ? "Male"
-                              : "Transgender"}
+                            ? "Male"
+                            : "Transgender"}
                         </Typography>
                         {passenger.AddressLine1 && (
                           <Typography
@@ -670,21 +710,18 @@ const Flightbookingdetail = () => {
                 );
               })}
             </Box>
-
           </AccordionDetails>
         </Accordion>
 
-    
+        <Accordion
+          style={{
+            width: 822,
 
-        <Accordion style={{
-          width: 822,
-        
-
-          background: "#DFE6F7",
-          borderRadius: 4,
-          // position:"relative"
-
-        }}>
+            background: "#DFE6F7",
+            borderRadius: 4,
+            // position:"relative"
+          }}
+        >
           <AccordionSummary
             expandIcon={<ExpandMoreIcon />}
             aria-controls="panel1a-content"
@@ -695,37 +732,40 @@ const Flightbookingdetail = () => {
 
               background: "#DFE6F7",
               borderRadius: 4,
-
             }}
           >
-            <Typography style={{
-              color: "black",
-              fontSize: 24,
-              fontFamily: "Montserrat",
-              fontWeight: "600",
-              wordWrap: "break-word",
-            }}>Fare Rules </Typography>
-          </AccordionSummary>
-          <AccordionDetails style={{ height: "auto"}}>
-          <Box className="Top_header" p={5} width={822}>
-        {fareRules.map((rule) => (
-          <Box>
-            <div
+            <Typography
               style={{
                 color: "black",
-                fontSize: 16.14,
+                fontSize: 24,
                 fontFamily: "Montserrat",
                 fontWeight: "600",
                 wordWrap: "break-word",
               }}
             >
-              QP: {rule.Origin} - {rule.Destination}
-            </div>
-            <div
-              dangerouslySetInnerHTML={createMarkup(rule.FareRuleDetail)}
-              style={{ padding: "20px" }}
-            />
-            {/* <Grid container spacing={1} mt={1}>
+              Fare Rules{" "}
+            </Typography>
+          </AccordionSummary>
+          <AccordionDetails style={{ height: "auto" }}>
+            <Box className="Top_header" p={5} width={822}>
+              {fareRules.map((rule) => (
+                <Box>
+                  <div
+                    style={{
+                      color: "black",
+                      fontSize: 16.14,
+                      fontFamily: "Montserrat",
+                      fontWeight: "600",
+                      wordWrap: "break-word",
+                    }}
+                  >
+                    QP: {rule.Origin} - {rule.Destination}
+                  </div>
+                  <div
+                    dangerouslySetInnerHTML={createMarkup(rule.FareRuleDetail)}
+                    style={{ padding: "20px" }}
+                  />
+                  {/* <Grid container spacing={1} mt={1}>
               <Grid item xs={6} md={6}>
                 <Box textAlign="center">
                   <Typography
@@ -785,9 +825,9 @@ const Flightbookingdetail = () => {
                 </Box>
               </Grid>
             </Grid> */}
-          </Box>
-        ))}
-        {/* <Box>
+                </Box>
+              ))}
+              {/* <Box>
           <Typography
             color="#008FCC"
             fontSize="16px"
@@ -865,7 +905,7 @@ const Flightbookingdetail = () => {
             </Grid>
           </Grid>
         </Box> */}
-        {/* <Box py={3}>
+              {/* <Box py={3}>
           <ul>
             <li
               style={{ color: "#FF0000", fontSize: "14px", fontWeight: "bold" }}
@@ -927,44 +967,39 @@ const Flightbookingdetail = () => {
             </Grid>
           </Grid>
         </Box> */}
-      </Box>
-
+            </Box>
           </AccordionDetails>
         </Accordion>
         <div
-        style={{
-          width: 822,
-          height: 49,
-          paddingLeft: 20,
-          paddingRight: 20,
-          paddingTop: 10,
-          paddingBottom: 10,
-          background: "#DFE6F7",
-          borderRadius: 4,
-          justifyContent: "flex-start",
-          alignItems: "center",
-          gap: 10,
-          display: "inline-flex",
-        }}
-      >
-        <div
           style={{
-            color: "black",
-            fontSize: 24,
-            fontFamily: "Montserrat",
-            fontWeight: "600",
-            wordWrap: "break-word",
+            width: 822,
+            height: 49,
+            paddingLeft: 20,
+            paddingRight: 20,
+            paddingTop: 10,
+            paddingBottom: 10,
+            background: "#DFE6F7",
+            borderRadius: 4,
+            justifyContent: "flex-start",
+            alignItems: "center",
+            gap: 10,
+            display: "inline-flex",
           }}
         >
-          Terms & Conditions{" "}
+          <div
+            style={{
+              color: "black",
+              fontSize: 24,
+              fontFamily: "Montserrat",
+              fontWeight: "600",
+              wordWrap: "break-word",
+            }}
+          >
+            Terms & Conditions{" "}
+          </div>
         </div>
       </div>
-      </div>
 
-   
-  
-
-     
       {/* <div
         style={{
           width: 822,
@@ -1030,15 +1065,15 @@ const Flightbookingdetail = () => {
           marginBottom: "20px",
         }}
       >
-         <input
-            className="inputSelect"
-            type="checkbox"
-            value={paymentOption}
-            onChange={() => {
-              setPaymentOption(!paymentOption)
-              setPassengerAgreement(!passengerAgreement)}
-            }
-          />
+        <input
+          className="inputSelect"
+          type="checkbox"
+          value={paymentOption}
+          onChange={() => {
+            setPaymentOption(!paymentOption);
+            setPassengerAgreement(!passengerAgreement);
+          }}
+        />
         <div
           style={{
             color: "black",
@@ -1101,8 +1136,8 @@ const Flightbookingdetail = () => {
               !passengerAgreement || !paymentOption
                 ? true
                 : loading
-                  ? true
-                  : false
+                ? true
+                : false
             }
           >
             {" "}

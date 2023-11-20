@@ -235,6 +235,57 @@ const Return = () => {
 
                   }}
 
+        <div className="col-xs-12 col-md-2 col-lg-2">
+          <div className="form_input">
+            <label for="from" className="form_lable">
+
+              FROM
+            </label>
+            <input
+              
+              name="from"
+              placeholder="Enter city or airport"
+              value={from}
+              onClick={() => (
+                setdisplayFrom(true),
+                setdisplayTo(false)
+              )}
+              // onMouseLeave={() => (
+              //   setdisplayFrom(false),
+              //   setdisplayTo(false)
+              // )}
+              onChange={(event) => {
+                handleFromInputChange(event);
+                handleFromSearch(event.target.value);
+               
+              }}
+              style={{width:"11rem"}}
+            />
+            {isLoading && <div>Loading...</div>}
+            {fromSearchResults && fromSearchResults.length > 0 && (
+              <div
+                style={{
+                  backgroundColor: "white",
+                  borderRadius: "10px",
+                
+                  width: "100%",
+                  boxShadow: "rgba(0, 0, 0, 0.09) 0px 3px 12px",
+                  textAlign: "left",
+                  cursor: "pointer",
+                  display: displayFrom ? "block" : "none",
+                  position:"absolute",zIndex:"10"
+                }}
+              >
+                <ul>
+                  <Box
+                    sx={{
+                      mb: 2,
+                      display: "flex",
+                      flexDirection: "column",
+                      maxHeight: 150,
+                      overflow: "hidden",
+                      overflowY: "scroll",
+
                 />
                 {isLoading && <div>Loading...</div>}
                 {fromSearchResults && fromSearchResults.length > 0 && (
@@ -249,6 +300,7 @@ const Return = () => {
                       cursor: "pointer",
                       display: displayFrom ? "block" : "none",
                       position: "absolute", zIndex: "10"
+
                     }}
                   >
                     <ul>
@@ -317,6 +369,54 @@ const Return = () => {
                       textAlign: "left",
                       cursor: "pointer",
                       display: displayTo ? "block" : "none",
+
+
+            <label for="to" className="form_lable">
+              TO
+            </label>
+            <input
+              name="to"
+              placeholder="Enter city or airport"
+              value={to}
+              onClick={() => (
+                setdisplayFrom(false),
+                setdisplayTo(true)
+              )}
+              // onMouseLeave={() => (
+              //   setdisplayFrom(false),
+              //   setdisplayTo(false)
+              // )}
+              onChange={(event) => {
+                handleToInputChange(event);
+                handleToSearch(event.target.value);
+              }}
+              style={{width:"11rem"}}
+            />
+            {isLoading && <div>Loading...</div>}
+            {toSearchResults && toSearchResults.length > 0 && (
+              <div
+                style={{
+                  backgroundColor: "white",
+                  borderRadius: "10px",
+                  position:"absolute",
+                  zIndex: "10",
+                  width: "100%",
+                  boxShadow: "rgba(0, 0, 0, 0.09) 0px 3px 12px",
+                  textAlign: "left",
+                  cursor: "pointer",
+                  display: displayTo ? "block" : "none",
+                  
+                }}
+              >
+                <ul>
+                  <Box
+                    sx={{
+                      mb: 2,
+                      display: "flex",
+                      flexDirection: "column",
+                      maxHeight: 150,
+                      overflow: "hidden",
+                      overflowY: "scroll",
 
                     }}
                   >
