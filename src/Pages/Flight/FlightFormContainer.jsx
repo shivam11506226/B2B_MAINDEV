@@ -50,8 +50,8 @@ function CustomTabPanel(props) {
 
   return (
     <Slide direction="up" in={value === index} >
-      <div role="tabpanel" hidden={value !== index} id={`simple-tabpanel-${index}`} aria-labelledby={`simple-tab-${index}`} {...other} style={{ marginTop: "-22px" }}>
-        <Box style={{ backgroundColor: "#F8F3F3", marginTop: "-60px", width: "100%", margin: "auto", borderRadius: "12px" }}>
+      <div role="tabpanel" hidden={value !== index} id={`simple-tabpanel-${index}`} aria-labelledby={`simple-tab-${index}`} {...other} style={{ marginTop: "-2px" }}>
+        <Box style={{ backgroundColor: "#F8F3F3", marginTop: "-60px", width: "100%", margin: "auto", borderRadius: "12px", border: "2px solid #d5d4d4", boxShadow: "rgba(149, 157, 165, 0.2) 0px 8px 24px", }}>
           <Typography>{children}</Typography>
         </Box>
       </div>

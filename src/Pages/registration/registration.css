@@ -58,22 +58,26 @@
   font-family: "Quicksand", sans-serif !important;
 }
 
-.form_input .from_input::placeholder,
-.to_input::placeholder {
-  color: #4e4c4ca1 !important;
-  font-size: 18px !important;
-  font-weight: 700 !important;
-  font-family: "Quicksand", sans-serif !important;
-
-  white-space: nowrap !important;
-  overflow: hidden !important;
-  text-overflow: ellipsis !important;
+.form_input .from_input::placeholder {
+  /* color: #4e4c4ca1 !important; */
+  /* font-size: 18px !important; */
+  /* font-weight: 700 !important; */
+  /* font-family: "Quicksand", sans-serif !important; */
+  /* white-space: nowrap !important; */
+  /* overflow: hidden !important; */
+  /* text-overflow: ellipsis !important; */
+  color: #BBB !important;
+  font-family: 'Montserrat' !important;
+  font-size: 16px !important;
+  font-style: normal !important;
+  font-weight: 400 !important;
+  line-height: normal !important;
 }
 
 .form_lable {
 
 
-  font-size: 15px !important;
+  font-size: 13px !important;
   font-weight: 700 !important;
   font-family: 'Montserrat', sans-serif !important;
   left: 10px !important;
@@ -85,6 +89,7 @@
   transform: translateY(-6px) translateX(-1px) !important;
   background: unset !important;
   padding: 0px 8px;
+  color: #000 !important;
 }
 
 .form_lable1 {
@@ -96,8 +101,7 @@
 
 .form_input_select {
   width: 100% !important;
-  border: 10px;
-  border-radius: 10px !important;
+  border-radius: 8px !important;
   height: 50px !important;
   border: 1px solid #5C85A4 !important;
 }
