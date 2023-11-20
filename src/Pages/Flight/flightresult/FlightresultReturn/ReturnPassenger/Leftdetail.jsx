@@ -12,7 +12,10 @@ import {
   bookAction,
   bookActionGDS,
 } from "../../../../../Redux/FlightBook/actionFlightBook";
-import { PassengersAction } from "../../../../../Redux/Passengers/passenger";
+import {
+  PassengersAction,
+  PassengersActionReturn,
+} from "../../../../../Redux/Passengers/passenger";
 const Leftdetail = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -23,9 +26,15 @@ const Leftdetail = () => {
   console.log("reducerState", reducerState);
   const ResultIndex = sessionStorage.getItem("ResultIndex");
   const [farePrice, setFarePrice] = useState("");
+  const [farePriceReturn, setFarePriceReturn] = useState("");
   const fareValue = reducerState?.flightFare?.flightQuoteData?.Results;
+  const fareValueReturn =
+    reducerState?.flightFare?.flightQuoteDataReturn?.Results;
   console.log("fareValue", fareValue);
   const fareRule = reducerState?.flightFare?.flightRuleData?.FareRules;
+  const fareRuleReturn =
+    reducerState?.flightFare?.flightRuleDataReturn?.FareRules;
+  console.log(fareValueReturn, fareRuleReturn, "vivekk");
   const data = reducerState?.oneWay?.oneWayData?.data?.data?.Response;
   const isPassportRequired =
     reducerState?.flightFare?.flightQuoteData?.Results
@@ -41,7 +50,7 @@ const Leftdetail = () => {
     PassportExpiry: "",
     AddressLine1: "123, Test",
     AddressLine2: "",
-    Fare: farePrice,
+    Fare: farePrice[0],
     City: "Gurgaon",
     CountryCode: "IN",
     CellCountryCode: "+91-",
@@ -66,7 +75,7 @@ const Leftdetail = () => {
     Gender: 1,
     PassportNo: "",
     PassportExpiry: "",
-    Fare: farePrice,
+    Fare: farePrice[1],
     IsLeadPax: false,
     FFAirlineCode: null,
     FFNumber: "",
@@ -80,7 +89,7 @@ const Leftdetail = () => {
     Gender: 1,
     PassportNo: "",
     PassportExpiry: "",
-    Fare: farePrice,
+    Fare: farePrice[2],
     IsLeadPax: false,
     FFAirlineCode: null,
     FFNumber: "",
@@ -90,11 +99,15 @@ const Leftdetail = () => {
   const passengerChildLists = [];
   const passengerInfantLists = [];
   useEffect(() => {
-    if (fareValue) {
-      let fareDetails = fareValue?.Fare;
-      let fareBreakdown = fareValue?.FareBreakdown;
-      console.log("fareDetails: ", fareDetails);
-      let arr = [];
+    if (fareValue && fareValueReturn) {
+      const fareDetails = fareValue?.Fare;
+      const fareBreakdown = fareValue?.FareBreakdown;
+      const fareBreakdownReturn = fareValueReturn?.FareBreakdown;
+      console.log("fareBreakdownReturn: ", fareBreakdownReturn);
+      console.log("fareBreakdown", fareBreakdown);
+      const arr = [];
+      const arrReturn = [];
+
       fareBreakdown.map((price, key) => {
         let obj1 = {
           Currency: price?.Currency,
@@ -118,26 +131,22 @@ const Leftdetail = () => {
         console.log(arr[1]);
         setFarePrice(arr);
       });
-
-      // let obj = {
-      //   Currency: fareDetails.Currency,
-      //   BaseFare: fareDetails.BaseFare / totalPassenger,
-      //   Tax: fareDetails.Tax / totalPassenger,
-      //   YQTax: fareDetails.YQTax / totalPassenger,
-      //   AdditionalTxnFeePub: fareDetails.AdditionalTxnFeePub / totalPassenger,
-      //   AdditionalTxnFeeOfrd: fareDetails.AdditionalTxnFeeOfrd / totalPassenger,
-      //   OtherCharges: fareDetails.OtherCharges / totalPassenger,
-      //   Discount: fareDetails.Discount / totalPassenger,
-      //   PublishedFare: fareDetails.PublishedFare / totalPassenger,
-      //   OfferedFare: fareDetails.OfferedFare / totalPassenger,
-      //   TdsOnCommission: fareDetails.TdsOnCommission / totalPassenger,
-      //   TdsOnPLB: fareDetails.TdsOnPLB / totalPassenger,
-      //   TdsOnIncentive: fareDetails.TdsOnIncentive / totalPassenger,
-      //   ServiceFee: fareDetails.ServiceFee / totalPassenger,
-      // };
-      // setFarePrice(obj);
+      fareBreakdownReturn?.map((price, index) => {
+        let objReturn = {
+          Currency: price?.Currency,
+          BaseFare: price?.BaseFare / price?.PassengerCount,
+          Tax: price?.Tax / price?.PassengerCount,
+          YQTax: price?.YQTax / price?.PassengerCount,
+          AdditionalTxnFeePub:
+            price?.AdditionalTxnFeePub / price?.PassengerCount,
+          AdditionalTxnFeeOfrd:
+            price?.AdditionalTxnFeeOfrd / price?.PassengerCount,
+        };
+        arrReturn.push(objReturn);
+        setFarePriceReturn(arrReturn);
+      });
     }
-  }, [fareValue]);
+  }, [fareValue, fareValueReturn]);
   console.log("farePrice", farePrice);
   for (let i = 0; i < adults; i++) {
     passengerLists.push({
@@ -169,6 +178,7 @@ const Leftdetail = () => {
     passengerInfantLists,
   ];
   const [passengerData, setPassengerData] = useState(allPassenger.flat());
+
   const handleServiceChange = (e, i) => {
     const { name, value } = e.target;
     const list = [...passengerData];
@@ -191,428 +201,196 @@ const Leftdetail = () => {
   };
   console.log("passengerData", passengerData);
 
-  // useEffect(() => {
-  //   if (reducerState?.flightBook?.flightBookDataGDS?.Error?.ErrorCode == 0) {
-  //     navigate("flightreviewbooking");
-  //   } else {
-  //     alert(
-  //       `${reducerState?.flightBook?.flightBookDataGDS?.Error?.ErrorMessage}`
-  //     );
-  //   }
-  // }, [reducerState?.flightBook?.flightBookDataGDS?.Error?.ErrorCode, navigate]);
-
   const fareQuoteData = reducerState?.flightFare?.flightQuoteData?.Results;
-
   function handleSubmit(event) {
     event.preventDefault();
-    // const payloadGDS = {
-    //   ResultIndex: ResultIndex,
-    //   Passengers: passengerData,
-
-    //   EndUserIp: reducerState?.ip?.ipData,
-    //   TokenId: reducerState?.ip?.tokenData,
-    //   TraceId: reducerState?.oneWay?.oneWayData?.data?.data?.Response?.TraceId,
-    // };
-
-    if (fareValue?.IsLCC == false) {
-      dispatch(PassengersAction(passengerData));
-      navigate("/Flightresult/passengerdetail/flightreviewbooking");
-    } else {
-      // alert("Book not allowed for LCCs. Please do Ticket directly");
-      dispatch(PassengersAction(passengerData));
-      navigate("/Flightresult/passengerdetail/flightreviewbooking");
-    }
-
-    // if()
-
-    // const payload = {
-    //   PreferredCurrency: null,
-    //   ResultIndex: ResultIndex,
-    //   AgentReferenceNo: "sonam1234567890",
-    //   Passengers: [
-    //     {
-    //       Title: formData.get("title"),
-    //       FirstName: formData.get("name"),
-    //       LastName: formData.get("lastname"),
-    //       PaxType: 1,
-    //       DateOfBirth: formData.get("dateofbirth"),
-    //       Gender: formData.get("gender"),
-    //       PassportNo: "",
-    //       PassportExpiry: "",
-    //       AddressLine1: formData.get("address"),
-    //       AddressLine2: "",
-    //       Fare: {
-    //         Currency:fareValue?.Fare?.Currency,
-    //         BaseFare: fareValue?.Fare?.BaseFare,
-    //         Tax: fareValue?.Fare?.Tax,
-    //         YQTax: fareValue?.Fare?.YQTax,
-    //         AdditionalTxnFeePub: fareValue?.Fare?.AdditionalTxnFeePub,
-    //         AdditionalTxnFeeOfrd: fareValue?.Fare?.AdditionalTxnFeeOfrd,
-    //         OtherCharges: fareValue?.Fare?.OtherCharges,
-    //         Discount:fareValue?.Fare?.Discount,
-    //         PublishedFare: fareValue?.Fare?.PublishedFare,
-    //         OfferedFare: fareValue?.Fare?.OfferedFare,
-    //         TdsOnCommission: fareValue?.Fare?.TdsOnCommission,
-    //         TdsOnPLB: fareValue?.Fare?.TdsOnPLB,
-    //         TdsOnIncentive: fareValue?.Fare?.TdsOnIncentive,
-    //         ServiceFee: fareValue?.Fare?.ServiceFee
-    //       },
-    //       City: formData.get("city"),
-    //       CountryCode: "IN",
-    //       CountryName: formData.get("country"),
-    //       Nationality: "IN",
-    //       ContactNo: formData.get("mobilenumber"),
-    //       Email: formData.get("email"),
-    //       IsLeadPax: true,
-    //       FFAirlineCode: "6E",
-    //       FFNumber: "123",
-    //       Baggage: [
-    //         {
-    //           AirlineCode: fareValue?.Segments[0]?.Airline?.AirlineCode,
-    //           FlightNumber: fareValue?.Segments[0]?.Airline?.FlightNumber,
-    //           WayType: ,
-    //           Code: ,
-    //           Description: ,
-    //           Weight: 0,
-    //           Currency: "INR",
-    //           Price: 0,
-    //           Origin: "DEL",
-    //           Destination: "DXB",
-    //         },
-    //       ],
-    //       MealDynamic: [
-    //         {
-    //           AirlineCode: "6E",
-    //           FlightNumber: "23",
-    //           WayType: 2,
-    //           Code: "No Meal",
-    //           Description: 2,
-    //           AirlineDescription: "",
-    //           Quantity: 0,
-    //           Currency: "INR",
-    //           Price: 0,
-    //           Origin: "DEL",
-    //           Destination: "DXB",
-    //         },
-    //       ],
-    //       SeatDynamic: [
-    //         {
-    //           AirlineCode: "6E",
-    //           FlightNumber: "2978",
-    //           CraftType: "A320-180",
-    //           Origin: "DEL",
-    //           Destination: "DXB",
-    //           AvailablityType: 1,
-    //           Description: 2,
-    //           Code: "2A",
-    //           RowNo: "2",
-    //           SeatNo: "A",
-    //           SeatType: 1,
-    //           SeatWayType: 2,
-    //           Compartment: 1,
-    //           Deck: 1,
-    //           Currency: "INR",
-    //           Price: 300,
-    //         },
-    //       ],
-    //       GSTCompanyAddress: "",
-    //       GSTCompanyContactNumber: "",
-    //       GSTCompanyName: "",
-    //       GSTNumber: "",
-    //       GSTCompanyEmail: "",
-    //     },
-    //   ],
-    //   EndUserIp: reducerState?.ip?.ipData,
-    //   TokenId: reducerState?.ip?.tokenData,
-    //   TraceId: reducerState?.oneWay?.oneWayData?.data?.data?.Response?.TraceId,
-    // };
-    // dispatch(bookAction(payload));
-
-    // sessionStorage.setItem("Passengers", payload?.Passengers);
-    // navigate("flightreviewbooking");
+    const passengerDataReturn = passengerData?.map((item, index) => {
+      if (item?.PaxType == 1) {
+        return {
+          ...item,
+          Fare: farePriceReturn[0],
+        };
+      } else if (item?.PaxType == 2) {
+        return {
+          ...item,
+          Fare: farePriceReturn[1],
+        };
+      } else {
+        return {
+          ...item,
+          Fare: farePriceReturn[2],
+        };
+      }
+    });
+    console.log("passengerData", passengerData, passengerDataReturn);
+    dispatch(PassengersAction(passengerData));
+    dispatch(PassengersActionReturn(passengerDataReturn))
+    navigate("/Flightresult/passengerdetail/flightreviewbooking");
   }
-
-  // Add form
-
-  // const handleServiceChange = (e, index) => {
-  //   const { name, value } = e.target;
-  //   const list = [...serviceList];
-  //   list[index][name] = value;
-  //   setServiceList(list);
-  // };
-
-  const handleServiceRemove = (index) => {
-    const list = [...serviceList];
-    list.splice(index, 1);
-    setServiceList(list);
-  };
-
-  const handleServiceAdd = () => {
-    setServiceList([...serviceList, { service: "" }]);
-  };
-  // end
-  console.log("fareQuoteData", reducerState);
   return (
     <div>
       <form onSubmit={handleSubmit}>
-        {/* <Box className="" p={5}>
-          <Box p={15} display='flex' justifyContent='space-between' alignItems='center' >
-            <Typography className="Top_txt1">Passenger Details</Typography>
-            <Typography className="sub_txt1">
-              Name Format as per airline guidelines
-            </Typography>
-          </Box>
-        </Box> */}
         <div style={{ display: "flex", justifyContent: "space-between" }}>
           <div className="leftdiv">Passenger Details</div>
           <div className="rightdiv">Name Format as per airline guidelines</div>
         </div>
-
-        <Box
-          // className="mid_header"
-          p={5}
-          mt={25}
-        >
+        <Box p={5} mt={25}>
           <div className="services">
             <form onSubmit={handleSubmit}>
               <Box className="mid_header1" p={5} mt={25}>
                 <Typography className="p-2 Top_txt1 text-dark1">
                   Adult: {adults}
                 </Typography>
-
                 {Array.from({ length: adults }, (err, i) => {
                   return (
-                    <div className="mb-2">
-                      <span className=" p-2 ">Passenger {i + 1}</span>
-                      <Box p={15} display="flex">
-                        <Box>
-                          <div className="hotel_form_input">
-                            <label className="form_lable1_1">
-                              Title
-                              <span
-                                style={{
-                                  color: "red",
-                                }}
+                    <div className="mb-3 p-2">
+                      <div className="mb-1">Passenger {i + 1}</div>
+                      <Grid
+                        container
+                        rowSpacing={2}
+                        columnSpacing={{ xs: 1, sm: 2, md: 2 }}
+                        columns={{ xs: 4, sm: 6, md: 12 }}
+                      >
+                        <Grid item md={4} sm={3}>
+                          <Box>
+                            <div className="hotel_form_input">
+                              <label className="form_lable1_1">
+                                Title
+                                <span
+                                  style={{
+                                    color: "red",
+                                  }}
+                                >
+                                  *
+                                </span>
+                              </label>
+                              <select
+                                name="Title"
+                                className="hotel_input_select border_input1"
+                                onChange={(e) => handleServiceChange(e, i)}
                               >
-                                *
-                              </span>
-                            </label>
-                            <select
-                              name="Title"
-                              className="hotel_input_select border_input1"
-                              onChange={(e) => handleServiceChange(e, i)}
-                            >
-                              <option value="Mr">Mr.</option>
-                              <option value="Mrs">Mrs.</option>
-                              <option value="Miss">Miss</option>
-                            </select>
-                          </div>
-                        </Box>
-                        <Box marginLeft={15}>
-                          <div className="form_input1">
-                            <label hotel_form_input className="form_lable1_1">
-                              First name
-                              <span
-                                style={{
-                                  color: "red",
-                                }}
-                              >
-                                *
-                              </span>
-                            </label>
-                            <input
-                              className="form_input_input"
-                              name="FirstName"
-                              placeholder="Enter your name"
-                              onChange={(e) => handleServiceChange(e, i)}
-                            />
-                          </div>
-                        </Box>
-                        <Box marginLeft={15}>
-                          <div className="form_input1">
-                            <label hotel_form_input className="form_lable1_1">
-                              Last name
-                              <span
-                                style={{
-                                  color: "red",
-                                }}
-                              >
-                                *
-                              </span>
-                            </label>
-                            <input
-                              id="br"
-                              name="LastName"
-                              placeholder="Enter your last name"
-                              onChange={(e) => handleServiceChange(e, i)}
-                            />
-                          </div>
-                        </Box>
-                        <Box marginLeft={15}>
-                          <div className="form_input1">
-                            <label hotel_form_input className="form_lable1_1">
-                              Date Of Birth
-                              <span
-                                style={{
-                                  color: "red",
-                                }}
-                              >
-                                *
-                              </span>
-                            </label>
-                            <input
-                              type="date"
-                              name="DateOfBirth"
-                              className="deaprture_input"
-                              onChange={(e) => handleServiceChange(e, i)}
-                            />
-                          </div>
-                        </Box>
-                      </Box>
+                                <option value="Mr">Mr.</option>
+                                <option value="Mrs">Mrs.</option>
+                                <option value="Miss">Miss</option>
+                              </select>
+                            </div>
+                          </Box>
+                        </Grid>
+                        <Grid item md={4} sm={3}>
+                          <Box marginLeft={15}>
+                            <div className="form_input1">
+                              <label hotel_form_input className="form_lable1_1">
+                                First name
+                                <span
+                                  style={{
+                                    color: "red",
+                                  }}
+                                >
+                                  *
+                                </span>
+                              </label>
+                              <input
+                                className="form_input_input"
+                                name="FirstName"
+                                placeholder="Enter your name"
+                                onChange={(e) => handleServiceChange(e, i)}
+                              />
+                            </div>
+                          </Box>
+                        </Grid>
 
-                      {/* <Box p={15} display="flex">
-                        <Box>
-                          <div className="form_input1">
-                            <label className="form_lable">Country<span style={{
-                              color: 'red'
-                            }}>*</span></label>
-                            <input
-                              name="Nationality"
-                              type="text"
-                              placeholder="Enter your Country"
-                              onChange={(e) => handleServiceChange(e, i)}
-                            />
-                          </div>
-                        </Box>
-                      </Box> */}
-                      {/* <Box p={15} display="flex">
-                        <Box>
-                          <div className="form_input1">
-                            <label className="form_lable">Country<span style={{
-                              color:'red'
-                            }}>*</span></label>
-                             <MuiPhoneNumber defaultCountry={'us'} />
-                            <input
-                              name="Nationality"
-                              type="text"
-                              placeholder="Enter your Country"
-                              onChange={(e) => handleServiceChange(e, i)}
-                            />
-                          </div>
-                        </Box>
-                      </Box> */}
-                    </div>
-                  );
-                })}
-              </Box>
-              <Box className="mid_header1" p={5} mt={25}>
-                <Typography className="p-2 Top_txt text-dark">
-                  Contact Details
-                </Typography>
-
-                {Array.from({ length: adults }, (err, i) => {
-                  return (
-                    <div className="mb-2">
-                      {/* <span className=" p-2 ">Passenger {i + 1}</span> */}
-                      <Box p={15} display="flex">
-                        <Box>
-                          <div className="form_input1">
-                            <label className="form_lable">
-                              Country
-                              <span
-                                style={{
-                                  color: "red",
-                                }}
-                              >
-                                *
-                              </span>
-                            </label>
-                            <input
-                              name="Nationality"
-                              type="text"
-                              placeholder="Enter your Country"
-                              onChange={(e) => handleServiceChange(e, i)}
-                            />
-                          </div>
-                        </Box>
-                        <Box marginLeft={15}>
-                          <div className="form_input1">
-                            <label hotel_form_input className="form_lable">
-                              Mobile
-                              <span
-                                style={{
-                                  color: "red",
-                                }}
-                              >
-                                *
-                              </span>
-                            </label>
-                            <input
-                              name="ContactNo"
-                              type="text"
-                              placeholder="Enter your number"
-                              onChange={(e) => handleServiceChange(e, i)}
-                            />
-                          </div>
-                        </Box>
-                        <Box marginLeft={15}>
-                          <div className="form_input1">
-                            <label hotel_form_input className="form_lable">
-                              Email
-                              <span
-                                style={{
-                                  color: "red",
-                                }}
-                              >
-                                *
-                              </span>
-                            </label>
-                            <input
-                              name="Email"
-                              type="email"
-                              placeholder="Enter your email"
-                              onChange={(e) => handleServiceChange(e, i)}
-                            />
-                          </div>
-                        </Box>
-                        <Box marginLeft={15}>
-                          <div className="form_input1">
-                            <label hotel_form_input className="form_lable">
-                              Address
-                              <span
-                                style={{
-                                  color: "red",
-                                }}
-                              >
-                                *
-                              </span>
-                            </label>
-                            <input
-                              name="AddressLine1"
-                              type="text"
-                              placeholder="Enter your Address"
-                              onChange={(e) => handleServiceChange(e, i)}
-                            />
-                          </div>
-                        </Box>
-                      </Box>
-
-                      {/* <Box p={15} display="flex">
-                        <Box>
-                          <div className="form_input1">
-                            <label className="form_lable">Country<span style={{
-                              color:'red'
-                            }}>*</span></label>
-                             <MuiPhoneNumber defaultCountry={'us'} />
-                            <input
-                              name="Nationality"
-                              type="text"
-                              placeholder="Enter your Country"
-                              onChange={(e) => handleServiceChange(e, i)}
-                            />
-                          </div>
-                        </Box>
-                      </Box> */}
+                        <Grid item md={4} sm={3}>
+                          <Box marginLeft={15}>
+                            <div className="form_input1">
+                              <label hotel_form_input className="form_lable1_1">
+                                Last name
+                                <span
+                                  style={{
+                                    color: "red",
+                                  }}
+                                >
+                                  *
+                                </span>
+                              </label>
+                              <input
+                                id="br"
+                                name="LastName"
+                                placeholder="Enter your last name"
+                                onChange={(e) => handleServiceChange(e, i)}
+                              />
+                            </div>
+                          </Box>
+                        </Grid>
+                        <Grid item md={4} sm={3}>
+                          <Box marginLeft={8}>
+                            <div className="form_input1">
+                              <label hotel_form_input className="form_lable1_1">
+                                Date Of Birth
+                                <span
+                                  style={{
+                                    color: "red",
+                                  }}
+                                >
+                                  *
+                                </span>
+                              </label>
+                              <input
+                                type="date"
+                                name="DateOfBirth"
+                                className="deaprture_input"
+                                onChange={(e) => handleServiceChange(e, i)}
+                              />
+                            </div>
+                          </Box>
+                        </Grid>
+                        <Grid item md={4} sm={3}>
+                          <Box marginLeft={15}>
+                            <div className="form_input1">
+                              <label hotel_form_input className="form_lable1_1">
+                                Email
+                                <span
+                                  style={{
+                                    color: "red",
+                                  }}
+                                >
+                                  *
+                                </span>
+                              </label>
+                              <input
+                                type="email"
+                                name="Email"
+                                className="deaprture_input"
+                                placeholder="Enter Email"
+                                onChange={(e) => handleServiceChange(e, i)}
+                              />
+                            </div>
+                          </Box>
+                        </Grid>
+                        <Grid item md={4} sm={3}>
+                          {" "}
+                          <Box marginLeft={15}>
+                            <div className="form_input1">
+                              <label hotel_form_input className="form_lable1_1">
+                                ContactNo
+                                <span
+                                  style={{
+                                    color: "red",
+                                  }}
+                                >
+                                  *
+                                </span>
+                              </label>
+                              <input
+                                type="text"
+                                name="ContactNo"
+                                className="deaprture_input"
+                                placeholder="Enter Contact"
+                                onChange={(e) => handleServiceChange(e, i)}
+                              />
+                            </div>
+                          </Box>
+                        </Grid>
+                      </Grid>
                     </div>
                   );
                 })}
@@ -1273,7 +1051,6 @@ const Leftdetail = () => {
               <Box py={17}>
                 <div className="form_input1">
                   <label hotel_form_input className="form_lable">
-                  
                     {data?.Origin}-{data?.Destination}
                   </label>
                   <input type="text" placeholder="No Excess / Extra Baggage" />
@@ -1576,7 +1353,6 @@ const Leftdetail = () => {
             </Typography>
           </Box> */}
 
-         
           <button
             style={{
               width: 200,

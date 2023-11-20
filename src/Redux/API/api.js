@@ -204,6 +204,17 @@ function api() {
       },
     });
   };
+  const flightGetTicketLccReturn = (payload) => {
+    return axios({
+      method: "POST",
+      url: "/skyTrails/flight/getticketlcc",
+      baseURL: `${apiURL.baseURL}`,
+      data: payload,
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+  };
 
   const flightGetTicketNonLcc = (payload) => {
     return axios({
@@ -515,6 +526,7 @@ const hotelBookingDetails = (payload) => {
     flightQuoteSearch,
     flightBookGDS,
     flightGetTicketLcc,
+    flightGetTicketLccReturn,
     flightGetTicketNonLcc,
     setVendorAmount,
     createPackage,

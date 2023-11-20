@@ -81,7 +81,7 @@ const Flight = (props) => {
           </Text>
         </Flex>
       </Flex> */}
-       <Flightnavbar/>
+       {/* <Flightnavbar/> */}
       <Grid container spacing={3}>
         <Grid item xs={12} md={9}>
           <Box>

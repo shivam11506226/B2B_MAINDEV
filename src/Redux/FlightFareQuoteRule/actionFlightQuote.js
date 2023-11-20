@@ -6,6 +6,12 @@ export const fetchRule = (data) => {
     payload: data,
   };
 };
+export const fetchRuleReturn = (data) => {
+  return {
+    type: types.RULE_SUCCESS_RETURN,
+    payload: data,
+  };
+};
 
 export const ruleAction = (data) => {
   if (data) {
@@ -22,6 +28,12 @@ export const fetchQuote = (data) => {
     payload: data,
   };
 };
+export const fetchQuoteReturn = (data) => {
+  return {
+    type: types.QUOTE_SUCCESS_RETURN,
+    payload: data,
+  };
+};
 
 export const quoteAction = (data) => {
   if (data) {
@@ -31,9 +43,26 @@ export const quoteAction = (data) => {
     };
   }
 };
-export const setLoading=(data)=>{
+export const setLoading = (data) => {
   return {
-    type:types.SET_LOADING,
-    payload:data
+    type: types.SET_LOADING,
+    payload: data,
+  };
+};
+
+export const quoteActionReturn = (data) => {
+  if (data) {
+    return {
+      type: types.QUOTE_REQUEST_RETURN,
+      payload: data,
+    };
   }
-}
+};
+export const ruleActionReturn = (data) => {
+  if (data) {
+    return {
+      type: types.RULE_REQUEST_RETURN,
+      payload: data,
+    };
+  }
+};

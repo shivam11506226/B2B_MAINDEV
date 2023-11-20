@@ -15,6 +15,20 @@ export const PassengersAction = (data) => {
     };
   }
 };
+export const fetchPassengersDetailsReturns=(data)=>{
+  return{
+    type:types.PASSENGERS_SUCCESS_RETURN,
+    payload:data
+  }
+}
+export const PassengersActionReturn=(data)=>{
+  if(data){
+    return{
+      type:types.PASSENGERS_REQUEST_RETURN,
+      payload:data,
+    }
+  }
+}
 // export const oneWayEMTAction = (data) => {
 //   if (data) {
 //     return {
