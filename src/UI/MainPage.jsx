@@ -83,6 +83,7 @@ import FlightReturnInternational from "../Pages/Flight/flightresult/Flightresult
 
 import Headers from "../Components/Headers";
 import InnerNavbar1 from "../Layout/InnerNavbar1";
+import LoadingSpinner from "./LoadingSpinner";
 
 const MainPage = () => {
   const dispatch = useDispatch();
@@ -121,35 +122,50 @@ const MainPage = () => {
     dispatch(tokenAction(payload));
   }, [reducerState?.ip?.ipData]);
 
+
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const loadingTimeout = setTimeout(() => {
+      setIsLoading(false);
+    }, 4000);
+
+    return () => clearTimeout(loadingTimeout);
+  }, []);
+
+  if (isLoading) {
+    return <LoadingSpinner />;
+  }
+
   return (
     <>
       {/* <div className="header_section" style={{ width: "100vw" }}>
         <Header />
        
       </div> */}
-    
-       {/* <Headers/> */}
-       {location.pathname === "/" || location.pathname === "/Login"  || location.pathname === "/Registration" ? null : <InnerNavbar />}
-       { location.pathname === "/Login" ? null : <Headers />}
 
-      
-       
+      {/* <Headers/> */}
+      {location.pathname === "/Login" ? null : <Headers />}
+      {location.pathname === "/" || location.pathname === "/Login" || location.pathname === "/Registration" ? null : <InnerNavbar />}
+
+
+
       {!isLoginRoute && !isRegisterRoute && !isDashboard && !isLogin && (
         <div className="mainBox"  >
           {/* header of main dashboard */}
-        
-        
+
+
           {/* all routes of inner navbar */}
           <div className="componentsContainer">
             <Routes>
-              
+
               <Route
                 element={<Active />}
                 style={{ color: "inherit", textDecoration: "inherit" }}
               />
-               <Route
+              <Route
                 path="/"
-                element={<MainBox/>}
+                element={<MainBox />}
                 style={{ color: "inherit", textDecoration: "inherit" }}
               />
               <Route
@@ -375,9 +391,9 @@ const MainPage = () => {
 
           {/* main page footer */}
           {/* {!isLoginRoute && <Footer />} */}
-        
+
         </div>
-        
+
       )}
       <GotoTopBtn />
       <div>

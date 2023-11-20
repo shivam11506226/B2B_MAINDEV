@@ -15,7 +15,6 @@ import color from "../../../color/color";
 import { getUserDataAction } from "../../../Redux/Auth/UserDataById/actionUserData";
 
 
-
 const Holidayreviewbookingdetail = () => {
 
   const dispatch = useDispatch();

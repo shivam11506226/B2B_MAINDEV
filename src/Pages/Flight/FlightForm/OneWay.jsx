@@ -1,6 +1,8 @@
 import React, { useEffect, useState, useRef } from "react";
 import transfer from "../../../Images/transfer.png";
-import "./OneWay.css";
+
+import interchange from '../../../Images/interchange.png'
+
 import { Button } from "react-bootstrap";
 import { Box, Grid, GridItem, Checkbox, Flex } from "@chakra-ui/react";
 import { useDispatch, useSelector, useReducer } from "react-redux";
@@ -17,6 +19,7 @@ import axios from "axios";
 import { Typography } from "@mui/material";
 import { apiURL } from "../../../Constants/constant";
 import { clearPassengersReducer } from "../../../Redux/Passengers/passenger";
+import "./OneWay.css";
 
 const OneWay = () => {
   const dispatch = useDispatch();
@@ -258,167 +261,147 @@ const OneWay = () => {
     dispatch(oneWayAction(payload));
     dispatch(oneWayEMTAction(emtPayload));
   }
-
+  // style={{ width: "305px", height: "56px", position: "relative" }}
+  // style={{ width: "305px", height: "56px" }}
   return (
-    <form onSubmit={handleSubmit} className="formFlightSearch">
-      <div className="container" >
-        <div className="row rowcon" style={{ marginTop: "-20px" }}>
-          <div
-            className="col-xs-12 col-md-2 pe-0"
-            style={{ width: "305px", height: "56px", position: "relative" }}
-          >
-            <div className="form_input" style={{ position: "absolute", zIndex: 10, }}>
-              <label className="form_lable">Departure</label>
-              <input
-                name="from"
-                placeholder="Enter city or airport"
-                value={from}
-                onClick={() => (
-                  setdisplayFrom(true),
-                  setdisplayTo(false)
-                )}
-                // onMouseLeave={() => (
-                //   setdisplayFrom(false),
-                //   setdisplayTo(false)
-                // )}
-                onChange={(event) => {
-                  handleFromInputChange(event);
-                  handleFromSearch(event.target.value);
-                }}
-              />
-              {fromError !== "" && <span className="error">{fromError}</span>}
-              {isLoading && <div>Loading...</div>}
-              {fromSearchResults && fromSearchResults.length > 0 && (
-                <div
-                  style={{
-                    backgroundColor: "white",
-                    borderRadius: "10px",
-
-                    width: "100%",
-                    boxShadow: "rgba(0, 0, 0, 0.09) 0px 3px 12px",
-                    textAlign: "left",
-                    cursor: "pointer",
-                    display: displayFrom ? "block" : "none",
-                    overflow: "scroll"
-
-
-
-
-
+    <div className="container">
+      <form onSubmit={handleSubmit} className="formFlightSearch">
+        <div className="container" >
+          <div className="row rowcon">
+            <div className="col-xs-12 col-md-3 ps-0 mb-3">
+              <div className="form_input" style={{ zIndex: 10, }}>
+                <label className="form_lable">Departure</label>
+                <input name="from" placeholder="Enter city or airport" value={from}
+                  onClick={() => (
+                    setdisplayFrom(true),
+                    setdisplayTo(false)
+                  )}
+                  onChange={(event) => {
+                    handleFromInputChange(event);
+                    handleFromSearch(event.target.value);
                   }}
-                >
-                  <ul>
-                    <Box
-                      sx={{
-                        mb: 2,
-                        display: "flex",
-                        flexDirection: "column",
-                        maxHeight: 150,
-                      }}
-                    >
-                      {fromSearchResults.map((result) => (
-                        <li
-                          key={result._id}
-                          onClick={() => handleFromClick(result)}
-                        >
-                          <strong>{result.AirportCode}</strong> {result.name}{" "}
-                          {result.code}
-                        </li>
-                      ))}
-                    </Box>
-                  </ul>
-                </div>
-              )}
-            </div>
-          </div>
-          <div className="col-md-1 d-flex justify-content-center">
-            <img src={transfer} alt="name" className="align-self-center" />
-          </div>
-          <div
-            className="col-xs-12 col-md-2 ps-0"
-            style={{ width: "305px", height: "56px", position: "relative" }}
-          >
-            <div className="form_input" style={{ position: "absolute", zIndex: 10, }} >
-              <label className="form_lable">Arrival</label>
-              <input
-                name="to"
-                placeholder="Enter city or airport"
-                value={to}
-                onClick={() => (
-                  setdisplayFrom(false),
-                  setdisplayTo(true)
+                />
+                {fromError !== "" && <span className="error">{fromError}</span>}
+                {isLoading && <div>Loading...</div>}
+                {fromSearchResults && fromSearchResults.length > 0 && (
+                  <div
+                    style={{
+                      backgroundColor: "white",
+                      borderRadius: "10px",
+
+                      width: "100%",
+                      boxShadow: "rgba(0, 0, 0, 0.09) 0px 3px 12px",
+                      textAlign: "left",
+                      cursor: "pointer",
+                      display: displayFrom ? "block" : "none",
+                      overflow: "scroll"
+                    }}
+                  >
+                    <ul>
+                      <Box
+                        sx={{
+                          mb: 2,
+                          display: "flex",
+                          flexDirection: "column",
+                          maxHeight: 150,
+                        }}
+                      >
+                        {fromSearchResults.map((result) => (
+                          <li
+                            key={result._id}
+                            onClick={() => handleFromClick(result)}
+                          >
+                            <strong>{result.AirportCode}</strong> {result.name}{" "}
+                            {result.code}
+                          </li>
+                        ))}
+                      </Box>
+                    </ul>
+                  </div>
                 )}
-                // onMouseLeave={() => (
-                //   setdisplayFrom(false),
-                //   setdisplayTo(false)
-                // )}
-                onChange={(event) => {
-                  handleToInputChange(event);
-                  handleToSearch(event.target.value);
-                }}
-                style={{ border: "2px solid red" }}
-              />
-              {toError !== "" && <span className="error">{toError}</span>}
-              {isLoading && <div>Loading...</div>}
-              {toSearchResults && toSearchResults.length > 0 && (
-                <div
-                  style={{
-                    backgroundColor: "white",
-                    borderRadius: "10px",
-                    zIndex: 1,
-                    width: "100%",
-                    boxShadow: "rgba(0, 0, 0, 0.09) 0px 3px 12px",
-                    textAlign: "left",
-                    cursor: "pointer",
-                    display: displayTo ? "block" : "none",
+              </div>
+            </div>
+            <div className="col-md-1 d-flex justify-content-center interchange ps-0 ">
+              <img src={interchange} alt="name" className="align-self-center" />
+            </div>
+            <div className="col-xs-12 col-md-4 ps-0 mb-3">
+              <div className="form_input" style={{ zIndex: 10, }} >
+                <label className="form_lable">Arrival</label>
+                <input
+                  name="to"
+                  placeholder="Enter city or airport"
+                  value={to}
+                  onClick={() => (
+                    setdisplayFrom(false),
+                    setdisplayTo(true)
+                  )}
+                  // onMouseLeave={() => (
+                  //   setdisplayFrom(false),
+                  //   setdisplayTo(false)
+                  // )}
+                  onChange={(event) => {
+                    handleToInputChange(event);
+                    handleToSearch(event.target.value);
                   }}
-                >
-                  <ul>
-                    <Box
-                      sx={{
-                        mb: 2,
-                        display: "flex",
-                        flexDirection: "column",
-                        maxHeight: 150,
-                        overflow: "hidden",
-                        overflowY: "scroll",
-                      }}
-                    >
-                      {toSearchResults.map((result) => (
-                        <li
-                          key={result._id}
-                          onClick={() => handleToClick(result)}
-                        >
-                          <strong>{result.AirportCode}</strong> {result.name}{" "}
-                          {result.code}
-                        </li>
-                      ))}
-                    </Box>
-                  </ul>
-                </div>
-              )}
+                  style={{ border: "2px solid red" }}
+                />
+                {toError !== "" && <span className="error">{toError}</span>}
+                {isLoading && <div>Loading...</div>}
+                {toSearchResults && toSearchResults.length > 0 && (
+                  <div
+                    style={{
+                      backgroundColor: "white",
+                      borderRadius: "10px",
+                      zIndex: 1,
+                      width: "100%",
+                      boxShadow: "rgba(0, 0, 0, 0.09) 0px 3px 12px",
+                      textAlign: "left",
+                      cursor: "pointer",
+                      display: displayTo ? "block" : "none",
+                    }}
+                  >
+                    <ul>
+                      <Box
+                        sx={{
+                          mb: 2,
+                          display: "flex",
+                          flexDirection: "column",
+                          maxHeight: 150,
+                          overflow: "hidden",
+                          overflowY: "scroll",
+                        }}
+                      >
+                        {toSearchResults.map((result) => (
+                          <li
+                            key={result._id}
+                            onClick={() => handleToClick(result)}
+                          >
+                            <strong>{result.AirportCode}</strong> {result.name}{" "}
+                            {result.code}
+                          </li>
+                        ))}
+                      </Box>
+                    </ul>
+                  </div>
+                )}
+              </div>
             </div>
-          </div>
 
-          <div
-            className="col-xs-12 col-md-2"
-            style={{ width: "305px", height: "56px" }}
-          >
-            <div className="form_input" onClick={handleClick}>
-              <label className="form_lable">Departure Date</label>
-
-              <input
-                type="date"
-                name="departure"
-                id="departure"
-                ref={inputRef}
-                className="deaprture_input"
-              />
-              {dateError !== "" && <span className="error">{dateError}</span>}
+            <div className="col-xs-12 col-md-4 ps-0 mb-3">
+              <div className="form_input" onClick={handleClick}>
+                <label className="form_lable">Departure Date</label>
+                <input
+                  type="date"
+                  name="departure"
+                  id="departure"
+                  ref={inputRef}
+                  className="deaprture_input"
+                />
+                {dateError !== "" && <span className="error">{dateError}</span>}
+              </div>
             </div>
-          </div>
 
-          {/* <div className="col-xs-12 col-md-2">
+            {/* <div className="col-xs-12 col-md-2">
             <div className="form_input" >
               <label className="form_lable"></label>
               <select name="time" id="" className="form_input_select">
@@ -430,9 +413,9 @@ const OneWay = () => {
               </select>
             </div>
           </div> */}
-        </div>
+          </div>
 
-        {/* <div className="row" style={{ marginTop: "32px" }}>
+          {/* <div className="row" style={{ marginTop: "32px" }}>
           <div className="col-xs-3 col-md-3 pe-0">
             <Typography mt={1} variant="h6" paddingRight={0}>
               Select A Fair Of Type:
@@ -490,151 +473,128 @@ const OneWay = () => {
           </div>
         </div> */}
 
-        <div className="row">
-          <div className="col-xs-12">
-            <div className="row">
-              <div
-                className="col-3 col-md-3 col-lg-2 mb-3"
-                style={{ width: "250px", height: "56px" }}
-              >
-                <div className="form_input">
-                  <label className="form_lable">Adult(12+ Yrs)</label>
-
-                  <select name="adult" id="" className="form_input_select">
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                    <option value="6">6</option>
-                    <option value="7">7</option>
-                    <option value="8">8</option>
-                    <option value="9">9</option>
-                  </select>
+          <div className="row">
+            <div className="col-xs-12 col-md-12 ps-0">
+              <div className="row">
+                <div className=" col-md-3 col-lg-3 col-sm-12 col-12 mb-3 ps-0">
+                  <div className="form_input">
+                    <label className="form_lable">Adult(12+ Yrs)</label>
+                    <select name="adult" id="" className="form_input_select">
+                      <option value="1">1</option>
+                      <option value="2">2</option>
+                      <option value="3">3</option>
+                      <option value="4">4</option>
+                      <option value="5">5</option>
+                      <option value="6">6</option>
+                      <option value="7">7</option>
+                      <option value="8">8</option>
+                      <option value="9">9</option>
+                    </select>
+                  </div>
                 </div>
-              </div>
 
-              <div
-                className="col-3 col-md-3 col-lg-2 mb-3"
-                style={{ width: "250px", height: "56px" }}
-              >
-                <div className="form_input">
-                  <label className="form_lable">Child(2-12 Yrs)</label>
-                  <select name="child" id="" className="form_input_select">
-                    <option value="0">0</option>
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                    <option value="6">6</option>
-                    <option value="7">7</option>
-                    <option value="8">8</option>
-                  </select>
+                <div className=" col-md-3 col-lg-3 col-sm-12 col-12 mb-3 ps-0">
+                  <div className="form_input">
+                    <label className="form_lable">Child(2-12 Yrs)</label>
+                    <select name="child" id="" className="form_input_select">
+                      <option value="0">0</option>
+                      <option value="1">1</option>
+                      <option value="2">2</option>
+                      <option value="3">3</option>
+                      <option value="4">4</option>
+                      <option value="5">5</option>
+                      <option value="6">6</option>
+                      <option value="7">7</option>
+                      <option value="8">8</option>
+                    </select>
+                  </div>
                 </div>
-              </div>
-              <div
-                className="col-3 col-md-3 col-lg-3 mb-3"
-                style={{ width: "250px", height: "56px" }}
-              >
-                <div className="form_input">
-                  <label className="form_lable">Infant(Under 2 Yrs)</label>
-                  <select name="infant" id="" className="form_input_select">
-                    <option value="0">0</option>
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                    <option value="6">6</option>
-                    <option value="7">7</option>
-                    <option value="8">8</option>
-                  </select>
+                <div className=" col-md-3 col-lg-3 col-sm-12 col-12 mb-3 ps-0" >
+                  <div className="form_input">
+                    <label className="form_lable">Infant(Under 2 Yrs)</label>
+                    <select name="infant" id="" className="form_input_select">
+                      <option value="0">0</option>
+                      <option value="1">1</option>
+                      <option value="2">2</option>
+                      <option value="3">3</option>
+                      <option value="4">4</option>
+                      <option value="5">5</option>
+                      <option value="6">6</option>
+                      <option value="7">7</option>
+                      <option value="8">8</option>
+                    </select>
+                  </div>
                 </div>
-              </div>
 
-              <div
-                className="col-3 col-md-3 col-lg-2 mb-3"
-                style={{ width: "250px", height: "56px" }}
-              >
-                <div className="form_input">
-                  <label className="form_lable">Class</label>
-                  <select name="class" id="" className="form_input_select">
-                    <option value="1">All</option>
-                    <option value="2">Ecomomy</option>
-                    <option value="3">Premimum Economy</option>
-                    <option value="4">Business</option>
-                    <option value="5">Premimum Business</option>
-                    <option value="6">First</option>
-                  </select>
+                <div className=" col-md-3 col-lg-3 col-sm-12 col-12 mb-3 ps-0">
+                  <div className="form_input">
+                    <label className="form_lable">Class</label>
+                    <select name="class" id="" className="form_input_select">
+                      <option value="1">All</option>
+                      <option value="2">Ecomomy</option>
+                      <option value="3">Premimum Economy</option>
+                      <option value="4">Business</option>
+                      <option value="5">Premimum Business</option>
+                      <option value="6">First</option>
+                    </select>
+                  </div>
                 </div>
               </div>
             </div>
+            <div className="col-xs-12">
+
+              <div className="row bottom-row">
+                <div className="col-md-6 col-lg-6 col-12 col-sm-12 mb-3 ps-0" >
+                  <div className="form_input">
+                    <label className="form_lable">Preferred Airline</label>
+                    <select name="adult" id="" className="form_input_select1">
+                      <option value="1">Select Airline </option>
+                      <option value="2">2</option>
+                      <option value="3">3</option>
+                      <option value="4">4</option>
+                      <option value="5">5</option>
+                      <option value="6">6</option>
+                      <option value="7">7</option>
+                      <option value="8">8</option>
+                      <option value="9">9</option>
+                    </select>
+                  </div>
+                </div>
+
+
+                <div className="col-md-6 col-lg-6 col-12 col-sm-12 mb-3 ps-0">
+                  <button
+                    type="submit"
+                    id="cssbuttons-io-button"
+                    style={{ backgroundColor: "#21325D", borderRadius: "8px" }}
+                  >
+                    {" "}
+                    Search Flight
+                    <div id="icon">
+                      <svg
+                        height="24"
+                        width="24"
+                        viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path d="M0 0h24v24H0z" fill="none"></path>
+                        <path
+                          d="M16.172 11l-5.364-5.364 1.414-1.414L20 12l-7.778 7.778-1.414-1.414L16.172 13H4v-2z"
+                          fill="currentColor"
+                        ></path>
+                      </svg>
+                    </div>
+                  </button>
+                </div>
+              </div>
+
+
+            </div>
           </div>
-          <div className="col-xs-12">
-
-          <div
-  className="row"
-  style={{
-    width: "75%",
-  
-    display: "flex",
-    height: "55px",
-   
-  }}
->
-  <div
-    className="col-6 col-md-3 col-lg-2 mb-3"
-    style={{ width: "311px", marginRight: "-125px" }}
-  >
-    <div className="form_input">
-      <label className="form_lable">Preferred Airline</label>
-
-      <select name="adult" id="" className="form_input_select1">
-        <option value="1">Select Airline </option>
-        <option value="2">2</option>
-        <option value="3">3</option>
-        <option value="4">4</option>
-        <option value="5">5</option>
-        <option value="6">6</option>
-        <option value="7">7</option>
-        <option value="8">8</option>
-        <option value="9">9</option>
-      </select>
-    </div>
-  </div>
-
-  <button
-    type="submit"
-    id="cssbuttons-io-button"
-    style={{ backgroundColor: "#21325D", borderRadius: "8px" }}
-  >
-    {" "}
-    Search Flight
-    <div id="icon">
-      <svg
-        height="24"
-        width="24"
-        viewBox="0 0 24 24"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path d="M0 0h24v24H0z" fill="none"></path>
-        <path
-          d="M16.172 11l-5.364-5.364 1.414-1.414L20 12l-7.778 7.778-1.414-1.414L16.172 13H4v-2z"
-          fill="currentColor"
-        ></path>
-      </svg>
-    </div>
-  </button>
-</div>
-
-
-          </div>
-        </div>
 
 
 
-        {/* <label
+          {/* <label
       style={{
         fontSize: "20px",
         fontWeight: "400",
@@ -679,7 +639,7 @@ const OneWay = () => {
           </div>
         </Box> */}
 
-        {/* <Box className="row">
+          {/* <Box className="row">
           <Flex direction="row" justifyContent="center">
             <button type="submit" id="cssbuttons-io-button">
               {" "}
@@ -701,8 +661,9 @@ const OneWay = () => {
             </button>
           </Flex>
         </Box> */}
-      </div>
-    </form>
+        </div>
+      </form>
+    </div>
   );
 };
 

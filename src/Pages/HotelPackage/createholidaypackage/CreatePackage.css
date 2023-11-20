@@ -7,6 +7,7 @@
   margin: 2px !important;
   cursor: pointer;
 }
+
 .toggle_close {
   background-color: #006fff !important;
   border: none;
@@ -15,6 +16,7 @@
   margin: 2px !important;
   cursor: pointer;
 }
+
 .toggle_button {
   box-shadow: 0px 3px 6px #00000029;
   border-radius: 5px;
@@ -23,15 +25,8 @@
 }
 
 .tag__Container {
-  /* margin: 40px 60px; */
-  margin-right:10px;
-  /* background-color: #006fff; */
   width: 100%;
-  margin: auto;
-  padding-left: 12px;
-  display: flex;
-  justify-content: space-between;
-  flex-direction: column;
+  margin: 0 !important;
 }
 
 .package__Container {
@@ -82,27 +77,27 @@ transition: background-color 0.2s ease 0s; */
 }
 
 .relevant__tag {
-  width: 800px !important;
+
   display: flex;
   align-items: center;
   justify-content: center;
-  flex-wrap: nowrap;
+  flex-wrap: wrap;
+  width: 100% !important;
 }
 
 .label__container {
   display: flex;
   align-items: center;
-  /* justify-content: center; */
-  position: relative;
+  justify-content: flex-start;
   cursor: pointer;
   font-size: 20px;
   user-select: none;
   border: 1px #5c85a4 solid;
   background: #fffbfb;
-  /* margin: 5px 9px; */
   padding: 5px 15px;
   height: 50px;
-  width: 340px;
+  /* width: 150px; */
+  width: auto;
   border-radius: 5px;
 }
 
@@ -111,8 +106,8 @@ transition: background-color 0.2s ease 0s; */
   position: relative;
   top: 0;
   left: 0;
-  height: "20px";
-  width: "20px";
+  height: 20px;
+  width: 20px;
   background: #ffff;
   border: 1.82px black solid;
   /* background-color: #ccc; */
@@ -122,7 +117,7 @@ transition: background-color 0.2s ease 0s; */
 }
 
 /* When the checkbox is checked, add a blue background */
-.label__container input:checked ~ .checkmark {
+.label__container input:checked~.checkmark {
   background-color: limegreen;
   border: none;
   border-radius: 25px;
@@ -137,14 +132,14 @@ transition: background-color 0.2s ease 0s; */
 }
 
 /* Show the checkmark when checked */
-.label__container input:checked ~ .checkmark:after {
+.label__container input:checked~.checkmark:after {
   display: block;
 }
 
 /* Style the checkmark/indicator */
 .label__container .checkmark:after {
-  left: 0.45em;
-  top: 0.25em;
+  left: 0.3em;
+  top: 0.1em;
   width: 0.25em;
   height: 0.5em;
   border: solid white;
@@ -155,40 +150,47 @@ transition: background-color 0.2s ease 0s; */
 
 .tag__title {
   margin-left: 7px;
-  font-size: 15px;
-  color: #BBBBBB;
+  font-size: 14px;
+  color: #333;
   font-weight: 400;
 }
+
 .day_Textarea {
   width: 660px;
   height: 80px;
 }
+
 .flightContainer {
   /* padding: 20px; */
   width: 100%;
   /* height: 100%; */
- 
+
   background: white;
   margin-bottom: 20px;
+  margin: 0px 30px;
+  border-radius: 15px;
+  background: #f1f1f1;
 }
 
-.title_text_1{
-    font-size: 20px;
-    color:#000000
+.title_text_1 {
+  font-size: 20px;
+  color: #000000
 }
 
-.radio input[type='radio']{
+.radio input[type='radio'] {
   width: 20px;
   height: 20px;
   border: 2px solid #e41515;
 }
+
 .radio input[type='radio']:checked {
-color: #5C85A4;
+  color: #5C85A4;
 
 }
-.input_file::file-selector-button{
+
+.input_file::file-selector-button {
   background-color: #000000;
-  color:#FFFFFF;
+  color: #FFFFFF;
   width: 150px;
   height: 40px;
   box-shadow: 0px 6.55555534362793px 13.11111068725586px rgba(0, 0, 0, 0.16);
@@ -197,5 +199,146 @@ color: #5C85A4;
 
 
 
-  
+
+}
+
+
+
+.container-fluid {
+  background-color: white !important;
+  padding: 0 !important;
+}
+
+.headerBoxOuter {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+
+.headerBox {
+  width: 900px;
+  max-width: 900px;
+  background-color: rgb(34, 52, 79);
+  padding: 20px;
+  font-size: 1.8rem;
+  text-align: center;
+  color: white;
+  margin: 10px 40px;
+  border-radius: 15px;
+}
+
+.headerBox p {
+  margin-bottom: 0 !important;
+}
+
+.pricing {
+  display: flex;
+  width: auto;
+  gap: 15px;
+  align-items: center;
+}
+
+.draft {
+  background-color: transparent;
+  color: #21325D;
+  text-decoration: underline;
+  outline: none;
+  border: none;
+}
+
+.buttonBoxPackage {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+}
+
+.buttonBoxPackage .packageSubmit {
+  padding: 10px 22px;
+  background-color: #21325D;
+  color: white;
+  border-radius: 8px;
+  font-weight: 700;
+  text-transform: uppercase;
+  border: none;
+  outline: none;
+}
+
+
+.createHolidayPackage {
+  background-color: #DFE6F7;
+  border-radius: 10px;
+  padding: 30px 30px;
+}
+
+
+
+.groupinpbut {
+  position: relative;
+}
+
+.groupinpbut .form-floating {
+  position: absolute;
+  width: 100%;
+}
+
+/* .inputwithButton {
+  position: absolute;
+} */
+
+.insideButton {
+  position: absolute !important;
+  right: 10px !important;
+  transform: translate(0%, 25%);
+  border-radius: 30px;
+  border: 2px solid #111 !important;
+  background-color: #111 !important;
+}
+
+.insideButton:hover {
+  background-color: #DFE6F7 !important;
+  color: #111 !important;
+  border: 2px solid #111 !important;
+}
+
+/* .form-floating>flootting {
+  height: 50px !important;
+} */
+
+
+.createHolidayPackage .form-label {
+  color: #111;
+  font-weight: bold;
+  font-size: 17px;
+}
+
+.createHolidayPackage::placeholder {
+  color: #ddd !important;
+}
+
+
+.form-floating>label {
+  color: #888;
+}
+
+
+.form-control:focus {
+  color: #212529;
+  background-color: #fff;
+  border-color: unset !important;
+  outline: 0;
+  box-shadow: unset !important;
+}
+
+
+
+div:where(.swal2-container) button:where(.swal2-styled).swal2-confirm {
+  border: 0;
+  border-radius: 0.25em;
+  background: initial;
+  background-color: #21325D;
+  color: #fff;
+  font-size: 1em;
 }

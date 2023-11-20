@@ -1,47 +1,62 @@
+.container {
+  margin-top: 1rem !important;
+}
+
 .form_input {
   height: 90%;
   position: relative;
-  width: 100%;
+
 }
-.form_input input{
-  width: 100%;
-  height: 100%;
-  padding-left: 25px;
-  
-  border-radius: 20px;
-  border: 2px solid #70707069;
+
+.form_input input {
+  width: 332px;
+  height: 56px;
+  border-radius: 8px;
+  border: 1px solid #5C85A4;
+  background: #FFFBFB;
 }
 
 .form_input .lable {
   font-size: 13px;
-  color: #4e4c4c;
+
   font-weight: 700;
   font-family: "Quicksand", sans-serif;
 }
 
 .form_input .from_input::placeholder,
 .to_input::placeholder {
-  color: #4e4c4ca1;
   font-size: 18px;
   font-weight: 700;
   font-family: "Quicksand", sans-serif;
 }
 
+
+.interchange img {
+  width: 50px;
+}
+
+.bottom-row {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+}
+
 .form_lable {
-  color: #4e4c4c;
-  font-size: 13px;
-  font-weight: 700;
-  font-family: "Quicksand", sans-serif;
-  left: 10px;
-  line-height: 14px;
-  pointer-events: none;
-  position: absolute;
+
+  font-size: 15px !important;
+  font-weight: 700 !important;
+  font-family: "Quicksand", sans-serif !important;
+  left: 10px !important;
+  line-height: 14px !important;
+  pointer-events: none !important;
+  position: unset !important;
   transform-origin: 0 50%;
   top: 24px;
-  transform: translateY(-30px) translateX(10px);
-  background: #fff;
+  transform: translateY(-6px) translateX(-1px) !important;
+  background: unset !important;
   padding: 0px 8px;
 }
+
 .row {
   margin-top: 20px;
 }
@@ -68,6 +83,7 @@
   justify-content: center;
   padding: initial;
 }
+
 .inputSelect {
   border: 1px solid red;
   width: 15px;
@@ -88,11 +104,13 @@
 
   text-transform: uppercase;
 }
+
 .inputSelectCheck {
   width: 15px;
   height: 15px;
   border-radius: 100%;
 }
+
 .radioReturn {
   display: flex;
   flex-direction: row;
@@ -104,42 +122,52 @@
 .radioReturnActiv {
   color: orangered;
 }
+
 .radioReturnInActiv {
   color: none;
 }
-.radioReturn > input {
+
+.radioReturn>input {
   width: 10px;
   height: 10px;
 }
-.radioReturn > span {
+
+.radioReturn>span {
   margin-left: 20px;
   font-size: 30px;
   color: #252525;
   font: normal normal bold 17px/21px Quicksand;
   /* font-weight: bold; */
 }
+
 .flightSearchButton {
   width: 400px;
   height: 50px;
 }
+
 .radioDiv {
   margin-left: -30px;
 }
-.form-check-input:checked{
+
+.form-check-input:checked {
   color: #d75e5e;
   border-color: #292829;
 }
-input[type="radio"]:checked{
-   background-color:orange;
-   border-color: rgb(243, 135, 4);
-   ;
+
+input[type="radio"]:checked {
+  background-color: orange;
+  border-color: rgb(243, 135, 4);
+  ;
 }
-label{
-    font-weight: bold;
+
+label {
+  font-weight: bold;
 }
-input[type="radio"]:checked+label{
-    color: orange;
+
+input[type="radio"]:checked+label {
+  color: orange;
 }
+
 .showDirectFligthDiv {
   margin-top: -25px;
   padding: auto;
@@ -155,19 +183,22 @@ input[type="radio"]:checked+label{
   flex-direction: row;
   align-items: center;
 }
-.showDirectFligthDiv > input {
+
+.showDirectFligthDiv>input {
   margin-left: 10px;
   font-size: 5px;
   /* width: 10px; */
   margin-right: 2px;
   width: 15px;
   height: 15px;
-   border-radius:50%;
+  border-radius: 50%;
   font: Quicksand, SemiBold;
 }
-.showDirectFligthDiv >span{
+
+.showDirectFligthDiv>span {
   font-weight: bold;
 }
+
 #cssbuttons-io-button {
   background: #00bdc4;
   color: white;
@@ -220,6 +251,3 @@ input[type="radio"]:checked+label{
 #cssbuttons-io-button:active #icon {
   transform: scale(0.95);
 }
-
-
-

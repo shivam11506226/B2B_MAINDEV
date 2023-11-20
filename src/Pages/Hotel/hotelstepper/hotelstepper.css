@@ -1,10 +1,10 @@
 .hotelContainer {
-  padding: 20px !important;
+  padding: 0px 20px !important;
   width: 100% !important;
   height: 100%;
   border-radius: 10px;
   background: white;
-  border:"2px solid red"
+  border: "2px solid red"
 }
 
 .nhotel_form_input {
@@ -20,31 +20,36 @@
   border-radius: 10px;
   border: 3px solid #70707069;
 }
+
 .hotel_form_input {
   height: 50px !important;
   position: relative;
   width: 100% !important;
 }
-#CitySearchID + ul {
-  height: 100px;
+
+#CitySearchID+ul {
+  max-height: 150px;
   list-style: none;
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
   margin-top: 6px;
   padding: 5px;
   overflow-y: scroll;
   z-index: 500;
-  position: relative;
-  
+  position: absolute;
+  width: 100%;
+  background-color: white;
+
 }
-#CitySearchID + ul > li {
+
+#CitySearchID+ul>li {
   padding: 8px;
   box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px,
     rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
-    background-color: antiquewhite;
+  background-color: white;
 }
 
 .hotel_form_input input {
- 
+
   height: 100%;
   padding-left: 25px;
   border-radius: 8px;
@@ -52,7 +57,8 @@
   background: #FFFBFB;
 
 }
-#datepic{
+
+#datepic {
   height: 50px;
   padding-left: 25px;
   border-radius: 8px;
@@ -98,23 +104,26 @@
   font-weight: Bold;
   margin-bottom: 1rem;
 }
+
 .hotel_input_select {
-  width: 210px;
-  border: 10px;
+  width: 100%;
+  /* border: 10px; */
   border-radius: 10px;
   height: 3.1rem;
-  border:1px #5C85A4 solid;
-  
+  border: 1px #5C85A4 solid;
+  margin: 0 !important;
+
 }
+
 .nhotel_input_select {
   width: 100%;
   border: 10px;
   border-radius: 10px;
   height: 3.1rem;
- 
+
   border-radius: 8px;
-border: 1px solid #5C85A4;
-background: #FFFBFB;
+  border: 1px solid #5C85A4;
+  background: #FFFBFB;
 }
 
 .hotel_submit {
@@ -133,10 +142,10 @@ background: #FFFBFB;
   color: white;
 }
 
-.error{
-color:red;
+.error {
+  color: red;
 }
- 
+
 
 @media (max-width: 1240px) {
   .flightContainer {
@@ -145,7 +154,114 @@ color:red;
     align-items: center;
   }
 
-  .flightContainer > Box {
+  .flightContainer>Box {
     width: 90%;
   }
+}
+
+
+
+.hotelContainer {
+  background-color: rgb(248, 243, 243);
+  margin: auto;
+  width: 100%;
+  border-radius: 12px;
+  margin-top: -30px !important;
+}
+
+
+.formFlightSearch {
+  margin-top: 20px;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.hotel_form_input {
+  height: 90% !important;
+  /* position: relative !important; */
+  width: 100% !important;
+}
+
+.hotel_form_input input {
+  width: 100% !important;
+  height: 50px !important;
+  padding-left: 9px !important;
+  border-radius: 10px !important;
+  border: 1px solid #5C85A4 !important;
+}
+
+
+.form_label {
+  font-size: 15px !important;
+  font-weight: 700 !important;
+  font-family: "Quicksand", sans-serif !important;
+  left: 10px !important;
+  line-height: 14px !important;
+  pointer-events: none !important;
+  position: unset !important;
+  transform-origin: 0 50%;
+  top: 24px;
+  transform: translateY(-6px) translateX(-1px) !important;
+  background: unset !important;
+  padding: 0px 8px;
+}
+
+
+.react-datepicker-wrapper {
+  display: inline-block;
+  padding: 0;
+  border: 0;
+  width: 100%;
+}
+
+
+/* .room-container {
+  background-color: red;
+} */
+
+
+.delete-button {
+  padding: 8px 15px;
+  border: 2px solid rgb(33, 50, 93);
+  color: rgb(33, 50, 93);
+  background-color: white;
+  border-radius: 5px;
+}
+
+
+.searchButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 84%;
+  height: 50px;
+  border: 3px solid #21325d;
+  border-radius: 8px;
+  color: white;
+  font-size: 22px;
+  font-family: Montserrat;
+  font-weight: 600;
+  word-wrap: break-word;
+  background: #21325D;
+  padding-left: 96px;
+  padding-right: 96px;
+  padding-top: 32px;
+  padding-bottom: 32px;
+  margin: auto;
+  margin-top: 30px;
+  transition: all 0.3s;
+}
+
+.searchButton:hover {
+  background-color: white;
+}
+
+#cssbuttons-io-button {
+  margin: 0 !important;
+}
+
+.button-row {
+  padding: 0 !important;
+  display: flex;
+  justify-content: center;
 }

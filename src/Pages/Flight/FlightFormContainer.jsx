@@ -12,13 +12,13 @@ import MultiStop from './FlightForm/MultiStop';
 import Calander from './FlightForm/Calendar';
 import AdvanceSearch from './FlightForm/AdvanceSearch';
 // import { styled } from '@mui/system'; // Import from @mui/system
-import Slide from '@mui/material/Slide'; 
-
+import Slide from '@mui/material/Slide';
+import "./flightFormContainer.css"
 
 
 const StyledTabs = styled(Tabs)(({ theme }) => ({
   display: 'flex',
-  flexWrap:'wrap',
+  flexWrap: 'wrap',
   borderRadius: theme.spacing(2), // Adjust the border radius as needed
   overflow: 'hidden',
   '& .MuiTabs-indicator': {
@@ -27,21 +27,21 @@ const StyledTabs = styled(Tabs)(({ theme }) => ({
 }));
 
 const StyledTab = styled(Tab)(({ theme }) => ({
- 
-  padding: theme.spacing(1, 2), // Adjust padding as needed
-  height:'48px',
-  boxShadow: 'rgba(0, 0, 0, 0.24) 0px 3px 8px', 
-  font: '14px',
-  margin:'12px 4px',
-  
-  color:'#252525',
-  fontWeight:'600',
-  background:'#D9D9D9',
+
+
+  // height: '48px',
+  padding: "5px 60px",
+  // font: '14px',
+  margin: '12px 0px',
+  // color: '#252525',
+  // fontWeight: '600',
+  background: '#D9D9D9',
   '&.Mui-selected': {
-    background:'#FFFBFB',
-    color:'black',
-    border: '3px solid #D9D9D9', 
-    borderRadius:"8px"
+    background: '#FFFBFB',
+    padding: "5px 60px",
+    color: 'black',
+    border: '2px solid #21325D',
+    //   // borderRadius: "8px"
   },
 }));
 
@@ -50,8 +50,8 @@ function CustomTabPanel(props) {
 
   return (
     <Slide direction="up" in={value === index} >
-       <div role="tabpanel" hidden={value !== index} id={`simple-tabpanel-${index}`} aria-labelledby={`simple-tab-${index}`} {...other} style={{marginTop:"-22px"}}>
-        <Box style={{backgroundColor:"#F8F3F3",marginTop:"-60px",width:"90%",margin:"auto",borderRadius:"12px"}}>
+      <div role="tabpanel" hidden={value !== index} id={`simple-tabpanel-${index}`} aria-labelledby={`simple-tab-${index}`} {...other} style={{ marginTop: "-22px" }}>
+        <Box style={{ backgroundColor: "#F8F3F3", marginTop: "-60px", width: "100%", margin: "auto", borderRadius: "12px" }}>
           <Typography>{children}</Typography>
         </Box>
       </div>
@@ -81,10 +81,10 @@ export default function StyledTabsExample() {
   };
 
   return (
-    <Box sx={{ width: '90%',margin:"auto" }}>
-      <StyledTabs value={value} onChange={handleChange} aria-label="styled tabs example" style={{width:"90%",margin:"auto",marginTop:"-120px"}} >
-        <StyledTab label="One Way" {...a11yProps(0)} style={{width:"254px",height:"48px"}}/>
-        <StyledTab label="Return" {...a11yProps(1)} style={{width:"254px",height:"48px"}}/>
+    <Box sx={{ width: '100%', margin: "auto" }}>
+      <StyledTabs value={value} onChange={handleChange} aria-label="styled tabs example" style={{ width: "100%", margin: "auto", marginTop: "-40px", }} >
+        <StyledTab label="One Way" {...a11yProps(0)} className='btn' />
+        <StyledTab label="Return" {...a11yProps(1)} className='btn' />
         {/* <StyledTab label="Off Share" {...a11yProps(2)} />
         <StyledTab label="Multi Stop" {...a11yProps(3)} />
         <StyledTab label="Calendar Fare" {...a11yProps(4)} />
@@ -97,16 +97,16 @@ export default function StyledTabsExample() {
         <Return />
       </CustomTabPanel>
       <CustomTabPanel value={value} index={2}>
-        <OffShare />  
+        <OffShare />
       </CustomTabPanel>
       <CustomTabPanel value={value} index={3}>
-         <MultiStop />
+        <MultiStop />
       </CustomTabPanel>
       <CustomTabPanel value={value} index={4}>
-         <Calander />
+        <Calander />
       </CustomTabPanel>
       <CustomTabPanel value={value} index={5}>
-          <AdvanceSearch />
+        <AdvanceSearch />
       </CustomTabPanel>
     </Box>
   );

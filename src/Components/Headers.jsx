@@ -7,7 +7,7 @@ import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import Fade from "@mui/material/Fade";
 import { Box, Button, Typography, Paper, makeStyles } from "@mui/material";
-import { useNavigate,Link } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { useDispatch, useSelector, useReducer } from "react-redux";
 import { logoutAction } from "../Redux/Auth/logIn/actionLogin";
 import Modal from "@mui/material/Modal";
@@ -20,6 +20,8 @@ import logout from "../Images/FlightImages/logout.jpeg";
 import login from "../Images/login.png";
 import { motion } from "framer-motion";
 import color from "../../src/color/color.js";
+import CurrencyRupeeIcon from '@mui/icons-material/CurrencyRupee';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
 import {
   getUserDataAction,
@@ -33,6 +35,7 @@ import {
 } from "@chakra-ui/react";
 import { useLocation } from 'react-router-dom';
 import { balanceSubtractRequest } from "../Redux/Auth/balaceSubtract/actionBalnceSubtract.js";
+import "./Headers.css"
 const style = {
   border: "10px solid #000",
   boxShadow: 24,
@@ -89,7 +92,7 @@ function Headers() {
       _id: reducerState?.logIn?.loginData?.data?.data?.id,
       amount: amount,
     };
-   
+
     // axios
     //   .post("http://localhost:8000/updateBalance", data)
     //   .then((res) => {
@@ -105,7 +108,7 @@ function Headers() {
     setAmount("");
     handleCloseModal();
   };
- 
+
   const handleRazorpay = (data) => {
     // console.log("handleRazorpay called");
     const options = {
@@ -169,33 +172,33 @@ function Headers() {
     const rzp = new window.Razorpay(options);
     rzp.open();
   };
-   
+
 
   //get user detail for update balance
   const userId = reducerState?.logIn?.loginData?.data?.data?.id;
-  
-  
-    console.log("userIdnew",userId,reducerState)
-  
+
+
+  console.log("userIdnew", userId, reducerState)
+
 
   useEffect(() => {
     // Make a GET request to the API endpoint
-      //  console.log("ID",id);
-      if(userId){
-    const payload = userId;
-    
-    // console.log(payload,'userIdiii');
-   dispatch(getUserDataAction(payload));
-      }
+    //  console.log("ID",id);
+    if (userId) {
+      const payload = userId;
 
-  //     if(userId){
-  //       const balancePayload={
-  //         _id:userId,
-  //         amount:100
-  //       }
+      // console.log(payload,'userIdiii');
+      dispatch(getUserDataAction(payload));
+    }
 
-  //  dispatch(balanceSubtractRequest(balancePayload))
-  //     }
+    //     if(userId){
+    //       const balancePayload={
+    //         _id:userId,
+    //         amount:100
+    //       }
+
+    //  dispatch(balanceSubtractRequest(balancePayload))
+    //     }
     // console.log( dispatch(getUserDataAction(payload)),'working dispatch')
 
     // axios
@@ -211,229 +214,58 @@ function Headers() {
     //     // Handle errors, e.g., display an error message
     //   });
 
-      
 
- 
 
-  }, [userId,dispatch]);
 
-  const userData=reducerState?.userData?.userData?.data?.data;
 
-    
+  }, [userId, dispatch]);
+
+  const userData = reducerState?.userData?.userData?.data?.data;
+
+
   const location = useLocation();
-      const { pathname } = location;
-    
-      if (pathname === '/admin/dashboard') {
-        return null; // If the path matches '/admin/dashboard', the header is not rendered
-   }
+  const { pathname } = location;
 
-  const isAdminPath = pathname === "/adminLogin" || pathname === "/admin/dashboard" || pathname=== "/Registration";
+  if (pathname === '/admin/dashboard') {
+    return null; // If the path matches '/admin/dashboard', the header is not rendered
+  }
+
+  const isAdminPath = pathname === "/adminLogin" || pathname === "/admin/dashboard";
 
   if (isAdminPath) {
     return null; // Don't render the InnerNavbar for admin paths
   }
   return (
-    <div
-      style={{
-        width: "100%",
-        height: 100,
-        background: "white",
-        zIndex: 2,
-        position: "fixed",
-        display: "flex",
-
-        justifyContent: "space-between",
-      }}
-    >
-      {/* Add your header content here */}
-      <div
-        style={{
-          justifyContent: "center",
-          alignItems: "center",
-          display: "flex",
-        }}
-      >
+    <div className="header-container">
+      <div className="logo-container">
         <Link to="/">
-          <img
-            src={STLOGO}
-            style={{ width: "100%", height: "220px",marginTop:"30px"}}
-            alt="logo"
-          />
+          <img src={STLOGO} className="logo" alt="logo" />
         </Link>
       </div>
-      <div style={{ alignItems: "center", gap: "25px" }}>
-        <div
-          className="welcome"
-          style={{
-            height: "50px",
-
-            borderRadius: "0px 0px 0px 16px",
-            background: "#D1EBFF",
-            display: "flex",
-            padding: "16px",
-            justifyContent: "center",
-            alignItems: "center",
-            gap: "16px",
-          }}
-        >
-          <p
-            style={{
-              color: "#000",
-              fontFamily: "Montserrat",
-              fontSize: "16px",
-              fontStyle: "normal",
-              fontWeight: "400",
-              lineHeight: "normal",
-            }}
-          >
+      <div className="info-container">
+        <div className="welcome">
+          <p className="welcome-text">
             Contact your representative
           </p>
-         
-          <div
-            style={{
-              color: "black",
-              fontSize: 16,
-              fontFamily: "Montserrat",
-              fontWeight: "400",
-              wordWrap: "break-word",
-            }}
-          >
-            |
-          </div>
+          <div className="seperator">|</div>
 
-          <div style={{ width: 100.33, height: 20, position: "relative" }}>
-            <div
-              style={{
-                width: 8,
-                left: 70,
-                height: 12,
-                marginTop:-2,
-                position: "absolute",
-              }}
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="8"
-                height="12"
-                viewBox="0 0 8 12"
-                fill="none"
-              >
-                <path
-                  d="M3 7.33333H2.51333L5.91333 10.8733C6.32 11.3 6.02 12 5.43333 12C5.25333 12 5.08 11.9267 4.95333 11.7933L0.933333 7.60667C0.76 7.43333 0.666667 7.19333 0.666667 6.95333C0.666667 6.42667 1.09333 6 1.62 6H3C4.17333 6 5.14667 5.13333 5.30667 4H0.666667C0.3 4 0 3.7 0 3.33333C0 2.96667 0.3 2.66667 0.666667 2.66667H5.10667C4.73333 1.88 3.93333 1.33333 3 1.33333H0.666667C0.3 1.33333 0 1.03333 0 0.666667C0 0.3 0.3 0 0.666667 0H7.33333C7.7 0 8 0.3 8 0.666667C8 1.03333 7.7 1.33333 7.33333 1.33333H5.82667C6.14667 1.72 6.38667 2.17333 6.52667 2.66667H7.33333C7.7 2.66667 8 2.96667 8 3.33333C8 3.7 7.7 4 7.33333 4H6.65333C6.48 5.86667 4.90667 7.33333 3 7.33333Z"
-                  fill="black"
-                />
-              </svg> 
-            </div>
-            <div
-              style={{
-                left: 0,
-                top: 0,
-                position: "absolute",
-                color: "black",
-                fontSize: 16,
-                fontFamily: "Montserrat",
-                fontWeight: "400",
-                wordWrap: "break-word",
-              }}
-            >
-              Cash Bal:{" "}
-            </div>
-            <div
-              style={{
-                left: 80,
-                top: 0,
-                position: "absolute",
-                color: "black",
-                fontSize: 16,
-                fontFamily: "Montserrat",
-                fontWeight: "400",
-                wordWrap: "break-word",
-              
-                
-              }}
-            >
-
-              {userData?.balance.toFixed(2)||reducerState?.logIn?.loginData?.data?.data?.balance.toFixed(2)}
-              
-              
-
+          <div className="balance-container">
+            <div className="balanceBox">
+              <p>Cash Bal: <CurrencyRupeeIcon /> {userData?.balance.toFixed(2) || reducerState?.logIn?.loginData?.data?.data?.balance.toFixed(2)}</p>
             </div>
           </div>
-          <div
-            style={{
-              color: "black",
-              fontSize: 16,
-              fontFamily: "Montserrat",
-              fontWeight: "400",
-              wordWrap: "break-word",
-              marginLeft:"30px"
-            }}
-          >
-            |
-          </div>
-          <div
-            onClick={handleOpenModal}
-            style={{
-              cursor: "pointer",
-              color: "black",
-              fontSize: 16,
-              fontFamily: "Montserrat",
-              fontWeight: "400",
-              // marginLeft:"20px",
-              wordWrap: "break-word",
-            }}
-          >
-            Recharge
-          </div>
-          <div
-            style={{
-              color: "black",
-              fontSize: 16,
-              fontFamily: "Montserrat",
-              fontWeight: "400",
-              wordWrap: "break-word",
-              
-            }}
-          >
-            |
-          </div>
+          <div className="seperator">|</div>
+          <div onClick={handleOpenModal} className="rechargeBox">Recharge</div>
+          <div className="seperator">|</div>
 
-          <div
-            style={{
-              justifyContent: "flex-start",
-              alignItems: "flex-start",
-              gap: 4,
-              display: "flex",
-            }}
-          >
+          <div className="profileBox">
             <div
-              style={{
-                color: "black",
-                fontSize: 16,
-                fontFamily: "Montserrat",
-                fontWeight: "400",
-                wordWrap: "break-word",
-              }}
-            >
-              {" "}
-              {reducerState?.logIn?.loginData?.data?.data?.username}
+              className="profileName">
+              {" "}{reducerState?.logIn?.loginData?.data?.data?.username}
             </div>
-            <div
-              style={{
-                width: 20,
-                height: 20,
-                position: "relative",
-                opacity: 0.8,
-              }}
-            >
+            <div className="profileIcon">
               <div
-                style={{
-                  width: 17.5,
-                  height: 17.5,
-                  left: 1.25,
-                  top: -5,
-                  position: "absolute",
-                }}
+                className="profileMenu"
                 onClick={handleClick}
                 id="menu"
                 aria-controls={open ? "menu" : undefined}
@@ -441,33 +273,12 @@ function Headers() {
                 aria-expanded={open ? "true" : undefined}
                 cursor="pointer"
               >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="21"
-                  height="20"
-                  viewBox="0 0 21 20"
-                  fill="none"
-                >
-                  <g opacity="0.8">
-                    <path
-                      d="M10.333 5C9.71494 5 9.11076 5.18328 8.59685 5.52666C8.08295 5.87004 7.68241 6.3581 7.44589 6.92911C7.20936 7.50013 7.14748 8.12847 7.26806 8.73466C7.38863 9.34085 7.68626 9.89767 8.1233 10.3347C8.56034 10.7717 9.11716 11.0694 9.72335 11.19C10.3295 11.3105 10.9579 11.2486 11.5289 11.0121C12.0999 10.7756 12.588 10.3751 12.9314 9.86116C13.2747 9.34725 13.458 8.74307 13.458 8.125C13.458 7.2962 13.1288 6.50134 12.5427 5.91529C11.9567 5.32924 11.1618 5 10.333 5Z"
-                      fill="black"
-                    />
-                    <path
-                      d="M10.333 1.25C8.60243 1.25 6.9107 1.76318 5.47177 2.72464C4.03284 3.6861 2.91133 5.05267 2.24907 6.65152C1.5868 8.25037 1.41352 10.0097 1.75114 11.707C2.08876 13.4044 2.92212 14.9635 4.14583 16.1872C5.36954 17.4109 6.92864 18.2442 8.62597 18.5819C10.3233 18.9195 12.0826 18.7462 13.6815 18.0839C15.2803 17.4217 16.6469 16.3002 17.6084 14.8612C18.5698 13.4223 19.083 11.7306 19.083 10C19.0804 7.68017 18.1576 5.45611 16.5173 3.81574C14.8769 2.17537 12.6528 1.25265 10.333 1.25ZM15.328 15.5788C15.3156 14.759 14.9815 13.9769 14.398 13.401C13.8144 12.8251 13.0279 12.5015 12.208 12.5H8.45801C7.63813 12.5015 6.85166 12.8251 6.26807 13.401C5.68447 13.9769 5.35047 14.759 5.33801 15.5788C4.20461 14.5667 3.40534 13.2343 3.04603 11.7579C2.68672 10.2815 2.78432 8.73084 3.32591 7.31116C3.8675 5.89148 4.82752 4.66979 6.07887 3.80785C7.33021 2.94592 8.81385 2.48439 10.3333 2.48439C11.8528 2.48439 13.3364 2.94592 14.5878 3.80785C15.8391 4.66979 16.7992 5.89148 17.3407 7.31116C17.8823 8.73084 17.9799 10.2815 17.6206 11.7579C17.2613 13.2343 16.4614 14.5667 15.328 15.5788Z"
-                      fill="black"
-                    />
-                  </g>
-                </svg>
+                <AccountCircleIcon />
               </div>
             </div>
           </div>
 
-          <div
-            style={{
-              marginLeft: "-25px",
-            }}
-          >
+          <div>
             <Menu
               id="menu"
               MenuListProps={{
@@ -483,9 +294,9 @@ function Headers() {
                   ? "Logout"
                   : "Login"}
               </MenuItem>
-              {/* <MenuItem onClick={editPackage} style={{ fontSize: "15px" }}>
+              <MenuItem onClick={editPackage} style={{ fontSize: "15px" }}>
                 My Package
-              </MenuItem> */}
+              </MenuItem>
             </Menu>
           </div>
         </div>

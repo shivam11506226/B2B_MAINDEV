@@ -5,6 +5,10 @@ import { Box, Flex, Spacer, Text } from "@chakra-ui/react";
 import "./hotelbooknow.css";
 import { Divider, Grid, Typography } from "@mui/material";
 import bed from "../../../Images/bed.png";
+import availableRooms from "../../../Images/Hotel/availableRooms.png"
+import hotelMap from "../../../Images/Hotel/hotelMap.png"
+import hotelDetails from "../../../Images/Hotel/hotelDetails.png"
+import imageGallery from "../../../Images/Hotel/imageGallery.png"
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import Input from "@mui/material/Input";
 import InputLabel from "@mui/material/InputLabel";
@@ -91,7 +95,20 @@ const HotelBooknow = () => {
     return stars;
   };
   const hotelContactNo = hotelInfo?.HotelDetails?.HotelContactNo;
+  const result =
+    reducerState?.hotelSearchResult?.ticketData?.data?.data?.HotelSearchResult;
 
+  let totalAdults = 0;
+  let totalChildren = 0;
+
+  result?.RoomGuests?.forEach((room) => {
+    totalAdults += room?.NoOfAdults || 0;
+    totalChildren += room?.NoOfChild || 0;
+  });
+
+  const storedFormData = JSON.parse(sessionStorage.getItem('hotelFormData'));
+  const data = storedFormData.dynamicFormData[0];
+  console.log(storedFormData)
   return (
     <>
       {loader ? (
@@ -100,227 +117,54 @@ const HotelBooknow = () => {
         <div className="flightContainer">
           {/* step by step updating part */}
 
-          {/* <Flex
-            w="100%"
-            h="50"
-            mb="20"
-            borderRadius="20px"
-            m="auto"
-            className="shadow-sm p-3 mb-5 bg-white rounded "
-          >
-            <Flex w="19%" h="90%">
-              <Box
-                w="25px"
-                h="25"
-                borderRadius="50%"
-                bg="#1DBCF0"
-                color="white"
-              >
-                <Text ml="6px">1</Text>
-              </Box>
-              <Text ml="10" fontWeight="bold">
-                Hotel Search
-              </Text>
-            </Flex>
-            <Spacer />
-            <Flex w="19%" h="90%">
-              <Box
-                w="25px"
-                h="25"
-                borderRadius="50%"
-                bg="#1DBCF0"
-                color="white"
-              >
-                <Text ml="6px">2</Text>
-              </Box>
-              <Text ml="10" fontWeight="bold">
-                Hotel Result
-              </Text>
-            </Flex>
-            <Spacer />
+          <div className="container">
+            <div className="row">
+              <div className="col-lg-12 col-md-12 col-sm-12 mb-3">
+                <div className="hotelBookNowOuter">
+                  <div className="hotelBookNowHeader">
+                    <p>Your Search criteria:{storedFormData?.city},{' '} India</p>
+                    <p>Duration: {storedFormData?.night}{' '}Nights</p>
+                    <p>{storedFormData?.checkIn}- {storedFormData?.checkOut}</p>
+                    <p>Guest(s): {totalAdults}Adult(s) </p>
+                    <p>Room(s): {storedFormData.room}</p>
 
-            <Flex w="19%" h="90%">
-              <Box
-                w="25px"
-                h="25"
-                borderRadius="50%"
-                bg="#1DBCF0"
-                color="white"
-              >
-                <Text ml="6px">3</Text>
-              </Box>
-              <Text ml="10" fontWeight="bold">
-                Guest Details
-              </Text>
-            </Flex>
-            <Spacer />
-            <Flex w="19%" h="90%">
-              <Box
-                w="25px"
-                h="25"
-                borderRadius="50%"
-                bg="#1DBCF0"
-                color="white"
-              >
-                <Text ml="6px">4</Text>
-              </Box>
-              <Text ml="10" fontWeight="bold">
-                Review Booking
-              </Text>
-            </Flex>
-            <Spacer />
-            <Flex w="19%" h="90%">
-              <Box
-                w="25px"
-                h="25"
-                borderRadius="50%"
-                bg="#1DBCF0"
-                color="white"
-              >
-                <Text ml="6px">5</Text>
-              </Box>
-              <Text ml="10" fontWeight="bold">
-                Booking Confirmation
-              </Text>
-            </Flex>
-          </Flex> */}
-          {/* <Box className="book_content" py={2}>
-            <Box>
-              <Box alignItems="center">
-                <Typography className="main-txt">
-                  {hotelInfo?.HotelDetails?.HotelName}
-                </Typography>
-              </Box>
-              <Box alignItems="center" display="flex" justifyContent="center">
-                {star(hotelInfo?.HotelDetails?.StarRating)}
-              </Box>
-              <Box>
-                <Typography className="check-txt">
-                  <Typography
-                    className="check-txt"
-                    color="#006FFF !important"
-                    pr={1}
-                  >
-                    {" "}
-                    Check In:{" "}
-                  </Typography>{" "}
-                  {
-                    reducerState?.hotelSearchResult?.ticketData?.data?.data
-                      ?.HotelSearchResult?.CheckInDate
-                  }
-                  <Typography
-                    className="check-txt"
-                    px={1}
-                    color="#006FFF !important"
-                  >
-                    Check Out:
-                  </Typography>{" "}
-                  {
-                    reducerState?.hotelSearchResult?.ticketData?.data?.data
-                      ?.HotelSearchResult?.CheckOutDate
-                  }
-                </Typography>
-              </Box>
-              <Box>
-                <Typography className="third-txt">
-                  {hotelInfo?.HotelDetails?.Address}
-                </Typography>
-              </Box>
-              <Box>
-                <Typography className="third-txt">
-                  Contact No.:
-                  <Typography
-                    className="third-txt"
-                    color="#006FFF !important"
-                    fontWeight="bold"
-                    px={1}
-                  >
-                    {" "}
-                    {hotelInfo?.HotelDetails?.HotelContactNo}
-                  </Typography>
-                </Typography>
-              </Box>
-            </Box>
-          </Box> */}
-      <Box
-      className="book_content"
-      display="flex"
-      alignItems="center"
-      borderRadius={8}
-      bgcolor="#FFF"
-      p={10}
-      boxShadow="0px 4px 8px 0px rgba(0, 0, 0, 0.16)"
-     
-      
-    >
-      <Typography className="main-txt" color="#21325D" >
-        {hotelInfo?.HotelDetails?.HotelName}
-      </Typography>
-      <Box display="flex" alignItems="center" style={{marginLeft:"5px"}}>
-        {star(hotelInfo?.HotelDetails?.StarRating)}
-      </Box>
-
-      <Typography
-        className="check-txt"
-        variant="subtitle1"
-        color="textSecondary"
-        display="flex"
-        alignItems="center"
-        
-       
-      >
-        <span
-          style={{
-            color: "#21325D",
-            fontSize: "16px",
-            fontFamily: "Montserrat",
-            fontWeight: 600,
-             whiteSpace: 'nowrap',
-             marginLeft:"5px"
-          }}
-        >
-          Check In:
-        </span>{" "}
-        {
-          reducerState?.hotelSearchResult?.ticketData?.data?.data?.HotelSearchResult?.CheckInDate
-        }
-        <span
-          style={{
-            color: "#21325D",
-            fontSize: "16px",
-            fontFamily: "Montserrat",
-            fontWeight: 600,
-            whiteSpace: 'nowrap',
-            marginLeft:"5px"
-          }}
-        >
-          Check Out:
-        </span>{" "}
-        {
-          reducerState?.hotelSearchResult?.ticketData?.data?.data?.HotelSearchResult?.CheckOutDate
-        }
-      </Typography>
-      <Typography className="third-txt" variant="body1" color="textPrimary" marginLeft="10px">
-        {hotelInfo?.HotelDetails?.Address}
-      </Typography>
-      <Typography
-        variant="body1"
-        color="textPrimary"
-        display="flex"
-        alignItems="center"
-        marginLeft="6px"
-     
-      >
-        Contact No:{" "}
-        <span style={{ color: "#006FFF", fontWeight: "bold" }}>
-          {hotelContactNo ? hotelContactNo :(
-            <span style={{ color: "red", fontWeight: "bold" }}>
-              not available hotel contact no
-            </span>
-          )}
-        </span>
-      </Typography>
-    </Box>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="row">
+              <div className="col-lg-12 col-md-12 col-sm-12 mb-0">
+                <div className="availabilityOuter">
+                  <div className="availabilityInner">
+                    <div>
+                      <div>
+                        <p>Available Room(s)</p>
+                        <img src={availableRooms} alt="logo" />
+                      </div>
+                    </div>
+                    <div>
+                      <div>
+                        <p>Image Gallery</p>
+                        <img src={imageGallery} alt="logo" />
+                      </div>
+                    </div>
+                    <div>
+                      <div>
+                        <p>Hotel Details</p>
+                        <img src={hotelDetails} alt="logo" />
+                      </div>
+                    </div>
+                    <div>
+                      <div>
+                        <p>Hotel Map</p>
+                        <img src={hotelMap} alt="logo" />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
 
 
           <Box className="book_content" mt={3}>

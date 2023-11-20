@@ -1,6 +1,6 @@
 import { Typography } from "@material-ui/core";
 import { Grid, Box, TextField } from "@mui/material";
-import React, { useEffect, useState, useRef  } from "react";
+import React, { useEffect, useState, useRef } from "react";
 // import { Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 // import PinDropIcon from "@mui/icons-material/PinDrop";
@@ -36,8 +36,8 @@ const HolidayForm = () => {
     if (filteredPackage) {
       navigate("HolidaypackageResult");
     }
-  }, [filteredPackage,navigate]);
-    const clickUs = () => {
+  }, [filteredPackage, navigate]);
+  const clickUs = () => {
     // Validate the form before submission
     const isValid = validateForm();
 
@@ -48,7 +48,8 @@ const HolidayForm = () => {
       };
       console.log(payload);
       dispatch(searchPackageAction(payload));
-    }else {
+      sessionStorage.setItem("searchPackageData", JSON.stringify(payload));
+    } else {
       // Focus on the first empty field
       if (!destination.trim()) {
         destinationInputRef.current.focus();
@@ -77,7 +78,7 @@ const HolidayForm = () => {
 
     return valid;
   };
-  
+
   const handleDestinationChange = (e) => {
     setError({ ...error, destination: "" }); // Clear the error when the user types in the destination field
     setDestination(e.target.value);
@@ -87,64 +88,50 @@ const HolidayForm = () => {
     setError({ ...error, daysSearch: "" }); // Clear the error when the user types in the days field
     setDaySearch(e.target.value);
   };
- 
+
 
   return (
     <React.Fragment>
-      <>
-        <Grid
-          item
-          md={6}
-          sm={12}
-          xs={12}
-          display="flex"
-        
-         height="300px"
-         padding="30px"
-         justifyContent="center"
-        
-          
-        >
-          <Box>
-          <TextField
-            className="search__Input"
-            id="filled-basic"
-            label="Search From Destination"
-           
-            name="destination"
-            onChange={handleDestinationChange}
-            inputRef={destinationInputRef}
-          />
-           {error.destination && (
-            <Typography color="error">{error.destination}</Typography>
-          )}
-          </Box>
-          <Box>
-          <TextField
-            className="search__Input"
-            id="filled-basic"
-            label="Days"
-           
-            name="days"
-            type="number"
-            onChange={handleDaysSearchChange}
-            inputRef={daysSearchInputRef}
-            required
-          />
-           {error.daysSearch && (
-            <Typography color="error">{error.daysSearch}</Typography>
-          )}
-          </Box>
-          <button
-            className="holiday_submit"
-            onClick={clickUs}
-            variant="contained"
-            style={{backgroundColor:color.bluedark}}
-          >
-            Search Holiday Package
-          </button>
-        </Grid>
-      </>
+      <div className="packageFirstPage">
+        <div className="container">
+          <div className="row">
+            <div className="col-lg-6">
+              <div className="holidayFirstPage">
+
+                <div class="form-floating mb-3">
+                  <input type="text" name="destination" placeholder="Search From Destination" class="form-control" id="filled-basic" onChange={handleDestinationChange} required />
+                  <label for="floatingInput">Search From Destination</label>
+                </div>
+                {error.destination && (
+                  <Typography color="error">{error.destination}</Typography>
+                )}
+              </div>
+            </div>
+            <div className="col-lg-6">
+              <div class="form-floating mb-3">
+                <input type="number" name="destination" placeholder="Days" class="form-control" id="filled-basic" onChange={handleDaysSearchChange} required />
+                <label for="floatingInput">Days</label>
+              </div>
+              {error.daysSearch && (
+                <Typography color="error">{error.daysSearch}</Typography>
+              )}
+            </div>
+
+            <div className="buttonBoxHoliday">
+              <button
+                className="holiday_submit"
+                onClick={clickUs}
+                variant="contained"
+                style={{ backgroundColor: color.bluedark }}
+              >
+                Search Holiday Package
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
     </React.Fragment>
   );
 };

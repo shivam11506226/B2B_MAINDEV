@@ -1,0 +1,22 @@
+.btn {
+    box-shadow: none !important;
+    padding: 5px 60px;
+    background: #FFFBFB;
+}
+
+.btn:hover {
+
+    background-color: #21325D;
+    color: white;
+}
+
+@media screen and (min-width: 600px) and (max-width: 850px) {
+    .css-heg063-MuiTabs-flexContainer {
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: -ms-flexbox;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+}

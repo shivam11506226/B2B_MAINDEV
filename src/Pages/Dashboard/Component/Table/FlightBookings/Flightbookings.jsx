@@ -67,7 +67,6 @@ const AllFlightBooking = () => {
             <th>Phone Number</th>
             <th>Flight Name</th>
             <th>PaymentStatus</th>
-            <th>Transaction Id</th>
             <th>City </th>
             <th>Country </th>
             <th>Gender</th>
@@ -88,7 +87,6 @@ const AllFlightBooking = () => {
               </td>
               <td>{booking.flightName}</td>
               <td>{booking.paymentStatus}</td>
-              <td>{booking.transactionId}</td>
               <td>{booking.city}</td>
               <td>{booking.country}</td>
               <td>{booking.gender}</td>

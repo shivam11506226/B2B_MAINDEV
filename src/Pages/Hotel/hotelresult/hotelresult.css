@@ -7,8 +7,12 @@
 }
 
 .btn_mod {
-  background: #006fff 0% 0% no-repeat padding-box !important;
+  /* background: #006fff 0% 0% no-repeat padding-box !important;
   box-shadow: 0px 3px 6px #00000029 !important;
+  border-radius: 10px !important; */
+  background-color: #21325D !important;
+  color: white !important;
+  font-weight: 700 !important;
   border-radius: 10px !important;
 }
 
@@ -26,4 +30,81 @@
   letter-spacing: 0px !important;
   color: #252525 !important;
   opacity: 1;
+}
+
+
+
+.filterBox {
+  display: flex;
+  width: 100%;
+  padding: 10px;
+  justify-content: flex-start;
+  align-items: center;
+  border-radius: 4px;
+  border: 1px solid #5C85A4;
+  gap: 20px;
+  color: #21325D;
+  background-color: #f1f1f1;
+
+}
+
+.filterBox p {
+  color: #000;
+
+  font-family: Montserrat;
+  font-size: 15px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  margin-bottom: 0 !important;
+}
+
+.filterBox label {
+  color: #21325D;
+
+  font-family: Montserrat;
+  font-size: 15px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}
+
+.filterBox select {
+  padding: 4px !important;
+}
+
+
+.book-btn {
+  background-color: #21325D;
+  color: white;
+  padding: 8px 12px;
+}
+
+
+
+.hotelResultBox {
+  padding: 10px;
+  border-radius: 10px;
+  background: white;
+  box-shadow: 0px 0px 24px -11px;
+  margin-top: 24px;
+}
+
+/* .outerFilterBox {
+  padding: 10px;
+  border-radius: 10px;
+  background: white;
+  box-shadow: 0px 0px 24px -11px;
+} */
+
+.ModifySearch {
+  padding: 10px;
+  border-radius: 10px;
+  background: white;
+  box-shadow: 0px 0px 24px -11px;
+}
+
+
+.searchDestination b {
+  text-transform: capitalize;
 }
