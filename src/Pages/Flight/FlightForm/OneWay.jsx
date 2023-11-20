@@ -130,6 +130,8 @@ const OneWay = () => {
   // Get the current date in the format "YYYY-MM-DD"
   useEffect(() => {
     const currentDate = new Date().toISOString().split('T')[0];
+    const today = new Date().toISOString().split('T')[0];
+    inputRef.current.value = today;
     inputRef.current.min = currentDate;
   }, []);
 
@@ -474,73 +476,66 @@ const OneWay = () => {
         </div> */}
 
           <div className="row">
-            <div className="col-xs-12 col-md-12 ps-0">
-              <div className="row">
-                <div className=" col-md-3 col-lg-3 col-sm-12 col-12 mb-3 ps-0">
-                  <div className="form_input">
-                    <label className="form_lable">Adult(12+ Yrs)</label>
-                    <select name="adult" id="" className="form_input_select">
-                      <option value="1">1</option>
-                      <option value="2">2</option>
-                      <option value="3">3</option>
-                      <option value="4">4</option>
-                      <option value="5">5</option>
-                      <option value="6">6</option>
-                      <option value="7">7</option>
-                      <option value="8">8</option>
-                      <option value="9">9</option>
-                    </select>
-                  </div>
-                </div>
-
-                <div className=" col-md-3 col-lg-3 col-sm-12 col-12 mb-3 ps-0">
-                  <div className="form_input">
-                    <label className="form_lable">Child(2-12 Yrs)</label>
-                    <select name="child" id="" className="form_input_select">
-                      <option value="0">0</option>
-                      <option value="1">1</option>
-                      <option value="2">2</option>
-                      <option value="3">3</option>
-                      <option value="4">4</option>
-                      <option value="5">5</option>
-                      <option value="6">6</option>
-                      <option value="7">7</option>
-                      <option value="8">8</option>
-                    </select>
-                  </div>
-                </div>
-                <div className=" col-md-3 col-lg-3 col-sm-12 col-12 mb-3 ps-0" >
-                  <div className="form_input">
-                    <label className="form_lable">Infant(Under 2 Yrs)</label>
-                    <select name="infant" id="" className="form_input_select">
-                      <option value="0">0</option>
-                      <option value="1">1</option>
-                      <option value="2">2</option>
-                      <option value="3">3</option>
-                      <option value="4">4</option>
-                      <option value="5">5</option>
-                      <option value="6">6</option>
-                      <option value="7">7</option>
-                      <option value="8">8</option>
-                    </select>
-                  </div>
-                </div>
-
-                <div className=" col-md-3 col-lg-3 col-sm-12 col-12 mb-3 ps-0">
-                  <div className="form_input">
-                    <label className="form_lable">Class</label>
-                    <select name="class" id="" className="form_input_select">
-                      <option value="1">All</option>
-                      <option value="2">Ecomomy</option>
-                      <option value="3">Premimum Economy</option>
-                      <option value="4">Business</option>
-                      <option value="5">Premimum Business</option>
-                      <option value="6">First</option>
-                    </select>
-                  </div>
-                </div>
+            {/* <div className="col-xs-12 col-md-12 ps-0">
+              <div className="row"> */}
+            <div className=" col-md-3 col-lg-3 col-sm-12 col-12 mb-3 ps-0">
+              <div className="form_input">
+                <label className="form_lable">Adult(12+ Yrs)</label>
+                <select name="adult" id="" className="form_input_select">
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                  <option value="6">6</option>
+                  <option value="7">7</option>
+                  <option value="8">8</option>
+                  <option value="9">9</option>
+                </select>
               </div>
             </div>
+
+            <div className=" col-md-3 col-lg-3 col-sm-12 col-12 mb-3 ps-0">
+              <div className="form_input">
+                <label className="form_lable">Child(2-12 Yrs)</label>
+                <select name="child" id="" className="form_input_select">
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                  <option value="6">6</option>
+                  <option value="7">7</option>
+                  <option value="8">8</option>
+                </select>
+              </div>
+            </div>
+            <div className=" col-md-3 col-lg-3 col-sm-12 col-12 mb-3 ps-0" >
+              <div className="form_input">
+                <label className="form_lable">Infant({'<'} 2 Yrs)</label>
+                <select name="infant" id="" className="form_input_select">
+                  <option value="0">0</option>
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+
+                </select>
+              </div>
+            </div>
+
+            <div className=" col-md-3 col-lg-3 col-sm-12 col-12 mb-3 ps-0">
+              <div className="form_input">
+                <label className="form_lable">Class</label>
+                <select name="class" id="" className="form_input_select">
+                  {/* <option value="1">All</option> */}
+                  <option value="2">Ecomomy</option>
+                  <option value="3">Premimum Economy</option>
+                  <option value="4">Business</option>
+                  <option value="5">Premimum Business</option>
+                  <option value="6">First</option>
+                </select>
+              </div>
+            </div>
+            {/* </div>
+            </div> */}
             <div className="col-xs-12">
 
               <div className="row bottom-row">
