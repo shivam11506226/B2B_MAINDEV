@@ -63,6 +63,7 @@ import { createPackageAction } from "../../../Redux/CreatePackage/actionCreatePa
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import Accordion from "react-bootstrap/Accordion";
 import { GrAddCircle } from "react-icons/gr";
+import Swal from 'sweetalert2';
 
 const label = { inputProps: { "aria-label": "Checkbox demo" } };
 
@@ -201,10 +202,9 @@ const CreateHolidayPackage = () => {
     },
     input: {
       color: "color.bluedark",
-      paddingLeft: "15px",
-      paddingRight: "15px",
+      padding: "7px",
       fontSize: "16px",
-      border: "color.bluedark",
+      border: "2px solid blue",
       borderRadius: "5px",
       width: "55px",
       textAlign: "center",
@@ -212,7 +212,7 @@ const CreateHolidayPackage = () => {
     button: {
       backgroundColor: color.bluedark,
       color: "#fff",
-      borderRadius: "5px",
+      borderRadius: "25px",
       marginLeft: "5px",
       marginRight: "5px",
     },
@@ -259,7 +259,7 @@ const CreateHolidayPackage = () => {
 
     const formData = new FormData(event.target);
     const payload = {
-      pakage_title: formData.get("pakage_title"),
+      pakage_title: formData.get("package_title"),
       destination: inputList,
       days: days,
       schedule: {
@@ -349,6 +349,19 @@ const CreateHolidayPackage = () => {
     formData1.append("data", JSON.stringify(payload));
     console.log(formData1);
     dispatch(createPackageAction(formData1));
+
+
+    Swal.fire({
+      icon: "success",
+      title: "Done.",
+      text: ` Your Package is created Sucessfully `,
+      showCancelButton: false,
+      confirmButtonText: "OK",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        navigate("/");
+      }
+    });
     // event.target.reset();
     // setDaysDetails([]);
     // setCheckedItem({
@@ -388,390 +401,208 @@ const CreateHolidayPackage = () => {
   };
 
   return (
-    <div
-      style={{
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        flexDirection: "column",
-        backgroundColor: "#FFFFFF",
-      }}
-    >
-      <Box
-        style={{
-          width: "895px",
-          height: "70px",
-          background: "#22344F",
-          borderRadius: "8px",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-      >
-        <Typography
-          style={{
-            fontSize: "18px",
+    <div className="container-fluid">
 
-            color: "white",
-            fontSize: 32,
-            fontFamily: "Montserrat",
-            fontWeight: "700",
-            wordWrap: "break-word",
-          }}
-        >
-          Create Holiday Package
-        </Typography>
-      </Box>
-      <Grid
-        container
-        direction="column"
-        justifyContent="center"
-        marginTop="30px"
-        alignItems="center"
-        border="none"
-        borderRadius="10px"
-        width="100%"
-      >
-        <form
-          onSubmit={handleCreatePackage}
-          style={
-            {
-              // backgroundColor: 'yellow', display: 'flex', flexDirection: "column", justifyContent: "center",
-              // alignItems: "center",width:"100%"
-            }
-          }
-        >
-          <Grid
-            item
-            xs={2}
-            md={8}
-            width="100%"
-            direction="column"
-            justifyContent="center"
-            alignItems="center"
-          >
-            <Box
-              sx={{
-                backgroundColor: "#DFE6F7",
-                marginBottom:"30px",
-                boxShadow: "0 2px 6px gray",
-                display: "flex",
-                justifyContent: "center",
-                flexDirection: "column",
-                width: "895px",
-                borderRadius: "10px",
-                padding: "0px 70px",
-              }}
-            >
-              <div
-              //  style={{ display: "flex", justifyContent: "space-between" }}
-              >
-                <div style={{ flex: 1, marginLeft: "10px", marginTop: "30px" }}>
-                  <Typography
-                    style={{
-                      fontSize: "20px",
-                      color: "#000",
+      {/* for heading text of packages */}
 
-                      fontFamily: "Montserrat",
-                    }}
-                  >
-                    {" "}
-                    Package Title <span style={{ color: "red" }}>*</span>
-                  </Typography>
+      <div className="row">
+        <div className="col-lg-12">
+          <div className="headerBoxOuter">
+            <div className="headerBox">
+              <p>Create a Holiday Package</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <div className="container">
+        <div className="row">
+          <div className="col-lg-12">
+            <form onSubmit={handleCreatePackage}>
+              <div className="createHolidayPackage">
+                <div class="mb-3">
+                  <label class="form-label">Package Title <span style={{ color: "red" }}>*</span></label>
+                  <div className="form-floating">
+                    <input type="text" name="package_title" class="form-control" placeholder="Enter Your Package Title" />
+                    <label for="floatingInput">Give a Name to this Package</label>
+                  </div>
+                </div>
+                <div class="mb-3">
+                  <label class="form-label">Upload a picture of the package{" "}<span style={{ color: "red" }}>*</span></label>
+                  <input type="file" accept="image/png, image/jpeg" name="user_card_document" id="user_card_document" class="form-control input_file" placeholder="Enter Your Package Title" />
+                </div>
+
+
+                <div className="mb-5">
+                  <label className="form-label">
+                    What destinations does this package cover? <span style={{ color: "red" }}>*</span>
+                  </label>
+
+                  {chipData.length > 0 && (
+                    <Paper
+                      sx={{
+                        display: "flex",
+                        justifyContent: "flex-start",
+                        flexWrap: "wrap",
+                        listStyle: "none",
+                        p: 1,
+                        m: 0,
+                        width: "100%",
+                        height: "100%",
+                      }}
+                      component="ul"
+                    >
+                      {chipData.map((data, index) => {
+                        let icon;
+                        return (
+                          <ListItem key={data.key} width="565px" height="50px">
+                            <Chip
+                              icon={icon}
+                              label={data.addMore}
+                              onDelete={handleDelete(data)}
+                              variant={index % 2 === 0 ? "outlined" : "filled"}
+                            />
+                          </ListItem>
+                        );
+                      })}
+                    </Paper>
+                  )}
+
+                  <div className="groupinpbut">
+                    <div className="form-floating">
+                      <input
+                        type="text"
+                        className="inputwithButton form-control"
+                        placeholder="Add Destination"
+                        value={input}
+                        onChange={(e) => setInput(e.target.value)}
+                        onKeyDown={(e) => {
+                          if (e.key === "Enter") {
+                            handleAddChip();
+                          }
+                        }}
+                      />
+                      <label className="flootting" for="floatingInput">Give a Name to this Package</label>
+
+                    </div>
+
+                    <Button
+                      onClick={handleAddChip}
+                      variant="contained"
+                      endIcon={<AddIcon />}
+                      style={{ backgroundColor: color.bluedark }}
+                      className="insideButton"
+                    >
+                      Add
+                    </Button>
+
+                  </div>
+                </div>
+
+
+                <div class="mb-3 pt-4 mt-5">
+                  <label class="form-label">How Many Days ?</label>
+                  <Box style={styles1.container}>
+                    <Button onClick={() => days === 0 ? setDays(0) : setDays(days - 1)} style={styles1.button}>
+                      <RemoveIcon style={{ fontSize: "16px" }} />
+                    </Button>
+                    <input
+                      style={styles1.input}
+                      type="number"
+                      value={days}
+                      onChange={(e) => setDays(Number(e.target.value))}
+                    />
+                    <Button
+                      onClick={() => setDays(days + 1)}
+                      style={styles1.button}
+                    >
+                      <AddIcon style={{ fontSize: "16px" }} />
+                    </Button>
+                  </Box>
+                </div>
+
+                <div class="mb-3">
+                  <label class="form-label">What is the schedule?{" "}<span style={{ color: "red" }}>*</span></label>
                   <Box
+                    display="flex"
+                    gap="15px"
+                    justifyContent='center'
+                    alignItems="center"
                     style={{
-                      // boxShadow: "0px 7px 11px rgba(0, 0, 0, 0.29)",
-                      paddingTop: "10px",
-                      paddingBottom: "10px",
-                      borderRadius: "px",
+                      paddingTop: "20px",
+                      paddingBottom: "20px",
+                      borderRadius: "4px",
                       padding: "5px",
                       border: "1px solid #5C85A4",
                       backgroundColor: "#FFFBFB",
-                      // Changed background color
-                      width: "100%", // Adjusted width to fill available space
+                      width: "400px",
+                      height: "80px",
                       marginTop: "10px",
+                      paddingLeft: "10px",
                     }}
                   >
-                    <input
-                      type="text"
-                      name="package_title"
-                      placeholder="Enter Your Package Title"
-                      style={{
-                        border: "none",
-                        textDecoration: "none",
-                        width: "100%",
-                        padding: "5px", // Added padding for input
-                        borderRadius: "5px", // Added border radius for input
-                      }}
-                    />
-                  </Box>
-                </div>
-
-                <div
-                  style={{
-                    flex: 1,
-                    marginLeft: "10px",
-                    //   marginRight: "20px"
-                  }}
-                >
-                  <Box>
-                    <Typography
-                      style={{
-                        fontSize: "20px",
-                        color: "#000",
-
-                        fontFamily: "Montserrat",
-                      }}
-                    >
-                      Upload a picture of the package{" "}
-                      <span style={{ color: "red" }}>*</span>
-                    </Typography>
-                    {/* <Typography style={{ fontSize: "10px", color: "#666666" }}>
-                      Please select from auto suggestions
-                    </Typography> */}
-                    <input
-                      style={{
-                        paddingTop: "10px",
-                        paddingBottom: "10px",
-                        borderRadius: "px",
-                        padding: "5px",
-                        border: "1px solid #5C85A4",
-                        backgroundColor: "#FFFBFB",
-                        color: "#000000",
-                        // Changed background color
-                        width: "100%", // Adjusted width to fill available space
-                        marginTop: "10px",
-                      }}
-                      name="user_card_document"
-                      id="user_card_document"
-                      className="input_file"
-                      type="file"
-                    />
-                  </Box>
-                </div>
-              </div>
-
-              <Box
-                style={{
-                  paddingTop: "10px",
-                  marginTop: "10px",
-                  marginLeft: "10px",
-                }}
-              >
-                <Typography
-                  style={{
-                    fontSize: "20px",
-                    color: "#000",
-
-                    fontFamily: "Montserrat",
-                  }}
-                >
-                  What destinations does this package cover?
-                  <span style={{ color: "red" }}>*</span>
-                </Typography>
-                {/* <Typography style={{ fontSize: "10px" }}>
-                  Please select from auto suggestions
-                </Typography> */}
-                {/* <Typography style={{ fontSize: "14px", paddingTop: "3px" }}>
-                  Destinations..
-                </Typography> */}
-                <Paper
-                  sx={{
-                    display: "flex",
-                    justifyContent: "flex-start",
-                    flexWrap: "wrap",
-                    listStyle: "none",
-                    p: 1,
-                    m: 0,
-                    width: "100%",
-                    height: "45px",
-                    border: "1px solid #5C85A4",
-                  }}
-                  component="ul"
-                >
-                  {chipData.map((data, index) => {
-                    let icon;
-                    return (
-                      <ListItem key={data.key} width="565px" height="50px">
-                        <Chip
-                          icon={icon}
-                          label={data.addMore}
-                          onDelete={handleDelete(data)}
-                          variant={index % 2 == 0 ? "outlined" : "filled"}
+                    <Box display="flex" alignItems="center" gap="5px">
+                      <Box className="radio">
+                        <input
+                          type="radio"
+                          name="schedule"
+                          id="schedule"
+                          value="fixed departure"
+                          width="32px"
                         />
-                      </ListItem>
-                    );
-                  })}
-                </Paper>
-                <div
-                  style={{
-                    display: "flex",
-                    paddingTop: "8px",
-                    gap: "5px",
-                  }}
-                >
-                  <input
-                    type="text"
-                    placeholder="Add Destination"
-                    value={input}
-                    onChange={(e) => setInput(e.target.value)}
-                    onKeyDown={(e) => {
-                      if (e.key === "Enter") {
-                        handleAddChip();
-                      }
-                    }}
-                    style={{
-                      padding: "3px",
-                      border: "1px solid #5C85A4",
-                      width: "90%",
-                      height: "45px",
-                    }}
-                  />
-                  <Button
-                    onClick={handleAddChip}
-                    variant="contained"
-                    endIcon={<AddIcon />}
-                    style={{ backgroundColor: color.bluedark }}
-                  >
-                    Add
-                  </Button>
-                </div>
-              </Box>
+                      </Box>
+                      <Box>
+                        <Typography
+                          style={{
+                            fontSize: "20px",
+                            color: "#000",
 
-              <Box my={3} style={{ marginLeft: "18px" }}>
-                <Typography
-                  style={{
-                    fontSize: "20px",
-                    color: "#000",
-
-                    fontFamily: "Montserrat",
-                  }}
-                >
-                  How Many Days?
-                </Typography>
-                <Box style={styles1.container}>
-                  <Button
-                    onClick={() =>
-                      days === 0 ? setDays(0) : setDays(days - 1)
-                    }
-                    style={styles1.button}
-                  >
-                    <RemoveIcon style={{ fontSize: "16px" }} />
-                  </Button>
-                  <input
-                    style={styles1.input}
-                    type="number"
-                    value={days}
-                    onChange={(e) => setDays(Number(e.target.value))}
-                  />
-                  <Button
-                    onClick={() => setDays(days + 1)}
-                    style={styles1.button}
-                  >
-                    <AddIcon style={{ fontSize: "16px" }} />
-                  </Button>
-                </Box>
-              </Box>
-
-              <Box my={1} style={{ marginLeft: "18px" }}>
-                <Typography
-                  style={{
-                    fontSize: "20px",
-                    color: "#000",
-
-                    fontFamily: "Montserrat",
-                  }}
-                >
-                  What is the schedule?<span style={{ color: "red" }}>*</span>
-                </Typography>
-                <Box
-                  display="flex"
-                  gap="15px"
-                  style={{
-                    // boxShadow: "0px 7px 11px rgba(0, 0, 0, 0.29)",
-                    paddingTop: "10px",
-                    paddingBottom: "10px",
-                    borderRadius: "4px",
-                    padding: "5px",
-                    border: "1px solid #5C85A4",
-                    backgroundColor: "#FFFBFB",
-                    // Changed background color
-                    width: "300px", // Adjusted width to fill available space
-                    marginTop: "10px",
-                    paddingLeft: "10px",
-                  }}
-                >
-                  <Box display="flex" alignItems="center" gap="5px">
-                    <Box className="radio">
-                      <input
-                        type="radio"
-                        name="schedule"
-                        id="schedule"
-                        value="fixed departure"
-                        width="32px"
-                      />
-                    </Box>
-                    <Box>
-                      <Typography
-                        style={{
-                          fontSize: "20px",
-                          color: "#000",
-
-                          fontFamily: "Montserrat",
-                        }}
-                      >
-                        Flexible
-                      </Typography>
-                      {/* <Typography
+                            fontFamily: "Montserrat",
+                          }}
+                        >
+                          Flexible
+                        </Typography>
+                        {/* <Typography
                         style={{ fontSize: "10px", color: "#666666" }}
                       >
                         can be booked anytime
                       </Typography> */}
+                      </Box>
                     </Box>
-                  </Box>
 
-                  <Box display="flex" alignItems="center" gap="5px">
-                    <Box className="radio">
-                      <input
-                        type="radio"
-                        name="schedule"
-                        id="schedule"
-                        value="flexible departure"
-                      />
-                    </Box>
-                    <Box>
-                      <Typography
-                        style={{
-                          fontSize: "20px",
-                          color: "#000",
+                    <Box display="flex" alignItems="center" gap="5px">
+                      <Box className="radio">
+                        <input
+                          type="radio"
+                          name="schedule"
+                          id="schedule"
+                          value="flexible departure"
+                        />
+                      </Box>
+                      <Box>
+                        <Typography
+                          style={{
+                            fontSize: "20px",
+                            color: "#000",
 
-                          fontFamily: "Montserrat",
-                        }}
-                      >
-                        Fixed Departure
-                      </Typography>
-                      {/* <Typography
+                            fontFamily: "Montserrat",
+                          }}
+                        >
+                          Fixed Departure
+                        </Typography>
+                        {/* <Typography
                         style={{ fontSize: "10px", color: "#666666" }}
                       >
                         Departure are scheduled
                       </Typography> */}
+                      </Box>
                     </Box>
                   </Box>
-                </Box>
-              </Box>
-              <Box my={1} style={{ marginLeft: "18px" }}>
-                <Typography
-                  style={{
-                    fontSize: "20px",
-                    color: "#000",
-
-                    fontFamily: "Montserrat",
-                  }}
-                >
-                  Set up package pricing<span style={{ color: "red" }}>*</span>
-                </Typography>
-                <Box display="flex" style={{ marginTop: "17px" }}>
-                  <Box ml={1}>
+                </div>
+                <div class="mb-3">
+                  <label class="form-label">Set up package price{" "}<span style={{ color: "red" }}>*</span></label>
+                  <div className="pricing">
                     <FormControl style={{ border: "1px sold black" }}>
                       <NativeSelect
                         style={{
@@ -792,1896 +623,1678 @@ const CreateHolidayPackage = () => {
                         >
                           INR
                         </option>
-                        {/* <option value={10}>INR</option>
-                        <option value={10}>INR</option>
-                        <option value={10}>INR</option> */}
                       </NativeSelect>
                     </FormControl>
-                  </Box>
-                  <Box display="flex" width="30" ml={1}>
-                    <input
-                      type="text"
-                      name="amount"
-                      placeholder="Amount"
-                      onChange={handleAmount}
-                      style={{
-                        paddingTop: "10px",
-                        paddingBottom: "10px",
-                        borderRadius: "4px",
-                        padding: "5px",
-                        border: "1px solid #5C85A4",
-                        backgroundColor: "#FFFBFB",
-                        // Changed background color
-                        // width: "565px",
-                        // Adjusted width to fill available space
-                        // marginTop: "10px",
-                        paddingLeft: "10px",
-                        textDecoration: "none",
-                      }}
-                    />
-                    <span
-                      style={{
-                        fontSize: "20px",
-                        color: "#000",
+                    <Box display="flex" ml={1}>
+                      <input
+                        type="text"
+                        name="amount"
+                        placeholder="Amount"
+                        onChange={handleAmount}
+                        class="form-control"
+                      />
+                    </Box>
+                    <label class="form-label">Per Person</label>
+                  </div>
+                </div>
 
-                        fontFamily: "Montserrat",
-                        display: "block",
-                        alignSelf: "center",
-                        paddingLeft: "8px",
-                      }}
-                    >
-                      Per Person
-                    </span>
-                  </Box>
+                <Box style={{ fontSize: "16px", }}>
+                  <Typography
+                    style={{
+                      color: "#5C85A4",
+
+                      fontFamily: "Montserrat",
+                      fontsize: "24px",
+                      fontStyle: "normal",
+                      fontWeight: "600",
+                      lineHeight: "normal",
+                    }}
+                  >
+                    Select ( + ) for inclusion / ( - ) for exclusions / leave
+                    unselected for Not Applicable
+                  </Typography>
+
+                  <label class="form-label">Inclusions / Exclusions{" "}<span style={{ color: "red" }}>*</span></label>
                 </Box>
-              </Box>
-
-              <Box style={{ fontSize: "16px", marginLeft: "20px" }}>
-                <Typography
-                  style={{
-                    color: "#5C85A4",
-
-                    fontFamily: "Montserrat",
-                    fontsize: "24px",
-                    fontStyle: "normal",
-                    fontWeight: "600",
-                    lineHeight: "normal",
-                  }}
-                >
-                  Select ( ) for inclusion / ( ) for exclusions / leave
-                  unselected for Not Applicable
-                </Typography>
-                <Typography
-                  style={{
-                    marginTop: "20px",
-                    color: "#000",
-                    fontFamily: "Montserrat",
-                    fontSize: "24px",
-                    fontStyle: "normal",
-                    fontWeight: "600",
-                    lineHeight: "normal",
-                  }}
-                >
-                  Inclusions / Exclusions<span style={{ color: "red" }}>*</span>
-                </Typography>
-              </Box>
-              <Grid container spacing={10}>
-                <Grid item lg={5} mt={3}>
-                  <Box style={{ marginLeft: "20px" }}>
-                    <Box
-                      display="flex"
-                      justifyContent="space-between"
-                      alignItems="center"
-                    >
+                <Grid container>
+                  <Grid item lg={5} md={5} sm={12} mt={3}>
+                    <Box>
                       <Box
                         display="flex"
-                        textAlign="center"
-                        gap="10px"
+                        justifyContent="space-between"
                         alignItems="center"
                       >
-                        <CommitIcon />
-                        <Typography
-                          sx={{
-                            fontSize: "14px",
-                            color: "#252525",
-                            fontWeight: "bold",
-                          }}
+                        <Box
+                          display="flex"
+                          textAlign="center"
+                          gap="10px"
+                          alignItems="center"
                         >
-                          Flexibility
-                        </Typography>
+                          <CommitIcon />
+                          <Typography
+                            sx={{
+                              fontSize: "14px",
+                              color: "#252525",
+                              fontWeight: "bold",
+                            }}
+                          >
+                            Flexibility
+                          </Typography>
+                        </Box>
+                        <Box display="flex" gap="10px">
+                          <Checkbox
+                            value="true"
+                            name="flexibility"
+                            onChange={handleChange}
+                            checked={checkedItem.flexibility === "true"}
+                            {...label}
+                            icon={<CheckCircleOutlineIcon />}
+                            checkedIcon={<CheckCircleIcon />}
+                          />
+                          <Checkbox
+                            {...label}
+                            value="false"
+                            name="flexibility"
+                            checked={checkedItem.flexibility === "false"}
+                            onChange={handleChange}
+                            icon={<HighlightOffIcon />}
+                            checkedIcon={<CancelIcon />}
+                          />
+                        </Box>
                       </Box>
-                      <Box display="flex" gap="10px">
-                        <Checkbox
-                          value="true"
-                          name="flexibility"
-                          onChange={handleChange}
-                          checked={checkedItem.flexibility === "true"}
-                          {...label}
-                          icon={<CheckCircleOutlineIcon />}
-                          checkedIcon={<CheckCircleIcon />}
-                        />
-                        <Checkbox
-                          {...label}
-                          value="false"
-                          name="flexibility"
-                          checked={checkedItem.flexibility === "false"}
-                          onChange={handleChange}
-                          icon={<HighlightOffIcon />}
-                          checkedIcon={<CancelIcon />}
-                        />
+                      <Box
+                        display="flex"
+                        justifyContent="space-between"
+                        alignItems="center"
+                      >
+                        <Box display="flex" gap="10px">
+                          <TramIcon />
+                          <Typography
+                            sx={{
+                              fontSize: "14px",
+                              color: "#252525",
+                              fontWeight: "bold",
+                            }}
+                          >
+                            Train
+                          </Typography>
+                        </Box>
+                        <Box display="flex" gap="10px">
+                          <Checkbox
+                            value="true"
+                            name="train"
+                            onChange={handleChange}
+                            checked={checkedItem.train === "true"}
+                            {...label}
+                            icon={<CheckCircleOutlineIcon />}
+                            checkedIcon={<CheckCircleIcon />}
+                          />
+                          <Checkbox
+                            {...label}
+                            value="false"
+                            name="train"
+                            checked={checkedItem.train === "false"}
+                            onChange={handleChange}
+                            icon={<HighlightOffIcon />}
+                            checkedIcon={<CancelIcon />}
+                          />
+                        </Box>
+                      </Box>
+                      <Box
+                        display="flex"
+                        justifyContent="space-between"
+                        alignItems="center"
+                      >
+                        <Box display="flex" gap="10px">
+                          <DirectionsBusIcon />
+                          <Typography
+                            sx={{
+                              fontSize: "14px",
+                              color: "#252525",
+                              fontWeight: "bold",
+                            }}
+                          >
+                            Bus
+                          </Typography>
+                        </Box>
+                        <Box display="flex" gap="10px">
+                          <Checkbox
+                            value="true"
+                            name="bus"
+                            onChange={handleChange}
+                            checked={checkedItem.bus === "true"}
+                            {...label}
+                            icon={<CheckCircleOutlineIcon />}
+                            checkedIcon={<CheckCircleIcon />}
+                          />
+                          <Checkbox
+                            value="false"
+                            name="bus"
+                            onChange={handleChange}
+                            checked={checkedItem.bus === "false"}
+                            {...label}
+                            icon={<HighlightOffIcon />}
+                            checkedIcon={<CancelIcon />}
+                          />
+                        </Box>
+                      </Box>
+                      <Box
+                        display="flex"
+                        justifyContent="space-between"
+                        alignItems="center"
+                      >
+                        <Box display="flex" gap="10px">
+                          <DirectionsCarIcon />
+                          <Typography
+                            sx={{
+                              fontSize: "14px",
+                              color: "#252525",
+                              fontWeight: "bold",
+                            }}
+                          >
+                            Cab
+                          </Typography>
+                        </Box>
+                        <Box display="flex" gap="10px">
+                          <Checkbox
+                            value="true"
+                            name="cab"
+                            onChange={handleChange}
+                            checked={checkedItem.cab === "true"}
+                            {...label}
+                            icon={<CheckCircleOutlineIcon />}
+                            checkedIcon={<CheckCircleIcon />}
+                          />
+                          <Checkbox
+                            {...label}
+                            value="false"
+                            name="cab"
+                            checked={checkedItem.cab === "false"}
+                            onChange={handleChange}
+                            icon={<HighlightOffIcon />}
+                            checkedIcon={<CancelIcon />}
+                          />
+                        </Box>
+                      </Box>
+                      <Box
+                        display="flex"
+                        justifyContent="space-between"
+                        alignItems="center"
+                      >
+                        <Box display="flex" gap="10px">
+                          <TwoWheelerIcon />
+                          <Typography
+                            sx={{
+                              fontSize: "14px",
+                              color: "#252525",
+                              fontWeight: "bold",
+                            }}
+                          >
+                            Moterbike
+                          </Typography>
+                        </Box>
+                        <Box display="flex" gap="10px">
+                          <Checkbox
+                            value="true"
+                            name="moterBike"
+                            onChange={handleChange}
+                            checked={checkedItem.moterBike === "true"}
+                            {...label}
+                            icon={<CheckCircleOutlineIcon />}
+                            checkedIcon={<CheckCircleIcon />}
+                          />
+                          <Checkbox
+                            {...label}
+                            value="false"
+                            name="moterBike"
+                            checked={checkedItem.moterBike === "false"}
+                            onChange={handleChange}
+                            icon={<HighlightOffIcon />}
+                            checkedIcon={<CancelIcon />}
+                          />
+                        </Box>
+                      </Box>
+                      <Box
+                        display="flex"
+                        justifyContent="space-between"
+                        alignItems="center"
+                      >
+                        <Box display="flex" gap="10px">
+                          <ApartmentIcon />
+                          <Typography
+                            sx={{
+                              fontSize: "14px",
+                              color: "#252525",
+                              fontWeight: "bold",
+                            }}
+                          >
+                            Hotel
+                          </Typography>
+                        </Box>
+                        <Box display="flex" gap="10px">
+                          <Checkbox
+                            value="true"
+                            name="hotel"
+                            onChange={handleChange}
+                            checked={checkedItem.hotel === "true"}
+                            {...label}
+                            icon={<CheckCircleOutlineIcon />}
+                            checkedIcon={<CheckCircleIcon />}
+                          />
+                          <Checkbox
+                            {...label}
+                            value="false"
+                            name="hotel"
+                            checked={checkedItem.hotel === "false"}
+                            onChange={handleChange}
+                            icon={<HighlightOffIcon />}
+                            checkedIcon={<CancelIcon />}
+                          />
+                        </Box>
+                      </Box>
+                      <Box
+                        display="flex"
+                        justifyContent="space-between"
+                        alignItems="center"
+                      >
+                        <Box display="flex" gap="10px">
+                          <HolidayVillageIcon />
+                          <Typography
+                            sx={{
+                              fontSize: "14px",
+                              color: "#252525",
+                              fontWeight: "bold",
+                            }}
+                          >
+                            Homestays
+                          </Typography>
+                        </Box>
+                        <Box display="flex" gap="10px">
+                          <Checkbox
+                            value="true"
+                            name="homeStays"
+                            onChange={handleChange}
+                            checked={checkedItem.homeStays === "true"}
+                            {...label}
+                            icon={<CheckCircleOutlineIcon />}
+                            checkedIcon={<CheckCircleIcon />}
+                          />
+                          <Checkbox
+                            {...label}
+                            value="false"
+                            name="homeStays"
+                            checked={checkedItem.homeStays === "false"}
+                            onChange={handleChange}
+                            icon={<HighlightOffIcon />}
+                            checkedIcon={<CancelIcon />}
+                          />
+                        </Box>
+                      </Box>
+                      <Box
+                        display="flex"
+                        justifyContent="space-between"
+                        alignItems="center"
+                      >
+                        <Box display="flex" gap="10px">
+                          <LocationCityIcon />
+                          <Typography
+                            sx={{
+                              fontSize: "14px",
+                              color: "#252525",
+                              fontWeight: "bold",
+                            }}
+                          >
+                            Guesthouse
+                          </Typography>
+                        </Box>
+                        <Box display="flex" gap="10px">
+                          <Checkbox
+                            value="true"
+                            name="guestHouse"
+                            onChange={handleChange}
+                            checked={checkedItem.guestHouse === "true"}
+                            {...label}
+                            icon={<CheckCircleOutlineIcon />}
+                            checkedIcon={<CheckCircleIcon />}
+                          />
+                          <Checkbox
+                            {...label}
+                            value="false"
+                            name="guestHouse"
+                            checked={checkedItem.guestHouse === "false"}
+                            onChange={handleChange}
+                            icon={<HighlightOffIcon />}
+                            checkedIcon={<CancelIcon />}
+                          />
+                        </Box>
+                      </Box>
+                      <Box
+                        display="flex"
+                        justifyContent="space-between"
+                        alignItems="center"
+                      >
+                        <Box display="flex" gap="10px">
+                          <CabinIcon />
+                          <Typography
+                            sx={{
+                              fontSize: "14px",
+                              color: "#252525",
+                              fontWeight: "bold",
+                            }}
+                          >
+                            Camp
+                          </Typography>
+                        </Box>
+                        <Box display="flex" gap="10px">
+                          <Checkbox
+                            value="true"
+                            name="camp"
+                            onChange={handleChange}
+                            checked={checkedItem.camp === "true"}
+                            {...label}
+                            icon={<CheckCircleOutlineIcon />}
+                            checkedIcon={<CheckCircleIcon />}
+                          />
+                          <Checkbox
+                            {...label}
+                            value="false"
+                            name="camp"
+                            checked={checkedItem.camp === "false"}
+                            onChange={handleChange}
+                            icon={<HighlightOffIcon />}
+                            checkedIcon={<CancelIcon />}
+                          />
+                        </Box>
+                      </Box>
+                      <Box
+                        display="flex"
+                        justifyContent="space-between"
+                        alignItems="center"
+                      >
+                        <Box display="flex" gap="10px">
+                          <BlurOnIcon />
+                          <Typography
+                            sx={{
+                              fontSize: "14px",
+                              color: "#252525",
+                              fontWeight: "bold",
+                            }}
+                          >
+                            Cruise
+                          </Typography>
+                        </Box>
+                        <Box display="flex" gap="10px">
+                          <Checkbox
+                            value="true"
+                            name="cruise"
+                            onChange={handleChange}
+                            checked={checkedItem.cruise === "true"}
+                            {...label}
+                            icon={<CheckCircleOutlineIcon />}
+                            checkedIcon={<CheckCircleIcon />}
+                          />
+                          <Checkbox
+                            {...label}
+                            value="false"
+                            name="cruise"
+                            checked={checkedItem.cruise === "false"}
+                            onChange={handleChange}
+                            icon={<HighlightOffIcon />}
+                            checkedIcon={<CancelIcon />}
+                          />
+                        </Box>
+                      </Box>
+                      <Box
+                        display="flex"
+                        justifyContent="space-between"
+                        alignItems="center"
+                      >
+                        <Box display="flex" gap="10px">
+                          <DeckIcon />
+                          <Typography
+                            sx={{
+                              fontSize: "14px",
+                              color: "#252525",
+                              fontWeight: "bold",
+                            }}
+                          >
+                            Sightseeing
+                          </Typography>
+                        </Box>
+                        <Box display="flex" gap="10px">
+                          <Checkbox
+                            value="true"
+                            name="sightSeeing"
+                            onChange={handleChange}
+                            checked={checkedItem.sightSeeing === "true"}
+                            {...label}
+                            icon={<CheckCircleOutlineIcon />}
+                            checkedIcon={<CheckCircleIcon />}
+                          />
+                          <Checkbox
+                            {...label}
+                            value="false"
+                            name="sightSeeing"
+                            checked={checkedItem.sightSeeing === "false"}
+                            onChange={handleChange}
+                            icon={<HighlightOffIcon />}
+                            checkedIcon={<CancelIcon />}
+                          />
+                        </Box>
+                      </Box>
+                      <Box
+                        display="flex"
+                        justifyContent="space-between"
+                        alignItems="center"
+                      >
+                        <Box display="flex" gap="10px">
+                          <EngineeringIcon />
+                          <Typography
+                            sx={{
+                              fontSize: "14px",
+                              color: "#252525",
+                              fontWeight: "bold",
+                            }}
+                          >
+                            Guide
+                          </Typography>
+                        </Box>
+                        <Box display="flex" gap="10px">
+                          <Checkbox
+                            value="true"
+                            name="guide"
+                            onChange={handleChange}
+                            checked={checkedItem.guide === "true"}
+                            {...label}
+                            icon={<CheckCircleOutlineIcon />}
+                            checkedIcon={<CheckCircleIcon />}
+                          />
+                          <Checkbox
+                            {...label}
+                            value="false"
+                            name="guide"
+                            checked={checkedItem.guide === "false"}
+                            onChange={handleChange}
+                            icon={<HighlightOffIcon />}
+                            checkedIcon={<CancelIcon />}
+                          />
+                        </Box>
+                      </Box>
+                      <Box
+                        display="flex"
+                        justifyContent="space-between"
+                        alignItems="center"
+                      >
+                        <Box display="flex" gap="10px">
+                          <FastfoodIcon />
+                          <Typography
+                            sx={{
+                              fontSize: "14px",
+                              color: "#252525",
+                              fontWeight: "bold",
+                            }}
+                          >
+                            Meals
+                          </Typography>
+                        </Box>
+                        <Box display="flex" gap="10px">
+                          <Checkbox
+                            {...label}
+                            value="true"
+                            name="meals"
+                            onChange={handleChange}
+                            checked={checkedItem.meals === "true"}
+                            {...label}
+                            icon={<CheckCircleOutlineIcon />}
+                            checkedIcon={<CheckCircleIcon />}
+                          />
+                          <Checkbox
+                            {...label}
+                            value="false"
+                            name="meals"
+                            checked={checkedItem.meals === "false"}
+                            onChange={handleChange}
+                            icon={<HighlightOffIcon />}
+                            checkedIcon={<CancelIcon />}
+                          />
+                        </Box>
+                      </Box>
+                      <Box
+                        display="flex"
+                        justifyContent="space-between"
+                        alignItems="center"
+                      >
+                        <Box display="flex" gap="10px">
+                          <DinnerDiningIcon />
+                          <Typography
+                            sx={{
+                              fontSize: "14px",
+                              color: "#252525",
+                              fontWeight: "bold",
+                            }}
+                          >
+                            Daily Breakfast
+                          </Typography>
+                        </Box>
+                        <Box display="flex" gap="10px">
+                          <Checkbox
+                            value="true"
+                            name="breakfast"
+                            onChange={handleChange}
+                            checked={checkedItem.breakfast === "true"}
+                            {...label}
+                            icon={<CheckCircleOutlineIcon />}
+                            checkedIcon={<CheckCircleIcon />}
+                          />
+                          <Checkbox
+                            {...label}
+                            value="false"
+                            name="breakfast"
+                            checked={checkedItem.breakfast === "false"}
+                            onChange={handleChange}
+                            icon={<HighlightOffIcon />}
+                            checkedIcon={<CancelIcon />}
+                          />
+                        </Box>
+                      </Box>
+                      <Box
+                        display="flex"
+                        justifyContent="space-between"
+                        alignItems="center"
+                      >
+                        <Box display="flex" gap="10px">
+                          <LiquorIcon />
+                          <Typography
+                            sx={{
+                              fontSize: "14px",
+                              color: "#252525",
+                              fontWeight: "bold",
+                            }}
+                          >
+                            Complimentary Drink
+                          </Typography>
+                        </Box>
+                        <Box display="flex" gap="10px">
+                          <Checkbox
+                            value="true"
+                            name="drink"
+                            onChange={handleChange}
+                            checked={checkedItem.drink === "true"}
+                            {...label}
+                            icon={<CheckCircleOutlineIcon />}
+                            checkedIcon={<CheckCircleIcon />}
+                          />
+                          <Checkbox
+                            {...label}
+                            value="false"
+                            name="drink"
+                            checked={checkedItem.drink === "false"}
+                            onChange={handleChange}
+                            icon={<HighlightOffIcon />}
+                            checkedIcon={<CancelIcon />}
+                          />
+                        </Box>
+                      </Box>
+                      <Box
+                        display="flex"
+                        justifyContent="space-between"
+                        alignItems="center"
+                      >
+                        <Box display="flex" gap="10px">
+                          <ArticleIcon />
+                          <Typography
+                            sx={{
+                              fontSize: "14px",
+                              color: "#252525",
+                              fontWeight: "bold",
+                            }}
+                          >
+                            Visa
+                          </Typography>
+                        </Box>
+                        <Box display="flex" gap="10px">
+                          <Checkbox
+                            value="true"
+                            name="visa"
+                            onChange={handleChange}
+                            checked={checkedItem.visa === "true"}
+                            {...label}
+                            icon={<CheckCircleOutlineIcon />}
+                            checkedIcon={<CheckCircleIcon />}
+                          />
+                          <Checkbox
+                            {...label}
+                            value="false"
+                            name="visa"
+                            checked={checkedItem.visa === "false"}
+                            onChange={handleChange}
+                            icon={<HighlightOffIcon />}
+                            checkedIcon={<CancelIcon />}
+                          />
+                        </Box>
                       </Box>
                     </Box>
-                    <Box
-                      display="flex"
-                      justifyContent="space-between"
-                      alignItems="center"
-                    >
-                      <Box display="flex" gap="10px">
-                        <TramIcon />
-                        <Typography
-                          sx={{
-                            fontSize: "14px",
-                            color: "#252525",
-                            fontWeight: "bold",
-                          }}
-                        >
-                          Train
-                        </Typography>
+                  </Grid>
+
+                  {/* for space in between */}
+                  <Grid item lg={2} md={2} mt={3}>
+
+                  </Grid>
+                  <Grid item lg={5} md={5} sm={12} mt={3}>
+                    <Box>
+                      <Box
+                        display="flex"
+                        justifyContent="space-between"
+                        alignItems="center"
+                      >
+                        <Box display="flex" gap="10px">
+                          <AccountBalanceIcon />
+                          <Typography
+                            sx={{
+                              fontSize: "14px",
+                              color: "#252525",
+                              fontWeight: "bold",
+                            }}
+                          >
+                            Travel Insurance
+                          </Typography>
+                        </Box>
+                        <Box display="flex" gap="10px">
+                          <Checkbox
+                            value="true"
+                            name="travelInsurance"
+                            onChange={handleChange}
+                            checked={checkedItem.travelInsurance === "true"}
+                            {...label}
+                            icon={<CheckCircleOutlineIcon />}
+                            checkedIcon={<CheckCircleIcon />}
+                          />
+                          <Checkbox
+                            {...label}
+                            value="false"
+                            name="travelInsurance"
+                            checked={checkedItem.travelInsurance === "false"}
+                            onChange={handleChange}
+                            icon={<HighlightOffIcon />}
+                            checkedIcon={<CancelIcon />}
+                          />
+                        </Box>
                       </Box>
-                      <Box display="flex" gap="10px">
-                        <Checkbox
-                          value="true"
-                          name="train"
-                          onChange={handleChange}
-                          checked={checkedItem.train === "true"}
-                          {...label}
-                          icon={<CheckCircleOutlineIcon />}
-                          checkedIcon={<CheckCircleIcon />}
-                        />
-                        <Checkbox
-                          {...label}
-                          value="false"
-                          name="train"
-                          checked={checkedItem.train === "false"}
-                          onChange={handleChange}
-                          icon={<HighlightOffIcon />}
-                          checkedIcon={<CancelIcon />}
-                        />
+                      <Box
+                        display="flex"
+                        justifyContent="space-between"
+                        alignItems="center"
+                      >
+                        <Box display="flex" gap="10px">
+                          <ParaglidingIcon />
+                          <Typography
+                            sx={{
+                              fontSize: "14px",
+                              color: "#252525",
+                              fontWeight: "bold",
+                            }}
+                          >
+                            Safe to Travel
+                          </Typography>
+                        </Box>
+                        <Box display="flex" gap="10px">
+                          <Checkbox
+                            value="true"
+                            name="safeTravel"
+                            onChange={handleChange}
+                            checked={checkedItem.safeTravel === "true"}
+                            {...label}
+                            icon={<CheckCircleOutlineIcon />}
+                            checkedIcon={<CheckCircleIcon />}
+                          />
+                          <Checkbox
+                            {...label}
+                            value="false"
+                            name="safeTravel"
+                            checked={checkedItem.safeTravel === "false"}
+                            onChange={handleChange}
+                            icon={<HighlightOffIcon />}
+                            checkedIcon={<CancelIcon />}
+                          />
+                        </Box>
+                      </Box>
+                      <Box
+                        display="flex"
+                        justifyContent="space-between"
+                        alignItems="center"
+                      >
+                        <Box display="flex" gap="10px">
+                          <NaturePeopleIcon />
+                          <Typography
+                            sx={{
+                              fontSize: "14px",
+                              color: "#252525",
+                              fontWeight: "bold",
+                            }}
+                          >
+                            Wildlife
+                          </Typography>
+                        </Box>
+                        <Box display="flex" gap="10px">
+                          <Checkbox
+                            value="true"
+                            name="wildlife"
+                            onChange={handleChange}
+                            checked={checkedItem.wildlife === "true"}
+                            {...label}
+                            icon={<CheckCircleOutlineIcon />}
+                            checkedIcon={<CheckCircleIcon />}
+                          />
+                          <Checkbox
+                            {...label}
+                            value="false"
+                            name="wildlife"
+                            checked={checkedItem.wildlife === "false"}
+                            onChange={handleChange}
+                            icon={<HighlightOffIcon />}
+                            checkedIcon={<CancelIcon />}
+                          />
+                        </Box>
+                      </Box>
+                      <Box
+                        display="flex"
+                        justifyContent="space-between"
+                        alignItems="center"
+                      >
+                        <Box display="flex" gap="10px">
+                          <LandslideIcon />
+                          <Typography
+                            sx={{
+                              fontSize: "14px",
+                              color: "#252525",
+                              fontWeight: "bold",
+                            }}
+                          >
+                            Heritage
+                          </Typography>
+                        </Box>
+                        <Box display="flex" gap="10px">
+                          <Checkbox
+                            value="true"
+                            name="heritage"
+                            onChange={handleChange}
+                            checked={checkedItem.heritage === "true"}
+                            {...label}
+                            icon={<CheckCircleOutlineIcon />}
+                            checkedIcon={<CheckCircleIcon />}
+                          />
+                          <Checkbox
+                            {...label}
+                            value="false"
+                            name="heritage"
+                            checked={checkedItem.heritage === "false"}
+                            onChange={handleChange}
+                            icon={<HighlightOffIcon />}
+                            checkedIcon={<CancelIcon />}
+                          />
+                        </Box>
+                      </Box>
+                      <Box
+                        display="flex"
+                        justifyContent="space-between"
+                        alignItems="center"
+                      >
+                        <Box display="flex" gap="10px">
+                          <KitesurfingIcon />
+                          <Typography
+                            sx={{
+                              fontSize: "14px",
+                              color: "#252525",
+                              fontWeight: "bold",
+                            }}
+                          >
+                            Adventure
+                          </Typography>
+                        </Box>
+                        <Box display="flex" gap="10px">
+                          <Checkbox
+                            value="true"
+                            name="adventure"
+                            onChange={handleChange}
+                            checked={checkedItem.adventure === "true"}
+                            {...label}
+                            icon={<CheckCircleOutlineIcon />}
+                            checkedIcon={<CheckCircleIcon />}
+                          />
+                          <Checkbox
+                            {...label}
+                            value="false"
+                            name="adventure"
+                            checked={checkedItem.adventure === "false"}
+                            onChange={handleChange}
+                            icon={<HighlightOffIcon />}
+                            checkedIcon={<CancelIcon />}
+                          />
+                        </Box>
+                      </Box>
+                      <Box
+                        display="flex"
+                        justifyContent="space-between"
+                        alignItems="center"
+                      >
+                        <Box display="flex" gap="10px">
+                          <PoolIcon />
+                          <Typography
+                            sx={{
+                              fontSize: "14px",
+                              color: "#252525",
+                              fontWeight: "bold",
+                            }}
+                          >
+                            Beach
+                          </Typography>
+                        </Box>
+                        <Box display="flex" gap="10px">
+                          <Checkbox
+                            value="true"
+                            name="beach"
+                            onChange={handleChange}
+                            checked={checkedItem.beach === "true"}
+                            {...label}
+                            icon={<CheckCircleOutlineIcon />}
+                            checkedIcon={<CheckCircleIcon />}
+                          />
+                          <Checkbox
+                            {...label}
+                            value="false"
+                            name="beach"
+                            checked={checkedItem.beach === "false"}
+                            onChange={handleChange}
+                            icon={<HighlightOffIcon />}
+                            checkedIcon={<CancelIcon />}
+                          />
+                        </Box>
+                      </Box>
+                      <Box
+                        display="flex"
+                        justifyContent="space-between"
+                        alignItems="center"
+                      >
+                        <Box display="flex" gap="10px">
+                          <DownhillSkiingIcon />
+                          <Typography
+                            sx={{
+                              fontSize: "14px",
+                              color: "#252525",
+                              fontWeight: "bold",
+                            }}
+                          >
+                            Hill Station
+                          </Typography>
+                        </Box>
+                        <Box display="flex" gap="10px">
+                          <Checkbox
+                            value="true"
+                            name="hillStation"
+                            onChange={handleChange}
+                            checked={checkedItem.hillStation === "true"}
+                            {...label}
+                            icon={<CheckCircleOutlineIcon />}
+                            checkedIcon={<CheckCircleIcon />}
+                          />
+                          <Checkbox
+                            {...label}
+                            value="false"
+                            name="hillStation"
+                            checked={checkedItem.hillStation === "false"}
+                            onChange={handleChange}
+                            icon={<HighlightOffIcon />}
+                            checkedIcon={<CancelIcon />}
+                          />
+                        </Box>
+                      </Box>
+                      <Box
+                        display="flex"
+                        justifyContent="space-between"
+                        alignItems="center"
+                      >
+                        <Box display="flex" gap="10px">
+                          <ForestIcon />
+                          <Typography
+                            sx={{
+                              fontSize: "14px",
+                              color: "#252525",
+                              fontWeight: "bold",
+                            }}
+                          >
+                            Nature
+                          </Typography>
+                        </Box>
+                        <Box display="flex" gap="10px">
+                          <Checkbox
+                            value="true"
+                            name="nature"
+                            onChange={handleChange}
+                            checked={checkedItem.nature === "true"}
+                            {...label}
+                            icon={<CheckCircleOutlineIcon />}
+                            checkedIcon={<CheckCircleIcon />}
+                          />
+                          <Checkbox
+                            {...label}
+                            value="false"
+                            name="nature"
+                            checked={checkedItem.nature === "false"}
+                            onChange={handleChange}
+                            icon={<HighlightOffIcon />}
+                            checkedIcon={<CancelIcon />}
+                          />
+                        </Box>
+                      </Box>
+                      <Box
+                        display="flex"
+                        justifyContent="space-between"
+                        alignItems="center"
+                      >
+                        <Box display="flex" gap="10px">
+                          <SelfImprovementIcon />
+                          <Typography
+                            sx={{
+                              fontSize: "14px",
+                              color: "#252525",
+                              fontWeight: "bold",
+                            }}
+                          >
+                            Wellness
+                          </Typography>
+                        </Box>
+                        <Box display="flex" gap="10px">
+                          <Checkbox
+                            value="true"
+                            name="wellness"
+                            onChange={handleChange}
+                            checked={checkedItem.wellness === "true"}
+                            {...label}
+                            icon={<CheckCircleOutlineIcon />}
+                            checkedIcon={<CheckCircleIcon />}
+                          />
+                          <Checkbox
+                            {...label}
+                            value="false"
+                            name="wellness"
+                            checked={checkedItem.wellness === "false"}
+                            onChange={handleChange}
+                            icon={<HighlightOffIcon />}
+                            checkedIcon={<CancelIcon />}
+                          />
+                        </Box>
+                      </Box>
+                      <Box
+                        display="flex"
+                        justifyContent="space-between"
+                        alignItems="center"
+                      >
+                        <Box display="flex" gap="10px">
+                          <FitnessCenterIcon />
+                          <Typography
+                            sx={{
+                              fontSize: "14px",
+                              color: "#252525",
+                              fontWeight: "bold",
+                            }}
+                          >
+                            Hidden Gem
+                          </Typography>
+                        </Box>
+                        <Box display="flex" gap="10px">
+                          <Checkbox
+                            value="true"
+                            name="hiddenGem"
+                            onChange={handleChange}
+                            checked={checkedItem.hiddenGem === "true"}
+                            {...label}
+                            icon={<CheckCircleOutlineIcon />}
+                            checkedIcon={<CheckCircleIcon />}
+                          />
+                          <Checkbox
+                            {...label}
+                            value="false"
+                            name="hiddenGem"
+                            checked={checkedItem.hiddenGem === "false"}
+                            onChange={handleChange}
+                            icon={<HighlightOffIcon />}
+                            checkedIcon={<CancelIcon />}
+                          />
+                        </Box>
+                      </Box>
+                      <Box
+                        display="flex"
+                        justifyContent="space-between"
+                        alignItems="center"
+                      >
+                        <Box display="flex" gap="10px">
+                          <FolderDeleteIcon />
+                          <Typography
+                            sx={{
+                              fontSize: "14px",
+                              color: "#252525",
+                              fontWeight: "bold",
+                            }}
+                          >
+                            Price Inclusive Tax
+                          </Typography>
+                        </Box>
+                        <Box display="flex" gap="10px">
+                          <Checkbox
+                            value="true"
+                            name="tax"
+                            onChange={handleChange}
+                            checked={checkedItem.tax === "true"}
+                            {...label}
+                            icon={<CheckCircleOutlineIcon />}
+                            checkedIcon={<CheckCircleIcon />}
+                          />
+                          <Checkbox
+                            {...label}
+                            value="false"
+                            name="tax"
+                            checked={checkedItem.tax === "false"}
+                            onChange={handleChange}
+                            icon={<HighlightOffIcon />}
+                            checkedIcon={<CancelIcon />}
+                          />
+                        </Box>
+                      </Box>
+                      <Box
+                        display="flex"
+                        justifyContent="space-between"
+                        alignItems="center"
+                      >
+                        <Box display="flex" gap="10px">
+                          <LocalOfferIcon />
+                          <Typography
+                            sx={{
+                              fontSize: "14px",
+                              color: "#252525",
+                              fontWeight: "bold",
+                            }}
+                          >
+                            50% Off
+                          </Typography>
+                        </Box>
+                        <Box display="flex" gap="10px">
+                          <Checkbox
+                            value="true"
+                            name="discount"
+                            onChange={handleChange}
+                            checked={checkedItem.discount === "true"}
+                            {...label}
+                            icon={<CheckCircleOutlineIcon />}
+                            checkedIcon={<CheckCircleIcon />}
+                          />
+                          <Checkbox
+                            {...label}
+                            value="false"
+                            name="discount"
+                            checked={checkedItem.discount === "false"}
+                            onChange={handleChange}
+                            icon={<HighlightOffIcon />}
+                            checkedIcon={<CancelIcon />}
+                          />
+                        </Box>
+                      </Box>
+                      <Box
+                        display="flex"
+                        justifyContent="space-between"
+                        alignItems="center"
+                      >
+                        <Box display="flex" gap="10px">
+                          <KayakingIcon />
+                          <Typography
+                            sx={{
+                              fontSize: "14px",
+                              color: "#252525",
+                              fontWeight: "bold",
+                            }}
+                          >
+                            Water Activities
+                          </Typography>
+                        </Box>
+                        <Box display="flex" gap="10px">
+                          <Checkbox
+                            value="true"
+                            name="waterActivities"
+                            onChange={handleChange}
+                            checked={checkedItem.waterActivities === "true"}
+                            {...label}
+                            icon={<CheckCircleOutlineIcon />}
+                            checkedIcon={<CheckCircleIcon />}
+                          />
+                          <Checkbox
+                            {...label}
+                            value="false"
+                            name="waterActivities"
+                            checked={checkedItem.waterActivities === "false"}
+                            onChange={handleChange}
+                            icon={<HighlightOffIcon />}
+                            checkedIcon={<CancelIcon />}
+                          />
+                        </Box>
+                      </Box>
+                      <Box
+                        display="flex"
+                        justifyContent="space-between"
+                        alignItems="center"
+                      >
+                        <Box display="flex" gap="10px">
+                          <SportsKabaddiIcon />
+                          <Typography
+                            sx={{
+                              fontSize: "14px",
+                              color: "#252525",
+                              fontWeight: "bold",
+                            }}
+                          >
+                            Optional Activities
+                          </Typography>
+                        </Box>
+                        <Box display="flex" gap="10px">
+                          <Checkbox
+                            value="true"
+                            name="optionalActivities"
+                            onChange={handleChange}
+                            checked={checkedItem.optionalActivities === "true"}
+                            {...label}
+                            icon={<CheckCircleOutlineIcon />}
+                            checkedIcon={<CheckCircleIcon />}
+                          />
+                          <Checkbox
+                            {...label}
+                            value="false"
+                            name="optionalActivities"
+                            checked={checkedItem.optionalActivities === "false"}
+                            onChange={handleChange}
+                            icon={<HighlightOffIcon />}
+                            checkedIcon={<CancelIcon />}
+                          />
+                        </Box>
+                      </Box>
+                      <Box
+                        display="flex"
+                        justifyContent="space-between"
+                        alignItems="center"
+                      >
+                        <Box display="flex" gap="10px">
+                          <BookmarkAddIcon />
+                          <Typography
+                            sx={{
+                              fontSize: "14px",
+                              color: "#252525",
+                              fontWeight: "bold",
+                            }}
+                          >
+                            Flexible Booking
+                          </Typography>
+                        </Box>
+                        <Box display="flex" gap="10px">
+                          <Checkbox
+                            value="true"
+                            name="flexibleBooking"
+                            onChange={handleChange}
+                            checked={checkedItem.flexibleBooking === "true"}
+                            {...label}
+                            icon={<CheckCircleOutlineIcon />}
+                            checkedIcon={<CheckCircleIcon />}
+                          />
+                          <Checkbox
+                            {...label}
+                            value="false"
+                            name="flexibleBooking"
+                            checked={checkedItem.flexibleBooking === "false"}
+                            onChange={handleChange}
+                            icon={<HighlightOffIcon />}
+                            checkedIcon={<CancelIcon />}
+                          />
+                        </Box>
+                      </Box>
+                      <Box
+                        display="flex"
+                        justifyContent="space-between"
+                        alignItems="center"
+                      >
+                        <Box display="flex" gap="10px">
+                          <WifiPasswordIcon />
+                          <Typography
+                            sx={{
+                              fontSize: "14px",
+                              color: "#252525",
+                              fontWeight: "bold",
+                            }}
+                          >
+                            WIFI
+                          </Typography>
+                        </Box>
+                        <Box display="flex" gap="10px">
+                          <Checkbox
+                            value="true"
+                            name="wifi"
+                            onChange={handleChange}
+                            checked={checkedItem.wifi === "true"}
+                            {...label}
+                            icon={<CheckCircleOutlineIcon />}
+                            checkedIcon={<CheckCircleIcon />}
+                          />
+                          <Checkbox
+                            {...label}
+                            value="false"
+                            name="wifi"
+                            checked={checkedItem.wifi === "false"}
+                            onChange={handleChange}
+                            icon={<HighlightOffIcon />}
+                            checkedIcon={<CancelIcon />}
+                          />
+                        </Box>
                       </Box>
                     </Box>
-                    <Box
-                      display="flex"
-                      justifyContent="space-between"
-                      alignItems="center"
-                    >
-                      <Box display="flex" gap="10px">
-                        <DirectionsBusIcon />
-                        <Typography
-                          sx={{
-                            fontSize: "14px",
-                            color: "#252525",
-                            fontWeight: "bold",
-                          }}
-                        >
-                          Bus
-                        </Typography>
-                      </Box>
-                      <Box display="flex" gap="10px">
-                        <Checkbox
-                          value="true"
-                          name="bus"
-                          onChange={handleChange}
-                          checked={checkedItem.bus === "true"}
-                          {...label}
-                          icon={<CheckCircleOutlineIcon />}
-                          checkedIcon={<CheckCircleIcon />}
-                        />
-                        <Checkbox
-                          value="false"
-                          name="bus"
-                          onChange={handleChange}
-                          checked={checkedItem.bus === "false"}
-                          {...label}
-                          icon={<HighlightOffIcon />}
-                          checkedIcon={<CancelIcon />}
-                        />
-                      </Box>
-                    </Box>
-                    <Box
-                      display="flex"
-                      justifyContent="space-between"
-                      alignItems="center"
-                    >
-                      <Box display="flex" gap="10px">
-                        <DirectionsCarIcon />
-                        <Typography
-                          sx={{
-                            fontSize: "14px",
-                            color: "#252525",
-                            fontWeight: "bold",
-                          }}
-                        >
-                          Cab
-                        </Typography>
-                      </Box>
-                      <Box display="flex" gap="10px">
-                        <Checkbox
-                          value="true"
-                          name="cab"
-                          onChange={handleChange}
-                          checked={checkedItem.cab === "true"}
-                          {...label}
-                          icon={<CheckCircleOutlineIcon />}
-                          checkedIcon={<CheckCircleIcon />}
-                        />
-                        <Checkbox
-                          {...label}
-                          value="false"
-                          name="cab"
-                          checked={checkedItem.cab === "false"}
-                          onChange={handleChange}
-                          icon={<HighlightOffIcon />}
-                          checkedIcon={<CancelIcon />}
-                        />
-                      </Box>
-                    </Box>
-                    <Box
-                      display="flex"
-                      justifyContent="space-between"
-                      alignItems="center"
-                    >
-                      <Box display="flex" gap="10px">
-                        <TwoWheelerIcon />
-                        <Typography
-                          sx={{
-                            fontSize: "14px",
-                            color: "#252525",
-                            fontWeight: "bold",
-                          }}
-                        >
-                          Moterbike
-                        </Typography>
-                      </Box>
-                      <Box display="flex" gap="10px">
-                        <Checkbox
-                          value="true"
-                          name="moterBike"
-                          onChange={handleChange}
-                          checked={checkedItem.moterBike === "true"}
-                          {...label}
-                          icon={<CheckCircleOutlineIcon />}
-                          checkedIcon={<CheckCircleIcon />}
-                        />
-                        <Checkbox
-                          {...label}
-                          value="false"
-                          name="moterBike"
-                          checked={checkedItem.moterBike === "false"}
-                          onChange={handleChange}
-                          icon={<HighlightOffIcon />}
-                          checkedIcon={<CancelIcon />}
-                        />
-                      </Box>
-                    </Box>
-                    <Box
-                      display="flex"
-                      justifyContent="space-between"
-                      alignItems="center"
-                    >
-                      <Box display="flex" gap="10px">
-                        <ApartmentIcon />
-                        <Typography
-                          sx={{
-                            fontSize: "14px",
-                            color: "#252525",
-                            fontWeight: "bold",
-                          }}
-                        >
-                          Hotel
-                        </Typography>
-                      </Box>
-                      <Box display="flex" gap="10px">
-                        <Checkbox
-                          value="true"
-                          name="hotel"
-                          onChange={handleChange}
-                          checked={checkedItem.hotel === "true"}
-                          {...label}
-                          icon={<CheckCircleOutlineIcon />}
-                          checkedIcon={<CheckCircleIcon />}
-                        />
-                        <Checkbox
-                          {...label}
-                          value="false"
-                          name="hotel"
-                          checked={checkedItem.hotel === "false"}
-                          onChange={handleChange}
-                          icon={<HighlightOffIcon />}
-                          checkedIcon={<CancelIcon />}
-                        />
-                      </Box>
-                    </Box>
-                    <Box
-                      display="flex"
-                      justifyContent="space-between"
-                      alignItems="center"
-                    >
-                      <Box display="flex" gap="10px">
-                        <HolidayVillageIcon />
-                        <Typography
-                          sx={{
-                            fontSize: "14px",
-                            color: "#252525",
-                            fontWeight: "bold",
-                          }}
-                        >
-                          Homestays
-                        </Typography>
-                      </Box>
-                      <Box display="flex" gap="10px">
-                        <Checkbox
-                          value="true"
-                          name="homeStays"
-                          onChange={handleChange}
-                          checked={checkedItem.homeStays === "true"}
-                          {...label}
-                          icon={<CheckCircleOutlineIcon />}
-                          checkedIcon={<CheckCircleIcon />}
-                        />
-                        <Checkbox
-                          {...label}
-                          value="false"
-                          name="homeStays"
-                          checked={checkedItem.homeStays === "false"}
-                          onChange={handleChange}
-                          icon={<HighlightOffIcon />}
-                          checkedIcon={<CancelIcon />}
-                        />
-                      </Box>
-                    </Box>
-                    <Box
-                      display="flex"
-                      justifyContent="space-between"
-                      alignItems="center"
-                    >
-                      <Box display="flex" gap="10px">
-                        <LocationCityIcon />
-                        <Typography
-                          sx={{
-                            fontSize: "14px",
-                            color: "#252525",
-                            fontWeight: "bold",
-                          }}
-                        >
-                          Guesthouse
-                        </Typography>
-                      </Box>
-                      <Box display="flex" gap="10px">
-                        <Checkbox
-                          value="true"
-                          name="guestHouse"
-                          onChange={handleChange}
-                          checked={checkedItem.guestHouse === "true"}
-                          {...label}
-                          icon={<CheckCircleOutlineIcon />}
-                          checkedIcon={<CheckCircleIcon />}
-                        />
-                        <Checkbox
-                          {...label}
-                          value="false"
-                          name="guestHouse"
-                          checked={checkedItem.guestHouse === "false"}
-                          onChange={handleChange}
-                          icon={<HighlightOffIcon />}
-                          checkedIcon={<CancelIcon />}
-                        />
-                      </Box>
-                    </Box>
-                    <Box
-                      display="flex"
-                      justifyContent="space-between"
-                      alignItems="center"
-                    >
-                      <Box display="flex" gap="10px">
-                        <CabinIcon />
-                        <Typography
-                          sx={{
-                            fontSize: "14px",
-                            color: "#252525",
-                            fontWeight: "bold",
-                          }}
-                        >
-                          Camp
-                        </Typography>
-                      </Box>
-                      <Box display="flex" gap="10px">
-                        <Checkbox
-                          value="true"
-                          name="camp"
-                          onChange={handleChange}
-                          checked={checkedItem.camp === "true"}
-                          {...label}
-                          icon={<CheckCircleOutlineIcon />}
-                          checkedIcon={<CheckCircleIcon />}
-                        />
-                        <Checkbox
-                          {...label}
-                          value="false"
-                          name="camp"
-                          checked={checkedItem.camp === "false"}
-                          onChange={handleChange}
-                          icon={<HighlightOffIcon />}
-                          checkedIcon={<CancelIcon />}
-                        />
-                      </Box>
-                    </Box>
-                    <Box
-                      display="flex"
-                      justifyContent="space-between"
-                      alignItems="center"
-                    >
-                      <Box display="flex" gap="10px">
-                        <BlurOnIcon />
-                        <Typography
-                          sx={{
-                            fontSize: "14px",
-                            color: "#252525",
-                            fontWeight: "bold",
-                          }}
-                        >
-                          Cruise
-                        </Typography>
-                      </Box>
-                      <Box display="flex" gap="10px">
-                        <Checkbox
-                          value="true"
-                          name="cruise"
-                          onChange={handleChange}
-                          checked={checkedItem.cruise === "true"}
-                          {...label}
-                          icon={<CheckCircleOutlineIcon />}
-                          checkedIcon={<CheckCircleIcon />}
-                        />
-                        <Checkbox
-                          {...label}
-                          value="false"
-                          name="cruise"
-                          checked={checkedItem.cruise === "false"}
-                          onChange={handleChange}
-                          icon={<HighlightOffIcon />}
-                          checkedIcon={<CancelIcon />}
-                        />
-                      </Box>
-                    </Box>
-                    <Box
-                      display="flex"
-                      justifyContent="space-between"
-                      alignItems="center"
-                    >
-                      <Box display="flex" gap="10px">
-                        <DeckIcon />
-                        <Typography
-                          sx={{
-                            fontSize: "14px",
-                            color: "#252525",
-                            fontWeight: "bold",
-                          }}
-                        >
-                          Sightseeing
-                        </Typography>
-                      </Box>
-                      <Box display="flex" gap="10px">
-                        <Checkbox
-                          value="true"
-                          name="sightSeeing"
-                          onChange={handleChange}
-                          checked={checkedItem.sightSeeing === "true"}
-                          {...label}
-                          icon={<CheckCircleOutlineIcon />}
-                          checkedIcon={<CheckCircleIcon />}
-                        />
-                        <Checkbox
-                          {...label}
-                          value="false"
-                          name="sightSeeing"
-                          checked={checkedItem.sightSeeing === "false"}
-                          onChange={handleChange}
-                          icon={<HighlightOffIcon />}
-                          checkedIcon={<CancelIcon />}
-                        />
-                      </Box>
-                    </Box>
-                    <Box
-                      display="flex"
-                      justifyContent="space-between"
-                      alignItems="center"
-                    >
-                      <Box display="flex" gap="10px">
-                        <EngineeringIcon />
-                        <Typography
-                          sx={{
-                            fontSize: "14px",
-                            color: "#252525",
-                            fontWeight: "bold",
-                          }}
-                        >
-                          Guide
-                        </Typography>
-                      </Box>
-                      <Box display="flex" gap="10px">
-                        <Checkbox
-                          value="true"
-                          name="guide"
-                          onChange={handleChange}
-                          checked={checkedItem.guide === "true"}
-                          {...label}
-                          icon={<CheckCircleOutlineIcon />}
-                          checkedIcon={<CheckCircleIcon />}
-                        />
-                        <Checkbox
-                          {...label}
-                          value="false"
-                          name="guide"
-                          checked={checkedItem.guide === "false"}
-                          onChange={handleChange}
-                          icon={<HighlightOffIcon />}
-                          checkedIcon={<CancelIcon />}
-                        />
-                      </Box>
-                    </Box>
-                    <Box
-                      display="flex"
-                      justifyContent="space-between"
-                      alignItems="center"
-                    >
-                      <Box display="flex" gap="10px">
-                        <FastfoodIcon />
-                        <Typography
-                          sx={{
-                            fontSize: "14px",
-                            color: "#252525",
-                            fontWeight: "bold",
-                          }}
-                        >
-                          Meals
-                        </Typography>
-                      </Box>
-                      <Box display="flex" gap="10px">
-                        <Checkbox
-                          {...label}
-                          value="true"
-                          name="meals"
-                          onChange={handleChange}
-                          checked={checkedItem.meals === "true"}
-                          {...label}
-                          icon={<CheckCircleOutlineIcon />}
-                          checkedIcon={<CheckCircleIcon />}
-                        />
-                        <Checkbox
-                          {...label}
-                          value="false"
-                          name="meals"
-                          checked={checkedItem.meals === "false"}
-                          onChange={handleChange}
-                          icon={<HighlightOffIcon />}
-                          checkedIcon={<CancelIcon />}
-                        />
-                      </Box>
-                    </Box>
-                    <Box
-                      display="flex"
-                      justifyContent="space-between"
-                      alignItems="center"
-                    >
-                      <Box display="flex" gap="10px">
-                        <DinnerDiningIcon />
-                        <Typography
-                          sx={{
-                            fontSize: "14px",
-                            color: "#252525",
-                            fontWeight: "bold",
-                          }}
-                        >
-                          Daily Breakfast
-                        </Typography>
-                      </Box>
-                      <Box display="flex" gap="10px">
-                        <Checkbox
-                          value="true"
-                          name="breakfast"
-                          onChange={handleChange}
-                          checked={checkedItem.breakfast === "true"}
-                          {...label}
-                          icon={<CheckCircleOutlineIcon />}
-                          checkedIcon={<CheckCircleIcon />}
-                        />
-                        <Checkbox
-                          {...label}
-                          value="false"
-                          name="breakfast"
-                          checked={checkedItem.breakfast === "false"}
-                          onChange={handleChange}
-                          icon={<HighlightOffIcon />}
-                          checkedIcon={<CancelIcon />}
-                        />
-                      </Box>
-                    </Box>
-                    <Box
-                      display="flex"
-                      justifyContent="space-between"
-                      alignItems="center"
-                    >
-                      <Box display="flex" gap="10px">
-                        <LiquorIcon />
-                        <Typography
-                          sx={{
-                            fontSize: "14px",
-                            color: "#252525",
-                            fontWeight: "bold",
-                          }}
-                        >
-                          Complimentary Drink
-                        </Typography>
-                      </Box>
-                      <Box display="flex" gap="10px">
-                        <Checkbox
-                          value="true"
-                          name="drink"
-                          onChange={handleChange}
-                          checked={checkedItem.drink === "true"}
-                          {...label}
-                          icon={<CheckCircleOutlineIcon />}
-                          checkedIcon={<CheckCircleIcon />}
-                        />
-                        <Checkbox
-                          {...label}
-                          value="false"
-                          name="drink"
-                          checked={checkedItem.drink === "false"}
-                          onChange={handleChange}
-                          icon={<HighlightOffIcon />}
-                          checkedIcon={<CancelIcon />}
-                        />
-                      </Box>
-                    </Box>
-                    <Box
-                      display="flex"
-                      justifyContent="space-between"
-                      alignItems="center"
-                    >
-                      <Box display="flex" gap="10px">
-                        <ArticleIcon />
-                        <Typography
-                          sx={{
-                            fontSize: "14px",
-                            color: "#252525",
-                            fontWeight: "bold",
-                          }}
-                        >
-                          Visa
-                        </Typography>
-                      </Box>
-                      <Box display="flex" gap="10px">
-                        <Checkbox
-                          value="true"
-                          name="visa"
-                          onChange={handleChange}
-                          checked={checkedItem.visa === "true"}
-                          {...label}
-                          icon={<CheckCircleOutlineIcon />}
-                          checkedIcon={<CheckCircleIcon />}
-                        />
-                        <Checkbox
-                          {...label}
-                          value="false"
-                          name="visa"
-                          checked={checkedItem.visa === "false"}
-                          onChange={handleChange}
-                          icon={<HighlightOffIcon />}
-                          checkedIcon={<CancelIcon />}
-                        />
-                      </Box>
-                    </Box>
-                  </Box>
+                  </Grid>
                 </Grid>
-                <Grid item lg={5} mt={3}>
-                  <Box>
-                    <Box
-                      display="flex"
-                      justifyContent="space-between"
-                      alignItems="center"
-                    >
-                      <Box display="flex" gap="10px">
-                        <AccountBalanceIcon />
-                        <Typography
-                          sx={{
-                            fontSize: "14px",
-                            color: "#252525",
-                            fontWeight: "bold",
-                          }}
-                        >
-                          Travel Insurance
-                        </Typography>
-                      </Box>
-                      <Box display="flex" gap="10px">
-                        <Checkbox
-                          value="true"
-                          name="travelInsurance"
-                          onChange={handleChange}
-                          checked={checkedItem.travelInsurance === "true"}
-                          {...label}
-                          icon={<CheckCircleOutlineIcon />}
-                          checkedIcon={<CheckCircleIcon />}
-                        />
-                        <Checkbox
-                          {...label}
-                          value="false"
-                          name="travelInsurance"
-                          checked={checkedItem.travelInsurance === "false"}
-                          onChange={handleChange}
-                          icon={<HighlightOffIcon />}
-                          checkedIcon={<CancelIcon />}
-                        />
-                      </Box>
+                {/* ------------------------------ */}
+                <Box my={2}>
+                  <label class="form-label">Hotel Details</label>
+                  <div class="form-floating">
+                    <textarea class="form-control" onChange={handleHotel} name="hotel_details" placeholder="Add Hotel Details ..." id="hotel_details" style={{ height: "100px" }}></textarea>
+                    <label for="floatingTextarea2">Add Hotel Details ...</label>
+                  </div>
+                </Box>
+
+                <Grid container>
+                  <Grid item lg={5} md={12} sm={12}>
+                    <Box my={2}>
+                      <label class="form-label">Inclusion Note</label>
+                      <div class="form-floating">
+                        <textarea class="form-control" name="insclusion_note" placeholder="Add Inclusion Note ..." id="insclusion_note" style={{ height: "100px" }}></textarea>
+                        <label for="floatingTextarea2">Add Inclusion Note</label>
+                      </div>
                     </Box>
-                    <Box
-                      display="flex"
-                      justifyContent="space-between"
-                      alignItems="center"
-                    >
-                      <Box display="flex" gap="10px">
-                        <ParaglidingIcon />
-                        <Typography
-                          sx={{
-                            fontSize: "14px",
-                            color: "#252525",
-                            fontWeight: "bold",
-                          }}
-                        >
-                          Safe to Travel
-                        </Typography>
-                      </Box>
-                      <Box display="flex" gap="10px">
-                        <Checkbox
-                          value="true"
-                          name="safeTravel"
-                          onChange={handleChange}
-                          checked={checkedItem.safeTravel === "true"}
-                          {...label}
-                          icon={<CheckCircleOutlineIcon />}
-                          checkedIcon={<CheckCircleIcon />}
-                        />
-                        <Checkbox
-                          {...label}
-                          value="false"
-                          name="safeTravel"
-                          checked={checkedItem.safeTravel === "false"}
-                          onChange={handleChange}
-                          icon={<HighlightOffIcon />}
-                          checkedIcon={<CancelIcon />}
-                        />
-                      </Box>
-                    </Box>
-                    <Box
-                      display="flex"
-                      justifyContent="space-between"
-                      alignItems="center"
-                    >
-                      <Box display="flex" gap="10px">
-                        <NaturePeopleIcon />
-                        <Typography
-                          sx={{
-                            fontSize: "14px",
-                            color: "#252525",
-                            fontWeight: "bold",
-                          }}
-                        >
-                          Wildlife
-                        </Typography>
-                      </Box>
-                      <Box display="flex" gap="10px">
-                        <Checkbox
-                          value="true"
-                          name="wildlife"
-                          onChange={handleChange}
-                          checked={checkedItem.wildlife === "true"}
-                          {...label}
-                          icon={<CheckCircleOutlineIcon />}
-                          checkedIcon={<CheckCircleIcon />}
-                        />
-                        <Checkbox
-                          {...label}
-                          value="false"
-                          name="wildlife"
-                          checked={checkedItem.wildlife === "false"}
-                          onChange={handleChange}
-                          icon={<HighlightOffIcon />}
-                          checkedIcon={<CancelIcon />}
-                        />
-                      </Box>
-                    </Box>
-                    <Box
-                      display="flex"
-                      justifyContent="space-between"
-                      alignItems="center"
-                    >
-                      <Box display="flex" gap="10px">
-                        <LandslideIcon />
-                        <Typography
-                          sx={{
-                            fontSize: "14px",
-                            color: "#252525",
-                            fontWeight: "bold",
-                          }}
-                        >
-                          Heritage
-                        </Typography>
-                      </Box>
-                      <Box display="flex" gap="10px">
-                        <Checkbox
-                          value="true"
-                          name="heritage"
-                          onChange={handleChange}
-                          checked={checkedItem.heritage === "true"}
-                          {...label}
-                          icon={<CheckCircleOutlineIcon />}
-                          checkedIcon={<CheckCircleIcon />}
-                        />
-                        <Checkbox
-                          {...label}
-                          value="false"
-                          name="heritage"
-                          checked={checkedItem.heritage === "false"}
-                          onChange={handleChange}
-                          icon={<HighlightOffIcon />}
-                          checkedIcon={<CancelIcon />}
-                        />
-                      </Box>
-                    </Box>
-                    <Box
-                      display="flex"
-                      justifyContent="space-between"
-                      alignItems="center"
-                    >
-                      <Box display="flex" gap="10px">
-                        <KitesurfingIcon />
-                        <Typography
-                          sx={{
-                            fontSize: "14px",
-                            color: "#252525",
-                            fontWeight: "bold",
-                          }}
-                        >
-                          Adventure
-                        </Typography>
-                      </Box>
-                      <Box display="flex" gap="10px">
-                        <Checkbox
-                          value="true"
-                          name="adventure"
-                          onChange={handleChange}
-                          checked={checkedItem.adventure === "true"}
-                          {...label}
-                          icon={<CheckCircleOutlineIcon />}
-                          checkedIcon={<CheckCircleIcon />}
-                        />
-                        <Checkbox
-                          {...label}
-                          value="false"
-                          name="adventure"
-                          checked={checkedItem.adventure === "false"}
-                          onChange={handleChange}
-                          icon={<HighlightOffIcon />}
-                          checkedIcon={<CancelIcon />}
-                        />
-                      </Box>
-                    </Box>
-                    <Box
-                      display="flex"
-                      justifyContent="space-between"
-                      alignItems="center"
-                    >
-                      <Box display="flex" gap="10px">
-                        <PoolIcon />
-                        <Typography
-                          sx={{
-                            fontSize: "14px",
-                            color: "#252525",
-                            fontWeight: "bold",
-                          }}
-                        >
-                          Beach
-                        </Typography>
-                      </Box>
-                      <Box display="flex" gap="10px">
-                        <Checkbox
-                          value="true"
-                          name="beach"
-                          onChange={handleChange}
-                          checked={checkedItem.beach === "true"}
-                          {...label}
-                          icon={<CheckCircleOutlineIcon />}
-                          checkedIcon={<CheckCircleIcon />}
-                        />
-                        <Checkbox
-                          {...label}
-                          value="false"
-                          name="beach"
-                          checked={checkedItem.beach === "false"}
-                          onChange={handleChange}
-                          icon={<HighlightOffIcon />}
-                          checkedIcon={<CancelIcon />}
-                        />
-                      </Box>
-                    </Box>
-                    <Box
-                      display="flex"
-                      justifyContent="space-between"
-                      alignItems="center"
-                    >
-                      <Box display="flex" gap="10px">
-                        <DownhillSkiingIcon />
-                        <Typography
-                          sx={{
-                            fontSize: "14px",
-                            color: "#252525",
-                            fontWeight: "bold",
-                          }}
-                        >
-                          Hill Station
-                        </Typography>
-                      </Box>
-                      <Box display="flex" gap="10px">
-                        <Checkbox
-                          value="true"
-                          name="hillStation"
-                          onChange={handleChange}
-                          checked={checkedItem.hillStation === "true"}
-                          {...label}
-                          icon={<CheckCircleOutlineIcon />}
-                          checkedIcon={<CheckCircleIcon />}
-                        />
-                        <Checkbox
-                          {...label}
-                          value="false"
-                          name="hillStation"
-                          checked={checkedItem.hillStation === "false"}
-                          onChange={handleChange}
-                          icon={<HighlightOffIcon />}
-                          checkedIcon={<CancelIcon />}
-                        />
-                      </Box>
-                    </Box>
-                    <Box
-                      display="flex"
-                      justifyContent="space-between"
-                      alignItems="center"
-                    >
-                      <Box display="flex" gap="10px">
-                        <ForestIcon />
-                        <Typography
-                          sx={{
-                            fontSize: "14px",
-                            color: "#252525",
-                            fontWeight: "bold",
-                          }}
-                        >
-                          Nature
-                        </Typography>
-                      </Box>
-                      <Box display="flex" gap="10px">
-                        <Checkbox
-                          value="true"
-                          name="nature"
-                          onChange={handleChange}
-                          checked={checkedItem.nature === "true"}
-                          {...label}
-                          icon={<CheckCircleOutlineIcon />}
-                          checkedIcon={<CheckCircleIcon />}
-                        />
-                        <Checkbox
-                          {...label}
-                          value="false"
-                          name="nature"
-                          checked={checkedItem.nature === "false"}
-                          onChange={handleChange}
-                          icon={<HighlightOffIcon />}
-                          checkedIcon={<CancelIcon />}
-                        />
-                      </Box>
-                    </Box>
-                    <Box
-                      display="flex"
-                      justifyContent="space-between"
-                      alignItems="center"
-                    >
-                      <Box display="flex" gap="10px">
-                        <SelfImprovementIcon />
-                        <Typography
-                          sx={{
-                            fontSize: "14px",
-                            color: "#252525",
-                            fontWeight: "bold",
-                          }}
-                        >
-                          Wellness
-                        </Typography>
-                      </Box>
-                      <Box display="flex" gap="10px">
-                        <Checkbox
-                          value="true"
-                          name="wellness"
-                          onChange={handleChange}
-                          checked={checkedItem.wellness === "true"}
-                          {...label}
-                          icon={<CheckCircleOutlineIcon />}
-                          checkedIcon={<CheckCircleIcon />}
-                        />
-                        <Checkbox
-                          {...label}
-                          value="false"
-                          name="wellness"
-                          checked={checkedItem.wellness === "false"}
-                          onChange={handleChange}
-                          icon={<HighlightOffIcon />}
-                          checkedIcon={<CancelIcon />}
-                        />
-                      </Box>
-                    </Box>
-                    <Box
-                      display="flex"
-                      justifyContent="space-between"
-                      alignItems="center"
-                    >
-                      <Box display="flex" gap="10px">
-                        <FitnessCenterIcon />
-                        <Typography
-                          sx={{
-                            fontSize: "14px",
-                            color: "#252525",
-                            fontWeight: "bold",
-                          }}
-                        >
-                          Hidden Gem
-                        </Typography>
-                      </Box>
-                      <Box display="flex" gap="10px">
-                        <Checkbox
-                          value="true"
-                          name="hiddenGem"
-                          onChange={handleChange}
-                          checked={checkedItem.hiddenGem === "true"}
-                          {...label}
-                          icon={<CheckCircleOutlineIcon />}
-                          checkedIcon={<CheckCircleIcon />}
-                        />
-                        <Checkbox
-                          {...label}
-                          value="false"
-                          name="hiddenGem"
-                          checked={checkedItem.hiddenGem === "false"}
-                          onChange={handleChange}
-                          icon={<HighlightOffIcon />}
-                          checkedIcon={<CancelIcon />}
-                        />
-                      </Box>
-                    </Box>
-                    <Box
-                      display="flex"
-                      justifyContent="space-between"
-                      alignItems="center"
-                    >
-                      <Box display="flex" gap="10px">
-                        <FolderDeleteIcon />
-                        <Typography
-                          sx={{
-                            fontSize: "14px",
-                            color: "#252525",
-                            fontWeight: "bold",
-                          }}
-                        >
-                          Price Inclusive Tax
-                        </Typography>
-                      </Box>
-                      <Box display="flex" gap="10px">
-                        <Checkbox
-                          value="true"
-                          name="tax"
-                          onChange={handleChange}
-                          checked={checkedItem.tax === "true"}
-                          {...label}
-                          icon={<CheckCircleOutlineIcon />}
-                          checkedIcon={<CheckCircleIcon />}
-                        />
-                        <Checkbox
-                          {...label}
-                          value="false"
-                          name="tax"
-                          checked={checkedItem.tax === "false"}
-                          onChange={handleChange}
-                          icon={<HighlightOffIcon />}
-                          checkedIcon={<CancelIcon />}
-                        />
-                      </Box>
-                    </Box>
-                    <Box
-                      display="flex"
-                      justifyContent="space-between"
-                      alignItems="center"
-                    >
-                      <Box display="flex" gap="10px">
-                        <LocalOfferIcon />
-                        <Typography
-                          sx={{
-                            fontSize: "14px",
-                            color: "#252525",
-                            fontWeight: "bold",
-                          }}
-                        >
-                          50% Off
-                        </Typography>
-                      </Box>
-                      <Box display="flex" gap="10px">
-                        <Checkbox
-                          value="true"
-                          name="discount"
-                          onChange={handleChange}
-                          checked={checkedItem.discount === "true"}
-                          {...label}
-                          icon={<CheckCircleOutlineIcon />}
-                          checkedIcon={<CheckCircleIcon />}
-                        />
-                        <Checkbox
-                          {...label}
-                          value="false"
-                          name="discount"
-                          checked={checkedItem.discount === "false"}
-                          onChange={handleChange}
-                          icon={<HighlightOffIcon />}
-                          checkedIcon={<CancelIcon />}
-                        />
-                      </Box>
-                    </Box>
-                    <Box
-                      display="flex"
-                      justifyContent="space-between"
-                      alignItems="center"
-                    >
-                      <Box display="flex" gap="10px">
-                        <KayakingIcon />
-                        <Typography
-                          sx={{
-                            fontSize: "14px",
-                            color: "#252525",
-                            fontWeight: "bold",
-                          }}
-                        >
-                          Water Activities
-                        </Typography>
-                      </Box>
-                      <Box display="flex">
-                        <Checkbox
-                          value="true"
-                          name="waterActivities"
-                          onChange={handleChange}
-                          checked={checkedItem.waterActivities === "true"}
-                          {...label}
-                          icon={<CheckCircleOutlineIcon />}
-                          checkedIcon={<CheckCircleIcon />}
-                        />
-                        <Checkbox
-                          {...label}
-                          value="false"
-                          name="waterActivities"
-                          checked={checkedItem.waterActivities === "false"}
-                          onChange={handleChange}
-                          icon={<HighlightOffIcon />}
-                          checkedIcon={<CancelIcon />}
-                        />
-                      </Box>
-                    </Box>
-                    <Box
-                      display="flex"
-                      justifyContent="space-between"
-                      alignItems="center"
-                    >
-                      <Box display="flex" gap="10px">
-                        <SportsKabaddiIcon />
-                        <Typography
-                          sx={{
-                            fontSize: "14px",
-                            color: "#252525",
-                            fontWeight: "bold",
-                          }}
-                        >
-                          Optional Activities
-                        </Typography>
-                      </Box>
-                      <Box display="flex" gap="10px">
-                        <Checkbox
-                          value="true"
-                          name="optionalActivities"
-                          onChange={handleChange}
-                          checked={checkedItem.optionalActivities === "true"}
-                          {...label}
-                          icon={<CheckCircleOutlineIcon />}
-                          checkedIcon={<CheckCircleIcon />}
-                        />
-                        <Checkbox
-                          {...label}
-                          value="false"
-                          name="optionalActivities"
-                          checked={checkedItem.optionalActivities === "false"}
-                          onChange={handleChange}
-                          icon={<HighlightOffIcon />}
-                          checkedIcon={<CancelIcon />}
-                        />
-                      </Box>
-                    </Box>
-                    <Box
-                      display="flex"
-                      justifyContent="space-between"
-                      alignItems="center"
-                    >
-                      <Box display="flex" gap="10px">
-                        <BookmarkAddIcon />
-                        <Typography
-                          sx={{
-                            fontSize: "14px",
-                            color: "#252525",
-                            fontWeight: "bold",
-                          }}
-                        >
-                          Flexible Booking
-                        </Typography>
-                      </Box>
-                      <Box display="flex">
-                        <Checkbox
-                          value="true"
-                          name="flexibleBooking"
-                          onChange={handleChange}
-                          checked={checkedItem.flexibleBooking === "true"}
-                          {...label}
-                          icon={<CheckCircleOutlineIcon />}
-                          checkedIcon={<CheckCircleIcon />}
-                        />
-                        <Checkbox
-                          {...label}
-                          value="false"
-                          name="flexibleBooking"
-                          checked={checkedItem.flexibleBooking === "false"}
-                          onChange={handleChange}
-                          icon={<HighlightOffIcon />}
-                          checkedIcon={<CancelIcon />}
-                        />
-                      </Box>
-                    </Box>
-                    <Box
-                      display="flex"
-                      justifyContent="space-between"
-                      alignItems="center"
-                    >
-                      <Box display="flex" gap="10px">
-                        <WifiPasswordIcon />
-                        <Typography
-                          sx={{
-                            fontSize: "14px",
-                            color: "#252525",
-                            fontWeight: "bold",
-                          }}
-                        >
-                          WIFI
-                        </Typography>
-                      </Box>
-                      <Box display="flex" gap="10px">
-                        <Checkbox
-                          value="true"
-                          name="wifi"
-                          onChange={handleChange}
-                          checked={checkedItem.wifi === "true"}
-                          {...label}
-                          icon={<CheckCircleOutlineIcon />}
-                          checkedIcon={<CheckCircleIcon />}
-                        />
-                        <Checkbox
-                          {...label}
-                          value="false"
-                          name="wifi"
-                          checked={checkedItem.wifi === "false"}
-                          onChange={handleChange}
-                          icon={<HighlightOffIcon />}
-                          checkedIcon={<CancelIcon />}
-                        />
-                      </Box>
-                    </Box>
-                  </Box>
+                  </Grid>
                 </Grid>
-                <Grid item lg={1}></Grid>
-              </Grid>
-              {/* ------------------------------ */}
-              <Box my={2} style={{ marginLeft: "25px" }}>
-                <Typography
-                  style={{
-                    fontSize: "20px",
-                    color: "#000",
 
-                    fontFamily: "Montserrat",
-                  }}
-                >
-                  Hotel Details<span style={{ color: "red" }}>*</span>
-                </Typography>
-                <Typography
-                  style={{
-                    fontSize: "16px",
-                    color: "#BBBBBB",
-                    fontWeight: "400",
-                  }}
-                >
-                  {/* + Add Hotel Details */}
-                  {/* <input type="text" name="hotel_details" placeholder="Add Hotel Details" style={{ textDecoration: 'none', width: '100%' }} onChange={handleHotel} /> */}
-                  <textarea
-                    className="style_Textarea"
-                    backgroundColor="#FFFBFB"
-                    name="hotel_details"
-                    id="hotel_details"
-                    placeholder="Add Hotel Details ..."
-                    cols="100"
-                    rows="5"
-                    onChange={handleHotel}
-                  ></textarea>
-                </Typography>
-              </Box>
-              <Box
-                my={2}
-                style={{
-                  marginLeft: "20px",
-                  fontSize: "16px",
-                  color: "#BBBBBB",
-                  fontWeight: "400",
-                }}
-              >
-                <Typography
-                  style={{
-                    fontSize: "20px",
-                    color: "#000",
+                <Grid container>
+                  <Grid item lg={5} md={12} sm={12}>
+                    <Box my={2}>
+                      <label class="form-label">Exclusion Note</label>
+                      <div class="form-floating">
+                        <textarea class="form-control" name="exclusion_note" placeholder="Add Exclusion Note ..." id="exclusion_note" style={{ height: "100px" }}></textarea>
+                        <label for="floatingTextarea2">Add Exclusion Note</label>
+                      </div>
+                    </Box>
+                  </Grid>
+                </Grid>
+                <Box my={2}>
 
-                    fontFamily: "Montserrat",
-                  }}
-                >
-                  Inclusion Note
-                </Typography>
-                <Typography
-                  style={{
-                    fontSize: "16px",
-                    color: "#BBBBBB",
-                    fontWeight: "400",
-                  }}
-                >
-                  {/* <input type="text" name="insclusion_note" placeholder="Add Details" style={{ textDecoration: 'none', width: '100%' }} /> */}
-                  <textarea
-                    className="style_Textarea"
-                    name="insclusion_note"
-                    id="insclusion_note"
-                    placeholder="Add Inclusion Note ..."
-                    cols="100"
-                    rows="5"
-                  ></textarea>
-                </Typography>
-              </Box>
-              <Box
-                my={2}
-                style={{
-                  marginLeft: "20px",
-                  fontSize: "16px",
-                  color: "#BBBBBB",
-                  fontWeight: "400",
-                }}
-              >
-                <Typography
-                  style={{
-                    fontSize: "20px",
-                    color: "#000",
-
-                    fontFamily: "Montserrat",
-                  }}
-                >
-                  Exclusion Note
-                  {/* <p> What's explicitly excluded?</p> */}
-                </Typography>
-                <Typography
-                  style={{
-                    fontSize: "16px",
-                    color: "#BBBBBB",
-                    fontWeight: "400",
-                  }}
-                >
-                  {/* <input type="text" name="exclusion_note" placeholder="Add Hotel Details" style={{ textDecoration: 'none', width: '100%' }} /> */}
-                  <textarea
-                    className="style_Textarea"
-                    name="exclusion_note"
-                    id="exclusion_note"
-                    placeholder="Add Exclusion Note ..."
-                    cols="100"
-                    rows="5"
-                  ></textarea>
-                </Typography>
-              </Box>
-              <Box my={2} style={{ marginLeft: "20px" }}>
-                <Typography
-                  style={{
-                    fontSize: "20px",
-                    color: "#000",
-
-                    fontFamily: "Montserrat",
-                  }}
-                >
-                  Detailed Itinerary<span style={{ color: "red" }}>*</span>
-                </Typography>
-                {Array.from({ length: days }, (_, i) => (
-                  <>
-                    <Accordion style={{ width: "560px" }}>
-                      <Accordion.Item eventKey={i}>
-                        <Accordion.Header
-                          style={{
-                            border: "1px solid #5C85A4",
-                            backgroundColor: "#FFFBFB",
-                          }}
-                        >
-                          <p
-                            style={{ fontSize: "20px", color: "#000000" }}
-                          >{`Days ${i + 1}`}</p>
-                        </Accordion.Header>
-                        <Accordion.Body>
-                          {/* ⬇️⬇️⬇️⬇️⬇️ Text editor */}
-
-                          <span
-                            key={i}
-                            type="text"
-                            name="detailed_ltinerary"
-                            placeholder={`Days ${i + 1}`}
+                  <label class="form-label"> Detailed Itinerary<span style={{ color: "red" }}>*</span></label>
+                  {Array.from({ length: days }, (_, i) => (
+                    <>
+                      <Accordion style={{ marginBottom: "10px" }}>
+                        <Accordion.Item eventKey={i}>
+                          <Accordion.Header
+                            style={{
+                              backgroundColor: "#FFFBFB",
+                            }}
+                          >
+                            <p
+                              style={{ fontSize: "20px", color: "#000000" }}
+                            >{`Days ${i + 1}`}</p>
+                          </Accordion.Header>
+                          <Accordion.Body style={{ height: "300px" }}>
+                            <span
+                              key={i}
+                              type="text"
+                              name="detailed_ltinerary"
+                              placeholder={`Days ${i + 1}`}
                             // value={daysDetailsValues[i] || ""}
                             // onChange={(event) => handleDaysDetail(i, event)}
-                          >
-                            <Editor
-                              name="detailed_ltinerary"
-                              value={daysDetailsValues[i]}
-                              onChange={(event) => handleDaysDetail(i, event)}
-                            />
-                          </span>
-                        </Accordion.Body>
-                      </Accordion.Item>
-                    </Accordion>
-                  </>
-                ))}
-              </Box>
-              <Box
-                style={{
-                  marginLeft: "20px",
-                  fontSize: "16px",
-                  color: "#BBBBBB",
-                  fontWeight: "400",
-                }}
-              >
-                <Typography
-                  style={{
-                    fontSize: "20px",
-                    color: "#000",
+                            >
+                              <Editor
+                                name="detailed_ltinerary"
+                                value={daysDetailsValues[i]}
+                                onChange={(event) => handleDaysDetail(i, event)}
+                                style={{ height: "199px" }}
+                              />
+                            </span>
+                          </Accordion.Body>
+                        </Accordion.Item>
+                      </Accordion>
+                    </>
+                  ))}
+                </Box>
 
-                    fontFamily: "Montserrat",
-                  }}
+
+                <Grid container>
+                  <Grid item lg={5} md={12} sm={12}>
+                    <Box my={2}>
+                      <label class="form-label">Overview</label>
+                      <div class="form-floating">
+                        <textarea class="form-control" name="overview" placeholder="" id="exclusion_note" style={{ height: "100px" }}></textarea>
+                        <label for="floatingTextarea2">Overview</label>
+                      </div>
+                    </Box>
+                  </Grid>
+                </Grid>
+
+                <div class="mb-3">
+                  <label class="form-label">Select Tags <span style={{ color: "red" }}>*</span></label><br />
+                  <label class="form-label">Select tags most relevant to your packages</label>
+                </div>
+
+                <div className="tag__Container">
+                  <div className="relevant__tag">
+                    <label class="label__container">
+                      <input
+                        type="checkbox"
+                        name="domestic"
+                        onChange={handleTagChange}
+                      />
+                      <div class="checkmark"></div>
+                      <span className="tag__title">Domestic</span>
+                    </label>
+
+                    <label class="label__container">
+                      <input
+                        type="checkbox"
+                        name="international"
+                        onChange={handleTagChange}
+                      />
+                      <div class="checkmark"></div>
+                      <span className="tag__title">International</span>
+                    </label>
+
+                    <label class="label__container">
+                      <input
+                        type="checkbox"
+                        name="budget"
+                        onChange={handleTagChange}
+                      />
+                      <div class="checkmark"></div>
+                      <span className="tag__title">Budget</span>
+                    </label>
+
+                    <label class="label__container">
+                      <input
+                        type="checkbox"
+                        name="holiday"
+                        onChange={handleTagChange}
+                      />
+                      <div class="checkmark"></div>
+                      <span className="tag__title">Holiday</span>
+                    </label>
+
+                    <label class="label__container">
+                      <input
+                        type="checkbox"
+                        name="luxury"
+                        onChange={handleTagChange}
+                      />
+                      <div class="checkmark"></div>
+                      <span className="tag__title">Luxury</span>
+                    </label>
+
+                    <label class="label__container">
+                      <input
+                        type="checkbox"
+                        name="couples"
+                        onChange={handleTagChange}
+                      />
+                      <div class="checkmark"></div>
+                      <span className="tag__title">Couples</span>
+                    </label>
+
+                    <label class="label__container">
+                      <input
+                        type="checkbox"
+                        name="family"
+                        onChange={handleTagChange}
+                      />
+                      <div class="checkmark"></div>
+                      <span className="tag__title">family</span>
+                    </label>
+
+                    <label class="label__container">
+                      <input
+                        type="checkbox"
+                        name="honeymoon"
+                        onChange={handleTagChange}
+                      />
+                      <div class="checkmark"></div>
+                      <span className="tag__title">Honeymoon</span>
+                    </label>
+
+                    <label class="label__container">
+                      <input
+                        type="checkbox"
+                        name="solo"
+                        onChange={handleTagChange}
+                      />
+                      <div class="checkmark"></div>
+                      <span className="tag__title">Solo</span>
+                    </label>
+
+                    <label class="label__container">
+                      <input
+                        type="checkbox"
+                        name="group"
+                        onChange={handleTagChange}
+                      />
+                      <div class="checkmark"></div>
+                      <span className="tag__title">Group</span>
+                    </label>
+
+                    <label class="label__container">
+                      <input
+                        type="checkbox"
+                        name="Girl Only"
+                        onChange={handleTagChange}
+                      />
+                      <div class="checkmark"></div>
+                      <span className="tag__title">Girl Only</span>
+                    </label>
+                    <label class="label__container">
+                      <input
+                        type="checkbox"
+                        name="Boy Only"
+                        onChange={handleTagChange}
+                      />
+                      <div class="checkmark"></div>
+                      <span className="tag__title">Boy Only</span>
+                    </label>
+
+                    <label class="label__container">
+                      <input
+                        type="checkbox"
+                        name="anniversary"
+                        onChange={handleTagChange}
+                      />
+                      <div class="checkmark"></div>
+                      <span className="tag__title">Anniversary</span>
+                    </label>
+
+                    <label class="label__container">
+                      <input
+                        type="checkbox"
+                        name="Business"
+                        onChange={handleTagChange}
+                      />
+                      <div class="checkmark"></div>
+                      <span className="tag__title">Business</span>
+                    </label>
+
+                    <label class="label__container">
+                      <input
+                        type="checkbox"
+                        name="Bagpacker"
+                        onChange={handleTagChange}
+                      />
+                      <div class="checkmark"></div>
+                      <span className="tag__title">Bagpacker</span>
+                    </label>
+                    <label class="label__container">
+                      <input
+                        type="checkbox"
+                        name="Nature"
+                        onChange={handleTagChange}
+                      />
+                      <div class="checkmark"></div>
+                      <span className="tag__title">Nature</span>
+                    </label>
+
+                    <label class="label__container">
+                      <input
+                        type="checkbox"
+                        name="Wildlife"
+                        onChange={handleTagChange}
+                      />
+                      <div class="checkmark"></div>
+                      <span className="tag__title">Wildlife</span>
+                    </label>
+                    <label class="label__container">
+                      <input
+                        type="checkbox"
+                        name="historical"
+                        onChange={handleTagChange}
+                      />
+                      <div class="checkmark"></div>
+                      <span className="tag__title">historical</span>
+                    </label>
+
+                    <label class="label__container">
+                      <input
+                        type="checkbox"
+                        name="domestic"
+                        onChange={handleTagChange}
+                      />
+                      <div class="checkmark"></div>
+                      <span className="tag__title">Domestic</span>
+                    </label>
+
+                    <label class="label__container">
+                      <input
+                        type="checkbox"
+                        name="weekend gateway"
+                        onChange={handleTagChange}
+                      />
+                      <div class="checkmark"></div>
+                      <span className="tag__title">Weekend Gateway</span>
+                    </label>
+
+                    <label class="label__container">
+                      <input
+                        type="checkbox"
+                        name="mid-Range"
+                        onChange={handleTagChange}
+                      />
+                      <div class="checkmark"></div>
+                      <span className="tag__title">Mid-Range</span>
+                    </label>
+
+                    <label class="label__container">
+                      <input
+                        type="checkbox"
+                        name="Family With Children"
+                        onChange={handleTagChange}
+                      />
+                      <div class="checkmark"></div>
+                      <span className="tag__title">Family With Children</span>
+                    </label>
+                  </div>
+
+                </div>
+
+                <div className="col-lg-12 col-sm-12">
+                  <div className="row">
+                    <div className="col-lg-6 col-md-12 col-sm-12">
+                      <Box my={2}>
+                        <label class="form-label">Term & Conditions <span style={{ color: "red" }}>*</span></label>
+                        <div class="form-floating">
+                          <textarea class="form-control" name="term_Conditions" placeholder="Enter Term And Condition" id="exclusion_note" style={{ height: "100px" }}></textarea>
+                          <label for="floatingTextarea2">EnterTerm & Conditions</label>
+                        </div>
+                      </Box>
+                    </div>
+                    <div className="col-lg-6 col-md-12 col-sm-12">
+                      <Box my={2}>
+                        <label class="form-label"> Write a descriptive summary of the T&C..... <span style={{ color: "red" }}>*</span></label>
+                        <div class="form-floating">
+                          <textarea class="form-control" name="term_Conditions" placeholder="Enter Term And Condition" id="exclusion_note" style={{ height: "100px" }}></textarea>
+                          <label for="floatingTextarea2">Enter Term & Conditions</label>
+                        </div>
+                      </Box>
+                    </div>
+                  </div>
+                </div>
+
+
+                <div className="col-lg-12 col-sm-12">
+                  <div className="row">
+                    <div className="col-lg-6 col-md-12 col-sm-12">
+                      <Box my={2}>
+                        <label class="form-label">Cancellation Policy<span style={{ color: "red" }}>*</span></label>
+                        <div class="form-floating">
+                          <textarea class="form-control" name="cancellation_Policy" placeholder="Cancellation Policy...." id="exclusion_note" style={{ height: "100px" }}></textarea>
+                          <label for="floatingTextarea2">Enter Term & Conditions</label>
+                        </div>
+                      </Box>
+                    </div>
+                    <div className="col-lg-6 col-md-12 col-sm-12">
+                      <Box my={2}>
+                        <label class="form-label"> Write a descriptive summary of the Cancellation Policy...... <span style={{ color: "red" }}>*</span></label>
+                        <div class="form-floating">
+                          <textarea class="form-control" name="term_Conditions" placeholder="Descriptive Cancellation Policy...." id="exclusion_note" style={{ height: "100px" }}></textarea>
+                          <label for="floatingTextarea2">Descriptive Cancellation Policy....</label>
+                        </div>
+                      </Box>
+                    </div>
+                  </div>
+                </div>
+
+
+                {/* <Box
+                  my={2}
+                  marginLeft="20px"
+                  display="flex"
+                  justifyContent="start"
                 >
-                  Overview<span style={{ color: "red" }}>*</span>
-                </Typography>
+                  <Box mx={1}>
+                    <Button
+                      style={{
+                        textDecoration: "underline",
+                        borderColor: color.red1,
+                        color: "#000000",
+                      }}
+                    >
+                      Save As Draft
+                    </Button>
+                  </Box>
+                  <Box mx={1}>
+                    <Button
+                      variant="primary"
+                      type="submit"
+                      style={{
+                        border: "1px solid #707070",
+                        borderRadius: "px",
+                        backgroundColor: color.bluedark,
+                        color: "#fff",
+                        marginBottom: "20px",
+                      }}
+                    >
+                      Submit Request
+                    </Button>
+                  </Box>
+                </Box> */}
 
-                <textarea
-                  className="style_Textarea"
-                  name="overview"
-                  placeholder="Add Overview Detailed...."
-                  cols="95"
-                  rows="5"
-                ></textarea>
-              </Box>
-              <Box style={{ marginLeft: "20px" }}>
-                <Typography
-                  style={{
-                    fontSize: "20px",
-                    color: "#000",
-
-                    fontFamily: "Montserrat",
-                  }}
-                >
-                  Select Tags<span style={{ color: "red" }}>*</span>
-                </Typography>
-                <Typography style={{ fontSize: "14px", color: "#666666" }}>
-                  Select tags most relevant to your packages
-                </Typography>
-              </Box>
-
-              <div className="tag__Container">
-                <div className="relevant__tag">
-                  <label class="label__container">
-                    <input
-                      type="checkbox"
-                      name="domestic"
-                      onChange={handleTagChange}
-                    />
-                    <div class="checkmark"></div>
-                    <span className="tag__title">Domestic</span>
-                  </label>
-
-                  <label class="label__container">
-                    <input
-                      type="checkbox"
-                      name="international"
-                      onChange={handleTagChange}
-                    />
-                    <div class="checkmark"></div>
-                    <span className="tag__title">International</span>
-                  </label>
-
-                  <label class="label__container">
-                    <input
-                      type="checkbox"
-                      name="budget"
-                      onChange={handleTagChange}
-                    />
-                    <div class="checkmark"></div>
-                    <span className="tag__title">Budget</span>
-                  </label>
-
-                  <label class="label__container">
-                    <input
-                      type="checkbox"
-                      name="holiday"
-                      onChange={handleTagChange}
-                    />
-                    <div class="checkmark"></div>
-                    <span className="tag__title">Holiday</span>
-                  </label>
-
-                  <label class="label__container">
-                    <input
-                      type="checkbox"
-                      name="luxury"
-                      onChange={handleTagChange}
-                    />
-                    <div class="checkmark"></div>
-                    <span className="tag__title">Luxury</span>
-                  </label>
-                </div>
-
-                <div className="relevant__tag">
-                  <label class="label__container">
-                    <input
-                      type="checkbox"
-                      name="couples"
-                      onChange={handleTagChange}
-                    />
-                    <div class="checkmark"></div>
-                    <span className="tag__title">Couples</span>
-                  </label>
-
-                  <label class="label__container">
-                    <input
-                      type="checkbox"
-                      name="family"
-                      onChange={handleTagChange}
-                    />
-                    <div class="checkmark"></div>
-                    <span className="tag__title">family</span>
-                  </label>
-
-                  <label class="label__container">
-                    <input
-                      type="checkbox"
-                      name="honeymoon"
-                      onChange={handleTagChange}
-                    />
-                    <div class="checkmark"></div>
-                    <span className="tag__title">Honeymoon</span>
-                  </label>
-
-                  <label class="label__container">
-                    <input
-                      type="checkbox"
-                      name="solo"
-                      onChange={handleTagChange}
-                    />
-                    <div class="checkmark"></div>
-                    <span className="tag__title">Solo</span>
-                  </label>
-                </div>
-
-                <div className="relevant__tag">
-                  <label class="label__container">
-                    <input
-                      type="checkbox"
-                      name="group"
-                      onChange={handleTagChange}
-                    />
-                    <div class="checkmark"></div>
-                    <span className="tag__title">Group</span>
-                  </label>
-
-                  <label class="label__container">
-                    <input
-                      type="checkbox"
-                      name="Girl Only"
-                      onChange={handleTagChange}
-                    />
-                    <div class="checkmark"></div>
-                    <span className="tag__title">Girl Only</span>
-                  </label>
-                  <label class="label__container">
-                    <input
-                      type="checkbox"
-                      name="Boy Only"
-                      onChange={handleTagChange}
-                    />
-                    <div class="checkmark"></div>
-                    <span className="tag__title">Boy Only</span>
-                  </label>
-
-                  <label class="label__container">
-                    <input
-                      type="checkbox"
-                      name="anniversary"
-                      onChange={handleTagChange}
-                    />
-                    <div class="checkmark"></div>
-                    <span className="tag__title">Anniversary</span>
-                  </label>
-
-                  <label class="label__container">
-                    <input
-                      type="checkbox"
-                      name="Business"
-                      onChange={handleTagChange}
-                    />
-                    <div class="checkmark"></div>
-                    <span className="tag__title">Business</span>
-                  </label>
-                </div>
-
-                <div className="relevant__tag">
-                  <label class="label__container">
-                    <input
-                      type="checkbox"
-                      name="Bagpacker"
-                      onChange={handleTagChange}
-                    />
-                    <div class="checkmark"></div>
-                    <span className="tag__title">Bagpacker</span>
-                  </label>
-                  <label class="label__container">
-                    <input
-                      type="checkbox"
-                      name="Nature"
-                      onChange={handleTagChange}
-                    />
-                    <div class="checkmark"></div>
-                    <span className="tag__title">Nature</span>
-                  </label>
-
-                  <label class="label__container">
-                    <input
-                      type="checkbox"
-                      name="Wildlife"
-                      onChange={handleTagChange}
-                    />
-                    <div class="checkmark"></div>
-                    <span className="tag__title">Wildlife</span>
-                  </label>
-                  <label class="label__container">
-                    <input
-                      type="checkbox"
-                      name="historical"
-                      onChange={handleTagChange}
-                    />
-                    <div class="checkmark"></div>
-                    <span className="tag__title">historical</span>
-                  </label>
-
-                  <label class="label__container">
-                    <input
-                      type="checkbox"
-                      name="domestic"
-                      onChange={handleTagChange}
-                    />
-                    <div class="checkmark"></div>
-                    <span className="tag__title">Domestic</span>
-                  </label>
-                </div>
-
-                <div className="relevant__tag">
-                  <label class="label__container">
-                    <input
-                      type="checkbox"
-                      name="weekend gateway"
-                      onChange={handleTagChange}
-                    />
-                    <div class="checkmark"></div>
-                    <span className="tag__title">Weekend Gateway</span>
-                  </label>
-
-                  <label class="label__container">
-                    <input
-                      type="checkbox"
-                      name="mid-Range"
-                      onChange={handleTagChange}
-                    />
-                    <div class="checkmark"></div>
-                    <span className="tag__title">Mid-Range</span>
-                  </label>
-
-                  <label class="label__container">
-                    <input
-                      type="checkbox"
-                      name="Family With Children"
-                      onChange={handleTagChange}
-                    />
-                    <div class="checkmark"></div>
-                    <span className="tag__title">Family With Children</span>
-                  </label>
+                <div className="buttonBoxPackage">
+                  <button className="draft">Save As Draft</button>
+                  <button type="submit" class="packageSubmit">Submit Request</button>
                 </div>
               </div>
-              <Box
-                my={2}
-                style={{
-                  marginLeft: "20px",
-                  fontSize: "16px",
-                  color: "#BBBBBB",
-                  fontWeight: "400",
-                }}
-              >
-                <Typography
-                  style={{
-                    fontSize: "16px",
-                    color: "#BBBBBB",
-                    fontWeight: "400",
-                  }}
-                >
-                  <p
-                    style={{
-                      fontSize: "20px",
-                      color: "#000",
-
-                      fontFamily: "Montserrat",
-                    }}
-                  >
-                    Term & Conditions<span style={{ color: "red" }}>*</span>{" "}
-                  </p>
-                  <textarea
-                    className="style_Textarea"
-                    name="term_Conditions"
-                    placeholder="Enter Term And Condition"
-                    cols="83"
-                    rows="5"
-                  ></textarea>
-                </Typography>
-                <p
-                  style={{
-                    fontSize: "20px",
-                    color: "#000",
-
-                    fontFamily: "Montserrat",
-                  }}
-                >
-                  Write a descriptive summary of the T&C.....
-                </p>
-                <Typography
-                  style={{
-                    fontSize: "16px",
-                    color: "#BBBBBB",
-                    fontWeight: "400",
-                  }}
-                >
-                  <textarea
-                    className="style_Textarea"
-                    name="term_Conditions"
-                    placeholder="Enter Term And Condition"
-                    cols="95"
-                    rows="5"
-                  ></textarea>
-                </Typography>
-              </Box>
-              <Box my={2} style={{ marginLeft: "20px" }}>
-                <Typography
-                  style={{
-                    fontSize: "16px",
-                    color: "#BBBBBB",
-                    fontWeight: "400",
-                  }}
-                >
-                  <p
-                    style={{
-                      fontSize: "20px",
-                      color: "#000",
-
-                      fontFamily: "Montserrat",
-                    }}
-                  >
-                    {" "}
-                    Cancellation Policy<span style={{ color: "red" }}>
-                      *
-                    </span>{" "}
-                  </p>
-
-                  <textarea
-                    className="style_Textarea"
-                    name="cancellation_Policy"
-                    placeholder="Cancellation Policy...."
-                    cols="83"
-                    rows="5"
-                  ></textarea>
-                </Typography>
-                <Typography
-                  style={{
-                    fontSize: "16px",
-                    color: "#BBBBBB",
-                    fontWeight: "400",
-                  }}
-                >
-                  <p
-                    style={{
-                      fontSize: "20px",
-                      color: "#000",
-
-                      fontFamily: "Montserrat",
-                    }}
-                  >
-                    Write a descriptive summary of the Cancellation Policy......
-                  </p>
-                  <textarea
-                    className="style_Textarea"
-                    name="cancellation_Policy"
-                    placeholder="Descriptive Cancellation Policy...."
-                    cols="95"
-                    rows="5"
-                  ></textarea>
-                </Typography>
-              </Box>
-              <Box
-                my={2}
-                marginLeft="20px"
-                display="flex"
-                justifyContent="start"
-              >
-                <Box mx={1}>
-                  <Button
-                    style={{
-                      textDecoration: "underline",
-                      // border: "1px solid",
-                      borderColor: color.red1,
-                      // borderRadius: "px",
-                      // color: color.red1,
-                      color: "#000000",
-                    }}
-                  >
-                    Save As Draft
-                  </Button>
-                </Box>
-                <Box mx={1}>
-                  <Button
-                    variant="primary"
-                    type="submit"
-                    style={{
-                      border: "1px solid #707070",
-                      borderRadius: "px",
-                      backgroundColor: color.bluedark,
-                      color: "#fff",
-                      marginBottom: "20px",
-                    }}
-                  >
-                    Submit Request
-                  </Button>
-                </Box>
-              </Box>
-            </Box>
-          </Grid>
-          {/* <Grid item xs={2} md={2}></Grid> */}
-        </form>
-      </Grid>
+            </form>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };

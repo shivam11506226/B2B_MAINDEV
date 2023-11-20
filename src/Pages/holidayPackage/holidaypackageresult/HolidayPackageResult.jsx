@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Flex, Spacer, Text, HStack, Box } from "@chakra-ui/react";
 import HolidayPackagedetail from "../holidaypackageresult/HolidayPackagedetail";
@@ -38,6 +38,7 @@ import KayakingIcon from "@mui/icons-material/Kayaking";
 import SportsKabaddiIcon from "@mui/icons-material/SportsKabaddi";
 import BookmarkAddIcon from "@mui/icons-material/BookmarkAdd";
 import LocationCityIcon from "@mui/icons-material/LocationCity";
+import WifiPasswordIcon from "@mui/icons-material/WifiPassword";
 import RowingIcon from "@mui/icons-material/Rowing";
 import TransferWithinAStationIcon from "@mui/icons-material/TransferWithinAStation";
 import FlightTakeoffIcon from "@mui/icons-material/FlightTakeoff";
@@ -67,12 +68,18 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import FilterAltIcon from '@mui/icons-material/FilterAlt';
 import WhatsAppIcon from '@mui/icons-material/WhatsApp';
 import MailIcon from '@mui/icons-material/Mail';
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import goa from '../../../Images/goa.jpg'
 
 const HolidayPackageResult = () => {
   const reducerState = useSelector((state) => state);
   const dispatch = useDispatch();
   const navigate = useNavigate()
+  const [expanded, setExpanded] = React.useState('panel1');
+
+  const handleChange = (panel) => (event, newExpanded) => {
+    setExpanded(newExpanded ? panel : false);
+  };
 
   // console.log("holiday details",reducerState?.searchResult?.packageSearchResult?.data?.data?.pakage);
   const filteredPackage =
@@ -80,621 +87,390 @@ const HolidayPackageResult = () => {
   console.log("----------------------------");
   console.warn("Flitered line 22", filteredPackage);
 
+
   const searchOneHoliday = (id) => {
-    //  console.log("ID",id);
     const payload = {
       id,
     };
+
     console.log(payload);
     dispatch(searchOnePackageAction(payload));
+    navigate("/holidaypackage/Holidaybooknow");
   };
 
+
+  const savedDataString = sessionStorage.getItem("searchPackageData");
+  const savedData = JSON.parse(savedDataString);
+  const savedDestination = savedData.destination;
+  const savedDays = savedData.days;
+
+
+  const accordionRef = useRef(null);
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth <= 991) {
+        setExpanded(false);
+      } else {
+        setExpanded('panel1');
+      }
+    };
+    window.addEventListener('resize', handleResize);
+    handleResize();
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
+
+
   return (
-    <div>
-      <div className="flightContainer">
-        {/* step by step updating part */}
+    <section className="packageResult">
 
+      <div className="container-fluid">
+        <div className="row">
+          <div className="col-lg-3">
 
-        <div >
-          <Grid container spacing={3} display="flex" alignItems='center' justifyContent='center'>
-            {/* <Grid sm={0} xs={0} md={3} item>
-              <div style={{ width: 361, height: 642, background: 'white', borderRadius: 8, border: '1px #5C85A4 solid', padding: "10px" }} >
-                <Accordion style={{ border: "none" }} border="none">
-                  <AccordionSummary
-                    expandIcon={<ExpandMoreIcon />}
-                    aria-controls="panel1a-content"
-                    id="panel1a-header"
-                    style={{ width: '100%', border: "none" }}
-                  >
-                    <div style={{ width: "100%", display: "flex", justifyContent: "space-between" }}>
+            <div className="packResFilterBox" >
+              <Accordion ref={accordionRef} expanded={expanded === 'panel1'} onChange={handleChange('panel1')}>
+                <AccordionSummary
+                  expandIcon={<ExpandMoreIcon />}
+                  aria-controls="panel1a-content"
+                  id="panel1a-header"
+                  style={{ width: '100%', border: "none" }}
+                >
+                  <div style={{ width: "100%", display: "flex", justifyContent: "space-between" }}>
 
-                      <Typography style={{
-                        fontFamily: 'Montserrat',
-                        fontSize: '14px',
-                        fontWeight: '400',
-                        textAlign: 'center'
+                    <Typography style={{
+                      fontFamily: 'Montserrat',
+                      fontSize: '14px',
+                      fontWeight: '400',
+                      textAlign: 'center'
 
-                      }} ><FilterAltIcon fontSize="16px" /> Filter</Typography>
-                      <Typography style={{ color: '#0048FF', textDecoration: 'underline' }}>clear all</Typography>
-                    </div>
-                  </AccordionSummary>
-                  <AccordionDetails>
-                    <Typography style={{ fontWeight: "600", fontFamily: "Montserrat", fontSize: '16px' }}>
-                      Themes
-                    </Typography>
-                    <FormGroup>
-                      <FormControlLabel control={<Checkbox style={{ fontWeight: "400", fontFamily: "Montserrat", fontSize: '14px' }} />} label="Adventure" />
-                      <FormControlLabel control={<Checkbox style={{ fontWeight: "400", fontFamily: "Montserrat", fontSize: '14px' }} />} label="Wildlife" />
-                      <FormControlLabel control={<Checkbox style={{ fontWeight: "400", fontFamily: "Montserrat", fontSize: '14px' }} />} label="Break from Work" />
-                      <FormControlLabel control={<Checkbox style={{ fontWeight: "400", fontFamily: "Montserrat", fontSize: '14px' }} />} label="Cultural / Religous" />
-                      <FormControlLabel control={<Checkbox style={{ fontWeight: "400", fontFamily: "Montserrat", fontSize: '14px' }} />} label="Honeymoon" />
-
-
-                    </FormGroup>
-                    <Typography style={{ fontWeight: "600", fontFamily: "Montserrat", fontSize: '16px' }}>
-                      Duration
-                    </Typography>
-                    <FormGroup>
-                      <FormControlLabel control={<Checkbox style={{ fontWeight: "400", fontFamily: "Montserrat", fontSize: '14px' }} />} label="2N - 4N" />
-                      <FormControlLabel control={<Checkbox style={{ fontWeight: "400", fontFamily: "Montserrat", fontSize: '14px' }} />} label="4N - 6N" />
-                      <FormControlLabel control={<Checkbox style={{ fontWeight: "400", fontFamily: "Montserrat", fontSize: '14px' }} />} label="6N +" />
-
-
-
-                    </FormGroup>
-                    <Typography style={{ color: '#0048FF', textDecoration: 'underline' }}>more</Typography>
-                  </AccordionDetails>
-                </Accordion>
-
-              </div>
-            </Grid> */}
-            <Grid sm={8} xs={8} md={8} item>
-              {/* <MuiBox
-                display="flex"
-                alignItems="center"
-                justifyContent="flex-start"
-                backgroundColor="FFFBFB"
-                // boxShadow="1px 1px 8px gray"
-                borderRadius="10px"
-                paddingTop="6px"
-                paddingBottom="6px"
-                margin="15px 0px 15px 0px"
-                border='1px #9E9E9E solid'
-              >
-                <MuiBox>
-                  <Button sx={{ color: "#000000", fontFamily: "Montserrat", fontSize: '12px', fontWeight: '500' }}>Sorting By :</Button>
-                </MuiBox>
-                <div style={{
-                  width: 'full',
-                  display: 'flex',
-                  justifyContent: 'space-between'
-                }}>
-
-
-                  <div style={{ display: "flex", alignItems: 'center' }}>
-                    <MuiBox>
-                      <Button
-                        sx={{
-                          color: '#21325D',
-                          fontSize: '12px', fontFamily: 'Montserrat', fontWeight: '400',
-
-                        }}
-                      >
-                        <Typography sx={{
-                          color: '#21325D',
-                          fontSize: '12px', fontFamily: 'Montserrat', fontWeight: '400',
-
-                        }}>
-                          Price <FilterAltIcon fontSize="12px" /></Typography>
-
-                      </Button>
-                    </MuiBox>
-                    <MuiBox>
-                      <Button
-                        sx={{
-                          color: '#21325D',
-                          fontSize: '12px', fontFamily: 'Montserrat', fontWeight: '400',
-
-                        }}
-                      >
-                        <Typography sx={{
-                          color: '#21325D',
-                          fontSize: '12px', fontFamily: 'Montserrat', fontWeight: '400',
-
-                        }}>
-                          Star <FilterAltIcon fontSize="12px" /></Typography>
-                      </Button>
-
-                    </MuiBox>
-                    <MuiBox>
-                      <Button
-                        sx={{
-                          color: '#21325D',
-                          fontSize: '12px', fontFamily: 'Montserrat', fontWeight: '400',
-
-                        }}
-                      >
-                        Hot Deals(0)
-                      </Button>
-                    </MuiBox>
+                    }} ><FilterAltIcon style={{ fontWeight: "600", fontFamily: "Montserrat", fontSize: '14px' }} /> Filter</Typography>
+                    <Typography style={{ color: '#0048FF', textDecoration: 'underline' }}>clear all</Typography>
                   </div>
-                  <div style={{ display: 'flex', justifyContent: "end", alignItems: 'center' }}>
-                    <MuiBox>
-                      <Button
-                        sx={{
-                          color: '#E73C33',
-                          fontSize: '10px', fontFamily: 'Montserrat', fontWeight: '400',
+                </AccordionSummary>
+                <AccordionDetails>
+                  <Typography style={{ fontWeight: "600", fontFamily: "Montserrat", fontSize: '14px', paddingBottom: "10px" }}>
+                    Themes
+                  </Typography>
+                  <FormGroup>
+                    <FormControlLabel control={<Checkbox style={{ fontWeight: "400", fontFamily: "Montserrat", fontSize: '14px' }} />} label="Adventure" />
+                    <FormControlLabel control={<Checkbox style={{ fontWeight: "400", fontFamily: "Montserrat", fontSize: '14px' }} />} label="Wildlife" />
+                    <FormControlLabel control={<Checkbox style={{ fontWeight: "400", fontFamily: "Montserrat", fontSize: '14px' }} />} label="Break from Work" />
+                    <FormControlLabel control={<Checkbox style={{ fontWeight: "400", fontFamily: "Montserrat", fontSize: '14px' }} />} label="Cultural / Religous" />
+                    <FormControlLabel control={<Checkbox style={{ fontWeight: "400", fontFamily: "Montserrat", fontSize: '14px' }} />} label="Honeymoon" />
 
-                        }}
-                      >
-                        *TDS Extra
-                      </Button>
-                    </MuiBox>
-                    <MuiBox>
-                      <Button
-                        sx={{
-                          color: '#000000',
-                          fontSize: '10px', fontFamily: 'Montserrat', fontWeight: '400',
 
-                        }}
-                      >
-                        Share By:
-                      </Button>
-                    </MuiBox>
-                    <MuiBox>
-                      <Button
-                        sx={{
-                          color: '#000000',
-                          fontSize: '10px', fontFamily: 'Montserrat', fontWeight: '400',
+                  </FormGroup>
+                  <Typography style={{ fontWeight: "600", fontFamily: "Montserrat", fontSize: '14px', paddingBottom: "10px" }}>
+                    Duration
+                  </Typography>
+                  <FormGroup>
+                    <FormControlLabel control={<Checkbox style={{ fontWeight: "400", fontFamily: "Montserrat", fontSize: '14px' }} />} label="2N - 4N" />
+                    <FormControlLabel control={<Checkbox style={{ fontWeight: "400", fontFamily: "Montserrat", fontSize: '14px' }} />} label="4N - 6N" />
+                    <FormControlLabel control={<Checkbox style={{ fontWeight: "400", fontFamily: "Montserrat", fontSize: '14px' }} />} label="6N +" />
+                  </FormGroup>
+                  <Typography style={{ color: '#0048FF', textDecoration: 'underline' }}>more</Typography>
+                </AccordionDetails>
+              </Accordion>
 
-                        }}
-                      >
-                        <WhatsAppIcon sx={{ color: "#1FAF38", size: "small" }} />
-                      </Button>
-                    </MuiBox>
-                    <MuiBox>
-                      <Button
-                        sx={{
-                          color: '#000000',
-                          fontSize: '10px', fontFamily: 'Montserrat', fontWeight: '400',
+            </div>
+          </div>
+          <div className="col-lg-9">
 
-                        }}
-                      >
-                        <MailIcon sx={{ color: "#EA4335" }} />
-                      </Button>
-                    </MuiBox>
+            <div className="col-lg-12">
+              <div className="outerFilterBox">
+                <div className="filterBox">
+                  <p>Showing {' '}{filteredPackage?.length} {' '} Results</p>
+                  <p className="searchDestination">Seach Destination{' '}: <b>{savedDestination}</b></p>
+                  <p className="searchDestination">Days {' '} <b>{savedDays}</b></p>
+                  <div>
+                    <label>Price <FilterAltIcon style={{ fontWeight: "600", fontFamily: "Montserrat", fontSize: '14px', marginLeft: "7px" }} /></label>
+                    <select >
+                      <option value="lowToHigh">Low to High</option>
+                      <option value="highToLow">High to Low</option>
+                    </select>
+                  </div>
 
+                </div>
+              </div>
+            </div>
+
+            {filteredPackage?.map((item, index) => {
+              return (
+                <div className="col-lg-12 d-flex justify-content-center">
+
+                  <div className="packageResultBox" key={index}>
+                    <div className="packageImage">
+                      <img src={item?.pakage_img} alt="package-img" />
+                    </div>
+                    <div className="packageResultDetails">
+                      <div className="packageTitle">
+                        <p>{item?.pakage_title}</p>
+                      </div>
+                      <div>
+                        <p className="customize">{`${item?.days - 1}N`} / {`${item?.days}D`}</p>
+                        <p className="departure">
+                          {item?.schedule?.flexible ? 'Flexible' : item?.schedule?.fixed_departure ? 'Fixed Departure' : ''}
+                        </p>
+                      </div>
+
+                      <div className="icon-box">
+                        {item?.insclusions?.slice(0, 6).map((ele, index) => {
+                          return (
+                            <div key={index} className="icon-box-inner">
+                              {ele?.flexibility && (
+                                <div>
+                                  <span><CommitIcon />
+                                  </span>
+                                  <p>Flexibility</p>
+                                </div>
+                              )}
+                              {ele?.train && (
+                                <div>
+                                  <span><TramIcon /></span>
+                                  <p>Train</p>
+                                </div>
+                              )}
+                              {ele?.bus && (
+                                <div>
+                                  <span><DirectionsBusIcon /></span>
+                                  <p>Bus</p>
+                                </div>
+                              )}
+                              {ele?.cab && (
+                                <div>
+                                  <span><DirectionsCarIcon /></span>
+                                  <p>Cab</p>
+                                </div>
+                              )}
+                              {ele?.moterBike && (
+                                <div>
+                                  <span><TwoWheelerIcon /></span>
+                                  <p>Moterbike</p>
+                                </div>
+                              )}
+                              {ele?.hotel && (
+                                <div>
+                                  <span><ApartmentIcon /></span>
+                                  <p>Hotel</p>
+                                </div>
+                              )}
+                              {ele?.homeStays && (
+                                <div>
+                                  <span><HolidayVillageIcon /></span>
+                                  <p>Homestays</p>
+                                </div>
+                              )}
+                              {ele?.guestHouse && (
+                                <div>
+                                  <span><LocationCityIcon /></span>
+                                  <p>Guesthouse</p>
+                                </div>
+                              )}
+                              {ele?.camp && (
+                                <div>
+                                  <span><CabinIcon /></span>
+                                  <p>Camp</p>
+                                </div>
+                              )}
+                              {ele?.cruise && (
+                                <div>
+                                  <span><BlurOnIcon /></span>
+                                  <p>Cruise</p>
+                                </div>
+                              )}
+                              {ele?.sightSeeing && (
+                                <div>
+                                  <span><DeckIcon /></span>
+                                  <p>Sightseeing</p>
+                                </div>
+                              )}
+                              {ele?.guide && (
+                                <div>
+                                  <span><EngineeringIcon /></span>
+                                  <p>Guide</p>
+                                </div>
+                              )}
+                              {ele?.meals && (
+                                <div>
+                                  <span><FastfoodIcon /></span>
+                                  <p>Meals</p>
+                                </div>
+                              )}
+                              {ele?.breakfast && (
+                                <div>
+                                  <span><DinnerDiningIcon /></span>
+                                  <p>Daily Breakfast</p>
+                                </div>
+                              )}
+                              {ele?.drink && (
+                                <div>
+                                  <span><LiquorIcon /></span>
+                                  <p>Complimentary Drink</p>
+                                </div>
+                              )}
+                              {ele?.visa && (
+                                <div>
+                                  <span><ArticleIcon /></span>
+                                  <p>Visa</p>
+                                </div>
+                              )}
+                              {ele?.travelInsurance && (
+                                <div>
+                                  <span><AccountBalanceIcon /></span>
+                                  <p>Travel Insurance</p>
+                                </div>
+                              )}
+                              {ele?.safeTravel && (
+                                <div>
+                                  <span><ParaglidingIcon /></span>
+                                  <p>Safe to Travel</p>
+                                </div>
+                              )}
+                              {ele?.wildlife && (
+                                <div>
+                                  <span><NaturePeopleIcon /></span>
+                                  <p>Wildlife</p>
+                                </div>
+                              )}
+                              {ele?.heritage && (
+                                <div>
+                                  <span><LandslideIcon /></span>
+                                  <p>Heritage</p>
+                                </div>
+                              )}
+                              {ele?.adventure && (
+                                <div>
+                                  <span><KitesurfingIcon /></span>
+                                  <p>Adventure</p>
+                                </div>
+                              )}
+                              {ele?.beach && (
+                                <div>
+                                  <span><PoolIcon /></span>
+                                  <p>Beach</p>
+                                </div>
+                              )}
+                              {ele?.hillStation && (
+                                <div>
+                                  <span><DownhillSkiingIcon /></span>
+                                  <p>Hill Station</p>
+                                </div>
+                              )}
+                              {ele?.nature && (
+                                <div>
+                                  <span><ForestIcon /></span>
+                                  <p>Nature</p>
+                                </div>
+                              )}
+                              {ele?.wellness && (
+                                <div>
+                                  <span><SelfImprovementIcon /></span>
+                                  <p>Wellness</p>
+                                </div>
+                              )}
+                              {ele?.hiddenGem && (
+                                <div>
+                                  <span><FitnessCenterIcon /></span>
+                                  <p>Hidden Gem</p>
+                                </div>
+                              )}
+                              {ele?.tax && (
+                                <div>
+                                  <span><FolderDeleteIcon /></span>
+                                  <p>Price Inclusive Tax</p>
+                                </div>
+                              )}
+                              {ele?.discount && (
+                                <div>
+                                  <span><LocalOfferIcon /></span>
+                                  <p>50% Off</p>
+                                </div>
+                              )}
+                              {ele?.waterActivities && (
+                                <div>
+                                  <span><KayakingIcon /></span>
+                                  <p>Water Activities</p>
+                                </div>
+                              )}
+                              {ele?.optionalActivities && (
+                                <div>
+                                  <span><SportsKabaddiIcon /></span>
+                                  <p>Optional Activities</p>
+                                </div>
+                              )}
+                              {ele?.flexibleBooking && (
+                                <div>
+                                  <span><BookmarkAddIcon /></span>
+                                  <p>Flexible Booking</p>
+                                </div>
+                              )}
+                              {ele?.wifi && (
+                                <div>
+                                  <span><WifiPasswordIcon /></span>
+                                  <p>WIFI</p>
+                                </div>
+                              )}
+                            </div>
+                          );
+                        })}
+                      </div>
+
+                      <div className="destination">
+                        <ul>
+                          <li>Mandovi River Cruise</li>
+                          <li>North Dubai Sightseeing</li>
+                        </ul>
+                        {/* <ul>
+                        {item?.destination?.slice(0, 3).map((destinationItem, index) => (
+                          <li key={index}>{destinationItem?.addMore}</li>
+                        ))}
+                      </ul> */}
+                      </div>
+                    </div>
+                    <div className="priceBook">
+                      <div className="priceBookOne">
+                        <p><b>Offer Price{'  '}₹{' '} </b>{item?.pakage_amount?.amount}</p>
+                      </div>
+                      <div className="priceBookTwo">
+                        <button
+                          type="submit"
+                          onClick={(e) => searchOneHoliday(item?._id)}
+                        >Book Now</button>
+                      </div>
+                      <div className="seeMore">
+                        <button type="submit"
+                          onClick={(e) => searchOneHoliday(item?._id)} >More Details</button>
+                      </div>
+                    </div>
                   </div>
                 </div>
-              </MuiBox> */}
-              <MuiBox style={{ display: 'flex', flexDirection: 'column', gap: "15px" }}>
-                {/* HolidayPackagedetail  */}
-                {filteredPackage?.map((item, index) => {
-                  console.log(item, "333333333333333333333333333333333333333333333333333333333333333")
-                  return (
-                    <>
-                      <MuiBox
-                        // p={4}
-                        // mt={3}
-                        padding='10px'
-                        backgroundColor="#FFFBFB"
-
-                        // boxShadow="1px 1px 8px gray"
-                        borderRadius="10px"
-                        border='2px #BBBBBB solid'
-                        alignItems="center"
-                        width="100%"
-                        // height='247px'
-                        // backgroundColor="red"
-                        sx={{
-                          display: "flex",
-                          justifyContent: "space-around",
-                          alignItems: "center",
-                          width: "100%"
-                        }}
-                      >
-                        <Grid
-                          container
-                          sx={{
-                            display: "flex",
-                            justifyContent: "space-between",
-                            alignItems: "center",
-                            columns: 3,
-                            height: "100%"
-
-                          }}
-                        >
-                          <Grid key={index}>
-                            <MuiBox
-                              display="flex"
-                              sx={{
-                                justifyContent: "space-between",
-
-                              }}
-                            >
-                              <MuiBox>
-                                <img
-                                  src={item?.pakage_img}
-                                  style={{
-                                    height: "210px",
-                                    border: "1px solid gray",
-                                    borderRadius: "4px",
-                                  }}
-                                />
-                              </MuiBox>
-
-                            </MuiBox>
-                          </Grid>
-                          <Grid display="flex" flexDirection='column' justifyContent="space-between" alignItems='space-between' height="210px"  >
-                            <MuiBox
-                              px={1}
-                              display="flex" flexDirection='column' alignItems='space-between' justifyContent='space-between'
-                              sx={{
-
-                                // paddingRight: "35px",
-                                // minWidth: "180px",
-                                // marginLeft: "60px",
-
-
-                              }}
-                            >
-                              <Typography
-                                // className="hotel_name"
-                                style={{
-                                  color: '#071C2C',
-                                  fontFamily: 'Montserrat',
-                                  fontSize: '26px',
-                                  fontWeight: '700'
-
-                                }}
-                              >
-                                {item?.pakage_title}
-
-                              </Typography>
-                              <Typography
-                                color="#FF8900"
-                                fontSize="12px"
-                                fontWeight="bold"
-                              >
-                                {/* 3N/4D (Goa) */}
-                                {`${item?.days - 1}N`} / {`${item?.days}D`}
-                              </Typography>
-
-                              {/* <Typography
-                                color="#666666"
-                                fontSize="10px"
-                                fontWeight="bold"
-                              >
-                                Details
-                              </Typography> */}
-                            </MuiBox>
-                            <Grid>
-                              <div
-                                style={{
-                                  display: "flex",
-                                  alignItems: "flex-start",
-                                  justifyContent: "space-around",
-
-                                  width: "300px",
-                                  flexWrap: 'wrap'
-                                }}
-                              >
-                                {item?.insclusions?.map((ele, index) => {
-                                  return (
-                                    <>
-                                      {ele?.flexibility && (
-                                        <span>
-                                          {" "}
-                                          <CommitIcon
-                                            style={{
-                                              fontSize: "26px",
-                                              color: colors.bluedark,
-                                            }}
-                                          />{" "}
-                                        </span>
-                                      )}
-                                      {ele?.train && (
-                                        <span>
-                                          {" "}
-                                          <TramIcon
-                                            style={{
-                                              fontSize: "24px",
-                                              color: colors.bluedark,
-                                            }}
-                                          />{" "}
-                                        </span>
-                                      )}
-                                      {ele?.bus && (
-                                        <span>
-                                          {" "}
-                                          <DirectionsBusIcon
-                                            style={{
-                                              fontSize: "24px",
-                                              color: colors.bluedark,
-                                            }}
-                                          />{" "}
-                                        </span>
-                                      )}
-                                      {ele?.cab && (
-                                        <span>
-                                          {" "}
-                                          <DirectionsCarIcon
-                                            style={{
-                                              fontSize: "24px",
-                                              color: colors.bluedark,
-                                            }}
-                                          />{" "}
-                                        </span>
-                                      )}
-                                      {ele?.hotel && (
-                                        <span>
-                                          {" "}
-                                          <ApartmentIcon
-                                            style={{
-                                              fontSize: "24px",
-                                              color: colors.bluedark,
-                                            }}
-                                          />{" "}
-                                        </span>
-                                      )}
-                                      {ele?.homeStays && (
-                                        <span>
-                                          {" "}
-                                          <HolidayVillageIcon
-                                            style={{
-                                              fontSize: "24px",
-                                              color: colors.bluedark,
-                                            }}
-                                          />{" "}
-                                        </span>
-                                      )}
-                                      {ele?.guestHouse && (
-                                        <span>
-                                          {" "}
-                                          <LocationCityIcon
-                                            style={{
-                                              fontSize: "24px",
-                                              color: colors.bluedark,
-                                            }}
-                                          />{" "}
-                                        </span>
-                                      )}
-                                      {ele?.cruise && (
-                                        <span>
-                                          {" "}
-                                          <BlurOnIcon
-                                            style={{
-                                              fontSize: "24px",
-                                              color: colors.bluedark,
-                                            }}
-                                          />{" "}
-                                        </span>
-                                      )}
-                                      {ele?.sightSeeing && (
-                                        <span>
-                                          {" "}
-                                          <DeckIcon
-                                            style={{
-                                              fontSize: "24px",
-                                              color: colors.bluedark,
-                                            }}
-                                          />{" "}
-                                        </span>
-                                      )}
-                                      {ele?.guide && (
-                                        <span>
-                                          {" "}
-                                          <EngineeringIcon
-                                            style={{
-                                              fontSize: "24px",
-                                              color: colors.bluedark,
-                                            }}
-                                          />{" "}
-                                        </span>
-                                      )}
-                                      {ele?.meals && (
-                                        <span>
-                                          {" "}
-                                          <FastfoodIcon
-                                            style={{
-                                              fontSize: "24px",
-                                              color: colors.bluedark,
-                                            }}
-                                          />{" "}
-                                        </span>
-                                      )}
-                                      {ele?.breakfast && (
-                                        <span>
-                                          {" "}
-                                          <DinnerDiningIcon
-                                            style={{
-                                              fontSize: "24px",
-                                              color: colors.bluedark,
-                                            }}
-                                          />{" "}
-                                        </span>
-                                      )}
-                                      {ele?.drink && (
-                                        <span>
-                                          {" "}
-                                          <LiquorIcon
-                                            style={{
-                                              fontSize: "24px",
-                                              color: colors.bluedark,
-                                            }}
-                                          />{" "}
-                                        </span>
-                                      )}
-                                      {ele?.visa && (
-                                        <span>
-                                          {" "}
-                                          <ArticleIcon
-                                            style={{
-                                              fontSize: "24px",
-                                              color: colors.bluedark,
-                                            }}
-                                          />{" "}
-                                        </span>
-                                      )}
-                                      {ele?.moterBike && (
-                                        <span>
-                                          {" "}
-                                          <TwoWheelerIcon
-                                            style={{
-                                              fontSize: "24px",
-                                              color: colors.bluedark,
-                                            }}
-                                          />{" "}
-                                        </span>
-                                      )}
-                                      {ele?.travelInsurance && (
-                                        <span>
-                                          {" "}
-                                          <AccountBalanceIcon
-                                            style={{
-                                              fontSize: "24px",
-                                              color: colors.bluedark,
-                                            }}
-                                          />{" "}
-                                        </span>
-                                      )}
-                                      {ele?.safeTravel && (
-                                        <span>
-                                          {" "}
-                                          <ParaglidingIcon
-                                            style={{
-                                              fontSize: "24px",
-                                              color: colors.bluedark,
-                                            }}
-                                          />{" "}
-                                        </span>
-                                      )}
-                                      {ele?.wildlife && (
-                                        <span>
-                                          {" "}
-                                          <NaturePeopleIcon
-                                            style={{
-                                              fontSize: "24px",
-                                              color: colors.bluedark,
-                                            }}
-                                          />{" "}
-                                        </span>
-                                      )}
-                                      {ele?.heritage && (
-                                        <span>
-                                          {" "}
-                                          <LandslideIcon
-                                            style={{
-                                              fontSize: "24px",
-                                              color: colors.bluedark,
-                                            }}
-                                          />{" "}
-                                        </span>
-                                      )}
-                                      {ele?.adventure && (
-                                        <span>
-                                          {" "}
-                                          <KitesurfingIcon
-                                            style={{
-                                              fontSize: "24px",
-                                              color: colors.bluedark,
-                                            }}
-                                          />{" "}
-                                        </span>
-                                      )}
-                                      {ele?.beach && (
-                                        <span>
-                                          {" "}
-                                          <PoolIcon />{" "}
-                                        </span>
-                                      )}
-                                      {ele?.hillStation && (
-                                        <span>
-                                          {" "}
-                                          <DownhillSkiingIcon
-                                            style={{
-                                              fontSize: "24px",
-                                              color: colors.bluedark,
-                                            }}
-                                          />{" "}
-                                        </span>
-                                      )}
-                                      {ele?.nature && (
-                                        <span>
-                                          {" "}
-                                          <ForestIcon
-                                            style={{
-                                              fontSize: "24px",
-                                              color: colors.bluedark,
-                                            }}
-                                          />{" "}
-                                        </span>
-                                      )}
-                                    </>
-                                  );
-                                })}
-                              </div>
-                            </Grid>
-                            <form action="./Holidaybooknow">
-                              <Button
-
-                                type="submit"
-                                onClick={(e) => searchOneHoliday(item?._id)}
-                              >
-                                <Typography style={{ color: '#0048FF', fontSize: '16px', fontWeight: '400', fontFamily: 'Montserrat', textDecoration: 'underline' }}  >
-                                  More Details
-                                </Typography>
-                              </Button>
-                            </form>
-
-                          </Grid>
-                          <Grid display="flex" justifyContent="space-between">
-                            <MuiBox
-                              display="flex"
-                              justifyContent="space-between"
-                              width="100%"
-                            >
-                              <MuiBox
-                                display="block"
-                                alignItems="center"
-                                textAlign="center"
-                              >
-                                <Typography
-                                  style={{ color: colors.bluedark }}
-                                  fontSize="18px"
-                                  fontWeight="bold"
-                                >
-                                  <span>&#8377;</span>
-                                  {item?.pakage_amount?.amount}
-                                </Typography>
-                                <form action="./Holidaybooknow">
-                                  <Button
-                                    style={{ backgroundColor: colors.bluedark, width: '100x', height: "39px" }}
-                                    type="submit"
-                                    onClick={(e) => searchOneHoliday(item?._id)}
-                                  >
-                                    <Typography color="white" fontSize="10px">
-                                      Book Now
-                                    </Typography>
-                                  </Button>
-                                </form>
-
-                              </MuiBox>
-                            </MuiBox>
-                          </Grid>
-
-                        </Grid>
-                      </MuiBox>
-                    </>
-                  );
-                })}
-              </MuiBox>
-            </Grid>
-          </Grid>
+              );
+            })}
+          </div>
         </div>
       </div>
-    </div >
+
+
+    </section>
+
   );
 };
 
 export default HolidayPackageResult;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
