@@ -28,19 +28,20 @@ const StyledTabs = styled(Tabs)(({ theme }) => ({
 
 const StyledTab = styled(Tab)(({ theme }) => ({
 
-  padding: theme.spacing(1, 10),
-  // height: '48px',
 
-  font: '14px',
+  // height: '48px',
+  padding: "5px 60px",
+  // font: '14px',
   margin: '12px 0px',
-  color: '#252525',
-  fontWeight: '600',
+  // color: '#252525',
+  // fontWeight: '600',
   background: '#D9D9D9',
   '&.Mui-selected': {
     background: '#FFFBFB',
+    padding: "5px 60px",
     color: 'black',
     border: '2px solid #21325D',
-    // borderRadius: "8px"
+    //   // borderRadius: "8px"
   },
 }));
 
@@ -81,7 +82,7 @@ export default function StyledTabsExample() {
 
   return (
     <Box sx={{ width: '100%', margin: "auto" }}>
-      <StyledTabs value={value} onChange={handleChange} aria-label="styled tabs example" style={{ width: "100%", margin: "auto", marginTop: "-40px" }} >
+      <StyledTabs value={value} onChange={handleChange} aria-label="styled tabs example" style={{ width: "100%", margin: "auto", marginTop: "-40px", }} >
         <StyledTab label="One Way" {...a11yProps(0)} className='btn' />
         <StyledTab label="Return" {...a11yProps(1)} className='btn' />
         {/* <StyledTab label="Off Share" {...a11yProps(2)} />

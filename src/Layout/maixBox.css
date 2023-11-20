@@ -3,7 +3,7 @@
 
 .centeredBox {
     max-width: 800px;
-    background-color: white;
+    background-color: #F1F7F8;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;

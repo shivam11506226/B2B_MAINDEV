@@ -1,3 +1,9 @@
+.btn {
+    box-shadow: none !important;
+    padding: 5px 60px;
+    background: #FFFBFB;
+}
+
 .btn:hover {
 
     background-color: #21325D;

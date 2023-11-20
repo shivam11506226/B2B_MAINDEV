@@ -11,6 +11,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  background-color: white;
 
 }
 
@@ -29,16 +30,16 @@
 
 .mainBox::before {
   content: "";
-  background-image: url("../Images/mainImage.png");
-  background-repeat: no-repeat;
-  background-size: cover;
-  opacity: 0.8;
+  /* background-image: url("../Images/mainImage.png"); */
+  /* background-repeat: no-repeat; */
+  /* background-size: cover; */
+  /* opacity: 0.8; */
   /* Adjust the opacity value as needed (0.5 for 50%) */
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
+  /* position: absolute; */
+  /* top: 0; */
+  /* left: 0; */
+  /* right: 0; */
+  /* bottom: 0; */
   z-index: -1;
 }
 

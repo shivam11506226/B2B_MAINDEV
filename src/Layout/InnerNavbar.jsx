@@ -19,53 +19,25 @@ function InnerNavbar() {
   const isAdminPath = pathname === "/adminLogin" || pathname === "/admin/dashboard";
 
   if (isAdminPath) {
-    return null; // Don't render the InnerNavbar for admin paths
+    return null;
   }
 
   return (
 
     <div className="innerNav" style={{ height: "15%" }}>
       {InnerBarLogo.map(({ avatar, name, path }, index) => (
-        <Flex
-          direction="column"
-          justifyContent="space-around"
-          borderRadius="15px"
-          key={index}
-          zIndex={2}
-        >
-          <NavLink
-            to={path}
-            className={({ isActive }) =>
-              isActive ? "active-nav logoname" : "logoname"
-            }
-            style={{
-              textDecoration: "none",
-              color: "#21325D",
-              font: "Quicksand, Bold",
-              // height: "85%",
-              justifyContent: "space-around",
-              width: "100px",
-              textAlign: "center",
-            }}
-          >
-
-            <div style={{ fontSize: "30px" }} color={false ? "#21325D" : "white"}>
+        <div className="navItems" key={index}>
+          <NavLink to={path}
+            className={({ isActive }) => isActive ? "active-nav logoname" : "logoname"}>
+            <span className="navIcons" color={false ? "#21325D" : "white"}>
               {avatar}
-            </div>
-            <span
-              style={{
-                textAlign: "center",
-                fontFamily: "Montserrat",
-                fontSize: "16px",
-                fontStyle: "normal", // Fixed typo in fontStyle
-                fontWeight: "400",
-              }}
-              color={false ? "#21325D" : "white"}
+            </span>
+            <span className="navTitle" color={false ? "#21325D" : "white"}
             >
               {name}
             </span>
           </NavLink>
-        </Flex>
+        </div>
       ))}
       <Dropdown />
     </div>

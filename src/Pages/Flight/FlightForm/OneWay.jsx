@@ -321,10 +321,10 @@ const OneWay = () => {
                 )}
               </div>
             </div>
-            <div className="col-md-3 d-flex justify-content-center interchange ps-0 mb-3">
+            <div className="col-md-1 d-flex justify-content-center interchange ps-0 ">
               <img src={interchange} alt="name" className="align-self-center" />
             </div>
-            <div className="col-xs-12 col-md-3 ps-0 mb-3">
+            <div className="col-xs-12 col-md-4 ps-0 mb-3">
               <div className="form_input" style={{ zIndex: 10, }} >
                 <label className="form_lable">Arrival</label>
                 <input
@@ -387,7 +387,7 @@ const OneWay = () => {
               </div>
             </div>
 
-            <div className="col-xs-12 col-md-3 ps-0 mb-3">
+            <div className="col-xs-12 col-md-4 ps-0 mb-3">
               <div className="form_input" onClick={handleClick}>
                 <label className="form_lable">Departure Date</label>
                 <input

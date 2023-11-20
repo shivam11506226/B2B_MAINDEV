@@ -49,9 +49,28 @@
 }
 
 .filterBox p {
-  margin: 0 !important;
-  font-weight: 700;
+  color: #000;
+
+  font-family: Montserrat;
+  font-size: 15px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  margin-bottom: 0 !important;
+}
+
+.filterBox label {
   color: #21325D;
+
+  font-family: Montserrat;
+  font-size: 15px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}
+
+.filterBox select {
+  padding: 4px !important;
 }
 
 
@@ -71,16 +90,21 @@
   margin-top: 24px;
 }
 
-.outerFilterBox {
+/* .outerFilterBox {
   padding: 10px;
   border-radius: 10px;
   background: white;
   box-shadow: 0px 0px 24px -11px;
-}
+} */
 
 .ModifySearch {
   padding: 10px;
   border-radius: 10px;
   background: white;
   box-shadow: 0px 0px 24px -11px;
+}
+
+
+.searchDestination b {
+  text-transform: capitalize;
 }
