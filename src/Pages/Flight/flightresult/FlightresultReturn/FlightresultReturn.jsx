@@ -71,7 +71,7 @@ const FlightresultReturn = () => {
 
     console.log("reducerrrState", reducerState);
   };
- 
+
   const destination =
     result[0][0]?.Segments[0][0]?.Destination?.Airport?.CityName;
   const origin = result[0][0]?.Segments[0][0]?.Origin?.Airport?.CityName;
@@ -128,9 +128,10 @@ const FlightresultReturn = () => {
           backgroundColor: "white",
           padding: "10px",
           gap: "5px",
-
           width: "100%",
+          margin: "auto",
           position: "fixed",
+          left:0,
           bottom: "2px",
           zIndex: "2",
         }}
@@ -201,7 +202,8 @@ const FlightresultReturn = () => {
             alignItems: "center",
             justifyContent: "center",
             flexDirection: "column",
-            gap: "20px",
+            gap: "5px",
+            // border: "1px solid red",
           }}
         >
           <Box
@@ -242,9 +244,10 @@ const FlightresultReturn = () => {
             style={{
               width: "100px",
               borderRadius: "10px",
-
-              height: "50px",
+              // border: "10px solid red",
+              height: "40px",
               fontSize: "11px",
+              marginTop:"10px"
             }}
           >
             Book Now
