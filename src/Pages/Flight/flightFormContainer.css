@@ -2,12 +2,19 @@
     box-shadow: none !important;
     padding: 5px 60px;
     background: #FFFBFB;
+    margin: 12px 0px;
 }
 
 .btn:hover {
 
     background-color: #21325D;
     color: white;
+}
+
+.backWall {
+    border: 2px solid #d5d4d4;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+
 }
 
 @media screen and (min-width: 600px) and (max-width: 850px) {

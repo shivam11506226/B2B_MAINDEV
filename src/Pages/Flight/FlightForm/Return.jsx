@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { Typography } from "@mui/material";
 import "./Return.css";
 import transfer from "../../../Images/transfer.png";
-import interchange from "../../../Images/interchange.png";
+import interchange from '../../../Images/interchange.png'
 // import { fontWeight } from '@mui/system'
 import { Button } from "react-bootstrap";
 import { Grid, GridItem, Flex, Box } from "@chakra-ui/react";
@@ -211,27 +211,30 @@ const Return = () => {
 
   return (
     <div className="container">
-      <form onSubmit={handleSubmit} className="formFlightSearch">
+      <form onSubmit={handleSubmit} className="formFlightSearch" >
         <div className="container">
           <div className="row">
-            <div className="col-xs-12 col-md-2 col-lg-2 ps-0 mb-3">
+            <div className="col-xs-12 col-md-3 col-lg-3 ps-0 mb-3">
               <div className="form_input">
-                <label for="from" className="form_lable">
-                  {" "}
-                  FROM
-                </label>
+                <label for="from" className="form_lable"> FROM</label>
                 <input
                   name="from"
                   placeholder="Enter city or airport"
                   value={from}
-                  onClick={() => (setdisplayFrom(true), setdisplayTo(false))}
-                  // onMouseLeave={() => (
-                  //   setdisplayFrom(false), setdisplayTo(false)
-                  // )}
+                  onClick={() => (
+                    setdisplayFrom(true),
+                    setdisplayTo(false)
+                  )}
+                  onMouseLeave={() => (
+                    setdisplayFrom(false),
+                    setdisplayTo(false)
+                  )}
                   onChange={(event) => {
                     handleFromInputChange(event);
                     handleFromSearch(event.target.value);
+
                   }}
+
                 />
                 {isLoading && <div>Loading...</div>}
                 {fromSearchResults && fromSearchResults.length > 0 && (
@@ -245,8 +248,7 @@ const Return = () => {
                       textAlign: "left",
                       cursor: "pointer",
                       display: displayFrom ? "block" : "none",
-                      position: "absolute",
-                      zIndex: "10",
+                      position: "absolute", zIndex: "10"
                     }}
                   >
                     <ul>
@@ -275,12 +277,13 @@ const Return = () => {
                 )}
               </div>
             </div>
-            <div className="col-xs-12 col-md-2 col-lg-2 d-flex interchange justify-content-center ps-0 mb-3">
+            <div className="col-xs-12 col-md-1 col-lg-1 d-flex interchange justify-content-center ps-0">
               <img src={interchange} alt="name" className="align-self-center" />
             </div>
 
             <div className="col-xs-12 col-md-2 col-lg-2 ps-0 mb-3">
               <div className="form_input">
+
                 <label for="to" className="form_lable">
                   TO
                 </label>
@@ -288,10 +291,14 @@ const Return = () => {
                   name="to"
                   placeholder="Enter city or airport"
                   value={to}
-                  onClick={() => (setdisplayFrom(false), setdisplayTo(true))}
-                  // onMouseLeave={() => (
-                  //   setdisplayFrom(false), setdisplayTo(false)
-                  // )}
+                  onClick={() => (
+                    setdisplayFrom(false),
+                    setdisplayTo(true)
+                  )}
+                  onMouseLeave={() => (
+                    setdisplayFrom(false),
+                    setdisplayTo(false)
+                  )}
                   onChange={(event) => {
                     handleToInputChange(event);
                     handleToSearch(event.target.value);
@@ -310,6 +317,7 @@ const Return = () => {
                       textAlign: "left",
                       cursor: "pointer",
                       display: displayTo ? "block" : "none",
+
                     }}
                   >
                     <ul>
@@ -354,10 +362,11 @@ const Return = () => {
                   min={new Date().toISOString().split("T")[0]}
                   value={departureDate}
                   onChange={handleDepartureDateChange}
+
                 ></input>
               </div>
             </div>
-            <div className="col-xs-12 col-md-3 col-lg-3 ps-0 mb-3">
+            <div className="col-xs-12 col-md-3 col-lg-3 ps-0 mb-3" >
               <div className="form_input">
                 <label for="departure" className="form_lable">
                   RETURN
@@ -417,8 +426,10 @@ const Return = () => {
           <div className="row">
             <div className="col-xs-9">
               <div className="row">
+
                 <div className="col-12 col-md-6 col-lg-3 mb-3 ps-0 mb-3">
                   <div className="form_input">
+
                     <label className="form_lable">Adult(12+)</label>
 
                     <select name="adult" id="" className="form_input_select">
@@ -435,8 +446,10 @@ const Return = () => {
                   </div>
                 </div>
 
+
                 <div className="col-12 col-md-6 col-lg-3 mb-3 ps-0 mb-3">
                   <div className="form_input">
+
                     <label className="form_lable">Child(2-11)</label>
                     <select name="child" id="" className="form_input_select">
                       <option value="0">0</option>
@@ -451,14 +464,8 @@ const Return = () => {
                     </select>
                   </div>
                 </div>
-                <div
-                  className="col-3 col-md-6 col-lg-3 mb-3 ps-0 mb-3"
-                  style={{ position: "relative" }}
-                >
-                  <div
-                    className="form_input"
-                    style={{ position: "absolute", zIndex: "1" }}
-                  >
+                <div className="col-3 col-md-6 col-lg-3 mb-3 ps-0 mb-3" style={{ position: "relative" }}>
+                  <div className="form_input" style={{ position: "absolute", zIndex: "1" }} >
                     <label className="form_lable">Infant(Under 2 Yrs)</label>
                     <select name="infant" id="" className="form_input_select">
                       <option value="0">0</option>
@@ -560,8 +567,8 @@ const Return = () => {
       </Box> */}
           <div className="col-xs-12">
             <div className="row bottom-row">
-              <div className="col-md-6 col-lg-6 col-12 col-sm-12 mb-3 ps-0">
-                <div className="form_input">
+              <div className="col-md-6 col-lg-6 col-12 col-sm-12 mb-3 ps-0" >
+                <div className="form_input" >
                   <label className="form_lable">Preferred Airline</label>
 
                   <select name="adult" id="" className="form_input_select1">
@@ -628,7 +635,7 @@ const Return = () => {
       </Box> */}
         </div>
       </form>
-    </div>
+    </div >
   );
 };
 
