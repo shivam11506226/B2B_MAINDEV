@@ -1,7 +1,7 @@
 import React from "react";
 import "./holidaystepper.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { Box, Flex, Spacer, Text,HStack } from "@chakra-ui/react";
+import { Box, Flex, Spacer, Text, HStack } from "@chakra-ui/react";
 import HolidayForm from "../holidayform/HolidayForm";
 import color from "../../../color/color"
 import Holidaynavbar from "./Holidaynavbar"
@@ -9,8 +9,8 @@ const Holidaystepper = () => {
   return (
     <div>
       {/* <Holidaynavbar/> */}
-        <div style={{backgroundColor:"#F8F3F3",marginTop:"20px",width:"90%",margin:"auto",borderRadius:"12px"}}>
-      {/* <Box
+      <div style={{ backgroundColor: "#F8F3F3", marginTop: "20px", width: "90%", margin: "auto", borderRadius: "12px", boxShadow: "rgba(149, 157, 165, 0.2) 0px 8px 24px", border: "2px solid #d5d4d4" }}>
+        {/* <Box
         w="100%"
         display="flex"
         justifyContent={"space-around"}
@@ -101,20 +101,20 @@ const Holidaystepper = () => {
         </HStack>
       </Box> */}
 
-   
 
 
 
-      
-      <div >
-        <HolidayForm />
-      </div>
-      {/* <div className='flightNavBarContainer'>
+
+
+        <div >
+          <HolidayForm />
+        </div>
+        {/* <div className='flightNavBarContainer'>
   <HotelAllRoute  />
   </div> */}
+      </div>
     </div>
-    </div>
-  
+
   );
 };
 

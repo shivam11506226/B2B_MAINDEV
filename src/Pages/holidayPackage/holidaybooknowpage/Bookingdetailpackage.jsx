@@ -45,6 +45,7 @@ import LocalOfferIcon from "@mui/icons-material/LocalOffer";
 import KayakingIcon from "@mui/icons-material/Kayaking";
 import SportsKabaddiIcon from "@mui/icons-material/SportsKabaddi";
 import BookmarkAddIcon from "@mui/icons-material/BookmarkAdd";
+import FmdGoodIcon from '@mui/icons-material/FmdGood';
 
 import "./holidaybooknowdetail.css";
 import { textAlign } from "@mui/system";
@@ -63,8 +64,105 @@ const Bookingdetailpackage = () => {
     newValues[index] = e.target.value;
     setDaysDetails(newValues);
   };
+
+
+
+  const savedDataString = sessionStorage.getItem("searchPackageData");
+  const savedData = JSON.parse(savedDataString);
+  const savedDestination = savedData.destination;
+  const savedDays = savedData.days;
+
   return (
     <>
+
+      <div className="container">
+        <div className="row">
+          <div className="col-lg-9">
+            <div className="col-lg-12">
+              <div className="outerFilterBox">
+                <div className="filterBox">
+                  <p className="searchDestination">Seach Destination{' '}: <b>{savedDestination}</b></p>
+                  <p className="searchDestination">Days {' '} <b>{savedDays}</b></p>
+                </div>
+              </div>
+            </div>
+            <div className="col-lg-12">
+              <div className="packageName">
+                <p>Dubai - Travel Solo not Alone, Group trips for Solo Travellers</p>
+                <span>5D/4N</span>
+              </div>
+            </div>
+            <div className="col-lg-12 d-flex">
+              <div className="packageLocation">
+                <FmdGoodIcon />
+
+              </div>
+              <div>
+                <p>Dubai</p>
+                <span>(Dubai)</span>
+              </div>
+            </div>
+
+            <div className="col-lg-12">
+              <div className="TripHighlight">
+                <p>Trip Highlights</p>
+
+                <div className="col-lg-10">
+                  <div className="icon-boxHighlight">
+                    <div className="singleIcon">
+                      <span><CommitIcon /></span>
+                      <p>Flexibility</p>
+                    </div>
+                    <div className="singleIcon">
+                      <span><TramIcon /></span>
+                      <p>Train</p>
+                    </div>
+                    <div className="singleIcon">
+                      <span><DirectionsBusIcon /></span>
+                      <p>Bus</p>
+                    </div>
+                    <div className="singleIcon">
+                      <span><DirectionsCarIcon /></span>
+                      <p>Cab</p>
+                    </div>
+                    <div className="singleIcon">
+                      <span><TwoWheelerIcon /></span>
+                      <p>Moterbike</p>
+                    </div>
+                    <div className="singleIcon">
+                      <span><ApartmentIcon /></span>
+                      <p>Hotel</p>
+                    </div>
+                    <div className="singleIcon">
+                      <span><HolidayVillageIcon /></span>
+                      <p>Homestays</p>
+                    </div>
+                    <div className="singleIcon">
+                      <span><LocationCityIcon /></span>
+                      <p>Guesthouse</p>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="col-lg-12">
+              <div className="tripOverview">
+                <div className="col-lg-10">
+                  <div className="overviewBox">
+                    <span>Overview</span>
+                    <p>Welcome to Dubai the land of amazing and modern skyscrapers, the Arabian desert, adrenalin rush experiences, shopping at the Dubai Mall, the Palm Jumeria, Burj Al Arab and of course, the Burj Khalifa. We take you to an enthralling tour giving you an experience of sand dunes, cultural shows, underwater encounters, musical fountains and last but not the least view of the majectic Dubai skyline from the 24th floor of Burj Khalifa, an experience of a lifetime.  </p>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
       <Box className="header_top" border="1px solid gray" mt={1}>
         <Box mt={1} alignItems="center">
           <Grid container alignItems="center">
@@ -369,7 +467,7 @@ const Bookingdetailpackage = () => {
                 display="flex"
                 justifyContent="space-between"
                 width="100%"
-               
+
               >
                 <Box
                   display="flex"
@@ -384,139 +482,139 @@ const Bookingdetailpackage = () => {
                         {item?.flexibility && (
                           <span>
                             {" "}
-                            <CommitIcon style={{fontSize:"50px",color:color.bluedark}} />{" "}
+                            <CommitIcon style={{ fontSize: "50px", color: color.bluedark }} />{" "}
                           </span>
                         )}
                         {item?.train && (
                           <span>
                             {" "}
-                            <TramIcon style={{fontSize:"40px",color:color.bluedark}}/>{" "}
+                            <TramIcon style={{ fontSize: "40px", color: color.bluedark }} />{" "}
                           </span>
                         )}
                         {item?.bus && (
                           <span>
                             {" "}
-                            <DirectionsBusIcon style={{fontSize:"40px",color:color.bluedark}}/>{" "}
+                            <DirectionsBusIcon style={{ fontSize: "40px", color: color.bluedark }} />{" "}
                           </span>
                         )}
                         {item?.cab && (
                           <span>
                             {" "}
-                            <DirectionsCarIcon style={{fontSize:"40px",color:color.bluedark}}/>{" "}
+                            <DirectionsCarIcon style={{ fontSize: "40px", color: color.bluedark }} />{" "}
                           </span>
                         )}
                         {item?.hotel && (
                           <span>
                             {" "}
-                            <ApartmentIcon style={{fontSize:"40px",color:color.bluedark}}/>{" "}
+                            <ApartmentIcon style={{ fontSize: "40px", color: color.bluedark }} />{" "}
                           </span>
                         )}
                         {item?.homeStays && (
                           <span>
                             {" "}
-                            <HolidayVillageIcon style={{fontSize:"40px",color:color.bluedark}}/>{" "}
+                            <HolidayVillageIcon style={{ fontSize: "40px", color: color.bluedark }} />{" "}
                           </span>
                         )}
                         {item?.guestHouse && (
                           <span>
                             {" "}
-                            <LocationCityIcon style={{fontSize:"40px",color:color.bluedark}}/>{" "}
+                            <LocationCityIcon style={{ fontSize: "40px", color: color.bluedark }} />{" "}
                           </span>
                         )}
                         {item?.cruise && (
                           <span>
                             {" "}
-                            <BlurOnIcon style={{fontSize:"40px",color:color.bluedark}}/>{" "}
+                            <BlurOnIcon style={{ fontSize: "40px", color: color.bluedark }} />{" "}
                           </span>
                         )}
                         {item?.sightSeeing && (
                           <span>
                             {" "}
-                            <DeckIcon style={{fontSize:"40px",color:color.bluedark}}/>{" "}
+                            <DeckIcon style={{ fontSize: "40px", color: color.bluedark }} />{" "}
                           </span>
                         )}
                         {item?.guide && (
                           <span>
                             {" "}
-                            <EngineeringIcon style={{fontSize:"40px",color:color.bluedark}}/>{" "}
+                            <EngineeringIcon style={{ fontSize: "40px", color: color.bluedark }} />{" "}
                           </span>
                         )}
                         {item?.meals && (
                           <span>
                             {" "}
-                            <FastfoodIcon style={{fontSize:"40px",color:color.bluedark}}/>{" "}
+                            <FastfoodIcon style={{ fontSize: "40px", color: color.bluedark }} />{" "}
                           </span>
                         )}
                         {item?.breakfast && (
                           <span>
                             {" "}
-                            <DinnerDiningIcon style={{fontSize:"40px",color:color.bluedark}}/>{" "}
+                            <DinnerDiningIcon style={{ fontSize: "40px", color: color.bluedark }} />{" "}
                           </span>
                         )}
                         {item?.drink && (
                           <span>
                             {" "}
-                            <LiquorIcon style={{fontSize:"40px",color:color.bluedark}}/>{" "}
+                            <LiquorIcon style={{ fontSize: "40px", color: color.bluedark }} />{" "}
                           </span>
                         )}
                         {item?.visa && (
                           <span>
                             {" "}
-                            <ArticleIcon style={{fontSize:"40px",color:color.bluedark}}/>{" "}
+                            <ArticleIcon style={{ fontSize: "40px", color: color.bluedark }} />{" "}
                           </span>
                         )}
                         {item?.moterBike && (
                           <span>
                             {" "}
-                            <TwoWheelerIcon style={{fontSize:"40px",color:color.bluedark}}/>{" "}
+                            <TwoWheelerIcon style={{ fontSize: "40px", color: color.bluedark }} />{" "}
                           </span>
                         )}
                         {item?.travelInsurance && (
                           <span>
                             {" "}
-                            <AccountBalanceIcon style={{fontSize:"40px",color:color.bluedark}}/>{" "}
+                            <AccountBalanceIcon style={{ fontSize: "40px", color: color.bluedark }} />{" "}
                           </span>
                         )}
                         {item?.safeTravel && (
                           <span>
                             {" "}
-                            <ParaglidingIcon style={{fontSize:"40px",color:color.bluedark}}/>{" "}
+                            <ParaglidingIcon style={{ fontSize: "40px", color: color.bluedark }} />{" "}
                           </span>
                         )}
                         {item?.wildlife && (
                           <span>
                             {" "}
-                            <NaturePeopleIcon style={{fontSize:"40px",color:color.bluedark}}/>{" "}
+                            <NaturePeopleIcon style={{ fontSize: "40px", color: color.bluedark }} />{" "}
                           </span>
                         )}
                         {item?.heritage && (
                           <span>
                             {" "}
-                            <LandslideIcon style={{fontSize:"40px",color:color.bluedark}}/>{" "}
+                            <LandslideIcon style={{ fontSize: "40px", color: color.bluedark }} />{" "}
                           </span>
                         )}
                         {item?.adventure && (
                           <span>
                             {" "}
-                            <KitesurfingIcon style={{fontSize:"40px",color:color.bluedark}}/>{" "}
+                            <KitesurfingIcon style={{ fontSize: "40px", color: color.bluedark }} />{" "}
                           </span>
                         )}
                         {item?.beach && (
                           <span>
                             {" "}
-                            <PoolIcon style={{fontSize:"40px",color:color.bluedark}}/>{" "}
+                            <PoolIcon style={{ fontSize: "40px", color: color.bluedark }} />{" "}
                           </span>
                         )}
                         {item?.hillStation && (
                           <span>
                             {" "}
-                            <DownhillSkiingIcon style={{fontSize:"40px",color:color.bluedark}}/>{" "}
+                            <DownhillSkiingIcon style={{ fontSize: "40px", color: color.bluedark }} />{" "}
                           </span>
                         )}
                         {item?.nature && (
                           <span>
                             {" "}
-                            <ForestIcon style={{fontSize:"40px",color:color.bluedark}}/>{" "}
+                            <ForestIcon style={{ fontSize: "40px", color: color.bluedark }} />{" "}
                           </span>
                         )}
                       </>
@@ -564,15 +662,15 @@ const Bookingdetailpackage = () => {
                   </Box> */}
                 </Box>
                 <Box display="block" textAlign="end" alignSelf="center">
-                  <Typography style={{color:color.bluedark}} fontSize="24px" fontWeight="bold">
+                  <Typography style={{ color: color.bluedark }} fontSize="24px" fontWeight="bold">
                     ₹{onePackage?.pakage_amount?.amount}
                   </Typography>
                   <Typography
-                    
+
                     fontSize="10px"
                     fontWeight="bold"
                     marginTop={-1}
-                    style={{color:color.red1}}
+                    style={{ color: color.red1 }}
                   >
                     per person
                   </Typography>
@@ -596,7 +694,7 @@ const Bookingdetailpackage = () => {
         </Box>
         <Box>
           <Typography
-            sx={{ color:color.bluedark, fontSize: "16px", fontWeight: "bold" }}
+            sx={{ color: color.bluedark, fontSize: "16px", fontWeight: "bold" }}
             py={2}
           >
             Overview
@@ -611,11 +709,11 @@ const Bookingdetailpackage = () => {
           <Box>
             <Typography
               sx={{
-                color:color.bluedark,
+                color: color.bluedark,
                 fontSize: "16px",
                 fontWeight: "bold",
                 alignItems: "left",
-               
+
               }}
             >
               Day Plan
@@ -677,11 +775,11 @@ const Bookingdetailpackage = () => {
           <Box>
             <Typography
               sx={{
-                color:color.bluedark,
+                color: color.bluedark,
                 fontSize: "16px",
                 fontWeight: "bold",
                 alignItems: "left",
-              
+
               }}
             >
               Inclusions
@@ -707,11 +805,11 @@ const Bookingdetailpackage = () => {
           <Box>
             <Typography
               sx={{
-                color:color.bluedark,
+                color: color.bluedark,
                 fontSize: "16px",
                 fontWeight: "bold",
                 alignItems: "left",
-              
+
               }}
             >
               Exclusions
@@ -748,11 +846,11 @@ const Bookingdetailpackage = () => {
           <Box>
             <Typography
               sx={{
-                color:color.bluedark,
+                color: color.bluedark,
                 fontSize: "16px",
                 fontWeight: "bold",
                 alignItems: "left",
-                
+
               }}
             >
               Day Plan
@@ -821,7 +919,7 @@ const Bookingdetailpackage = () => {
           <form action="/HolidayGuestDetail">
             <Box textAlign="center" mt={3}>
               <Button
-               style={{backgroundColor:color.bluedark,color:"white"}}
+                style={{ backgroundColor: color.bluedark, color: "white" }}
                 textAlign="center"
                 display="flex"
                 justifyContent="center"
