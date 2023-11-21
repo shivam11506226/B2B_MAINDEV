@@ -268,16 +268,16 @@ const OneWay = () => {
   return (
     <div className="container">
       <form onSubmit={handleSubmit} className="formFlightSearch">
-        <div className="container" >
+        <div className="container">
           <div className="row rowcon">
             <div className="col-xs-12 col-md-3 ps-0 mb-3">
-              <div className="form_input" style={{ zIndex: 10, }}>
+              <div className="form_input" style={{ zIndex: 10 }}>
                 <label className="form_lable">Departure</label>
-                <input name="from" placeholder="Enter city or airport" value={from}
-                  onClick={() => (
-                    setdisplayFrom(true),
-                    setdisplayTo(false)
-                  )}
+                <input
+                  name="from"
+                  placeholder="Enter city or airport"
+                  value={from}
+                  onClick={() => (setdisplayFrom(true), setdisplayTo(false))}
                   onChange={(event) => {
                     handleFromInputChange(event);
                     handleFromSearch(event.target.value);
@@ -296,7 +296,7 @@ const OneWay = () => {
                       textAlign: "left",
                       cursor: "pointer",
                       display: displayFrom ? "block" : "none",
-                      overflow: "scroll"
+                      overflow: "scroll",
                     }}
                   >
                     <ul>
@@ -327,16 +327,13 @@ const OneWay = () => {
               <img src={interchange} alt="name" className="align-self-center" />
             </div>
             <div className="col-xs-12 col-md-4 ps-0 mb-3">
-              <div className="form_input" style={{ zIndex: 10, }} >
+              <div className="form_input" style={{ zIndex: 10 }}>
                 <label className="form_lable">Arrival</label>
                 <input
                   name="to"
                   placeholder="Enter city or airport"
                   value={to}
-                  onClick={() => (
-                    setdisplayFrom(false),
-                    setdisplayTo(true)
-                  )}
+                  onClick={() => (setdisplayFrom(false), setdisplayTo(true))}
                   // onMouseLeave={() => (
                   //   setdisplayFrom(false),
                   //   setdisplayTo(false)
@@ -499,6 +496,8 @@ const OneWay = () => {
               <div className="form_input">
                 <label className="form_lable">Child(2-12 Yrs)</label>
                 <select name="child" id="" className="form_input_select">
+                  <option value="1">0</option>
+                  <option value="1">1</option>
                   <option value="2">2</option>
                   <option value="3">3</option>
                   <option value="4">4</option>
@@ -509,14 +508,13 @@ const OneWay = () => {
                 </select>
               </div>
             </div>
-            <div className=" col-md-3 col-lg-3 col-sm-12 col-12 mb-3 ps-0" >
+            <div className=" col-md-3 col-lg-3 col-sm-12 col-12 mb-3 ps-0">
               <div className="form_input">
-                <label className="form_lable">Infant({'<'} 2 Yrs)</label>
+                <label className="form_lable">Infant({"<"} 2 Yrs)</label>
                 <select name="infant" id="" className="form_input_select">
                   <option value="0">0</option>
                   <option value="1">1</option>
                   <option value="2">2</option>
-
                 </select>
               </div>
             </div>
@@ -537,9 +535,8 @@ const OneWay = () => {
             {/* </div>
             </div> */}
             <div className="col-xs-12">
-
               <div className="row bottom-row">
-                <div className="col-md-6 col-lg-6 col-12 col-sm-12 mb-3 ps-0" >
+                <div className="col-md-6 col-lg-6 col-12 col-sm-12 mb-3 ps-0">
                   <div className="form_input">
                     <label className="form_lable">Preferred Airline</label>
                     <select name="adult" id="" className="form_input_select1">
@@ -555,7 +552,6 @@ const OneWay = () => {
                     </select>
                   </div>
                 </div>
-
 
                 <div className="col-md-6 col-lg-6 col-12 col-sm-12 mb-3 ps-0">
                   <button
@@ -582,12 +578,8 @@ const OneWay = () => {
                   </button>
                 </div>
               </div>
-
-
             </div>
           </div>
-
-
 
           {/* <label
       style={{
