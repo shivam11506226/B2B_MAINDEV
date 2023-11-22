@@ -27,6 +27,7 @@ const Leftdetail = () => {
   const ResultIndex = sessionStorage.getItem("ResultIndex");
   const [farePrice, setFarePrice] = useState("");
   const [farePriceReturn, setFarePriceReturn] = useState("");
+  const [sub, setSub] = useState(false);
   const fareValue = reducerState?.flightFare?.flightQuoteData?.Results;
   const fareValueReturn =
     reducerState?.flightFare?.flightQuoteDataReturn?.Results;
@@ -41,22 +42,22 @@ const Leftdetail = () => {
       ?.IsPassportRequiredAtTicket;
   const passengerTemplate = {
     Title: "Mr",
-    FirstName: "Unit",
-    LastName: "test",
+    FirstName: "",
+    LastName: "",
     PaxType: 1,
-    DateOfBirth: "1987-12-06T00:00:00",
+    DateOfBirth: "",
     Gender: 1,
     PassportNo: "",
     PassportExpiry: "",
-    AddressLine1: "123, Test",
+    AddressLine1: "",
     AddressLine2: "",
     Fare: farePrice[0],
     City: "Gurgaon",
     CountryCode: "IN",
     CellCountryCode: "+91-",
-    ContactNo: "1234567890",
+    ContactNo: "",
     Nationality: "IN",
-    Email: "harsh@tbtq.in",
+    Email: "",
     IsLeadPax: true,
     FFAirlineCode: null,
     FFNumber: "",
@@ -68,8 +69,8 @@ const Leftdetail = () => {
   };
   const childPassenger = {
     Title: "Mr",
-    FirstName: "Raj",
-    LastName: "test",
+    FirstName: "",
+    LastName: "",
     PaxType: 2,
     DateOfBirth: "",
     Gender: 1,
@@ -82,8 +83,8 @@ const Leftdetail = () => {
   };
   const infantPassenger = {
     Title: "Mr",
-    FirstName: "Raj",
-    LastName: "test",
+    FirstName: "",
+    LastName: "",
     PaxType: 3,
     DateOfBirth: "",
     Gender: 1,
@@ -201,9 +202,80 @@ const Leftdetail = () => {
   };
   console.log("passengerData", passengerData);
 
+
   const fareQuoteData = reducerState?.flightFare?.flightQuoteData?.Results;
+
+  function isValidEmail(email,phoneNumber) {
+    // Regular expression for a simple email validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    var phonePattern = /^\d{10}$/;
+
+    // Test the phone number against the pattern
+    const result2= phonePattern.test(phoneNumber);
+
+    // Test the email against the regular expression
+    const result1 = emailRegex.test(email);
+    const result=result1 && result2;
+    console.warn(result, "Please fill all the details/////");
+    return result
+  }
+
+  const formatDate = (date) => {
+    const year = date.getFullYear();
+    const month = ('0' + (date.getMonth() + 1)).slice(-2);
+    const day = ('0' + date.getDate()).slice(-2);
+    return `${year}-${month}-${day}`;
+  };
+  const datet = new Date();
+
+  // Set the minimum date to 12 years ago
+  // const minDateValue = new Date(datet);
+  const maxDateValue = new Date(datet);
+  maxDateValue.setFullYear(datet.getFullYear() - 12);
+  const minDateValueChild = new Date(datet);
+  const maxDateValueChild = new Date(datet);
+  const minDateValueInfer = new Date(datet);
+
+  minDateValueChild.setFullYear(datet.getFullYear() - 11)
+  maxDateValueChild.setFullYear(datet.getFullYear() - 2)
+  minDateValueInfer.setFullYear(datet.getFullYear() - 2)
+
+
+
+
+
+  const currentDate = formatDate(datet)
+  const maxDate = formatDate(maxDateValue)
+  const minDateChild = formatDate(minDateValueChild)
+  const maxDateChild = formatDate(maxDateValueChild)
+  const minDateInfer = formatDate(maxDateValueChild)
+
+
   function handleSubmit(event) {
     event.preventDefault();
+    setSub(true)
+    const valid = passengerData.filter(
+      (item) =>
+        item.FirstName === "" || item.LastName === "" || item.DateOfBirth === ""
+    );
+
+    const emailVal = passengerList.filter((item) =>
+
+      // console.warn(passengerList[0].Email, "***********************************************nooooooooooooooooooooooooooooo")
+
+      !isValidEmail(item.Email,item.ContactNo)
+
+
+    )
+
+    if (valid.length !== 0 && emailVal.length !== 0) {
+      alert("Please enter a details")
+      return
+    }
+
+
+
+
     const passengerDataReturn = passengerData?.map((item, index) => {
       if (item?.PaxType == 1) {
         return {
@@ -223,6 +295,7 @@ const Leftdetail = () => {
       }
     });
     console.log("passengerData", passengerData, passengerDataReturn);
+
     dispatch(PassengersAction(passengerData));
     dispatch(PassengersActionReturn(passengerDataReturn))
     navigate("/Flightresult/passengerdetail/flightreviewbooking");
@@ -295,6 +368,7 @@ const Leftdetail = () => {
                                 placeholder="Enter your name"
                                 onChange={(e) => handleServiceChange(e, i)}
                               />
+                              {passengerData[i].FirstName == "" && sub && <span id="error1">Enter First Name</span>}
                             </div>
                           </Box>
                         </Grid>
@@ -318,6 +392,7 @@ const Leftdetail = () => {
                                 placeholder="Enter your last name"
                                 onChange={(e) => handleServiceChange(e, i)}
                               />
+                              {passengerData[i].LastName == "" && sub && <span id="error1">Enter Last Name</span>}
                             </div>
                           </Box>
                         </Grid>
@@ -338,8 +413,10 @@ const Leftdetail = () => {
                                 type="date"
                                 name="DateOfBirth"
                                 className="deaprture_input"
+                                max={maxDate}
                                 onChange={(e) => handleServiceChange(e, i)}
                               />
+                              {passengerData[i].DateOfBirth == "" && sub && <span id="error1">Enter DOB</span>}
                             </div>
                           </Box>
                         </Grid>
@@ -363,6 +440,7 @@ const Leftdetail = () => {
                                 placeholder="Enter Email"
                                 onChange={(e) => handleServiceChange(e, i)}
                               />
+                              {passengerData[i].Email == "" && sub && <span id="error1">Enter Email</span>}
                             </div>
                           </Box>
                         </Grid>
@@ -387,6 +465,7 @@ const Leftdetail = () => {
                                 placeholder="Enter Contact"
                                 onChange={(e) => handleServiceChange(e, i)}
                               />
+                              {passengerData[i].ContactNo == "" && sub && <span id="error1">Enter Contact</span>}
                             </div>
                           </Box>
                         </Grid>
@@ -424,6 +503,7 @@ const Leftdetail = () => {
                                   handleServiceChange(e, i + Number(adults))
                                 }
                               />
+                              {passengerData[Number(adults) + i].FirstName == "" && sub && <span id="error1">Enter First Name</span>}
                             </div>
                           </Box>
                           <Box marginLeft={15}>
@@ -445,6 +525,7 @@ const Leftdetail = () => {
                                   handleServiceChange(e, i + Number(adults))
                                 }
                               />
+                              {passengerData[Number(adults) + i].LastName == "" && sub && <span id="error1">Enter Last Name</span>}
                             </div>
                           </Box>
                           <Box marginLeft={15}>
@@ -488,10 +569,13 @@ const Leftdetail = () => {
                                 type="date"
                                 name="DateOfBirth"
                                 className="deaprture_input"
+                                max={maxDateChild}
+                                min={minDateChild}
                                 onChange={(e) =>
                                   handleServiceChange(e, i + Number(adults))
                                 }
                               />
+                              {passengerData[Number(adults) + i].DateOfBirth == "" && sub && <span id="error1">Enter DOB</span>}
                             </div>
                           </Box>
                         </Box>
@@ -532,6 +616,7 @@ const Leftdetail = () => {
                                   )
                                 }
                               />
+                              {passengerData[i + Number(adults) + Number(childs)].FirstName == "" && sub && <span id="error1">Enter First Name</span>}
                             </div>
                           </Box>
                           <Box marginLeft={15}>
@@ -556,6 +641,7 @@ const Leftdetail = () => {
                                   )
                                 }
                               />
+                              {passengerData[i + Number(adults) + Number(childs)].LastName == "" && sub && <span id="error1">Enter Last Name</span>}
                             </div>
                           </Box>
                           <Box marginLeft={15}>
@@ -602,6 +688,8 @@ const Leftdetail = () => {
                                 type="date"
                                 name="DateOfBirth"
                                 className="deaprture_input"
+                                min={minDateInfer}
+                                max={currentDate}
                                 onChange={(e) =>
                                   handleServiceChange(
                                     e,
@@ -609,6 +697,7 @@ const Leftdetail = () => {
                                   )
                                 }
                               />
+                              {passengerData[i + Number(adults) + Number(childs)].DateOfBirth == "" && sub && <span id="error1">Enter DOB</span>}
                             </div>
                           </Box>
                         </Box>
