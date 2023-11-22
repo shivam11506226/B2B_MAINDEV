@@ -157,8 +157,14 @@ const Flightdetail = () => {
   };
 
   const hotelInfo = reducerState?.hotelSearchResult?.hotelInfo?.HotelInfoResult;
+
+  console.log("Hotel information", hotelInfo);
+
   const hotelRoom =
     reducerState?.hotelSearchResult?.hotelRoom?.GetHotelRoomResult;
+
+  const hotelRoomName = reducerState?.hotelSearchResult?.hotelRoom?.GetHotelRoomResult?.HotelRoomsDetails[0]?.RoomTypeName;
+  // console.log("hotel Room Name", hotelRoomName)
   const hotelCancellationPolicies =
     reducerState?.hotelSearchResult?.blockRoom?.BlockRoomResult
       ?.HotelRoomsDetails[0];
@@ -177,6 +183,7 @@ const Flightdetail = () => {
     hotelCancellationPolicies?.CancellationPolicies[0]?.Charge;
 
   const hotelData = hotelRoom?.HotelRoomsDetails[HotelIndex];
+  console.log("hotel Data", hotelData);
   const bookingId =
     reducerState?.hotelSearchResult?.bookRoom?.BookResult?.BookingId;
   console.log(hotelCancellationPolicies?.CancellationPolicies[0]);
@@ -223,6 +230,7 @@ const Flightdetail = () => {
 
   const handleClickSavePassenger = () => {
     dispatch(PassengersAction(passengerData));
+    console.log("passengerData", passengerData)
     navigate("/Guestdetail");
   };
 
@@ -353,9 +361,17 @@ const Flightdetail = () => {
   const storedFormData = JSON.parse(sessionStorage.getItem('hotelFormData'));
   const data = storedFormData.dynamicFormData[0]; // Assuming dynamicFormData is an array with at least one element
 
-  // Calculate total number of guests
-  const totalAdult = data.NoOfAdults || 0;
-  const totalChild = data.NoOfChild || 0;
+  // // Calculate total number of guests
+  // const totalAdult = data.NoOfAdults || 0;
+  // const totalChild = data.NoOfChild || 0;
+
+
+
+  const [expandedOther, setExpandedOther] = React.useState(false);
+
+  const handleOtherChange = (panel) => (event, notexpanted) => {
+    setExpandedOther(notexpanted ? panel : false);
+  };
 
   return (
 
@@ -416,13 +432,13 @@ const Flightdetail = () => {
           <div className="col-lg-12">
             <div className="roomDetails">
               <div className="row">
-                <div className="col-lg-9">
-                  <p className="title">{hotelData?.RoomTypeName}</p>
+                <div className="col-lg-9 mb-md-3">
+                  <p className="title ">{hotelData?.RoomTypeName}</p>
                   <p>{hotelData?.RoomPromotion}</p>
                   <p>{hotelData?.RatePlanName}</p>
-                  <p className="text-warning">Last Cancellation Data: {' '} {formattedDate}</p>
+                  <p className="text-hotelName"> {hotelRoomName}</p>
                 </div>
-                <div className="col-lg-3 d-flex justify-content-center align-items-center">
+                <div className="col-lg-3 adultss ">
                   <p>{totalAdults}{' '} Adult(s)</p>
                 </div>
               </div>
@@ -445,303 +461,14 @@ const Flightdetail = () => {
             </div>
           </div>
 
-          <div className="col-lg-12">
-            <div className="accordianSection">
-              {noOfRooms.length > 0 &&
-                Array.from({ length: noOfRooms.length }, (_, roomIndex) => (
-                  <Box sx={{ marginBottom: "15px" }}>
-                    <div mb={2} key={roomIndex} className="services" py={1}>
-                      <Accordion
-                        expanded={accordionExpanded === roomIndex}
-                        onChange={handleAccordionChange(roomIndex)}
-                        sx={{ marginBottom: "15px" }}
-                      >
-                        <AccordionSummary
-                          expandIcon={<ExpandMoreIcon />}
-                          aria-controls="panel1a-content"
-                          id="panel1a-header"
-                        >
-                          <Typography>Room {roomIndex + 1}</Typography>
-                        </AccordionSummary>
-                        <AccordionDetails>
-                          {noOfRooms[roomIndex]?.NoOfAdults > 0 &&
-                            Array.from(
-                              { length: noOfRooms[roomIndex]?.NoOfAdults },
-                              (_, adultIndex) => (
-                                <Box>
-                                  Adult {adultIndex + 1}
-                                  {adultIndex == 0 ? "(Lead Guest)" : ""}
-                                  <Grid container spacing={3} my={1}>
-                                    <Grid item xs={12} sm={12} md={4}>
-                                      <Box>
-                                        <div className="form_input">
-                                          <label
-                                            hotel_form_input
-                                            className="form_lable"
-                                          >
-                                            First name*
-                                          </label>
-                                          <input
-                                            name="FirstName"
-                                            placeholder="Enter your name"
-                                            // value={passengerData.FirstName}
-                                            onChange={(e) =>
-                                              setTimeout(() => {
-                                                handleServiceChange(
-                                                  e,
-                                                  roomIndex,
-                                                  { adultIndex: adultIndex }
-                                                );
-                                              }, 500)
-                                            }
-                                          />
-                                        </div>
-                                      </Box>
-                                    </Grid>
-                                    <Grid item xs={12} sm={12} md={4} py={1}>
-                                      <Box>
-                                        <div className="form_input">
-                                          <label
-                                            hotel_form_input
-                                            className="form_lable"
-                                          >
-                                            Last name*
-                                          </label>
-                                          <input
-                                            name="LastName"
-                                            placeholder="Enter your last name"
-                                            // value={passengerData.LastName}
-                                            onChange={(e) =>
-                                              setTimeout(() => {
-                                                handleServiceChange(
-                                                  e,
-                                                  roomIndex,
-                                                  { adultIndex: adultIndex }
-                                                );
-                                              }, 300)
-                                            }
-                                          />
-                                        </div>
-                                      </Box>
-                                    </Grid>
-                                    <Grid item xs={12} sm={12} md={4} py={1}>
-                                      <Box>
-                                        <div className="form_input">
-                                          <label
-                                            hotel_form_input
-                                            className="form_lable"
-                                          >
-                                            age*
-                                          </label>
-                                          <input
-                                            name="Age"
-                                            type="text"
-                                            placeholder="Enter Age"
-                                            // value={passengerData.Age}
-                                            onChange={(e) =>
-                                              setTimeout(() => {
-                                                handleServiceChange(
-                                                  e,
-                                                  roomIndex,
-                                                  { adultIndex: adultIndex }
-                                                );
-                                              }, 300)
-                                            }
-                                          />
-                                        </div>
-                                      </Box>
-                                    </Grid>
-                                    <Grid item xs={12} sm={12} md={4} py={1}>
-                                      <Box>
-                                        <div className="form_input">
-                                          <label
-                                            hotel_form_input
-                                            className="form_lable"
-                                          >
-                                            PanNo*
-                                          </label>
-                                          <input
-                                            name="PAN"
-                                            type="text"
-                                            placeholder="Enter PanNo"
-                                            // value={passengerData.PAN}
-                                            onChange={(e) =>
-                                              setTimeout(() => {
-                                                handleServiceChange(
-                                                  e,
-                                                  roomIndex,
-                                                  { adultIndex: adultIndex }
-                                                );
-                                              }, 300)
-                                            }
-                                          />
-                                        </div>
-                                      </Box>
-                                    </Grid>
-                                  </Grid>
-                                </Box>
-                              )
-                            )}
-                          {noOfRooms[roomIndex]?.NoOfChild > 0 &&
-                            Array.from(
-                              {
-                                length: noOfRooms[roomIndex]?.NoOfChild,
-                              },
-                              (_, childIndex) => (
-                                <Box>
-                                  Child {childIndex + 1}
-                                  <Grid container spacing={3} my={1}>
-                                    <Grid item xs={12} sm={12} md={4}>
-                                      <Box>
-                                        <div className="form_input">
-                                          <label
-                                            hotel_form_input
-                                            className="form_lable"
-                                          >
-                                            First name*
-                                          </label>
-                                          <input
-                                            name="FirstName"
-                                            placeholder="Enter your name"
-                                            // value={passengerData.FirstName}
-                                            onChange={(e) =>
-                                              setTimeout(() => {
-                                                handleServiceChange(
-                                                  e,
-                                                  roomIndex,
-                                                  { childIndex: childIndex }
-                                                );
-                                              })
-                                            }
-                                          />
-                                        </div>
-                                      </Box>
-                                    </Grid>
-                                    <Grid item xs={12} sm={12} md={4} py={1}>
-                                      <Box>
-                                        <div className="form_input">
-                                          <label
-                                            hotel_form_input
-                                            className="form_lable"
-                                          >
-                                            Last name*
-                                          </label>
-                                          <input
-                                            name="LastName"
-                                            placeholder="Enter your last name"
-                                            // value={passengerData.LastName}
-                                            onChange={(e) =>
-                                              setTimeout(() => {
-                                                handleServiceChange(
-                                                  e,
-                                                  roomIndex,
-                                                  { childIndex: childIndex }
-                                                );
-                                              })
-                                            }
-                                          />
-                                        </div>
-                                      </Box>
-                                    </Grid>
-                                    <Grid item xs={12} sm={12} md={4} py={1}>
-                                      <Box>
-                                        <div className="form_input">
-                                          <label
-                                            hotel_form_input
-                                            className="form_lable"
-                                          >
-                                            age*
-                                          </label>
-                                          <input
-                                            name="Age"
-                                            type="text"
-                                            placeholder="Enter Age"
-                                            value={
-                                              noOfRooms[roomIndex]?.ChildAge[
-                                              childIndex
-                                              ]
-                                            }
-                                          // onChange={(e) =>
-                                          //   handleServiceChange(
-                                          //     e,
-                                          //     roomIndex,
-                                          //     { childIndex: childIndex }
-                                          //   )
-                                          // }
-                                          />
-                                        </div>
-                                      </Box>
-                                    </Grid>
-                                    <Grid item xs={12} sm={12} md={4} py={1}>
-                                      <Box>
-                                        <div className="form_input">
-                                          <label
-                                            hotel_form_input
-                                            className="form_lable"
-                                          >
-                                            PanNo*
-                                          </label>
-                                          <input
-                                            name="PAN"
-                                            type="text"
-                                            placeholder="Enter PanNo"
-                                            // value={passengerData.PAN}
-                                            onChange={(e) =>
-                                              setTimeout(() => {
-                                                handleServiceChange(
-                                                  e,
-                                                  roomIndex,
-                                                  { childIndex: childIndex }
-                                                );
-                                              })
-                                            }
-                                          />
-                                        </div>
-                                      </Box>
-                                    </Grid>
-                                  </Grid>
-                                </Box>
-                              )
-                            )}
-                        </AccordionDetails>
-                      </Accordion>
 
-                    </div>
-                  </Box>
-                ))}
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <Box borderRadius="10px">
-
-        <Box
-          mt={5}
-          sx={{
-            padding: "15px",
-            borderRadius: "10px",
-            boxShadow: "2px 2px 8px gray",
-            marginTop: "15px",
-            backgroundColor: "white",
-          }}
-        >
-          <Box>
-            <Typography
-              sx={{ fontSize: "16px", color: "#252525", fontWeight: "bold" }}
-            >
-              Enter Guest Details
-            </Typography>
-            <Box>
-              <Box>
-
-              </Box>
-
-              <Grid container spacing={3} my={1}>
-                <Grid item xs={12} sm={12} md={4}>
-                  <Box>
+          <div className="headForm">
+            <div className="row">
+              <div className="col-lg-12">
+                <div className="row padd g-3">
+                  <div className="col-lg-4 col-md-6">
                     <div className="form_input">
-                      <label hotel_form_input className="form_lable">
+                      <label className="form_lable">
                         Email*
                       </label>
                       <input
@@ -752,13 +479,11 @@ const Flightdetail = () => {
                         onChange={(e) => handleServiceChange(e, 0)}
                       />
                     </div>
-                  </Box>
-                </Grid>
+                  </div>
 
-                <Grid item xs={12} sm={12} md={4}>
-                  <Box>
+                  <div className="col-lg-4 col-md-6" >
                     <div className="form_input">
-                      <label hotel_form_input className="form_lable">
+                      <label className="form_lable">
                         Phone No*
                       </label>
                       <input
@@ -769,190 +494,409 @@ const Flightdetail = () => {
                         onChange={(e) => handleServiceChange(e, 0)}
                       />
                     </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="col-lg-12">
+            <div className="accordianSection">
+              {noOfRooms.length > 0 &&
+                Array.from({ length: noOfRooms.length }, (_, roomIndex) => (
+                  <Box sx={{ marginBottom: "15px" }}>
+                    <div mb={2} key={roomIndex} className="services" py={1}>
+                      <Accordion
+                        expanded={accordionExpanded === roomIndex}
+                        onChange={handleAccordionChange(roomIndex)}
+                        sx={{ marginBottom: "15px", backgroundColor: "rgba(187, 187, 187, 0.30)" }}
+                      >
+                        <AccordionSummary
+                          expandIcon={<ExpandMoreIcon />}
+                          aria-controls="panel1a-content"
+                          id="panel1a-header"
+                        >
+                          <label>Room {roomIndex + 1}</label>
+                        </AccordionSummary>
+                        <AccordionDetails>
+                          <div>
+                            {noOfRooms[roomIndex]?.NoOfAdults > 0 &&
+                              Array.from(
+                                { length: noOfRooms[roomIndex]?.NoOfAdults },
+                                (_, adultIndex) => (
+                                  <div className="guestDetailsForm" >
+                                    <p>Adult {adultIndex + 1}
+                                      {adultIndex == 0 ? "(Lead Guest)" : ""}</p>
+                                    <Grid container spacing={3} my={1}>
+                                      <Grid item xs={12} sm={12} md={4}>
+                                        <Box>
+                                          <div className="form_input">
+                                            <label
+                                              hotel_form_input
+                                              className="form_lable"
+                                            >
+                                              First name*
+                                            </label>
+                                            <input
+                                              name="FirstName"
+                                              placeholder="Enter your name"
+                                              // value={passengerData.FirstName}
+                                              onChange={(e) =>
+                                                setTimeout(() => {
+                                                  handleServiceChange(
+                                                    e,
+                                                    roomIndex,
+                                                    { adultIndex: adultIndex }
+                                                  );
+                                                }, 500)
+                                              }
+                                            />
+                                          </div>
+                                        </Box>
+                                      </Grid>
+                                      <Grid item xs={12} sm={12} md={4} py={1}>
+                                        <Box>
+                                          <div className="form_input">
+                                            <label
+                                              hotel_form_input
+                                              className="form_lable"
+                                            >
+                                              Last name*
+                                            </label>
+                                            <input
+                                              name="LastName"
+                                              placeholder="Enter your last name"
+                                              // value={passengerData.LastName}
+                                              onChange={(e) =>
+                                                setTimeout(() => {
+                                                  handleServiceChange(
+                                                    e,
+                                                    roomIndex,
+                                                    { adultIndex: adultIndex }
+                                                  );
+                                                }, 300)
+                                              }
+                                            />
+                                          </div>
+                                        </Box>
+                                      </Grid>
+                                      <Grid item xs={12} sm={12} md={4} py={1}>
+                                        <Box>
+                                          <div className="form_input">
+                                            <label
+                                              hotel_form_input
+                                              className="form_lable"
+                                            >
+                                              age*
+                                            </label>
+                                            <input
+                                              name="Age"
+                                              type="text"
+                                              placeholder="Enter Age"
+                                              // value={passengerData.Age}
+                                              onChange={(e) =>
+                                                setTimeout(() => {
+                                                  handleServiceChange(
+                                                    e,
+                                                    roomIndex,
+                                                    { adultIndex: adultIndex }
+                                                  );
+                                                }, 300)
+                                              }
+                                            />
+                                          </div>
+                                        </Box>
+                                      </Grid>
+                                      <Grid item xs={12} sm={12} md={4} py={1}>
+                                        <Box>
+                                          <div className="form_input">
+                                            <label
+                                              hotel_form_input
+                                              className="form_lable"
+                                            >
+                                              Pan Number*
+                                            </label>
+                                            <input
+                                              name="PAN"
+                                              type="text"
+                                              placeholder="Write in Capital"
+                                              // value={passengerData.PAN}
+                                              onChange={(e) =>
+                                                setTimeout(() => {
+                                                  handleServiceChange(
+                                                    e,
+                                                    roomIndex,
+                                                    { adultIndex: adultIndex }
+                                                  );
+                                                }, 300)
+                                              }
+                                            />
+                                          </div>
+                                        </Box>
+                                      </Grid>
+                                    </Grid>
+                                  </div>
+                                )
+                              )}
+                            {noOfRooms[roomIndex]?.NoOfChild > 0 &&
+                              Array.from(
+                                {
+                                  length: noOfRooms[roomIndex]?.NoOfChild,
+                                },
+                                (_, childIndex) => (
+                                  < div className="guestDetailsForm" >
+                                    Child {childIndex + 1}
+                                    <Grid container spacing={3} my={1}>
+                                      <Grid item xs={12} sm={12} md={4}>
+                                        <Box>
+                                          <div className="form_input">
+                                            <label
+                                              hotel_form_input
+                                              className="form_lable"
+                                            >
+                                              First name*
+                                            </label>
+                                            <input
+                                              name="FirstName"
+                                              placeholder="Enter your name"
+                                              // value={passengerData.FirstName}
+                                              onChange={(e) =>
+                                                setTimeout(() => {
+                                                  handleServiceChange(
+                                                    e,
+                                                    roomIndex,
+                                                    { childIndex: childIndex }
+                                                  );
+                                                })
+                                              }
+                                            />
+                                          </div>
+                                        </Box>
+                                      </Grid>
+                                      <Grid item xs={12} sm={12} md={4} py={1}>
+                                        <Box>
+                                          <div className="form_input">
+                                            <label
+                                              hotel_form_input
+                                              className="form_lable"
+                                            >
+                                              Last name*
+                                            </label>
+                                            <input
+                                              name="LastName"
+                                              placeholder="Enter your last name"
+                                              // value={passengerData.LastName}
+                                              onChange={(e) =>
+                                                setTimeout(() => {
+                                                  handleServiceChange(
+                                                    e,
+                                                    roomIndex,
+                                                    { childIndex: childIndex }
+                                                  );
+                                                })
+                                              }
+                                            />
+                                          </div>
+                                        </Box>
+                                      </Grid>
+                                      <Grid item xs={12} sm={12} md={4} py={1}>
+                                        <Box>
+                                          <div className="form_input">
+                                            <label
+                                              hotel_form_input
+                                              className="form_lable"
+                                            >
+                                              age*
+                                            </label>
+                                            <input
+                                              name="Age"
+                                              type="text"
+                                              placeholder="Enter Age"
+                                              value={
+                                                noOfRooms[roomIndex]?.ChildAge[
+                                                childIndex
+                                                ]
+                                              }
+                                            // onChange={(e) =>
+                                            //   handleServiceChange(
+                                            //     e,
+                                            //     roomIndex,
+                                            //     { childIndex: childIndex }
+                                            //   )
+                                            // }
+                                            />
+                                          </div>
+                                        </Box>
+                                      </Grid>
+                                      <Grid item xs={12} sm={12} md={4} py={1}>
+                                        <Box>
+                                          <div className="form_input">
+                                            <label
+                                              hotel_form_input
+                                              className="form_lable"
+                                            >
+                                              PanNo*
+                                            </label>
+                                            <input
+                                              name="PAN"
+                                              type="text"
+                                              placeholder="Enter PanNo"
+                                              // value={passengerData.PAN}
+                                              onChange={(e) =>
+                                                setTimeout(() => {
+                                                  handleServiceChange(
+                                                    e,
+                                                    roomIndex,
+                                                    { childIndex: childIndex }
+                                                  );
+                                                })
+                                              }
+                                            />
+                                          </div>
+                                        </Box>
+                                      </Grid>
+                                    </Grid>
+                                  </div>
+                                )
+                              )}
+                          </div>
+                        </AccordionDetails>
+                      </Accordion>
+
+                    </div>
                   </Box>
-                </Grid>
-              </Grid>
+                ))}
+            </div>
+          </div>
 
-              <Box
-                mt={1}
-                display="flex"
-                alignItems="center"
-                justifyContent="center"
-              ></Box>
-            </Box>
-          </Box>
 
-          {/* textarea */}
+          <div className="col-lg-12">
+            <div className="headText">
+              <h2>Other Details</h2>
+            </div>
+          </div>
 
-          {/* <Box
-          className="input_area"
-          height="120px"
-          sx={{
-            display: "flex",
-            justifyContent: "center",
-            textAlign: "center",
-            alignItems: "center",
-            width: "100%",
-          }}
-          mt={2}
-        >
-          <textarea
-            placeholder="Special Service Request:"
-            class="form-control"
-            id="review"
-            rows="3"
-            width="100%"
-          ></textarea>
-        </Box> */}
-          <Typography
-            sx={{
-              fontSize: "13px",
-              color: "#FF8900",
-              fontWeight: "bold",
-              marginTop: "13px",
-            }}
-          >
-            Note: For any additional services, Applicable Charges will be paid
-            directly at Hotel.
-          </Typography>
-          {/* <Box
-          className="input_area"
-          height="120px"
-          sx={{
-            display: "flex",
-            justifyContent: "center",
-            textAlign: "center",
-            alignItems: "center",
-            width: "100%",
-          }}
-          mt={2}
-        >
-          <textarea
-            placeholder="Enter Remark:"
-            class="form-control"
-            id="review"
-            rows="3"
-          ></textarea>
-        </Box> */}
-          <Box
-            sx={{
-              padding: "15px",
-              borderRadius: "10px",
-              boxShadow: "2px 2px 8px gray",
-              marginTop: "15px",
-            }}
-          >
-            <Typography
-              sx={{ fontSize: "16px", color: "#252525", fontWeight: "bold" }}
-            >
-              Cancellation & Charges:
-            </Typography>
-            <Typography
-              sx={{ fontSize: "13px", color: "#252525", fontWeight: "bold" }}
-            >
-              Room : {hotelData?.RoomTypeName}
-            </Typography>
-            <Grid container spacing={3} p={1}>
-              <Grid item xs={12} md={5}>
-                <Typography
-                  sx={{ fontSize: "13px", color: "#252525", fontWeight: "bold" }}
-                >
-                  Cancelled from
-                </Typography>
-                <Typography
-                  sx={{
-                    fontSize: "13px",
-                    color: "#006FFF",
-                    fontWeight: "bold",
-                    textAlign: "left",
-                  }}
-                >
-                  {cancellationFormattedStartingDate}
-                </Typography>
-              </Grid>
-              <Grid item xs={12} md={4}>
-                <Typography
-                  sx={{ fontSize: "13px", color: "#252525", fontWeight: "bold" }}
-                >
-                  Cancelled before
-                </Typography>
-                <Typography
-                  sx={{
-                    fontSize: "13px",
-                    color: "#006FFF",
-                    fontWeight: "bold",
-                    textAlign: "left",
-                  }}
-                >
-                  {cancellationFormattedEndingDate}
-                </Typography>
-              </Grid>
-              <Grid item xs={12} md={3}>
-                <Typography
-                  sx={{
-                    fontSize: "13px",
-                    color: "#252525",
-                    fontWeight: "bold",
-                    textAlign: "center",
-                  }}
-                >
-                  Cancellation Charges
-                </Typography>
-                <Typography
-                  sx={{
-                    fontSize: "13px",
-                    color: "#FF8900",
-                    fontWeight: "bold",
-                    textAlign: "center",
-                  }}
-                >
-                  {cancellationCharge}%
-                </Typography>
-              </Grid>
-              <Typography
-                sx={{
-                  fontSize: "13px",
-                  color: "#FF8900",
-                  fontWeight: "bold",
-                  marginTop: "13px",
-                }}
-                ml={2}
+          <div className="col-lg-12">
+            <div className="services">
+              <Accordion
+                expanded={expandedOther === 'panel1'} onChange={handleOtherChange('panel1')}
+                sx={{ marginBottom: "15px", backgroundColor: "rgba(187, 187, 187, 0.30)" }}
               >
-                Note:{hotelCancellationPolicies?.CancellationPolicy}
-              </Typography>
-            </Grid>
-          </Box>
-          <Box
-            sx={{
-              padding: "15px",
-              borderRadius: "10px",
-              boxShadow: "2px 2px 8px gray",
-              marginTop: "15px",
-            }}
-          >
-            <Typography
-              sx={{ fontSize: "16px", color: "#252525", fontWeight: "bold" }}
-            >
-              Hotel Norms
-            </Typography>
-          </Box>
+                <AccordionSummary
+                  expandIcon={<ExpandMoreIcon />}
+                  aria-controls="panel1a-content"
+                  id="panel1a-header"
+                >
+                  <label>Add Note</label>
+                </AccordionSummary>
+                <AccordionDetails>
 
-          {/* <form> */}
-          <Box display={"flex"} justifyContent={"center"} mt={2}>
-            <Custombutton
-              title={"Proceed to Booking Review"}
-              type={"submit"}
-              onClick={handleClickSavePassenger}
-            />
-          </Box>
-          {/* </form> */}
-        </Box>
-        <Modal open={bookingSuccess}>
-          <Box sx={styleLoader}>
-            <CircularProgress size={70} thickness={4} />
-          </Box>
-        </Modal>
-      </Box>
+                  <div>No data</div>
+                </AccordionDetails>
+              </Accordion>
+              <Accordion
+                expanded={expandedOther === 'panel2'} onChange={handleOtherChange('panel2')}
+                sx={{ marginBottom: "15px", backgroundColor: "rgba(187, 187, 187, 0.30)" }}
+              >
+                <AccordionSummary
+                  expandIcon={<ExpandMoreIcon />}
+                  aria-controls="panel1a-content"
+                  id="panel1a-header"
+                >
+                  <label>Cancellation and Charges</label>
+                </AccordionSummary>
+                <AccordionDetails>
+                  <div className="hotelNameAccord">
+                    <p >{hotelRoomName}</p>
+                  </div>
+                  <div className="otherDetailsData">
+                    <div className="row">
+                      <div className="col-lg-4">
+                        <div className="cancelAccord">
+                          <span>Cancelled on or After</span>
+                          <p>{cancellationFormattedStartingDate}</p>
+                        </div>
+                      </div>
+                      <div className="col-lg-4">
+                        <div className="cancelAccord">
+                          <span>Cancelled on or Before</span>
+                          <p>{cancellationFormattedEndingDate}</p>
+                        </div>
+                      </div>
+                      <div className="col-lg-4">
+                        <div className="cancelAccord">
+                          <span>Cancellation Charges</span>
+                          <p>{cancellationCharge}%</p>
+                        </div>
+                      </div>
+
+                    </div>
+                  </div>
+                </AccordionDetails>
+              </Accordion>
+
+              <Accordion
+                expanded={expandedOther === 'panel3'} onChange={handleOtherChange('panel3')}
+                sx={{ marginBottom: "15px", backgroundColor: "rgba(187, 187, 187, 0.30)" }}
+              >
+                <AccordionSummary
+                  expandIcon={<ExpandMoreIcon />}
+                  aria-controls="panel1a-content"
+                  id="panel1a-header"
+                >
+                  <label>Amenities</label>
+                </AccordionSummary>
+                <AccordionDetails>
+
+                  <div>No data</div>
+                </AccordionDetails>
+              </Accordion>
+              <Accordion
+                expanded={expandedOther === 'panel4'} onChange={handleOtherChange('panel4')}
+                sx={{ marginBottom: "15px", backgroundColor: "rgba(187, 187, 187, 0.30)" }}
+              >
+                <AccordionSummary
+                  expandIcon={<ExpandMoreIcon />}
+                  aria-controls="panel1a-content"
+                  id="panel1a-header"
+                >
+                  <label>Hotel Norms</label>
+                </AccordionSummary>
+                <AccordionDetails>
+
+                  <div>No data</div>
+                </AccordionDetails>
+              </Accordion>
+            </div>
+
+
+          </div>
+
+
+          <div className="col-lg-12">
+            <div className="reviewDescriptionButton">
+              {/* <Custombutton
+                  title={"Proceed to Booking Review"}
+                  type={"submit"}
+                  onClick={handleClickSavePassenger}
+                /> */}
+              <button type="submit" onClick={handleClickSavePassenger}>Proceed to Book</button>
+
+            </div>
+          </div>
+
+          <Modal open={bookingSuccess}>
+            <Box sx={styleLoader}>
+              <CircularProgress size={70} thickness={4} />
+            </Box>
+          </Modal>
+
+        </div>
+      </div >
+
+
+
+
     </>
   );
 };

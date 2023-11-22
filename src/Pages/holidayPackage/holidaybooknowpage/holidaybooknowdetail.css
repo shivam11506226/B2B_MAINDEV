@@ -198,3 +198,111 @@ p {
   line-height: 156%;
   /* 24.96px */
 }
+
+.hotelDetailsTab h2 {
+  color: #000;
+  font-family: Montserrat;
+  font-size: 28px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+}
+
+.hotelDetailsTab p {
+  color: #071C2C;
+
+  font-family: Montserrat;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}
+
+
+.inclusionTab {
+  padding: 32px 36px 36px 36px;
+  border-radius: 8px;
+  border: 2px solid #BBB;
+
+  background: #FFFBFB;
+}
+
+.inclusionTab h2 {
+  color: #000;
+  text-align: left;
+  font-family: 'Montserrat';
+  font-size: 28px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  margin-bottom: 15px;
+}
+
+.inclusionTab p {
+  color: #071C2C;
+  font-family: 'Montserrat';
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}
+
+
+
+.tandC {
+  padding: 32px 36px 36px 36px;
+  border-radius: 8px;
+  border: 2px solid #BBB;
+
+  background: #FFFBFB;
+}
+
+.tandC h2 {
+  color: #000;
+  text-align: left;
+  font-family: 'Montserrat';
+  font-size: 28px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  margin-bottom: 15px;
+}
+
+.tandC p {
+  color: #071C2C;
+  font-family: 'Montserrat';
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}
+
+
+
+.cancelTab {
+  padding: 32px 36px 36px 36px;
+  border-radius: 8px;
+  border: 2px solid #BBB;
+
+  background: #FFFBFB;
+}
+
+.cancelTab h2 {
+  color: #000;
+  text-align: left;
+  font-family: 'Montserrat';
+  font-size: 28px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  margin-bottom: 15px;
+}
+
+.cancelTab p {
+  color: #071C2C;
+  font-family: 'Montserrat';
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}

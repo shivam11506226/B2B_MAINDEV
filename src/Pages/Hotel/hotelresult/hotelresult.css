@@ -41,10 +41,10 @@
   justify-content: flex-start;
   align-items: center;
   border-radius: 4px;
-  border: 1px solid #5C85A4;
+  border: 1px solid #c9caca;
   gap: 20px;
   color: #21325D;
-  background-color: #f1f1f1;
+  background-color: #fff;
 
 }
 
@@ -85,8 +85,9 @@
 .hotelResultBox {
   padding: 10px;
   border-radius: 10px;
-  background: white;
-  box-shadow: 0px 0px 24px -11px;
+  /* background: white; */
+  background: rgb(241, 241, 241);
+  /* box-shadow: 0px 0px 24px -11px; */
   margin-top: 24px;
 }
 
@@ -100,8 +101,16 @@
 .ModifySearch {
   padding: 10px;
   border-radius: 10px;
-  background: white;
-  box-shadow: 0px 0px 24px -11px;
+  /* background: white; */
+  background: rgb(241, 241, 241);
+  /* box-shadow: 0px 0px 24px -11px; */
+}
+
+.outerFilterBox {
+  padding: 10px;
+  border-radius: 10px;
+  background: rgb(241, 241, 241);
+
 }
 
 
