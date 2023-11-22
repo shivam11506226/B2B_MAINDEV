@@ -82,10 +82,11 @@ export default function Demo(props) {
         <Button
           variant="contained"
           style={{
-            backgroundColor:color.bluedark,
+            backgroundColor: color.bluedark,
             color: "white",
             width: "100%",
-            borderRadius: "20px",
+            height: "50px",
+            borderRadius: "8px",
           }}
           onClick={handleSubmit}
           disabled={isDisabled}

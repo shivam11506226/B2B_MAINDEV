@@ -1,8 +1,12 @@
 .btn {
     box-shadow: none !important;
     padding: 5px 60px;
-    background: #FFFBFB;
+    /* background: #FFFBFB; */
     margin: 12px 0px;
+    padding: 5px 60px;
+    margin: 12px 0px;
+    color: #fff;
+    background: #21325D;
 }
 
 .btn:hover {
