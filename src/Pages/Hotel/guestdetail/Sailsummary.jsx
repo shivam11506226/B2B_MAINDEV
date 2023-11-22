@@ -51,14 +51,14 @@ export default function Popularfilter() {
   console.log("totalAmount", totalAmount);
 
 
-  const hotelRoomName = reducerState?.hotelSearchResult?.hotelRoom?.GetHotelRoomResult?.HotelRoomsDetails[HotelIndex]?.RoomTypeName;
-
   const markUpPrice = reducerState?.logIn?.loginData?.data?.data?.markup?.hotel;
   console.log(markUpPrice)
   console.log(hotelInfo, "hotel information")
   console.log(HotelIndex, "hotel index")
   console.log(hotelData, "hotel ka data ");
   const grandTotal = totalAmount + markUpPrice;
+
+  const storedFormData = JSON.parse(sessionStorage.getItem('hotelFormData'));
   return (
     <>
       <div className="priceSummary">
@@ -67,7 +67,7 @@ export default function Popularfilter() {
         </div>
         {/* <div className="hotName">{hotelRoomName}</div> */}
         <div className="hotName">
-          <p>Executive Room, 1 twin bed, smoking</p>
+          <p>{hotelData?.RoomTypeName}</p>
         </div>
         <div className="priceChart">
           <div >
@@ -84,7 +84,7 @@ export default function Popularfilter() {
           </div>
           <div >
             <span className="text-bold">No of Rooms</span>
-            <p className="text-bold">{hotelData?.DayRates.length}</p>
+            <p className="text-bold">{storedFormData.room}</p>
           </div>
         </div>
         {/* <div className="totCOmm">

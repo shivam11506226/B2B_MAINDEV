@@ -29,13 +29,8 @@ const StyledTabs = styled(Tabs)(({ theme }) => ({
 const StyledTab = styled(Tab)(({ theme }) => ({
 
 
-  // height: '48px',
-  padding: "5px 60px",
-  // font: '14px',
-  margin: '12px 0px',
-  // color: '#252525',
-  // fontWeight: '600',
-  background: '#D9D9D9',
+
+
   '&.Mui-selected': {
     background: '#FFFBFB',
     padding: "5px 60px",

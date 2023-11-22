@@ -70,8 +70,11 @@ Input {
     box-shadow: 0px 3px 6px #00000029;
     border-radius: 20px;
     opacity: 1;
-    margin: 7px 0px !important;
+    margin: 7px 0px 21px 0px !important;
     border: none;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
 }
 
 .accordian_area {
@@ -251,23 +254,26 @@ Input {
 }
 
 .roomTypeName .first {
-    font-size: 20px;
-    font-weight: 700;
+    font-size: 17px;
+    font-weight: 600;
+    text-align: left;
     color: #21325D;
 }
 
 .ratePlan {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start;
     align-items: center;
     flex-direction: row;
+    gap: 33px;
 }
 
 .priceCheck {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
     flex-direction: row;
+    gap: 24px;
 }
 
 .priceCheck .second {
@@ -280,7 +286,6 @@ Input {
 
 
 .text {
-    font-weight: bold;
     text-align: left;
 }
 
@@ -299,4 +304,24 @@ Input {
     font-size: 18px;
     border: 2px solid #21325D;
     border-radius: 5px;
+}
+
+
+.roomCompo {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    column-gap: 15px;
+    overflow-y: scroll;
+}
+
+.roomCompo::-webkit-scrollbar-track {}
+
+.roomCompo::-webkit-scrollbar {
+    height: 10px;
+}
+
+.roomCompo div>div {
+    width: 400px;
+
 }
