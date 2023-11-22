@@ -40,13 +40,25 @@ export default function Popularfilter() {
   const hotelRoom =
     reducerState?.hotelSearchResult?.hotelRoom?.GetHotelRoomResult;
   const hotelData = hotelRoom?.HotelRoomsDetails?.[HotelIndex];
+
+  const getBookingDetails =
+    reducerState?.hotelSearchResult?.blockRoom?.BlockRoomResult?.HotelRoomsDetails;
+  console.log("getBookingDetails", getBookingDetails);
+
+  const totalAmount = getBookingDetails?.reduce((accumulator, item) => {
+    return accumulator + item?.Price?.PublishedPriceRoundedOff;
+  }, 0);
+  console.log("totalAmount", totalAmount);
+
+
   const hotelRoomName = reducerState?.hotelSearchResult?.hotelRoom?.GetHotelRoomResult?.HotelRoomsDetails[HotelIndex]?.RoomTypeName;
 
   const markUpPrice = reducerState?.logIn?.loginData?.data?.data?.markup?.hotel;
   console.log(markUpPrice)
   console.log(hotelInfo, "hotel information")
   console.log(HotelIndex, "hotel index")
-  console.log(hotelData, "hotel ka data ")
+  console.log(hotelData, "hotel ka data ");
+  const grandTotal = totalAmount + markUpPrice;
   return (
     <>
       <div className="priceSummary">
@@ -64,7 +76,7 @@ export default function Popularfilter() {
           </div>
           <div >
             <span>Published</span>
-            <p>{'₹'}{hotelData?.Price?.PublishedPriceRoundedOff}</p>
+            <p>{'₹'}{totalAmount}</p>
           </div>
           <div >
             <span>Other Tax</span>
@@ -96,7 +108,7 @@ export default function Popularfilter() {
           </div> */}
           <div >
             <span>Grand Total:</span>
-            <p>{'₹'}7,673.00</p>
+            <p>{'₹'}{grandTotal}</p>
           </div>
         </div>
 
