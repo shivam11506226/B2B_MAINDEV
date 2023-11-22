@@ -60,6 +60,15 @@ const Return = () => {
   const [minReturnDate, setMinReturnDate] = useState(""); // To store the minimum return date
   const [displayFrom, setdisplayFrom] = useState(true);
   const [displayTo, setdisplayTo] = useState(true);
+
+
+  // error show
+
+  const [fromError, setFromError] = useState("");
+  const [toError, setToError] = useState("");
+  const [dateError, setDateError] = useState("");
+  const [sub, setSub] = useState(false);
+
   useEffect(() => {
     let mounted = true;
 
@@ -172,7 +181,28 @@ const Return = () => {
 
   function handleSubmit(event) {
     event.preventDefault();
+    setSub(true)
     const formData = new FormData(event.target);
+    if (!formData.get("from")) {
+      setFromError("Enter Destination City");
+      return;
+    }
+    // if (!formData.get("to")) {
+    //   setToError("Enter Arrival City");
+    //   return;
+    // }
+    // if (!formData.get("departure")) {
+    //   setDateError("Select Date");
+    //   return;
+    // }
+    // if (!formData.get("return")) {
+    //   setDateError("Select Date");
+    //   return;
+    // }
+    if (formData.get("from") === "" || formData.get("to") === "" || formData.get("departure") === "" || formData.get("return") === "") {
+      return
+    }
+
 
     const payload = {
       EndUserIp: reducerState?.ip?.ipData,
@@ -231,6 +261,7 @@ const Return = () => {
                   }}
 
                 />
+                {sub === true && from === "" && <p id="error1">Enter city or airport </p>}
                 {isLoading && <div>Loading...</div>}
                 {fromSearchResults && fromSearchResults.length > 0 && (
                   <div
@@ -294,6 +325,7 @@ const Return = () => {
                     handleToSearch(event.target.value);
                   }}
                 />
+                {sub === true && to === "" && <p id="error1">Enter city or airport </p>}
                 {isLoading && <div>Loading...</div>}
                 {toSearchResults && toSearchResults.length > 0 && (
                   <div
@@ -353,7 +385,8 @@ const Return = () => {
                   value={departureDate}
                   onChange={handleDepartureDateChange}
 
-                ></input>
+                />
+                {sub === true && departureDate === "" && <p id="error1">Enter date</p>}
               </div>
             </div>
             <div className="col-xs-12 col-md-3 col-lg-3 ps-0 mb-3" >
@@ -372,6 +405,7 @@ const Return = () => {
                   value={returnDate}
                   onChange={(event) => setReturnDate(event.target.value)}
                 ></input>
+              {sub === true && returnDate === "" && <p id="error1">Enter date</p>}
               </div>
             </div>
 
