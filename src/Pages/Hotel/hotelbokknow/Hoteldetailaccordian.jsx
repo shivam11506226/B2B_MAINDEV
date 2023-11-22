@@ -215,53 +215,57 @@ export default function CustomizedAccordions() {
 
       <div className="offer_area p-2">
         <div className="container">
-          <div className="row">
-            <div className="col-md-12">
-              <div className="roomTypeName">
-                <p className="first">
-                  {filteredComponent[0]?.RoomTypeName}
-                </p>
-                <p className="second">
-                  {filteredComponent[0]?.RoomPromotion}
-                </p>
-              </div>
-            </div>
-            <div className="col-md-5">
-              <p className="text">
-                {filteredComponent[0]?.RatePlanName}
-              </p>
-            </div>
-            <div className="col-md-5">
-              <p className="text">
-                Last Cancellation till: {formattedDate}
-              </p>
-            </div>
-            <div className="col-md-2">
-              <div>
-                <input
-                  className="form-check-input"
-                  type="checkbox"
-                  style={{ width: "25px", height: "25px" }}
-                  value={filteredComponent[0]?.RoomIndex}
-                  disabled={row >= 0 && col > 0 && filteredComponent[0].disabled}
-                  checked={!filteredComponent[0].disabled}
-                  onClick={(e) => {
-                    setDisabledOption(RoomIndexArr);
-                  }}
-                />
-              </div>
-
-
-            </div>
+          <div className="row ">
             <div className="col-lg-12">
-              <p className="price">
-                ₹{filteredComponent[0]?.Price?.PublishedPriceRoundedOff}
-              </p>
+              <div className="col-lg-12 mb-3">
+                <div className="roomTypeName">
+                  <p className="first">
+                    {filteredComponent[0]?.RoomTypeName}
+                  </p>
+                </div>
+              </div>
+
+              <div className="col-md-12 mb-3">
+                <div className="ratePlan">
+
+                  <div>
+                    <input
+                      className="form-check-input"
+                      type="checkbox"
+                      style={{ width: "25px", height: "25px" }}
+                      value={filteredComponent[0]?.RoomIndex}
+                      disabled={row >= 0 && col > 0 && filteredComponent[0].disabled}
+                      checked={!filteredComponent[0].disabled}
+                      onClick={(e) => {
+                        setDisabledOption(RoomIndexArr);
+                      }}
+                    />
+                  </div>
+                  <p className="text">
+                    {filteredComponent[0]?.RatePlanName}
+                  </p>
+                </div>
+              </div>
+              <div className="col-md-12 mb-3">
+                <p className="text">
+                  Last Cancellation till: {formattedDate}
+                </p>
+              </div>
+
+              <div className="col-lg-12 mb-3">
+                <div className="priceCheck">
+                  <p className="price">
+                    ₹{filteredComponent[0]?.Price?.PublishedPriceRoundedOff}
+                  </p>
+                  <p className="second">
+                    {filteredComponent[0]?.RoomPromotion}
+                  </p>
+                </div>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-
+      </div >
 
     );
   };
@@ -512,7 +516,7 @@ export default function CustomizedAccordions() {
                         <div className="container">
                           <div className="row g-3">
                             {item1?.RoomIndex?.map((item2, index2) => (
-                              <div className="col-12 col-sm-12 col-md-12" key={index2}>
+                              <div className="col-12 col-sm-12 col-md-6" key={index2}>
                                 {roomComponent(item2, item1?.RoomIndex, index2, index1)}
                               </div>
                             ))}

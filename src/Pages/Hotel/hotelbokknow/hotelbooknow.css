@@ -256,7 +256,21 @@ Input {
     color: #21325D;
 }
 
-.roomTypeName .second {
+.ratePlan {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: row;
+}
+
+.priceCheck {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: row;
+}
+
+.priceCheck .second {
     padding: 7px 12px;
     background-color: #21325D;
     color: white;
