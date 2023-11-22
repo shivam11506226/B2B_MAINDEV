@@ -46,7 +46,11 @@ import KayakingIcon from "@mui/icons-material/Kayaking";
 import SportsKabaddiIcon from "@mui/icons-material/SportsKabaddi";
 import BookmarkAddIcon from "@mui/icons-material/BookmarkAdd";
 import FmdGoodIcon from '@mui/icons-material/FmdGood';
-
+import Tab from '@mui/material/Tab';
+import TabContext from '@mui/lab/TabContext';
+import TabList from '@mui/lab/TabList';
+import TabPanel from '@mui/lab/TabPanel';
+import WifiPasswordIcon from "@mui/icons-material/WifiPassword";
 import "./holidaybooknowdetail.css";
 import { textAlign } from "@mui/system";
 import { Divider } from "@chakra-ui/react";
@@ -69,8 +73,15 @@ const Bookingdetailpackage = () => {
 
   const savedDataString = sessionStorage.getItem("searchPackageData");
   const savedData = JSON.parse(savedDataString);
-  const savedDestination = savedData.destination;
+  const savedDestination = savedData.destination.toUpperCase();
   const savedDays = savedData.days;
+
+
+  const [value, setValue] = React.useState('1');
+
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
+  };
 
   return (
     <>
@@ -78,7 +89,7 @@ const Bookingdetailpackage = () => {
       <div className="container">
         <div className="row">
           <div className="col-lg-9">
-            <div className="col-lg-12">
+            <div className="col-lg-12 mb-4">
               <div className="outerFilterBox">
                 <div className="filterBox">
                   <p className="searchDestination">Seach Destination{' '}: <b>{savedDestination}</b></p>
@@ -86,851 +97,414 @@ const Bookingdetailpackage = () => {
                 </div>
               </div>
             </div>
-            <div className="col-lg-12">
+            <div className="col-lg-12 mb-4">
               <div className="packageName">
-                <p>Dubai - Travel Solo not Alone, Group trips for Solo Travellers</p>
-                <span>5D/4N</span>
+                <p className="mb-3">{onePackage?.pakage_title}</p>
+                <span>{`${onePackage?.days - 1}N`} / {`${onePackage?.days}D`}</span>
               </div>
             </div>
-            <div className="col-lg-12 d-flex">
+            <div className="col-lg-12 d-flex mb-4">
               <div className="packageLocation">
                 <FmdGoodIcon />
 
               </div>
               <div>
-                <p>Dubai</p>
-                <span>(Dubai)</span>
+                <p>{savedDestination}</p>
+                <span>(India)</span>
               </div>
             </div>
 
-            <div className="col-lg-12">
+            <div className="col-lg-12 mb-4">
               <div className="TripHighlight">
-                <p>Trip Highlights</p>
+                <p className="mb-3">Trip Highlights</p>
 
                 <div className="col-lg-10">
                   <div className="icon-boxHighlight">
-                    <div className="singleIcon">
-                      <span><CommitIcon /></span>
-                      <p>Flexibility</p>
-                    </div>
-                    <div className="singleIcon">
-                      <span><TramIcon /></span>
-                      <p>Train</p>
-                    </div>
-                    <div className="singleIcon">
-                      <span><DirectionsBusIcon /></span>
-                      <p>Bus</p>
-                    </div>
-                    <div className="singleIcon">
-                      <span><DirectionsCarIcon /></span>
-                      <p>Cab</p>
-                    </div>
-                    <div className="singleIcon">
-                      <span><TwoWheelerIcon /></span>
-                      <p>Moterbike</p>
-                    </div>
-                    <div className="singleIcon">
-                      <span><ApartmentIcon /></span>
-                      <p>Hotel</p>
-                    </div>
-                    <div className="singleIcon">
-                      <span><HolidayVillageIcon /></span>
-                      <p>Homestays</p>
-                    </div>
-                    <div className="singleIcon">
-                      <span><LocationCityIcon /></span>
-                      <p>Guesthouse</p>
-                    </div>
+
+                    {onePackage?.insclusions?.map((ele, index) => {
+                      if (
+                        ele?.flexibility ||
+                        ele?.train ||
+                        ele?.bus ||
+                        ele?.cab ||
+                        ele?.moterBike ||
+                        ele?.hotel ||
+                        ele?.homeStays ||
+                        ele?.guestHouse ||
+                        ele?.cruise ||
+                        ele?.sightSeeing ||
+                        ele?.guide ||
+                        ele?.meals ||
+                        ele?.breakfast ||
+                        ele?.drink ||
+                        ele?.visa ||
+                        ele?.travelInsurance ||
+                        ele?.wildlife ||
+                        ele?.heritage ||
+                        ele?.adventure ||
+                        ele?.beach ||
+                        ele?.hillStation ||
+                        ele?.nature ||
+                        ele?.wellness ||
+                        ele?.hiddenGem ||
+                        ele?.tax ||
+                        ele?.discount ||
+                        ele?.waterActivities ||
+                        ele?.optionalActivities ||
+                        ele?.flexibleBooking ||
+                        ele?.wifi
+                      ) {
+                        return (
+                          <div key={index} >
+                            {ele?.flexibility && (
+                              <div className="singleIcon">
+                                <span><CommitIcon />
+                                </span>
+                                <p>Flexibility</p>
+                              </div>
+                            )}
+                            {ele?.train && (
+                              <div className="singleIcon">
+                                <span><TramIcon /></span>
+                                <p>Train</p>
+                              </div>
+                            )}
+                            {ele?.bus && (
+                              <div className="singleIcon">
+                                <span><DirectionsBusIcon /></span>
+                                <p>Bus</p>
+                              </div>
+                            )}
+                            {ele?.cab && (
+                              <div className="singleIcon">
+                                <span><DirectionsCarIcon /></span>
+                                <p>Cab</p>
+                              </div>
+                            )}
+                            {ele?.moterBike && (
+                              <div className="singleIcon">
+                                <span><TwoWheelerIcon /></span>
+                                <p>Moterbike</p>
+                              </div>
+                            )}
+                            {ele?.hotel && (
+                              <div className="singleIcon">
+                                <span><ApartmentIcon /></span>
+                                <p>Hotel</p>
+                              </div>
+                            )}
+                            {ele?.homeStays && (
+                              <div className="singleIcon">
+                                <span><HolidayVillageIcon /></span>
+                                <p>Homestays</p>
+                              </div>
+                            )}
+                            {ele?.guestHouse && (
+                              <div className="singleIcon">
+                                <span><LocationCityIcon /></span>
+                                <p>Guesthouse</p>
+                              </div>
+                            )}
+                            {ele?.camp && (
+                              <div className="singleIcon">
+                                <span><CabinIcon /></span>
+                                <p>Camp</p>
+                              </div>
+                            )}
+                            {ele?.cruise && (
+                              <div className="singleIcon">
+                                <span><BlurOnIcon /></span>
+                                <p>Cruise</p>
+                              </div>
+                            )}
+                            {ele?.sightSeeing && (
+                              <div className="singleIcon">
+                                <span><DeckIcon /></span>
+                                <p>Sightseeing</p>
+                              </div>
+                            )}
+                            {ele?.guide && (
+                              <div className="singleIcon">
+                                <span><EngineeringIcon /></span>
+                                <p>Guide</p>
+                              </div>
+                            )}
+                            {ele?.meals && (
+                              <div className="singleIcon">
+                                <span><FastfoodIcon /></span>
+                                <p>Meals</p>
+                              </div>
+                            )}
+                            {ele?.breakfast && (
+                              <div className="singleIcon">
+                                <span><DinnerDiningIcon /></span>
+                                <p>Daily Breakfast</p>
+                              </div>
+                            )}
+                            {ele?.drink && (
+                              <div className="singleIcon">
+                                <span><LiquorIcon /></span>
+                                <p>Complimentary Drink</p>
+                              </div>
+                            )}
+                            {ele?.visa && (
+                              <div className="singleIcon">
+                                <span><ArticleIcon /></span>
+                                <p>Visa</p>
+                              </div>
+                            )}
+                            {ele?.travelInsurance && (
+                              <div className="singleIcon">
+                                <span><AccountBalanceIcon /></span>
+                                <p>Travel Insurance</p>
+                              </div>
+                            )}
+                            {ele?.safeTravel && (
+                              <div className="singleIcon">
+                                <span><ParaglidingIcon /></span>
+                                <p>Safe to Travel</p>
+                              </div>
+                            )}
+                            {ele?.wildlife && (
+                              <div className="singleIcon">
+                                <span><NaturePeopleIcon /></span>
+                                <p>Wildlife</p>
+                              </div>
+                            )}
+                            {ele?.heritage && (
+                              <div className="singleIcon">
+                                <span><LandslideIcon /></span>
+                                <p>Heritage</p>
+                              </div>
+                            )}
+                            {ele?.adventure && (
+                              <div className="singleIcon">
+                                <span><KitesurfingIcon /></span>
+                                <p>Adventure</p>
+                              </div>
+                            )}
+                            {ele?.beach && (
+                              <div className="singleIcon">
+                                <span><PoolIcon /></span>
+                                <p>Beach</p>
+                              </div>
+                            )}
+                            {ele?.hillStation && (
+                              <div className="singleIcon">
+                                <span><DownhillSkiingIcon /></span>
+                                <p>Hill Station</p>
+                              </div>
+                            )}
+                            {ele?.nature && (
+                              <div className="singleIcon">
+                                <span><ForestIcon /></span>
+                                <p>Nature</p>
+                              </div>
+                            )}
+                            {ele?.wellness && (
+                              <div className="singleIcon">
+                                <span><SelfImprovementIcon /></span>
+                                <p>Wellness</p>
+                              </div>
+                            )}
+                            {ele?.hiddenGem && (
+                              <div className="singleIcon">
+                                <span><FitnessCenterIcon /></span>
+                                <p>Hidden Gem</p>
+                              </div>
+                            )}
+                            {ele?.tax && (
+                              <div className="singleIcon">
+                                <span><FolderDeleteIcon /></span>
+                                <p>Price Inclusive Tax</p>
+                              </div>
+                            )}
+                            {ele?.discount && (
+                              <div className="singleIcon">
+                                <span><LocalOfferIcon /></span>
+                                <p>50% Off</p>
+                              </div>
+                            )}
+                            {ele?.waterActivities && (
+                              <div className="singleIcon">
+                                <span><KayakingIcon /></span>
+                                <p>Water Activities</p>
+                              </div>
+                            )}
+                            {ele?.optionalActivities && (
+                              <div className="singleIcon">
+                                <span><SportsKabaddiIcon /></span>
+                                <p>Optional Activities</p>
+                              </div>
+                            )}
+                            {ele?.flexibleBooking && (
+                              <div className="singleIcon">
+                                <span><BookmarkAddIcon /></span>
+                                <p>Flexible Booking</p>
+                              </div>
+                            )}
+                            {ele?.wifi && (
+                              <div className="singleIcon">
+                                <span><WifiPasswordIcon /></span>
+                                <p>WIFI</p>
+                              </div>
+                            )}
+                          </div>
+                        );
+                      }
+                    })}
 
                   </div>
                 </div>
               </div>
             </div>
 
-            <div className="col-lg-12">
+            <div className="col-lg-12 mb-4">
               <div className="tripOverview">
                 <div className="col-lg-10">
                   <div className="overviewBox">
                     <span>Overview</span>
-                    <p>Welcome to Dubai the land of amazing and modern skyscrapers, the Arabian desert, adrenalin rush experiences, shopping at the Dubai Mall, the Palm Jumeria, Burj Al Arab and of course, the Burj Khalifa. We take you to an enthralling tour giving you an experience of sand dunes, cultural shows, underwater encounters, musical fountains and last but not the least view of the majectic Dubai skyline from the 24th floor of Burj Khalifa, an experience of a lifetime.  </p>
-
+                    <p>{onePackage?.overview}</p>
                   </div>
                 </div>
               </div>
             </div>
           </div>
+
         </div>
+        <div className="row">
+          <div className="col-lg-12 mb-4">
+            <TabContext value={value} style={{}}>
+              <Box sx={{ borderBottom: 1, backgroundColor: "#DFE6F7", borderColor: 'divider' }}>
+                <TabList onChange={handleChange}
+                  // textColor="#21325D"
+                  // indicatorColor="#21325D"
+                  aria-label="lab API tabs example">
+                  <Tab label="ITINERARY" value="1" />
+                  <Tab label="HOTEL DETAILS" value="2" />
+                  <Tab label="INCLUSIONS &EXCLUSIONS" value="3" />
+                  <Tab label="TERMS & CONDITION" value="4" />
+                  <Tab label="CANCELLATION POLICY" value="5" />
+
+                </TabList>
+              </Box>
+              <TabPanel value="1">
+                <div className="col-lg-12">
+                  {/* <div className="dayPlan"> */}
+                  {onePackage?.detailed_ltinerary?.map((item, index) => {
+                    return (
+                      <>
+                        <Box>
+                          <Box py={1}> </Box>
+                          <Accordion
+                            style={{ width: "100%" }}
+                            defaultActiveKey={index === 0 ? index.toString() : undefined} // Set defaultActiveKey to index 0
+                          >
+                            <Accordion.Item eventKey={index.toString()}>
+                              <Accordion.Header>
+                                <Typography
+                                  color="Black"
+                                  fontSize="15px"
+                                  fontWeight="bold"
+                                >
+                                  Day {index + 1}
+                                </Typography>
+                              </Accordion.Header>
+                              <Accordion.Body>
+                                <Typography
+                                  sx={{
+                                    color: "#666666",
+                                    fontSize: "14px",
+                                    fontWeight: "bold",
+                                  }}
+                                >
+                                  {item}
+                                </Typography>
+                              </Accordion.Body>
+                            </Accordion.Item>
+                          </Accordion>
+                        </Box>
+                      </>
+                    );
+                  })}
+                  {/* </div> */}
+                </div>
+
+              </TabPanel>
+              <TabPanel value="2">
+                <div className="col-lg-12">
+                  <div className="hotelDetailsTab">
+                    <h2 className="mb-4">HOTEL DETAILS</h2>
+                    <p>{onePackage?.hotel_details}</p>
+                  </div>
+                </div>
+              </TabPanel>
+              <TabPanel value="3">
+                <div className="col-lg-12">
+                  <div className="inclusionTab">
+                    <div className="row g-3">
+                      <div className="col-lg-6">
+                        <h2>Inclusion</h2>
+
+                        <p>{onePackage?.insclusion_note}</p>
+                      </div>
+                      <div className="col-lg-6">
+                        <h2>Exclusion</h2>
+
+                        <p>{onePackage?.exclusion_note}</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </TabPanel>
+              <TabPanel value="4">
+                <div className="col-lg-12">
+                  <div className="tandC">
+                    <div className="row">
+                      <div className="col-lg-12">
+                        <h2>Term & Condition</h2>
+
+                        <p>{onePackage?.term_Conditions}</p>
+                      </div>
+
+                    </div>
+                  </div>
+                </div>
+              </TabPanel>
+              <TabPanel value="5">
+                <div className="col-lg-12">
+                  <div className="cancelTab">
+                    <div className="row">
+                      <div className="col-lg-12">
+                        <h2>Cancellation Policy</h2>
+
+                        <p>{onePackage?.cancellation_Policy}</p>
+                      </div>
+
+                    </div>
+                  </div>
+                </div>
+              </TabPanel>
+            </TabContext>
+
+          </div>
+        </div>
+        <form action="/HolidayGuestDetail">
+          <Box textAlign="center" mt={3}>
+            <Button
+              style={{ backgroundColor: color.bluedark, color: "white" }}
+              textAlign="center"
+              display="flex"
+              justifyContent="center"
+              type="submit"
+            >
+              Continue
+            </Button>
+          </Box>
+        </form>
       </div>
 
 
-      <Box className="header_top" border="1px solid gray" mt={1}>
-        <Box mt={1} alignItems="center">
-          <Grid container alignItems="center">
-            <Grid md={7} sm={6}>
-              <Box display="flex" alignItems="center">
-                <Box sx={{ width: "25%", height: "22%" }}>
-                  <img
-                    src={onePackage?.pakage_img}
-                    className="flight_img"
-                    style={{ borderRadius: "8px" }}
-                  />
-                </Box>
-                <Box px={1}>
-                  <Typography className="hotel_name" >
-                    {onePackage?.pakage_title}
-                  </Typography>
-                  <Typography color="#FF8900" fontSize="10px" fontWeight="bold">
-                    3N/4D (Goa)
-                  </Typography>
-
-                  {onePackage?.select_tags?.map((tag, index) => {
-                    return (
-                      <>
-                        {tag?.domestic == true && (
-                          <Typography
-                            color="#666666"
-                            fontSize="15px"
-                            fontWeight="bold"
-                          >
-                            Domestic
-                          </Typography>
-                        )}
-                        {tag?.international == true && (
-                          <Typography
-                            color="#666666"
-                            fontSize="15px"
-                            fontWeight="bold"
-                          >
-                            International
-                          </Typography>
-                        )}
-                        {tag?.budget == true && (
-                          <Typography
-                            color="#666666"
-                            fontSize="15px"
-                            fontWeight="bold"
-                          >
-                            Budget
-                          </Typography>
-                        )}
-                        {tag?.holiday == true && (
-                          <Typography
-                            color="#666666"
-                            fontSize="15px"
-                            fontWeight="bold"
-                          >
-                            Holiday
-                          </Typography>
-                        )}
-                        {tag?.mid_range == true && (
-                          <Typography
-                            color="#666666"
-                            fontSize="15px"
-                            fontWeight="bold"
-                          >
-                            Mid Range
-                          </Typography>
-                        )}
-                        {tag?.luxury == true && (
-                          <Typography
-                            color="#666666"
-                            fontSize="15px"
-                            fontWeight="bold"
-                          >
-                            Luxury
-                          </Typography>
-                        )}
-                        {tag?.honeymoon == true && (
-                          <Typography
-                            color="#666666"
-                            fontSize="15px"
-                            fontWeight="bold"
-                          >
-                            Honeymoon
-                          </Typography>
-                        )}
-                        {tag?.anniversary == true && (
-                          <Typography
-                            color="#666666"
-                            fontSize="15px"
-                            fontWeight="bold"
-                          >
-                            Anniversary
-                          </Typography>
-                        )}
-                        {tag?.weekend_gateway == true && (
-                          <Typography
-                            color="#666666"
-                            fontSize="15px"
-                            fontWeight="bold"
-                          >
-                            Weekend Gateway
-                          </Typography>
-                        )}
-                        {tag?.couples == true && (
-                          <Typography
-                            color="#666666"
-                            fontSize="15px"
-                            fontWeight="bold"
-                          >
-                            Couples
-                          </Typography>
-                        )}
-                        {tag?.family == true && (
-                          <Typography
-                            color="#666666"
-                            fontSize="15px"
-                            fontWeight="bold"
-                          >
-                            Family
-                          </Typography>
-                        )}
-                        {tag?.solo == true && (
-                          <Typography
-                            color="#666666"
-                            fontSize="15px"
-                            fontWeight="bold"
-                          >
-                            Solo
-                          </Typography>
-                        )}
-                        {tag?.group == true && (
-                          <Typography
-                            color="#666666"
-                            fontSize="10px"
-                            fontWeight="bold"
-                          >
-                            Group
-                          </Typography>
-                        )}
-                        {tag?.girl_only == true && (
-                          <Typography
-                            color="#666666"
-                            fontSize="10px"
-                            fontWeight="bold"
-                          >
-                            Girl Only
-                          </Typography>
-                        )}
-                        {tag?.boy_only == true && (
-                          <Typography
-                            color="#666666"
-                            fontSize="10px"
-                            fontWeight="bold"
-                          >
-                            Boy Only
-                          </Typography>
-                        )}
-                        {tag?.family_with_children == true && (
-                          <Typography
-                            color="#666666"
-                            fontSize="10px"
-                            fontWeight="bold"
-                          >
-                            Family with children
-                          </Typography>
-                        )}
-                        {tag?.bagpacker == true && (
-                          <Typography
-                            color="#666666"
-                            fontSize="10px"
-                            fontWeight="bold"
-                          >
-                            Bagpacker
-                          </Typography>
-                        )}
-                        {tag?.nature == true && (
-                          <Typography
-                            color="#666666"
-                            fontSize="10px"
-                            fontWeight="bold"
-                          >
-                            Nature
-                          </Typography>
-                        )}
-                        {tag?.wildlife == true && (
-                          <Typography
-                            color="#666666"
-                            fontSize="10px"
-                            fontWeight="bold"
-                          >
-                            Wildlife
-                          </Typography>
-                        )}
-                        {tag?.historical == true && (
-                          <Typography
-                            color="#666666"
-                            fontSize="10px"
-                            fontWeight="bold"
-                          >
-                            Historical
-                          </Typography>
-                        )}
-                        {tag?.piligrimage == true && (
-                          <Typography
-                            color="#666666"
-                            fontSize="10px"
-                            fontWeight="bold"
-                          >
-                            Piligrimage
-                          </Typography>
-                        )}
-                        {tag?.offbeat == true && (
-                          <Typography
-                            color="#666666"
-                            fontSize="10px"
-                            fontWeight="bold"
-                          >
-                            Offbeat
-                          </Typography>
-                        )}
-                        {tag?.sightseeing == true && (
-                          <Typography
-                            color="#666666"
-                            fontSize="10px"
-                            fontWeight="bold"
-                          >
-                            Sightseeing
-                          </Typography>
-                        )}
-                        {tag?.recreation == true && (
-                          <Typography
-                            color="#666666"
-                            fontSize="10px"
-                            fontWeight="bold"
-                          >
-                            Recreation
-                          </Typography>
-                        )}
-                        {tag?.adventure == true && (
-                          <Typography
-                            color="#666666"
-                            fontSize="10px"
-                            fontWeight="bold"
-                          >
-                            Adventure
-                          </Typography>
-                        )}
-                        {tag?.dining == true && (
-                          <Typography
-                            color="#666666"
-                            fontSize="10px"
-                            fontWeight="bold"
-                          >
-                            Dining
-                          </Typography>
-                        )}
-                        {tag?.shopping == true && (
-                          <Typography
-                            color="#666666"
-                            fontSize="10px"
-                            fontWeight="bold"
-                          >
-                            Shopping
-                          </Typography>
-                        )}
-                        {tag?.nightlife == true && (
-                          <Typography
-                            color="#666666"
-                            fontSize="10px"
-                            fontWeight="bold"
-                          >
-                            Nightlife
-                          </Typography>
-                        )}
-                        {tag?.relaxation == true && (
-                          <Typography
-                            color="#666666"
-                            fontSize="10px"
-                            fontWeight="bold"
-                          >
-                            Relaxation
-                          </Typography>
-                        )}
-                      </>
-                    );
-                  })}
-                  <Typography
-                    color="#666666"
-                    fontSize="10px"
-                    fontWeight="bold"
-                  ></Typography>
-                  {/* <Typography color="#666666" fontSize="10px" fontWeight="bold">
-                    {" "}
-                    o Dinner Cruise
-                  </Typography> */}
-                </Box>
-              </Box>
-            </Grid>
-            <Grid md={5} sm={6} justifyContent="space-between">
-              <Box
-                display="flex"
-                justifyContent="space-between"
-                width="100%"
-
-              >
-                <Box
-                  display="flex"
-                  justifyContent="space-around"
-                  width="50%"
-                  mt="16px"
-                  marginLeft="-28%"
-                >
-                  {onePackage?.insclusions?.map((item, index) => {
-                    return (
-                      <>
-                        {item?.flexibility && (
-                          <span>
-                            {" "}
-                            <CommitIcon style={{ fontSize: "50px", color: color.bluedark }} />{" "}
-                          </span>
-                        )}
-                        {item?.train && (
-                          <span>
-                            {" "}
-                            <TramIcon style={{ fontSize: "40px", color: color.bluedark }} />{" "}
-                          </span>
-                        )}
-                        {item?.bus && (
-                          <span>
-                            {" "}
-                            <DirectionsBusIcon style={{ fontSize: "40px", color: color.bluedark }} />{" "}
-                          </span>
-                        )}
-                        {item?.cab && (
-                          <span>
-                            {" "}
-                            <DirectionsCarIcon style={{ fontSize: "40px", color: color.bluedark }} />{" "}
-                          </span>
-                        )}
-                        {item?.hotel && (
-                          <span>
-                            {" "}
-                            <ApartmentIcon style={{ fontSize: "40px", color: color.bluedark }} />{" "}
-                          </span>
-                        )}
-                        {item?.homeStays && (
-                          <span>
-                            {" "}
-                            <HolidayVillageIcon style={{ fontSize: "40px", color: color.bluedark }} />{" "}
-                          </span>
-                        )}
-                        {item?.guestHouse && (
-                          <span>
-                            {" "}
-                            <LocationCityIcon style={{ fontSize: "40px", color: color.bluedark }} />{" "}
-                          </span>
-                        )}
-                        {item?.cruise && (
-                          <span>
-                            {" "}
-                            <BlurOnIcon style={{ fontSize: "40px", color: color.bluedark }} />{" "}
-                          </span>
-                        )}
-                        {item?.sightSeeing && (
-                          <span>
-                            {" "}
-                            <DeckIcon style={{ fontSize: "40px", color: color.bluedark }} />{" "}
-                          </span>
-                        )}
-                        {item?.guide && (
-                          <span>
-                            {" "}
-                            <EngineeringIcon style={{ fontSize: "40px", color: color.bluedark }} />{" "}
-                          </span>
-                        )}
-                        {item?.meals && (
-                          <span>
-                            {" "}
-                            <FastfoodIcon style={{ fontSize: "40px", color: color.bluedark }} />{" "}
-                          </span>
-                        )}
-                        {item?.breakfast && (
-                          <span>
-                            {" "}
-                            <DinnerDiningIcon style={{ fontSize: "40px", color: color.bluedark }} />{" "}
-                          </span>
-                        )}
-                        {item?.drink && (
-                          <span>
-                            {" "}
-                            <LiquorIcon style={{ fontSize: "40px", color: color.bluedark }} />{" "}
-                          </span>
-                        )}
-                        {item?.visa && (
-                          <span>
-                            {" "}
-                            <ArticleIcon style={{ fontSize: "40px", color: color.bluedark }} />{" "}
-                          </span>
-                        )}
-                        {item?.moterBike && (
-                          <span>
-                            {" "}
-                            <TwoWheelerIcon style={{ fontSize: "40px", color: color.bluedark }} />{" "}
-                          </span>
-                        )}
-                        {item?.travelInsurance && (
-                          <span>
-                            {" "}
-                            <AccountBalanceIcon style={{ fontSize: "40px", color: color.bluedark }} />{" "}
-                          </span>
-                        )}
-                        {item?.safeTravel && (
-                          <span>
-                            {" "}
-                            <ParaglidingIcon style={{ fontSize: "40px", color: color.bluedark }} />{" "}
-                          </span>
-                        )}
-                        {item?.wildlife && (
-                          <span>
-                            {" "}
-                            <NaturePeopleIcon style={{ fontSize: "40px", color: color.bluedark }} />{" "}
-                          </span>
-                        )}
-                        {item?.heritage && (
-                          <span>
-                            {" "}
-                            <LandslideIcon style={{ fontSize: "40px", color: color.bluedark }} />{" "}
-                          </span>
-                        )}
-                        {item?.adventure && (
-                          <span>
-                            {" "}
-                            <KitesurfingIcon style={{ fontSize: "40px", color: color.bluedark }} />{" "}
-                          </span>
-                        )}
-                        {item?.beach && (
-                          <span>
-                            {" "}
-                            <PoolIcon style={{ fontSize: "40px", color: color.bluedark }} />{" "}
-                          </span>
-                        )}
-                        {item?.hillStation && (
-                          <span>
-                            {" "}
-                            <DownhillSkiingIcon style={{ fontSize: "40px", color: color.bluedark }} />{" "}
-                          </span>
-                        )}
-                        {item?.nature && (
-                          <span>
-                            {" "}
-                            <ForestIcon style={{ fontSize: "40px", color: color.bluedark }} />{" "}
-                          </span>
-                        )}
-                      </>
-                    );
-                  })}
-                  {/* <Box textAlign="center">
-                    <FlightIcon />
-                    <Typography
-                      color="#006FFF"
-                      fontSize="8px"
-                      fontWeight="bold"
-                    >
-                      2 Flights
-                    </Typography>
-                  </Box>
-                  <Box textAlign="center">
-                    <LocationCityIcon />
-                    <Typography
-                      color="#006FFF"
-                      fontSize="8px"
-                      fontWeight="bold"
-                    >
-                      1 Hotel
-                    </Typography>
-                  </Box>
-                  <Box textAlign="center">
-                    <RowingIcon />
-                    <Typography
-                      color="#006FFF"
-                      fontSize="8px"
-                      fontWeight="bold"
-                    >
-                      1 Activity
-                    </Typography>
-                  </Box>
-                  <Box textAlign="center">
-                    <TransferWithinAStationIcon />
-                    <Typography
-                      color="#006FFF"
-                      fontSize="8px"
-                      fontWeight="bold"
-                    >
-                      1 Transfer
-                    </Typography>
-                  </Box> */}
-                </Box>
-                <Box display="block" textAlign="end" alignSelf="center">
-                  <Typography style={{ color: color.bluedark }} fontSize="24px" fontWeight="bold">
-                    ₹{onePackage?.pakage_amount?.amount}
-                  </Typography>
-                  <Typography
-
-                    fontSize="10px"
-                    fontWeight="bold"
-                    marginTop={-1}
-                    style={{ color: color.red1 }}
-                  >
-                    per person
-                  </Typography>
-                  {/* <form action="/HolidayGuestDetail">
-                    <Box textAlign="right">
-                      <Button
-                        variant="contained"
-                        textAlign="center"
-                        display="flex"
-                        justifyContent="center"
-                        type="submit"
-                      >
-                        Book Now
-                      </Button>
-                    </Box>
-                  </form> */}
-                </Box>
-              </Box>
-            </Grid>
-          </Grid>
-        </Box>
-        <Box>
-          <Typography
-            sx={{ color: color.bluedark, fontSize: "16px", fontWeight: "bold" }}
-            py={2}
-          >
-            Overview
-          </Typography>
-          <Typography
-            sx={{ color: "#666666", fontSize: "14px", fontWeight: "bold" }}
-          >
-            {onePackage?.overview}
-          </Typography>
-        </Box>
-        <Box className="header_top" my={3}>
-          <Box>
-            <Typography
-              sx={{
-                color: color.bluedark,
-                fontSize: "16px",
-                fontWeight: "bold",
-                alignItems: "left",
-
-              }}
-            >
-              Day Plan
-            </Typography>
-          </Box>
-          <Box>
-            {onePackage?.detailed_ltinerary?.map((item, index) => {
-              return (
-                <>
-                  <Box>
-                    <Box py={1}> </Box>
-                    <Accordion style={{ width: "100%" }}>
-                      <Accordion.Item eventKey={index}>
-                        <Accordion.Header>
-                          <Typography
-                            color="Black"
-                            fontSize="15px"
-                            fontWeight="bold"
-                          >
-                            Day {index + 1}
-                          </Typography>
-                        </Accordion.Header>
-                        <Accordion.Body>
-                          <Typography
-                            sx={{
-                              color: "#666666",
-                              fontSize: "14px",
-                              fontWeight: "bold",
-                            }}
-                          >
-                            {item}
-                          </Typography>
-                        </Accordion.Body>
-                      </Accordion.Item>
-                    </Accordion>
-                  </Box>
-                </>
-              );
-            })}
-          </Box>
-
-          <Box></Box>
-          {/* end */}
-          {/* <form action="/HolidayGuestDetail">
-            <Box textAlign="center" mt={3}>
-              <Button
-                variant="contained"
-                textAlign="center"
-                display="flex"
-                justifyContent="center"
-                type="submit"
-              >
-                Book Now
-              </Button>
-            </Box>
-          </form> */}
-        </Box>
-        <Box className="header_top" my={3}>
-          <Box>
-            <Typography
-              sx={{
-                color: color.bluedark,
-                fontSize: "16px",
-                fontWeight: "bold",
-                alignItems: "left",
-
-              }}
-            >
-              Inclusions
-            </Typography>
-          </Box>
-          <Box py={1}>
-            <ul>
-              <li>
-                <Typography
-                  sx={{
-                    color: "#666666",
-                    fontSize: "14px",
-                    fontWeight: "bold",
-                  }}
-                >
-                  {onePackage?.insclusion_note}
-                </Typography>
-              </li>
-            </ul>
-          </Box>
-        </Box>
-        <Box className="header_top" my={3}>
-          <Box>
-            <Typography
-              sx={{
-                color: color.bluedark,
-                fontSize: "16px",
-                fontWeight: "bold",
-                alignItems: "left",
-
-              }}
-            >
-              Exclusions
-            </Typography>
-          </Box>
-          <Box py={1}>
-            <ul>
-              <li>
-                <Typography
-                  sx={{
-                    color: "#666666",
-                    fontSize: "14px",
-                    fontWeight: "bold",
-                  }}
-                >
-                  {onePackage?.exclusion_note}
-                </Typography>
-              </li>
-              <li>
-                <Typography
-                  sx={{
-                    color: "#666666",
-                    fontSize: "14px",
-                    fontWeight: "bold",
-                  }}
-                >
-                  Any other expenses besides those mentioned in the inclusions.
-                </Typography>
-              </li>
-            </ul>
-          </Box>
-        </Box>
-        <Box className="header_top" my={3}>
-          <Box>
-            <Typography
-              sx={{
-                color: color.bluedark,
-                fontSize: "16px",
-                fontWeight: "bold",
-                alignItems: "left",
-
-              }}
-            >
-              Day Plan
-            </Typography>
-          </Box>
-          <Box>
-            <Grid container px={2}>
-              <Grid md={6}>
-                <Box display="flex" justifyContent="space-around"></Box>
-              </Grid>
-              <Grid md={6}>
-                <Box display="flex" ml={2}></Box>
-              </Grid>
-            </Grid>
-
-            <Box>
-              <Box py={1}></Box>
-              <Accordion style={{ width: "100%" }} defaultActiveKey={null}>
-                <Accordion.Item>
-                  <Accordion.Header>
-                    <Typography color="Black" fontSize="15px" fontWeight="bold">
-                      Terms and Conditions
-                    </Typography>
-                  </Accordion.Header>
-                  <Accordion.Body>
-                    <Typography
-                      sx={{
-                        color: "#666666",
-                        fontSize: "14px",
-                        fontWeight: "bold",
-                      }}
-                    >
-                      {onePackage?.term_Conditions}
-                    </Typography>
-                  </Accordion.Body>
-                </Accordion.Item>
-              </Accordion>
-            </Box>
-            <Box>
-              <Box py={1}></Box>
-              <Accordion style={{ width: "100%" }} defaultActiveKey={null}>
-                <Accordion.Item>
-                  <Accordion.Header>
-                    <Typography color="Black" fontSize="15px" fontWeight="bold">
-                      Cancellation Policy
-                    </Typography>
-                  </Accordion.Header>
-                  <Accordion.Body>
-                    <Typography
-                      sx={{
-                        color: "#666666",
-                        fontSize: "14px",
-                        fontWeight: "bold",
-                      }}
-                    >
-                      {onePackage?.cancellation_Policy}
-                    </Typography>
-                  </Accordion.Body>
-                </Accordion.Item>
-              </Accordion>
-            </Box>
-          </Box>
-
-          <Box></Box>
-          {/* end */}
-          <form action="/HolidayGuestDetail">
-            <Box textAlign="center" mt={3}>
-              <Button
-                style={{ backgroundColor: color.bluedark, color: "white" }}
-                textAlign="center"
-                display="flex"
-                justifyContent="center"
-                type="submit"
-              >
-                Continue
-              </Button>
-            </Box>
-          </form>
-        </Box>
-      </Box>
     </>
   );
 };

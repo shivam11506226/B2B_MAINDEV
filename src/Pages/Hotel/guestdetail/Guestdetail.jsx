@@ -40,7 +40,7 @@ const Guestdetail = () => {
       ?.GetBookingDetailResult?.HotelRoomsDetails;
   console.log("getBookingDetails", getBookingDetails);
 
-  const totalAmount = getBookingDetails.reduce((accumulator, item) => {
+  const totalAmount = getBookingDetails?.reduce((accumulator, item) => {
     return accumulator + item?.Price?.PublishedPriceRoundedOff;
   }, 0);
   console.log("totalAmount", totalAmount);
@@ -49,6 +49,7 @@ const Guestdetail = () => {
   const markUpamount =
     reducerState?.userData?.userData?.data?.data?.markup?.hotel;
   const userBalance = reducerState?.userData?.userData?.data?.data?.balance;
+
   useEffect(() => {
     if (bookingStatus == 1) {
       if (userBalance >= markUpamount + totalAmount) {
@@ -61,9 +62,9 @@ const Guestdetail = () => {
           dispatch(balanceSubtractRequest(balancePayload));
         }
       }
-     setTimeout(() => {
-        bookingStatus =false
-         navigate("/Login");
+      setTimeout(() => {
+        bookingStatus = false
+        navigate("/Login");
       }, 2000);
     }
   }, [bookingStatus]);

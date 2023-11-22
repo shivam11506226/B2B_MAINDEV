@@ -178,7 +178,7 @@ function Headers() {
   const userId = reducerState?.logIn?.loginData?.data?.data?.id;
 
 
-  console.log("userIdnew", userId, reducerState)
+  // console.log("userIdnew", userId, reducerState)
 
 
   useEffect(() => {

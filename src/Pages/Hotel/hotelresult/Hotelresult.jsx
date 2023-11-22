@@ -109,7 +109,7 @@ export default function Popularfilter() {
           <Box className="ModifySearch">
             <Box
               backgroundColor="white"
-              border="1px solid #5C85A4"
+              border="1px solid #adaeae"
               borderRadius="10px"
             >
               <Typography justifyContent="center" display="flex" pt={3} color="#21325D" fontWeight="bold">
