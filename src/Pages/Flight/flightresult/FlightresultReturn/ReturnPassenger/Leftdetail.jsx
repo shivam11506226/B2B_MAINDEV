@@ -49,7 +49,7 @@ const Leftdetail = () => {
     Gender: 1,
     PassportNo: "",
     PassportExpiry: "",
-    AddressLine1: "",
+    AddressLine1: "gaya",
     AddressLine2: "",
     Fare: farePrice[0],
     City: "Gurgaon",

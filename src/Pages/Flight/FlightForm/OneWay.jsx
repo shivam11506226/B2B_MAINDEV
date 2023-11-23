@@ -496,7 +496,7 @@ const OneWay = () => {
               <div className="form_input">
                 <label className="form_lable">Child(2-12 Yrs)</label>
                 <select name="child" id="" className="form_input_select">
-                  <option value="1">0</option>
+                  <option value="0">0</option>
                   <option value="1">1</option>
                   <option value="2">2</option>
                   <option value="3">3</option>
