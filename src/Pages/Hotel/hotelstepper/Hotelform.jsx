@@ -56,6 +56,7 @@ const HotelForm = () => {
   const [error, setError] = useState({
     nationality: false,
   });
+  const [sub,setSub]=useState(false)
 
   const [isVisible, setIsVisible] = useState(false);
   const changeHandler = (e) => {
@@ -208,16 +209,25 @@ const HotelForm = () => {
 
   const handleStartDateChange = (date) => {
     setValues({ ...values, departure: date }); // Update the departure date
-    setCheckInError("");
+    // setCheckInError("");
   };
 
   const handleEndDateChange = (date) => {
     setValues({ ...values, checkOutDeparture: date }); // Update the checkOutDeparture date
-    setCheckOutError("");
+    // setCheckOutError("");
   };
 
   function handleSubmit(event) {
     event.preventDefault();
+    setSub(true)
+    console.warn(values.departure,values.checkOutDeparture,"hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh")
+    if (values.departure === ("" || undefined)) {
+      return
+    }
+    if (values.checkOutDeparture === ("" || undefined)) {
+      return
+    }
+    
     const formData = new FormData(event.target);
 
 
@@ -284,7 +294,8 @@ const HotelForm = () => {
       if (Object.values(newErrors).some((error) => error)) {
         return;
       }
-      const departureDate = new Date(values.departure);
+      
+        const departureDate = new Date(values.departure);
       const day = departureDate.getDate().toString().padStart(2, "0");
       const month = (departureDate.getMonth() + 1).toString().padStart(2, "0");
       const year = departureDate.getFullYear();
@@ -378,8 +389,8 @@ const HotelForm = () => {
                       // id="datepic"
                       minDate={new Date()}
                     />
-                    {checkInError !== "" && (
-                      <span className="error">{checkInError}</span>
+                    {sub && values.departure=== ("" || undefined) && (
+                      <span className="error">Enter Check-In Date </span>
                     )}
                   </div>
                 </div>
@@ -394,12 +405,12 @@ const HotelForm = () => {
                       name="checkOut"
                       dateFormat="dd/MM/yyyy"
                       placeholderText="Select Check-Out Date"
-                      minDate={values.departure} // Disable dates before Check-In date
+                      minDate={values.departure || new Date()} // Disable dates before Check-In date
                       isClearable
                     // id="datepic"
                     />
-                    {checkOutError !== "" && (
-                      <span className="error">{checkOutError}</span>
+                    {sub && values.checkOutDeparture === ("" || undefined) && (
+                      <span className="error">Enter Check-Out Date </span>
                     )}
                   </div>
                 </div>
@@ -414,7 +425,7 @@ const HotelForm = () => {
                       onChange={handleConditionChange}
                       className="hotel_input_select"
                     >
-                      <option>0</option>
+
                       <option>1</option>
                       <option>2</option>
                       <option>3</option>
