@@ -4,9 +4,34 @@
 
 .form_input {
   height: 90%;
-  position: relative;
+  position: absolute !important;
+  /* z-index: 0 !important; */
 
 }
+.Relative{
+  position: relative !important;
+  /* background-color: #00bdc4 !important; */
+}
+#bg{
+  background-color: white !important;
+}
+.Absolute{
+  position:absolute  !important;
+  z-index: 1 !important;
+}
+.Absolute1{
+  position: absolute !important;
+  z-index: 9999999999999999999999999999999999999999999999999999 !important;
+}
+/* #from_to{
+  position: absolute;
+  z-index: 99999999999999999999999999999999 !important;
+}
+.zIn{
+  position: absolute;
+  z-index:1 !important;
+} */
+
 
 .form_input input {
   width: 332px;

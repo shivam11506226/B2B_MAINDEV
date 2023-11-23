@@ -270,8 +270,8 @@ const OneWay = () => {
       <form onSubmit={handleSubmit} className="formFlightSearch">
         <div className="container">
           <div className="row rowcon">
-            <div className="col-xs-12 col-md-3 ps-0 mb-3">
-              <div className="form_input" style={{ zIndex: 10 }}>
+            <div className="col-xs-12 col-md-3 ps-0 mb-3 ">
+              <div className="form_input " >
                 <label className="form_lable">Departure</label>
                 <input
                   name="from"

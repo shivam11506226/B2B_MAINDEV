@@ -262,7 +262,7 @@ const Return = () => {
 
                 />
                 {sub === true && from === "" && <p id="error1">Enter city or airport </p>}
-                {isLoading && <div>Loading...</div>}
+                {isLoading && displayFrom && <div>Loading...</div>}
                 {fromSearchResults && fromSearchResults.length > 0 && (
                   <div
                     style={{
@@ -326,7 +326,7 @@ const Return = () => {
                   }}
                 />
                 {sub === true && to === "" && <p id="error1">Enter city or airport </p>}
-                {isLoading && <div>Loading...</div>}
+                {isLoading && displayTo && <div>Loading...</div>}
                 {toSearchResults && toSearchResults.length > 0 && (
                   <div
                     style={{
