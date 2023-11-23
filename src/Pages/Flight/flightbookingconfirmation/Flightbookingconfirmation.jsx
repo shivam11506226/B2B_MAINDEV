@@ -29,6 +29,9 @@ const FlightReviewbooking = () => {
     reducerState?.flightBook?.flightBookData?.Response;
   const userId = reducerState?.logIn?.loginData?.data?.data?.id;
   const [alert, setAlert] = useState(true);
+  const oneWayCheck = reducerState?.flightFare?.flightQuoteData?.Results;
+  const returnCheck = reducerState?.flightFare?.flightQuoteDataReturn?.Results;
+
 
   useEffect(() => {
     updateBalance();
@@ -45,6 +48,10 @@ const FlightReviewbooking = () => {
       dispatch(getUserDataAction(payload));
     }
   };
+
+  const addBookingDatills=()=>{
+      
+  }
 
   return (
     <div className="flightContainer">

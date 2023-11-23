@@ -481,6 +481,17 @@ const hotelBookingDetails = (payload) => {
       },
     });
   }
+  const flightBookingDataSave=(payload)=>{
+    return axios({
+      method: "POST",
+      url: "/skyTrails/busBooking/addBusBookingData",
+      baseURL: `${apiURL.baseURL}`,
+      data: payload,
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+  }
 
   /// userDetails by Id
 

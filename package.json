@@ -20,6 +20,7 @@
     "animate.css": "^4.1.1",
     "axios": "^1.2.2",
     "bootstrap": "^5.2.3",
+    "caniuse-lite": "^1.0.30001564",
     "dayjs": "^1.11.10",
     "framer-motion": "^6.5.1",
     "moment": "^2.29.4",
