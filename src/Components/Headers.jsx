@@ -37,8 +37,8 @@ import { useLocation } from 'react-router-dom';
 import { balanceSubtractRequest } from "../Redux/Auth/balaceSubtract/actionBalnceSubtract.js";
 import "./Headers.css"
 const style = {
-  border: "10px solid #000",
-  boxShadow: 24,
+  // border: "10px solid #000",
+  // boxShadow: 24,
   p: 4,
 };
 function Headers() {
@@ -178,7 +178,7 @@ function Headers() {
   const userId = reducerState?.logIn?.loginData?.data?.data?.id;
 
 
-  // console.log("userIdnew", userId, reducerState)
+  console.log("userIdnew", userId, reducerState)
 
 
   useEffect(() => {

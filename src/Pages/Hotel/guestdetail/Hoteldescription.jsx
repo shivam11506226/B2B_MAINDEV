@@ -1,15 +1,17 @@
-import React, { useState } from "react";
+import React, { useState ,useEffect } from "react";
 import { Grid, Box, Typography, Button, Modal } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import Rating from "../hotelresult/Rating";
 import Divider from "@mui/material/Divider";
 import { useDispatch, useSelector, useReducer } from "react-redux";
 import moment from "moment";
-import { hotelBookRoomAction } from "../../../Redux/Hotel/hotel";
+import { clearHotelReducer, hotelBookRoomAction } from "../../../Redux/Hotel/hotel";
 import StarIcon from "@mui/icons-material/Star";
-import { async } from "q";
+import Swal from 'sweetalert2';
+import { getUserDataAction } from "../../../Redux/Auth/UserDataById/actionUserData";
+import { balanceSubtractRequest } from "../../../Redux/Auth/balaceSubtract/actionBalnceSubtract";
 
-const Flightdetail = () => {
+const Hoteldescription = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const OpenNewpage = () => {
@@ -46,7 +48,27 @@ const Flightdetail = () => {
   const cancelDuedate = moment(hotelDetails?.LastCancellationDate).format(
     "MMMM DD, YYYY"
   );
+
+  const getBookingDetails =
+  reducerState?.hotelSearchResult?.blockRoom?.BlockRoomResult?.HotelRoomsDetails;
+console.log("getBookingDetails", getBookingDetails);
+
+const totalAmount = getBookingDetails?.reduce((accumulator, item) => {
+  return accumulator + item?.Price?.PublishedPriceRoundedOff;
+}, 0);
+console.log("totalAmount in last page", totalAmount);
+
+const markUpamount =
+  reducerState?.userData?.userData?.data?.data?.markup?.hotel;
+const userBalance = reducerState?.userData?.userData?.data?.data?.balance;
+console.log("markup hotel", markUpamount)
+const grandTotal=totalAmount+markUpamount;
+
+
   const handleClickBooking = async () => {
+    console.log(userBalance,"userbalance", grandTotal, "grandTotal")
+
+    if(userBalance>=grandTotal){
     const payload = {
       ResultIndex: resultIndex,
       HotelCode: hotelCode,
@@ -89,11 +111,54 @@ const Flightdetail = () => {
     // console.log("hotelDetailsPayload", hotelDetailsPayload);
     // Dispatch the hotelBookRoomAction
     //  bookingStatus = true;
+    
+      // if(1>2){
     setBookingSuccess(true);
     dispatch(hotelBookRoomAction([payload, hotelDetailsPayload]));
     // dispatch(hotelBookRoomAction(payload));
+    }else{
+      // alert("Insufficent balance!! Please Recharge your Wallet");
+    // navigate("/hotel");
+    Swal.fire({
+      icon: 'error',
+      title: 'Oops...',
+      text: 'Insufficient balance!! Please Recharge your Wallet!'
+    }).then(() => {
+      dispatch(clearHotelReducer());
+      navigate('/hotel'); // Navigate to "/hotel" after the Swal dialog is closed
+
+    });
+    }
   };
 
+    // balance subtract and update
+
+const userId = reducerState?.logIn?.loginData?.data?.data?.id;
+// const bookingResonse=reducerState?.hotelSearchResult?.bookRoom?.BookResult?.Error?.ErrorCode;
+
+
+
+  useEffect(() => {
+    if(reducerState?.hotelSearchResult?.bookRoom?.BookResult?.Error?.ErrorCode==0){
+
+    if(userId){
+      const balancePayload={
+        _id:userId,
+        amount:grandTotal
+      }
+
+ dispatch(balanceSubtractRequest(balancePayload))
+    }
+
+if (userId) {
+  const payload = userId;
+  dispatch(getUserDataAction(payload));
+}
+
+
+}
+
+}, [reducerState?.hotelSearchResult?.bookRoom]);
 
 
   const storedFormData = JSON.parse(sessionStorage.getItem('hotelFormData'));
@@ -353,4 +418,4 @@ const Flightdetail = () => {
   );
 };
 
-export default Flightdetail;
+export default Hoteldescription;;
