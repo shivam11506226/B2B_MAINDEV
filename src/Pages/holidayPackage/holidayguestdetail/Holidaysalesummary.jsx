@@ -30,7 +30,91 @@ const Holidaysalesummary = ({ childCount, adultCount }) => {
     <>
 
 
-      <Box sx={{ flexGrow: 1 }} marginTop={2}>
+      <div className="priceSummary">
+        <div className="head">
+          <span>Price Summary</span>
+        </div>
+
+
+        <div className="priceChart">
+          <div >
+            <span className="text-bold">Rate</span>
+          </div>
+          <div >
+            <span>Fare Break Up</span>
+            <p>{'₹'}{(reducerForm.length - 1) *
+              onePackage?.pakage_amount.amount *
+              0.05 +
+              (reducerForm.length - 1) * onePackage?.pakage_amount.amount}</p>
+          </div>
+          <div >
+            <div className="noOfTravellers">
+              <span>Total Basic Cost</span>
+              <span>{" "}
+                Travellers {reducerForm.length - 1} x{" "}₹
+                {onePackage?.pakage_amount.amount}</span>
+            </div>
+            <p>{'₹'}{(reducerForm.length - 1) * onePackage?.pakage_amount.amount}</p>
+          </div>
+        </div>
+        <div className="totCOmm">
+          <div >
+            <span className="feesTax">Fees & Taxes</span>
+          </div>
+          <div >
+            <span>GST 5.0%</span>
+            <p>{'₹'}{(reducerForm.length - 1) *
+              onePackage?.pakage_amount.amount *
+              0.05}</p>
+          </div>
+          <div >
+            <span>Total GST</span>
+            <p>{'₹'}{(reducerForm.length - 1) *
+              onePackage?.pakage_amount.amount *
+              0.05}</p>
+          </div>
+        </div>
+        <div className="TotGst">
+          <div >
+            <span>Grand Total:</span>
+            <p>{'₹'}{(reducerForm.length - 1) *
+              onePackage?.pakage_amount.amount *
+              0.05 +
+              (reducerForm.length - 1) * onePackage?.pakage_amount.amount}</p>
+          </div>
+        </div>
+
+      </div>
+    </>
+  );
+};
+
+export default Holidaysalesummary;
+
+
+
+
+{/* <form action="/Holidayreviewbooking">
+          <Box display="flex" justifyContent="center" width={"100%"}>
+           
+            <Custombutton title={"Proceed to Booking Review"}/>
+          </Box>
+        </form> */}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{/* <Box sx={{ flexGrow: 1 }} marginTop={2}>
         <Box
           py={1}
           backgroundColor="white"
@@ -226,94 +310,4 @@ const Holidaysalesummary = ({ childCount, adultCount }) => {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-      <div className="priceSummary">
-        <div className="head">
-          <span>Price Summary</span>
-        </div>
-        {/* <div className="hotName">Room ka Naam</div> */}
-
-        <div className="priceChart">
-          <div >
-            <span className="text-bold">Rate</span>
-            {/* <p>50000</p> */}
-          </div>
-          <div >
-            <span>Fare Break Up</span>
-            <p>{'₹'}{(reducerForm.length - 1) *
-              onePackage?.pakage_amount.amount *
-              0.05 +
-              (reducerForm.length - 1) * onePackage?.pakage_amount.amount}</p>
-          </div>
-          <div >
-            <div className="noOfTravellers">
-              <span>Total Basic Cost</span>
-              <span>{" "}
-                Travellers {reducerForm.length - 1} x{" "}₹
-                {onePackage?.pakage_amount.amount}</span>
-            </div>
-            <p>{'₹'}{(reducerForm.length - 1) * onePackage?.pakage_amount.amount}</p>
-          </div>
-
-          {/* <div >
-            <span className="text-bold">No of Rooms</span>
-            <p className="text-bold">awesom room</p>
-          </div> */}
-        </div>
-        <div className="totCOmm">
-          <div >
-            <span>Total</span>
-            <p>{'₹'}8,673.00</p>
-          </div>
-          <div >
-            <span>Comm. Earned</span>
-            <p>{'₹'}8,673.00</p>
-          </div>
-          <div >
-            <span>TDS</span>
-            <p>{'₹'}8,673.00</p>
-          </div>
-        </div>
-        <div className="TotGst">
-          <div >
-            <span>Total GST:</span>
-            <p>{'₹'}673.00</p>
-          </div>
-          <div >
-            <span>Grand Total:</span>
-            <p>{'₹'}56000</p>
-          </div>
-        </div>
-
-      </div>
-    </>
-  );
-};
-
-export default Holidaysalesummary;
-
-
-
-
-{/* <form action="/Holidayreviewbooking">
-          <Box display="flex" justifyContent="center" width={"100%"}>
-           
-            <Custombutton title={"Proceed to Booking Review"}/>
-          </Box>
-        </form> */}
+ */}
