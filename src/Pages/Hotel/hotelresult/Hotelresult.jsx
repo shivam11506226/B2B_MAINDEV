@@ -40,13 +40,13 @@ export default function Popularfilter() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const reducerState = useSelector((state) => state);
-  console.log("State Data", reducerState?.hotelSearchResult?.ticketData);
+  // console.log("State Data", reducerState?.hotelSearchResult?.ticketData);
 
   const result =
     reducerState?.hotelSearchResult?.ticketData?.data?.data?.HotelSearchResult;
 
   const handleClick = (resultIndex, hotelCode) => {
-    console.log("Handel Click Index Key", resultIndex, hotelCode);
+    // console.log("Handel Click Index Key", resultIndex, hotelCode);
     navigate("HotelBooknow");
     sessionStorage.setItem("ResultIndex", resultIndex);
     sessionStorage.setItem("HotelCode", hotelCode);
@@ -101,7 +101,7 @@ export default function Popularfilter() {
   const totalAdult = data.NoOfAdults || 0;
   const totalChild = data.NoOfChild || 0;
 
-  console.log("shaan", sortedAndFilteredResults)
+  // console.log("shaan", sortedAndFilteredResults)
   return (
     <Box sx={{ flexGrow: 1 }}>
       <Grid container spacing={3}>
@@ -337,11 +337,11 @@ export default function Popularfilter() {
                         <Button
                           type="submit"
                           onClick={() => {
-                            console.log(
-                              "resultIndex, hotelCode",
-                              resultIndex,
-                              hotelCode
-                            );
+                            // console.log(
+                            //   "resultIndex, hotelCode",
+                            //   resultIndex,
+                            //   hotelCode
+                            // );
                             handleClick(resultIndex, hotelCode);
                           }}
                           style={{ backgroundColor: "#21325D", color: "white", padding: "8px 13px" }}

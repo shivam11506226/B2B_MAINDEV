@@ -23,11 +23,11 @@ const Holidayreviewbookingdetail = () => {
     reducerState?.searchOneResult?.OneSearchPackageResult?.data?.data;
   const reducerForm = reducerState?.form?.formEntries;
 
-  console.log(onePackage);
-  console.log(reducerForm);
+  // console.log(onePackage);
+  // console.log(reducerForm);
 
   const packageDetails = reducerState?.packageBookingRequest?.packageRequestData
-  console.log(packageDetails, 'package hotel')
+  // console.log(packageDetails, 'package hotel')
 
 
 

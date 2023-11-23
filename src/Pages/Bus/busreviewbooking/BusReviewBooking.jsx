@@ -12,6 +12,7 @@ import { balanceSubtractRequest } from "../../../Redux/Auth/balaceSubtract/actio
 import { useEffect } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
+import { apiURL } from "../../../Constants/constant";
 const BusReviewBooking = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -21,10 +22,10 @@ const BusReviewBooking = () => {
   const [tds, setTds] = useState(0);
   const [userData, setUserData] = useState(null);
   const isNavigate = reducerState?.getBusResult?.isLoadingBook || true;
-  console.log("======================", reducerState);
+  // console.log("======================", reducerState);
   const busBlockData =
     reducerState?.getBusResult?.busBlock?.data?.data?.BlockResult;
-  console.log("************************", busBlockData);
+  // console.log("************************", busBlockData);
   const seatData = sessionStorage.getItem("seatData");
   const parsedSeatData = JSON.parse(seatData);
   const resultIndex = parsedSeatData?.resultIndex;
@@ -34,7 +35,7 @@ const BusReviewBooking = () => {
   const markUpamount =
     reducerState?.userData?.userData?.data?.data?.markup?.bus;
 
-  console.log(seatObject);
+  // console.log(seatObject);
   const published = seatObject.reduce(function (
     accumulator,
     currentValue,
@@ -64,7 +65,7 @@ const BusReviewBooking = () => {
 
   //    // Make a GET request to the API endpoint
   //    axios
-  //      .get(`http://localhost:8000/skyTrails/user/${userId}`)
+      //  .get(`${apiURL.baseURL}/skyTrails/user/${userId}`)
   //      .then((response) => {
   //        // Handle the response data
   //        const user = response.data.data;

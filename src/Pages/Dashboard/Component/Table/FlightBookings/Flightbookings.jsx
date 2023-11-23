@@ -3,6 +3,7 @@ import axios from 'axios';
 import { Table, TableBody, TableCell, TableRow, Paper, TextField, InputAdornment } from '@mui/material';
 import './FlightBooking.css';
 import SearchIcon from '@mui/icons-material/Search';
+import { apiURL } from '../../../../../Constants/constant';
 const AllFlightBooking = () => {
   const [flightBookings, setFlightBookings] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -13,7 +14,7 @@ const AllFlightBooking = () => {
   useEffect(() => {
     async function fetchFlightBookings() {
       try {
-        const response = await axios.get(`http://localhost:8000/skytrails/api/admin/getAllFlightBookingList`,
+        const response = await axios.get(`${apiURL.baseURL}/skytrails/api/admin/getAllFlightBookingList`,
           {
             params: {
               page: currentPage,
@@ -23,7 +24,7 @@ const AllFlightBooking = () => {
           }
         );
         setFlightBookings(response.data.result.docs);
-        console.log("=>>>", response.data.result.totalPages)
+        // console.log("=>>>", response.data.result.totalPages)
         setTotalPages(response.data.result.totalPages);
         setLoading(false);
       } catch (error) {

@@ -9,7 +9,7 @@ export const getPackageBooking = (user) => {
 
 export const getPackageBookingAction = (user) => {
   if (user) {
-    console.log("data",user);
+    // console.log("data",user);
     return {
       type: types.PACKAGE_BOOKING_REQUEST,
       payload: user,

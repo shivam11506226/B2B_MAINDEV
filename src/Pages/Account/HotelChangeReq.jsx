@@ -47,7 +47,7 @@
 //     const fetchHotelData = async () => {
 //         try {
 //             setLoading(true);
-//             const response = await axios.get(`http://localhost:8000/skytrails/user/getAllAgentHotelBookingList?userId=${userId}`, {
+//             const response = await axios.get(`${apiURL.baseURL}/skytrails/user/getAllAgentHotelBookingList?userId=${userId}`, {
 //                 params: {
 //                     page: currentPage,
 //                     size: pageSize,
@@ -82,7 +82,7 @@
 //         console.log("post method shaan", formData);
 
 //         try {
-//             const response = await axios.post('http://localhost:8000/skytrails/user/changeHotelDetailsRequest', formData);
+//             const response = await axios.post(`${apiURL.baseURL}/skytrails/user/changeHotelDetailsRequest`, formData);
 //             console.log('Response from the server:', response.data);
 //         } catch (error) {
 //             console.error('Error sending data to the server:', error);
@@ -228,6 +228,7 @@ import "./FlightTicket.css";
 import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
 import { Link } from "react-router-dom";
+import { apiURL } from "../../Constants/constant";
 
 const Spinner = () => {
   return <div className="spinner"></div>;
@@ -267,7 +268,7 @@ const HotelChangeReq = () => {
     try {
       setLoading(true);
       const response = await axios.get(
-        `http://localhost:8000/skytrails/user/getAllAgentHotelBookingList?userId=${userId}`,
+        `${apiURL.baseURL}/skytrails/user/getAllAgentHotelBookingList?userId=${userId}`,
         {
           params: {
             page: currentPage,
@@ -305,14 +306,14 @@ const HotelChangeReq = () => {
       contactNumber: selectedHotel?.phone,
       amount: selectedHotel?.amount,
     };
-    console.log(formData);
+    // console.log(formData);
 
     try {
       const response = await axios.post(
-        "http://localhost:8000/skytrails/user/changeHotelDetailsRequest",
+        `${apiURL.baseURL}/skytrails/user/changeHotelDetailsRequest`,
         formData
       );
-      console.log("Response from the server:", response.data);
+      // console.log("Response from the server:", response.data);
       setOpenModalTwo(false);
     } catch (error) {
       console.error("Error sending data to the server:", error);

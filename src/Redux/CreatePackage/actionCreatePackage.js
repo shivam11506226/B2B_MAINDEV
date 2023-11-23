@@ -8,7 +8,7 @@ export const createPackage = (user) => {
 };
 
 export const createPackageAction = (user) => {
-  console.log("data",user);
+  // console.log("data",user);
   if (user) {
     return {
       type: types.CREATE_PACKAGE_REQUEST,

@@ -87,13 +87,13 @@ const forexDataWithCustomer = [
 ];
 const ForexData = () => {
   const reducerState = useSelector((state) => state);
-  console.log(reducerState);
+  // console.log(reducerState);
 
   const forexData = reducerState?.getForex?.forexData?.data?.data;
   const ForexData4Customer =
     reducerState?.getForex4Customer?.forexData4Customer?.data?.data;
-  console.log("forexData", forexData);
-  console.log("forexDataCus", ForexData4Customer);
+  // console.log("forexData", forexData);
+  // console.log("forexDataCus", ForexData4Customer);
 
   const dispatch = useDispatch();
 

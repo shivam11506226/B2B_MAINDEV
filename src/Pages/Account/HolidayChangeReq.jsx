@@ -5,6 +5,7 @@ import "./FlightTicket.css";
 import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box';
 import { Link } from "react-router-dom";
+import { apiURL } from "../../Constants/constant";
 
 const Spinner = () => {
     return (
@@ -47,7 +48,7 @@ const HolidayChangeReq = () => {
     const fetchHolidayData = async () => {
         try {
             setLoading(true);
-            const response = await axios.get(`http://localhost:8000/skytrails/user/getAllAgentHolidayBookingList?userId=${userId}`, {
+            const response = await axios.get(`${apiURL.baseURL}/skytrails/user/getAllAgentHolidayBookingList?userId=${userId}`, {
                 params: {
                     page: currentPage,
                     size: pageSize,
@@ -83,11 +84,11 @@ const HolidayChangeReq = () => {
             "contactNumber": selectedHoliday?.phone,
             "amount": selectedHoliday?.amount,
         };
-        console.log(formData)
+        // console.log(formData)
 
         try {
-            const response = await axios.post('http://localhost:8000/skytrails/user/HolidayDetailsRequest', formData);
-            console.log('Response from the server:', response.data);
+            const response = await axios.post(`${apiURL.baseURL}/skytrails/user/HolidayDetailsRequest`, formData);
+            // console.log('Response from the server:', response.data);
             setOpenModalTwo(false);
 
         } catch (error) {

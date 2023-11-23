@@ -34,7 +34,7 @@ const FlightresultReturn = () => {
   }, [initialGoFlight, initialReturnFlight]);
 
   const receiveChildData = (data) => {
-    console.log("callbackData", data);
+    // console.log("callbackData", data);
     const onnGoingFlight =
       JSON.parse(sessionStorage.getItem("flightDetailsONGo")) ||
       initialGoFlight;
@@ -48,8 +48,8 @@ const FlightresultReturn = () => {
   };
 
   const handleFareRuleAndQuote = async () => {
-    console.log(ongoFlight, "ongoFlight");
-    console.log(incomeGlight, "incomeGlight");
+    // console.log(ongoFlight, "ongoFlight");
+    // console.log(incomeGlight, "incomeGlight");
     const payload = {
       EndUserIp: reducerState?.ip?.ipData,
       TokenId: reducerState?.ip?.tokenData,
@@ -62,14 +62,14 @@ const FlightresultReturn = () => {
       TraceId: reducerState?.return?.returnData?.data?.data?.Response?.TraceId,
       ResultIndex: `${incomeGlight?.ResultIndex}`,
     };
-    console.log(payload);
+    // console.log(payload);
     await dispatch(ruleAction(payload));
     await dispatch(quoteAction(payload));
     await dispatch(ruleActionReturn(payloadReturn));
     await dispatch(quoteActionReturn(payloadReturn));
     navigate("/FlightresultReturn/Passengerdetail");
 
-    console.log("reducerrrState", reducerState);
+    // console.log("reducerrrState", reducerState);
   };
 
   const destination =

@@ -7,6 +7,7 @@ import AccountBoxIcon from '@mui/icons-material/AccountBox';
 import Groups2Icon from '@mui/icons-material/Groups2';
 import Diversity1Icon from '@mui/icons-material/Diversity1';
 import CollectionsBookmarkIcon from '@mui/icons-material/CollectionsBookmark';
+import { apiURL } from '../../../Constants/constant';
 const AdminDashboardData = () => {
   // State to hold dashboard data
   const [dashboardData, setDashboardData] = useState({});
@@ -16,7 +17,7 @@ const AdminDashboardData = () => {
     const fetchDashboardData = async () => {
       try {
         // Fetch data from the API endpoint
-        const response = await axios.get('http://localhost:8000/skytrails/api/admin/adminDashBoard');
+        const response = await axios.get(`${apiURL.baseURL}/skytrails/api/admin/adminDashBoard`);
         setDashboardData(response.data.result);
       } catch (error) {
         console.error('Error fetching dashboard data:', error);

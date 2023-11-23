@@ -52,7 +52,7 @@
 //     const fetchFlightData = async () => {
 //         try {
 //             setLoading(true); // Start loading
-//             const response = await axios.get(`http://localhost:8000/skytrails/user/getAllAgentFlightBookingList?userId=${userId}`, {
+//             const response = await axios.get(`${apiURL.baseURL}/skytrails/user/getAllAgentFlightBookingList?userId=${userId}`, {
 //                 params: {
 //                     page: currentPage,
 //                     size: pageSize,
@@ -90,7 +90,7 @@
 
 //         try {
 //             console.log("tryingg.....")
-//             const response = await axios.post('http://localhost:8000/skytrails/user/changeFlightDetailsRequest', formData);
+//             const response = await axios.post('${apiURL.baseURL}/skytrails/user/changeFlightDetailsRequest', formData);
 //             console.log('Response from the server:', response.data);
 
 //         } catch (error) {
@@ -252,6 +252,7 @@ import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
 import { Link } from "react-router-dom";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
+import { apiURL } from "../../Constants/constant";
 
 const Spinner = () => {
   return <div className="spinner"></div>;
@@ -291,7 +292,7 @@ const FlightChangeReq = () => {
     try {
       setLoading(true);
       const response = await axios.get(
-        `http://localhost:8000/skytrails/user/getAllAgentFlightBookingList?userId=${userId}`,
+        `${apiURL.baseURL}/skytrails/user/getAllAgentFlightBookingList?userId=${userId}`,
         {
           params: {
             page: currentPage,
@@ -329,14 +330,14 @@ const FlightChangeReq = () => {
       contactNumber: flightData[0]?.passengerDetails[0]?.ContactNo,
       amount: Number(flightData[0]?.amount),
     };
-    console.log(formData);
+    // console.log(formData);
 
     try {
       const response = await axios.post(
-        "http://localhost:8000/skytrails/user/changeFlightDetailsRequest",
+        `${apiURL.baseURL}/skytrails/user/changeFlightDetailsRequest`,
         formData
       );
-      console.log("Response from the server:", response.data);
+      // console.log("Response from the server:", response.data);
       setOpenModalTwo(false);
     } catch (error) {
       console.error("Error sending data to the server:", error);

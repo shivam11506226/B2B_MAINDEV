@@ -36,7 +36,7 @@ const FlightReturnInternational = () => {
     }
   }, [statusQuote, statusRule]);
   const receiveChildData = (data) => {
-    console.log("callbackData", data);
+    // console.log("callbackData", data);
     const onnGoingFlight =
       JSON.parse(sessionStorage.getItem("flightDetailsONGo")) ||
       initialGoFlight;
@@ -55,14 +55,14 @@ const FlightReturnInternational = () => {
       TraceId: reducerState?.return?.returnData?.data?.data?.Response?.TraceId,
       ResultIndex: `${ongoFlight?.ResultIndex}`,
     };
-    console.log(payload);
+    // console.log(payload);
     dispatch(ruleAction(payload));
     dispatch(quoteAction(payload));
-    console.log("reducerrrState", reducerState);
+    // console.log("reducerrrState", reducerState);
   };
-  console.log("ongoFlight", ongoFlight);
-  console.log("incomeGlight", incomeGlight);
-  console.log("reducerrrState", reducerState);
+  // console.log("ongoFlight", ongoFlight);
+  // console.log("incomeGlight", incomeGlight);
+  // console.log("reducerrrState", reducerState);
 
   return (
     <Box>

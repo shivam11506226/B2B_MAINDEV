@@ -12,7 +12,7 @@ const MultipleDataReturnInternational = (props) => {
   const flight = props.flight;
   const wholeFlight = props.wholeFlight;
   const IsLCC = props.IsLCC;
-  console.log("flight multiple", flight);
+  // console.log("flight multiple", flight);
   const indexKey = props.index;
   const fare =
     reducerState?.logIn?.loginData.length > 0
@@ -31,8 +31,8 @@ const MultipleDataReturnInternational = (props) => {
   // console.log("Results", results);
   const handleClick = (allDetails, ResultIndex) => {
     const slicedResultIndex = ResultIndex.slice(0, 2);
-    console.log("Handel Click Index Key", slicedResultIndex);
-    console.log("hghfdsjgdsjsfd", props.flight);
+    // console.log("Handel Click Index Key", slicedResultIndex);
+    // console.log("hghfdsjgdsjsfd", props.flight);
 
     if (slicedResultIndex == "OB") {
       sessionStorage.setItem("flightDetailsONGo", JSON.stringify(allDetails));
@@ -52,7 +52,7 @@ const MultipleDataReturnInternational = (props) => {
       border={props.isSelected ? "2px solid red" : ""}
     >
       <Box>
-        {console.log("flightInternational", flight)}
+        {/* {console.log("flightInternational", flight)} */}
         {flight?.map((data, index) => {
           const img = data[0]?.Airline?.AirlineCode;
 
@@ -81,7 +81,7 @@ const MultipleDataReturnInternational = (props) => {
           });
           const year2 = date2.getFullYear();
           const formattedDate2 = `${day2} ${month2} ${year2}`;
-          console.log("flightDetails: ", data);
+          // console.log("flightDetails: ", data);
           return (
             <div>
               <Box display="flex" justifyContent="space-between">
@@ -261,7 +261,7 @@ const MultipleDataReturnInternational = (props) => {
                 >
                   {/* <button
                       onClick={() => {
-                        console.log("indexKey inside loop", indexKey);
+                        // console.log("indexKey inside loop", indexKey);
                         handleClick(indexKey);
                       }}
                     >

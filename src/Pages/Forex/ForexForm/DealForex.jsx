@@ -26,7 +26,7 @@ const DealForex = () => {
 
   const handleCreateForex = (event) => {
     event.preventDefault();
-    console.log("formData", formData);
+    // console.log("formData", formData);
 
     const payload = {
       enterCity: formData.enterCity,

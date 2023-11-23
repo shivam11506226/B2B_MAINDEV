@@ -24,7 +24,7 @@ const Flightdetail = () => {
     }
   }, [results]);
 
-  console.log("Results result", reducerState);
+  // console.log("Results result", reducerState);
   return results?.map((res) => {
     let result = res;
     result =
@@ -80,9 +80,9 @@ const Flightdetail = () => {
           return (
             <div key={ResultIndex} >
               {flight1?.Segments?.map((flight, Index) => {
-                console.log("flight", flight);
+                // console.log("flight", flight);
                 const length = flight.length;
-                console.log("ResultIndex1", ResultIndex);
+                // console.log("ResultIndex1", ResultIndex);
                 return length === 1 ? (
                   <SingleData
                     flight={flight[0]}

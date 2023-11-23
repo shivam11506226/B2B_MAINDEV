@@ -10,7 +10,7 @@ export default function Demo(props) {
   const dispatch = useDispatch();
   const reducerState = useSelector((state) => state);
 
-  console.log("reducerState", reducerState);
+  // console.log("reducerState", reducerState);
   const [isDisabled, setIsDisabled] = useState(true);
 
   const [value, setValue] = useState(false);

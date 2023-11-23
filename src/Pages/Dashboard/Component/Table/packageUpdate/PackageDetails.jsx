@@ -68,7 +68,7 @@ function PackageDetails() {
   // console.log("holiday",reducerState?.searchResult?.packageSearchResult?.data?.data?.pakage );
   const holidayPackage =
     reducerState?.searchResult?.packageSearchResult?.data?.data?.pakage;
-  console.log(holidayPackage);
+  // console.log(holidayPackage);
   const dispatch = useDispatch();
 
   const navigate = useNavigate();
@@ -78,20 +78,20 @@ function PackageDetails() {
       destination: "",
       days: 0,
     };
-    console.log(payload);
+    // console.log(payload);
     dispatch(searchPackageAction(payload));
   }, []);
 
   const [package_id, setPackage_id] = useState("");
 
   const handleEdit = (ele) => {
-    console.log("package_id", ele);
+    // console.log("package_id", ele);
     setPackage_id(ele);
     sessionStorage.setItem("package_id", ele);
     navigate("/admin/dashboard/EditHolidayPackage");
   };
 
-  console.log("package_id", package_id);
+  // console.log("package_id", package_id);
 
   return (
     <>

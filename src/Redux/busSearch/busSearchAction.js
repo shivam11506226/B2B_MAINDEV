@@ -8,7 +8,7 @@ export const busSearch = (user) => {
 };
 
 export const busSearchAction = (user) => {
-  console.log("data",user);
+  // console.log("data",user);
   if (user) {
     return {
       type: types.BUS_SEARCH_REQUEST,

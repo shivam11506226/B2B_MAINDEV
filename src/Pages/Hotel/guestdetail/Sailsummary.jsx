@@ -30,11 +30,11 @@ export default function Popularfilter() {
   const navigate = useNavigate();
   const reducerState = useSelector((state) => state);
   // const logIn = useSelector((state) => state);
-  console.log("State Data", reducerState);
+  // console.log("State Data", reducerState);
 
   const TotalGuest = sessionStorage.getItem("totalGuest");
   const HotelIndex = sessionStorage.getItem("HotelIndex");
-  console.log(HotelIndex, "hotel index in summary")
+  // console.log(HotelIndex, "hotel index in summary")
 
   const hotelInfo = reducerState?.hotelSearchResult?.hotelInfo?.HotelInfoResult;
   const hotelRoom =
@@ -43,19 +43,19 @@ export default function Popularfilter() {
 
   const getBookingDetails =
     reducerState?.hotelSearchResult?.blockRoom?.BlockRoomResult?.HotelRoomsDetails;
-  console.log("getBookingDetails", getBookingDetails);
+  // console.log("getBookingDetails", getBookingDetails);
 
   const totalAmount = getBookingDetails?.reduce((accumulator, item) => {
     return accumulator + item?.Price?.PublishedPriceRoundedOff;
   }, 0);
-  console.log("totalAmount", totalAmount);
+  // console.log("totalAmount", totalAmount);
 
 
   const markUpPrice = reducerState?.logIn?.loginData?.data?.data?.markup?.hotel;
-  console.log(markUpPrice)
-  console.log(hotelInfo, "hotel information")
-  console.log(HotelIndex, "hotel index")
-  console.log(hotelData, "hotel ka data ");
+  // console.log(markUpPrice)
+  // console.log(hotelInfo, "hotel information")
+  // console.log(HotelIndex, "hotel index")
+  // console.log(hotelData, "hotel ka data ");
   const grandTotal = totalAmount + markUpPrice;
 
   const storedFormData = JSON.parse(sessionStorage.getItem('hotelFormData'));

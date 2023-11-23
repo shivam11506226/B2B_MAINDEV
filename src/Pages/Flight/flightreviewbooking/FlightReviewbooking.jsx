@@ -24,10 +24,10 @@ const FlightReviewbooking = () => {
   const infants = sessionStorage.getItem("infants");
   const [loading, setLoading] = useState(true);
   useEffect(() => {
-    console.log(
-      "reducerState?.flightBook?.flightBookDataGDS",
-      reducerState?.passengers?.passengersData
-    );
+    // console.log(
+    //   "reducerState?.flightBook?.flightBookDataGDS",
+    //   reducerState?.passengers?.passengersData
+    // );
     if (reducerState?.passengers?.passengersData) {
       setLoading(false);
     }

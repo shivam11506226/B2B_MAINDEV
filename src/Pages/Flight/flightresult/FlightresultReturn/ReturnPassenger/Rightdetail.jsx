@@ -28,10 +28,10 @@ const Item = styled(Paper)(({ theme }) => ({
 }));
 
 const KeyValue = ({ data, value }) => {
-  console.log("----------------------");
-  console.log(data);
-  console.log(value);
-  console.log("----------------------");
+  // console.log("----------------------");
+  // console.log(data);
+  // console.log(value);
+  // console.log("----------------------");
   return (
     <>
       <Grid item xs={12} md={6}>
@@ -68,12 +68,12 @@ export default function Popularfilter() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const reducerState = useSelector((state) => state);
-  console.log("reducerState", reducerState);
+  // console.log("reducerState", reducerState);
   const fareQuote = reducerState?.flightFare?.flightQuoteData?.Error?.ErrorCode;
   const fareRule = reducerState?.flightFare?.flightRuleData?.FareRules;
   const fareValue = reducerState?.flightFare?.flightQuoteData?.Results;
 
-  console.log("fareValue 🤞", fareValue);
+  // console.log("fareValue 🤞", fareValue);
 
   let total = 0;
 

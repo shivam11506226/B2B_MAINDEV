@@ -11,7 +11,7 @@ import { clearHolidayReducer } from "../../../Redux/OnePackageSearchResult/actio
 import color from "../../../../src/color/color.js"
 const HolidayForm = () => {
   const reducerState = useSelector((state) => state);
-  console.log("holiday", reducerState?.searchResult);
+  // console.log("holiday", reducerState?.searchResult);
   const [destination, setDestination] = useState("");
   const [daysSearch, setDaySearch] = useState(0);
   const [error, setError] = useState({
@@ -26,8 +26,8 @@ const HolidayForm = () => {
   const daysSearchInputRef = useRef(null);
 
   useEffect(() => {
-    console.log('=====================');
-    console.log("--------working--------")
+    // console.log('=====================');
+    // console.log("--------working--------")
     dispatch(clearHolidayReducer());
   }, [dispatch]);
 
@@ -46,7 +46,7 @@ const HolidayForm = () => {
         destination,
         days: daysSearch,
       };
-      console.log(payload);
+      // console.log(payload);
       dispatch(searchPackageAction(payload));
       sessionStorage.setItem("searchPackageData", JSON.stringify(payload));
     } else {

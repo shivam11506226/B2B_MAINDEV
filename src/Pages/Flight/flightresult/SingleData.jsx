@@ -22,8 +22,8 @@ function SingleData(props) {
   const reducerState = useSelector((state) => state);
   let statusRule = reducerState?.flightFare?.isLoadingRuleDone || false;
   let statusQuote = reducerState?.flightFare?.isLoadingQuoteDone || false;
-  console.log("isLoadingRuleDone", statusRule);
-  console.log("isLoadingQuoteDone", statusQuote);
+  // console.log("isLoadingRuleDone", statusRule);
+  // console.log("isLoadingQuoteDone", statusQuote);
   const flight = props.flight;
   const IsLCC = props.IsLCC;
   // console.log("flight single", flight);
@@ -40,7 +40,7 @@ function SingleData(props) {
         )}`
       : Math.round(Number(props.fare));
 
-  console.log(fare);
+  // console.log(fare);
   const img = flight?.Airline?.AirlineCode;
 
   const time = `${Math.floor(flight?.Duration / 60)}hr ${
@@ -76,7 +76,7 @@ function SingleData(props) {
   const formattedDate1 = `${day1} ${month1} ${year1}`;
 
   const handleClick = (ResultIndex) => {
-    console.log("Handel Click Index Key", ResultIndex);
+    // console.log("Handel Click Index Key", ResultIndex);
     // navigate("passengerdetail");
     sessionStorage.setItem("ResultIndex", ResultIndex);
     const payload = {
@@ -88,14 +88,14 @@ function SingleData(props) {
     dispatch(ruleAction(payload));
     dispatch(quoteAction(payload));
   };
-  console.log("reducerrState", reducerState);
+  // console.log("reducerrState", reducerState);
   useEffect(() => {
     if (statusQuote && statusRule) {
       navigate("/passengerdetail");
       dispatch(setLoading("hjbb"));
     }
   }, [statusQuote, statusRule]);
-  console.log("reducerStateDemount", reducerState);
+  // console.log("reducerStateDemount", reducerState);
 
   return (
     <div>
@@ -303,7 +303,7 @@ px={2}
             <Box px={1}>
               <Button variant="contained" id="buttons"
                 onClick={() => {
-                  console.log("indexKey inside loop", indexKey);
+                  // console.log("indexKey inside loop", indexKey);
                   handleClick(indexKey);
                 }}
               >
@@ -338,7 +338,7 @@ px={2}
                 const timeReturn = `${Math.floor(results[1][0]?.Segments[0][0]?.Duration / 60)}hr ${results[1][0]?.Segments[0][0]?.Duration % 60
                   }min`;
 
-                console.log("data return flight array", results[1][0]?.Segments[0][0]?.Airline)
+                // console.log("data return flight array", results[1][0]?.Segments[0][0]?.Airline)
 
                 //return flight dateFormate
                 const dateStringReturn = results[1][0]?.Segments[0][0]?.Origin?.DepTime;
@@ -536,7 +536,7 @@ px={2}
           >
             <button
               onClick={() => {
-                console.log("indexKey inside loop", indexKey);
+                // console.log("indexKey inside loop", indexKey);
                 handleClick(indexKey);
               }}
             >

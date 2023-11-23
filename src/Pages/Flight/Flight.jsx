@@ -19,7 +19,7 @@ const Flight = () => {
   const reducerState = useSelector((state) => state);
   const [loader, setLoader] = useState(false);
 
-  console.log("reducerState", reducerState);
+  // console.log("reducerState", reducerState);
   useEffect(() => {
     if (
       reducerState?.oneWay?.isLoading ||

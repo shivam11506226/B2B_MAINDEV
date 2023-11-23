@@ -19,10 +19,10 @@ const Flight = (props) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const reducerState = useSelector((state) => state);
-  console.log("Props", props);
+  // console.log("Props", props);
   const ResultIndex = sessionStorage.getItem("ResultIndex");
-  console.log("reducerState", reducerState);
-  console.log("resultIndex", ResultIndex);
+  // console.log("reducerState", reducerState);
+  // console.log("resultIndex", ResultIndex);
   return (
     <div className="flightContainer" style={{marginTop:"80px"}}>
       {/* step by step updating part */}

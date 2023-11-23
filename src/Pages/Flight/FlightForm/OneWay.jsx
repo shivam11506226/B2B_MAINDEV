@@ -29,7 +29,7 @@ const OneWay = () => {
   const [checkedd, setCheckedd] = useState(false);
   const inputRef = useRef(null);
 
-  console.log("reducerState", reducerState);
+  // console.log("reducerState", reducerState);
 
   // multiselect conditions
   const options = [
@@ -153,7 +153,7 @@ const OneWay = () => {
   };
 
   const handleClick = () => {
-    console.log("Button CLicked");
+    // console.log("Button CLicked");
     inputRef.current.click();
     setDateError("");
   };
@@ -259,7 +259,7 @@ const OneWay = () => {
     sessionStorage.setItem("adults", formData.get("adult"));
     sessionStorage.setItem("childs", formData.get("child"));
     sessionStorage.setItem("infants", formData.get("infant"));
-    console.log(payload, emtPayload);
+    // console.log(payload, emtPayload);
     dispatch(oneWayAction(payload));
     dispatch(oneWayEMTAction(emtPayload));
   }

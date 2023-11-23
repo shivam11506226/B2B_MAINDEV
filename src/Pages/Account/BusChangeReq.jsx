@@ -5,6 +5,7 @@ import "./FlightTicket.css";
 import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
 import { Link } from "react-router-dom";
+import { apiURL } from "../../Constants/constant";
 
 const Spinner = () => {
   return <div className="spinner"></div>;
@@ -44,7 +45,7 @@ const BusChangeReq = () => {
     try {
       setLoading(true);
       const response = await axios.get(
-        `http://localhost:8000/skytrails/user/getAllAgentBusBookingList?userId=${userId}`,
+        `${apiURL.baseURL}/skytrails/user/getAllAgentBusBookingList?userId=${userId}`,
         {
           params: {
             page: currentPage,
@@ -53,7 +54,7 @@ const BusChangeReq = () => {
           },
         }
       );
-      console.log(response, "bus");
+      // console.log(response, "bus");
       setBusData(response.data.result.docs);
       setTotalPages(response.data.result.totalPages);
     } catch (error) {
@@ -83,14 +84,14 @@ const BusChangeReq = () => {
       contactNumber: selectedBus?.phone,
       amount: selectedBus?.amount,
     };
-    console.log(formData);
+    // console.log(formData);
 
     try {
       const response = await axios.post(
-        "http://localhost:8000/skytrails/user/BusDetailsRequest",
+        `${apiURL.baseURL}/skytrails/user/BusDetailsRequest`,
         formData
       );
-      console.log("Response from the server:", response.data);
+      // console.log("Response from the server:", response.data);
       setOpenModalTwo(false);
     } catch (error) {
       console.error("Error sending data to the server:", error);

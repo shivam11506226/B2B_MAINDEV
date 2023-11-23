@@ -127,7 +127,7 @@ export default function MarkUpAmount() {
 
   // Table data to be rendered
   const tableData = reducerState?.userTableData?.userData?.data?.data;
-  console.log(reducerState, "tableData", tableData);
+  // console.log(reducerState, "tableData", tableData);
   return (
     <>
       <Box height={100} />

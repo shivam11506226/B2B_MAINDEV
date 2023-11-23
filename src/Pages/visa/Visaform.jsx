@@ -85,7 +85,7 @@ const Visaform = () => {
         destination: formData.destination,
         visaType: formData.visaType,
       };
-      console.log("formData", formData);
+      // console.log("formData", formData);
       dispatch(createVisaAction(payload));
 
 
