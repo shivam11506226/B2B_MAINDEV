@@ -28,16 +28,12 @@ const StyledTabs = styled(Tabs)(({ theme }) => ({
 
 const StyledTab = styled(Tab)(({ theme }) => ({
 
-
-
-
-  '&.Mui-selected': {
-    background: '#FFFBFB',
-    padding: "5px 60px",
-    color: 'black',
-    border: '2px solid #21325D',
-    //   // borderRadius: "8px"
-  },
+  // '&.Mui-selected': {
+  //   background: '#FFFBFB',
+  //   padding: "5px 60px",
+  //   color: 'black',
+  //   border: '2px solid #21325D',
+  // },
 }));
 
 function CustomTabPanel(props) {

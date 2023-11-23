@@ -1,12 +1,29 @@
 .btn {
     box-shadow: none !important;
     padding: 5px 60px;
-    /* background: #FFFBFB; */
     margin: 12px 0px;
     padding: 5px 60px;
     margin: 12px 0px;
     color: #fff;
     background: #21325D;
+}
+
+
+.css-1gqfr5c-MuiButtonBase-root-MuiTab-root {
+    box-shadow: none !important;
+    padding: 5px 60px !important;
+    margin: 12px 0px !important;
+    padding: 5px 60px !important;
+    margin: 12px 0px !important;
+    color: #fff !important;
+    background: #21325D !important;
+}
+
+.css-1gqfr5c-MuiButtonBase-root-MuiTab-root.Mui-selected {
+    background: #FFFBFB !important;
+    padding: 5px 60px !important;
+    color: black !important;
+    border: 2px solid #21325D !important;
 }
 
 .btn:hover {
