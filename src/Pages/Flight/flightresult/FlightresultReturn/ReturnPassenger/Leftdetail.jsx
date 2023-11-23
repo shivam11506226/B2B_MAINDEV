@@ -179,6 +179,7 @@ const Leftdetail = () => {
     passengerInfantLists,
   ];
   const [passengerData, setPassengerData] = useState(allPassenger.flat());
+  const [isGST, setIsGst] = useState(false);
 
   const handleServiceChange = (e, i) => {
     const { name, value } = e.target;
@@ -204,18 +205,33 @@ const Leftdetail = () => {
 
 
   const fareQuoteData = reducerState?.flightFare?.flightQuoteData?.Results;
+  function validatePhoneNumber(phoneNumber) {
+    // Define the regular expression pattern for a valid phone number
+    var phonePattern = /^\d{10}$/;
 
-  function isValidEmail(email,phoneNumber) {
+    // Test the phone number against the pattern
+    return phonePattern.test(phoneNumber);
+  }
+  function validateEmail1(email) {
+    // Define the regular expression pattern for a valid phone number
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    // Test the phone number against the pattern
+    return emailRegex.test(email);
+  }
+
+  function isValidEmail(email, phoneNumber) {
     // Regular expression for a simple email validation
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     var phonePattern = /^\d{10}$/;
 
     // Test the phone number against the pattern
-    const result2= phonePattern.test(phoneNumber);
+    const result2 = validatePhoneNumber(phoneNumber);
+
 
     // Test the email against the regular expression
-    const result1 = emailRegex.test(email);
-    const result=result1 && result2;
+    const result1 = validateEmail1(email);
+    const result = result1 && result2;
     console.warn(result, "Please fill all the details/////");
     return result
   }
@@ -254,6 +270,10 @@ const Leftdetail = () => {
   function handleSubmit(event) {
     event.preventDefault();
     setSub(true)
+    // const r=validateEmail1(passengerList[0].Email)
+    //   console.warn(passengerList[0].Email,r, "***********************************************nooooooooooooooooooooooooooooo")
+    // const r1=validatePhoneNumber(passengerList[0].ContactNo)
+    //   console.warn(passengerList[0].ContactNo,r1, "***********************************************nooooooooooooooooooooooooooooo")
     const valid = passengerData.filter(
       (item) =>
         item.FirstName === "" || item.LastName === "" || item.DateOfBirth === ""
@@ -263,7 +283,7 @@ const Leftdetail = () => {
 
       // console.warn(passengerList[0].Email, "***********************************************nooooooooooooooooooooooooooooo")
 
-      !isValidEmail(item.Email,item.ContactNo)
+      !isValidEmail(item.Email, item.ContactNo)
 
 
     )
@@ -440,7 +460,7 @@ const Leftdetail = () => {
                                 placeholder="Enter Email"
                                 onChange={(e) => handleServiceChange(e, i)}
                               />
-                              {passengerData[i].Email == "" && sub && <span id="error1">Enter Email</span>}
+                              {!validateEmail1(passengerData[i].Email) && sub && <span id="error1">Enter Email</span>}
                             </div>
                           </Box>
                         </Grid>
@@ -459,13 +479,13 @@ const Leftdetail = () => {
                                 </span>
                               </label>
                               <input
-                                type="text"
+                                type="number"
                                 name="ContactNo"
                                 className="deaprture_input"
                                 placeholder="Enter Contact"
                                 onChange={(e) => handleServiceChange(e, i)}
                               />
-                              {passengerData[i].ContactNo == "" && sub && <span id="error1">Enter Contact</span>}
+                              {!validatePhoneNumber(passengerData[i].ContactNo) == true && sub && <span id="error1">Enter Contact</span>}
                             </div>
                           </Box>
                         </Grid>
@@ -714,7 +734,7 @@ const Leftdetail = () => {
               </Box> */}
               <div
                 style={{
-                  width: 973,
+                  width: "100%",
                   height: 45,
                   paddingLeft: 16,
                   paddingRight: 16,
@@ -763,127 +783,133 @@ const Leftdetail = () => {
                       transform: "rotate(90deg)",
                       transformOrigin: "0 0",
                     }}
+                    onClick={() => setIsGst(!isGST)}
                   >
                     {" "}
                     <img src={groupimg} alt="" />
                   </div>
                 </div>
               </div>
-
-              <Box className="mid_header1" p={5} mt={25}>
-                {/* <Typography className="p-2 Top_txt text-dark">
+              {isGST &&
+                <Box className="mid_header1" p={5} mt={25}>
+                  {/* <Typography className="p-2 Top_txt text-dark">
                   Contact Details
                 </Typography> */}
 
-                <div className="mb-2">
-                  {/* <span className=" p-2 ">Passenger {i + 1}</span> */}
-                  <Box p={15} display="flex">
-                    <Box>
-                      <div className="form_input1">
-                        <label className="form_lable">
-                          GST Number
-                          <span
-                            style={{
-                              color: "red",
-                            }}
-                          >
-                            *
-                          </span>
-                        </label>
-                        <input
-                          name="Nationality"
-                          type="text"
-                          placeholder="Enter your Country"
-                          onChange={(e, i) => handleServiceChange(e, i)}
-                        />
-                      </div>
-                    </Box>
-                    <Box marginLeft={15}>
-                      <div className="form_input1">
-                        <label hotel_form_input className="form_lable">
-                          GST Company Name
-                          <span
-                            style={{
-                              color: "red",
-                            }}
-                          >
-                            *
-                          </span>
-                        </label>
-                        <input
-                          name="ContactNo"
-                          type="text"
-                          placeholder="Enter GST Number"
-                          onChange={(e, i) => handleServiceChange(e, i)}
-                        />
-                      </div>
-                    </Box>
-                    <Box marginLeft={15}>
-                      <div className="form_input1">
-                        <label hotel_form_input className="form_lable">
-                          GST Company Contact
-                          <span
-                            style={{
-                              color: "red",
-                            }}
-                          >
-                            *
-                          </span>
-                        </label>
-                        <input
-                          name="Email"
-                          type="email"
-                          placeholder="company name"
-                          onChange={(e, i) => handleServiceChange(e, i)}
-                        />
-                      </div>
-                    </Box>
-                    <Box marginLeft={15}>
-                      <div className="form_input1">
-                        <label className="form_lable">
-                          Company Address
-                          <span
-                            style={{
-                              color: "red",
-                            }}
-                          >
-                            *
-                          </span>
-                        </label>
-                        <input
-                          name="Email"
-                          type="email"
-                          placeholder="Company Address"
-                          onChange={(e, i) => handleServiceChange(e, i)}
-                        />
-                      </div>
-                    </Box>
+                  <div className="mb-2">
+                    {/* <span className=" p-2 ">Passenger {i + 1}</span> */}
+                    <Box p={15} display="flex" flexWrap="wrap" gap="10px" justifyContent="space-between">
+                      <Box marginLeft={15} flex={1} minWidth="200px" >
+                        <div className="form_input1">
+                          <label className="form_lable">
+                            GST Number
+                            <span
+                              style={{
+                                color: "red",
+                              }}
+                            >
+                              *
+                            </span>
+                          </label>
+                          <input
+                            name="Nationality"
+                            type="text"
+                            placeholder="Enter your Country"
+                            onChange={(e, i) => handleServiceChange(e, i)}
+                          />
+                        </div>
+                      </Box>
+                      <Box
+                        marginLeft={15}
+                        flex={1}
+                        minWidth="200px"
+                      >
+                        <div className="form_input1">
+                          <label hotel_form_input className="form_lable">
+                            GST Company Name
+                            <span
+                              style={{
+                                color: "red",
+                              }}
+                            >
+                              *
+                            </span>
+                          </label>
+                          <input
+                            name="ContactNo"
+                            type="text"
+                            placeholder="Enter GST Number"
+                            onChange={(e, i) => handleServiceChange(e, i)}
+                          />
+                        </div>
+                      </Box>
+                      <Box marginLeft={15} minWidth="200px"
+                        flex={1}>
+                        <div className="form_input1">
+                          <label hotel_form_input className="form_lable">
+                            GST Company Contact
+                            <span
+                              style={{
+                                color: "red",
+                              }}
+                            >
+                              *
+                            </span>
+                          </label>
+                          <input
+                            name="Email"
+                            type="email"
+                            placeholder="company name"
+                            onChange={(e, i) => handleServiceChange(e, i)}
+                          />
+                        </div>
+                      </Box>
+                      <Box marginLeft={15} flex={1} minWidth="200px">
+                        <div className="form_input1">
+                          <label className="form_lable">
+                            Company Address
+                            <span
+                              style={{
+                                color: "red",
+                              }}
+                            >
+                              *
+                            </span>
+                          </label>
+                          <input
+                            name="Email"
+                            type="email"
+                            placeholder="Company Address"
+                            onChange={(e, i) => handleServiceChange(e, i)}
+                          />
+                        </div>
+                      </Box>
 
-                    <Box marginLeft={15}>
-                      <div className="form_input1">
-                        <label className="form_lable">
-                          GST Company Email
-                          <span
-                            style={{
-                              color: "red",
-                            }}
-                          >
-                            *
-                          </span>
-                        </label>
-                        <input
-                          name="Nationality"
-                          type="text"
-                          placeholder="Enter Company Email"
-                          onChange={(e, i) => handleServiceChange(e, i)}
-                        />
-                      </div>
+                      <Box marginLeft={15} flex={1} minWidth="200px">
+                        <div className="form_input1">
+                          <label className="form_lable">
+                            GST Company Email
+                            <span
+                              style={{
+                                color: "red",
+                              }}
+                            >
+                              *
+                            </span>
+                          </label>
+                          <input
+                            name="Nationality"
+                            type="text"
+                            placeholder="Enter Company Email"
+                            onChange={(e, i) => handleServiceChange(e, i)}
+                          />
+                        </div>
+                      </Box>
                     </Box>
-                  </Box>
-                </div>
-                {/* ); */}
-                {/* })} */}
-              </Box>
+                  </div>
+                  {/* ); */}
+                  {/* })} */}
+                </Box>}
               <Box
                 // className="mid_header"
                 p={5}

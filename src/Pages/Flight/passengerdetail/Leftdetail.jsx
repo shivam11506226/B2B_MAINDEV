@@ -226,13 +226,34 @@ const Leftdetail = () => {
   //   }
   // }
   // validate();
-   function isValidEmail(email) {
+  function validatePhoneNumber(phoneNumber) {
+    // Define the regular expression pattern for a valid phone number
+    var phonePattern = /^\d{10}$/;
+  
+    // Test the phone number against the pattern
+    return phonePattern.test(phoneNumber);
+  }
+  function validateEmail1(email) {
+    // Define the regular expression pattern for a valid phone number
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  
+    // Test the phone number against the pattern
+    return emailRegex.test(email);
+  }
+    
+  function isValidEmail(email,phoneNumber) {
     // Regular expression for a simple email validation
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    var phonePattern = /^\d{10}$/;
+
+    // Test the phone number against the pattern
+    const result2= validatePhoneNumber(phoneNumber);
+    
 
     // Test the email against the regular expression
-    const result= emailRegex.test(email);
-    console.warn( result,"Please fill all the details/////");
+    const result1 = validateEmail1(email);
+    const result=result1 && result2;
+    console.warn(result, "Please fill all the details/////");
     return result
   }
   
@@ -275,7 +296,7 @@ const Leftdetail = () => {
       
       // console.warn(passengerList[0].Email, "***********************************************nooooooooooooooooooooooooooooo")
 
-     !isValidEmail(item.Email) 
+      !isValidEmail(item.Email,item.ContactNo)
 
     
     )
@@ -581,7 +602,7 @@ const Leftdetail = () => {
                               onChange={(e) => handleServiceChange(e, i)}
                               
                             />
-                            {passengerData[i].Email == "" && sub && <span id="error1">Enter Email</span>}
+                              { !validateEmail1(passengerData[i].Email) && sub && <span id="error1">Enter Email</span>}
                           </div>
                         </Box>
                       </Grid>
@@ -592,7 +613,7 @@ const Leftdetail = () => {
                               ContactNo*
                             </label>
                             <input
-                              type="text"
+                              type="number"
                               name="ContactNo"
                               placeholder="Enter ContactNo"
                               onChange={(e) => handleServiceChange(e, i)}
@@ -600,7 +621,7 @@ const Leftdetail = () => {
 
 
                             />
-                            {passengerData[i].ContactNo == "" && sub && <span id="error1">Enter Contact</span>}
+                           { !validatePhoneNumber(passengerData[i].ContactNo) == true  && sub && <span id="error1">Enter Contact</span>}
                           </div>
                         </Box>
                       </Grid>
