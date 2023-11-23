@@ -434,14 +434,10 @@ const HolidayPackageResult = () => {
 
                         <div className="destination">
                           <ul>
-                            <li>Mandovi River Cruise</li>
-                            <li>North Dubai Sightseeing</li>
+                            {item?.destination?.slice(0, 3).map((destinationItem, index) => (
+                              <li key={index}>{destinationItem?.addMore}</li>
+                            ))}
                           </ul>
-                          {/* <ul>
-                        {item?.destination?.slice(0, 3).map((destinationItem, index) => (
-                          <li key={index}>{destinationItem?.addMore}</li>
-                        ))}
-                      </ul> */}
                         </div>
                       </div>
                       <div className="priceBook">

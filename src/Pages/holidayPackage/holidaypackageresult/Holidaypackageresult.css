@@ -36,11 +36,21 @@
 
 
 .packageResult {
-    background-color: white;
+    /* background-color: white; */
     width: 100%;
     /* overflow: hidden; */
 }
 
+.packageResult .container-fluid {
+    background-color: transparent !important;
+    padding: 0 !important;
+}
+
+
+.bookDel .container {
+    background-color: white;
+    padding: 15px;
+}
 
 .packageResultBox {
     display: flex;
