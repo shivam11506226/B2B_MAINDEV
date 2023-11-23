@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Box, Typography, Button, Grid } from "@mui/material";
 import mainImage from "../../../Images/mainImage.png";
+import goa from "../../../Images/goa.jpg"
 import FlightIcon from "@mui/icons-material/Flight";
 import LocationCityIcon from "@mui/icons-material/LocationCity";
 import RowingIcon from "@mui/icons-material/Rowing";
@@ -10,7 +11,7 @@ import FlightLandIcon from "@mui/icons-material/FlightLand";
 import HolidayRating from "../holidaypackageresult/HolidayRating";
 import FastfoodIcon from "@mui/icons-material/Fastfood";
 import information from "../../../Images/information.png";
-
+import StarIcon from "@mui/icons-material/Star";
 import CommitIcon from "@mui/icons-material/Commit";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import Checkbox from "@mui/material/Checkbox";
@@ -57,7 +58,10 @@ import { Divider } from "@chakra-ui/react";
 import { useSelector } from "react-redux";
 import Accordion from "react-bootstrap/Accordion";
 import color from "../../../color/color";
+import { useNavigate } from "react-router";
 const Bookingdetailpackage = () => {
+
+  const navigate = useNavigate();
   const reducerState = useSelector((state) => state);
   const onePackage =
     reducerState?.searchOneResult?.OneSearchPackageResult?.data?.data;
@@ -84,11 +88,11 @@ const Bookingdetailpackage = () => {
   };
 
   return (
-    <>
+    <div div className="bookDel">
 
       <div className="container">
         <div className="row">
-          <div className="col-lg-9">
+          <div className="col-lg-8">
             <div className="col-lg-12 mb-4">
               <div className="outerFilterBox">
                 <div className="filterBox">
@@ -371,6 +375,59 @@ const Bookingdetailpackage = () => {
             </div>
           </div>
 
+          <div className="col-lg-4">
+            <div className="sidePromo">
+              <div className="col-lg-12 sidePromoImg">
+                <img src={goa} alt="" />
+              </div>
+              <div className="promoBottom">
+                <div className="promoTitle">
+                  <p>Luxurious Dubai Trip</p>
+                  <div>
+                    <StarIcon />
+                    <StarIcon />
+                    <StarIcon />
+                  </div>
+                </div>
+                <div className="promoIcons">
+                  <div className="singlePromoIcon">
+                    <span><TramIcon /></span>
+                    <p>Train</p>
+                  </div>
+                  <div className="singlePromoIcon">
+                    <span><ForestIcon /></span>
+                    <p>Nature</p>
+                  </div>
+                  <div className="singlePromoIcon">
+                    <span><LocalOfferIcon /></span>
+                    <p>50% Off</p>
+                  </div>
+
+                  <div className="singlePromoIcon">
+                    <span><WifiPasswordIcon /></span>
+                    <p>WIFI</p>
+                  </div>
+                </div>
+
+                <div className="promoDestination">
+                  <ul>
+                    <li>Mandovi river cruise</li>
+                    <li>North Dubai sightseeing</li>
+                  </ul>
+                  <div>
+                    <p>₹ 42,250 </p>
+                    <span>Per Person</span>
+                  </div>
+                </div>
+                <div className="promoBottomButton">
+                  <p>VIEW OTHER PACKAGES {" > "}</p>
+
+                  <button>CONFIRM THIS PACKAGE NOW</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
         </div>
         <div className="row">
           <div className="col-lg-12 mb-4">
@@ -489,7 +546,7 @@ const Bookingdetailpackage = () => {
 
           </div>
         </div>
-        <form action="/HolidayGuestDetail">
+        <form onClick={() => navigate("/HolidayGuestDetail")}>
           <Box textAlign="center" mt={3}>
             <Button
               style={{ backgroundColor: color.bluedark, color: "white" }}
@@ -505,7 +562,7 @@ const Bookingdetailpackage = () => {
       </div>
 
 
-    </>
+    </div>
   );
 };
 

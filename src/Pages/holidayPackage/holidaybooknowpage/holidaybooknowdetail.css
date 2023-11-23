@@ -306,3 +306,138 @@ p {
   font-weight: 500;
   line-height: normal;
 }
+
+
+
+
+
+/* side promo css area  */
+
+
+.sidePromo {
+  padding: 28px 24px;
+  border-radius: 8px;
+  border: 2px solid #BBB;
+
+  background: #FFFBFB;
+}
+
+
+.sidePromoImg {
+  width: 100%;
+}
+
+.sidePromoImg img {
+  width: 100%;
+  border-radius: 8px;
+}
+
+
+.promoBottom {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 26px;
+  align-items: flex-start;
+}
+
+.promoTitle {
+  color: #071C2C;
+  font-family: 'Montserrat';
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+}
+
+
+.promoIcons {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.promoDestination {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  align-items: center;
+}
+
+.promoDestination ul {
+  margin: 0 !important;
+  padding-left: 1rem !important;
+}
+
+.promoDestination ul li {
+  color: #BBB;
+
+  font-family: 'Montserrat';
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+}
+
+.promoDestination div {
+  display: flex;
+  flex-direction: column;
+}
+
+.promoDestination div p {
+  color: #000;
+  text-align: center;
+  font-family: 'Montserrat';
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+}
+
+.promoDestination div span {
+  color: #9E9E9E;
+  text-align: right;
+  font-family: 'Montserrat';
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+
+.promoBottomButton {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+  margin-top: 0 !important;
+  width: 100%;
+}
+
+.promoBottomButton p {
+  color: #21325D;
+  text-align: center;
+  font-family: 'Montserrat';
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  text-transform: uppercase;
+}
+
+.promoBottomButton button {
+  padding: 11.28px 28.199px;
+  border-radius: 5.64px;
+  background: #21325D;
+  color: #FFF;
+  font-family: 'Montserrat';
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 600;
+  width: 100%;
+  line-height: normal;
+  border: 2px solid #21325D;
+}
+
+/* side promo css area  */
