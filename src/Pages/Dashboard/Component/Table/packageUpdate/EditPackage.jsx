@@ -86,19 +86,19 @@ const EditHolidayPackage = () => {
     reducerState?.searchOneResult?.OneSearchPackageResult?.data?.data?.insclusions?.map(
       (ele) => ele
     );
-  console.log("train", inclusions);
-  console.log("===========================");
-  console.log("one pakcage", onePackage);
+  // console.log("train", inclusions);
+  // console.log("===========================");
+  // console.log("one pakcage", onePackage);
 
   const package_id = sessionStorage.getItem("package_id");
-  console.log("package_id 296", package_id);
+  // console.log("package_id 296", package_id);
 
   // Get value in form
   useEffect(() => {
     const payload = {
       id: package_id,
     };
-    console.log(payload);
+    // console.log(payload);
     dispatch(searchOnePackageAction(payload));
   }, []);
 
@@ -129,7 +129,7 @@ const EditHolidayPackage = () => {
     setInputList([...inputList, { addMore: "" }]);
   };
 
-  console.log("input List", inputList);
+  // console.log("input List", inputList);
 
   const [tag, setTag] = useState({
     domestic: false,
@@ -232,7 +232,7 @@ const EditHolidayPackage = () => {
     newValues[index] = e.target.value;
     setDaysDetails(newValues);
   };
-  console.log("daysDetailsValues", daysDetailsValues);
+  // console.log("daysDetailsValues", daysDetailsValues);
 
   // Form handle code
   const handleCreatePackage = (event) => {
@@ -325,11 +325,11 @@ const EditHolidayPackage = () => {
       term_Conditions: formData.get("term_Conditions"),
       cancellation_Policy: formData.get("cancellation_Policy"),
     };
-    console.log("payload", payload);
+    // console.log("payload", payload);
     const formData1 = new FormData();
     formData1.append("file", file1);
     formData1.append("data", JSON.stringify(payload));
-    console.log(formData1);
+    // console.log(formData1);
     dispatch(updatePackageAction(formData1));
     event.target.reset();
   };

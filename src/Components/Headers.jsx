@@ -36,6 +36,7 @@ import {
 import { useLocation } from 'react-router-dom';
 import { balanceSubtractRequest } from "../Redux/Auth/balaceSubtract/actionBalnceSubtract.js";
 import "./Headers.css"
+import { apiURL } from "../Constants/constant.js";
 const style = {
   // border: "10px solid #000",
   // boxShadow: 24,
@@ -94,7 +95,7 @@ function Headers() {
     };
 
     // axios
-    //   .post("http://localhost:8000/updateBalance", data)
+    //   .post(`${apiURL.baseURL}/updateBalance`, data)
     //   .then((res) => {
     //     console.log(res.data);
     //     handleRazorpay(res.data.data);
@@ -130,7 +131,7 @@ function Headers() {
           };
 
           axios
-            .post("http://localhost:8000/updateBalance", paymentData)
+            .post(`${apiURL.baseURL}/updateBalance`, paymentData)
             .then((balanceUpdateResponse) => {
               // console.log("new data response", balanceUpdateResponse);
 
@@ -150,7 +151,7 @@ function Headers() {
           // console.log("paymentVeriy", paymentVerifyData);
 
           axios
-            .post("http://localhost:8000/payVerify", paymentVerifyData)
+            .post(`${apiURL.baseURL}/payVerify`, paymentVerifyData)
             .then((verificationResponse) => {
               // console.log(verificationResponse.data);
 
@@ -163,7 +164,7 @@ function Headers() {
             });
         } else {
           // Payment was not successful, handle it as needed
-          console.log("Razorpay payment was not successful");
+          // console.log("Razorpay payment was not successful");
           // Handle the unsuccessful payment scenario, e.g., display an error message.
         }
       },
@@ -178,7 +179,7 @@ function Headers() {
   const userId = reducerState?.logIn?.loginData?.data?.data?.id;
 
 
-  console.log("userIdnew", userId, reducerState)
+  // console.log("userIdnew", userId, reducerState)
 
 
   useEffect(() => {
@@ -202,7 +203,7 @@ function Headers() {
     // console.log( dispatch(getUserDataAction(payload)),'working dispatch')
 
     // axios
-    //   .get(`http://localhost:8000/skyTrails/user/${userId}`)
+    //   .get(`${apiURL.baseURL}/skyTrails/user/${userId}`)
     //   .then((response) => {
     //     // Handle the response data
     //     const user = response.data.data;

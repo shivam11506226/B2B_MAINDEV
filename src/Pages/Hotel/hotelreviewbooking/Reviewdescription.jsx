@@ -49,13 +49,13 @@ const Flightdetail = () => {
   let bookingStatus =
     reducerState?.hotelSearchResult?.bookRoom?.BookResult?.Status || false;
   const HotelIndex = sessionStorage.getItem("HotelIndex");
-  console.log(noOfRooms, "noOfRooms");
+  // console.log(noOfRooms, "noOfRooms");
   const ResultIndex = sessionStorage.getItem("ResultIndex");
   const HotelCode = sessionStorage.getItem("HotelCode");
-  console.log(bookingStatus);
+  // console.log(bookingStatus);
   const [bookingSuccess, setBookingSuccess] = useState(bookingStatus);
   const [passengerData, setPassengerData] = useState([]);
-  console.log("State Data", reducerState);
+  // console.log("State Data", reducerState);
 
   useEffect(() => {
     if (bookingStatus == 1) {
@@ -67,9 +67,9 @@ const Flightdetail = () => {
   useEffect(() => {
     //  console.log(handleSettingPassengerArr(noOfRooms))
     const allPassengerData = handleSettingPassengerArr(noOfRooms);
-    console.log("allPassengerData", allPassengerData);
+    // console.log("allPassengerData", allPassengerData);
     setPassengerData(allPassengerData);
-    console.log(passengerData, "passengerData");
+    // console.log(passengerData, "passengerData");
   }, []);
 
   const handleSettingPassengerArr = (roomCombination) => {
@@ -107,7 +107,7 @@ const Flightdetail = () => {
       PAN: "",
       roomIndex: "",
     };
-    console.log(roomCombination);
+    // console.log(roomCombination);
     roomCombination.map((item, indexRoom) => {
       const adultCount = item?.NoOfAdults;
       const childCount = item?.NoOfChild;
@@ -158,7 +158,7 @@ const Flightdetail = () => {
 
   const hotelInfo = reducerState?.hotelSearchResult?.hotelInfo?.HotelInfoResult;
 
-  console.log("Hotel information", hotelInfo);
+  // console.log("Hotel information", hotelInfo);
 
   const hotelRoom =
     reducerState?.hotelSearchResult?.hotelRoom?.GetHotelRoomResult;
@@ -183,10 +183,10 @@ const Flightdetail = () => {
     hotelCancellationPolicies?.CancellationPolicies[0]?.Charge;
 
   const hotelData = hotelRoom?.HotelRoomsDetails[HotelIndex];
-  console.log("hotel Data", hotelData);
+  // console.log("hotel Data", hotelData);
   const bookingId =
     reducerState?.hotelSearchResult?.bookRoom?.BookResult?.BookingId;
-  console.log(hotelCancellationPolicies?.CancellationPolicies[0]);
+  // console.log(hotelCancellationPolicies?.CancellationPolicies[0]);
   const star = (data) => {
     const stars = [];
     for (let i = 0; i < data; i++) {
@@ -210,27 +210,27 @@ const Flightdetail = () => {
   const formattedDate = `${day} ${month} ${year}`;
 
   const handleServiceChange = (e, roomIndex, knowIndex) => {
-    console.log(roomIndex, knowIndex, "roomIndex", "knowIndex");
-    console.log(passengerData);
+    // console.log(roomIndex, knowIndex, "roomIndex", "knowIndex");
+    // console.log(passengerData);
     const { name, value } = e.target;
     const filteredPassenger = passengerData.filter((item, index) => {
       return (
         item.roomIndex == roomIndex && item?.adultIndex == knowIndex?.adultIndex
       );
     });
-    console.log("filteredPassenger", filteredPassenger);
+    // console.log("filteredPassenger", filteredPassenger);
     const newFilteredPassenger = { ...filteredPassenger[0] };
     newFilteredPassenger[name] = value;
     const indexFind = passengerData.indexOf(filteredPassenger[0]);
     if (indexFind !== -1) {
       passengerData[indexFind] = newFilteredPassenger;
     }
-    console.log("passengerDataNew", passengerData);
+    // console.log("passengerDataNew", passengerData);
   };
 
   const handleClickSavePassenger = () => {
     dispatch(PassengersAction(passengerData));
-    console.log("passengerData", passengerData)
+    // console.log("passengerData", passengerData);
     navigate("/Guestdetail");
   };
 

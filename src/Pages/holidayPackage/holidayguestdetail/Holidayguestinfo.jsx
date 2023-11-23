@@ -74,9 +74,9 @@ const Holidayguestinfo = ({ setadultCount, setchildCount }) => {
   const onePackage =
     reducerState?.searchOneResult?.OneSearchPackageResult?.data?.data;
   const reducerForm = reducerState?.form?.formEntries;
-  console.log("package Req", reducerState);
-  console.log("onePackageee", onePackage);
-  console.log("reducerForm", reducerForm);
+  // console.log("package Req", reducerState);
+  // console.log("onePackageee", onePackage);
+  // console.log("reducerForm", reducerForm);
 
   const packageId =
     reducerState?.searchOneResult?.OneSearchPackageResult?.data?.data?._id;
@@ -96,7 +96,7 @@ const Holidayguestinfo = ({ setadultCount, setchildCount }) => {
       ...requestData,
       [name]: value,
     });
-    console.log("======================", requestData);
+    // console.log("======================", requestData);
   };
   const handleSuccessandNavigate = () => {
     setShowsuccess((prev) => !prev);
@@ -161,7 +161,7 @@ const Holidayguestinfo = ({ setadultCount, setchildCount }) => {
         child: "0",
       };
 
-      console.log("payload", payload);
+      // console.log("payload", payload);
       const holidayData = new FormData();
       holidayData.append("data", JSON.stringify(payload));
       dispatch(packageBookingAction(payload));

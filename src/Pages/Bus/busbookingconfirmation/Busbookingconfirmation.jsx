@@ -21,9 +21,9 @@ const Busbookingconfirmation = () => {
   const [loader, setLoader] = useState(false);
   const [userData, setUserData] = useState(null);
   
-  console.log("dispatchhhhhhh", dispatch);
+  // console.log("dispatchhhhhhh", dispatch);
   const reducerState = useSelector((state) => state);
-  console.log("_______________", reducerState);
+  // console.log("_______________", reducerState);
   const busFullData =
     reducerState?.getBusResult?.busResult?.data?.data?.BusSearchResult;
   //   const busId =
@@ -47,7 +47,7 @@ const Busbookingconfirmation = () => {
       setBusId(
         reducerState?.getBusResult?.busBook?.data?.data?.BookResult?.BusId
       );
-      console.log("busssssssssIdddd", busId);
+      // console.log("busssssssssIdddd", busId);
       setLoader(false);
     }
   }, [reducerState?.getBusResult?.busBook?.data?.data?.BookResult]);

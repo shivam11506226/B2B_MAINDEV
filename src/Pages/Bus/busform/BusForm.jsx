@@ -11,12 +11,13 @@ import {
   clearBusSearchReducer,
 } from "../../../Redux/busSearch/busSearchAction";
 import color from "../../../color/color.js";
+import { apiURL } from "../../../Constants/constant.js";
 
 const BusForm = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const reducerState = useSelector((state) => state);
-  console.log(reducerState);
+  // console.log(reducerState);
   const [isLoading, setIsLoading] = useState(false);
   const [fromSearchResults, setFromSearchResults] = useState([]);
   const [toSearchResults, setToSearchResults] = useState([]);
@@ -58,7 +59,7 @@ const BusForm = () => {
       // make an API call to get search results
 
       const results = await axios.get(
-        `http://localhost:8000/skyTrails/city/searchCityBusData?keyword=${fromQuery}`
+        `${apiURL.baseURL}/skyTrails/city/searchCityBusData?keyword=${fromQuery}`
       );
       if (mounted) {
         setFromSearchResults(results?.data?.data);
@@ -83,7 +84,7 @@ const BusForm = () => {
       // make an API call to get search results
 
       const results = await axios.get(
-        `http://localhost:8000/skyTrails/city/searchCityBusData?keyword=${toQuery}`
+        `${apiURL.baseURL}/skyTrails/city/searchCityBusData?keyword=${toQuery}`
       );
       if (mounted) {
         setToSearchResults(results?.data?.data);
@@ -99,8 +100,8 @@ const BusForm = () => {
     };
   }, [toQuery]);
 
-  console.log("from result", fromSearchResults);
-  console.log("to result", toSearchResults);
+  // console.log("from result", fromSearchResults);
+  // console.log("to result", toSearchResults);
 
   const handleFromInputChange = (event) => {
     setErrors({ ...errors, from: "" });
@@ -109,7 +110,7 @@ const BusForm = () => {
   };
 
   const handleFromClick = (result) => {
-    console.log("result", result);
+    // console.log("result", result);
     // setFrom(result?.CityId);
 
     setFrom((prevState) => ({
@@ -196,7 +197,7 @@ const BusForm = () => {
         DestinationId: formData.get("to"),
         OriginId: formData.get("from"),
       };
-      console.log("payload", payload);
+      // console.log("payload", payload);
       dispatch(busSearchAction(payload));
       navigate("/BusResult");
     } else {

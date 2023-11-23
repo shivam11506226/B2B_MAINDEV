@@ -3,6 +3,7 @@ import axios from 'axios';
 import { Table, TableBody, TableCell, TableRow, Paper, TextField, InputAdornment } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import './CancelTicketRequest.css'
+import { apiURL } from '../../../../../Constants/constant';
 
 const AllCancelRequest = () => {
     const [cancelRequest, setCancelRequest] = useState([]);
@@ -15,7 +16,7 @@ const AllCancelRequest = () => {
     useEffect(() => {
         async function fetchCancelRequest() {
             try {
-                const response = await axios.get('http://localhost:8000/skytrails/api/admin/getSubAdmin', {
+                const response = await axios.get(`${apiURL.baseURL}/skytrails/api/admin/getSubAdmin`, {
                     params: {
                         page: currentPage,
                         size: pageSize,

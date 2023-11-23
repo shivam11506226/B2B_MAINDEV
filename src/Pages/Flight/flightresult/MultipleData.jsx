@@ -19,8 +19,8 @@ const MultipleData = (props) => {
   const reducerState = useSelector((state) => state);
   let statusRule = reducerState?.flightFare?.isLoadingRuleDone || false;
   let statusQuote = reducerState?.flightFare?.isLoadingQuoteDone || false;
-  console.log("isLoadingRuleDone", statusRule);
-  console.log("isLoadingQuoteDone", statusQuote);
+  // console.log("isLoadingRuleDone", statusRule);
+  // console.log("isLoadingQuoteDone", statusQuote);
 
   const flight = props.flight;
   const IsLCC = props.IsLCC;
@@ -45,7 +45,7 @@ const MultipleData = (props) => {
 
   // console.log("Results", results);
   const handleClick = (ResultIndex) => {
-    console.log("Handel Click Index Key", ResultIndex);
+    // console.log("Handel Click Index Key", ResultIndex);
     // navigate("passengerdetail");
     sessionStorage.setItem("ResultIndex", ResultIndex);
     const payload = {
@@ -312,7 +312,7 @@ const MultipleData = (props) => {
                 variant="contained"
                 id="button1"
                 onClick={() => {
-                  console.log("indexKey inside loop", indexKey);
+                  // console.log("indexKey inside loop", indexKey);
                   handleClick(indexKey);
                 }}
               >
@@ -344,10 +344,10 @@ const MultipleData = (props) => {
                 results[1][0]?.Segments[0][0]?.Duration / 60
               )}hr ${results[1][0]?.Segments[0][0]?.Duration % 60}min`;
 
-              console.log(
-                "data return flight array",
-                results[1][0]?.Segments[0][0]?.Airline
-              );
+              // console.log(
+              //   "data return flight array",
+              //   results[1][0]?.Segments[0][0]?.Airline
+              // );
 
               //return flight dateFormate
               const dateStringReturn =
@@ -576,7 +576,7 @@ const MultipleData = (props) => {
             >
               <button
                 onClick={() => {
-                  console.log("indexKey inside loop", indexKey);
+                  // console.log("indexKey inside loop", indexKey);
                   handleClick(indexKey);
                 }}
               >

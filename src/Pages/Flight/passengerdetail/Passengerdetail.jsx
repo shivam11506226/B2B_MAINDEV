@@ -20,10 +20,10 @@ const Flight = (props) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const reducerState = useSelector((state) => state);
-  console.log("Props", props);
+  // console.log("Props", props);
   const ResultIndex = sessionStorage.getItem("ResultIndex");
-  console.log("reducerStateDemount", reducerState);
-  console.log("resultIndex", ResultIndex);
+  // console.log("reducerStateDemount", reducerState);
+  // console.log("resultIndex", ResultIndex);
   function backRoute(){
     navigate("/FlightResult")
   }

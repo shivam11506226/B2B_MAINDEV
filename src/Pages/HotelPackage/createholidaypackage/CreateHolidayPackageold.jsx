@@ -72,7 +72,7 @@ const CreateHolidayPackage = () => {
   const dispatch = useDispatch();
   const reducerState = useSelector((state) => state);
   const navigate = useNavigate();
-  console.log("create Package", reducerState);
+  // console.log("create Package", reducerState);
   const ListItem = styled("li")(({ theme }) => ({
     margin: theme.spacing(0.5),
   }));
@@ -93,7 +93,7 @@ const CreateHolidayPackage = () => {
   };
   const inputList = chipData.map((item) => ({ addMore: item.addMore }));
 
-  console.log("inputList", inputList);
+  // console.log("inputList", inputList);
   //  console.log("chipdata", chipData);
   // function textEditorChange(e) {
   //   setHtml(e.target.value);
@@ -343,11 +343,11 @@ const CreateHolidayPackage = () => {
       term_Conditions: formData.get("term_Conditions"),
       cancellation_Policy: formData.get("cancellation_Policy"),
     };
-    console.log("payload", payload);
+    // console.log("payload", payload);
     const formData1 = new FormData();
     formData1.append("file", file1);
     formData1.append("data", JSON.stringify(payload));
-    console.log(formData1);
+    // console.log(formData1);
     dispatch(createPackageAction(formData1));
     // event.target.reset();
     // setDaysDetails([]);

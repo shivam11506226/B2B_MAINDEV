@@ -21,14 +21,14 @@ const Leftdetail = () => {
   const childs = sessionStorage.getItem("childs");
   const infants = sessionStorage.getItem("infants");
   const reducerState = useSelector((state) => state);
-  console.log("reducerState", reducerState);
+  // console.log("reducerState", reducerState);
   const ResultIndex = sessionStorage.getItem("ResultIndex");
   const [farePrice, setFarePrice] = useState("");
   const fareValue = reducerState?.flightFare?.flightQuoteData?.Results;
   const isPassportRequired =
     reducerState?.flightFare?.flightQuoteData?.Results
       ?.IsPassportRequiredAtTicket;
-  console.log("fareValue", fareValue);
+  // console.log("fareValue", fareValue);
   const fareRule = reducerState?.flightFare?.flightRuleData?.FareRules;
   const data = reducerState?.oneWay?.oneWayData?.data?.data?.Response;
   //error show state
@@ -100,7 +100,7 @@ const Leftdetail = () => {
     if (fareValue) {
       let fareDetails = fareValue?.Fare;
       let fareBreakdown = fareValue?.FareBreakdown;
-      console.log("fareDetails: ", fareDetails);
+      // console.log("fareDetails: ", fareDetails);
       let arr = [];
       fareBreakdown.map((price, key) => {
         let obj1 = {
@@ -122,7 +122,7 @@ const Leftdetail = () => {
           // ServiceFee: price?.ServiceFee / price?.PassengerCount,
         };
         arr.push(obj1);
-        console.log(arr[1]);
+        // console.log(arr[1]);
         setFarePrice(arr);
       });
 
@@ -145,7 +145,7 @@ const Leftdetail = () => {
       // setFarePrice(obj);
     }
   }, [fareValue]);
-  console.log("farePrice", farePrice);
+  // console.log("farePrice", farePrice);
   for (let i = 0; i < adults; i++) {
     passengerLists.push({
       ...passengerTemplate,
@@ -196,8 +196,8 @@ const Leftdetail = () => {
     list[i][name] = value;
     setPassengerData(list);
   };
-  console.log("passengerData", passengerData);
-  console.warn("passengerTemplate", passengerList);
+  // console.log("passengerData", passengerData);
+  // console.warn("passengerTemplate", passengerList);
 
 
   // useEffect(() => {
@@ -307,7 +307,7 @@ const Leftdetail = () => {
     //   "passengerDatammmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm"
     // );
     if (valid.length === 0 && emailVal.length === 0) {
-      console.log("yessssssssssssssssssssssssssssss");
+      // console.log("yessssssssssssssssssssssssssssss");
       if (fareValue?.IsLCC === false) {
         dispatch(PassengersAction(passengerData));
         navigate("/Flightresult/passengerdetail/flightreviewbooking");
@@ -447,7 +447,7 @@ const Leftdetail = () => {
     setServiceList([...serviceList, { service: "" }]);
   };
   // end
-  console.log("fareQuoteData", reducerState);
+  // console.log("fareQuoteData", reducerState);
   const formatDate = (date) => {
     const year = date.getFullYear();
     const month = ('0' + (date.getMonth() + 1)).slice(-2);
@@ -1127,7 +1127,7 @@ const Leftdetail = () => {
             my={15}
           >
             {fareValue?.Segments?.map((data1, index) => {
-              console.log("Data Map", data1);
+              // console.log("Data Map", data1);
               // return data?.map((data1, index) => {
               const len = data1.length;
               return (
@@ -1271,7 +1271,7 @@ const Leftdetail = () => {
                     {fareRule &&
                       fareRule.length > 0 &&
                       fareRule.map((dat) => {
-                        console.log("Dat", dat);
+                        // console.log("Dat", dat);
                         return (
                           <Box my={2}>
                             <Accordion

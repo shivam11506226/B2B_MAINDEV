@@ -19,6 +19,7 @@ import { useNavigate } from "react-router-dom";
 import { height } from "@mui/system";
 // import { CheckBox } from "@mui/icons-material";
 import Checkbox from "@mui/material/Checkbox";
+import { apiURL } from "../../../Constants/constant";
 
 const Busdetail = () => {
   const name = [];
@@ -40,14 +41,14 @@ const Busdetail = () => {
   const reducerState = useSelector((state) => state);
   const busFullData =
     reducerState?.getBusResult?.busResult?.data?.data?.BusSearchResult;
-  console.log(busFullData);
+  // console.log(busFullData);
   const busDataResult =
     reducerState?.getBusResult?.busResult?.data?.data?.BusSearchResult
       ?.BusResults;
-  console.log("bus res", busDataResult);
+  // console.log("bus res", busDataResult);
 
   const handleBuslayout = (resultIndex) => {
-    console.log("resultIndexxxxxxxxxxxx", resultIndex);
+    // console.log("resultIndexxxxxxxxxxxx", resultIndex);
     const requestData = {
       EndUserIp: reducerState?.ip?.ipData,
       ResultIndex: resultIndex,
@@ -57,7 +58,7 @@ const Busdetail = () => {
 
     try {
       axios
-        .post("http://localhost:8000/skyTrails/bus/seatlayout", requestData, {
+        .post(`${apiURL.baseURL}/skyTrails/bus/seatlayout`, requestData, {
           headers: {
             "Content-Type": "application/json",
           },
@@ -69,17 +70,17 @@ const Busdetail = () => {
             response.data?.data?.GetBusSeatLayOutResult?.SeatLayoutDetails
               ?.HTMLLayout
           );
-          console.log(
-            "finalLayout",
-            response.data?.data?.GetBusSeatLayOutResult?.SeatLayoutDetails
-              ?.HTMLLayout
-          );
+          // console.log(
+          //   "finalLayout",
+          //   response.data?.data?.GetBusSeatLayOutResult?.SeatLayoutDetails
+          //     ?.HTMLLayout
+          // );
 
           setLayout((prev) => finalLayout);
           const SeatDetailsArray =
             response.data?.data?.GetBusSeatLayOutResult?.SeatLayoutDetails
               ?.SeatLayout?.SeatDetails;
-          console.log("seatDetailssAraayyy", SeatDetailsArray);
+          // console.log("seatDetailssAraayyy", SeatDetailsArray);
 
           let singleArray = SeatDetailsArray.reduce(
             (acc, currentArray) => [...acc, ...currentArray],
@@ -101,10 +102,10 @@ const Busdetail = () => {
       console.error("Try-Catch Error:", error);
     }
   };
-  console.log(layout);
-  console.log(seatLayoutData);
-  console.log("flattArayyyyyy", flatArray);
-  console.log("originnnnnnnnn", origin);
+  // console.log(layout);
+  // console.log(seatLayoutData);
+  // console.log("flattArayyyyyy", flatArray);
+  // console.log("originnnnnnnnn", origin);
   flatArray.forEach((obj) => {
     if (obj?.IsUpper === true) {
       upperArray.push(obj);
@@ -113,7 +114,7 @@ const Busdetail = () => {
     }
   });
 
-  console.log(upperArray, lowerArray);
+  // console.log(upperArray, lowerArray);
   function handleSeatLayoutStringTwo(inputString) {
     // Your bus seat layout string
     let busSeatLayoutString = `${inputString}`;
@@ -124,12 +125,12 @@ const Busdetail = () => {
     // Create a temporary div element to parse the string
     let tempDiv = document.createElement("div");
     tempDiv.innerHTML = busSeatLayoutString;
-    console.log("temppdivvvvvvvvvv", tempDiv);
+    // console.log("temppdivvvvvvvvvv", tempDiv);
     // Select all seat div elements
     let seatDivs = tempDiv.querySelectorAll(
       ".hseat, .bhseat, .vhseat, .bhseat, .bseat, .vseat, .nseat, .rhseat"
     );
-    console.log(seatDivs);
+    // console.log(seatDivs);
 
     // Iterate through each seat div and differentiate between upper/lower and left/right sides
     seatDivs.forEach((seatDiv) => {
@@ -178,13 +179,13 @@ const Busdetail = () => {
     return seatObjects;
   }
   function addOrRemoveSeat(e, object) {
-    console.log("hiiiiiiiiiiiiiiiiiiiii");
-    console.log(e);
-    console.log(e.target.checked);
+    // console.log("hiiiiiiiiiiiiiiiiiiiii");
+    // console.log(e);
+    // console.log(e.target.checked);
     // console.log(index)
     if (e.target.checked) {
       setBlockedSeatArray([...blockedSeatArray, object]);
-      console.log(blockedSeatArray);
+      // console.log(blockedSeatArray);
     } else {
       // const element = object;
       // const index = blockedSeatArray.indexOf(element);
@@ -194,7 +195,7 @@ const Busdetail = () => {
         (seatObject) => seatObject !== object
       );
       setBlockedSeatArray(updatedBlockedSeatArray);
-      console.log(blockedSeatArray);
+      // console.log(blockedSeatArray);
     }
   }
   function handleClose() {

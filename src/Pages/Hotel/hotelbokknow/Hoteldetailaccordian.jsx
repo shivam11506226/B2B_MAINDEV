@@ -67,7 +67,7 @@ export default function CustomizedAccordions() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const reducerState = useSelector((state) => state);
-  console.log("State Data", reducerState);
+  // console.log("State Data", reducerState);
   const ResultIndex = sessionStorage.getItem("ResultIndex");
   const HotelCode = sessionStorage.getItem("HotelCode");
   const [expanded, setExpanded] = useState("panel1");
@@ -78,7 +78,7 @@ export default function CustomizedAccordions() {
     reducerState?.hotelSearchResult?.hotelRoom?.GetHotelRoomResult
       ?.RoomCombinations?.RoomCombination[0]?.RoomIndex
   );
-  console.log("initialDisabledOption", disabledOption);
+  // console.log("initialDisabledOption", disabledOption);
 
   const handleChange = (panel) => (event, newExpanded) => {
     setExpanded(newExpanded ? panel : false);
@@ -88,11 +88,11 @@ export default function CustomizedAccordions() {
 
   //Below is the functionality applied for the multiRoom selection
   const roomComponent = (RoomIndex, RoomIndexArr, col, row) => {
-    console.log(RoomIndexArr, "RoomIndexArr");
-    console.log(RoomIndex, "RoomIndex", col, row);
+    // console.log(RoomIndexArr, "RoomIndexArr");
+    // console.log(RoomIndex, "RoomIndex", col, row);
     const firstFilteredArray = hotelRoom?.HotelRoomsDetails.map(
       (item, index) => {
-        console.log("disabled", disabledOption[0]);
+        // console.log("disabled", disabledOption[0]);
         if (disabledOption.includes(item.RoomIndex)) {
           return { ...item, disabled: false };
         } else {
@@ -100,11 +100,11 @@ export default function CustomizedAccordions() {
         }
       }
     );
-    console.log("firstFilteredArray", firstFilteredArray);
+    // console.log("firstFilteredArray", firstFilteredArray);
     const filteredComponent = firstFilteredArray.filter((item, index) => {
       return item.RoomIndex == RoomIndex;
     });
-    console.log("filteredComponent", filteredComponent);
+    // console.log("filteredComponent", filteredComponent);
     const dateString = filteredComponent[0]?.LastCancellationDate;
     const date1 = new Date(dateString);
     const time1 = date1.toLocaleTimeString([], {

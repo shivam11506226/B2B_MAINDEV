@@ -3,6 +3,7 @@ import axios from 'axios';
 import { TextField, InputAdornment } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import './AgentRequest.css'
+import { apiURL } from '../../../../../Constants/constant';
 const AllAgentRequest = () => {
     const [agentRequest, setAgentRequest] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -37,12 +38,12 @@ const AllAgentRequest = () => {
     };
     const handleStatusChange = async (userId, status) => {
         try {
-            const response = await axios.post('http://localhost:8000/skytrails/api/admin/approveAgent', {
+            const response = await axios.post(`${apiURL.baseURL}/skytrails/api/admin/approveAgent`, {
                 userId: userId,
                 approveStatus: status, // Set the selected status
                 reason: 'Updated by Admin' // You can customize the reason
             });
-            console.log('Agent status updated:', response.data.message);
+            // console.log('Agent status updated:', response.data.message);
             const updatedAgents = agentRequest.map(agent => {
                 if (agent._id === userId) {
                     return { ...agent, approveStatus: status };
@@ -59,7 +60,7 @@ const AllAgentRequest = () => {
         async function fetchAgentRequestData() {
             setLoading(true); // Set loading state to true
             try {
-                const response = await axios.get(`http://localhost:8000/skytrails/api/admin/getAgents`, {
+                const response = await axios.get(`${apiURL.baseURL}/skytrails/api/admin/getAgents`, {
                     params: {
                         page: currentPage,
                         size: pageSize,
@@ -76,7 +77,7 @@ const AllAgentRequest = () => {
             setLoading(false);
         }
         fetchAgentRequestData();
-        console.log('agentRequest:', agentRequest);
+        // console.log('agentRequest:', agentRequest);
     }, [currentPage, searchTerm, userTypeTerm]);
 
     const handlePageChange = (page) => {
@@ -90,8 +91,8 @@ const AllAgentRequest = () => {
 
     const handleUserType = (event) => {
         setUserTypeTerm(event.target.value);
-        console.log("event=============", event);
-        console.log("======================event.target.value", event.target.value);
+        // console.log("event=============", event);
+        // console.log("======================event.target.value", event.target.value);
         setCurrentPage(1);
     };
     return (

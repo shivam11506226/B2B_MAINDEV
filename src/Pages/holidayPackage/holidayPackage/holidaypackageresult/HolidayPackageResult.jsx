@@ -9,7 +9,7 @@ import { useSelector } from "react-redux";
 
 const HolidayPackageResult = () => {
   const reducerState = useSelector((state) => state);
-  console.log("holiday result",reducerState?.searchResult);
+  // console.log("holiday result",reducerState?.searchResult);
   return (
     <div>
       <div className="flightContainer">

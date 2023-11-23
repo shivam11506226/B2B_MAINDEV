@@ -8,7 +8,7 @@ export const createForex = (user) => {
 };
 
 export const createForexAction = (user) => {
-  console.log("data",user);
+  // console.log("data",user);
   if (user) {
     return {
       type: types.CREATE_FOREX_REQUEST,

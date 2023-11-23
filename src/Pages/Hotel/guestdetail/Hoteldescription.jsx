@@ -33,13 +33,13 @@ const Hoteldescription = () => {
 
   const hotelData = reducerState?.hotelSearchResult?.ticketData?.data?.data
     ?.HotelSearchResult;
-  console.log(resultIndex, hotelCode);
+  // console.log(resultIndex, hotelCode);
   const hotelInfo = reducerState?.hotelSearchResult?.hotelInfo?.HotelInfoResult;
-  console.log("hotelDetails", hotelDetails);
-  console.log("passenger", passenger);
-  console.log("hotel block details", hotelBlockDetails)
-  console.log("hotel data", hotelData)
-  console.log("hotel Info", hotelInfo)
+  // console.log("hotelDetails", hotelDetails);
+  // console.log("passenger", passenger);
+  // console.log("hotel block details", hotelBlockDetails)
+  // console.log("hotel data", hotelData)
+  // console.log("hotel Info", hotelInfo)
 
   const checkInDate = moment(hotelDetails?.CheckInDate).format("MMMM DD, YYYY");
   const checkOutDate = moment(hotelDetails?.CheckOutDate).format(
@@ -51,22 +51,22 @@ const Hoteldescription = () => {
 
   const getBookingDetails =
   reducerState?.hotelSearchResult?.blockRoom?.BlockRoomResult?.HotelRoomsDetails;
-console.log("getBookingDetails", getBookingDetails);
+// console.log("getBookingDetails", getBookingDetails);
 
 const totalAmount = getBookingDetails?.reduce((accumulator, item) => {
   return accumulator + item?.Price?.PublishedPriceRoundedOff;
 }, 0);
-console.log("totalAmount in last page", totalAmount);
+// console.log("totalAmount in last page", totalAmount);
 
 const markUpamount =
   reducerState?.userData?.userData?.data?.data?.markup?.hotel;
 const userBalance = reducerState?.userData?.userData?.data?.data?.balance;
-console.log("markup hotel", markUpamount)
+// console.log("markup hotel", markUpamount)
 const grandTotal=totalAmount+markUpamount;
 
 
   const handleClickBooking = async () => {
-    console.log(userBalance,"userbalance", grandTotal, "grandTotal")
+    // console.log(userBalance,"userbalance", grandTotal, "grandTotal")
 
     if(userBalance>=grandTotal){
     const payload = {
@@ -101,7 +101,7 @@ const grandTotal=totalAmount+markUpamount;
         reducerState?.hotelSearchResult?.ticketData?.data?.data
           ?.HotelSearchResult?.TraceId,
     };
-    console.log(payload)
+    // console.log(payload)
 
     const hotelDetailsPayload = {
       BookingId: await bookingId,

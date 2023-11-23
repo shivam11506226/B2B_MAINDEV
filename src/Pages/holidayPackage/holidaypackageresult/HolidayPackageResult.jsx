@@ -84,7 +84,7 @@ const HolidayPackageResult = () => {
   // console.log("holiday details",reducerState?.searchResult?.packageSearchResult?.data?.data?.pakage);
   const filteredPackage =
     reducerState?.searchResult?.packageSearchResult?.data?.data?.pakage;
-  console.log("----------------------------");
+  // console.log("----------------------------");
   console.warn("Flitered line 22", filteredPackage);
 
 
@@ -93,7 +93,7 @@ const HolidayPackageResult = () => {
       id,
     };
 
-    console.log(payload);
+    // console.log(payload);
     dispatch(searchOnePackageAction(payload));
     navigate("/holidaypackage/Holidaybooknow");
   };

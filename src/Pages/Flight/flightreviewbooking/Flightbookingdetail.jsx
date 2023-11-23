@@ -53,14 +53,14 @@ const Flightbookingdetail = () => {
   const ResultIndexReturn =
     sessionStorage.getItem("ResultIndex") ||
     JSON.parse(sessionStorage.getItem("flightDetailsIncome")).ResultIndex;
-  console.log(
-    "passengerAgreement",
-    passengerAgreement,
-    "paymentOption",
-    paymentOption,
-    ResultIndex
-  );
-  console.log("reducerState", reducerState);
+  // console.log(
+  //   "passengerAgreement",
+  //   passengerAgreement,
+  //   "paymentOption",
+  //   paymentOption,
+  //   ResultIndex
+  // );
+  // console.log("reducerState", reducerState);
   const fareQuote =
     reducerState?.flightFare?.flightQuoteData?.Results?.Segments;
   // const flightReviewDetails =
@@ -69,7 +69,7 @@ const Flightbookingdetail = () => {
   const fareValue = reducerState?.flightFare?.flightQuoteData?.Results;
   const fareValueReturn =
     reducerState?.flightFare?.flightQuoteDataReturn?.Results;
-  console.log(fareValue, "😍Fare value", fareValueReturn);
+  // console.log(fareValue, "😍Fare value", fareValueReturn);
   const Passengers = reducerState?.passengers?.passengersData;
   const PassengersReturn = reducerState?.passengers?.passengerDataReturn;
   const userId = reducerState?.logIn?.loginData?.data?.data?.id;
@@ -92,7 +92,7 @@ const Flightbookingdetail = () => {
     ) {
       // balanceSubtractOneWay();
       if (fareValue && fareValueReturn) {
-        console.log("hhdjgdj")
+        // console.log("hhdjgdj")
         balanceSubtractOneWay();
       } else {
         balanceSubtractOneWay();
@@ -137,7 +137,7 @@ const Flightbookingdetail = () => {
 
   // Handling return booking here(flow Here is LCC to LCC  OR LCC to Non-LCC)
   useEffect(() => {
-    console.log("bookingLCC");
+    // console.log("bookingLCC");
     if (fareValueReturn?.IsLCC) {
       if (
         reducerState?.flightBook?.flightBookData?.Response &&
@@ -246,7 +246,7 @@ const Flightbookingdetail = () => {
           setLoading(true);
         }
         if (fareValue?.IsLCC === true) {
-          console.log("lccExecutedOneWay");
+          // console.log("lccExecutedOneWay");
           getTicketForLCC();
 
           setLoading(true);
@@ -279,7 +279,7 @@ const Flightbookingdetail = () => {
           setLoading(true);
         }
         if (fareValue?.IsLCC === true) {
-          console.log("lccExecutedOneWay");
+          // console.log("lccExecutedOneWay");
           getTicketForLCC();
           setLoading(true);
         }
@@ -695,7 +695,7 @@ const Flightbookingdetail = () => {
               style={{ padding: "18px", width: "100%" }}
             >
               {Passengers?.map((passenger, key) => {
-                console.log("Value", passenger);
+                // console.log("Value", passenger);
                 return (
                   <div className="mid_header" key={key} px={5} py={2}>
                     <Box style={{ background: "#DFE6F7" }}>

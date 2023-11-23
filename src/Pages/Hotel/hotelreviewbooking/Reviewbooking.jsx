@@ -30,7 +30,7 @@ const Guestdetail = () => {
 
   const storedFormData = JSON.parse(sessionStorage.getItem('hotelFormData'));
   const data = storedFormData.dynamicFormData[0];
-  console.log(storedFormData)
+  // console.log(storedFormData)
   return (
     <React.Fragment>
       <div className="flightContainer">

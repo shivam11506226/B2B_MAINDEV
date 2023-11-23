@@ -1,7 +1,7 @@
 import * as types from "./ActionType";
 
 export const getPackageBooking = (user) => {
-  console.log("package data", user);
+  // console.log("package data", user);
   return {
     type: types.PACKAGE_BOOK_SUCCESS,
     payload: user,

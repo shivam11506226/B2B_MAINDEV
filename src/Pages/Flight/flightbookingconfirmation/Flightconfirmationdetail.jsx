@@ -320,7 +320,7 @@ const Flightbookingdetail = (props) => {
     let year = date_obj.getFullYear();
     let hours = date_obj.getHours();
     let minutes = date_obj.getMinutes();
-    console.log(day, month, year, date_obj, `${hours} ${minutes}`);
+    // console.log(day, month, year, date_obj, `${hours} ${minutes}`);
     return { date: `${month} ${day}, ${year}`, time: `${hours}:${minutes}` };
   };
   return (

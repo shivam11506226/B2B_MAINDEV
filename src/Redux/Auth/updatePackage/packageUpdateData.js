@@ -9,8 +9,8 @@ export const updatePackageData = (data) => {
 
 export const updatePackageAction = (data) => {
 
- console.log("============================")
- console.log("updated Data",data)
+//  console.log("============================")
+//  console.log("updated Data",data)
     return {
       type: types.UPDATE_PACKAGE_REQUEST,
       payload: data

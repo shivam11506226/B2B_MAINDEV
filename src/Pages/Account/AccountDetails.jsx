@@ -6,6 +6,7 @@ import Grid from "@mui/material/Grid";
 import color from "../../color/color";
 import { useSelector } from "react-redux";
 import axios from "axios";
+import { apiURL } from "../../Constants/constant";
 const Account = () => {
   const reducerState = useSelector((state) => state);
   const [user, setUser] = useState("");
@@ -18,12 +19,12 @@ const Account = () => {
   useEffect(() => {
     // Make a GET request to the API endpoint
     axios
-      .get(`http://localhost:8000/skyTrails/user/${userId}`)
+      .get(`${apiURL.baseURL}/skyTrails/user/${userId}`)
       .then((response) => {
         // Handle the response data
         const user = response.data.data;
         setUser(user);
-        console.log("user data", response?.data?.data);
+        // console.log("user data", response?.data?.data);
       })
       .catch((error) => {
         console.error(error);
@@ -43,7 +44,7 @@ const Account = () => {
 
     try {
       const response = await fetch(
-        "http://localhost:8000/skyTrails/user/changepassword",
+        `${apiURL.baseURL}/skyTrails/user/changepassword`,
         {
           method: "PATCH",
           headers: {

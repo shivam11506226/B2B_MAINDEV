@@ -22,7 +22,7 @@ function LinaerStepper() {
   const dispatch = useDispatch();
   const reducerState = useSelector((state) => state);
 
-  console.log("reducerState", reducerState);
+  // console.log("reducerState", reducerState);
   function handleSubmit(event) {
     event.preventDefault();
 

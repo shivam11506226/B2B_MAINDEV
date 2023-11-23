@@ -36,12 +36,12 @@ const Item = styled(Paper)(({ theme }) => ({
 const HolidatLeftPackage = (props) => {
   const dispatch = useDispatch();
 
-  console.log("props", props);
+  // console.log("props", props);
 
   const { packageId, userId } = props;
 
-  console.log("package data", packageId);
-  console.log("user data", userId);
+  // console.log("package data", packageId);
+  // console.log("user data", userId);
 
   const [child, setChild] = useState(0);
   const [adult, setAdult] = useState(0);
@@ -84,7 +84,7 @@ const HolidatLeftPackage = (props) => {
       selectRoom: 1,
       checkIndate: formData.checkIndate,
     };
-    console.log("payload", payload);
+    // console.log("payload", payload);
     dispatch(packageBookingAction(payload));
     event.target.reset();
     setAdult(0);

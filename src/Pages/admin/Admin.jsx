@@ -5,10 +5,10 @@ import { useDispatch, useSelector, useReducer } from "react-redux";
 import  color from "../../color/color"
 const Admin = () => {
   const reducerState = useSelector((state) => state);
-  console.log("red")
-  console.log(reducerState)
+  // console.log("red")
+  // console.log(reducerState)
   const userData=reducerState?.logIn?.loginData?.data?.data
-  console.log("UserData", userData)
+  // console.log("UserData", userData)
   return (
     <div className='flightContainer'>
       <form action='/AdminUserForm'>

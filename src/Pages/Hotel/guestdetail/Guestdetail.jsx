@@ -41,7 +41,7 @@ const Guestdetail = () => {
   // console.log("getBookingDetails", getBookingDetails);
 
   const getBookingDetails = reducerState?.hotelSearchResult;
-  console.log("get booking details", getBookingDetails)
+  // console.log("get booking details", getBookingDetails)
 
   // const totalAmount = getBookingDetails?.reduce((accumulator, item) => {
   //   return accumulator + item?.Price?.PublishedPriceRoundedOff;
