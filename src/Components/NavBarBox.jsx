@@ -40,8 +40,8 @@ const NavBarBox = ({ avatar, name, path }, index) => {
               margin: "0px 30px",
               boxShadow: "rgba(0, 0, 0, 0.09) 0px 3px 12px",
               textAlign: "left",
-              marginTop:"-12px"
-              
+              marginTop: "-12px"
+
             }}
           >
             {data.map((k, l) => {
@@ -89,7 +89,7 @@ const NavBarBox = ({ avatar, name, path }, index) => {
             style={{
               backgroundColor: "white",
               borderRadius: "10px",
-             
+
               marginRight: "-6px",
               zIndex: 1,
               boxShadow: "rgba(0, 0, 0, 0.09) 0px 3px 12px",

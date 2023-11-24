@@ -12,6 +12,10 @@ import {
 } from "../../../Redux/busSearch/busSearchAction";
 import color from "../../../color/color.js";
 
+
+import FmdGoodIcon from '@mui/icons-material/FmdGood';
+import NavBarBox from "../../../Components/NavBarBox.jsx";
+
 const BusForm = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -152,17 +156,17 @@ const BusForm = () => {
     const newErrors = { from: "", to: "", date: "" };
 
     if (!from.cityId) {
-      newErrors.from = "Please select a city or airport for 'FROM'";
+      newErrors.from = "Please select a city or airport *";
       valid = false;
     }
 
     if (!to) {
-      newErrors.to = "Please select a city or airport for 'TO'";
+      newErrors.to = "Please select a city or airport *";
       valid = false;
     }
 
     if (!startDate) {
-      newErrors.date = "Please select a departure date";
+      newErrors.date = "Please select a departure date *";
       valid = false;
     }
 
@@ -214,188 +218,185 @@ const BusForm = () => {
   // /BusResult
 
   return (
-    <div className="container" style={{ marginTop: "-8px" }}>
-      <form onSubmit={handleSubmit}>
-        <div className="row">
-          <div className="col-xs-12 col-md-3" style={{ width: "50%" }}>
-            {/* <div className="form_input">
-            <label className="form_lable">From City</label>
-            <input
-                name="from"
-                placeholder="From City"
-                value={from}
-                onChange={(event) => {
-                  handleFromInputChange(event);
-                  handleFromSearch(event.target.value);
-                }}
-              />
-          </div> */}
-            <div className="form_input">
-              <label className="form_lable">FROM</label>
-              <input
-                name="from"
-                placeholder="Enter city or airport"
-                value={from.cityId}
-                onChange={(event) => {
-                  handleFromInputChange(event);
-                  handleFromSearch(event.target.value);
-                }}
-                ref={fromInputRef}
-                style={{ width: "100%" }}
-              />
-              {isLoading && <div>Loading...</div>}
-              {fromSearchResults && fromSearchResults.length > 0 && (
-                <div
-                  style={{
-                    backgroundColor: "white",
-                    borderRadius: "10px",
-                    zIndex: 1,
-                    width: "100%",
-                    boxShadow: "rgba(0, 0, 0, 0.09) 0px 3px 12px",
-                    textAlign: "left",
-                    cursor: "pointer",
-                    display: displayFrom ? "block" : "none",
-                  }}
-                >
-                  <ul>
-                    <Box
-                      sx={{
-                        mb: 2,
-                        display: "flex",
-                        flexDirection: "column",
-                        maxHeight: 150,
-                        overflow: "hidden",
-                        overflowY: "scroll",
+    <div className="container">
+      <div className="row">
+        <div className="col-lg-7 bg-dark">
+
+        </div>
+        <div className="col-lg-5">
+          <form className="BusForm" onSubmit={handleSubmit}>
+            <div className="row">
+              <div className="col-xs-12 col-md-12">
+
+                {/* <div className="mailBox">
+                  <label htmlFor="">Enter Your Email</label>
+                  <MailIcon className="mailIcon" />
+                  <input name="email"
+                    type="email"
+                    placeholder="Enter your Email "
+                    value={email}
+                    onChange={(event) => setEmail(event.target.value)} />
+                </div> */}
+
+                <div className="locationFrom">
+                  <label>FROM</label>
+                  <FmdGoodIcon className="locationFromIcon" />
+                  <input
+                    name="from"
+                    placeholder="Enter city or airport"
+                    value={from.cityId}
+                    onChange={(event) => {
+                      handleFromInputChange(event);
+                      handleFromSearch(event.target.value);
+                    }}
+                    ref={fromInputRef}
+                    style={{ width: "100%" }}
+                  />
+                  {isLoading && <div>Loading...</div>}
+                  {fromSearchResults && fromSearchResults.length > 0 && (
+                    <div
+                      style={{
+                        backgroundColor: "white",
+                        borderRadius: "10px",
+                        zIndex: 1,
+                        width: "100%",
+                        boxShadow: "rgba(0, 0, 0, 0.09) 0px 3px 12px",
+                        textAlign: "left",
+                        cursor: "pointer",
+                        display: displayFrom ? "block" : "none",
                       }}
                     >
-                      {fromSearchResults.map((result) => (
-                        <li
-                          key={result._id}
-                          onClick={() => handleFromClick(result)}
+                      <ul>
+                        <Box
+                          sx={{
+                            mb: 2,
+                            display: "flex",
+                            flexDirection: "column",
+                            maxHeight: 150,
+                            overflow: "hidden",
+                            overflowY: "scroll",
+                          }}
                         >
-                          <strong>{result.CityId}</strong> {result.CityName}{" "}
-                          {/* {result.CityId} */}
-                        </li>
-                      ))}
-                    </Box>
-                  </ul>
+                          {fromSearchResults.map((result) => (
+                            <li
+                              key={result._id}
+                              onClick={() => handleFromClick(result)}
+                            >
+                              <strong>{result.CityId}</strong> {result.CityName}{" "}
+                              {/* {result.CityId} */}
+                            </li>
+                          ))}
+                        </Box>
+                      </ul>
+                    </div>
+                  )}
+                  {errors.from && <div className="error">{errors.from}</div>}
                 </div>
-              )}
-              {errors.from && <div className="error">{errors.from}</div>}
-            </div>
-          </div>
+              </div>
 
-          <div className="col-xs-12 col-md-3" style={{ width: "50%" }}>
-            {/* <div className="form_input">
-            <label className="form_lable">To City</label>
-            <input
-                name="to"
-                placeholder="Enter destination"
-                value={to}
-                onChange={(event) => {
-                  handleToInputChange(event);
-                  handleToSearch(event.target.value);
-                }}
-              />
-          </div> */}
-            <div className="form_input">
-              <label className="form_lable">TO</label>
-              <input
-                name="to"
-                placeholder="Enter city or airport"
-                value={to}
-                onChange={(event) => {
-                  handleToInputChange(event);
-                  handleToSearch(event.target.value);
-                }}
-                ref={toInputRef}
-              />
-              {isLoading && <div>Loading...</div>}
-              {toSearchResults && toSearchResults.length > 0 && (
-                <div
-                  style={{
-                    backgroundColor: "white",
-                    borderRadius: "10px",
-                    zIndex: 1,
-                    width: "100%",
-                    boxShadow: "rgba(0, 0, 0, 0.09) 0px 3px 12px",
-                    textAlign: "left",
-                    cursor: "pointer",
-                    display: displayTo ? "block" : "none",
-                  }}
-                >
-                  <ul>
-                    <Box
-                      sx={{
-                        mb: 2,
-                        display: "flex",
-                        flexDirection: "column",
-                        maxHeight: 150,
-                        overflow: "hidden",
-                        overflowY: "scroll",
+              <div className="col-xs-12 col-md-12">
+                <div className="locationTo">
+                  <label >TO</label>
+                  <FmdGoodIcon className="locationToIcon" />
+                  <input
+                    name="to"
+                    placeholder="Enter city or airport"
+                    value={to}
+                    onChange={(event) => {
+                      handleToInputChange(event);
+                      handleToSearch(event.target.value);
+                    }}
+                    ref={toInputRef}
+                  />
+                  {isLoading && <div>Loading...</div>}
+                  {toSearchResults && toSearchResults.length > 0 && (
+                    <div
+                      style={{
+                        backgroundColor: "white",
+                        borderRadius: "10px",
+                        zIndex: 1,
+                        width: "100%",
+                        boxShadow: "rgba(0, 0, 0, 0.09) 0px 3px 12px",
+                        textAlign: "left",
+                        cursor: "pointer",
+                        display: displayTo ? "block" : "none",
                       }}
                     >
-                      {toSearchResults.map((result) => (
-                        <li
-                          key={result._id}
-                          onClick={() => handleToClick(result)}
+                      <ul>
+                        <Box
+                          sx={{
+                            mb: 2,
+                            display: "flex",
+                            flexDirection: "column",
+                            maxHeight: 150,
+                            overflow: "hidden",
+                            overflowY: "scroll",
+                          }}
                         >
-                          <strong>{result.CityId}</strong> {result.CityName}{" "}
-                          {result.CityId}
-                        </li>
-                      ))}
-                    </Box>
-                  </ul>
+                          {toSearchResults.map((result) => (
+                            <li
+                              key={result._id}
+                              onClick={() => handleToClick(result)}
+                            >
+                              <strong>{result.CityId}</strong> {result.CityName}{" "}
+                              {result.CityId}
+                            </li>
+                          ))}
+                        </Box>
+                      </ul>
+                    </div>
+                  )}
+                  {errors.to && <div className="error">{errors.to}</div>}
                 </div>
-              )}
-              {errors.to && <div className="error">{errors.to}</div>}
-            </div>
-          </div>
-        </div>
+              </div>
 
-        <div className="row" >
-          <div className="col-xs-12 col-md-3">
-            <div className="form_input">
-              <label className="form_lable">DEPARTURE</label>
 
-              <div style={{ display: "flex", alignItems: "center" }}>
-                <DatePicker
-                  selected={startDate}
-                  name="departure"
-                  id="departure"
-                  ref={inputRef}
-                  placeholderText="Select Date"
-                  onChange={(date) => {
-                    setStartDate(date);
-                    handleDateInputChange();
-                  }}
-                  minDate={new Date()}
-                  className="datePick"
-                />
+              <div className="col-xs-12 col-md-12">
+                <div className="form_input">
+                  <label className="form_lable">DEPARTURE</label>
+
+                  <div style={{ display: "flex", alignItems: "center" }}>
+                    <DatePicker
+                      selected={startDate}
+                      name="departure"
+                      id="departure"
+                      ref={inputRef}
+                      placeholderText="Select Date"
+                      onChange={(date) => {
+                        setStartDate(date);
+                        handleDateInputChange();
+                      }}
+                      minDate={new Date()}
+                      className="datePick"
+                    />
+                  </div>
+                </div>
+                {errors.date && <div className="error">{errors.date}</div>}
+              </div>
+
+              <div className="col-xs-6 col-md-12">
+                <div className="form_input">
+                  <Box>
+                    <Button
+                      variant="contained"
+                      colorScheme="teal"
+                      type="submit"
+                      sx={{ borderRadius: "20px" }}
+                      style={{ backgroundColor: color.bluedark }}
+                    >
+                      Bus Search
+                    </Button>
+                  </Box>
+                </div>
+              </div>
+
+              <div className="col-lg-5">
+                <NavBarBox />
               </div>
             </div>
-            {errors.date && <div className="error">{errors.date}</div>}
-          </div>
-
-          <div className="col-xs-6 col-md-3" style={{marginLeft:"190px"}}>
-            <div className="form_input">
-            <Box>
-              <Button
-                variant="contained"
-                colorScheme="teal"
-                type="submit"
-                sx={{ borderRadius: "20px" }}
-                style={{ backgroundColor: color.bluedark }}
-              >
-                Bus Search
-              </Button>
-            </Box>
-              </div>
-              </div>
-          
-         
+          </form>
         </div>
-      </form>
+      </div>
     </div>
   );
 };

@@ -1,6 +1,6 @@
 .App {
   text-align: center;
-background-image:url("./Images/mainImage.png");
+  background-image: url("./Images/mainImage.png");
 
 }
 
@@ -32,7 +32,13 @@ background-image:url("./Images/mainImage.png");
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }
+}
+
+
+body {
+  background-color: #f1f1f1 !important;
 }
