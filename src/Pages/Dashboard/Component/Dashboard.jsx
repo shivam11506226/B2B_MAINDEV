@@ -36,10 +36,6 @@ import RiseLoader from "react-spinners/RiseLoader";
 import HotelBookings from './Table/HotelBookings/HotelBookings';
 import FlightBookings from './Table/FlightBookings/Flightbookings';
 import BusBookings from './Table/BusBookings/BusBookings';
-
-import UserHotelBookings from './Table/HotelBookings/UserHotelBookings';
-import UserFlightBookings from './Table/FlightBookings/UserFlightBookings';
-import UserBusBookings from './Table/BusBookings/UserBusBookings'
 import BtoBAgent from './Table/BtoBAgent';
 import BtoCAgent from './Table/BtoCAgent'
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
@@ -60,10 +56,9 @@ import SearchIcon from '@mui/icons-material/Search';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import Groups3Icon from '@mui/icons-material/Groups3';
 import AdminDashboard from './AdminDashboard';
-import CancelTicketRequest from './Table/CancelTicketRequest/CancelTicketRequest';
-import OfferList from './Table/OfferList/OfferList';
+import CancelTicketRequest from './Table/CancelTicketRequest/CancelTicketRequest'; 
+import OfferList from './Table/OfferList/OfferList'
 const drawerWidth = 240;
-
 
 const openedMixin = (theme) => ({
   width: drawerWidth,
@@ -86,13 +81,13 @@ const closedMixin = (theme) => ({
   },
 });
 
-const DrawerHeader = styled('div')(({ theme }) => ({
-  display: 'flex',
-  alignItems: 'center',
+const DrawerHeader = styled("div")(({ theme }) => ({
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "flex-end",
   padding: theme.spacing(0, 1),
   // necessary for content to be below app bar
   ...theme.mixins.toolbar,
-  justifyContent: 'flex-end',
 }));
 
 const AppBar = styled(MuiAppBar, {
@@ -204,6 +199,20 @@ export default function VerticalTabs() {
     navigate("/adminLogin");
   };
 
+  // const [value, setValue] = useState(0);
+  // const handleChange = (event, newValue) => {
+  //   setValue(newValue);
+  // };
+  // const editHolidayPackage =
+  //   location.pathname === "/admin/dashboard/EditHolidayPackage";
+  // const { collapseSidebar } = useProSidebar();
+  // const [selectedTab, setSelectedTab] = useState("AdminWelcome");
+
+  // const handleTabChange = (tabName) => {
+  //   setSelectedTab(tabName);
+  // };
+
+
   const [openCollapse, setOpenCollapse] = useState(false);
 
   const handleButtonClick = () => {
@@ -233,7 +242,7 @@ export default function VerticalTabs() {
             // padding: "0 16px",
             backdropFilter: "blur(5px)",
             transition: "background-color 0.3s ease-in-out",
-            boxShadow: "rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset",
+            boxShadow:"rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset",
           }}
         >
           <Toolbar>
@@ -250,6 +259,7 @@ export default function VerticalTabs() {
             <Typography variant="h4" noWrap component="div">
               <img src={STLOGO} height={100} margin-top={100} alt="logo" />
             </Typography>
+
             {/* Search Bar */}
             <div style={{ display: 'flex', alignItems: 'center', margin: '0 auto' }}>
               <div style={{ position: 'relative' }}>
@@ -260,92 +270,92 @@ export default function VerticalTabs() {
               </div>
             </div>
             <div style={{ display: 'flex', alignItems: 'center' }}>
+              
+            {/* Notification Icon */}
+            <IconButton color="inherit" size="large">
+              <Badge badgeContent={4} color="error">
+                <NotificationsIcon />
+              </Badge>
+            </IconButton>
 
-              {/* Notification Icon */}
-              <IconButton color="inherit" size="large">
-                <Badge badgeContent={4} color="error">
-                  <NotificationsIcon />
-                </Badge>
-              </IconButton>
-
-              <Tooltip title="Account">
-                <IconButton
-                  onClick={handleClick}
-                  size="small"
-                  sx={{ ml: 2, marginLeft: "auto" }}
-                  aria-controls={openAccountMenu ? "account-menu" : undefined}
-                  aria-haspopup="true"
-                  aria-expanded={openAccountMenu ? "true" : undefined}
-                >
-                  <Avatar sx={{ width: 32, height: 32 }}>M</Avatar>
-                </IconButton>
-              </Tooltip>
-              <Menu
-                anchorEl={anchorEl}
-                id="account-menu"
-                open={openAccountMenu}
-                onClose={handleClose}
-                onClick={handleClose}
-                PaperProps={{
-                  elevation: 0,
-                  sx: {
-                    overflow: "visible",
-                    filter: "drop-shadow(0px 2px 8px rgba(0,0,0,0.32))",
-                    mt: 1.5,
-                    "& .MuiAvatar-root": {
-                      width: 32,
-                      height: 32,
-                      ml: -0.5,
-                      mr: 1,
-                    },
-                    "&:before": {
-                      content: '""',
-                      display: "block",
-                      position: "absolute",
-                      top: 0,
-                      right: 14,
-                      width: 10,
-                      height: 10,
-                      bgcolor: "background.paper",
-                      transform: "translateY(-50%) rotate(45deg)",
-                      zIndex: 0,
-                    },
-                  },
-                }}
-                transformOrigin={{ horizontal: "right", vertical: "top" }}
-                anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
+            <Tooltip title="Account">
+              <IconButton
+                onClick={handleClick}
+                size="small"
+                sx={{ ml: 2, marginLeft: "auto" }}
+                aria-controls={openAccountMenu ? "account-menu" : undefined}
+                aria-haspopup="true"
+                aria-expanded={openAccountMenu ? "true" : undefined}
               >
-                <MenuItem onClick={handleClose}>
-                  <Avatar /> Profile
-                </MenuItem>
-                <MenuItem onClick={handleClose}>
-                  <Avatar /> My account
-                </MenuItem>
-                <Divider />
-                <MenuItem onClick={handleClose}>
-                  <ListItemIcon>
-                    <PersonAdd fontSize="small" />
-                  </ListItemIcon>
-                  Add another account
-                </MenuItem>
-                <MenuItem onClick={handleClose}>
-                  <ListItemIcon>
-                    <Settings fontSize="small" />
-                  </ListItemIcon>
-                  Settings
-                </MenuItem>
-                <MenuItem
-                  onClick={() => {
-                    handleClose();
-                    signOutAdmin();
-                  }}
-                >
-                  <ListItemIcon>
-                    <Logout fontSize="small" />
-                  </ListItemIcon>
-                  Logout
-                </MenuItem>
-              </Menu>
+                <Avatar sx={{ width: 32, height: 32 }}>M</Avatar>
+              </IconButton>
+            </Tooltip>
+            <Menu
+              anchorEl={anchorEl}
+              id="account-menu"
+              open={openAccountMenu}
+              onClose={handleClose}
+              onClick={handleClose}
+              PaperProps={{
+                elevation: 0,
+                sx: {
+                  overflow: "visible",
+                  filter: "drop-shadow(0px 2px 8px rgba(0,0,0,0.32))",
+                  mt: 1.5,
+                  "& .MuiAvatar-root": {
+                    width: 32,
+                    height: 32,
+                    ml: -0.5,
+                    mr: 1,
+                  },
+                  "&:before": {
+                    content: '""',
+                    display: "block",
+                    position: "absolute",
+                    top: 0,
+                    right: 14,
+                    width: 10,
+                    height: 10,
+                    bgcolor: "background.paper",
+                    transform: "translateY(-50%) rotate(45deg)",
+                    zIndex: 0,
+                  },
+                },
+              }}
+              transformOrigin={{ horizontal: "right", vertical: "top" }}
+              anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
+            >
+              <MenuItem onClick={handleClose}>
+                <Avatar /> Profile
+              </MenuItem>
+              <MenuItem onClick={handleClose}>
+                <Avatar /> My account
+              </MenuItem>
+              <Divider />
+              <MenuItem onClick={handleClose}>
+                <ListItemIcon>
+                  <PersonAdd fontSize="small" />
+                </ListItemIcon>
+                Add another account
+              </MenuItem>
+              <MenuItem onClick={handleClose}>
+                <ListItemIcon>
+                  <Settings fontSize="small" />
+                </ListItemIcon>
+                Settings
+              </MenuItem>
+              <MenuItem
+                onClick={() => {
+                  handleClose();
+                  signOutAdmin();
+                }}
+              >
+                <ListItemIcon>
+                  <Logout fontSize="small" />
+                </ListItemIcon>
+                Logout
+              </MenuItem>
+            </Menu>
             </div>
           </Toolbar>
         </AppBar>
@@ -571,232 +581,232 @@ export default function VerticalTabs() {
             </ListItem>
 
             <ListItem disablePadding sx={{ display: 'block' }}>
+        <ListItemButton
+          sx={{
+            minHeight: 48,
+            justifyContent: open ? 'center' : 'center',
+            px: 2.5,
+            // Add your other styles here
+          }}
+          onClick={handleButtonClick}
+        >
+          <ListItemIcon
+            sx={{
+              minWidth: 0,
+              mr: openCollapse ? 3 : '3',
+              justifyContent: 'center',
+            }}
+          >
+            <AccountBoxIcon />
+          </ListItemIcon>
+          <ListItemText primary="AGENT B2B" />
+        </ListItemButton>
+        <Collapse in={openCollapse} timeout="auto" unmountOnExit>
+          <ListItem
+              disablePadding
+              sx={{ display: "block" }}
+              onClick={() => handleMenuItemClick("Hotel Bookings")}>
               <ListItemButton
                 sx={{
                   minHeight: 48,
-                  justifyContent: open ? 'center' : 'center',
+                  justifyContent: open ? "initial" : "center",
                   px: 2.5,
-                  // Add your other styles here
+                  ...((menuData === "Hotel Bookings"
+                    ? activeMenuItemClass
+                    : inactiveMenuItemClass) || {}),
                 }}
-                onClick={handleButtonClick}
               >
                 <ListItemIcon
                   sx={{
                     minWidth: 0,
-                    mr: openCollapse ? 3 : '3',
-                    justifyContent: 'center',
+                    mr: open ? 3 : "auto",
+                    justifyContent: "center",
                   }}
                 >
                   <AccountBoxIcon />
                 </ListItemIcon>
-                <ListItemText primary="AGENT B2B" />
+                <ListItemText
+                  primary="Hotel Bookings"
+                  sx={{ opacity: open ? 1 : 0 }}
+                />
               </ListItemButton>
-              <Collapse in={openCollapse} timeout="auto" unmountOnExit>
-                <ListItem
-                  disablePadding
-                  sx={{ display: "block" }}
-                  onClick={() => handleMenuItemClick("Hotel Bookings")}>
-                  <ListItemButton
-                    sx={{
-                      minHeight: 48,
-                      justifyContent: open ? "initial" : "center",
-                      px: 2.5,
-                      ...((menuData === "Hotel Bookings"
-                        ? activeMenuItemClass
-                        : inactiveMenuItemClass) || {}),
-                    }}
-                  >
-                    <ListItemIcon
-                      sx={{
-                        minWidth: 0,
-                        mr: open ? 3 : "auto",
-                        justifyContent: "center",
-                      }}
-                    >
-                      <AccountBoxIcon />
-                    </ListItemIcon>
-                    <ListItemText
-                      primary="Hotel Bookings"
-                      sx={{ opacity: open ? 1 : 0 }}
-                    />
-                  </ListItemButton>
-                </ListItem>
-
-                <ListItem
-                  disablePadding
-                  sx={{ display: "block" }}
-                  onClick={() => handleMenuItemClick("Flight Bookings")}>
-                  <ListItemButton
-                    sx={{
-                      minHeight: 48,
-                      justifyContent: open ? "initial" : "center",
-                      px: 2.5,
-                      ...((menuData === "Flight Bookings"
-                        ? activeMenuItemClass
-                        : inactiveMenuItemClass) || {}),
-                    }}
-                  >
-                    <ListItemIcon
-                      sx={{
-                        minWidth: 0,
-                        mr: open ? 3 : "auto",
-                        justifyContent: "center",
-                      }}
-                    >
-                      <AccountBoxIcon />
-                    </ListItemIcon>
-                    <ListItemText
-                      primary="Flight Bookings"
-                      sx={{ opacity: open ? 1 : 0 }}
-                    />
-                  </ListItemButton>
-                </ListItem>
-                <ListItem
-                  disablePadding
-                  sx={{ display: "block" }}
-                  onClick={() => handleMenuItemClick("Bus Bookings")}>
-                  <ListItemButton
-                    sx={{
-                      minHeight: 48,
-                      justifyContent: open ? "initial" : "center",
-                      px: 2.5,
-                      ...((menuData === "Bus Bookings"
-                        ? activeMenuItemClass
-                        : inactiveMenuItemClass) || {}),
-                    }}
-                  >
-                    <ListItemIcon
-                      sx={{
-                        minWidth: 0,
-                        mr: open ? 3 : "auto",
-                        justifyContent: "center",
-                      }}
-                    >
-                      <AccountBoxIcon />
-                    </ListItemIcon>
-                    <ListItemText
-                      primary="Bus Bookings"
-                      sx={{ opacity: open ? 1 : 0 }}
-                    />
-                  </ListItemButton>
-                </ListItem>
-              </Collapse>
             </ListItem>
 
-            <ListItem disablePadding sx={{ display: 'block' }}>
+            <ListItem
+              disablePadding
+              sx={{ display: "block" }}
+              onClick={() => handleMenuItemClick("Flight Bookings")}>
               <ListItemButton
                 sx={{
                   minHeight: 48,
-                  justifyContent: 'center',
+                  justifyContent: open ? "initial" : "center",
                   px: 2.5,
-                  // Add your other styles here
+                  ...((menuData === "Flight Bookings"
+                    ? activeMenuItemClass
+                    : inactiveMenuItemClass) || {}),
                 }}
-                onClick={handleButtonClickTwo}
               >
                 <ListItemIcon
                   sx={{
                     minWidth: 0,
-                    mr: '3',
-                    justifyContent: 'center',
+                    mr: open ? 3 : "auto",
+                    justifyContent: "center",
                   }}
                 >
                   <AccountBoxIcon />
                 </ListItemIcon>
-                <ListItemText primary="USER B2C" />
+                <ListItemText
+                  primary="Flight Bookings"
+                  sx={{ opacity: open ? 1 : 0 }}
+                />
               </ListItemButton>
-              <Collapse in={openCollapseTwo} timeout="auto" unmountOnExit>
-                <ListItem
-                  disablePadding
-                  sx={{ display: "block" }}
-                  onClick={() => handleMenuItemClick("Hotel BookingList")}>
-                  <ListItemButton
-                    sx={{
-                      minHeight: 48,
-                      justifyContent: open ? "initial" : "center",
-                      px: 2.5,
-                      ...((menuData === "Hotel BookingList"
-                        ? activeMenuItemClass
-                        : inactiveMenuItemClass) || {}),
-                    }}
-                  >
-                    <ListItemIcon
-                      sx={{
-                        minWidth: 0,
-                        mr: open ? 3 : "auto",
-                        justifyContent: "center",
-                      }}
-                    >
-                      <AccountBoxIcon />
-                    </ListItemIcon>
-                    <ListItemText
-                      primary="Hotel Bookings"
-                      sx={{ opacity: open ? 1 : 0 }}
-                    />
-                  </ListItemButton>
-                </ListItem>
+            </ListItem>
+            <ListItem
+              disablePadding
+              sx={{ display: "block" }}
+              onClick={() => handleMenuItemClick("Bus Bookings")}>
+              <ListItemButton
+                sx={{
+                  minHeight: 48,
+                  justifyContent: open ? "initial" : "center",
+                  px: 2.5,
+                  ...((menuData === "Bus Bookings"
+                    ? activeMenuItemClass
+                    : inactiveMenuItemClass) || {}),
+                }}
+              >
+                <ListItemIcon
+                  sx={{
+                    minWidth: 0,
+                    mr: open ? 3 : "auto",
+                    justifyContent: "center",
+                  }}
+                >
+                  <AccountBoxIcon />
+                </ListItemIcon>
+                <ListItemText
+                  primary="Bus Bookings"
+                  sx={{ opacity: open ? 1 : 0 }}
+                />
+              </ListItemButton>
+            </ListItem>
+        </Collapse>
+      </ListItem>
 
-                <ListItem
-                  disablePadding
-                  sx={{ display: "block" }}
-                  onClick={() => handleMenuItemClick("Flight BookingList")}>
-                  <ListItemButton
-                    sx={{
-                      minHeight: 48,
-                      justifyContent: open ? "initial" : "center",
-                      px: 2.5,
-                      ...((menuData === "Flight BookingList"
-                        ? activeMenuItemClass
-                        : inactiveMenuItemClass) || {}),
-                    }}
-                  >
-                    <ListItemIcon
-                      sx={{
-                        minWidth: 0,
-                        mr: open ? 3 : "auto",
-                        justifyContent: "center",
-                      }}
-                    >
-                      <AccountBoxIcon />
-                    </ListItemIcon>
-                    <ListItemText
-                      primary="Flight BookingList"
-                      sx={{ opacity: open ? 1 : 0 }}
-                    />
-                  </ListItemButton>
-                </ListItem>
-                <ListItem
-                  disablePadding
-                  sx={{ display: "block" }}
-                  onClick={() => handleMenuItemClick("Bus BookingList")}>
-                  <ListItemButton
-                    sx={{
-                      minHeight: 48,
-                      justifyContent: open ? "initial" : "center",
-                      px: 2.5,
-                      ...((menuData === "Bus BookingList"
-                        ? activeMenuItemClass
-                        : inactiveMenuItemClass) || {}),
-                    }}
-                  >
-                    <ListItemIcon
-                      sx={{
-                        minWidth: 0,
-                        mr: open ? 3 : "auto",
-                        justifyContent: "center",
-                      }}
-                    >
-                      <AccountBoxIcon />
-                    </ListItemIcon>
-                    <ListItemText
-                      primary="Bus BookingList"
-                      sx={{ opacity: open ? 1 : 0 }}
-                    />
-                  </ListItemButton>
-                </ListItem>
-              </Collapse>
+      <ListItem disablePadding sx={{ display: 'block' }}>
+        <ListItemButton
+          sx={{
+            minHeight: 48,
+            justifyContent: 'center',
+            px: 2.5,
+            // Add your other styles here
+          }}
+          onClick={handleButtonClickTwo}
+        >
+          <ListItemIcon
+            sx={{
+              minWidth: 0,
+              mr: '3',
+              justifyContent: 'center',
+            }}
+          >
+            <AccountBoxIcon />
+          </ListItemIcon>
+          <ListItemText primary="USER B2C" />
+        </ListItemButton>
+        <Collapse in={openCollapseTwo} timeout="auto" unmountOnExit>
+          <ListItem
+              disablePadding
+              sx={{ display: "block" }}
+              onClick={() => handleMenuItemClick("Hotel Bookings")}>
+              <ListItemButton
+                sx={{
+                  minHeight: 48,
+                  justifyContent: open ? "initial" : "center",
+                  px: 2.5,
+                  ...((menuData === "Hotel Bookings"
+                    ? activeMenuItemClass
+                    : inactiveMenuItemClass) || {}),
+                }}
+              >
+                <ListItemIcon
+                  sx={{
+                    minWidth: 0,
+                    mr: open ? 3 : "auto",
+                    justifyContent: "center",
+                  }}
+                >
+                  <AccountBoxIcon />
+                </ListItemIcon>
+                <ListItemText
+                  primary="Hotel Bookings"
+                  sx={{ opacity: open ? 1 : 0 }}
+                />
+              </ListItemButton>
             </ListItem>
 
+            <ListItem
+              disablePadding
+              sx={{ display: "block" }}
+              onClick={() => handleMenuItemClick("Flight Bookings")}>
+              <ListItemButton
+                sx={{
+                  minHeight: 48,
+                  justifyContent: open ? "initial" : "center",
+                  px: 2.5,
+                  ...((menuData === "Flight Bookings"
+                    ? activeMenuItemClass
+                    : inactiveMenuItemClass) || {}),
+                }}
+              >
+                <ListItemIcon
+                  sx={{
+                    minWidth: 0,
+                    mr: open ? 3 : "auto",
+                    justifyContent: "center",
+                  }}
+                >
+                  <AccountBoxIcon />
+                </ListItemIcon>
+                <ListItemText
+                  primary="Flight Bookings"
+                  sx={{ opacity: open ? 1 : 0 }}
+                />
+              </ListItemButton>
+            </ListItem>
+            <ListItem
+              disablePadding
+              sx={{ display: "block" }}
+              onClick={() => handleMenuItemClick("Bus Bookings")}>
+              <ListItemButton
+                sx={{
+                  minHeight: 48,
+                  justifyContent: open ? "initial" : "center",
+                  px: 2.5,
+                  ...((menuData === "Bus Bookings"
+                    ? activeMenuItemClass
+                    : inactiveMenuItemClass) || {}),
+                }}
+              >
+                <ListItemIcon
+                  sx={{
+                    minWidth: 0,
+                    mr: open ? 3 : "auto",
+                    justifyContent: "center",
+                  }}
+                >
+                  <AccountBoxIcon />
+                </ListItemIcon>
+                <ListItemText
+                  primary="Bus Bookings"
+                  sx={{ opacity: open ? 1 : 0 }}
+                />
+              </ListItemButton>
+            </ListItem>
+        </Collapse>
+      </ListItem>
 
+           
             <ListItem
               disablePadding
               sx={{ display: "block" }}
@@ -862,8 +872,8 @@ export default function VerticalTabs() {
           </List>
           <Divider />
         </Drawer>
-
-        <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
+        
+        <Box component="main" sx={{ flexGrow: 1, p: 3}}>
           {loading ? (
             <div
               style={{
@@ -871,8 +881,8 @@ export default function VerticalTabs() {
                 justifyContent: "center",
                 alignItems: "center",
                 height: "100vh",
-                width: "100vw",
-                border: "1px solid"
+                width:"100vw",
+                border:"1px solid"
               }}
             >
               <RiseLoader
@@ -888,7 +898,7 @@ export default function VerticalTabs() {
               {menuData === 'Home' && <AdminDashboard />}
               {menuData === "User Table" && <Tables />}
               {menuData === "AgentRequest" && <AgentRequest />}
-              {menuData === "Cancel Ticket" && <CancelTicketRequest />}
+              {menuData==="Cancel Ticket"&& <CancelTicketRequest/>}
               {menuData === "User MarkUp Amount" && <MarkUpAmount />}
               {menuData === "Edit Holiday Package" && <PackageDetails />}
               {menuData === "Forex" && <ForexData />}
@@ -896,12 +906,12 @@ export default function VerticalTabs() {
               {menuData === "Hotel Bookings" && <HotelBookings />}
               {menuData === "Flight Bookings" && <FlightBookings />}
               {menuData === "Bus Bookings" && <BusBookings />}
-              {menuData === "Hotel BookingList" && <UserHotelBookings />}
-              {menuData === "Flight BookingList" && <UserFlightBookings />}
-              {menuData === "Bus BookingList" && <UserBusBookings />}
+              {menuData === "OfferList"&&<OfferList />}
+              {menuData==="AGENT B2B"&&<BtoBAgent/>}
+              {menuData==="AGENT B2C"&&<BtoCAgent/>}
             </div>
           )}
-
+          
         </Box>
       </Box>
     </>

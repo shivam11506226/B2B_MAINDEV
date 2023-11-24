@@ -13,7 +13,7 @@ const AllBusBooking = () => {
   useEffect(() => {
     async function fetchBusBookings() {
       try {
-        const response = await axios.get(`http://localhost:8000/skytrails/api/admin/getAllBusBookingListAgent`,
+        const response = await axios.get(`http://localhost:8000/skytrails/api/admin/getAllBusBookingList`,
           {
             params: {
               page: currentPage,
