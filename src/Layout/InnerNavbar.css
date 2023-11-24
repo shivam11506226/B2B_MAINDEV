@@ -90,6 +90,60 @@
   font-size: 21px;
 }
 
+
+
+.dropBox {
+  position: absolute;
+  top: 35px;
+  left: -40px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  /* width: 200px; */
+  z-index: 9999;
+}
+
+.dropBox ul {
+  margin-left: 0 !important;
+  padding-left: 0 !important;
+  margin-bottom: 0 !important;
+}
+
+.dropBox li {
+  list-style-type: none;
+}
+
+
+.dropBox a {
+  padding: 10px;
+  text-decoration: none;
+  color: #000;
+  display: block;
+  width: 100%;
+  font-size: 18px;
+  text-wrap: nowrap;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.dropBox a:hover {
+  background-color: #f9f9f9;
+}
+
+
+
+.dropBox a:not(:last-child) {
+  border-bottom: 1px solid #ddd;
+  /* Add your desired border style, color, and width here */
+}
+
+.dropBox li a:not(:last-child) {
+  border-bottom: 1px solid #ddd;
+  /* Add your desired border style, color, and width here */
+}
+
+
+
+
 @media (max-width: 910px) {
   .innerNav {
     display: flex;

@@ -395,7 +395,7 @@ const MainPage = () => {
         </div>
 
       )}
-      <GotoTopBtn />
+      {/* <GotoTopBtn /> */}
       <div>
         <Routes>
           <Route path="login" element={<Login />} />
