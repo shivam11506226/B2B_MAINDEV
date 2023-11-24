@@ -139,8 +139,8 @@ const BusChangeReq = () => {
             </div>
             <div className="action">
               <div className="link">
-                <Link to="http://">Fare Rule</Link>
-                <Link to="http://">View Ticket</Link>
+                <Link to="">Fare Rule</Link>
+                <Link to="">View Ticket</Link>
                 <Link
                   onClick={() => {
                     handleModalOpenTwo();
