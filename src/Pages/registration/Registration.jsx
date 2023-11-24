@@ -134,6 +134,18 @@ const Login = () => {
 
   function handleSubmit(event) {
     event.preventDefault();
+    if(
+    !personalDetailValidations()){
+      return setAgencyPage(1)
+    }
+    if(
+    !agencyDetailsValidations()){
+      return setAgencyPage(2)
+    }
+    if(
+    agencyGSTDetailsValidation()){
+      return
+    }
 
 
     // console.warn("File " + file)
@@ -155,6 +167,146 @@ const Login = () => {
     console.warn(payload, "payload@@@@@@@@@@@@@@@@@@@@@@")
     dispatch(signUpAction({ file: pan, data: JSON.stringify(payload) }));
   }
+  function validatePAN(panNumber) {
+    const regex = /^[A-Z]{5}[0-9]{4}[A-Z]{1}$/;
+    return regex.test(panNumber);
+  }
+  function validatePhoneNumber(phoneNumber) {
+    // Define the regular expression pattern for a valid phone number
+    var phonePattern = /^\d{10}$/;
+
+    // Test the phone number against the pattern
+    return phonePattern.test(phoneNumber);
+  }
+  function validateEmail(email) {
+    // Define the regular expression pattern for a valid phone number
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    // Test the phone number against the pattern
+    return emailRegex.test(email);
+  }
+  function validateGSTIN(gstinNumber) {
+    const regex = /^[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z]{1}[1-9A-Z]{1}Z[0-9A-Z]{1}$/;
+    return regex.test(gstinNumber);
+  }
+  function validateProvisionalGSTIN(provisionalGSTIN) {
+    const regex = /^[0-9]{4}[A-Z]{3}[0-9]{1}[Z]{1}[0-9A-Z]{1}$/;
+    return regex.test(provisionalGSTIN);
+  }
+  function validatePincode(pincode) {
+    const regex = /^[1-9][0-9]{5}$/;
+    return regex.test(pincode);
+  }
+  function validatePassword(password) {
+    // Check if password is empty
+    if (password === '') {
+      return false;
+    }
+
+    // Check password length
+    if (password.length < 8 || password.length > 15) {
+      return false;
+    }
+
+    // Check for at least one lowercase letter
+    if (!/[a-z]/.test(password)) {
+      return false;
+    }
+
+    // Check for at least one uppercase letter
+    if (!/[A-Z]/.test(password)) {
+      return false;
+    }
+
+    // Check for at least one digit
+    if (!/\d/.test(password)) {
+      return false;
+    }
+
+    // Check for at least one special character
+    if (!/[@#$%^&*()_+\-=<>!?]/.test(password)) {
+      return false;
+    }
+
+    // If all checks pass, the password is valid
+    return true;
+  }
+
+  function personalDetailValidations() {
+    if (personalDetail.first_name === "" || personalDetail.last_name === "" || personalDetail.email === "" || !validatePhoneNumber(personalDetail.mobile.mobile_number) || personalDetail.address_details.residential_address === "" ||
+      personalDetail.address_details.address_2 === "" ||
+      !validatePhoneNumber(personalDetail.address_details.telephone_number) || !validatePincode(personalDetail.address_details.pincode) ||
+      personalDetail.address_details.pincode === "" ||
+      personalDetail.address_details.country === "" || personalDetail.address_details.state === "" ||
+      personalDetail.address_details.city === "" ||
+      !validatePassword(personalDetail.password)) {
+      // setAgencyPage(2)
+     
+
+      return false
+    }
+    else{
+      return true
+    }
+
+  }
+  function agencyDetailsValidations() {
+    if (agencyDetails.agency_name === "" ||
+      !validatePAN(agencyDetails.pan_number) ||
+      !validatePhoneNumber(agencyDetails.agency_mobile.mobile_number) ||
+
+      agencyDetails.address === "" ||
+      agencyDetails.address_2 === "" ||
+      agencyDetails.fax === "" ||
+      !validatePincode(agencyDetails.pincode) ||
+      agencyDetails.country === "" ||
+      agencyDetails.state === "" ||
+      agencyDetails.city === "" ||
+
+      agencyDetails.IATA_code === "" ||
+      agencyDetails.TDS === "" ||
+      agencyDetails.TDS_percentage === "" ||
+      agencyDetails.references === "" ||
+      agencyDetails.consolidators === "" ||
+      agencyDetails.remarks === "") {
+      
+      return false
+    }
+    else {
+      return true
+    }
+
+
+  }
+  function agencyGSTDetailsValidation() {
+    if (
+      agencyGSTDetails.agency_name === "" ||
+      agencyGSTDetails.agency_classification === "" ||
+      !validateGSTIN(agencyGSTDetails.agency_GSTIN) ||
+      agencyGSTDetails.state === "" ||
+      agencyGSTDetails.state_code === "" ||
+      !validateProvisionalGSTIN(agencyGSTDetails.provisional_GSTIN) ||
+      agencyGSTDetails.contact_person === "" ||
+      !validateEmail(agencyGSTDetails.phone_number) ||
+      !validatePhoneNumber(agencyGSTDetails.telephone_number) ||
+      !validateEmail(agencyGSTDetails.email) ||
+      !validateEmail(agencyGSTDetails.correspondance_mail_id) ||
+      agencyGSTDetails.GST_registration_status === "" ||
+      agencyGSTDetails.HSN_SAC_code === "" ||
+      agencyGSTDetails.composition_levy === "" ||
+      agencyGSTDetails.address_line1 === "" ||
+      agencyGSTDetails.address_line2 === "" ||
+      !validatePincode(agencyGSTDetails.pincode) ||
+      agencyGSTDetails.agency_city === "" ||
+      agencyGSTDetails.supply_type === "") {
+      return false
+    }
+    else return true
+
+  }
+
+
+
 
   return (
     <React.Fragment>
@@ -194,7 +346,7 @@ const Login = () => {
                 mb={5}
               >
                 <Box textAlign="right">
-                  <form onSubmit= {()=>navigate("/Login")}>
+                  <form onSubmit={() => navigate("/Login")}>
                     <Box textAlign="right">
                       <Button
                         type="submit"
@@ -286,29 +438,29 @@ const Login = () => {
                     </Alert>
                   )}
                   <Box display='flex' style={{ height: "100%", justifyContant: 'center', alignItems: 'space-between' }} >
-                    {agencyPage === 1 && <Box flex={1} style={{ display: "flex",  width: "100%" }} alignItems='center' justifyContent='center' >
+                    {agencyPage === 1 && <Box flex={1} style={{ display: "flex", width: "100%" }} alignItems='center' justifyContent='center' >
                       <div>
 
                         <img src={r1} alt="r1" />
                       </div>
                     </Box>}
-                    {agencyPage === 2 && <Box flex={1} style={{ height: '100%',gap:"100px",display:"flex" , }} justifyContent='center' alignItems='space-between' flexDirection='column' >
-                      <Box style={{ height: '50%',display:'flex',  alignItems: 'center' , }}  justifyContent='center' >
+                    {agencyPage === 2 && <Box flex={1} style={{ height: '100%', gap: "100px", display: "flex", }} justifyContent='center' alignItems='space-between' flexDirection='column' >
+                      <Box style={{ height: '50%', display: 'flex', alignItems: 'center', }} justifyContent='center' >
 
                         <img src={r2} alt="r1" />
                       </Box>
-                      <Box display='flex'  justifyContent='center' alignItems='center'>
+                      <Box display='flex' justifyContent='center' alignItems='center'>
                         <img src={r3} alt="r1" />
 
 
                       </Box>
                     </Box>}
-                    {agencyPage === 3 && <Box flex={1} style={{ height: 'auto',gap:"100px",display:"flex" , }} justifyContent='center' alignItems='space-between' flexDirection='column' >
-                      <Box style={{ height: '50%',display:'flex',  alignItems: 'center' , }}  justifyContent='center' >
+                    {agencyPage === 3 && <Box flex={1} style={{ height: 'auto', gap: "100px", display: "flex", }} justifyContent='center' alignItems='space-between' flexDirection='column' >
+                      <Box style={{ height: '50%', display: 'flex', alignItems: 'center', }} justifyContent='center' >
 
                         <img src={r4} alt="r1" />
                       </Box>
-                      <Box display='flex'  justifyContent='center' alignItems='center'>
+                      <Box display='flex' justifyContent='center' alignItems='center'>
                         <img src={r5} alt="r1" />
 
 
@@ -377,6 +529,7 @@ const Login = () => {
 
                                         required
                                       />
+                                      {personalDetail.first_name === "" && <span id="error1">Enter First Name</span>}
                                     </div>
                                     <div className="form_input" mx={2}>
                                       <label className="form_lable">
@@ -394,7 +547,9 @@ const Login = () => {
                                           ...personalDetail, last_name: e.target.value
 
                                         })}
+
                                       />
+                                      {personalDetail.last_name === "" && <span id="error1">Enter Last  Name</span>}
                                     </div>
                                     {/* <div className="form_input">
                                       <label className="form_lable">
@@ -494,6 +649,7 @@ const Login = () => {
                                           }
                                         })}
                                       />
+                                      {personalDetail.address_details.residential_address === "" && <span id="error1">Enter residential_address</span>}
                                     </div>
                                     {/* <div className="form_input">
                                       <label className="form_lable">City*</label>
@@ -545,6 +701,7 @@ const Login = () => {
                                           }
                                         })}
                                       />
+                                      {personalDetail.address_details.address_2 === "" && <span id="error1">Enter Address 2</span>}
                                     </div>
 
 
@@ -588,6 +745,7 @@ const Login = () => {
                                           }
                                         })}
                                       />
+                                      {personalDetail.address_details.city === "" && <span id="error1">Enter Your City</span>}
                                     </div>
 
                                     <div className="form_input" mx={2}>
@@ -609,6 +767,7 @@ const Login = () => {
                                           }
                                         })}
                                       />
+                                      {personalDetail.address_details.state === "" && <span id="error1">Enter State</span>}
                                     </div>
 
 
@@ -642,6 +801,7 @@ const Login = () => {
                                         })}
 
                                       />
+                                      {!validatePincode(personalDetail.address_details.pincode) && <span id="error1">Enter Pin Code</span>}
                                     </div>
                                     {/* <div className="form_input">
                                       <label className="form_lable">Email*</label>
@@ -683,6 +843,7 @@ const Login = () => {
                                           }
                                         })}
                                       />
+                                      {personalDetail.address_details.country === "" && <span id="error1">Enter Countery</span>}
                                     </div>
                                     {/* <div className="form_input" mx={2}>
                                       <label className="form_lable">
@@ -736,7 +897,7 @@ const Login = () => {
                                       <input
                                         type="number"
                                         name="telephone_number"
-                                        placeholder=" Enter Your TelePhone Number"
+                                        placeholder=" Enter Telephone Number"
                                         className="input_size"
 
                                         value={personalDetail.address_details.telephone_number}
@@ -747,6 +908,7 @@ const Login = () => {
                                           }
                                         })}
                                       />
+                                      {!validatePhoneNumber(personalDetail.address_details.telephone_number) && <span id="error1">Enter TelePhone Number</span>}
                                     </div>
 
                                     {/* <div className="form_input">
@@ -780,6 +942,7 @@ const Login = () => {
                                           }
                                         })}
                                       />
+                                      {!validatePhoneNumber(personalDetail.mobile.mobile_number) && <span id="error1">Enter Mobile Number</span>}
                                     </div>
                                   </Box>
                                 </Grid>
@@ -827,6 +990,7 @@ const Login = () => {
 
                                         })}
                                       />
+                                      {personalDetail.email === "" && <span id="error1">Enter Your Email </span>}
                                     </div>
                                     <div className="form_input">
                                       <label className="form_lable">
@@ -844,6 +1008,7 @@ const Login = () => {
                                         }
                                         )}
                                       />
+                                      {!validatePassword(personalDetail.password) && <span id="error1">Enter Valid Password </span>}
                                     </div>
                                     {/* <div className="form_input">
                                       <label className="form_lable">
@@ -885,20 +1050,22 @@ const Login = () => {
                                 <Grid width="100%" display='flex' justifyContent="flex-end"
                                   alignItems="flex-end" >
                                   <Button onClick={() => {
-                                    setAgencyPage(2)
-                                    console.warn(personalDetail, "personalDetail3333333333333333333333333333333333333")
-                                  }} style={{
-                                    backgroundColor: '#21325D',
-                                    width: '140px',
-                                    height: '36px',
-                                    display: 'flex',
-                                    alignItems: 'center',
-                                    justifyContent: 'center',
-                                    color: '#FFFFFF',
-                                    fontSize: '16px',
-                                    fontWeight: '600',
+                                    if (personalDetailValidations()) {
+                                      setAgencyPage(2)
+                                    }
+                                  }}
+                                    style={{
+                                      backgroundColor: '#21325D',
+                                      width: '140px',
+                                      height: '36px',
+                                      display: 'flex',
+                                      alignItems: 'center',
+                                      justifyContent: 'center',
+                                      color: '#FFFFFF',
+                                      fontSize: '16px',
+                                      fontWeight: '600',
 
-                                  }}>Next </Button>
+                                    }}>Next </Button>
                                 </Grid>
                               </Grid>
                             </div>
@@ -955,8 +1122,9 @@ const Login = () => {
                                         onChange={(e) => setAgencyDetails({ ...agencyDetails, agency_name: e.target.value })}
 
                                       />
+                                      {agencyDetails.agency_name === "" && <span id="error1">Enter Agency Name </span>}
                                     </div>
-                                    <div className="form_input" mx={2}>
+                                    {/* <div className="form_input" mx={2}>
                                       <label className="form_lable">
                                         Last Name*
                                       </label>
@@ -967,7 +1135,7 @@ const Login = () => {
                                         className="input_size"
                                         required
                                       />
-                                    </div>
+                                    </div> */}
 
                                   </Box>
                                 </Grid>
@@ -1005,6 +1173,7 @@ const Login = () => {
                                         value={agencyDetails.address}
                                         onChange={(e) => setAgencyDetails({ ...agencyDetails, address: e.target.value })}
                                       />
+                                      {agencyDetails.address === "" && <span id="error1">Enter Address </span>}
                                     </div>
                                     <div className="form_input">
                                       <label className="form_lable">
@@ -1019,6 +1188,7 @@ const Login = () => {
                                         value={agencyDetails.address_2}
                                         onChange={(e) => setAgencyDetails({ ...agencyDetails, address_2: e.target.value })}
                                       />
+                                      {agencyDetails.address_2 === "" && <span id="error1">Enter Address </span>}
                                     </div>
 
                                   </Box>
@@ -1045,6 +1215,7 @@ const Login = () => {
                                         value={agencyDetails.city}
                                         onChange={(e) => setAgencyDetails({ ...agencyDetails, city: e.target.value })}
                                       />
+                                      {agencyDetails.city === "" && <span id="error1">Enter City </span>}
                                     </div>
 
                                     <div className="form_input" mx={2}>
@@ -1060,6 +1231,7 @@ const Login = () => {
                                         value={agencyDetails.state}
                                         onChange={(e) => setAgencyDetails({ ...agencyDetails, state: e.target.value })}
                                       />
+                                      {agencyDetails.state === "" && <span id="error1">Enter State </span>}
                                     </div>
 
 
@@ -1087,6 +1259,7 @@ const Login = () => {
                                         value={agencyDetails.pincode}
                                         onChange={(e) => setAgencyDetails({ ...agencyDetails, pincode: e.target.value })}
                                       />
+                                      {!validatePincode(agencyDetails.pincode) && <span id="error1">Enter Pin Code </span>}
                                     </div>
 
 
@@ -1101,6 +1274,7 @@ const Login = () => {
                                         value={agencyDetails.country}
                                         onChange={(e) => setAgencyDetails({ ...agencyDetails, country: e.target.value })}
                                       />
+                                      {agencyDetails.country === "" && <span id="error1">Enter Countery </span>}
                                     </div>
 
                                   </Box>
@@ -1131,9 +1305,9 @@ const Login = () => {
                                       <input
                                         type="number"
                                         name="telephone_number"
-                                        placeholder=" Enter Your TelePhone Number"
+                                        placeholder=" Enter Your Telephone Number"
                                         className="input_size"
-                                        value={agencyDetails.agency_mobile.telephone_number}
+                                        value={agencyDetails.agency_mobile.mobile_number}
                                         onChange={(e) => setAgencyDetails({
                                           ...agencyDetails, agency_mobile: {
 
@@ -1143,10 +1317,11 @@ const Login = () => {
                                           }
                                         })}
                                       />
+                                      {!validatePhoneNumber(agencyDetails.agency_mobile.mobile_number) && <span id="error1">Enter Phone Number </span>}
                                     </div>
 
 
-                                    <div className="form_input" mx={2}>
+                                    {/* <div className="form_input" mx={2}>
                                       <label className="form_lable">
                                         Mobile Number
                                       </label>
@@ -1168,11 +1343,11 @@ const Login = () => {
 
 
                                       />
-                                    </div>
+                                    </div> */}
                                   </Box>
                                 </Grid>
 
-                                <Grid width="100%" alignItems="center">
+                                {/* <Grid width="100%" alignItems="center">
                                   <Box
                                     py={2}
                                     display="flex"
@@ -1190,6 +1365,7 @@ const Login = () => {
                                         placeholder=" Enter Your Correspondance Mail Id"
                                         className="input_size"
                                       />
+                                      {agencyDetails.address===""  && <span id="error1">Enter Address </span>}
                                     </div>
                                     <div className="form_input">
                                       <label className="form_lable">
@@ -1205,7 +1381,7 @@ const Login = () => {
                                     </div>
 
                                   </Box>
-                                </Grid>
+                                </Grid> */}
                                 <Grid width="100%" alignItems="start">
                                   <Typography
                                     sx={{
@@ -1238,7 +1414,22 @@ const Login = () => {
                                         onChange={(e) => setPan(e.target.files[0])}
 
                                       />
+
                                     </div>
+
+
+
+                                  </Box>
+                                </Grid>
+                                <Grid width="100%" alignItems="center">
+                                  <Box
+                                    py={2}
+                                    display="flex"
+                                    justifyContent="space-between"
+                                    style={{ gap: "10px" }}
+                                  >
+
+
 
                                     <div className="form_input">
                                       <label className="form_lable">
@@ -1253,6 +1444,7 @@ const Login = () => {
                                         value={agencyDetails.pan_number}
                                         onChange={(e) => setAgencyDetails({ ...agencyDetails, pan_number: e.target.value })}
                                       />
+                                      {!validatePAN(agencyDetails.pan_number) && <span id="error1">Enter Pan Number </span>}
                                     </div>
                                     <div className="form_input">
                                       <label className="form_lable">Fax*</label>
@@ -1265,6 +1457,7 @@ const Login = () => {
                                         value={agencyDetails.fax}
                                         onChange={(e) => setAgencyDetails({ ...agencyDetails, fax: e.target.value })}
                                       />
+                                      {agencyDetails.fax === "" && <span id="error1">Enter Fax </span>}
                                     </div>
 
                                   </Box>
@@ -1321,6 +1514,7 @@ const Login = () => {
                                         value={agencyDetails.TDS}
                                         onChange={(e) => setAgencyDetails({ ...agencyDetails, TDS: e.target.value })}
                                       />
+                                      {agencyDetails.TDS === "" && <span id="error1">Enter TDS </span>}
                                     </div>
 
                                   </Box>
@@ -1334,17 +1528,18 @@ const Login = () => {
                                   >
                                     <div className="form_input">
                                       <label className="form_lable">
-                                        TDS(% for exemption)*
+                                        TDS % *
                                       </label>
                                       <input
-                                        type="text"
+                                        type="number"
                                         name="agency_TDS_percentage"
                                         className="input_size"
-                                        placeholder="TDS(% for exemption)"
+                                        placeholder="TDS % "
                                         aria-label="Text input with segmented dropdown button"
                                         value={agencyDetails.TDS_percentage}
                                         onChange={(e) => setAgencyDetails({ ...agencyDetails, TDS_percentage: e.target.value })}
                                       />
+                                      {agencyDetails.TDS_percentage === "" && <span id="error1">Enter TDS % </span>}
                                     </div>
                                     <div className="form_input">
                                       <label className="form_lable">
@@ -1361,6 +1556,7 @@ const Login = () => {
 
 
                                       />
+                                      {agencyDetails.IATA_code === "" && <span id="error1">Enter IATA Code </span>}
                                     </div>
 
                                   </Box>
@@ -1532,8 +1728,12 @@ const Login = () => {
                                     <Button
                                       onClick={() => {
                                         console.warn(pan, "agencyDetails$$$$$$$$$$$$$$$$$$$$$$s")
+                                        if (agencyDetailsValidations()) {
 
-                                        setAgencyPage(3)
+                                          setAgencyPage(3)
+                                        }
+
+
                                       }}
                                       variant="contained"
                                       style={{
@@ -1909,8 +2109,9 @@ const Login = () => {
                                         value={agencyGSTDetails.agency_name}
                                         onChange={(e) => setAgency_GSTDetails({ ...agencyGSTDetails, agency_name: e.target.value })}
                                       />
+                                      {agencyGSTDetails.agency_name === "" && <span id="error1">Enter Name </span>}
                                     </div>
-                                    <div className="form_input" mx={2}>
+                                    {/* <div className="form_input" mx={2}>
                                       <label
                                         htmlFor="first_name"
                                         className="form_lable"
@@ -1925,7 +2126,7 @@ const Login = () => {
                                         className="input_size"
                                         required
                                       />
-                                    </div>
+                                    </div> */}
 
 
                                   </Box>
@@ -1959,10 +2160,11 @@ const Login = () => {
                                       <input
                                         name="agency_gst_details_agency_GSTIN"
                                         type="text"
-                                        placeholder=" Enter Your Agency GSTIN"
+                                        placeholder=" Enter  Agency GSTIN"
                                         className="input_size"
                                         onChange={(e) => setAgency_GSTDetails({ ...agencyGSTDetails, agency_GSTIN: e.target.value })}
                                       />
+                                      {!validateGSTIN(agencyGSTDetails.agency_GSTIN) && <span id="error1">Enter GSTIN </span>}
                                     </div>
 
 
@@ -1982,11 +2184,12 @@ const Login = () => {
                                       <input
                                         name="agency_gst_details_provisional_GSTIN"
                                         type="text"
-                                        placeholder=" Enter Your Provisinal GST Number"
+                                        placeholder=" Enter Provisinal GST"
                                         className="input_size"
                                         value={agencyGSTDetails.provisional_GSTIN}
                                         onChange={(e) => setAgency_GSTDetails({ ...agencyGSTDetails, provisional_GSTIN: e.target.value })}
                                       />
+                                      {!validateProvisionalGSTIN(agencyGSTDetails.provisional_GSTIN) && <span id="error1">Enter Name </span>}
                                     </div>
                                     <div className="form_input">
                                       <label className="form_lable">
@@ -1998,7 +2201,10 @@ const Login = () => {
                                         placeholder=" Enter Your State Code"
                                         className="input_size"
                                         required
+                                        value={agencyGSTDetails.state_code}
+                                        onChange={(e) => setAgency_GSTDetails({ ...agencyGSTDetails, state_code: e.target.value })}
                                       />
+                                      {agencyGSTDetails.state_code === "" && <span id="error1">Enter State Code </span>}
                                     </div>
 
 
@@ -2018,11 +2224,12 @@ const Login = () => {
                                       <input
                                         name="agency_gst_details_GST_registration_status"
                                         type="text"
-                                        placeholder=" Enter GST Registration Status"
+                                        placeholder=" Enter GST Status"
                                         className="input_size"
                                         value={agencyGSTDetails.GST_registration_status}
                                         onChange={(e) => setAgency_GSTDetails({ ...agencyGSTDetails, GST_registration_status: e.target.value })}
                                       />
+                                      {agencyGSTDetails.GST_registration_status === "" && <span id="error1">Enter GST Status </span>}
                                     </div>
 
                                     <div className="form_input">
@@ -2030,12 +2237,13 @@ const Login = () => {
                                       <input
                                         name="agency_gst_details_contact_person"
                                         type="text"
-                                        placeholder=" Enter Your State"
+                                        placeholder=" Enter Contact  Person"
                                         className="input_size"
                                         required
                                         value={agencyGSTDetails.contact_person}
                                         onChange={(e) => setAgency_GSTDetails({ ...agencyGSTDetails, contact_person: e.target.value })}
                                       />
+                                      {agencyGSTDetails.contact_person === "" && <span id="error1">Enter Contact  Person  </span>}
                                     </div>
 
 
@@ -2054,13 +2262,14 @@ const Login = () => {
                                       </label>
                                       <input
                                         name="agency_gst_details_HSN_SAC_code"
-                                        type="text"
+                                        type="number"
                                         className="input_size"
                                         placeholder="HSN/SAC code"
                                         required
                                         value={agencyGSTDetails.HSN_SAC_code}
                                         onChange={(e) => setAgency_GSTDetails({ ...agencyGSTDetails, HSN_SAC_code: e.target.value })}
                                       />
+                                      {agencyGSTDetails.HSN_SAC_code === "" && <span id="error1">Enter HSN/SAC code  </span>}
                                     </div>
                                     <div className="form_input">
                                       <label className="form_lable">
@@ -2104,7 +2313,7 @@ const Login = () => {
                                 </Grid>
 
 
-                                <Grid width="100%" alignItems="start">
+                                {/* <Grid width="100%" alignItems="start">
                                   <Typography
                                     sx={{
                                       fontSize: "22px",
@@ -2114,9 +2323,9 @@ const Login = () => {
                                   >
                                     Agency Address
                                   </Typography>
-                                </Grid>
+                                </Grid> */}
 
-                                <Grid width="100%" alignItems="center">
+                                {/* <Grid width="100%" alignItems="center">
                                   <Box
                                     py={2}
                                     display="flex"
@@ -2152,9 +2361,9 @@ const Login = () => {
                                     </div>
 
                                   </Box>
-                                </Grid>
+                                </Grid> */}
 
-                                <Grid width="100%" alignItems="center">
+                                {/* <Grid width="100%" alignItems="center">
                                   <Box
                                     py={2}
                                     display="flex"
@@ -2195,10 +2404,10 @@ const Login = () => {
 
 
                                   </Box>
-                                </Grid>
+                                </Grid> */}
 
 
-                                <Grid width="100%" alignItems="center">
+                                {/* <Grid width="100%" alignItems="center">
                                   <Box
                                     py={2}
                                     display="flex"
@@ -2232,7 +2441,7 @@ const Login = () => {
                                     </div>
 
                                   </Box>
-                                </Grid>
+                                </Grid> */}
 
                                 <Grid width="100%" alignItems="start">
                                   <Typography
@@ -2262,7 +2471,10 @@ const Login = () => {
                                         placeholder=" Enter Address Line 1"
                                         className="input_size"
                                         required
+                                        value={agencyGSTDetails.address_line1}
+                                        onChange={(e) => setAgency_GSTDetails({ ...agencyGSTDetails, address_line1: e.target.value })}
                                       />
+                                      {agencyGSTDetails.address_line1 === "" && <span id="error1">Enter Address  </span>}
                                     </div>
                                     <div className="form_input">
                                       <label className="form_lable">
@@ -2273,7 +2485,10 @@ const Login = () => {
                                         type="text"
                                         className="input_size"
                                         placeholder="Enter Your Address"
+                                        value={agencyGSTDetails.address_line2}
+                                        onChange={(e) => setAgency_GSTDetails({ ...agencyGSTDetails, address_line2: e.target.value })}
                                       />
+                                      {agencyGSTDetails.address_line2 === "" && <span id="error1">Enter Address </span>}
                                     </div>
 
                                   </Box>
@@ -2298,22 +2513,26 @@ const Login = () => {
                                         placeholder=" Enter Your City"
                                         className="input_size"
                                         required
+                                        value={agencyGSTDetails.agency_city}
+                                        onChange={(e) => setAgency_GSTDetails({ ...agencyGSTDetails, agency_city: e.target.value })}
                                       />
+                                      {agencyGSTDetails.agency_city === "" && <span id="error1">Enter City </span>}
                                     </div>
 
                                     <div className="form_input">
                                       <label className="form_lable">
-                                        State Code*
+                                        State *
                                       </label>
                                       <input
-                                        name="agency_gst_details_state_code"
-                                        type="number"
+                                        name="agency_gst_details_state"
+                                        type="text"
                                         placeholder=" Enter Your State Code"
                                         className="input_size"
                                         required
-                                        value={agencyGSTDetails.state_code}
-                                        onChange={(e) => setAgency_GSTDetails({ ...agencyGSTDetails, state_code: e.target.value })}
+                                        value={agencyGSTDetails.state}
+                                        onChange={(e) => setAgency_GSTDetails({ ...agencyGSTDetails, state: e.target.value })}
                                       />
+                                      {agencyGSTDetails.state === "" && <span id="error1">Enter State </span>}
                                     </div>
 
 
@@ -2337,11 +2556,14 @@ const Login = () => {
                                         type="number"
                                         className="input_size"
                                         placeholder=" Enter Pin Code"
+                                        value={agencyGSTDetails.pincode}
+                                        onChange={(e) => setAgency_GSTDetails({ ...agencyGSTDetails, pincode: e.target.value })}
                                       />
+                                      {!validatePincode(agencyGSTDetails.pincode) && <span id="error1">Enter Pin Code </span>}
                                     </div>
 
 
-                                    <div className="form_input">
+                                    {/* <div className="form_input">
                                       <label className="form_lable">Country*</label>
                                       <input
                                         type="text"
@@ -2350,7 +2572,7 @@ const Login = () => {
                                         className="input_size"
                                         required
                                       />
-                                    </div>
+                                    </div> */}
 
                                   </Box>
                                 </Grid>
@@ -2375,17 +2597,18 @@ const Login = () => {
                                     <div className="form_input">
                                       <label className="form_lable">
                                         {" "}
-                                        TelePhone Number{" "}
+                                        Telephone Number
                                       </label>
                                       <input
                                         type="number"
                                         name="agency_gst_details_telephone_number"
-                                        placeholder=" Enter Your TelePhone Number"
+                                        placeholder="TelePhone Number"
                                         className="input_size"
                                         value={agencyGSTDetails.telephone_number}
                                         onChange={(e) => setAgency_GSTDetails({ ...agencyGSTDetails, telephone_number: e.target.value })}
 
                                       />
+                                      {!validatePhoneNumber(agencyGSTDetails.telephone_number) && <span id="error1">Enter Telephone Number  </span>}
                                     </div>
 
 
@@ -2402,6 +2625,7 @@ const Login = () => {
                                         value={agencyGSTDetails.phone_number}
                                         onChange={(e) => setAgency_GSTDetails({ ...agencyGSTDetails, phone_number: e.target.value })}
                                       />
+                                      {!validatePhoneNumber(agencyGSTDetails.phone_number) && <span id="error1">Enter Mobile Number </span>}
                                     </div>
                                   </Box>
                                 </Grid>
@@ -2419,14 +2643,15 @@ const Login = () => {
                                       <input
                                         name="agency_gst_details_email"
                                         type="email"
-                                        placeholder=" Enter Email Id"
+                                        placeholder=" Enter Email "
                                         className="input_size"
                                         required
                                         value={agencyGSTDetails.email}
                                         onChange={(e) => setAgency_GSTDetails({ ...agencyGSTDetails, email: e.target.value })}
                                       />
+                                      {!validateEmail(agencyGSTDetails.email) && <span id="error1">Enter Email </span>}
                                     </div>
-                                    <div className="form_input">
+                                    {/* <div className="form_input">
                                       <label className="form_lable">
                                         Password*
                                       </label>
@@ -2437,7 +2662,7 @@ const Login = () => {
                                         className="input_size"
                                         required
                                       />
-                                    </div>
+                                    </div> */}
 
                                   </Box>
                                 </Grid>
@@ -2460,6 +2685,7 @@ const Login = () => {
                                         value={agencyGSTDetails.correspondance_mail_id}
                                         onChange={(e) => setAgency_GSTDetails({ ...agencyGSTDetails, correspondance_mail_id: e.target.value })}
                                       />
+                                      {!validateEmail(agencyGSTDetails.correspondance_mail_id) && <span id="error1">Enter Email </span>}
                                     </div>
                                     <div className="form_input">
                                       <label className="form_lable">
@@ -2472,6 +2698,7 @@ const Login = () => {
                                         <option mx={5}>Tax</option>
                                         <option px={5}>SEZWOP</option>
                                       </select>
+
                                     </div>
 
                                   </Box>
