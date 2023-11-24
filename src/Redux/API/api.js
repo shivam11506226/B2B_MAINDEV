@@ -484,7 +484,7 @@ const hotelBookingDetails = (payload) => {
   const flightBookingDataSave=(payload)=>{
     return axios({
       method: "POST",
-      url: "/skyTrails/busBooking/addBusBookingData",
+      url: "/skyTrails/flightBooking/addFlightBookingData",
       baseURL: `${apiURL.baseURL}`,
       data: payload,
       headers: {
@@ -563,7 +563,8 @@ const hotelBookingDetails = (payload) => {
     busBookingDataSave,
     visaData,
     UserDetail,
-    balanceSubtract
+    balanceSubtract,
+    flightBookingDataSave
   };
 }
 
