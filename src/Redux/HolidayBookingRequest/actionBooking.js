@@ -6,7 +6,7 @@ export const packageBooking = (user) => {
   };
 };
 export const packageBookingAction = (user) => {
-  console.log("data",user);
+  // console.log("data",user);
   if (user) {
     return {
       type: types.PACKAGE_REQUEST,

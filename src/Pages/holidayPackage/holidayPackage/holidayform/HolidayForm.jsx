@@ -11,7 +11,7 @@ import { clearHolidayReducer } from "../../../../Redux/OnePackageSearchResult/ac
 
 const HolidayForm = () => {
   const reducerState = useSelector((state) => state);
-  console.log("holiday", reducerState?.searchResult);
+  // console.log("holiday", reducerState?.searchResult);
   const [destination, setDestination] = useState("");
   const [daysSearch, setDaySearch] = useState(0);
 
@@ -25,7 +25,7 @@ const HolidayForm = () => {
       destination,
       days: daysSearch,
     };
-    console.log(payload);
+    // console.log(payload);
     dispatch(searchPackageAction(payload));
   };
 

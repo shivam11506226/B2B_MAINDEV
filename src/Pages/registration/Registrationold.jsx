@@ -51,7 +51,7 @@ const Login = () => {
 
     const file = document.getElementById("pan_card_document").files[0];
 
-    console.log("File", file);
+    // console.log("File", file);
 
     const formData = new FormData(event.target);
     const payload = {

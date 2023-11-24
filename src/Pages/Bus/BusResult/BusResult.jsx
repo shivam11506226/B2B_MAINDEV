@@ -18,9 +18,9 @@ const BusResult = () => {
   const navigate = useNavigate();
   const reducerState = useSelector((state) => state);
   const busFullData = reducerState;
-  console.log("full data", busFullData);
+  // console.log("full data", busFullData);
   const busDataResult = reducerState?.getBusResult;
-  console.log("bus data", busDataResult);
+  // console.log("bus data", busDataResult);
   const [loader, setLoader] = useState(false);
 
   // Loader Code

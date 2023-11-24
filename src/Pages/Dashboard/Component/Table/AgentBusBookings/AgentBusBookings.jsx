@@ -3,6 +3,7 @@ import axios from 'axios';
 import './BusBookings.css';
 import { Table, TableBody, TableCell, TableRow, Paper, TextField, InputAdornment } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
+import { apiURL } from '../../../../../Constants/constant';
 const AllBusBooking = () => {
   const [busBookings, setBusBookings] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -13,7 +14,7 @@ const AllBusBooking = () => {
   useEffect(() => {
     async function fetchBusBookings() {
       try {
-        const response = await axios.get(`http://localhost:8000/skytrails/api/admin/getAllBusBookingListAgent`,
+        const response = await axios.get(`${apiURL.baseURL}/skytrails/api/admin/getAllBusBookingListAgent`,
           {
             params: {
               page: currentPage,

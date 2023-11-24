@@ -4,6 +4,7 @@ import Box from "@mui/material/Box";
 import { DataGrid } from "@mui/x-data-grid";
 import { useDispatch, useSelector } from "react-redux";
 import { getVisaAction } from "../../../../../Redux/getVisa/actionVisaData";
+import { apiURL } from "../../../../../Constants/constant";
 
 
 
@@ -71,7 +72,7 @@ const VisaData = () => {
   const handleDelete = async  (id) => {
     try {
       // Make an HTTP DELETE request to your backend API to delete the data by _id
-      await fetch(`http://localhost:8000/skyTrails/deleteVisa/${id}`, {
+      await fetch(`${apiURL.baseURL}/skyTrails/deleteVisa/${id}`, {
         method: "DELETE",
       });
 
@@ -87,7 +88,7 @@ const VisaData = () => {
       console.error(`Error deleting row with ID ${id}:`, error);
     }
   };
-  console.log("visaData", visaData);
+  // console.log("visaData", visaData);
 
   const transformData = (visaData) => {
     return visaData?.map((item, index) => ({

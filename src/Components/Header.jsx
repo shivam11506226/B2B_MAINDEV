@@ -27,6 +27,7 @@ import {
   FormErrorMessage,
   FormHelperText,
 } from "@chakra-ui/react";
+import { apiURL } from "../Constants/constant.js";
 const style = {
   position: "absolute",
   top: "50%",
@@ -91,7 +92,7 @@ const Header = () => {
     };
 
     // axios
-    //   .post("http://localhost:8000/updateBalance", data)
+      // .post(`${apiURL.baseURL}/updateBalance`, data)
     //   .then((res) => {
     //     console.log(res.data);
     //     handleRazorpay(res.data.data);
@@ -107,7 +108,7 @@ const Header = () => {
   };
 
   const handleRazorpay = (data) => {
-    console.log("handleRazorpay called");
+    // console.log("handleRazorpay called");
     const options = {
       key: "rzp_test_rSxJ8wZCLzTJck",
       amount: amount * 100,
@@ -117,7 +118,7 @@ const Header = () => {
       image: STLOGO,
       order_id: data.id,
       handler: function (response) {
-        console.log(response);
+        // console.log(response);
         // Check if the Razorpay payment is successful
         if (response.razorpay_payment_id) {
           // Payment was successful, now update the user's balance
@@ -127,9 +128,9 @@ const Header = () => {
           };
 
           axios
-            .post("http://localhost:8000/updateBalance", paymentData)
+            .post(`${apiURL.baseURL}/updateBalance`, paymentData)
             .then((balanceUpdateResponse) => {
-              console.log("new data response", balanceUpdateResponse);
+              // console.log("new data response", balanceUpdateResponse);
 
               // Handle any further actions after a successful payment and database update
             })
@@ -144,12 +145,12 @@ const Header = () => {
             razorpay_signature: data.razorpay_signature,
           };
 
-          console.log("paymentVeriy", paymentVerifyData);
+          // console.log("paymentVeriy", paymentVerifyData);
 
           axios
-            .post("http://localhost:8000/payVerify", paymentVerifyData)
+            .post(`${apiURL.baseURL}/payVerify`, paymentVerifyData)
             .then((verificationResponse) => {
-              console.log(verificationResponse.data);
+              // console.log(verificationResponse.data);
 
               // Handle any further actions after a successful payment verification
               // You can update the user's balance here if the payment was successful
@@ -160,7 +161,7 @@ const Header = () => {
             });
         } else {
           // Payment was not successful, handle it as needed
-          console.log("Razorpay payment was not successful");
+          // console.log("Razorpay payment was not successful");
           // Handle the unsuccessful payment scenario, e.g., display an error message.
         }
       },
@@ -176,12 +177,12 @@ const Header = () => {
   useEffect(() => {
     // Make a GET request to the API endpoint
     axios
-      .get(`http://localhost:8000/skyTrails/user/${userId}`)
+      .get(`${apiURL.baseURL}/skyTrails/user/${userId}`)
       .then((response) => {
         // Handle the response data
         const user = response.data.data;
         setUserData(user);
-        console.log("user data", response?.data?.data?.balance);
+        // console.log("user data", response?.data?.data?.balance);
       })
       .catch((error) => {
         console.error(error);

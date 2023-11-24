@@ -37,7 +37,7 @@ const HotelForm = () => {
   ]);
 
   const reducerState = useSelector((state) => state);
-  console.log("State Data", reducerState);
+  // console.log("State Data", reducerState);
 
   const errorCode =
     reducerState?.hotelSearchResult?.ticketData?.data?.data?.HotelSearchResult
@@ -111,7 +111,7 @@ const HotelForm = () => {
         `${apiURL.baseURL}/skyTrails/city/hotelCitySearch?keyword=${searchTerm} `
       );
       setResults(response.data.data);
-      console.log("cities", response.data.data);
+      // console.log("cities", response.data.data);
       setLoading(false);
     } catch (error) {
       console.error("Error fetching cities:", error);
@@ -318,7 +318,7 @@ const HotelForm = () => {
         EndUserIp: reducerState?.ip?.ipData,
         TokenId: reducerState?.ip?.tokenData,
       };
-      console.log(payload)
+      // console.log(payload)
 
       // const totalGuest = `${parseInt(formData.get("adult")) + parseInt("0")}`;
       // sessionStorage.setItem("totalGuest", totalGuest);

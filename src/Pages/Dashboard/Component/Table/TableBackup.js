@@ -7,10 +7,10 @@ import {
 
 const Table = () => {
   const reducerState = useSelector((state) => state);
-  console.log("reducerState", reducerState);
+  // console.log("reducerState", reducerState);
   const dispatch = useDispatch();
   const tableData = reducerState?.userTableData?.userData?.data?.data;
-  console.log(tableData);
+  // console.log(tableData);
 
   useEffect(() => {
     if (tableData === undefined) {

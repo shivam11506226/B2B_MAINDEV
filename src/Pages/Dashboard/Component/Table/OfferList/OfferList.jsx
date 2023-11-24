@@ -3,6 +3,7 @@ import axios from 'axios';
 import { TextField, InputAdornment } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import './OfferList.css';
+import { apiURL } from '../../../../../Constants/constant';
 
 const AllOfferList = () => {
     const [offerList, setOfferList] = useState([]);
@@ -15,7 +16,7 @@ const AllOfferList = () => {
         async function fetchAgentRequestData() {
             setLoading(true); // Set loading state to true
             try {
-                const response = await axios.get(`http://localhost:8000/skyTrails/offers/getAllOffer`, {
+                const response = await axios.get(`${apiURL.baseURL}/skyTrails/offers/getAllOffer`, {
                     params: {
                         page: currentPage,
                         size: pageSize,

@@ -25,21 +25,21 @@ import { busSeatBlockAction } from "../../../Redux/busSearch/busSearchAction";
 const BusPassengerDetail = () => {
   const navigate=useNavigate();
   const reducerState = useSelector((state) => state);
-  console.log("..................", reducerState);
+  // console.log("..................", reducerState);
   const dispatch = useDispatch();
   const busFullData =
     reducerState?.getBusResult?.busResult?.data?.data?.BusSearchResult;
-  console.log(busFullData);
+  // console.log(busFullData);
   const passengerLists = [];
   const [accordionExpanded, setAccordionExpanded] = useState(false);
   const seatData = sessionStorage.getItem("seatData");
   const parsedSeatData = JSON.parse(seatData);
-  console.log(parsedSeatData);
+  // console.log(parsedSeatData);
   const passengerCount = parsedSeatData?.blockedSeatArray.length;
   const resultIndex = parsedSeatData?.resultIndex;
   const boardingPoint = parsedSeatData?.selectedOrigin;
   const droppingPoint = parsedSeatData?.selectedDropPoint;
-  console.log(passengerCount);
+  // console.log(passengerCount);
   const passengerTemplate = {
     LeadPassenger: true,
     PassengerId: 0,
@@ -77,7 +77,7 @@ const BusPassengerDetail = () => {
     // list[index][name] = value;
     setPassengerData(updatedPassenger);
   };
-  console.log(passengerData);
+  // console.log(passengerData);
   function handleSeatBlock() {
     const payload = {
       Passenger:
@@ -92,7 +92,7 @@ const BusPassengerDetail = () => {
       BoardingPointId: boardingPoint,
       DroppingPointId: droppingPoint,
     };
-    console.log(payload);
+    // console.log(payload);
     dispatch(busSeatBlockAction(payload));
     navigate("/BusReviewBooking");
   }

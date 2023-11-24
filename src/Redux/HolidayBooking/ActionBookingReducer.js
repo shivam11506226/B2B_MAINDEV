@@ -11,7 +11,7 @@ const initState = {
 };
 
 export const packageBookingReducer = (state = initState, action) => {
-  console.log("reducer reached");
+  // console.log("reducer reached");
   const { type, payload } = action;
   switch (type) {
     case types.PACKAGE_BOOK_REQUEST:

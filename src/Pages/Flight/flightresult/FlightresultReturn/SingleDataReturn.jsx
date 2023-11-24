@@ -33,7 +33,7 @@ function SingleDataReturn(props) {
         )}`
       : Math.round(Number(props.fare));
 
-  console.log(fare);
+  // console.log(fare);
   const img = flight?.Airline?.AirlineCode;
 
   const time = `${Math.floor(flight?.Duration / 60)}hr ${
@@ -79,8 +79,8 @@ function SingleDataReturn(props) {
 
   const handleClick = (allDetails, ResultIndex) => {
     const slicedResultIndex = ResultIndex.slice(0, 2);
-    console.log("Handel Click Index Key", slicedResultIndex);
-    console.log("hghfdsjgdsjsfd", props.flight);
+    // console.log("Handel Click Index Key", slicedResultIndex);
+    // console.log("hghfdsjgdsjsfd", props.flight);
 
     if (slicedResultIndex == "OB") {
       sessionStorage.setItem("flightDetailsONGo", JSON.stringify(allDetails));

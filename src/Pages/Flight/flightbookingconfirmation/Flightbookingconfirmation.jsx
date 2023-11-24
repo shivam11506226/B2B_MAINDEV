@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import "./flightbookingconfirmation.css";
 import { Button } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -14,6 +14,7 @@ import Fairsummary from "../flightreviewbooking/Fairsummary";
 import Rightdetail from "../passengerdetail/Rightdetail";
 import Flightconfirmationdetail from "./Flightconfirmationdetail";
 import { useDispatch, useSelector } from "react-redux";
+import { getUserDataAction } from "../../../Redux/Auth/UserDataById/actionUserData";
 
 // import Leftdetail from './Leftdetail';
 // import Rightdetail from './Rightdetail';
@@ -22,71 +23,39 @@ const FlightReviewbooking = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const reducerState = useSelector((state) => state);
-  const TicketDetails = reducerState?.flightBook?.flightBookDataGDS?.Response;
-  // useEffect(() => {
-  //   if(reducerState?.flightBook?.flightBookDataGDS){
+  // console.log("reducerState", reducerState);
+  const TicketDetails =
+    reducerState?.flightBook?.flightBookDataGDS?.Response ||
+    reducerState?.flightBook?.flightBookData?.Response;
+  const userId = reducerState?.logIn?.loginData?.data?.data?.id;
+  const [alert, setAlert] = useState(true);
+  const oneWayCheck = reducerState?.flightFare?.flightQuoteData?.Results;
+  const returnCheck = reducerState?.flightFare?.flightQuoteDataReturn?.Results;
 
-  //   }
-  // }, [reducerState?.flightBook?.flightBookDataGDS]);
-  console.log("ticketDetails", TicketDetails);
+
+  useEffect(() => {
+    updateBalance();
+    return () => {
+      setTimeout(() => {
+        setAlert(false);
+      }, 1000);
+    };
+  }, []);
+
+  const updateBalance = () => {
+    if (userId) {
+      const payload = userId;
+      dispatch(getUserDataAction(payload));
+    }
+  };
+
+  const addBookingDatills=()=>{
+      
+  }
+
   return (
     <div className="flightContainer">
       {/* step by step updating part */}
-
-      <Flex
-        w="100%"
-        h="50"
-        mb="20"
-        borderRadius="20px"
-        m="auto"
-        className="shadow-sm p-3 mb-5 bg-white rounded "
-      >
-        <Flex w="19%" h="90%">
-          <Box w="25px" h="25" borderRadius="50%" bg="#1DBCF0" color="white">
-            <Text ml="6px">1</Text>
-          </Box>
-          <Text ml="10" fontWeight="bold">
-            Flight Search
-          </Text>
-        </Flex>
-        <Spacer />
-        <Flex w="19%" h="90%">
-          <Box w="25px" h="25" borderRadius="50%" bg="#1DBCF0" color="white">
-            <Text ml="6px">2</Text>
-          </Box>
-          <Text ml="10" fontWeight="bold">
-            Flight Result
-          </Text>
-        </Flex>
-        <Spacer />
-
-        <Flex w="19%" h="90%">
-          <Box w="25px" h="25" borderRadius="50%" bg="#1DBCF0" color="white">
-            <Text ml="6px">3</Text>
-          </Box>
-          <Text ml="10" fontWeight="bold">
-            Passenger Details
-          </Text>
-        </Flex>
-        <Spacer />
-        <Flex w="19%" h="90%">
-          <Box w="25px" h="25" borderRadius="50%" bg="#1DBCF0" color="white">
-            <Text ml="6px">4</Text>
-          </Box>
-          <Text ml="10" fontWeight="bold">
-            Review Booking
-          </Text>
-        </Flex>
-        <Spacer />
-        <Flex w="19%" h="90%">
-          <Box w="25px" h="25" borderRadius="50%" bg="#1DBCF0" color="white">
-            <Text ml="6px">5</Text>
-          </Box>
-          <Text ml="10" fontWeight="bold">
-            Booking Confirmation
-          </Text>
-        </Flex>
-      </Flex>
 
       <Grid container spacing={3}>
         <Grid item xs={12} md={9}>
@@ -94,13 +63,8 @@ const FlightReviewbooking = () => {
             <Flightconfirmationdetail ticket={TicketDetails} />
           </Box>
         </Grid>
-        <Grid item xs={12} md={3}>
-          <Box>
-            {/* <Fairsummary /> */}
-            <Rightdetail />
-          </Box>
-        </Grid>
       </Grid>
+
     </div>
   );
 };

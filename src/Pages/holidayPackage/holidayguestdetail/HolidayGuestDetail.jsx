@@ -9,7 +9,7 @@ import {
   Text,
   HStack,
   Box,
-  
+
 } from "@chakra-ui/react";
 import HolidayPackagedetail from "../holidaypackageresult/HolidayPackagedetail";
 import HolidatLeftPackage from "../holidaypackageresult/HolidatLeftPackage";
@@ -28,62 +28,57 @@ import { Grid, Radio, Typography, Button } from "@mui/material";
 import color from "../../../color/color"
 const HolidayGuestDetail = () => {
   const style = {
-  position: 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
-  width: 800,
-  bgcolor: 'background.paper',
-  border: '2px solid #000',
-  boxShadow: 24,
-  pt: 2,
-  px: 4,
-  pb: 3,
-};
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: 800,
+    bgcolor: 'background.paper',
+    border: '2px solid #000',
+    boxShadow: 24,
+    pt: 2,
+    px: 4,
+    pb: 3,
+  };
   const [childCount, setchildCount] = useState(0);
   const [adultCount, setadultCount] = useState(0);
   const reducerState = useSelector((state) => state);
   const requestSuccess =
     reducerState?.packageBookingRequest?.showSuccessMessage;
   const [showSuccess, setShowsuccess] = useState(requestSuccess);
-  
+
 
   return (
     <div>
-      <div className="flightContainer">
-        {/* step by step updating part */}
 
-        
-        <Modal
-          open={showSuccess}
-          aria-labelledby="child-modal-title"
-          aria-describedby="child-modal-description"
-        >
-          <MuiBox sx={{ ...style, width: 200 }}>
-            <img
-              src={successGif}
-              alt="sucess gif"
-              style={{ width: "100%" }}
+
+
+      <Modal
+        open={showSuccess}
+        aria-labelledby="child-modal-title"
+        aria-describedby="child-modal-description"
+      >
+        <MuiBox sx={{ ...style, width: 200 }}>
+          <img
+            src={successGif}
+            alt="sucess gif"
+            style={{ width: "100%" }}
+          />
+          <Button>Close Child Modal</Button>
+        </MuiBox>
+      </Modal>
+      <div className="container p-3 bg-light">
+        <div className="row">
+          <div className="col-lg-9">
+            <Holidayguestinfo />
+          </div>
+
+          <div className="col-lg-3">
+            <Holidaysalesummary
+              childCount={childCount}
+              adultCount={adultCount}
             />
-            <Button>Close Child Modal</Button>
-          </MuiBox>
-        </Modal>
-        <div>
-          <Grid container spacing={3}>
-            <Grid sm={12} xs={12} md={9} item>
-              <MuiBox>
-                <Holidayguestinfo />
-              </MuiBox>
-            </Grid>
-            <Grid sm={12} xs={12} md={3} item>
-              <MuiBox>
-                <Holidaysalesummary
-                  childCount={childCount}
-                  adultCount={adultCount}
-                />
-              </MuiBox>
-            </Grid>
-          </Grid>
+          </div>
         </div>
       </div>
     </div>

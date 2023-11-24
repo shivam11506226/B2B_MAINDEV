@@ -1,5 +1,7 @@
 import Divider from "@mui/material/Divider";
 import { Typography, Box, Grid, Button } from "@mui/material";
+import Modal from "@mui/material/Modal";
+import CircularProgress from "@mui/material/CircularProgress";
 import React, { useEffect, useState } from "react";
 import Link from "@mui/material/Link";
 import { useDispatch, useSelector, useReducer } from "react-redux";
@@ -18,13 +20,17 @@ import Accordion from "@mui/material/Accordion";
 import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-
 import Swal from "sweetalert2";
-
-import { getUserDataAction } from "../../../Redux/Auth/UserDataById/actionUserData";
 import { balanceSubtractRequest } from "../../../Redux/Auth/balaceSubtract/actionBalnceSubtract";
 import { clearPassengersReducer } from "../../../Redux/Passengers/passenger";
 import { clearOneWayReducer } from "../../../Redux/FlightSearch/OneWay/oneWay";
+const style = {
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+};
+
 const Flightbookingdetail = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -36,6 +42,7 @@ const Flightbookingdetail = () => {
   const reducerState = useSelector((state) => state);
   const markUpamount =
     reducerState?.userData?.userData?.data?.data?.markup?.flight;
+
   // console.log(userBalance,"hdhdhd")
   const isPassportRequired =
     reducerState?.flightFare?.flightQuoteData?.Results
@@ -46,14 +53,14 @@ const Flightbookingdetail = () => {
   const ResultIndexReturn =
     sessionStorage.getItem("ResultIndex") ||
     JSON.parse(sessionStorage.getItem("flightDetailsIncome")).ResultIndex;
-  console.log(
-    "passengerAgreement",
-    passengerAgreement,
-    "paymentOption",
-    paymentOption,
-    ResultIndex
-  );
-  console.log("reducerState", reducerState);
+  // console.log(
+  //   "passengerAgreement",
+  //   passengerAgreement,
+  //   "paymentOption",
+  //   paymentOption,
+  //   ResultIndex
+  // );
+  // console.log("reducerState", reducerState);
   const fareQuote =
     reducerState?.flightFare?.flightQuoteData?.Results?.Segments;
   // const flightReviewDetails =
@@ -62,23 +69,53 @@ const Flightbookingdetail = () => {
   const fareValue = reducerState?.flightFare?.flightQuoteData?.Results;
   const fareValueReturn =
     reducerState?.flightFare?.flightQuoteDataReturn?.Results;
-  console.log(fareValue, "😍Fare value", fareValueReturn);
+  // console.log(fareValue, "😍Fare value", fareValueReturn);
   const Passengers = reducerState?.passengers?.passengersData;
   const PassengersReturn = reducerState?.passengers?.passengerDataReturn;
   const userId = reducerState?.logIn?.loginData?.data?.data?.id;
+  const currentBalance = reducerState?.userData?.userData?.data?.data?.balance;
+
   useEffect(() => {
     if (reducerState?.flightBook?.flightBookDataGDS?.Response) {
-      setLoading(false);
       getTicketForNonLCC();
-      // navigate("/Flightbookingconfirmation");
     } else if (reducerState?.flightBook?.flightBookDataGDS?.Error) {
       setLoading(false);
-      let error =
-        reducerState?.flightBook?.flightBookDataGDS?.Error?.ErrorMessage;
-      alert(error);
-    } else {
+      alert(reducerState?.flightBook?.flightBookDataGDS?.Error?.ErrorMessage);
     }
   }, [reducerState?.flightBook?.flightBookDataGDS]);
+
+  //Balance Substraction useEffect implemented below
+  useEffect(() => {
+    if (
+      reducerState?.flightBook?.flightTicketDataGDS?.data?.data?.Response?.Error
+        ?.ErrorMessage == ""
+    ) {
+      // balanceSubtractOneWay();
+      if (fareValue && fareValueReturn) {
+        // console.log("hhdjgdj")
+        balanceSubtractOneWay();
+      } else {
+        balanceSubtractOneWay();
+        setLoading(false);
+        navigate("/Flightbookingconfirmation");
+      }
+    }
+  }, [reducerState?.flightBook?.flightTicketDataGDS]);
+
+  useEffect(() => {
+    if (
+      reducerState?.flightBook?.flightBookData?.Error?.ErrorMessage == "" &&
+      reducerState?.flightBook?.flightBookData?.Response
+    ) {
+      if (fareValue && fareValueReturn) {
+        balanceSubtractOneWay();
+      } else {
+        balanceSubtractOneWay();
+        setLoading(false);
+        navigate("/Flightbookingconfirmation");
+      }
+    }
+  }, [reducerState?.flightBook?.flightBookData]);
 
   useEffect(() => {
     if (reducerState?.flightBook?.flightBookDataGDSReturn?.Response) {
@@ -100,7 +137,7 @@ const Flightbookingdetail = () => {
 
   // Handling return booking here(flow Here is LCC to LCC  OR LCC to Non-LCC)
   useEffect(() => {
-    console.log("bookingLCC");
+    // console.log("bookingLCC");
     if (fareValueReturn?.IsLCC) {
       if (
         reducerState?.flightBook?.flightBookData?.Response &&
@@ -108,7 +145,7 @@ const Flightbookingdetail = () => {
       ) {
         getTicketForLCCReturn();
       }
-    } else {
+    } else if (fareValueReturn?.IsLCC === false) {
       if (
         reducerState?.flightBook?.flightBookData?.Response &&
         reducerState?.flightBook?.flightBookData?.Error?.ErrorMessage == ""
@@ -128,12 +165,31 @@ const Flightbookingdetail = () => {
     }
   }, [reducerState?.flightBook?.flightBookData?.Response]);
 
+  useEffect(() => {
+    if (
+      reducerState?.flightBook?.flightBookDataReturn?.Error?.ErrorMessage == ""
+    ) {
+      balanceSubtractReturn();
+
+      setLoading(false);
+      navigate("/Flightbookingconfirmation");
+    }
+  }, [reducerState?.flightBook?.flightBookDataReturn?.Response]);
+
+  useEffect(() => {
+    if (
+      reducerState?.flightBook?.flightTicketDataGDSReturn?.data?.data?.Response
+        ?.Error?.ErrorMessage==""
+    ) {
+      balanceSubtractReturn();
+      setLoading(false);
+      navigate("/Flightbookingconfirmation");
+    }
+  }, [reducerState?.flightBook?.flightTicketDataGDSReturn]);
+
   //Handling return booking here(flow Here is Non-Lcc to Non-Lcc OR Non-Lcc to Lcc)
 
   useEffect(() => {
-    console.log("booking nonLcc");
-    setCount(count + 1);
-    console.log(count, "count");
     if (fareValueReturn?.IsLCC) {
       if (
         reducerState?.flightBook?.flightBookDataGDS?.Response &&
@@ -141,7 +197,7 @@ const Flightbookingdetail = () => {
       ) {
         getTicketForLCCReturn();
       }
-    } else {
+    } else if (fareValueReturn?.IsLCC === false) {
       if (
         reducerState?.flightBook?.flightBookDataGDS?.Response &&
         reducerState?.flightBook?.flightBookDataGDS?.Error?.ErrorMessage == ""
@@ -162,22 +218,75 @@ const Flightbookingdetail = () => {
   }, [reducerState?.flightBook?.flightBookDataGDS?.Response]);
 
   const handleSubmit = (e) => {
-    e.preventDefault();
-    const payloadGDS = {
-      ResultIndex: ResultIndex,
-      EndUserIp: reducerState?.ip?.ipData,
-      TokenId: reducerState?.ip?.tokenData,
-      TraceId:
-        reducerState?.oneWay?.oneWayData?.data?.data?.Response?.TraceId ||
-        reducerState?.return?.returnData?.data?.data?.Response?.TraceId,
-      Passengers: Passengers,
-    };
+    if (fareValue && fareValueReturn) {
+      if (
+        fareValue?.Fare?.BaseFare +
+          fareValue?.Fare?.Tax +
+          fareValue?.Fare?.OtherCharges +
+          markUpamount +
+          fareValueReturn?.Fare?.BaseFare +
+          fareValueReturn?.Fare?.Tax +
+          fareValueReturn?.Fare?.OtherCharges +
+          markUpamount <=
+        currentBalance
+      ) {
+        e.preventDefault();
+        const payloadGDS = {
+          ResultIndex: ResultIndex,
+          EndUserIp: reducerState?.ip?.ipData,
+          TokenId: reducerState?.ip?.tokenData,
+          TraceId:
+            reducerState?.oneWay?.oneWayData?.data?.data?.Response?.TraceId ||
+            reducerState?.return?.returnData?.data?.data?.Response?.TraceId,
+          Passengers: Passengers,
+        };
 
-    if (fareValue?.IsLCC === false) {
-      dispatch(bookActionGDS(payloadGDS));
-    }
-    if (fareValue?.IsLCC === true) {
-      getTicketForLCC();
+        if (fareValue?.IsLCC === false) {
+          dispatch(bookActionGDS(payloadGDS));
+          setLoading(true);
+        }
+        if (fareValue?.IsLCC === true) {
+          // console.log("lccExecutedOneWay");
+          getTicketForLCC();
+
+          setLoading(true);
+        }
+      } else {
+        alert("Insufficeint balance!! Please Recharge your Wallet");
+        navigate("/flights");
+      }
+    } else {
+      if (
+        fareValue?.Fare?.BaseFare +
+          fareValue?.Fare?.Tax +
+          fareValue?.Fare?.OtherCharges +
+          markUpamount <=
+        currentBalance
+      ) {
+        e.preventDefault();
+        const payloadGDS = {
+          ResultIndex: ResultIndex,
+          EndUserIp: reducerState?.ip?.ipData,
+          TokenId: reducerState?.ip?.tokenData,
+          TraceId:
+            reducerState?.oneWay?.oneWayData?.data?.data?.Response?.TraceId ||
+            reducerState?.return?.returnData?.data?.data?.Response?.TraceId,
+          Passengers: Passengers,
+        };
+
+        if (fareValue?.IsLCC === false) {
+          dispatch(bookActionGDS(payloadGDS));
+          setLoading(true);
+        }
+        if (fareValue?.IsLCC === true) {
+          // console.log("lccExecutedOneWay");
+          getTicketForLCC();
+          setLoading(true);
+        }
+      } else {
+        alert("Insufficeint balance!! Please Recharge your Wallet");
+        navigate("/flights");
+      }
     }
   };
 
@@ -235,7 +344,9 @@ const Flightbookingdetail = () => {
       ResultIndex: ResultIndex,
       EndUserIp: reducerState?.ip?.ipData,
       TokenId: reducerState?.ip?.tokenData,
-      TraceId: reducerState?.return?.returnData?.data?.data?.Response?.TraceId,
+      TraceId:
+        reducerState?.oneWay?.oneWayData?.data?.data?.Response?.TraceId ||
+        reducerState?.return?.returnData?.data?.data?.Response?.TraceId,
       Passengers: [...Passengers],
     };
     dispatch(bookAction(payloadLcc));
@@ -250,6 +361,37 @@ const Flightbookingdetail = () => {
     };
     dispatch(bookActionReturn(payloadLccReturn));
   };
+  //Balance Subtract function implemented below
+  const balanceSubtractOneWay = (onewayBooking, returnBooking) => {
+    if (userId) {
+      const balancePayload = {
+        _id: userId,
+        amount:
+          fareValue?.Fare?.BaseFare +
+          fareValue?.Fare?.Tax +
+          fareValue?.Fare?.OtherCharges +
+          markUpamount,
+      };
+
+      dispatch(balanceSubtractRequest(balancePayload));
+    }
+  };
+
+  const balanceSubtractReturn = () => {
+    if (userId) {
+      const balancePayload = {
+        _id: userId,
+        amount:
+          fareValueReturn?.Fare?.BaseFare +
+          fareValueReturn?.Fare?.Tax +
+          fareValueReturn?.Fare?.OtherCharges +
+          markUpamount,
+      };
+
+      dispatch(balanceSubtractRequest(balancePayload));
+    }
+  };
+
   return (
     <Box style={{ width: "920px" }}>
       <div
@@ -553,7 +695,7 @@ const Flightbookingdetail = () => {
               style={{ padding: "18px", width: "100%" }}
             >
               {Passengers?.map((passenger, key) => {
-                console.log("Value", passenger);
+                // console.log("Value", passenger);
                 return (
                   <div className="mid_header" key={key} px={5} py={2}>
                     <Box style={{ background: "#DFE6F7" }}>
@@ -1145,35 +1287,15 @@ const Flightbookingdetail = () => {
           </button>
         </form>
       </div>
-
-      {/* <Box textAlign="center">
-        <form
-          // action="/Flightbookingconfirmation"
-          className="formFlightSearch"
-          textAlign="center"
-          onSubmit={handleSubmit}
-        >
-          <Box width="171px" margin="auto">
-            <Button
-              my={1}
-              colorScheme="teal"
-              className="btn_booknow"
-              variant="contained"
-              type="submit"
-              disabled={
-                !passengerAgreement || !paymentOption
-                  ? true
-                  : loading
-                  ? true
-                  : false
-              }
-            >
-              {" "}
-              {loading ? "Loading..." : "Generate Ticket"}{" "}
-            </Button>
-          </Box>
-        </form>
-      </Box> */}
+      <Modal
+        open={loading}
+        aria-labelledby="child-modal-title"
+        aria-describedby="child-modal-description"
+      >
+        <Box sx={{ ...style }}>
+          <CircularProgress />
+        </Box>
+      </Modal>
     </Box>
   );
 };

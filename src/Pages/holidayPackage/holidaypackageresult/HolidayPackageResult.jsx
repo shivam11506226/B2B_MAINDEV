@@ -84,7 +84,7 @@ const HolidayPackageResult = () => {
   // console.log("holiday details",reducerState?.searchResult?.packageSearchResult?.data?.data?.pakage);
   const filteredPackage =
     reducerState?.searchResult?.packageSearchResult?.data?.data?.pakage;
-  console.log("----------------------------");
+  // console.log("----------------------------");
   console.warn("Flitered line 22", filteredPackage);
 
 
@@ -93,7 +93,7 @@ const HolidayPackageResult = () => {
       id,
     };
 
-    console.log(payload);
+    // console.log(payload);
     dispatch(searchOnePackageAction(payload));
     navigate("/holidaypackage/Holidaybooknow");
   };
@@ -434,14 +434,10 @@ const HolidayPackageResult = () => {
 
                         <div className="destination">
                           <ul>
-                            <li>Mandovi River Cruise</li>
-                            <li>North Dubai Sightseeing</li>
+                            {item?.destination?.slice(0, 3).map((destinationItem, index) => (
+                              <li key={index}>{destinationItem?.addMore}</li>
+                            ))}
                           </ul>
-                          {/* <ul>
-                        {item?.destination?.slice(0, 3).map((destinationItem, index) => (
-                          <li key={index}>{destinationItem?.addMore}</li>
-                        ))}
-                      </ul> */}
                         </div>
                       </div>
                       <div className="priceBook">

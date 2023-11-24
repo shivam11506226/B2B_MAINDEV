@@ -37,6 +37,7 @@ import Custombutton from "../../../Custombuttom/Button";
 import successGif from "../../../Images/successGif.png";
 import color from "../../../color/color";
 import Swal from "sweetalert2";
+import FmdGoodIcon from '@mui/icons-material/FmdGood';
 import { balanceSubtractRequest } from "../../../Redux/Auth/balaceSubtract/actionBalnceSubtract";
 const Holidayguestinfo = ({ setadultCount, setchildCount }) => {
   const style = {
@@ -74,14 +75,21 @@ const Holidayguestinfo = ({ setadultCount, setchildCount }) => {
   const onePackage =
     reducerState?.searchOneResult?.OneSearchPackageResult?.data?.data;
   const reducerForm = reducerState?.form?.formEntries;
-  console.log("package Req", reducerState);
-  console.log("onePackageee", onePackage);
-  console.log("reducerForm", reducerForm);
+  // console.log("package Req", reducerState);
+  // console.log("onePackageee", onePackage);
+  // console.log("reducerForm", reducerForm);
 
   const packageId =
     reducerState?.searchOneResult?.OneSearchPackageResult?.data?.data?._id;
   const userId = reducerState?.logIn?.loginData?.data?.data?.id;
   const userBalance = reducerState?.userData?.userData?.data?.data?.balance;
+
+
+
+  const savedDataString = sessionStorage.getItem("searchPackageData");
+  const savedData = JSON.parse(savedDataString);
+  const savedDestination = savedData.destination.toUpperCase();
+  const savedDays = savedData.days;
 
   const handlePersonChange = (e) => {
     const { name, value } = e.target;
@@ -96,7 +104,7 @@ const Holidayguestinfo = ({ setadultCount, setchildCount }) => {
       ...requestData,
       [name]: value,
     });
-    console.log("======================", requestData);
+    // console.log("======================", requestData);
   };
   const handleSuccessandNavigate = () => {
     setShowsuccess((prev) => !prev);
@@ -124,7 +132,7 @@ const Holidayguestinfo = ({ setadultCount, setchildCount }) => {
     if (
       userBalance >=
       (reducerForm.length - 1) * onePackage?.pakage_amount.amount * 0.05 +
-        (reducerForm.length - 1) * onePackage?.pakage_amount.amount
+      (reducerForm.length - 1) * onePackage?.pakage_amount.amount
     ) {
       event.preventDefault();
       const formData = new FormData();
@@ -161,7 +169,7 @@ const Holidayguestinfo = ({ setadultCount, setchildCount }) => {
         child: "0",
       };
 
-      console.log("payload", payload);
+      // console.log("payload", payload);
       const holidayData = new FormData();
       holidayData.append("data", JSON.stringify(payload));
       dispatch(packageBookingAction(payload));
@@ -193,802 +201,434 @@ const Holidayguestinfo = ({ setadultCount, setchildCount }) => {
   };
 
   return (
-    <Box>
-      <form action="/Holidayreviewbooking">
-        <Box className="main-head" marginTop={5} mt={5}>
-          <Typography className="holiday_txt" style={{ color: color.bluedark }}>
-            {onePackage?.pakage_title}
-          </Typography>
-          {/* <Typography className="holiday_txt_b">
-            Feb 28, 2023
-            <Typography fontSize="10px" color="#FF8900" px={1}>
-              4D/3N
-            </Typography>
-            Mar 3, 2023 / From New Delhi
-          </Typography> */}
-        </Box>
-        <Box className="main-head" mt={5}>
-          <Typography className="holiday_txt" style={{ color: color.bluedark }}>
-            Traveller Details
-          </Typography>
-          <Typography
-            className="holiday_txt_b"
-            py={1}
-            style={{ color: color.bluedark }}
-          >
-            {reducerForm.length - 1} Travellers
-            {/* <Typography
-              fontSize="14px"
-              fontWeight="bold"
-              color="#006FFF"
-              px={1}
-            >
-              {adultCount} Adults || {childCount} childrens
-            </Typography> */}
-          </Typography>
+    <>
 
-          <Typography className="Top_txt" marginBottom={5} fontWeight="bold">
-            Add Guests
-          </Typography>
-          <HStack spacing={4} style={{ marginTop: "-30px" }}>
-            <Box>
-              <Input
-                type="text"
-                name="name"
-                variant="filled"
-                value={formData.name}
-                onChange={handlePersonChange}
-                placeholder="Enter Name"
-                paddingLeft="2px"
-              />
-            </Box>
-            <Box>
-              <Input
-                name="dob"
-                type="date"
-                value={formData.dob}
-                onChange={handlePersonChange}
-                placeholder="Date of Birth"
-                paddingLeft="2px"
-                width="185px"
-              />
-            </Box>
-            <Box>
-              <Select
-                name="gender"
-                value={formData.gender}
-                variant="filled"
-                onChange={handlePersonChange}
-                placeholder="Select Gender"
-              >
-                <option value="male">Male</option>
-                <option value="female">Female</option>
-                <option value="other">Other</option>
-              </Select>
-            </Box>
-            <Button
-              onClick={handlePersonAdd}
-              size="xs"
-              bgColor={color.bluedark} // Use Chakra UI's bgColor for setting background color
-              borderRadius={4}
-              paddingTop={3}
-              paddingRight={5}
-              paddingBottom={3}
-              paddingLeft={5}
-              color="white" // Set text color to white for better contrast
-            >
-              Add Guest
-            </Button>
-          </HStack>
+      <div className="row">
 
-          {reducerForm.slice(1).map((singleService, index) => {
-            return (
-              <>
-                <Box
-                  key={index}
-                  marginBottom={2}
-                  marginTop={2}
-                  display="flex"
-                  alignItems="center"
-                  width="71%"
-                  justifyContent="space-between"
-                  textAlign="center"
-                >
-                  <Text width="18%" textAlign="center">
-                    {singleService.name}
-                  </Text>
-                  <Text width="18%" textAlign="center">
-                    {singleService.dob}
-                  </Text>
-                  <Text width="18%" textAlign="center">
-                    {singleService.gender}
-                  </Text>
+        <div className="col-lg-12 mb-4">
+          <div className="packageName">
+            <p className="mb-3">{onePackage?.pakage_title}</p>
+            <span>{`${onePackage?.days - 1}N`} / {`${onePackage?.days}D`}</span>
+          </div>
+        </div>
+        <div className="col-lg-12 d-flex mb-4">
+          <div className="packageLocation">
+            <FmdGoodIcon />
 
-                  <MdDeleteForever
-                    onClick={() => handlePersonRemove(index)}
-                    cursor="pointer"
-                    style={{
-                      alignSelf: "start",
-                      marginTop: "5px",
-                      width: "18%",
-                      textAlign: "right",
-                    }}
-                  />
-                </Box>
-              </>
-            );
-          })}
+          </div>
+          <div>
+            <p>{savedDestination}</p>
+            <span>(India)</span>
+          </div>
+        </div>
 
-          <Box py={1}>
-            <Typography
-              fontSize="16px"
-              fontWeight="bold"
-              color="#006FFF"
-              marginTop="10px"
-            >
-              Please Enter Contact Details
-            </Typography>
-            <HStack spacing={4} marginTop="10px">
-              <Box>
-                <Input
-                  type="email"
-                  name="email"
-                  value={requestData.email}
-                  onChange={handleRequestChange}
-                  placeholder="email"
-                  paddingLeft="2px"
-                />
-              </Box>
-              <Box>
-                <Input
-                  name="mobile"
-                  type="text"
-                  value={requestData.mobile}
-                  onChange={handleRequestChange}
-                  placeholder="Enter Number"
-                  paddingLeft="2px"
-                ></Input>
-              </Box>
-              <Box>
-                <Select
-                  name="countryCode"
-                  value={requestData.countryCode}
-                  onChange={handleRequestChange}
-                  placeholder="Select code"
-                  style={{ width: "100px" }}
-                >
-                  <option value="+91">+91</option>
-                  <option value="+511">+511</option>
-                  <option value="other">Other</option>
-                </Select>
-              </Box>
-              <Box>
-                <Input
-                  name="departureCity"
-                  type="text"
-                  value={requestData.departureCity}
-                  onChange={handleRequestChange}
-                  placeholder="Enter departure city"
-                  paddingLeft="2px"
-                  style={{ width: "155px" }}
-                ></Input>
-              </Box>
-            </HStack>
-          </Box>
-        </Box>
+        <div className="col-lg-12 my-3">
+          <div className="headingGuestHoliday">
+            <p>Traveller Details</p>
+          </div>
+          <div className="travellerDetailsForm">
+            <div className="addGuest mb-2">
+              <p>Add Guest</p>
+            </div>
+            {/* <div>
+              <p>{reducerForm.length - 1} Travellers</p>
+            </div> */}
+            <div className="formBoxInner">
+              <div className="row">
+                <div className="col-lg-3">
+                  <div class="form-floating md-mb-3">
+                    <input type="text" class="form-control" name="name" value={formData.name} onChange={handlePersonChange} id="floatingInput" placeholder="Enter Your Name" />
+                    <label for="floatingInput">Enter Your Name</label>
+                  </div>
+                </div>
+                <div className="col-lg-3">
+                  <div class="form-floating md-mb-3">
+                    <input type="date" class="form-control" name="dob" value={formData.dob} onChange={handlePersonChange} id="floatingInput" placeholder="Enter Your DOB" />
+                    <label for="floatingInput">Date of Birth</label>
+                  </div>
+                </div>
+                <div className="col-lg-3">
+                  <div class="form-floating md-mb-3">
+                    <select class="form-select" name="gender" value={formData.gender} onChange={handlePersonChange} id="floatingSelect" aria-label="Floating label select example">
+                      <option value="male">Male</option>
+                      <option value="female">Female</option>
+                      <option value="other">Other</option>
+                    </select>
+                    <label for="floatingSelect">Choose Your Gender</label>
+                  </div>
+                </div>
+                <div className="col-lg-3 ">
+                  <button className="btnAddGuest" onClick={handlePersonAdd}> Add Guest</button>
+                </div>
+                <div className="col-lg-12 addedGuest">
+                  {reducerForm.slice(1).map((singleService, index) => {
+                    return (
+                      <div className="row">
+                        <div className="col-lg-4">
+                          <p>{singleService.name}</p>
+                        </div>
+                        <div className="col-lg-3">
+                          <p>{singleService.dob}</p>
+                        </div>
+                        <div className="col-lg-3">
+                          <p>{singleService.gender}</p>
+                        </div>
+                        <div className="col-lg-2">
+                          <p><MdDeleteForever
+                            onClick={() => handlePersonRemove(index)}
+                            cursor="pointer"
+                          /></p>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
 
-        {/* <Box className="main-head" my={2}>
-          <Typography fontSize="16px" color="black" fontWeight="bold" px={1}>
-            Special Requests
-          </Typography>
-          <Box my={1}>
-            <input
-              className="input_decor"
-              type="text"
-              name="phone_number"
-              placeholder="Mobile No. *"
-              style={{
-                textDecoration: "none",
-                border: "1px solid #70707057",
-                borderRadius: "20px",
-                width: "100%",
-              }}
-            />
-          </Box>
-        </Box> */}
+                <div className="addGuest mt-4 mb-2">
+                  <p>Add Contact Details</p>
+                </div>
 
-        <Box className="main-head" my={2} mt={8}>
-          <Typography className="holiday_txt" textDecoration="underline">
-            Package Itinerary & Inclusions
-          </Typography>
-          {/* <Typography className="holiday_txt_b" py={1}>
-            Itinerary
-            <Typography
-              fontSize="14px"
-              fontWeight="bold"
-              color="#006FFF"
-              px={1}
-            >
-              / 2 Flight / 1 Hotel / 2 Transfers
-            </Typography>
-          </Typography> */}
-          {/* <Box border="1px solid red">
-            <Box display="flex" justifyContent="space-between">
-              <Typography
-                sx={{
-                  color: "#FF8900",
-                  fontSize: "16px",
-                  fontWeight: "bold",
-                  marginY: "10px",
-                }}
-              >
-                Day 1
-              </Typography>
-              <Typography
-                sx={{
-                  color: "#666666",
-                  fontSize: "16px",
-                  fontWeight: "bold",
-                  marginY: "10px",
-                }}
-              >
-                23rd Feb, 2023
-              </Typography>
-            </Box>
+                <div className="col-lg-12">
+                  <div className="row">
+                    <div className="col-lg-4">
+                      <div class="form-floating md-mb-3">
+                        <input type="email" class="form-control" name="email" value={requestData.email} onChange={handleRequestChange} id="floatingInput" placeholder="Enter Your Email" />
+                        <label for="floatingInput">Enter Your Email</label>
+                      </div>
 
-            <Box>
-              <Grid container py={2}>
-                <Grid lg={6}>
-                  <Typography className="holiday_txt_b" py={1}>
-                    Onward Flight
-                  </Typography>
-                  <Box display="flex" justifyContent="space-around">
-                    <Box>
-                      <Typography className="h_time">04:55</Typography>
-                      <Typography className="h_address">New Delhi</Typography>
-                      <Typography className="h_address">Tue, 29 Feb</Typography>
-                    </Box>
-                    <Box>
-                      <FlightTakeoffIcon sx={{ color: "#25B1CA" }} />
-                    </Box>
-                    <Box display="flex" justifyContent="space-around">
-                      <Box>
-                        <Typography className="r_address">09h 15m</Typography>
-                        <Typography className="r_address">
-                          1 Stop via Jaipur
-                        </Typography>
-                      </Box>
-                    </Box>
+                    </div>
+                    <div className="col-lg-3">
+                      <div class="form-floating md-mb-3">
+                        <input type="text" class="form-control" name="mobile" value={requestData.mobile} onChange={handleRequestChange} id="floatingInput" placeholder="Enter Your Email" />
+                        <label for="floatingInput">Enter Phone Number</label>
+                      </div>
+                    </div>
+                    <div className="col-lg-2">
+                      <div class="form-floating md-mb-3">
+                        <select class="form-select" name="countryCode" value={requestData.countryCode} onChange={handleRequestChange} id="floatingSelect" aria-label="Floating label select example">
+                          <option value="+91">+91</option>
+                          <option value="+511">+511</option>
+                          <option value="other">Other</option>
+                        </select>
+                        <label for="floatingSelect">Select Country Code</label>
+                      </div>
+                    </div>
+                    <div className="col-lg-3">
+                      <div class="form-floating md-mb-3">
+                        <input type="text" class="form-control" name="departureCity" value={requestData.departureCity} onChange={handleRequestChange} id="floatingInput" placeholder="Enter Your Email" />
+                        <label for="floatingInput">Enter departure city</label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
 
-                    <Box>
-                      <FlightLandIcon sx={{ color: "#25B1CA" }} />
-                    </Box>
-                    <Box>
-                      <Typography className="p_time">04:55</Typography>
-                      <Typography className="p_address">New Delhi</Typography>
-                      <Typography className="p_address">Tue, 29 Feb</Typography>
-                    </Box>
-                  </Box>
-                </Grid>
-                <Grid lg={6}></Grid>
-              </Grid>
-            </Box>
 
-            <Box>
-              <Typography className="holiday_txt_b">Transfer</Typography>
-              <Box
-                sx={{ padding: "10px", display: "flex", alignItems: "center" }}
-                ml={2}
-              >
-                <EngineeringIcon />
-                <Typography
-                  sx={{
-                    fontSize: "12px",
-                    color: "#252525",
-                    fontWeight: "bold",
-                  }}
-                  ml={1}
-                >
-                  Transfer:
-                </Typography>
-                <Typography
-                  sx={{
-                    fontSize: "12px",
-                    color: "#FF8900",
-                    fontWeight: "bold",
-                  }}
-                  ml={1}
-                >
-                  Airport to hotel in Goa | 1 hrs
-                </Typography>
-              </Box>
-            </Box>
-            <Box>
-              <Typography className="holiday_txt_b">Hotel Stay</Typography>
+        {/* package ininerary and inclusion  */}
 
-              <Grid container p={2}>
-                <Grid item lg={6}>
-                  <Box display="flex" ml={2}>
-                    <Box sx={{ width: "20%", height: "30%" }}>
-                      <img src={mainImage} className="flight_img" />
-                    </Box>
-                    <Box px={2}>
-                      <Typography
-                        color="#252525"
-                        fontSize="12px"
-                        fontWeight="bold"
-                      >
-                        WelcomHotel Dwarka - Member ITC Hotel Group
-                      </Typography>
-                      <HolidayRating />
-                      <Typography
-                        color="#252525"
-                        fontSize="10px"
-                        fontWeight="bold"
-                      >
-                        Check in - Tue, 28 Feb 2023 Check out - Fri, 3 Mar 2023
-                      </Typography>
-                    </Box>
-                  </Box>
-                </Grid>
-                <Grid item lg={6}>
-                  <Box ml={2}>
-                    <Typography
-                      color="#252525"
-                      fontSize="14px"
-                      fontWeight="bold"
-                    >
-                      Room Type Deluxe Room Special x 1
-                    </Typography>
-                    <Typography
-                      color="#252525"
-                      fontSize="10px"
-                      fontWeight="bold"
-                    >
-                      Room Type Deluxe Room Special x 1
-                    </Typography>
-                    <Box display="flex" textAlign="center">
-                      <FileDownloadDoneIcon style={{ color: "#26A202" }} />
-                      <Typography
-                        color="#252525"
-                        fontSize="14px"
-                        fontWeight="bold"
-                        ml={1}
-                      >
-                        Breakfast Included
-                      </Typography>
-                    </Box>
-                  </Box>
-                </Grid>
-              </Grid>
-            </Box>
+        <div className="col-lg-12 my-3 " >
+          <div className="headingGuestHoliday">
+            <p>Package Itinerary & Inclusions</p>
+          </div>
 
-            <Box display="flex" justifyContent="space-between">
-              <Typography
-                sx={{
-                  color: "#FF8900",
-                  fontSize: "16px",
-                  fontWeight: "bold",
-                  marginY: "10px",
-                }}
-              >
-                Day 2
-              </Typography>
-              <Typography
-                sx={{
-                  color: "#666666",
-                  fontSize: "16px",
-                  fontWeight: "bold",
-                  marginY: "10px",
-                }}
-              >
-                24rd Feb, 2023
-              </Typography>
-            </Box>
-            <Box>
-              <Typography className="holiday_txt_b">Day Meals</Typography>
-              <Box
-                sx={{ padding: "10px", display: "flex", alignItems: "center" }}
-                ml={2}
-              >
-                <FastfoodIcon />
-                <Typography
-                  sx={{
-                    fontSize: "12px",
-                    color: "#252525",
-                    fontWeight: "bold",
-                  }}
-                  ml={1}
-                >
-                  Breakfast:
-                </Typography>
-                <Typography
-                  sx={{
-                    fontSize: "12px",
-                    color: "#FF8900",
-                    fontWeight: "bold",
-                  }}
-                  ml={1}
-                >
-                  Included at Hotel
-                </Typography>
-              </Box>
-            </Box>
-
-            <Box>
-              <Typography
-                sx={{
-                  paddingX: "10px",
-                  fontSize: "12px",
-                  color: "#252525",
-                  fontWeight: "bold",
-                }}
-                ml={2}
-              >
-                Day at Leisure
-              </Typography>
-            </Box>
-            <Box display="flex" justifyContent="space-between">
-              <Typography
-                sx={{
-                  color: "#FF8900",
-                  fontSize: "16px",
-                  fontWeight: "bold",
-                  marginY: "10px",
-                }}
-              >
-                Day 3
-              </Typography>
-              <Typography
-                sx={{
-                  color: "#666666",
-                  fontSize: "16px",
-                  fontWeight: "bold",
-                  marginY: "10px",
-                }}
-              >
-                24rd Feb, 2023
-              </Typography>
-            </Box>
-            <Box>
-              <Typography className="holiday_txt_b">Day Meals</Typography>
-              <Box
-                sx={{ padding: "10px", display: "flex", alignItems: "center" }}
-                ml={2}
-              >
-                <FastfoodIcon />
-                <Typography
-                  sx={{
-                    fontSize: "12px",
-                    color: "#252525",
-                    fontWeight: "bold",
-                  }}
-                  ml={1}
-                >
-                  Breakfast:
-                </Typography>
-                <Typography
-                  sx={{
-                    fontSize: "12px",
-                    color: "#FF8900",
-                    fontWeight: "bold",
-                  }}
-                  ml={1}
-                >
-                  Included at Hotel
-                </Typography>
-              </Box>
-              <Typography
-                sx={{
-                  paddingX: "10px",
-                  fontSize: "12px",
-                  color: "#252525",
-                  fontWeight: "bold",
-                }}
-                ml={1}
-              >
-                Checkout from Hotel in Goa
-              </Typography>
-
-              <Box
-                sx={{ padding: "10px", display: "flex", alignItems: "center" }}
-                ml={2}
-              >
-                <EngineeringIcon />
-
-                <Typography
-                  sx={{
-                    fontSize: "12px",
-                    color: "#FF8900",
-                    fontWeight: "bold",
-                  }}
-                  ml={1}
-                >
-                  Included at Hotel | 1 hrs
-                </Typography>
-              </Box>
-              <Box>
-                <Grid container py={2}>
-                  <Grid lg={6}>
-                    <Typography className="holiday_txt_b" py={1}>
-                      Return Flight
-                    </Typography>
-                    <Box display="flex" justifyContent="space-around">
-                      <Box>
-                        <Typography className="h_time">04:55</Typography>
-                        <Typography className="h_address">New Delhi</Typography>
-                        <Typography className="h_address">
-                          Tue, 29 Feb
-                        </Typography>
-                      </Box>
-                      <Box>
-                        <FlightTakeoffIcon sx={{ color: "#25B1CA" }} />
-                      </Box>
-                      <Box display="flex" justifyContent="space-around">
-                        <Box>
-                          <Typography className="r_address">09h 15m</Typography>
-                          <Typography className="r_address">
-                            1 Stop via Jaipur
-                          </Typography>
-                        </Box>
-                      </Box>
-
-                      <Box>
-                        <FlightLandIcon sx={{ color: "#25B1CA" }} />
-                      </Box>
-                      <Box>
-                        <Typography className="p_time">04:55</Typography>
-                        <Typography className="p_address">New Delhi</Typography>
-                        <Typography className="p_address">
-                          Tue, 29 Feb
-                        </Typography>
-                      </Box>
-                    </Box>
-                  </Grid>
-                  <Grid lg={6}></Grid>
-                </Grid>
-              </Box>
-              <Box>
-                <Typography className="holiday_txt_b" py={1}>
-                  Package Exclusions
-                </Typography>
-                <ul>
-                  <li>Expenses of personal nature</li>
-                  <li>Mentioned cost is not valid between 6 pm and 8 am</li>
-                  <li>Anything not mentioned under inclusions</li>
-                  <li>
-                    Package price does not include Gala dinner charges
-                    applicable on Christmas and New Year's Eve
-                  </li>
-                </ul>
-              </Box>
-            </Box>
-          </Box> */}
           {onePackage?.detailed_ltinerary?.map((item, index) => {
             return (
               <>
-                <Box key={index}>
-                  <Typography sx={{ color: "orange", fontWeight: "bold" }}>
-                    Day{index + 1}
-                  </Typography>
-                  <Typography>{item}</Typography>
-                </Box>
+                <div className="travellerDetailsForm">
+                  <div className="addGuest mb-2">
+                    <p>Day{index + 1}</p>
+                  </div>
+                  <div className="itinerary">
+                    <p>{item}</p>
+                  </div>
+                </div>
               </>
             );
           })}
-        </Box>
-        <Box className="main-head" mt={8}>
-          <Typography className="holiday_txt" textDecoration="underline">
-            Cancellation & Date Change
-          </Typography>
-          <Typography
-            sx={{ fontSize: "16px", color: "#666666", fontWeight: "bold" }}
-          >
-            Package Cancellation Policy
-          </Typography>
-          <Typography
-            sx={{ fontSize: "16px", color: "#252525", fontWeight: "bold" }}
-          >
-            Cancellation & Charges:
-          </Typography>
-          <Box display="flex" justifyContent="space-between" my={1}>
-            <Box>
-              <Typography
-                sx={{
-                  fontSize: "14px",
-                  color: "#252525",
-                  fontWeight: "300",
-                  textAlign: "left",
-                }}
-              >
-                Cancellation Time
-              </Typography>
-              <Typography
-                sx={{
-                  fontSize: "14px",
-                  color: "#006FFF",
-                  fontWeight: "300",
-                  textAlign: "left",
-                }}
-              >
-                Till 03 Feb 23
-              </Typography>
-              <Typography
-                sx={{
-                  fontSize: "14px",
-                  color: "#006FFF",
-                  fontWeight: "300",
-                  textAlign: "left",
-                }}
-              >
-                After 03 Feb 23
-              </Typography>
-            </Box>
-            <Box>
-              <Typography
-                sx={{
-                  fontSize: "14px",
-                  color: "#252525",
-                  fontWeight: "300",
-                  textAlign: "right",
-                }}
-              >
-                Cancellation Charges
-              </Typography>
-              <Typography
-                sx={{
-                  fontSize: "14px",
-                  color: "#FF8900",
-                  fontWeight: "300",
-                  textAlign: "right",
-                }}
-              >
-                ₹2,000 Cancellation Fee
-              </Typography>
-              <Typography
-                sx={{
-                  fontSize: "14px",
-                  color: "#FF8900",
-                  fontWeight: "300",
-                  textAlign: "right",
-                }}
-              >
-                Non Refundable
-              </Typography>
-            </Box>
+
+        </div>
+
+        {/* cancellation policy  */}
+
+
+        <div className="col-lg-12 my-3">
+          <div className="headingGuestHoliday">
+            <p>Cancellation Policy</p>
+          </div>
+
+          <div className="travellerDetailsForm">
+
+            <div className="itinerary">
+              <p>{onePackage?.cancellation_Policy}</p>
+            </div>
+          </div>
+
+        </div>
+
+        {/* term and condition  */}
+
+        <div className="col-lg-12 my-3">
+          <div className="headingGuestHoliday">
+            <p>Term & Condition</p>
+          </div>
+
+          <div className="travellerDetailsForm">
+
+            <div className="itinerary">
+              <p>{onePackage?.term_Conditions}</p>
+            </div>
+          </div>
+
+        </div>
+
+        <div className="col-lg-12 my-3">
+          <div className="proceedToBookHoliPack">
+
+            <button type="submit" onClick={handleBookingPackage}> Proceed to Booking Review </button>
+          </div>
+        </div>
+
+      </div>
+
+
+
+      <Box>
+        {/* <form action="/Holidayreviewbooking">
+
+
+
+          <Box className="main-head" my={2} mt={8}>
+            <Typography className="holiday_txt" textDecoration="underline">
+              Package Itinerary & Inclusions
+            </Typography>
+            {onePackage?.detailed_ltinerary?.map((item, index) => {
+              return (
+                <>
+                  <Box key={index}>
+                    <Typography sx={{ color: "orange", fontWeight: "bold" }}>
+                      Day{index + 1}
+                    </Typography>
+                    <Typography>{item}</Typography>
+                  </Box>
+                </>
+              );
+            })}
           </Box>
-          <Typography
-            sx={{
-              fontSize: "12px",
-              color: "#666666",
-              fontWeight: "300",
-              textAlign: "left",
-            }}
-          >
-            Note: These are non-refundable amounts as per the current components
-            attached. In the case of component change/modifications, the policy
-            will change accordingly.
-          </Typography>
-          <Typography
-            sx={{ fontSize: "16px", color: "#666666", fontWeight: "bold" }}
-          >
-            Package Cancellation Policy
-          </Typography>
-          <Box display="flex" justifyContent="space-between" my={1}>
-            <Box>
-              <Typography
-                sx={{
-                  fontSize: "14px",
-                  color: "#252525",
-                  fontWeight: "300",
-                  textAlign: "left",
-                }}
-              >
-                Date Change Possible
-              </Typography>
-              <Typography
-                sx={{
-                  fontSize: "14px",
-                  color: "#006FFF",
-                  fontWeight: "300",
-                  textAlign: "left",
-                }}
-              >
-                Till 03 Feb 23
-              </Typography>
-              <Typography
-                sx={{
-                  fontSize: "14px",
-                  color: "#006FFF",
-                  fontWeight: "300",
-                  textAlign: "left",
-                }}
-              >
-                After 03 Feb 23
-              </Typography>
+          <Box className="main-head" mt={8}>
+            <Typography className="holiday_txt" textDecoration="underline">
+              Cancellation & Date Change
+            </Typography>
+            <Typography
+              sx={{ fontSize: "16px", color: "#666666", fontWeight: "bold" }}
+            >
+              Package Cancellation Policy
+            </Typography>
+            <Typography
+              sx={{ fontSize: "16px", color: "#252525", fontWeight: "bold" }}
+            >
+              Cancellation & Charges:
+            </Typography>
+            <Box display="flex" justifyContent="space-between" my={1}>
+              <Box>
+                <Typography
+                  sx={{
+                    fontSize: "14px",
+                    color: "#252525",
+                    fontWeight: "300",
+                    textAlign: "left",
+                  }}
+                >
+                  Cancellation Time
+                </Typography>
+                <Typography
+                  sx={{
+                    fontSize: "14px",
+                    color: "#006FFF",
+                    fontWeight: "300",
+                    textAlign: "left",
+                  }}
+                >
+                  Till 03 Feb 23
+                </Typography>
+                <Typography
+                  sx={{
+                    fontSize: "14px",
+                    color: "#006FFF",
+                    fontWeight: "300",
+                    textAlign: "left",
+                  }}
+                >
+                  After 03 Feb 23
+                </Typography>
+              </Box>
+              <Box>
+                <Typography
+                  sx={{
+                    fontSize: "14px",
+                    color: "#252525",
+                    fontWeight: "300",
+                    textAlign: "right",
+                  }}
+                >
+                  Cancellation Charges
+                </Typography>
+                <Typography
+                  sx={{
+                    fontSize: "14px",
+                    color: "#FF8900",
+                    fontWeight: "300",
+                    textAlign: "right",
+                  }}
+                >
+                  ₹2,000 Cancellation Fee
+                </Typography>
+                <Typography
+                  sx={{
+                    fontSize: "14px",
+                    color: "#FF8900",
+                    fontWeight: "300",
+                    textAlign: "right",
+                  }}
+                >
+                  Non Refundable
+                </Typography>
+              </Box>
             </Box>
-            <Box>
-              <Typography
-                sx={{
-                  fontSize: "14px",
-                  color: "#252525",
-                  fontWeight: "300",
-                  textAlign: "right",
-                }}
-              >
-                Date Change
-              </Typography>
-              <Typography
-                sx={{
-                  fontSize: "14px",
-                  color: "#FF8900",
-                  fontWeight: "300",
-                  textAlign: "right",
-                }}
-              >
-                ₹0 Date Change Fee
-              </Typography>
-              <Typography
-                sx={{
-                  fontSize: "14px",
-                  color: "#FF8900",
-                  fontWeight: "300",
-                  textAlign: "right",
-                }}
-              >
-                Date cannot be changed
-              </Typography>
+            <Typography
+              sx={{
+                fontSize: "12px",
+                color: "#666666",
+                fontWeight: "300",
+                textAlign: "left",
+              }}
+            >
+              Note: These are non-refundable amounts as per the current components
+              attached. In the case of component change/modifications, the policy
+              will change accordingly.
+            </Typography>
+            <Typography
+              sx={{ fontSize: "16px", color: "#666666", fontWeight: "bold" }}
+            >
+              Package Cancellation Policy
+            </Typography>
+            <Box display="flex" justifyContent="space-between" my={1}>
+              <Box>
+                <Typography
+                  sx={{
+                    fontSize: "14px",
+                    color: "#252525",
+                    fontWeight: "300",
+                    textAlign: "left",
+                  }}
+                >
+                  Date Change Possible
+                </Typography>
+                <Typography
+                  sx={{
+                    fontSize: "14px",
+                    color: "#006FFF",
+                    fontWeight: "300",
+                    textAlign: "left",
+                  }}
+                >
+                  Till 03 Feb 23
+                </Typography>
+                <Typography
+                  sx={{
+                    fontSize: "14px",
+                    color: "#006FFF",
+                    fontWeight: "300",
+                    textAlign: "left",
+                  }}
+                >
+                  After 03 Feb 23
+                </Typography>
+              </Box>
+              <Box>
+                <Typography
+                  sx={{
+                    fontSize: "14px",
+                    color: "#252525",
+                    fontWeight: "300",
+                    textAlign: "right",
+                  }}
+                >
+                  Date Change
+                </Typography>
+                <Typography
+                  sx={{
+                    fontSize: "14px",
+                    color: "#FF8900",
+                    fontWeight: "300",
+                    textAlign: "right",
+                  }}
+                >
+                  ₹0 Date Change Fee
+                </Typography>
+                <Typography
+                  sx={{
+                    fontSize: "14px",
+                    color: "#FF8900",
+                    fontWeight: "300",
+                    textAlign: "right",
+                  }}
+                >
+                  Date cannot be changed
+                </Typography>
+              </Box>
             </Box>
+            <Typography
+              sx={{
+                fontSize: "12px",
+                color: "#666666",
+                fontWeight: "300",
+                textAlign: "left",
+              }}
+            >
+              Note: These are non-refundable amounts as per the current components
+              attached. In the case of component change/modifications, the policy
+              will change accordingly. Date Change fees don't include any fare
+              change in the components on the new date. Fare difference as
+              applicable will be charged separately. Date Change will depend on
+              the availability of the components on the new requested date.
+            </Typography>
           </Box>
-          <Typography
-            sx={{
-              fontSize: "12px",
-              color: "#666666",
-              fontWeight: "300",
-              textAlign: "left",
-            }}
+          <Box
+            display="flex"
+            justifyContent="center"
+            width={"100%"}
+            marginTop={12}
           >
-            Note: These are non-refundable amounts as per the current components
-            attached. In the case of component change/modifications, the policy
-            will change accordingly. Date Change fees don't include any fare
-            change in the components on the new date. Fare difference as
-            applicable will be charged separately. Date Change will depend on
-            the availability of the components on the new requested date.
-          </Typography>
-        </Box>
-        {/* <form action="/Holidayreviewbooking" > */}
-        <Box
-          display="flex"
-          justifyContent="center"
-          width={"100%"}
-          marginTop={12}
+            <Custombutton
+              title={"Proceed to Booking Review"}
+              type={"submit"}
+              onClick={handleBookingPackage}
+            />
+          </Box>
+        </form> */}
+        <Modal
+          open={showSuccess}
+          aria-labelledby="child-modal-title"
+          aria-describedby="child-modal-description"
         >
-          <Custombutton
-            title={"Proceed to Booking Review"}
-            type={"submit"}
-            onClick={handleBookingPackage}
-          />
-        </Box>
-        {/* </form> */}
-      </form>
-      <Modal
-        open={showSuccess}
-        aria-labelledby="child-modal-title"
-        aria-describedby="child-modal-description"
-      >
-        <MuiBox sx={{ ...style, width: 350 }}>
-          <img src={successGif} alt="sucess gif" style={{ width: "100%" }} />
-          <Typography
-            textAlign="center"
-            paddingLeft={3}
-            paddingTop={2}
-            fontWeight="bold"
-          >
-            Thanku!!Your booking is done
-          </Typography>
-        </MuiBox>
-      </Modal>
-    </Box>
+          <MuiBox sx={{ ...style, width: 350 }}>
+            <img src={successGif} alt="sucess gif" style={{ width: "100%" }} />
+            <Typography
+              textAlign="center"
+              paddingLeft={3}
+              paddingTop={2}
+              fontWeight="bold"
+            >
+              Thanku!!Your booking is done
+            </Typography>
+          </MuiBox>
+        </Modal>
+      </Box>
+
+    </>
   );
 };
 

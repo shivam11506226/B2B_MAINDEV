@@ -54,7 +54,7 @@ const HolidatLeftPackage = () => {
 
   const handleCreateForex = (event) => {
     event.preventDefault();
-    console.log("formData", formData);
+    // console.log("formData", formData);
 
     const payload = {
         name: formData.name, 

@@ -43,7 +43,7 @@ function createData(name, calories, fat, carbs, protein) {
 const rows = [createData("DEL-BOM", 7, 15)];
 
 export default function BasicPopover(props) {
-  console.log("Props", props);
+  // console.log("Props", props);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const reducerState = useSelector((state) => state);
@@ -51,7 +51,7 @@ export default function BasicPopover(props) {
 
   const results =
     reducerState?.oneWay?.oneWayData?.data?.data?.Response?.Results || reducerState?.return?.returnData?.data?.data?.Response?.Results;
-  console.log("Redux State", results);
+  // console.log("Redux State", results);
 
   const origin = props.origin;
   const destination = props.destination;

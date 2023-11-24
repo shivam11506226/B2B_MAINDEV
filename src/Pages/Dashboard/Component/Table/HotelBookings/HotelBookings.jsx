@@ -4,6 +4,7 @@ import axios from 'axios';
 import { Table, TableBody, TableCell, TableRow, Paper,TextField,InputAdornment } from '@mui/material';
 import './HotelBookings.css';
 import SearchIcon from '@mui/icons-material/Search';
+import { apiURL } from '../../../../../Constants/constant';
 const AllHotelBooking = () => {
   const [hotelBookings, setHotelBookings] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -15,7 +16,7 @@ const AllHotelBooking = () => {
     async function fetchHotelBookings() {
       try {
         const response = await axios.get(
-          `http://localhost:8000/skytrails/api/admin/getAllHotelBookingList`,
+          `${apiURL.baseURL}/skytrails/api/admin/getAllHotelBookingList`,
           {
             params: {
               page: currentPage,
@@ -32,11 +33,11 @@ const AllHotelBooking = () => {
         setLoading(false);
       }
     }
-    console.log("hotelBookings========", hotelBookings);
+    // console.log("hotelBookings========", hotelBookings);
     fetchHotelBookings();
   }, [currentPage, searchTerm]);
   const handlePageChange = (page) => {
-    console.log("page", page)
+    // console.log("page", page)
     setCurrentPage(page);
   };
   const handleSearch = (event) => {

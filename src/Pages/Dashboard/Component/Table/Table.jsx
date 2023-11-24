@@ -34,6 +34,7 @@ import Modal from "react-bootstrap/Modal";
 import axios from "axios";
 import Loader from "../../../Loader/Loader";
 import TablePreloader from "../../../Loader/TablePreloader";
+import { apiURL } from "../../../../Constants/constant";
 
 const style = {
   position: "absolute",
@@ -85,7 +86,7 @@ export default function Tables() {
     (ele) => ele.is_active
   );
 
-  console.log(reducerState);
+  // console.log(reducerState);
   // console.log("active", activeData);
 
   const dispatch = useDispatch();
@@ -137,7 +138,7 @@ export default function Tables() {
   // const [activeSwitch, setActiveSwitch] = useState(true);
 
   useEffect(() => {
-    axios.get("http://localhost:8000/skyTrails/user/getallusers");
+    axios.get(`${apiURL.baseURL}/skyTrails/user/getallusers`);
   }, []);
 
   // -------- Activate or Deactivate--------//
@@ -152,10 +153,10 @@ export default function Tables() {
     // Invert the current status to get the updated status
     const updatedStatus = !currentStatus;
     // Update the activeUsers state with the new status
-    console.log("undated status", updatedStatus);
+    // console.log("undated status", updatedStatus);
     setActive({ ...activeUsers, [userId]: updatedStatus });
 
-    console.log("value", value);
+    // console.log("value", value);
 
     if (value === "active") {
       const payload = {
@@ -174,7 +175,7 @@ export default function Tables() {
     setValue(value);
     window.location.reload();
   };
-  console.log("value", value);
+  // console.log("value", value);
   useEffect(() => {
     dispatch(getUserAction());
   }, [value]);
@@ -186,14 +187,14 @@ export default function Tables() {
   const handleMarkUp = (event, id) => {
     const { name, value } = event.target;
 
-    console.log("name" + name + " " + value);
+    // console.log("name" + name + " " + value);
 
     setMarkUpValues({
       ...markUpValues,
       [name]: value,
     });
 
-    console.log(markUpValues);
+    // console.log(markUpValues);
 
     setInputMarkUp(event.target.value);
 
@@ -266,10 +267,10 @@ export default function Tables() {
   const [amount, setAmount] = React.useState("");
 
   const adminCheck = reducerState?.adminAuth?.adminData?.data?.id;
-  console.log("adminCheck", adminCheck);
+  // console.log("adminCheck", adminCheck);
 
   const updateVendorAmount = (id) => {
-    console.log("wallet id", id);
+    // console.log("wallet id", id);
 
     const payload = {
       data: {

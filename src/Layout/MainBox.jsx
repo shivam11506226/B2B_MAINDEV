@@ -64,7 +64,9 @@ import "./maixBox.css"
 function MainBox() {
   return (
     <div className="centeredBox">
-      <div className="centered-box-top"></div>
+      <div className="centered-box-top">
+        <p>Services We Provide</p>
+      </div>
       {InnerBarLogo.map(({ avatar, name, path }, index) => (
         <Link to={path} key={index} style={{ textDecoration: "none" }}>
           <div className={`centeredBox-content ${index === 0 || index === 1 || index === 3 || index === 4 ? 'border-right-dashed' : ''} ${index < 3 ? 'border-bottom' : ''}`}>

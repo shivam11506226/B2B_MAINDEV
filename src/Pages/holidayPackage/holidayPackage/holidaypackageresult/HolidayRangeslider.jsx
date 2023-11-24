@@ -30,7 +30,7 @@ export default function InputSlider() {
     }
   };
 
-  console.log('hello');
+  // console.log('hello');
 
   return (
     <Box sx={{ width: '100%', display: "flex", justifyContent: "center" ,marginX:'20px'}}>

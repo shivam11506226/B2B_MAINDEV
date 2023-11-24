@@ -12,7 +12,7 @@ const MultipleDataReturn = (props) => {
   const flight = props.flight;
   const wholeFlight = props.wholeFlight
   const IsLCC = props.IsLCC;
-  console.log("flight multiple", flight);
+  // console.log("flight multiple", flight);
   const indexKey = props.index;
   const fare =
     reducerState?.logIn?.loginData.length > 0
@@ -58,8 +58,8 @@ const MultipleDataReturn = (props) => {
   // console.log("Results", results);
   const handleClick = (allDetails, ResultIndex) => {
     const slicedResultIndex = ResultIndex.slice(0, 2);
-    console.log("Handel Click Index Key", slicedResultIndex);
-    console.log("hghfdsjgdsjsfd", props.flight);
+    // console.log("Handel Click Index Key", slicedResultIndex);
+    // console.log("hghfdsjgdsjsfd", props.flight);
 
 
     if (slicedResultIndex == "OB") {
@@ -407,7 +407,7 @@ const MultipleDataReturn = (props) => {
                 > */}
     {/* <button
                     onClick={() => {
-                      console.log("indexKey inside loop", indexKey);
+                      // console.log("indexKey inside loop", indexKey);
                       handleClick(indexKey);
                     }}
                   >

@@ -40,7 +40,7 @@ const AdminLogin = () => {
   const [password, setPassword] = useState("");
   const reducerState = useSelector((state) => state);
   const dispatch = useDispatch();
-  console.log(reducerState);
+  // console.log(reducerState);
 
   let adminData = reducerState?.adminAuth?.adminData?.data?.roles[0];
 

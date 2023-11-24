@@ -9,13 +9,13 @@ const FlightresultOne = ({ sendDataToParent }) => {
   const [selectedFlightIndex, setSelectedFlightIndex] = useState(null);
   const sendData = (e) => {
     const data = e.target;
-    console.log("dataaaaaaaaaaa", data);
+    // console.log("dataaaaaaaaaaa", data);
     sendDataToParent(data);
   };
   const [filter, setFilter] = useState(1);
   const setToSearchResults =
     reducerState?.return?.returnData?.data?.data?.Response?.Results;
-  console.log("+++++++++++++", setToSearchResults[1]);
+  // console.log("+++++++++++++", setToSearchResults[1]);
 
   return setToSearchResults[1]?.map((flight1) => {
     // result = res.sort((a, b) => a.Segments[0][0].Duration - b.Fare.OfferedFare);
@@ -63,9 +63,9 @@ const FlightresultOne = ({ sendDataToParent }) => {
 
         <div key={flight1?.ResultIndex}>
           {flight1?.Segments?.map((flight, Index) => {
-            console.log("flight", flight);
+            // console.log("flight", flight);
             const length = flight.length;
-            console.log("ResultIndex1", flight1?.ResultIndex);
+            // console.log("ResultIndex1", flight1?.ResultIndex);
             return length === 1 ? (
               <Box
                 onClick={(e) => {

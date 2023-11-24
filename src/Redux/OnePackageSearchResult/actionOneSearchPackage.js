@@ -8,7 +8,7 @@ export const searchOnePackageData = (data) => {
 };
 
 export const searchOnePackageAction = (data) => {
- console.log("searchOnePackageAction",data);
+//  console.log("searchOnePackageAction",data);
     return {
       type: types.GET_ONE_SEARCH_PACKAGE_DATA,
       payload: data,

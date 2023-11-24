@@ -10,14 +10,14 @@ import { useSelector } from 'react-redux';
 import colors from "../../../color/color";
 const Holidaybooknow = () => {
   const reducerState = useSelector((state) => state);
-  console.log("package Req", reducerState);
+  // console.log("package Req", reducerState);
 
   const packageId = reducerState?.searchOneResult?.OneSearchPackageResult?.data?.data?._id
 
   const userId = reducerState?.logIn?.loginData?.data?.data?.id
 
-  console.log("package Id", packageId);
-  console.log("user Id", userId);
+  // console.log("package Id", packageId);
+  // console.log("user Id", userId);
 
 
   return (

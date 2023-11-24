@@ -60,7 +60,7 @@ const CreateHolidayPackage = () => {
   const dispatch = useDispatch();
   const reducerState = useSelector((state) => state);
   const navigate = useNavigate();
-  console.log("create Package", reducerState);
+  // console.log("create Package", reducerState);
 
   const [inputList, setInputList] = useState([{ addMore: "" }]);
 
@@ -84,7 +84,7 @@ const CreateHolidayPackage = () => {
     setInputList([...inputList, { addMore: "" }]);
   };
 
-  console.log("input List", inputList);
+  // console.log("input List", inputList);
 
   const [tag, setTag] = useState({
     domestic: false,
@@ -187,7 +187,7 @@ const CreateHolidayPackage = () => {
     newValues[index] = e.target.value;
     setDaysDetails(newValues);
   };
-  console.log("daysDetailsValues", daysDetailsValues);
+  // console.log("daysDetailsValues", daysDetailsValues);
 
   // Form handle code
   const handleCreatePackage = (event) => {
@@ -280,11 +280,11 @@ const CreateHolidayPackage = () => {
       term_Conditions: formData.get("term_Conditions"),
       cancellation_Policy: formData.get("cancellation_Policy"),
     };
-    console.log("payload", payload);
+    // console.log("payload", payload);
     const formData1 = new FormData();
     formData1.append("file", file1);
     formData1.append("data", JSON.stringify(payload));
-    console.log(formData1);
+    // console.log(formData1);
     dispatch(createPackageAction(formData1));
    
   };

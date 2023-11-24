@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 
 const BusSaleSummary = () => {
   const reducerState = useSelector((state) => state);
-  console.log("reducerState", reducerState);
+  // console.log("reducerState", reducerState);
   const markUpamount =
     reducerState?.userData?.userData?.data?.data?.markup?.bus;
   const [publishedPrice, setPublishedPrice] = useState(0);
@@ -13,7 +13,7 @@ const BusSaleSummary = () => {
   const seatData = sessionStorage.getItem("seatData");
   const parsedSeatData = JSON.parse(seatData);
   const seatObject = parsedSeatData?.blockedSeatArray;
-  console.log(seatObject);
+  // console.log(seatObject);
   const published = seatObject.reduce(function (
     accumulator,
     currentValue,
