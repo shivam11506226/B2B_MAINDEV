@@ -56,6 +56,7 @@ const Flightdetail = () => {
   const [bookingSuccess, setBookingSuccess] = useState(bookingStatus);
   const [passengerData, setPassengerData] = useState([]);
   console.log("State Data", reducerState);
+  const [sub, setSub] = useState(false)
 
   useEffect(() => {
     if (bookingStatus == 1) {
@@ -150,6 +151,8 @@ const Flightdetail = () => {
 
   const emailRef = useRef();
   const phoneRef = useRef();
+  const [emailVal, setEmail] = useState(false)
+  const [contactVal, setContact] = useState(false)
 
   const [accordionExpanded, setAccordionExpanded] = React.useState(false);
   const handleAccordionChange = (index) => (event, isExpanded) => {
@@ -212,6 +215,13 @@ const Flightdetail = () => {
   const handleServiceChange = (e, roomIndex, knowIndex) => {
     console.log(roomIndex, knowIndex, "roomIndex", "knowIndex");
     console.log(passengerData);
+    const eml=document.getElementById('Email1').value
+    const con=document.getElementById('phoneNumber1').value
+    const val=validateEmail(eml)
+    const valCon=validatePhoneNumber(con)
+    setEmail(()=>val);
+    setContact(()=>valCon);
+    console.warn(val,"email validationjfnjkdfnjdfjfddddddddddddddddddn")
     const { name, value } = e.target;
     const filteredPassenger = passengerData.filter((item, index) => {
       return (
@@ -225,12 +235,16 @@ const Flightdetail = () => {
     if (indexFind !== -1) {
       passengerData[indexFind] = newFilteredPassenger;
     }
-    console.log("passengerDataNew", passengerData);
+    // console.warn("passengerDataNew", passengerData);
   };
 
   const handleClickSavePassenger = () => {
+    console.warn("emailrefffffffffffff", emailRef.current.value)
+    setSub(true)
+    if (!validation()) {
+      return
+    }
     dispatch(PassengersAction(passengerData));
-    console.log("passengerData", passengerData)
     navigate("/Guestdetail");
   };
 
@@ -372,7 +386,42 @@ const Flightdetail = () => {
   const handleOtherChange = (panel) => (event, notexpanted) => {
     setExpandedOther(notexpanted ? panel : false);
   };
+  function validatePAN(panNumber) {
+    const regex = /^[A-Z]{5}[0-9]{4}[A-Z]{1}$/;
+    return regex.test(panNumber);
+  }
+  function validatePhoneNumber(phoneNumber) {
+    // Define the regular expression pattern for a valid phone number
+    var phonePattern = /^\d{10}$/;
 
+    // Test the phone number against the pattern
+    return phonePattern.test(phoneNumber);
+  }
+  function validateEmail(email) {
+    // Define the regular expression pattern for a valid phone number
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    // Test the phone number against the pattern
+    return emailRegex.test(email);
+  }
+
+  function validation() {
+    const email = document.getElementById('Email1').value
+    const contact = document.getElementById('phoneNumber1').value
+    const em = validateEmail(email)
+    const con = validatePhoneNumber(contact)
+    const other = passengerData.filter((item) =>
+      toString(item.Age) === "" || item.FirstName === "" || item.LastName === "" || validatePAN(item.PAN) === false)
+    console.warn("dataddddddddd", other)
+    const result = (em && con && other.length === 0
+    )
+    console.warn(result, "result")
+    return result
+
+
+
+  }
+  // console.warn("passengerDataNew", emailRef,"sss");
   return (
 
     <>
@@ -473,11 +522,13 @@ const Flightdetail = () => {
                       </label>
                       <input
                         name="Email"
+                        id="Email1"
                         ref={emailRef}
                         placeholder="Enter your Email"
                         // value={passengerData.Email}
                         onChange={(e) => handleServiceChange(e, 0)}
                       />
+                      {sub && !emailVal && <span id="error1">Enter a Valid Email</span>}
                     </div>
                   </div>
 
@@ -488,11 +539,13 @@ const Flightdetail = () => {
                       </label>
                       <input
                         name="Phoneno"
+                        id="phoneNumber1"
                         ref={phoneRef}
                         placeholder="Enter your name"
                         // value={passengerData.Phoneno}
                         onChange={(e) => handleServiceChange(e, 0)}
                       />
+                       {sub && !contactVal && <span id="error1">Enter a Valid Number</span>}
                     </div>
                   </div>
                 </div>
@@ -551,6 +604,7 @@ const Flightdetail = () => {
                                                 }, 500)
                                               }
                                             />
+                                            {sub && passengerData[roomIndex].FirstName === "" && <span className="error">{passengerData[roomIndex].FirstName}</span>}
                                           </div>
                                         </Box>
                                       </Grid>
@@ -591,7 +645,7 @@ const Flightdetail = () => {
                                             </label>
                                             <input
                                               name="Age"
-                                              type="text"
+                                              type="number"
                                               placeholder="Enter Age"
                                               // value={passengerData.Age}
                                               onChange={(e) =>
