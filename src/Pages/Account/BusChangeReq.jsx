@@ -88,7 +88,7 @@ const BusChangeReq = () => {
 
     try {
       const response = await axios.post(
-        `${apiURL.baseURL}/skytrails/user/BusDetailsRequest`,
+        `${apiURL.baseURL}/skytrails/user/changeBusBookingDetailsRequest`,
         formData
       );
       // console.log("Response from the server:", response.data);
