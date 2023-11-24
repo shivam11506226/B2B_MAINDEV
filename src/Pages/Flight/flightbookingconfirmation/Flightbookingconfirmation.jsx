@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { debounce } from "lodash";
 import "./flightbookingconfirmation.css";
 import { Button } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -15,15 +16,12 @@ import Rightdetail from "../passengerdetail/Rightdetail";
 import Flightconfirmationdetail from "./Flightconfirmationdetail";
 import { useDispatch, useSelector } from "react-redux";
 import { getUserDataAction } from "../../../Redux/Auth/UserDataById/actionUserData";
-
-// import Leftdetail from './Leftdetail';
-// import Rightdetail from './Rightdetail';
-
+import userApi from "../../../Redux/API/api";
 const FlightReviewbooking = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const reducerState = useSelector((state) => state);
-  // console.log("reducerState", reducerState);
+  console.log("reducerState", reducerState);
   const TicketDetails =
     reducerState?.flightBook?.flightBookDataGDS?.Response ||
     reducerState?.flightBook?.flightBookData?.Response;
@@ -31,17 +29,89 @@ const FlightReviewbooking = () => {
   const [alert, setAlert] = useState(true);
   const oneWayCheck = reducerState?.flightFare?.flightQuoteData?.Results;
   const returnCheck = reducerState?.flightFare?.flightQuoteDataReturn?.Results;
+  const bookingDataLcc = reducerState?.flightBook?.flightBookData?.Response;
+  const bookingDataNonLcc =reducerState?.flightBook?.flightBookDataGDS?.Response;
+  const bookingDataLccReturn=""
+  const bookingDataNonLccReturn=""
 
+  const addBookingDetailsReturn=()=>{
+    
+  }
 
+ const addBookingDetails = () => {
+     if (bookingDataLcc) {
+       console.log("lccCheck");
+       const payloadLCC = {
+         userId: reducerState?.logIn?.loginData?.data?.data?.id,
+         bookingId: `${bookingDataLcc?.BookingId}`,
+         oneWay: true,
+         pnr: bookingDataLcc?.PNR,
+         origin: bookingDataLcc?.FlightItinerary?.Origin,
+         destination: bookingDataLcc?.FlightItinerary?.Destination,
+         paymentStatus: "success",
+         dateOfJourney: bookingDataLcc?.FlightItinerary?.InvoiceCreatedOn,
+         amount: bookingDataLcc?.FlightItinerary?.InvoiceAmount,
+         airlineDetails: {
+           AirlineName: bookingDataLcc?.FlightItinerary?.ValidatingAirlineCode,
+           DepTime: "ggtglt",
+         },
+         passengerDetails: bookingDataLcc?.FlightItinerary?.Passenger?.map(
+           (item) => {
+             return {
+               firstName: item?.FirstName,
+               lastName: item?.LastName,
+               gender: item?.Title,
+               ContactNo: item?.ContactNo,
+               DateOfBirth: item?.DateOfBirth,
+               email: item?.Email,
+               addressLine1: item?.AddressLine1,
+               city: item?.City,
+             };
+           }
+         ),
+       };
+       userApi.flightBookingDataSave(payloadLCC);
+     } else {
+       console.log("nonlccCheck");
+       const payloadNonLcc = {
+         userId: reducerState?.logIn?.loginData?.data?.data?.id,
+         bookingId: `${bookingDataNonLcc?.BookingId}`,
+         oneWay: true,
+         pnr: bookingDataNonLcc?.PNR,
+         origin: bookingDataNonLcc?.FlightItinerary?.Origin,
+         destination: bookingDataNonLcc?.FlightItinerary?.Destination,
+         paymentStatus: "success",
+         dateOfJourney: bookingDataNonLcc?.FlightItinerary?.LastTicketDate,
+         amount: bookingDataNonLcc?.FlightItinerary?.Fare?.PublishedFare,
+         airlineDetails: {
+           AirlineName:
+             bookingDataNonLcc?.FlightItinerary?.ValidatingAirlineCode,
+           DepTime: "jgtr",
+         },
+         passengerDetails: bookingDataNonLcc?.FlightItinerary?.Passenger?.map(
+           (item) => {
+             return {
+               firstName: item?.FirstName,
+               lastName: item?.LastName,
+               gender: item?.Title,
+               ContactNo: item?.ContactNo,
+               DateOfBirth: item?.DateOfBirth,
+               email: item?.Email,
+               addressLine1: item?.AddressLine1,
+               city: item?.City,
+             };
+           }
+         ),
+       };
+       userApi.flightBookingDataSave(payloadNonLcc);
+     }
+   
+ };
+ const debouncedAddBookingDetails = debounce(addBookingDetails, 500);
   useEffect(() => {
     updateBalance();
-    return () => {
-      setTimeout(() => {
-        setAlert(false);
-      }, 1000);
-    };
+     debouncedAddBookingDetails();
   }, []);
-
   const updateBalance = () => {
     if (userId) {
       const payload = userId;
@@ -49,9 +119,7 @@ const FlightReviewbooking = () => {
     }
   };
 
-  const addBookingDatills=()=>{
-      
-  }
+ 
 
   return (
     <div className="flightContainer">
@@ -64,7 +132,6 @@ const FlightReviewbooking = () => {
           </Box>
         </Grid>
       </Grid>
-
     </div>
   );
 };
