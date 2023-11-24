@@ -1,0 +1,96 @@
+/* Topbar.css */
+
+.app-bar {
+    background-color: #6778EF;
+}
+
+
+.toolbar {
+    justify-content: space-between;
+    padding: 10px 0 !important;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.toolbar:hover {
+    background-color: #8995ef; /* Change background color on hover */
+}
+
+.logo {
+    width: 100px;
+    height: auto !important;
+    margin-top: 5px !important;
+}
+
+
+.logo-link {
+    text-decoration: none;
+}
+
+.site-title {
+    font-family: monospace;
+    font-weight: 700;
+    letter-spacing: 0.3rem;
+    color: inherit;
+    text-decoration: none;
+}
+
+.nav-links {
+    display: flex;
+    align-items: center;
+    
+}
+
+.nav-links a {
+    margin: 0 1rem;
+    color: white;
+    text-decoration: none;
+    font-size: 16px;
+    transition: color 0.3s ease-in-out;
+    /* Add a smooth color transition */
+}
+
+.nav-links a:hover {
+    color: #FF8900;
+    /* Change color on hover */
+}
+
+.user-section {
+    display: flex;
+    align-items: center;
+}
+
+.user-avatar {
+    margin-right: 1rem;
+}
+
+.logout-button {
+    background-color: #0052D0;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease-in-out;
+    /* Add a smooth background color transition */
+}
+
+.logout-button:hover {
+    background-color: #003366;
+}
+
+@media (max-width: 768px) {
+    .toolbar {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .nav-links {
+        margin-top: 1rem;
+        justify-content: center;
+    }
+
+    .user-section {
+        margin-top: 1rem;
+        justify-content: center;
+    }
+}

@@ -15,7 +15,7 @@ const AllHotelBooking = () => {
     async function fetchHotelBookings() {
       try {
         const response = await axios.get(
-          `http://localhost:8000/skytrails/api/admin/getAllHotelBookingList`,
+          `http://localhost:8000/skytrails/api/admin/getAllHotelBookingListAgent`,
           {
             params: {
               page: currentPage,

@@ -3,7 +3,8 @@ import axios from 'axios';
 import './BusBookings.css';
 import { Table, TableBody, TableCell, TableRow, Paper, TextField, InputAdornment } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
-const AllBusBooking = () => {
+
+const AllBusBookingList = () => {
   const [busBookings, setBusBookings] = useState([]);
   const [loading, setLoading] = useState(true);
   const pageSize = 10; // Number of items per page
@@ -13,21 +14,17 @@ const AllBusBooking = () => {
   useEffect(() => {
     async function fetchBusBookings() {
       try {
-        const response = await axios.get(`http://localhost:8000/skytrails/api/admin/getAllBusBookingListAgent`,
-          {
-            params: {
-              page: currentPage,
-              size: pageSize,
-              search: searchTerm,
-            }
-          }
-        )
+        const apiUrl = `http://localhost:8000/skytrails/api/admin/getAllBusBookingList?page=${currentPage}&size=${pageSize}&search=${encodeURIComponent(searchTerm.trim())}`;
+console.log("API URL:", apiUrl);
+        const response = await axios.get(apiUrl);
+        console.log("API Response:", response.data);
         setBusBookings(response.data.result.docs);
         setTotalPages(response.data.result.totalPages);
         setLoading(false);
       } catch (error) {
         console.error('Error fetching Bus bookings:', error);
         setLoading(false);
+        setBusBookings([]);
       }
     }
 
@@ -56,6 +53,7 @@ const AllBusBooking = () => {
           ),
         }}
       />
+          {busBookings.length > 0 ? (
       <table border="1">
         <thead>
           <tr>
@@ -67,7 +65,8 @@ const AllBusBooking = () => {
             <th>Destination</th>
             <th>Origin</th>
             <th>Bus Name</th>
-            <th>Bus Type</th>
+            <th>Bus ID</th>
+            <th>Amount</th>
             <th>PNR</th>
             <th>Date Of Journey</th>
             <th>No Of Seats</th>
@@ -78,10 +77,10 @@ const AllBusBooking = () => {
             <tr key={bookings._id}>
               <td>{bookings._id}</td>
               <td>{bookings.userId}</td>
-              <td>{bookings.name}</td>
-              <td>{bookings.userDetails ? `${bookings.userDetails.email}` : "Empty"}</td>
+              <td>{bookings.userDetails.username}</td>
+              <td>{bookings.userDetails.email ? `${bookings.userDetails.email}` : "Empty"}</td>
               <td>
-                {bookings.phone && typeof bookings.phone === 'object' ?
+                {bookings.userDetails.phone.mobile_number && typeof bookings.userDetails.phone.mobile_number === 'object' ?
                   `${bookings.phone.country_code}${bookings.phone.mobile_number}` :
                   "Empty"
                 }
@@ -89,7 +88,8 @@ const AllBusBooking = () => {
               <td>{bookings.destination}</td>
               <td>{bookings.origin}</td>
               <td>{bookings.busName}</td>
-              <td>{bookings.busType}</td>
+              <td>{bookings.busId}</td>
+              <td>{bookings.amount}</td>
               <td>{bookings.pnr}</td>
               <td>{new Date(bookings.dateOfJourney).toDateString()}</td>
               <td>{bookings.noOfSeats}</td>
@@ -97,6 +97,9 @@ const AllBusBooking = () => {
           ))}
         </tbody>
       </table>
+          ):(
+            <p>No data found</p>
+          )}
       <div className="paginate">
         {Array.from({ length: totalPages }, (_, i) => (
           <button className="busButton" key={i + 1} onClick={() => handlePageChange(i + 1)}>
@@ -108,4 +111,4 @@ const AllBusBooking = () => {
   );
 };
 
-export default AllBusBooking;
+export default AllBusBookingList;

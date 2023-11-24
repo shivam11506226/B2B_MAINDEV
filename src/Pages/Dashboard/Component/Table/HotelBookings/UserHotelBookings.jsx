@@ -1,19 +1,21 @@
+// AllHotelBooking.js
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Table, TableBody, TableCell, TableRow, Paper, TextField, InputAdornment } from '@mui/material';
-import './FlightBooking.css';
+import { Table, TableBody, TableCell, TableRow, Paper,TextField,InputAdornment } from '@mui/material';
+import './HotelBookings.css';
 import SearchIcon from '@mui/icons-material/Search';
-const AllFlightBooking = () => {
-  const [flightBookings, setFlightBookings] = useState([]);
+const AllHotelBookingList = () => {
+  const [hotelBookings, setHotelBookings] = useState([]);
   const [loading, setLoading] = useState(true);
   const pageSize = 5; // Number of items per page
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
   const [searchTerm, setSearchTerm] = useState('');
   useEffect(() => {
-    async function fetchFlightBookings() {
+    async function fetchHotelBookings() {
       try {
-        const response = await axios.get(`http://localhost:8000/skytrails/api/admin/getAllFlightBookingListAgent`,
+        const response = await axios.get(
+          `http://localhost:8000/skytrails/api/admin/getAllHotelBookingList`,
           {
             params: {
               page: currentPage,
@@ -22,20 +24,19 @@ const AllFlightBooking = () => {
             }
           }
         );
-        setFlightBookings(response.data.result.docs);
-        console.log("=>>>", response.data.result.totalPages)
+        setHotelBookings(response.data.result.docs);
         setTotalPages(response.data.result.totalPages);
         setLoading(false);
       } catch (error) {
-        console.error('Error fetching flight bookings:', error);
+        console.error('Error fetching hotel bookings:', error);
         setLoading(false);
       }
     }
-    fetchFlightBookings();
-  }, [currentPage, searchTerm])
-
-
+    console.log("hotelBookings========", hotelBookings);
+    fetchHotelBookings();
+  }, [currentPage, searchTerm]);
   const handlePageChange = (page) => {
+    console.log("page", page)
     setCurrentPage(page);
   };
   const handleSearch = (event) => {
@@ -43,7 +44,8 @@ const AllFlightBooking = () => {
     setCurrentPage(1); // Reset to the first page when performing a new search
   };
   return (
-    <div className='flight-container'>
+
+    <div className='hotel-container'>
       <TextField
         type="text"
         value={searchTerm}
@@ -60,36 +62,29 @@ const AllFlightBooking = () => {
       <table border="1">
         <thead>
           <tr>
-            <th>PNR</th>
+            <th>Booking ID</th>
             <th>User ID</th>
-            <th>Passenger Name</th>
+            <th>Name</th>
+            <th>Phone</th>
             <th>Email</th>
-            <th>Phone Number</th>
-            <th>Flight Name</th>
-            <th>PaymentStatus</th>
-            <th>City </th>
-            <th>Country </th>
-            <th>Gender</th>
+            <th>CheckInDate</th>
+            <th>HotelName</th>
+            <th>CityName</th>
+            {/* Add more table headers based on your data */}
           </tr>
         </thead>
         <tbody>
-          {flightBookings.map(booking => (
+          {hotelBookings.map(booking => (
             <tr key={booking._id}>
-              <td>{booking.pnr}</td>
+              <td>{booking._id}</td>
               <td>{booking.userId}</td>
-              <td>{`${booking.passengerDetails[0].firstName} ${booking.passengerDetails[0].lastName}`}</td>
-              <td>{booking.passengerDetails[0].email}</td>
-
-              <td>
-                {`${booking.passengerDetails[0]?.phone?.country_code || 'N/A'} ${booking.passengerDetails[0]?.phone?.mobile_number || ''}`}
-
-
-              </td>
-              <td>{booking.flightName}</td>
-              <td>{booking.paymentStatus}</td>
-              <td>{booking.city}</td>
-              <td>{booking.country}</td>
-              <td>{booking.gender}</td>
+              <td>{booking.name}</td>
+              <td>{booking.userDetails.phone.mobile_number}</td>
+              <td>{booking.email}</td>
+              <td>{new Date(booking.CheckInDate).toDateString()}</td>
+              <td>{booking.hotelName}</td>
+              <td>{booking.cityName}</td>
+              {/* Add more table data cells based on your data */}
             </tr>
           ))}
         </tbody>
@@ -97,8 +92,8 @@ const AllFlightBooking = () => {
       {/* Pagination */}
       <div className="paginate">
         {Array.from({ length: totalPages }, (_, i) => (
-          <button className='flightButton' key={i} onClick={() => handlePageChange(i + 1)}>
-            <h5 className='flightButton'>{i + 1}</h5>
+          <button className='hotelButton' key={i + 1} onClick={() => handlePageChange(i + 1)}>
+            <h5>{i + 1}</h5>
           </button>
         ))}
       </div>
@@ -106,4 +101,4 @@ const AllFlightBooking = () => {
   );
 };
 
-export default AllFlightBooking;
+export default AllHotelBookingList;

@@ -3,7 +3,7 @@ import axios from 'axios';
 import { Table, TableBody, TableCell, TableRow, Paper, TextField, InputAdornment } from '@mui/material';
 import './FlightBooking.css';
 import SearchIcon from '@mui/icons-material/Search';
-const AllFlightBooking = () => {
+const AllFlightBookingList = () => {
   const [flightBookings, setFlightBookings] = useState([]);
   const [loading, setLoading] = useState(true);
   const pageSize = 5; // Number of items per page
@@ -13,7 +13,7 @@ const AllFlightBooking = () => {
   useEffect(() => {
     async function fetchFlightBookings() {
       try {
-        const response = await axios.get(`http://localhost:8000/skytrails/api/admin/getAllFlightBookingListAgent`,
+        const response = await axios.get(`http://localhost:8000/skytrails/api/admin/getAllFlightBookingList`,
           {
             params: {
               page: currentPage,
@@ -62,13 +62,11 @@ const AllFlightBooking = () => {
           <tr>
             <th>PNR</th>
             <th>User ID</th>
-            <th>Passenger Name</th>
+            <th>Amount</th>
             <th>Email</th>
             <th>Phone Number</th>
             <th>Flight Name</th>
             <th>PaymentStatus</th>
-            <th>City </th>
-            <th>Country </th>
             <th>Gender</th>
           </tr>
         </thead>
@@ -77,19 +75,14 @@ const AllFlightBooking = () => {
             <tr key={booking._id}>
               <td>{booking.pnr}</td>
               <td>{booking.userId}</td>
-              <td>{`${booking.passengerDetails[0].firstName} ${booking.passengerDetails[0].lastName}`}</td>
+              <td>{booking.amount}</td>
               <td>{booking.passengerDetails[0].email}</td>
-
               <td>
-                {`${booking.passengerDetails[0]?.phone?.country_code || 'N/A'} ${booking.passengerDetails[0]?.phone?.mobile_number || ''}`}
-
-
+                {`${booking.Userb2bDetails.phone.mobile_number}`}
               </td>
-              <td>{booking.flightName}</td>
+              <td>{booking.airlineDetails.AirlineName}</td>
               <td>{booking.paymentStatus}</td>
-              <td>{booking.city}</td>
-              <td>{booking.country}</td>
-              <td>{booking.gender}</td>
+              <td>{booking.passengerDetails.gender}</td>
             </tr>
           ))}
         </tbody>
@@ -106,4 +99,4 @@ const AllFlightBooking = () => {
   );
 };
 
-export default AllFlightBooking;
+export default AllFlightBookingList;
