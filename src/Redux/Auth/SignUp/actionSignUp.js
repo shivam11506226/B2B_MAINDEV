@@ -1,5 +1,6 @@
 import * as types from "./actionType";
 
+
 export const fetchSignUp = (user) => {
   return {
     type: types.SIGNUP_SUCCESS,
@@ -14,4 +15,13 @@ export const signUpAction = (user) => {
       payload: user,
     };
   }
+};
+export const signUpActionClear = () => {
+
+  
+    return {
+      type: types.SIGNUP_CLEAR,
+      payload: null,
+    };
+  
 };

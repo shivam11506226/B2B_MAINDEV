@@ -248,7 +248,7 @@ const HolidayconfirmationDetail = () => {
 
       <Box className="main-head" my={2}>
         <Typography className="holiday_txt" textDecoration="underline">
-          Package Itinerary & Inclusions
+          
         </Typography>
         <Typography className="holiday_txt_b" py={1}>
           Itinerary
