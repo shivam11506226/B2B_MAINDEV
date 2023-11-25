@@ -125,14 +125,14 @@ function LinaerStepper() {
             height: "69px",
           }}
         >
-          <img src={tra} style={{ width: "100%" }}></img>
+          <img src={tra}  style={{ width: "100%" }}></img>
         </Box>
         <Typography className="logo_text">skyTrails</Typography>
       </Box>
 
       <Paper style={{ height: "500px", overflow: "scroll" }}>
         {reducerState.signUp?.showSuccessMessage && (
-          <Alert severity="success">
+          <Alert onClick={()=>navigate("/Login")} severity="success">
             Thankyou ! for Registering, we'll contact you ASAP
           </Alert>
         )}

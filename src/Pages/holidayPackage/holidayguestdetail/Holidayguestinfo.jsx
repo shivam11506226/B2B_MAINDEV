@@ -72,6 +72,8 @@ const Holidayguestinfo = ({ setadultCount, setchildCount }) => {
   const requestSuccess =
     reducerState?.packageBookingRequest?.showSuccessMessage;
   const [showSuccess, setShowsuccess] = useState(requestSuccess);
+  const [add, setAdd] = useState(false);
+  const [sub, setSub] = useState(false);
   const onePackage =
     reducerState?.searchOneResult?.OneSearchPackageResult?.data?.data;
   const reducerForm = reducerState?.form?.formEntries;
@@ -120,21 +122,54 @@ const Holidayguestinfo = ({ setadultCount, setchildCount }) => {
   };
 
   const handlePersonAdd = () => {
+    setAdd(true)
+    if(validationAdd){
+      return
+    }
     dispatch(addFormEntry(formData));
     setFormData({
       name: "",
       dob: "",
-      gender: "",
+      gender: "male",
     });
   };
+  function validateEmail(email) {
+    // Define the regular expression pattern for a valid phone number
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
+    // Test the phone number against the pattern
+    return emailRegex.test(email);
+  }
+  function validatePhoneNumber(phoneNumber) {
+    // Define the regular expression pattern for a valid phone number
+    var phonePattern = /^\d{10}$/;
+
+    // Test the phone number against the pattern
+    return phonePattern.test(phoneNumber);
+  }
+  function validationAdd(){
+    if(formData.name===""||formData.dob==="" || formData.gender===""){
+      return true
+    }
+  }
+  function validationSub(){
+    if(!validateEmail( requestData.email) || !validatePhoneNumber( requestData.mobile) || requestData.departureCity===""){
+      return true
+    }
+  }
   const handleBookingPackage = (event) => {
+    event.preventDefault();
+    setSub(true)
+    if( validationSub()){
+      return
+    }
+    
     if (
       userBalance >=
       (reducerForm.length - 1) * onePackage?.pakage_amount.amount * 0.05 +
       (reducerForm.length - 1) * onePackage?.pakage_amount.amount
     ) {
-      event.preventDefault();
+      
       const formData = new FormData();
       const payload = {
         pakageid: packageId,
@@ -240,22 +275,25 @@ const Holidayguestinfo = ({ setadultCount, setchildCount }) => {
                     <input type="text" class="form-control" name="name" value={formData.name} onChange={handlePersonChange} id="floatingInput" placeholder="Enter Your Name" />
                     <label for="floatingInput">Enter Your Name</label>
                   </div>
+                 {add && formData.name==="" && <span id="error1">Enter name</span>}
                 </div>
                 <div className="col-lg-3">
                   <div class="form-floating md-mb-3">
-                    <input type="date" class="form-control" name="dob" value={formData.dob} onChange={handlePersonChange} id="floatingInput" placeholder="Enter Your DOB" />
+                    <input type="date" class="form-control" name="dob" max={(new Date()).toISOString().split('T')[0]} value={formData.dob} onChange={handlePersonChange} id="floatingInput" placeholder="Enter Your DOB" />
                     <label for="floatingInput">Date of Birth</label>
                   </div>
+                  {add && formData.dob==="" && <span id="error1">Enter DOB</span>}
                 </div>
                 <div className="col-lg-3">
                   <div class="form-floating md-mb-3">
-                    <select class="form-select" name="gender" value={formData.gender} onChange={handlePersonChange} id="floatingSelect" aria-label="Floating label select example">
+                    <select class="form-select" name="gender" value={formData.gender}  onChange={handlePersonChange} id="floatingSelect" aria-label="Floating label select example">
                       <option value="male">Male</option>
                       <option value="female">Female</option>
                       <option value="other">Other</option>
                     </select>
                     <label for="floatingSelect">Choose Your Gender</label>
                   </div>
+                  {add && formData.gender==="" && <span id="error1">Enter DOB</span>}
                 </div>
                 <div className="col-lg-3 ">
                   <button className="btnAddGuest" onClick={handlePersonAdd}> Add Guest</button>
@@ -295,6 +333,7 @@ const Holidayguestinfo = ({ setadultCount, setchildCount }) => {
                         <input type="email" class="form-control" name="email" value={requestData.email} onChange={handleRequestChange} id="floatingInput" placeholder="Enter Your Email" />
                         <label for="floatingInput">Enter Your Email</label>
                       </div>
+                      {sub && !validateEmail( requestData.email) && <span id="error1">Enter Email</span>}
 
                     </div>
                     <div className="col-lg-3">
@@ -302,6 +341,7 @@ const Holidayguestinfo = ({ setadultCount, setchildCount }) => {
                         <input type="text" class="form-control" name="mobile" value={requestData.mobile} onChange={handleRequestChange} id="floatingInput" placeholder="Enter Your Email" />
                         <label for="floatingInput">Enter Phone Number</label>
                       </div>
+                      {sub && !validatePhoneNumber(requestData.mobile) && <span id="error1">Phone Number</span>}
                     </div>
                     <div className="col-lg-2">
                       <div class="form-floating md-mb-3">
@@ -316,8 +356,9 @@ const Holidayguestinfo = ({ setadultCount, setchildCount }) => {
                     <div className="col-lg-3">
                       <div class="form-floating md-mb-3">
                         <input type="text" class="form-control" name="departureCity" value={requestData.departureCity} onChange={handleRequestChange} id="floatingInput" placeholder="Enter Your Email" />
-                        <label for="floatingInput">Enter departure city</label>
+                        <label for="floatingInput">Departure City</label>
                       </div>
+                      {sub && requestData.departureCity==="" && <span id="error1">Enter Departure City </span>}
                     </div>
                   </div>
                 </div>
