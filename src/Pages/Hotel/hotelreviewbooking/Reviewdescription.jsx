@@ -55,10 +55,9 @@ const Flightdetail = () => {
   // console.log(bookingStatus);
   const [bookingSuccess, setBookingSuccess] = useState(bookingStatus);
   const [passengerData, setPassengerData] = useState([]);
-  const [sub, setSub] = useState(false)
+  const [sub, setSub] = useState(false);
 
   // console.log("State Data", reducerState);
-
 
   useEffect(() => {
     if (bookingStatus == 1) {
@@ -72,7 +71,7 @@ const Flightdetail = () => {
     const allPassengerData = handleSettingPassengerArr(noOfRooms);
     // console.log("allPassengerData", allPassengerData);
     setPassengerData(allPassengerData);
-    // console.log(passengerData, "passengerData");
+    console.log(passengerData, "passengerDataUseEffect");
   }, []);
 
   const handleSettingPassengerArr = (roomCombination) => {
@@ -82,8 +81,8 @@ const Flightdetail = () => {
       FirstName: "",
       MiddleName: null,
       LastName: "",
-      Phoneno: null,
-      Email: null,
+      Phoneno: "",
+      Email: "",
       PaxType: "",
       LeadPassenger: Boolean(),
       Age: "",
@@ -153,8 +152,8 @@ const Flightdetail = () => {
 
   const emailRef = useRef();
   const phoneRef = useRef();
-  const [emailVal, setEmail] = useState(false)
-  const [contactVal, setContact] = useState(false)
+  const [emailVal, setEmail] = useState(false);
+  const [contactVal, setContact] = useState(false);
 
   const [accordionExpanded, setAccordionExpanded] = React.useState(false);
   const handleAccordionChange = (index) => (event, isExpanded) => {
@@ -168,7 +167,9 @@ const Flightdetail = () => {
   const hotelRoom =
     reducerState?.hotelSearchResult?.hotelRoom?.GetHotelRoomResult;
 
-  const hotelRoomName = reducerState?.hotelSearchResult?.hotelRoom?.GetHotelRoomResult?.HotelRoomsDetails[0]?.RoomTypeName;
+  const hotelRoomName =
+    reducerState?.hotelSearchResult?.hotelRoom?.GetHotelRoomResult
+      ?.HotelRoomsDetails[0]?.RoomTypeName;
   // console.log("hotel Room Name", hotelRoomName)
   const hotelCancellationPolicies =
     reducerState?.hotelSearchResult?.blockRoom?.BlockRoomResult
@@ -215,40 +216,66 @@ const Flightdetail = () => {
   const formattedDate = `${day} ${month} ${year}`;
 
   const handleServiceChange = (e, roomIndex, knowIndex) => {
-
-   // console.log(roomIndex, knowIndex, "roomIndex", "knowIndex");
-   // console.log(passengerData);
-    const eml=document.getElementById('Email1').value
-    const con=document.getElementById('phoneNumber1').value
-    const val=validateEmail(eml)
-    const valCon=validatePhoneNumber(con)
-    setEmail(()=>val);
-    setContact(()=>valCon);
-    console.warn(val,"email validationjfnjkdfnjdfjfddddddddddddddddddn")
-
-    const { name, value } = e.target;
-    const filteredPassenger = passengerData.filter((item, index) => {
-      return (
-        item.roomIndex == roomIndex && item?.adultIndex == knowIndex?.adultIndex
-      );
-    });
-    // console.log("filteredPassenger", filteredPassenger);
-    const newFilteredPassenger = { ...filteredPassenger[0] };
-    newFilteredPassenger[name] = value;
-    const indexFind = passengerData.indexOf(filteredPassenger[0]);
-    if (indexFind !== -1) {
-      passengerData[indexFind] = newFilteredPassenger;
+    console.log(roomIndex, knowIndex, "roomIndex", "knowIndex");
+    // console.log(passengerData);
+   
+    if (
+      roomIndex!==undefined &&roomIndex!==null &&
+      knowIndex?.adultIndex !== undefined &&
+      knowIndex?.adultIndex !== null
+    ) {
+      console.log("adult");
+      const { name, value } = e.target;
+      const filteredPassenger = passengerData.filter((item, index) => {
+        return (
+          item.roomIndex == roomIndex && item?.adultIndex == knowIndex?.adultIndex
+        );
+      });
+      console.log("filteredPassenger", filteredPassenger);
+      const newFilteredPassenger = { ...filteredPassenger[0] };
+      newFilteredPassenger[name] = value;
+      const indexFind = passengerData.indexOf(filteredPassenger[0]);
+      if (indexFind !== -1) {
+        passengerData[indexFind] = newFilteredPassenger;
+      }
+    } else if (
+      roomIndex !== undefined &&
+      roomIndex !== null &&
+      knowIndex?.childIndex !== undefined &&
+      knowIndex?.childIndex !== null
+    ) {
+      console.log("child");
+      const { name, value } = e.target;
+      const filteredPassenger = passengerData.filter((item, index) => {
+        return (
+          item.roomIndex == roomIndex &&
+          item?.childIndex == knowIndex?.childIndex
+        );
+      });
+      console.log("filteredPassenger", filteredPassenger);
+      const newFilteredPassenger = { ...filteredPassenger[0] };
+      newFilteredPassenger[name] = value;
+      const indexFind = passengerData.indexOf(filteredPassenger[0]);
+      if (indexFind !== -1) {
+        passengerData[indexFind] = newFilteredPassenger;
+      }
     }
 
-    // console.log("passengerDataNew", passengerData);
-
+    console.log("passengerDataNew", passengerData);
+     const eml = document.getElementById("Email1").value;
+     const con = document.getElementById("phoneNumber1").value;
+     const val = validateEmail(eml);
+     const valCon = validatePhoneNumber(con);
+     setEmail(() => val);
+     setContact(() => valCon);
+     console.warn(val, "email validationjfnjkdfnjdfjfddddddddddddddddddn");
   };
 
   const handleClickSavePassenger = () => {
-    console.warn("emailrefffffffffffff", emailRef.current.value)
-    setSub(true)
+    console.warn("emailrefffffffffffff", emailRef.current.value);
+    setSub(true);
     if (!validation()) {
-      return
+      return;
     }
     dispatch(PassengersAction(passengerData));
 
@@ -379,16 +406,13 @@ const Flightdetail = () => {
     totalChildren += room?.NoOfChild || 0;
   });
 
-
   // Retrieve data from sessionStorage
-  const storedFormData = JSON.parse(sessionStorage.getItem('hotelFormData'));
+  const storedFormData = JSON.parse(sessionStorage.getItem("hotelFormData"));
   const data = storedFormData.dynamicFormData[0]; // Assuming dynamicFormData is an array with at least one element
 
   // // Calculate total number of guests
   // const totalAdult = data.NoOfAdults || 0;
   // const totalChild = data.NoOfChild || 0;
-
-
 
   const [expandedOther, setExpandedOther] = React.useState(false);
 
@@ -415,75 +439,83 @@ const Flightdetail = () => {
   }
 
   function validation() {
-    const email = document.getElementById('Email1').value
-    const contact = document.getElementById('phoneNumber1').value
-    const em = validateEmail(email)
-    const con = validatePhoneNumber(contact)
-    const other = passengerData.filter((item) =>
-      toString(item.Age) === "" || item.FirstName === "" || item.LastName === "" || validatePAN(item.PAN) === false)
-    console.warn("dataddddddddd", other)
-    const result = (em && con && other.length === 0
-    )
-    console.warn(result, "result")
-    return result
-
-
-
+    const email = document.getElementById("Email1").value;
+    const contact = document.getElementById("phoneNumber1").value;
+    const em = validateEmail(email);
+    const con = validatePhoneNumber(contact);
+    const other = passengerData.filter(
+      (item) =>
+        toString(item.Age) === "" ||
+        item.FirstName === "" ||
+        item.LastName === "" ||
+        validatePAN(item.PAN) === false
+    );
+    console.warn("dataddddddddd", other);
+    const result = em && con && other.length === 0;
+    console.warn(result, "result");
+    return result;
   }
   // console.warn("passengerDataNew", emailRef,"sss");
   return (
-
     <>
       <div className="container-fluid rmv-margin">
         {/* <div className="row">
           <div className="col-lg-12"> */}
         <div className="row">
-
           {/* hotel details area  */}
-
 
           <div className="col-lg-12">
             <div className="hotelDetails">
               <div>
-                <p className="hotelName">{hotelInfo?.HotelDetails?.HotelName}</p>
+                <p className="hotelName">
+                  {hotelInfo?.HotelDetails?.HotelName}
+                </p>
                 <Box alignItems="right">
                   <Box>{star(hotelInfo?.HotelDetails?.StarRating)}</Box>
                 </Box>
               </div>
               <div>
-                <p className="text-start w-50" > <b>Address:</b> {hotelInfo?.HotelDetails?.Address}</p>
+                <p className="text-start w-50">
+                  {" "}
+                  <b>Address:</b> {hotelInfo?.HotelDetails?.Address}
+                </p>
                 <div>
-                  <p className="text-end"> <b>Check In:</b>{
-                    reducerState?.hotelSearchResult?.ticketData?.data?.data
-                      ?.HotelSearchResult?.CheckInDate
-                  }</p>
-                  <p className="text-end"><b>Check Out:</b>{
-                    reducerState?.hotelSearchResult?.ticketData?.data?.data
-                      ?.HotelSearchResult?.CheckOutDate
-                  }</p>
+                  <p className="text-end">
+                    {" "}
+                    <b>Check In:</b>
+                    {
+                      reducerState?.hotelSearchResult?.ticketData?.data?.data
+                        ?.HotelSearchResult?.CheckInDate
+                    }
+                  </p>
+                  <p className="text-end">
+                    <b>Check Out:</b>
+                    {
+                      reducerState?.hotelSearchResult?.ticketData?.data?.data
+                        ?.HotelSearchResult?.CheckOutDate
+                    }
+                  </p>
                 </div>
               </div>
               <div>
                 <div className="contact">
                   <p>{storedFormData?.city}, India</p>
                   <p>
-                    <b>Contact: {' '}</b>
-                    {hotelInfo?.HotelDetails?.HotelContactNo ? (
-                      hotelInfo.HotelDetails.HotelContactNo
-                    ) : (
-                      "Not Available"
-                    )}
+                    <b>Contact: </b>
+                    {hotelInfo?.HotelDetails?.HotelContactNo
+                      ? hotelInfo.HotelDetails.HotelContactNo
+                      : "Not Available"}
                   </p>
                 </div>
-                <p><b>Night(s){' '}</b>{storedFormData?.night}</p>
+                <p>
+                  <b>Night(s) </b>
+                  {storedFormData?.night}
+                </p>
               </div>
             </div>
             {/* </div>
             </div> */}
           </div>
-
-
-
 
           {/* room details area  */}
 
@@ -497,20 +529,14 @@ const Flightdetail = () => {
                   <p className="text-hotelName"> {hotelRoomName}</p>
                 </div>
                 <div className="col-lg-3 adultss ">
-                  <p>{totalAdults}{' '} Adult(s)</p>
+                  <p>{totalAdults} Adult(s)</p>
                 </div>
               </div>
             </div>
           </div>
-
         </div>
 
-
-
-
-
         {/* guest details section  */}
-
 
         <div className="row">
           <div className="col-lg-12">
@@ -519,42 +545,45 @@ const Flightdetail = () => {
             </div>
           </div>
 
-
           <div className="headForm">
             <div className="row">
               <div className="col-lg-12">
                 <div className="row padd g-3">
                   <div className="col-lg-4 col-md-6">
                     <div className="form_input">
-                      <label className="form_lable">
-                        Email*
-                      </label>
+                      <label className="form_lable">Email*</label>
                       <input
                         name="Email"
                         id="Email1"
                         ref={emailRef}
                         placeholder="Enter your Email"
                         // value={passengerData.Email}
-                        onChange={(e) => handleServiceChange(e, 0)}
+                        onChange={(e) =>
+                          handleServiceChange(e, 0, { adultIndex: 0 })
+                        }
                       />
-                      {sub && !emailVal && <span id="error1">Enter a Valid Email</span>}
+                      {sub && !emailVal && (
+                        <span id="error1">Enter a Valid Email</span>
+                      )}
                     </div>
                   </div>
 
-                  <div className="col-lg-4 col-md-6" >
+                  <div className="col-lg-4 col-md-6">
                     <div className="form_input">
-                      <label className="form_lable">
-                        Phone No*
-                      </label>
+                      <label className="form_lable">Phone No*</label>
                       <input
                         name="Phoneno"
                         id="phoneNumber1"
                         ref={phoneRef}
                         placeholder="Enter your name"
                         // value={passengerData.Phoneno}
-                        onChange={(e) => handleServiceChange(e, 0)}
+                        onChange={(e) =>
+                          handleServiceChange(e, 0, { adultIndex: 0 })
+                        }
                       />
-                       {sub && !contactVal && <span id="error1">Enter a Valid Number</span>}
+                      {sub && !contactVal && (
+                        <span id="error1">Enter a Valid Number</span>
+                      )}
                     </div>
                   </div>
                 </div>
@@ -571,7 +600,10 @@ const Flightdetail = () => {
                       <Accordion
                         expanded={accordionExpanded === roomIndex}
                         onChange={handleAccordionChange(roomIndex)}
-                        sx={{ marginBottom: "15px", backgroundColor: "rgba(187, 187, 187, 0.30)" }}
+                        sx={{
+                          marginBottom: "15px",
+                          backgroundColor: "rgba(187, 187, 187, 0.30)",
+                        }}
                       >
                         <AccordionSummary
                           expandIcon={<ExpandMoreIcon />}
@@ -586,9 +618,11 @@ const Flightdetail = () => {
                               Array.from(
                                 { length: noOfRooms[roomIndex]?.NoOfAdults },
                                 (_, adultIndex) => (
-                                  <div className="guestDetailsForm" >
-                                    <p>Adult {adultIndex + 1}
-                                      {adultIndex == 0 ? "(Lead Guest)" : ""}</p>
+                                  <div className="guestDetailsForm">
+                                    <p>
+                                      Adult {adultIndex + 1}
+                                      {adultIndex == 0 ? "(Lead Guest)" : ""}
+                                    </p>
                                     <Grid container spacing={3} my={1}>
                                       <Grid item xs={12} sm={12} md={4}>
                                         <Box>
@@ -613,7 +647,16 @@ const Flightdetail = () => {
                                                 }, 500)
                                               }
                                             />
-                                            {sub && passengerData[roomIndex].FirstName === "" && <span className="error">{passengerData[roomIndex].FirstName}</span>}
+                                            {sub &&
+                                              passengerData[roomIndex]
+                                                .FirstName === "" && (
+                                                <span className="error">
+                                                  {
+                                                    passengerData[roomIndex]
+                                                      .FirstName
+                                                  }
+                                                </span>
+                                              )}
                                           </div>
                                         </Box>
                                       </Grid>
@@ -707,7 +750,7 @@ const Flightdetail = () => {
                                   length: noOfRooms[roomIndex]?.NoOfChild,
                                 },
                                 (_, childIndex) => (
-                                  < div className="guestDetailsForm" >
+                                  <div className="guestDetailsForm">
                                     Child {childIndex + 1}
                                     <Grid container spacing={3} my={1}>
                                       <Grid item xs={12} sm={12} md={4}>
@@ -777,16 +820,16 @@ const Flightdetail = () => {
                                               placeholder="Enter Age"
                                               value={
                                                 noOfRooms[roomIndex]?.ChildAge[
-                                                childIndex
+                                                  childIndex
                                                 ]
                                               }
-                                            // onChange={(e) =>
-                                            //   handleServiceChange(
-                                            //     e,
-                                            //     roomIndex,
-                                            //     { childIndex: childIndex }
-                                            //   )
-                                            // }
+                                              // onChange={(e) =>
+                                              //   handleServiceChange(
+                                              //     e,
+                                              //     roomIndex,
+                                              //     { childIndex: childIndex }
+                                              //   )
+                                              // }
                                             />
                                           </div>
                                         </Box>
@@ -825,13 +868,11 @@ const Flightdetail = () => {
                           </div>
                         </AccordionDetails>
                       </Accordion>
-
                     </div>
                   </Box>
                 ))}
             </div>
           </div>
-
 
           <div className="col-lg-12">
             <div className="headText">
@@ -842,8 +883,12 @@ const Flightdetail = () => {
           <div className="col-lg-12">
             <div className="services">
               <Accordion
-                expanded={expandedOther === 'panel1'} onChange={handleOtherChange('panel1')}
-                sx={{ marginBottom: "15px", backgroundColor: "rgba(187, 187, 187, 0.30)" }}
+                expanded={expandedOther === "panel1"}
+                onChange={handleOtherChange("panel1")}
+                sx={{
+                  marginBottom: "15px",
+                  backgroundColor: "rgba(187, 187, 187, 0.30)",
+                }}
               >
                 <AccordionSummary
                   expandIcon={<ExpandMoreIcon />}
@@ -853,13 +898,16 @@ const Flightdetail = () => {
                   <label>Add Note</label>
                 </AccordionSummary>
                 <AccordionDetails>
-
                   <div>No data</div>
                 </AccordionDetails>
               </Accordion>
               <Accordion
-                expanded={expandedOther === 'panel2'} onChange={handleOtherChange('panel2')}
-                sx={{ marginBottom: "15px", backgroundColor: "rgba(187, 187, 187, 0.30)" }}
+                expanded={expandedOther === "panel2"}
+                onChange={handleOtherChange("panel2")}
+                sx={{
+                  marginBottom: "15px",
+                  backgroundColor: "rgba(187, 187, 187, 0.30)",
+                }}
               >
                 <AccordionSummary
                   expandIcon={<ExpandMoreIcon />}
@@ -870,7 +918,7 @@ const Flightdetail = () => {
                 </AccordionSummary>
                 <AccordionDetails>
                   <div className="hotelNameAccord">
-                    <p >{hotelRoomName}</p>
+                    <p>{hotelRoomName}</p>
                   </div>
                   <div className="otherDetailsData">
                     <div className="row">
@@ -892,15 +940,18 @@ const Flightdetail = () => {
                           <p>{cancellationCharge}%</p>
                         </div>
                       </div>
-
                     </div>
                   </div>
                 </AccordionDetails>
               </Accordion>
 
               <Accordion
-                expanded={expandedOther === 'panel3'} onChange={handleOtherChange('panel3')}
-                sx={{ marginBottom: "15px", backgroundColor: "rgba(187, 187, 187, 0.30)" }}
+                expanded={expandedOther === "panel3"}
+                onChange={handleOtherChange("panel3")}
+                sx={{
+                  marginBottom: "15px",
+                  backgroundColor: "rgba(187, 187, 187, 0.30)",
+                }}
               >
                 <AccordionSummary
                   expandIcon={<ExpandMoreIcon />}
@@ -910,13 +961,16 @@ const Flightdetail = () => {
                   <label>Amenities</label>
                 </AccordionSummary>
                 <AccordionDetails>
-
                   <div>No data</div>
                 </AccordionDetails>
               </Accordion>
               <Accordion
-                expanded={expandedOther === 'panel4'} onChange={handleOtherChange('panel4')}
-                sx={{ marginBottom: "15px", backgroundColor: "rgba(187, 187, 187, 0.30)" }}
+                expanded={expandedOther === "panel4"}
+                onChange={handleOtherChange("panel4")}
+                sx={{
+                  marginBottom: "15px",
+                  backgroundColor: "rgba(187, 187, 187, 0.30)",
+                }}
               >
                 <AccordionSummary
                   expandIcon={<ExpandMoreIcon />}
@@ -926,15 +980,11 @@ const Flightdetail = () => {
                   <label>Hotel Norms</label>
                 </AccordionSummary>
                 <AccordionDetails>
-
                   <div>No data</div>
                 </AccordionDetails>
               </Accordion>
             </div>
-
-
           </div>
-
 
           <div className="col-lg-12">
             <div className="reviewDescriptionButton">
@@ -943,8 +993,9 @@ const Flightdetail = () => {
                   type={"submit"}
                   onClick={handleClickSavePassenger}
                 /> */}
-              <button type="submit" onClick={handleClickSavePassenger}>Proceed to Book</button>
-
+              <button type="submit" onClick={handleClickSavePassenger}>
+                Proceed to Book
+              </button>
             </div>
           </div>
 
@@ -953,13 +1004,8 @@ const Flightdetail = () => {
               <CircularProgress size={70} thickness={4} />
             </Box>
           </Modal>
-
         </div>
-      </div >
-
-
-
-
+      </div>
     </>
   );
 };
