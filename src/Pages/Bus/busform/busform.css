@@ -69,12 +69,22 @@
   padding-left: 5px;
 }
 
-.datePick {
+/* .datePick {
   width: 343px !important;
+} */
+
+
+
+
+.bgBusImg {
+  height: 430px;
+  /* width: 100%; */
+  border-radius: 12px 0px 0px 12px;
+  background-image: url(../../../Images/busForm.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+
 }
-
-
-
 
 
 
@@ -83,24 +93,44 @@
   flex: 1;
   background-color: white;
   padding: 25px;
-  border-radius: 0px 12px 12px 0px;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.BusForm input {
+.bgBusForm {
+  border-radius: 0px 12px 12px 0px;
+  background-color: white;
+}
+
+.BusForm input::placeholder {
+  color: #BBB;
+  font-family: 'Montserrat';
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+}
+
+
+.BusForm input,
+.BusForm #departure {
   height: 50px;
   padding: 10px;
   padding-left: 40px;
   border: 1px solid #21325D;
   border-radius: 8px;
   width: 100%;
+
+  color: #3e3d3d;
+  font-family: 'Montserrat';
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
 }
 
-.BusForm>div {
-  margin-bottom: 20px;
-}
+
 
 .BusForm>div>div {
   margin-bottom: 20px;
@@ -108,11 +138,19 @@
 
 .BusForm label {
   margin-bottom: 8px;
+  color: #000;
+
+  font-family: 'Montserrat';
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
 }
 
 
 .locationFrom,
-.locationTo {
+.locationTo,
+.dateDepart {
   position: relative;
 }
 
@@ -120,12 +158,104 @@
   position: absolute;
   left: 10px;
   color: #21325D;
-  top: 55%;
+  top: 50%;
+  transform: translate(0, -50%);
+  z-index: 2;
 }
 
 .locationTo .locationToIcon {
   position: absolute;
   left: 10px;
   color: #21325D;
-  top: 55%;
+  top: 50%;
+  transform: translate(0, -50%);
+  z-index: 2;
 }
+
+.dateDepart .dateIcon {
+  position: absolute;
+  left: 10px;
+  color: #21325D;
+  top: 50%;
+  transform: translate(0, -50%);
+  z-index: 2;
+}
+
+
+.BusSubmitForm button {
+  width: 100%;
+  height: 50px;
+  background-color: #21325D;
+  color: white;
+  border: 2px solid #21325D;
+  transition: 0.3s all;
+}
+
+
+.BusForm input {
+  position: relative;
+
+}
+
+.busFormRes {
+  position: absolute;
+  border: 1px solid #ddd;
+  width: 362px;
+  border-radius: 0px 0px 5px 5px;
+  z-index: 3;
+}
+
+.busFormRes ul {
+
+  margin: 0 !important;
+  max-height: 180px;
+  overflow: hidden;
+  overflow-y: scroll;
+  padding-left: 0 !important;
+
+
+}
+
+.busFormRes ul li {
+  padding: 8px;
+  cursor: pointer;
+  list-style-type: none;
+  border-bottom: 1px solid #ddd;
+}
+
+
+
+
+
+
+
+
+
+
+.busToRes {
+  position: absolute;
+  border: 1px solid #ddd;
+  width: 362px;
+  border-radius: 0px 0px 5px 5px;
+  z-index: 3;
+}
+
+.busToRes ul {
+
+  margin: 0 !important;
+  max-height: 180px;
+  overflow: hidden;
+  overflow-y: scroll;
+  padding-left: 0 !important;
+
+
+}
+
+.busToRes ul li {
+  padding: 8px;
+  cursor: pointer;
+  list-style-type: none;
+  border-bottom: 1px solid #ddd;
+}
+
+/* busToRes */

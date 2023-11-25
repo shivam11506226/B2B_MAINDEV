@@ -21,20 +21,22 @@ import BusStepper from "../../../Components/BusStepper";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { busSeatBlockAction } from "../../../Redux/busSearch/busSearchAction";
+import dayjs from "dayjs";
+import busArrow from '../../../Images/busArrow.png'
 
 const BusPassengerDetail = () => {
-  const navigate=useNavigate();
+  const navigate = useNavigate();
   const reducerState = useSelector((state) => state);
   // console.log("..................", reducerState);
   const dispatch = useDispatch();
   const busFullData =
     reducerState?.getBusResult?.busResult?.data?.data?.BusSearchResult;
-  // console.log(busFullData);
+  console.log(busFullData, "bus full data");
   const passengerLists = [];
   const [accordionExpanded, setAccordionExpanded] = useState(false);
   const seatData = sessionStorage.getItem("seatData");
   const parsedSeatData = JSON.parse(seatData);
-  // console.log(parsedSeatData);
+  console.log(parsedSeatData, "parsed seat data");
   const passengerCount = parsedSeatData?.blockedSeatArray.length;
   const resultIndex = parsedSeatData?.resultIndex;
   const boardingPoint = parsedSeatData?.selectedOrigin;
@@ -66,6 +68,8 @@ const BusPassengerDetail = () => {
   const [passengerList, setPassengerList] = useState(passengerLists);
   const allPassenger = [passengerLists];
   const [passengerData, setPassengerData] = useState(allPassenger.flat());
+
+
   const handleServiceChange = (e, index) => {
     const { name, value } = e.target;
     const updatedPassenger = [...passengerData];
@@ -73,18 +77,18 @@ const BusPassengerDetail = () => {
       ...updatedPassenger[index],
       [name]: value,
     };
-    // const list = [...passengerData];
-    // list[index][name] = value;
+
     setPassengerData(updatedPassenger);
+
   };
-  // console.log(passengerData);
+  console.log(passengerData);
   function handleSeatBlock() {
     const payload = {
       Passenger:
         passengerData?.map((item, index) => {
           return { ...item, Seat: parsedSeatData?.blockedSeatArray[index] };
         }),
-      
+
       EndUserIp: reducerState?.ip?.ipData,
       ResultIndex: JSON.stringify(resultIndex),
       TraceId: busFullData?.TraceId,
@@ -94,59 +98,128 @@ const BusPassengerDetail = () => {
     };
     // console.log(payload);
     dispatch(busSeatBlockAction(payload));
+    sessionStorage.setItem("busPassName", JSON.stringify(passengerData))
     navigate("/BusReviewBooking");
   }
 
+  const selectedBus = busFullData.BusResults.find((bus) => bus.ResultIndex === resultIndex);
+  const cancellationPolicy = selectedBus?.CancellationPolicies;
+  console.log(selectedBus, "selectedBus")
+
+  const departureDate = dayjs(selectedBus?.DepartureTime);
+  const arrivalDate = dayjs(selectedBus?.ArrivalTime);
+
+  // Format the dates
+  const departureFormattedDate = departureDate.format("DD MMM, YY");
+  const arrivalFormattedDate = arrivalDate.format("DD MMM, YY");
   return (
-    <div className="flightContainer" style={{paddingBottom:"50px"}}>
-      <BusStepper />
-      <Box sx={{ flexGrow: 1 }}>
-        <Grid container spacing={2}>
-          <Grid item xs={9}>
-          <Box className="Bus_box" style={{  display: "flex", justifyContent: "space-between" }}>
-      <Box display="flex">
-        <Typography sx={{ fontSize: "14px", fontWeight: "bold", color: "#21325D",fontFamily: "Montserrat" }}>
-          Travel:
-        </Typography>
-        <Typography sx={{ fontSize: "14px", color: "#000",fontFamily: "Montserrat"  }} ml={2}>
-          Ashok Travels Mandsaur Group
-        </Typography>
-      </Box>
-      <Box display="flex">
-        <Typography sx={{ fontSize: "14px", fontWeight: "bold", color: "#21325D", textAlign: "left",fontFamily: "Montserrat"  }}>
-          From:
-        </Typography>
-        <Typography sx={{ fontSize: "14px",  color: "#000", textAlign: "left",fontFamily: "Montserrat" }} ml={2}>
-          Delhi
-        </Typography>
-      </Box>
-      <Box display="flex">
-        <Typography sx={{ fontSize: "14px", fontWeight: "bold", color: "#21325D",fontFamily: "Montserrat"  }}>
-          Bus Type:
-        </Typography>
-        <Typography sx={{ fontSize: "14px",  color: "#000",fontFamily: "Montserrat"  }} ml={2}>
-          NON Ac Seater / Sleeper 2+1
-        </Typography>
-      </Box>
-      <Box display="flex">
-        <Typography sx={{ fontSize: "14px", fontWeight: "bold", color: "#21325D", textAlign: "left",fontFamily: "Montserrat" }}>
-          Depart:
-        </Typography>
-        <Typography sx={{ fontSize: "14px",  color: "#000", textAlign: "left",fontFamily: "Montserrat"  }} ml={2}>
-          11 Jan 2023, 19:00
-        </Typography>
-      </Box>
-    </Box>
-            <Box className="Bus_box" my={3}>
-             
-              <Box>
+    <div className="container-xxl margin-pecentage">
+      <div className="row">
+        <div className="col-lg-9  order-md-2 order-sm-2 order-lg-1">
+          <div className="row ">
+            <div className="col-lg-12">
+              <div className="busResultBox">
+                <div className="busSearchOne">
+                  <p>{selectedBus?.TravelName}</p>
+                  {/* <p>Super Hamsafar Express</p> */}
+                </div>
+                <div className="busSearchTwo">
+                  <div>
+                    <div>
+                      <p>{busFullData?.Origin}</p>
+                    </div>
+                    <div>
+                      <p>{selectedBus?.DepartureTime?.slice(11, 16)}</p>
+                    </div>
+                    <div>
+                      <span>{departureFormattedDate}</span>
+                    </div>
+                  </div>
+                  <div className="busImage">
+                    <img src={busArrow} />
+                  </div>
+                  <div>
+                    <div>
+                      <p>{busFullData?.Destination}</p>
+                    </div>
+                    <div>
+                      <p>{selectedBus?.ArrivalTime?.slice(11, 16)}</p>
+                    </div>
+                    <div>
+                      <span>{arrivalFormattedDate}</span>
+                    </div>
+                  </div>
+
+                </div>
+                <div className="busSearchThree">
+                  <p>₹ {selectedBus?.BusPrice?.BasePrice}</p>
+                </div>
+              </div>
+
+
+
+            </div>
+            <div className="col-lg-12">
+              <div className="busType">
+                <p>{selectedBus?.BusType}</p>
+                <p>{selectedBus?.AvailableSeats} {' '}Seats Available</p>
+              </div>
+            </div>
+            <div className="col-lg-12 mt-3">
+              <div className="titlePickup">
+                <p>PickUp & Drop Location</p>
+              </div>
+              <div className="pickUpBox">
+                <div>
+                  <div>
+                    <p>
+                      {selectedBus?.BoardingPointsDetails &&
+                        selectedBus.BoardingPointsDetails.length > 0 &&
+                        selectedBus.BoardingPointsDetails[0].CityPointLocation}
+                    </p>
+                  </div>
+                  <div>
+                    <p>{selectedBus?.DepartureTime?.slice(11, 16)}</p>
+                  </div>
+                  <div>
+                    <span>{departureFormattedDate}</span>
+                  </div>
+                </div>
+
+
+                <div>
+                  <div>
+
+                    <p>
+                      {selectedBus?.DroppingPointsDetails &&
+                        selectedBus.DroppingPointsDetails.length > 0 &&
+                        selectedBus.DroppingPointsDetails[0].CityPointLocation}
+                    </p>
+                  </div>
+                  <div>
+                    <p>{selectedBus?.ArrivalTime?.slice(11, 16)}</p>
+                  </div>
+                  <div>
+                    <span>{arrivalFormattedDate}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+            <div className="col-lg-12 py-4">
+              <div className="passengerHeading mb-3">
+                <p>Passenger Details</p>
+              </div>
+              <div className="passengerDetailsBus">
                 {passengerCount > 0 &&
                   Array.from({ length: passengerCount }, (_, index) => (
                     <Box>
-                      <div mb={2} key={index} className="services" py={1} style={{border:"border: 0.5px solid #000;",marginBottom:"10px"}}>
+                      <div mb={2} key={index} className="services" py={1} style={{ border: "border: 1px solid #000;", marginBottom: "10px" }}>
                         <Accordion
                           expanded={accordionExpanded === index}
                           onChange={handleAccordionChange(index)}
+                          style={{ border: "border: 1px solid #000;" }}
                         >
                           <AccordionSummary
                             expandIcon={<ExpandMoreIcon />}
@@ -291,17 +364,26 @@ const BusPassengerDetail = () => {
                       </div>
                     </Box>
                   ))}
-              </Box>
-            </Box>
-            <Button onClick={handleSeatBlock} style={{backgroundColor:"#21325D",color:"white",marginLeft:"19px",marginTop:"-25px"}}>Book Review</Button>
-          </Grid>
-          <Grid item xs={3}>
-            <BusSaleSummary />
-          </Grid>
-        </Grid>
-      </Box>
+              </div>
+
+            </div>
+
+            <div className="col-lg-12 btn-busPassenger">
+              <button onClick={handleSeatBlock}>Proceed to Book</button>
+            </div>
+          </div>
+
+        </div>
+
+        <div className="col-lg-3 mt-2  order-md-1 order-sm-1 order-lg-2">
+          <BusSaleSummary />
+        </div>
+      </div>
     </div>
   );
 };
 
 export default BusPassengerDetail;
+
+
+
