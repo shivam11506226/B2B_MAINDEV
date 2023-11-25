@@ -1,13 +1,16 @@
-import React, { useState ,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Grid, Box, Typography, Button, Modal } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import Rating from "../hotelresult/Rating";
 import Divider from "@mui/material/Divider";
 import { useDispatch, useSelector, useReducer } from "react-redux";
 import moment from "moment";
-import { clearHotelReducer, hotelBookRoomAction } from "../../../Redux/Hotel/hotel";
+import {
+  clearHotelReducer,
+  hotelBookRoomAction,
+} from "../../../Redux/Hotel/hotel";
 import StarIcon from "@mui/icons-material/Star";
-import Swal from 'sweetalert2';
+import Swal from "sweetalert2";
 import { getUserDataAction } from "../../../Redux/Auth/UserDataById/actionUserData";
 import { balanceSubtractRequest } from "../../../Redux/Auth/balaceSubtract/actionBalnceSubtract";
 
@@ -31,8 +34,8 @@ const Hoteldescription = () => {
   const hotelCode = sessionStorage.getItem("HotelCode");
   const [bookingSuccess, setBookingSuccess] = useState(bookingStatus);
 
-  const hotelData = reducerState?.hotelSearchResult?.ticketData?.data?.data
-    ?.HotelSearchResult;
+  const hotelData =
+    reducerState?.hotelSearchResult?.ticketData?.data?.data?.HotelSearchResult;
   // console.log(resultIndex, hotelCode);
   const hotelInfo = reducerState?.hotelSearchResult?.hotelInfo?.HotelInfoResult;
   // console.log("hotelDetails", hotelDetails);
@@ -50,120 +53,156 @@ const Hoteldescription = () => {
   );
 
   const getBookingDetails =
-  reducerState?.hotelSearchResult?.blockRoom?.BlockRoomResult?.HotelRoomsDetails;
-// console.log("getBookingDetails", getBookingDetails);
+    reducerState?.hotelSearchResult?.blockRoom?.BlockRoomResult
+      ?.HotelRoomsDetails;
+  console.log("reducerState", reducerState);
 
-const totalAmount = getBookingDetails?.reduce((accumulator, item) => {
-  return accumulator + item?.Price?.PublishedPriceRoundedOff;
-}, 0);
-// console.log("totalAmount in last page", totalAmount);
+  const totalAmount = getBookingDetails?.reduce((accumulator, item) => {
+    return accumulator + item?.Price?.PublishedPriceRoundedOff;
+  }, 0);
+  // console.log("totalAmount in last page", totalAmount);
 
-const markUpamount =
-  reducerState?.userData?.userData?.data?.data?.markup?.hotel;
-const userBalance = reducerState?.userData?.userData?.data?.data?.balance;
-// console.log("markup hotel", markUpamount)
-const grandTotal=totalAmount+markUpamount;
-
+  const markUpamount =
+    reducerState?.userData?.userData?.data?.data?.markup?.hotel;
+  const userBalance = reducerState?.userData?.userData?.data?.data?.balance;
+  // console.log("markup hotel", markUpamount)
+  const grandTotal = totalAmount + markUpamount;
 
   const handleClickBooking = async () => {
     // console.log(userBalance,"userbalance", grandTotal, "grandTotal")
 
-    if(userBalance>=grandTotal){
-    const payload = {
-      ResultIndex: resultIndex,
-      HotelCode: hotelCode,
-      HotelName: hotelBlockDetails?.HotelName,
-      GuestNationality: "IN",
-      NoOfRooms: hotelDetails?.length,
-      ClientReferenceNo: 0,
-      IsVoucherBooking: true,
-      HotelRoomsDetails: hotelDetails?.map((item, hotelIndex) => {
-        return {
-          RoomIndex: item?.RoomIndex,
-          RoomTypeCode: item?.RoomTypeCode,
-          RoomTypeName: item?.RoomTypeName,
-          RatePlanCode: item?.RatePlanCode,
-          BedTypeCode: null,
-          SmokingPreference: 0,
-          Supplements: null,
-          Price: item?.Price,
-          HotelPassenger: passenger.filter((itemPassenger, index) => {
-            if (itemPassenger?.roomIndex == hotelIndex) {
-              return itemPassenger;
-            }
-          }),
-        };
-      }),
+    if (userBalance >= grandTotal) {
+      const payload = {
+        ResultIndex: resultIndex,
+        HotelCode: hotelCode,
+        HotelName: hotelBlockDetails?.HotelName,
+        GuestNationality: "IN",
+        NoOfRooms: hotelDetails?.length,
+        ClientReferenceNo: 0,
+        IsVoucherBooking: true,
+        HotelRoomsDetails: hotelDetails?.map((item, hotelIndex) => {
+          return {
+            RoomIndex: item?.RoomIndex,
+            RoomTypeCode: item?.RoomTypeCode,
+            RoomTypeName: item?.RoomTypeName,
+            RatePlanCode: item?.RatePlanCode,
+            BedTypeCode: null,
+            SmokingPreference: 0,
+            Supplements: null,
+            Price: item?.Price,
+            HotelPassenger: passenger.filter((itemPassenger, index) => {
+              if (itemPassenger?.roomIndex == hotelIndex) {
+                return itemPassenger;
+              }
+            }),
+          };
+        }),
 
-      EndUserIp: reducerState?.ip?.ipData,
-      TokenId: reducerState?.ip?.tokenData,
-      TraceId:
-        reducerState?.hotelSearchResult?.ticketData?.data?.data
-          ?.HotelSearchResult?.TraceId,
-    };
-    // console.log(payload)
+        EndUserIp: reducerState?.ip?.ipData,
+        TokenId: reducerState?.ip?.tokenData,
+        TraceId:
+          reducerState?.hotelSearchResult?.ticketData?.data?.data
+            ?.HotelSearchResult?.TraceId,
+      };
+      // console.log(payload)
 
-    const hotelDetailsPayload = {
-      BookingId: await bookingId,
-      EndUserIp: reducerState?.ip?.ipData,
-      TokenId: reducerState?.ip?.tokenData,
-    };
-    // console.log("hotelDetailsPayload", hotelDetailsPayload);
-    // Dispatch the hotelBookRoomAction
-    //  bookingStatus = true;
-    
+      const hotelDetailsPayload = {
+        BookingId: await bookingId,
+        EndUserIp: reducerState?.ip?.ipData,
+        TokenId: reducerState?.ip?.tokenData,
+      };
+      // console.log("hotelDetailsPayload", hotelDetailsPayload);
+      // Dispatch the hotelBookRoomAction
+      //  bookingStatus = true;
+
       // if(1>2){
-    setBookingSuccess(true);
-    dispatch(hotelBookRoomAction([payload, hotelDetailsPayload]));
-    // dispatch(hotelBookRoomAction(payload));
-    }else{
+      setBookingSuccess(true);
+      dispatch(hotelBookRoomAction([payload, hotelDetailsPayload]));
+      // dispatch(hotelBookRoomAction(payload));
+    } else {
       // alert("Insufficent balance!! Please Recharge your Wallet");
-    // navigate("/hotel");
-    Swal.fire({
-      icon: 'error',
-      title: 'Oops...',
-      text: 'Insufficient balance!! Please Recharge your Wallet!'
-    }).then(() => {
-      dispatch(clearHotelReducer());
-      navigate('/hotel'); // Navigate to "/hotel" after the Swal dialog is closed
-
-    });
+      // navigate("/hotel");
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Insufficient balance!! Please Recharge your Wallet!",
+      }).then(() => {
+        dispatch(clearHotelReducer());
+        navigate("/hotel"); // Navigate to "/hotel" after the Swal dialog is closed
+      });
     }
   };
 
-    // balance subtract and update
+  // balance subtract and update
 
-const userId = reducerState?.logIn?.loginData?.data?.data?.id;
-// const bookingResonse=reducerState?.hotelSearchResult?.bookRoom?.BookResult?.Error?.ErrorCode;
-
-
+  const userId = reducerState?.logIn?.loginData?.data?.data?.id;
+  // const bookingResonse=reducerState?.hotelSearchResult?.bookRoom?.BookResult?.Error?.ErrorCode;
 
   useEffect(() => {
-    if(reducerState?.hotelSearchResult?.bookRoom?.BookResult?.Error?.ErrorCode==0){
-
-    if(userId){
-      const balancePayload={
-        _id:userId,
-        amount:grandTotal
+    if (
+      reducerState?.hotelSearchResult?.bookRoom?.BookResult?.Error?.ErrorCode ==
+      0
+    ) {
+      if (userId) {
+        const balancePayload = {
+          _id: userId,
+          amount: grandTotal,
+        };
+        dispatch(balanceSubtractRequest(balancePayload));
+        const payload = {
+          userId: reducerState?.logIn?.loginData?.data?.data?.id,
+          name: reducerState?.hotelSearchResult?.hotelDetails?.data?.data
+            ?.GetBookingDetailResult?.HotelRoomsDetails[0]?.HotelPassenger[0]
+            ?.FirstName,
+          phone:
+            reducerState?.hotelSearchResult?.hotelDetails?.data?.data
+              ?.GetBookingDetailResult?.HotelRoomsDetails[0]?.HotelPassenger[0]
+              ?.Phoneno,
+          email:
+            reducerState?.hotelSearchResult?.hotelDetails?.data?.data
+              ?.GetBookingDetailResult?.HotelRoomsDetails[0]?.HotelPassenger[0]
+              ?.Email,
+          destination:
+            reducerState?.hotelSearchResult?.hotelDetails?.data?.data
+              ?.GetBookingDetailResult?.City,
+          bookingId:
+            reducerState?.hotelSearchResult?.hotelDetails?.data?.data
+              ?.GetBookingDetailResult?.BookingId,
+          CheckInDate:
+            reducerState?.hotelSearchResult?.hotelDetails?.data?.data
+              ?.GetBookingDetailResult?.CheckInDate,
+          CheckOutDate:
+            reducerState?.hotelSearchResult?.hotelDetails?.data?.data
+              ?.GetBookingDetailResult?.CheckOutDate,
+          hotelName:
+            reducerState?.hotelSearchResult?.hotelDetails?.data?.data
+              ?.GetBookingDetailResult?.HotelName,
+          hotelId:
+            reducerState?.hotelSearchResult?.hotelDetails?.data?.data
+              ?.GetBookingDetailResult?.HotelId,
+          cityName:
+            reducerState?.hotelSearchResult?.hotelDetails?.data?.data
+              ?.GetBookingDetailResult?.City,
+          country:
+            reducerState?.hotelSearchResult?.hotelDetails?.data?.data
+              ?.GetBookingDetailResult?.CountryCode,
+          address:
+            reducerState?.hotelSearchResult?.hotelDetails?.data?.data
+              ?.GetBookingDetailResult?.AddressLine1,
+          room: reducerState?.hotelSearchResult?.hotelDetails?.data?.data
+            ?.GetBookingDetailResult?.NoOfRooms,
+        };
       }
 
- dispatch(balanceSubtractRequest(balancePayload))
+      if (userId) {
+        const payload = userId;
+        dispatch(getUserDataAction(payload));
+      }
     }
+  }, [reducerState?.hotelSearchResult?.bookRoom]);
 
-if (userId) {
-  const payload = userId;
-  dispatch(getUserDataAction(payload));
-}
-
-
-}
-
-}, [reducerState?.hotelSearchResult?.bookRoom]);
-
-
-  const storedFormData = JSON.parse(sessionStorage.getItem('hotelFormData'));
+  const storedFormData = JSON.parse(sessionStorage.getItem("hotelFormData"));
   const data = storedFormData.dynamicFormData[0]; // Assuming dynamicFormData is an array with at least one element
-
 
   const hotelCancellationPolicies =
     reducerState?.hotelSearchResult?.blockRoom?.BlockRoomResult
@@ -182,7 +221,6 @@ if (userId) {
   const cancellationCharge =
     hotelCancellationPolicies?.CancellationPolicies[0]?.Charge;
 
-
   const star = (data) => {
     const stars = [];
     for (let i = 0; i < data; i++) {
@@ -197,42 +235,56 @@ if (userId) {
         {/* <div className="row">
           <div className="col-lg-12"> */}
         <div className="row">
-
           {/* hotel details area  */}
-
 
           <div className="col-lg-12">
             <div className="hotelDetails">
               <div>
-                <p className="hotelName">{hotelInfo?.HotelDetails?.HotelName}</p>
+                <p className="hotelName">
+                  {hotelInfo?.HotelDetails?.HotelName}
+                </p>
                 <Box alignItems="right">
                   <Box>{star(hotelInfo?.HotelDetails?.StarRating)}</Box>
                 </Box>
               </div>
               <div>
-                <p className="text-start w-50" > <b>Address:</b> {hotelInfo?.HotelDetails?.Address}</p>
+                <p className="text-start w-50">
+                  {" "}
+                  <b>Address:</b> {hotelInfo?.HotelDetails?.Address}
+                </p>
 
                 <div>
-                  <p className="text-end"> <b>Check In:</b>{reducerState?.hotelSearchResult?.ticketData?.data?.data
-                    ?.HotelSearchResult?.CheckInDate}</p>
-                  <p className="text-end"><b>Check Out:</b>{reducerState?.hotelSearchResult?.ticketData?.data?.data
-                    ?.HotelSearchResult?.CheckOutDate}</p>
+                  <p className="text-end">
+                    {" "}
+                    <b>Check In:</b>
+                    {
+                      reducerState?.hotelSearchResult?.ticketData?.data?.data
+                        ?.HotelSearchResult?.CheckInDate
+                    }
+                  </p>
+                  <p className="text-end">
+                    <b>Check Out:</b>
+                    {
+                      reducerState?.hotelSearchResult?.ticketData?.data?.data
+                        ?.HotelSearchResult?.CheckOutDate
+                    }
+                  </p>
                 </div>
               </div>
               <div>
                 <div className="contact">
                   <p>{storedFormData?.city}, India</p>
                   <p>
-                    <b>Contact: {' '}</b>
-                    {hotelInfo?.HoteDetails?.HotelContactNo ? (
-                      hotelInfo.HotelDetails.HotelContactNo
-                    ) : (
-                      "Not Available"
-                    )}
-
+                    <b>Contact: </b>
+                    {hotelInfo?.HoteDetails?.HotelContactNo
+                      ? hotelInfo.HotelDetails.HotelContactNo
+                      : "Not Available"}
                   </p>
                 </div>
-                <p><b>Night(s){' '}</b>{storedFormData?.night}</p>
+                <p>
+                  <b>Night(s) </b>
+                  {storedFormData?.night}
+                </p>
               </div>
             </div>
             {/* </div>
@@ -242,7 +294,6 @@ if (userId) {
           {/* booking details  */}
 
           <div className="col-lg-12">
-
             <div className="bookingDetailsGuest">
               <div className="bookingDetailsGuestHeader">
                 <p>Booking Details</p>
@@ -259,25 +310,30 @@ if (userId) {
                 <div>
                   <div>
                     <p>Check In:</p>
-                    <span>{reducerState?.hotelSearchResult?.ticketData?.data?.data
-                      ?.HotelSearchResult?.CheckInDate}</span>
+                    <span>
+                      {
+                        reducerState?.hotelSearchResult?.ticketData?.data?.data
+                          ?.HotelSearchResult?.CheckInDate
+                      }
+                    </span>
                   </div>
                   <div>
                     <p>Check Out:</p>
-                    <span>{reducerState?.hotelSearchResult?.ticketData?.data?.data
-                      ?.HotelSearchResult?.CheckOutDate}</span>
+                    <span>
+                      {
+                        reducerState?.hotelSearchResult?.ticketData?.data?.data
+                          ?.HotelSearchResult?.CheckOutDate
+                      }
+                    </span>
                   </div>
                 </div>
               </div>
             </div>
-
           </div>
-
 
           {/* passenger details  */}
 
           <div className="col-lg-12">
-
             <div className="bookingDetailsGuest">
               <div className="bookingDetailsGuestHeader">
                 <p>Passenger Details</p>
@@ -290,17 +346,17 @@ if (userId) {
                       <p>PAN : </p>
                     </div>
                     <div>
-                      <span>{name?.FirstName?.toUpperCase()} {name?.LastName?.toUpperCase()}</span>
+                      <span>
+                        {name?.FirstName?.toUpperCase()}{" "}
+                        {name?.LastName?.toUpperCase()}
+                      </span>
                       <span>{name?.PAN}</span>
                     </div>
                   </div>
                 );
               })}
             </div>
-
           </div>
-
-
 
           {/* cancellation policy  */}
 
@@ -329,13 +385,10 @@ if (userId) {
                       <p>{cancellationCharge}%</p>
                     </div>
                   </div>
-
                 </div>
               </div>
-
             </div>
           </div>
-
 
           {/* hotel Norms  */}
 
@@ -351,10 +404,8 @@ if (userId) {
                   <li>tu ki jaane pyaar mera </li>
                 </ul>
               </div>
-
             </div>
           </div>
-
 
           {/* booking history  */}
 
@@ -384,9 +435,10 @@ if (userId) {
         </Button>
       </Box> */}
       <div className="guestDetailsHistory mt-3">
-        <button type="submit" onClick={handleClickBooking}>Continue</button>
+        <button type="submit" onClick={handleClickBooking}>
+          Continue
+        </button>
       </div>
-
     </>
     // <Box p={3} backgroundColor="#F5F5F5" borderRadius="10px">
     //   {passenger?.map((name, index) => {
@@ -418,4 +470,4 @@ if (userId) {
   );
 };
 
-export default Hoteldescription;;
+export default Hoteldescription;

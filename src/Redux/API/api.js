@@ -492,6 +492,19 @@ const hotelBookingDetails = (payload) => {
       },
     });
   }
+  const hotelBookingDataSave = (payload) => {
+    return axios({
+      method: "POST",
+      url: "/skyTrails/hotelBooking/addHotelBookingData",
+      baseURL: `${apiURL.baseURL}`,
+      data: payload,
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+  };
+
+
 
   /// userDetails by Id
 
@@ -564,7 +577,8 @@ const hotelBookingDetails = (payload) => {
     visaData,
     UserDetail,
     balanceSubtract,
-    flightBookingDataSave
+    flightBookingDataSave,
+    hotelBookingDataSave,
   };
 }
 
