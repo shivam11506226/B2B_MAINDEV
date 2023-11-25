@@ -13,7 +13,7 @@ import {
 import color from "../../../color/color.js";
 import { apiURL } from "../../../Constants/constant.js";
 
-
+import DateRangeIcon from '@mui/icons-material/DateRange';
 import FmdGoodIcon from '@mui/icons-material/FmdGood';
 import NavBarBox from "../../../Components/NavBarBox.jsx";
 
@@ -219,75 +219,50 @@ const BusForm = () => {
   // /BusResult
 
   return (
-    <div className="container">
-      <div className="row">
-        <div className="col-lg-7 bg-dark">
+    <div className="container ">
+      <div className="row px-5">
+        <div className="col-lg-7 bgBusImg">
 
         </div>
-        <div className="col-lg-5">
+        <div className="col-lg-5 bgBusForm">
           <form className="BusForm" onSubmit={handleSubmit}>
             <div className="row">
               <div className="col-xs-12 col-md-12">
-
-                {/* <div className="mailBox">
-                  <label htmlFor="">Enter Your Email</label>
-                  <MailIcon className="mailIcon" />
-                  <input name="email"
-                    type="email"
-                    placeholder="Enter your Email "
-                    value={email}
-                    onChange={(event) => setEmail(event.target.value)} />
-                </div> */}
-
-                <div className="locationFrom">
+                <div >
                   <label>FROM</label>
-                  <FmdGoodIcon className="locationFromIcon" />
-                  <input
-                    name="from"
-                    placeholder="Enter city or airport"
-                    value={from.cityId}
-                    onChange={(event) => {
-                      handleFromInputChange(event);
-                      handleFromSearch(event.target.value);
-                    }}
-                    ref={fromInputRef}
-                    style={{ width: "100%" }}
-                  />
+                  <div className="locationFrom">
+                    <FmdGoodIcon className="locationFromIcon" />
+                    <input
+                      name="from"
+                      placeholder="Enter city or airport"
+                      value={from.cityId}
+                      onChange={(event) => {
+                        handleFromInputChange(event);
+                        handleFromSearch(event.target.value);
+                      }}
+                      ref={fromInputRef}
+                      style={{ width: "100%" }}
+                    />
+                  </div>
                   {isLoading && <div>Loading...</div>}
                   {fromSearchResults && fromSearchResults.length > 0 && (
                     <div
                       style={{
                         backgroundColor: "white",
-                        borderRadius: "10px",
-                        zIndex: 1,
-                        width: "100%",
-                        boxShadow: "rgba(0, 0, 0, 0.09) 0px 3px 12px",
-                        textAlign: "left",
-                        cursor: "pointer",
                         display: displayFrom ? "block" : "none",
                       }}
+                      className="busFormRes"
                     >
                       <ul>
-                        <Box
-                          sx={{
-                            mb: 2,
-                            display: "flex",
-                            flexDirection: "column",
-                            maxHeight: 150,
-                            overflow: "hidden",
-                            overflowY: "scroll",
-                          }}
-                        >
-                          {fromSearchResults.map((result) => (
-                            <li
-                              key={result._id}
-                              onClick={() => handleFromClick(result)}
-                            >
-                              <strong>{result.CityId}</strong> {result.CityName}{" "}
-                              {/* {result.CityId} */}
-                            </li>
-                          ))}
-                        </Box>
+                        {fromSearchResults.map((result) => (
+                          <li
+                            key={result._id}
+                            onClick={() => handleFromClick(result)}
+                          >
+                            <strong>{result.CityId}</strong> {result.CityName}{" "}
+                            {/* {result.CityId} */}
+                          </li>
+                        ))}
                       </ul>
                     </div>
                   )}
@@ -296,32 +271,30 @@ const BusForm = () => {
               </div>
 
               <div className="col-xs-12 col-md-12">
-                <div className="locationTo">
+                <div className="">
                   <label >TO</label>
-                  <FmdGoodIcon className="locationToIcon" />
-                  <input
-                    name="to"
-                    placeholder="Enter city or airport"
-                    value={to}
-                    onChange={(event) => {
-                      handleToInputChange(event);
-                      handleToSearch(event.target.value);
-                    }}
-                    ref={toInputRef}
-                  />
+                  <div className="locationTo">
+                    <FmdGoodIcon className="locationToIcon" />
+                    <input
+                      name="to"
+                      placeholder="Enter city or airport"
+                      value={to}
+                      onChange={(event) => {
+                        handleToInputChange(event);
+                        handleToSearch(event.target.value);
+                      }}
+                      ref={toInputRef}
+                    />
+                  </div>
                   {isLoading && <div>Loading...</div>}
                   {toSearchResults && toSearchResults.length > 0 && (
                     <div
                       style={{
                         backgroundColor: "white",
-                        borderRadius: "10px",
-                        zIndex: 1,
-                        width: "100%",
-                        boxShadow: "rgba(0, 0, 0, 0.09) 0px 3px 12px",
-                        textAlign: "left",
-                        cursor: "pointer",
+
                         display: displayTo ? "block" : "none",
                       }}
+                      className="busToRes"
                     >
                       <ul>
                         <Box
@@ -353,15 +326,17 @@ const BusForm = () => {
 
 
               <div className="col-xs-12 col-md-12">
-                <div className="form_input">
-                  <label className="form_lable">DEPARTURE</label>
+                <div className="">
+                  <label >DEPARTURE</label>
 
-                  <div style={{ display: "flex", alignItems: "center" }}>
+                  <div className="dateDepart">
+                    <DateRangeIcon className="dateIcon" />
                     <DatePicker
                       selected={startDate}
                       name="departure"
                       id="departure"
                       ref={inputRef}
+                      style={{ width: "100%" }}
                       placeholderText="Select Date"
                       onChange={(date) => {
                         setStartDate(date);
@@ -376,8 +351,8 @@ const BusForm = () => {
               </div>
 
               <div className="col-xs-6 col-md-12">
-                <div className="form_input">
-                  <Box>
+                <div className="BusSubmitForm">
+                  {/* <Box>
                     <Button
                       variant="contained"
                       colorScheme="teal"
@@ -387,12 +362,11 @@ const BusForm = () => {
                     >
                       Bus Search
                     </Button>
-                  </Box>
+                  </Box> */}
+                  <button type="submit">
+                    Bus Search
+                  </button>
                 </div>
-              </div>
-
-              <div className="col-lg-5">
-                <NavBarBox />
               </div>
             </div>
           </form>
