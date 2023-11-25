@@ -28,8 +28,20 @@ export const signUpReducer = (state = initState, action) => {
         isError: false,
         showSuccessMessage: true,
       };
+    case types.SIGNUP_SUCCESS:
+      return {
+        signUpData: [],
+
+        isLoading: false,
+      
+        isError: false,
+      
+        showSuccessMessage: false,
+      };
+    
+      
 
     default:
-      return state;
+      return initState;
   }
 };

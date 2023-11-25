@@ -359,9 +359,12 @@ const HotelForm = () => {
                       onChange={(e) => setSearchTerm(e.target.value)}
                       style={{ position: "relative" }}
                     />
-                    {cityError !== "" && (
+                    { cityError !== "" && (
                       <span className="error">{cityError}</span>
                     )}
+                    {/* { citciError !== "" && (
+                      <span className="error">{cityError}</span>
+                    )} */}
 
                     {loading && <div>Loading...</div>}
                     {results.length > 0 && (

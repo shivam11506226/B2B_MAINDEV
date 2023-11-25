@@ -28,7 +28,7 @@ import { useDispatch, useSelector, useReducer } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@mui/material";
 import { fontWeight } from "@mui/system";
-import { signUpAction } from "../../Redux/Auth/SignUp/actionSignUp";
+import { signUpAction,signUpActionClear } from "../../Redux/Auth/SignUp/actionSignUp";
 import "./registration.css";
 import logo from "../../../src/Images/ST-Main-Logo.png";
 import color from "../../color/color";
@@ -45,6 +45,12 @@ const Login = () => {
   const reducerState = useSelector((state) => state);
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
+  const [sub, setSub] = useState({
+    personalDetailSub:false,
+    agencyDetailsSub:false,
+    agencyGSTDetailsSub:false
+
+  });
   const [password, setPassword] = useState("");
   const [pan, setPan] = useState("");
   const [personalDetail, setPersonalDetails] = useState(
@@ -131,19 +137,26 @@ const Login = () => {
     console.warn(formData, "from");
 
   }
+  console.log(reducerState.signUp,"reducer state")
+
 
   function handleSubmit(event) {
     event.preventDefault();
     if(
     !personalDetailValidations()){
-      return setAgencyPage(1)
+      setAgencyPage(1)
+      setSub({...sub,personalDetailSub:true})
+      return 
     }
     if(
     !agencyDetailsValidations()){
-      return setAgencyPage(2)
+       setAgencyPage(2)
+      setSub({...sub,agencyDetailsSub:true})
+      return
     }
     if(
     agencyGSTDetailsValidation()){
+      setSub({...sub,agencyGSTDetailsSub:true})
       return
     }
 
@@ -166,6 +179,77 @@ const Login = () => {
     formData1.append("data", JSON.stringify(payload));
     console.warn(payload, "payload@@@@@@@@@@@@@@@@@@@@@@")
     dispatch(signUpAction({ file: pan, data: JSON.stringify(payload) }));
+    setAgencyPage(1)
+    setPersonalDetails( {
+
+      first_name: '',
+      last_name: '',
+      email: '',
+      mobile: {
+        country_code: "+91",
+        mobile_number: '',
+      },
+
+      address_details: {
+        residential_address: '',
+        address_2: '',
+        telephone_number: '',
+        pincode: '',
+        country: '',
+        state: '',
+        city: '',
+      },
+      password: '',
+    })
+    setAgencyDetails({
+      agency_name: "",
+      pan_number: "",
+      agency_mobile: {
+        country_code: "+91",
+        mobile_number: "",
+      },
+      address: "",
+      address_2: "",
+      fax: "",
+      pincode: "",
+      country: "",
+      state: "",
+      city: "",
+      business_type: "Solo Proprietor",
+      office_space: "Owned",
+      IATA_registration_id: "Yes",
+      IATA_code: "",
+      TDS: "",
+      TDS_percentage: "",
+      references: "",
+      consolidators: "",
+      remarks: "",
+      // document_details: {
+      //   pan_card_document: formData.append('file', file),
+      // },
+    })
+    setAgency_GSTDetails({
+      agency_name: "",
+      agency_classification: "Resistered",
+      agency_GSTIN: "",
+      state: "",
+      state_code: "",
+      provisional_GSTIN: "",
+      contact_person: "",
+      phone_number: "",
+      telephone_number: "",
+      email: "",
+      correspondance_mail_id: "",
+      GST_registration_status: "",
+      HSN_SAC_code: "",
+      composition_levy: "Yes",
+      address_line1: "",
+      address_line2: "",
+      pincode: "",
+      agency_city: "",
+      supply_type: "Tax",
+    })
+    
   }
   function validatePAN(panNumber) {
     const regex = /^[A-Z]{5}[0-9]{4}[A-Z]{1}$/;
@@ -433,10 +517,13 @@ const Login = () => {
                   style={{ height: "auto", width: "100%", borderRadius: "20px", marginTop: "10px" }}
                 >
                   {reducerState.signUp?.showSuccessMessage && (
-                    <Alert severity="success">
+                    <Alert onClick={() =>{ 
+                      dispatch(signUpActionClear());
+                      }} severity="success">
                       Thankyou ! for Registering, we'll contact you ASAP
                     </Alert>
                   )}
+
                   <Box display='flex' style={{ height: "100%", justifyContant: 'center', alignItems: 'space-between' }} >
                     {agencyPage === 1 && <Box flex={1} style={{ display: "flex", width: "100%" }} alignItems='center' justifyContent='center' >
                       <div>
@@ -529,7 +616,7 @@ const Login = () => {
 
                                         required
                                       />
-                                      {personalDetail.first_name === "" && <span id="error1">Enter First Name</span>}
+                                      { sub.personalDetailSub && personalDetail.first_name === "" && <span id="error1">Enter First Name</span>}
                                     </div>
                                     <div className="form_input" mx={2}>
                                       <label className="form_lable">
@@ -549,7 +636,7 @@ const Login = () => {
                                         })}
 
                                       />
-                                      {personalDetail.last_name === "" && <span id="error1">Enter Last  Name</span>}
+                                      {sub.personalDetailSub && personalDetail.last_name === "" && <span id="error1">Enter Last  Name</span>}
                                     </div>
                                     {/* <div className="form_input">
                                       <label className="form_lable">
@@ -649,7 +736,7 @@ const Login = () => {
                                           }
                                         })}
                                       />
-                                      {personalDetail.address_details.residential_address === "" && <span id="error1">Enter residential_address</span>}
+                                      {sub.personalDetailSub &&  personalDetail.address_details.residential_address === "" && <span id="error1">Enter residential_address</span>}
                                     </div>
                                     {/* <div className="form_input">
                                       <label className="form_lable">City*</label>
@@ -701,7 +788,7 @@ const Login = () => {
                                           }
                                         })}
                                       />
-                                      {personalDetail.address_details.address_2 === "" && <span id="error1">Enter Address 2</span>}
+                                      {sub.personalDetailSub &&  personalDetail.address_details.address_2 === "" && <span id="error1">Enter Address 2</span>}
                                     </div>
 
 
@@ -745,7 +832,7 @@ const Login = () => {
                                           }
                                         })}
                                       />
-                                      {personalDetail.address_details.city === "" && <span id="error1">Enter Your City</span>}
+                                      {sub.personalDetailSub &&  personalDetail.address_details.city === "" && <span id="error1">Enter Your City</span>}
                                     </div>
 
                                     <div className="form_input" mx={2}>
@@ -767,7 +854,7 @@ const Login = () => {
                                           }
                                         })}
                                       />
-                                      {personalDetail.address_details.state === "" && <span id="error1">Enter State</span>}
+                                      {sub.personalDetailSub &&  personalDetail.address_details.state === "" && <span id="error1">Enter State</span>}
                                     </div>
 
 
@@ -801,7 +888,7 @@ const Login = () => {
                                         })}
 
                                       />
-                                      {!validatePincode(personalDetail.address_details.pincode) && <span id="error1">Enter Pin Code</span>}
+                                      {sub.personalDetailSub &&  !validatePincode(personalDetail.address_details.pincode) && <span id="error1">Enter Pin Code</span>}
                                     </div>
                                     {/* <div className="form_input">
                                       <label className="form_lable">Email*</label>
@@ -843,7 +930,7 @@ const Login = () => {
                                           }
                                         })}
                                       />
-                                      {personalDetail.address_details.country === "" && <span id="error1">Enter Countery</span>}
+                                      {sub.personalDetailSub &&  personalDetail.address_details.country === "" && <span id="error1">Enter Countery</span>}
                                     </div>
                                     {/* <div className="form_input" mx={2}>
                                       <label className="form_lable">
@@ -908,7 +995,7 @@ const Login = () => {
                                           }
                                         })}
                                       />
-                                      {!validatePhoneNumber(personalDetail.address_details.telephone_number) && <span id="error1">Enter TelePhone Number</span>}
+                                      {sub.personalDetailSub &&  !validatePhoneNumber(personalDetail.address_details.telephone_number) && <span id="error1">Enter TelePhone Number</span>}
                                     </div>
 
                                     {/* <div className="form_input">
@@ -942,7 +1029,7 @@ const Login = () => {
                                           }
                                         })}
                                       />
-                                      {!validatePhoneNumber(personalDetail.mobile.mobile_number) && <span id="error1">Enter Mobile Number</span>}
+                                      {sub.personalDetailSub &&  !validatePhoneNumber(personalDetail.mobile.mobile_number) && <span id="error1">Enter Mobile Number</span>}
                                     </div>
                                   </Box>
                                 </Grid>
@@ -990,7 +1077,7 @@ const Login = () => {
 
                                         })}
                                       />
-                                      {personalDetail.email === "" && <span id="error1">Enter Your Email </span>}
+                                      {sub.personalDetailSub &&  personalDetail.email === "" && <span id="error1">Enter Your Email </span>}
                                     </div>
                                     <div className="form_input">
                                       <label className="form_lable">
@@ -1008,7 +1095,7 @@ const Login = () => {
                                         }
                                         )}
                                       />
-                                      {!validatePassword(personalDetail.password) && <span id="error1">Enter Valid Password </span>}
+                                      {sub.personalDetailSub &&  !validatePassword(personalDetail.password) && <span id="error1">Enter Valid Password </span>}
                                     </div>
                                     {/* <div className="form_input">
                                       <label className="form_lable">
@@ -1052,6 +1139,9 @@ const Login = () => {
                                   <Button onClick={() => {
                                     if (personalDetailValidations()) {
                                       setAgencyPage(2)
+                                    }
+                                    else{
+                                      setSub({...sub,personalDetailSub:true } )
                                     }
                                   }}
                                     style={{
@@ -1122,7 +1212,7 @@ const Login = () => {
                                         onChange={(e) => setAgencyDetails({ ...agencyDetails, agency_name: e.target.value })}
 
                                       />
-                                      {agencyDetails.agency_name === "" && <span id="error1">Enter Agency Name </span>}
+                                      {sub.agencyDetailsSub && agencyDetails.agency_name === "" && <span id="error1">Enter Agency Name </span>}
                                     </div>
                                     {/* <div className="form_input" mx={2}>
                                       <label className="form_lable">
@@ -1173,7 +1263,7 @@ const Login = () => {
                                         value={agencyDetails.address}
                                         onChange={(e) => setAgencyDetails({ ...agencyDetails, address: e.target.value })}
                                       />
-                                      {agencyDetails.address === "" && <span id="error1">Enter Address </span>}
+                                      {sub.agencyDetailsSub && agencyDetails.address === "" && <span id="error1">Enter Address </span>}
                                     </div>
                                     <div className="form_input">
                                       <label className="form_lable">
@@ -1188,7 +1278,7 @@ const Login = () => {
                                         value={agencyDetails.address_2}
                                         onChange={(e) => setAgencyDetails({ ...agencyDetails, address_2: e.target.value })}
                                       />
-                                      {agencyDetails.address_2 === "" && <span id="error1">Enter Address </span>}
+                                      {sub.agencyDetailsSub && agencyDetails.address_2 === "" && <span id="error1">Enter Address </span>}
                                     </div>
 
                                   </Box>
@@ -1215,7 +1305,7 @@ const Login = () => {
                                         value={agencyDetails.city}
                                         onChange={(e) => setAgencyDetails({ ...agencyDetails, city: e.target.value })}
                                       />
-                                      {agencyDetails.city === "" && <span id="error1">Enter City </span>}
+                                      {sub.agencyDetailsSub && agencyDetails.city === "" && <span id="error1">Enter City </span>}
                                     </div>
 
                                     <div className="form_input" mx={2}>
@@ -1231,7 +1321,7 @@ const Login = () => {
                                         value={agencyDetails.state}
                                         onChange={(e) => setAgencyDetails({ ...agencyDetails, state: e.target.value })}
                                       />
-                                      {agencyDetails.state === "" && <span id="error1">Enter State </span>}
+                                      {sub.agencyDetailsSub && agencyDetails.state === "" && <span id="error1">Enter State </span>}
                                     </div>
 
 
@@ -1259,7 +1349,7 @@ const Login = () => {
                                         value={agencyDetails.pincode}
                                         onChange={(e) => setAgencyDetails({ ...agencyDetails, pincode: e.target.value })}
                                       />
-                                      {!validatePincode(agencyDetails.pincode) && <span id="error1">Enter Pin Code </span>}
+                                      {sub.agencyDetailsSub && !validatePincode(agencyDetails.pincode) && <span id="error1">Enter Pin Code </span>}
                                     </div>
 
 
@@ -1274,7 +1364,7 @@ const Login = () => {
                                         value={agencyDetails.country}
                                         onChange={(e) => setAgencyDetails({ ...agencyDetails, country: e.target.value })}
                                       />
-                                      {agencyDetails.country === "" && <span id="error1">Enter Countery </span>}
+                                      {sub.agencyDetailsSub && agencyDetails.country === "" && <span id="error1">Enter Countery </span>}
                                     </div>
 
                                   </Box>
@@ -1317,7 +1407,7 @@ const Login = () => {
                                           }
                                         })}
                                       />
-                                      {!validatePhoneNumber(agencyDetails.agency_mobile.mobile_number) && <span id="error1">Enter Phone Number </span>}
+                                      {sub.agencyDetailsSub && !validatePhoneNumber(agencyDetails.agency_mobile.mobile_number) && <span id="error1">Enter Phone Number </span>}
                                     </div>
 
 
@@ -1444,7 +1534,7 @@ const Login = () => {
                                         value={agencyDetails.pan_number}
                                         onChange={(e) => setAgencyDetails({ ...agencyDetails, pan_number: e.target.value })}
                                       />
-                                      {!validatePAN(agencyDetails.pan_number) && <span id="error1">Enter Pan Number </span>}
+                                      {sub.agencyDetailsSub && !validatePAN(agencyDetails.pan_number) && <span id="error1">Enter Pan Number </span>}
                                     </div>
                                     <div className="form_input">
                                       <label className="form_lable">Fax*</label>
@@ -1457,7 +1547,7 @@ const Login = () => {
                                         value={agencyDetails.fax}
                                         onChange={(e) => setAgencyDetails({ ...agencyDetails, fax: e.target.value })}
                                       />
-                                      {agencyDetails.fax === "" && <span id="error1">Enter Fax </span>}
+                                      {sub.agencyDetailsSub && agencyDetails.fax === "" && <span id="error1">Enter Fax </span>}
                                     </div>
 
                                   </Box>
@@ -1514,7 +1604,7 @@ const Login = () => {
                                         value={agencyDetails.TDS}
                                         onChange={(e) => setAgencyDetails({ ...agencyDetails, TDS: e.target.value })}
                                       />
-                                      {agencyDetails.TDS === "" && <span id="error1">Enter TDS </span>}
+                                      {sub.agencyDetailsSub && agencyDetails.TDS === "" && <span id="error1">Enter TDS </span>}
                                     </div>
 
                                   </Box>
@@ -1539,7 +1629,7 @@ const Login = () => {
                                         value={agencyDetails.TDS_percentage}
                                         onChange={(e) => setAgencyDetails({ ...agencyDetails, TDS_percentage: e.target.value })}
                                       />
-                                      {agencyDetails.TDS_percentage === "" && <span id="error1">Enter TDS % </span>}
+                                      {sub.agencyDetailsSub && agencyDetails.TDS_percentage === "" && <span id="error1">Enter TDS % </span>}
                                     </div>
                                     <div className="form_input">
                                       <label className="form_lable">
@@ -1556,7 +1646,7 @@ const Login = () => {
 
 
                                       />
-                                      {agencyDetails.IATA_code === "" && <span id="error1">Enter IATA Code </span>}
+                                      {sub.agencyDetailsSub && agencyDetails.IATA_code === "" && <span id="error1">Enter IATA Code </span>}
                                     </div>
 
                                   </Box>
@@ -1731,6 +1821,9 @@ const Login = () => {
                                         if (agencyDetailsValidations()) {
 
                                           setAgencyPage(3)
+                                        }
+                                        else{
+                                          setSub({...sub,agencyDetailsSub:true } )
                                         }
 
 
@@ -2109,7 +2202,7 @@ const Login = () => {
                                         value={agencyGSTDetails.agency_name}
                                         onChange={(e) => setAgency_GSTDetails({ ...agencyGSTDetails, agency_name: e.target.value })}
                                       />
-                                      {agencyGSTDetails.agency_name === "" && <span id="error1">Enter Name </span>}
+                                      {sub.agencyGSTDetailsSub && agencyGSTDetails.agency_name === "" && <span id="error1">Enter Name </span>}
                                     </div>
                                     {/* <div className="form_input" mx={2}>
                                       <label
@@ -2162,9 +2255,11 @@ const Login = () => {
                                         type="text"
                                         placeholder=" Enter  Agency GSTIN"
                                         className="input_size"
+                                        value={agencyGSTDetails.agencyGSTDetails}
+                                      
                                         onChange={(e) => setAgency_GSTDetails({ ...agencyGSTDetails, agency_GSTIN: e.target.value })}
                                       />
-                                      {!validateGSTIN(agencyGSTDetails.agency_GSTIN) && <span id="error1">Enter GSTIN </span>}
+                                      {sub.agencyGSTDetailsSub && !validateGSTIN(agencyGSTDetails.agency_GSTIN) && <span id="error1">Enter GSTIN </span>}
                                     </div>
 
 
@@ -2189,7 +2284,7 @@ const Login = () => {
                                         value={agencyGSTDetails.provisional_GSTIN}
                                         onChange={(e) => setAgency_GSTDetails({ ...agencyGSTDetails, provisional_GSTIN: e.target.value })}
                                       />
-                                      {!validateProvisionalGSTIN(agencyGSTDetails.provisional_GSTIN) && <span id="error1">Enter Name </span>}
+                                      {sub.agencyGSTDetailsSub && !validateGSTIN(agencyGSTDetails.provisional_GSTIN) && <span id="error1">Provisinal GST </span>}
                                     </div>
                                     <div className="form_input">
                                       <label className="form_lable">
@@ -2204,7 +2299,7 @@ const Login = () => {
                                         value={agencyGSTDetails.state_code}
                                         onChange={(e) => setAgency_GSTDetails({ ...agencyGSTDetails, state_code: e.target.value })}
                                       />
-                                      {agencyGSTDetails.state_code === "" && <span id="error1">Enter State Code </span>}
+                                      {sub.agencyGSTDetailsSub && agencyGSTDetails.state_code === "" && <span id="error1">Enter State Code </span>}
                                     </div>
 
 
@@ -2229,7 +2324,7 @@ const Login = () => {
                                         value={agencyGSTDetails.GST_registration_status}
                                         onChange={(e) => setAgency_GSTDetails({ ...agencyGSTDetails, GST_registration_status: e.target.value })}
                                       />
-                                      {agencyGSTDetails.GST_registration_status === "" && <span id="error1">Enter GST Status </span>}
+                                      {sub.agencyGSTDetailsSub && agencyGSTDetails.GST_registration_status === "" && <span id="error1">Enter GST Status </span>}
                                     </div>
 
                                     <div className="form_input">
@@ -2243,7 +2338,7 @@ const Login = () => {
                                         value={agencyGSTDetails.contact_person}
                                         onChange={(e) => setAgency_GSTDetails({ ...agencyGSTDetails, contact_person: e.target.value })}
                                       />
-                                      {agencyGSTDetails.contact_person === "" && <span id="error1">Enter Contact  Person  </span>}
+                                      {sub.agencyGSTDetailsSub && agencyGSTDetails.contact_person === "" && <span id="error1">Enter Contact  Person  </span>}
                                     </div>
 
 
@@ -2269,7 +2364,7 @@ const Login = () => {
                                         value={agencyGSTDetails.HSN_SAC_code}
                                         onChange={(e) => setAgency_GSTDetails({ ...agencyGSTDetails, HSN_SAC_code: e.target.value })}
                                       />
-                                      {agencyGSTDetails.HSN_SAC_code === "" && <span id="error1">Enter HSN/SAC code  </span>}
+                                      {sub.agencyGSTDetailsSub && agencyGSTDetails.HSN_SAC_code === "" && <span id="error1">Enter HSN/SAC code  </span>}
                                     </div>
                                     <div className="form_input">
                                       <label className="form_lable">
@@ -2474,7 +2569,7 @@ const Login = () => {
                                         value={agencyGSTDetails.address_line1}
                                         onChange={(e) => setAgency_GSTDetails({ ...agencyGSTDetails, address_line1: e.target.value })}
                                       />
-                                      {agencyGSTDetails.address_line1 === "" && <span id="error1">Enter Address  </span>}
+                                      {sub.agencyGSTDetailsSub && agencyGSTDetails.address_line1 === "" && <span id="error1">Enter Address  </span>}
                                     </div>
                                     <div className="form_input">
                                       <label className="form_lable">
@@ -2488,7 +2583,7 @@ const Login = () => {
                                         value={agencyGSTDetails.address_line2}
                                         onChange={(e) => setAgency_GSTDetails({ ...agencyGSTDetails, address_line2: e.target.value })}
                                       />
-                                      {agencyGSTDetails.address_line2 === "" && <span id="error1">Enter Address </span>}
+                                      {sub.agencyGSTDetailsSub && agencyGSTDetails.address_line2 === "" && <span id="error1">Enter Address </span>}
                                     </div>
 
                                   </Box>
@@ -2516,7 +2611,7 @@ const Login = () => {
                                         value={agencyGSTDetails.agency_city}
                                         onChange={(e) => setAgency_GSTDetails({ ...agencyGSTDetails, agency_city: e.target.value })}
                                       />
-                                      {agencyGSTDetails.agency_city === "" && <span id="error1">Enter City </span>}
+                                      {sub.agencyGSTDetailsSub && agencyGSTDetails.agency_city === "" && <span id="error1">Enter City </span>}
                                     </div>
 
                                     <div className="form_input">
@@ -2532,7 +2627,7 @@ const Login = () => {
                                         value={agencyGSTDetails.state}
                                         onChange={(e) => setAgency_GSTDetails({ ...agencyGSTDetails, state: e.target.value })}
                                       />
-                                      {agencyGSTDetails.state === "" && <span id="error1">Enter State </span>}
+                                      {sub.agencyGSTDetailsSub && agencyGSTDetails.state === "" && <span id="error1">Enter State </span>}
                                     </div>
 
 
@@ -2559,7 +2654,7 @@ const Login = () => {
                                         value={agencyGSTDetails.pincode}
                                         onChange={(e) => setAgency_GSTDetails({ ...agencyGSTDetails, pincode: e.target.value })}
                                       />
-                                      {!validatePincode(agencyGSTDetails.pincode) && <span id="error1">Enter Pin Code </span>}
+                                      {sub.agencyGSTDetailsSub && !validatePincode(agencyGSTDetails.pincode) && <span id="error1">Enter Pin Code </span>}
                                     </div>
 
 
@@ -2608,7 +2703,7 @@ const Login = () => {
                                         onChange={(e) => setAgency_GSTDetails({ ...agencyGSTDetails, telephone_number: e.target.value })}
 
                                       />
-                                      {!validatePhoneNumber(agencyGSTDetails.telephone_number) && <span id="error1">Enter Telephone Number  </span>}
+                                      {sub.agencyGSTDetailsSub && !validatePhoneNumber(agencyGSTDetails.telephone_number) && <span id="error1">Enter Telephone Number  </span>}
                                     </div>
 
 
@@ -2625,7 +2720,7 @@ const Login = () => {
                                         value={agencyGSTDetails.phone_number}
                                         onChange={(e) => setAgency_GSTDetails({ ...agencyGSTDetails, phone_number: e.target.value })}
                                       />
-                                      {!validatePhoneNumber(agencyGSTDetails.phone_number) && <span id="error1">Enter Mobile Number </span>}
+                                      {sub.agencyGSTDetailsSub && !validatePhoneNumber(agencyGSTDetails.phone_number) && <span id="error1">Enter Mobile Number </span>}
                                     </div>
                                   </Box>
                                 </Grid>
@@ -2649,7 +2744,7 @@ const Login = () => {
                                         value={agencyGSTDetails.email}
                                         onChange={(e) => setAgency_GSTDetails({ ...agencyGSTDetails, email: e.target.value })}
                                       />
-                                      {!validateEmail(agencyGSTDetails.email) && <span id="error1">Enter Email </span>}
+                                      {sub.agencyGSTDetailsSub && !validateEmail(agencyGSTDetails.email) && <span id="error1">Enter Email </span>}
                                     </div>
                                     {/* <div className="form_input">
                                       <label className="form_lable">
@@ -2685,7 +2780,7 @@ const Login = () => {
                                         value={agencyGSTDetails.correspondance_mail_id}
                                         onChange={(e) => setAgency_GSTDetails({ ...agencyGSTDetails, correspondance_mail_id: e.target.value })}
                                       />
-                                      {!validateEmail(agencyGSTDetails.correspondance_mail_id) && <span id="error1">Enter Email </span>}
+                                      {sub.agencyGSTDetailsSub && !validateEmail(agencyGSTDetails.correspondance_mail_id) && <span id="error1">Enter Email </span>}
                                     </div>
                                     <div className="form_input">
                                       <label className="form_lable">

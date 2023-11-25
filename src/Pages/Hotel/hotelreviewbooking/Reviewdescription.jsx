@@ -73,6 +73,7 @@ const Flightdetail = () => {
     setPassengerData(allPassengerData);
     console.log(passengerData, "passengerDataUseEffect");
   }, []);
+  console.warn(passengerData, "passengerData")
 
   const handleSettingPassengerArr = (roomCombination) => {
     const passengerData = [];
@@ -216,6 +217,7 @@ const Flightdetail = () => {
   const formattedDate = `${day} ${month} ${year}`;
 
   const handleServiceChange = (e, roomIndex, knowIndex) => {
+
     console.log(roomIndex, knowIndex, "roomIndex", "knowIndex");
     // console.log(passengerData);
    
@@ -259,6 +261,8 @@ const Flightdetail = () => {
       if (indexFind !== -1) {
         passengerData[indexFind] = newFilteredPassenger;
       }
+
+
     }
 
     console.log("passengerDataNew", passengerData);
@@ -272,11 +276,14 @@ const Flightdetail = () => {
   };
 
   const handleClickSavePassenger = () => {
+
     console.warn("emailrefffffffffffff", emailRef.current.value);
     setSub(true);
     if (!validation()) {
       return;
+
     }
+
     dispatch(PassengersAction(passengerData));
 
     // console.log("passengerData", passengerData);
@@ -581,9 +588,11 @@ const Flightdetail = () => {
                           handleServiceChange(e, 0, { adultIndex: 0 })
                         }
                       />
+
                       {sub && !contactVal && (
                         <span id="error1">Enter a Valid Number</span>
                       )}
+
                     </div>
                   </div>
                 </div>
@@ -639,6 +648,11 @@ const Flightdetail = () => {
                                               // value={passengerData.FirstName}
                                               onChange={(e) =>
                                                 setTimeout(() => {
+
+                                                  console.warn((passengerData.filter((item) => (
+                                                    item.roomIndex === roomIndex && item.adultIndex === adultIndex
+                                                  )))[0].FirstName, "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%55")
+
                                                   handleServiceChange(
                                                     e,
                                                     roomIndex,
@@ -647,6 +661,7 @@ const Flightdetail = () => {
                                                 }, 500)
                                               }
                                             />
+
                                             {sub &&
                                               passengerData[roomIndex]
                                                 .FirstName === "" && (
@@ -657,6 +672,7 @@ const Flightdetail = () => {
                                                   }
                                                 </span>
                                               )}
+
                                           </div>
                                         </Box>
                                       </Grid>
@@ -683,6 +699,11 @@ const Flightdetail = () => {
                                                 }, 300)
                                               }
                                             />
+                                            {
+                                              sub && (passengerData.filter((item) => (
+                                                item.roomIndex === roomIndex && item.adultIndex === adultIndex
+                                              )))[0].LastName === "" &&
+                                              <span className="error">Enter Last Name  </span>}
                                           </div>
                                         </Box>
                                       </Grid>
@@ -710,6 +731,11 @@ const Flightdetail = () => {
                                                 }, 300)
                                               }
                                             />
+                                            {
+                                              sub && (passengerData.filter((item) => (
+                                                item.roomIndex === roomIndex && item.adultIndex === adultIndex
+                                              )))[0].Age === "" &&
+                                              <span className="error">Enter Age  </span>}
                                           </div>
                                         </Box>
                                       </Grid>
@@ -737,6 +763,14 @@ const Flightdetail = () => {
                                                 }, 300)
                                               }
                                             />
+                                            {
+                                              sub && !validatePAN(
+                                                sub && (passengerData.filter((item) => (
+                                                  item.roomIndex === roomIndex && item.adultIndex === adultIndex
+                                                )))[0].PAN) &&
+                                              <span className="error">Enter PAN </span>}
+
+
                                           </div>
                                         </Box>
                                       </Grid>
@@ -768,14 +802,25 @@ const Flightdetail = () => {
                                               // value={passengerData.FirstName}
                                               onChange={(e) =>
                                                 setTimeout(() => {
+                                                 
                                                   handleServiceChange(
                                                     e,
                                                     roomIndex,
                                                     { childIndex: childIndex }
                                                   );
+                                                  {
+                                                    console.warn((passengerData.filter((item) => (
+                                                      item.roomIndex === roomIndex && item.childIndex === childIndex
+                                                    ))), "dddddddddddddddddddd")
+                                                  }
                                                 })
                                               }
                                             />
+                                            {
+                                              sub && (passengerData.filter((item) => (
+                                                item.roomIndex === roomIndex && item.childIndex === childIndex
+                                              )))[0].FirstName === "" &&
+                                              <span className="error">Enter First Name  </span>}
                                           </div>
                                         </Box>
                                       </Grid>
@@ -794,6 +839,9 @@ const Flightdetail = () => {
                                               // value={passengerData.LastName}
                                               onChange={(e) =>
                                                 setTimeout(() => {
+                                                  console.warn("Last name child", (passengerData.filter((item) => (
+                                                    item.roomIndex === roomIndex && item.childIndex === childIndex
+                                                  )))[0].LastName)
                                                   handleServiceChange(
                                                     e,
                                                     roomIndex,
@@ -802,6 +850,11 @@ const Flightdetail = () => {
                                                 })
                                               }
                                             />
+                                            {
+                                              sub && (passengerData.filter((item) => (
+                                                item.roomIndex === roomIndex && item.childIndex === childIndex
+                                              )))[0].LastName === "" &&
+                                              <span className="error">Enter Last Name  </span>}
                                           </div>
                                         </Box>
                                       </Grid>
@@ -831,6 +884,11 @@ const Flightdetail = () => {
                                               //   )
                                               // }
                                             />
+                                            {
+                                              sub && (passengerData.filter((item) => (
+                                                item.roomIndex === roomIndex && item.childIndex === childIndex
+                                              )))[0].Age === "" &&
+                                              <span className="error">Enter Age </span>}
                                           </div>
                                         </Box>
                                       </Grid>
@@ -858,6 +916,12 @@ const Flightdetail = () => {
                                                 })
                                               }
                                             />
+                                            {
+                                              sub && !validatePAN((passengerData.filter((item) => (
+                                                item.roomIndex === roomIndex && item.childIndex === childIndex
+                                              )))[0].PAN) &&
+                                              <span className="error">Enter PAN  </span>}
+
                                           </div>
                                         </Box>
                                       </Grid>
