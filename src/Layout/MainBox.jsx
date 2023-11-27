@@ -60,8 +60,11 @@ import React from "react";
 import { InnerBarLogo } from "../data";
 import { Link } from "react-router-dom";
 import color from "../color/color";
+import { useDispatch, useSelector } from "react-redux";
 import "./maixBox.css"
 function MainBox() {
+  const reducerState = useSelector((state) => state);
+  console.log(reducerState, "jfglkdsja;edj")
   return (
     <div className="centeredBox">
       <div className="centered-box-top">
