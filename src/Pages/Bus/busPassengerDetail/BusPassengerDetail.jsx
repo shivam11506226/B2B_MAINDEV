@@ -34,6 +34,7 @@ const BusPassengerDetail = () => {
   console.log(busFullData, "bus full data");
   const passengerLists = [];
   const [accordionExpanded, setAccordionExpanded] = useState(false);
+  const [sub, setSub] = useState(true);
   const seatData = sessionStorage.getItem("seatData");
   const parsedSeatData = JSON.parse(seatData);
   console.log(parsedSeatData, "parsed seat data");
@@ -82,7 +83,28 @@ const BusPassengerDetail = () => {
 
   };
   console.log(passengerData);
+  function validateEmail(email) {
+    const regex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+    return regex.test(email);
+  }
+  function validatePhoneNumber(phoneNumber) {
+    const regex = /^\d{10}$/;
+    return regex.test(phoneNumber);
+  }
+  function validate() {
+    if(
+    (passengerData.filter((item)=>(
+      item.FirstName===""||item.LastName==="" ||item.Address===""|| !validateEmail( item.Email) ||!validatePhoneNumber(item.Phoneno)
+    ))).length>0){
+
+      return  true;
+    }
+  }
   function handleSeatBlock() {
+
+   if( validate()){
+    return
+   }
     const payload = {
       Passenger:
         passengerData?.map((item, index) => {
@@ -167,7 +189,7 @@ const BusPassengerDetail = () => {
             </div>
             <div className="col-lg-12 mt-3">
               <div className="titlePickup">
-                <p>PickUp & Drop Location</p>
+                <p></p>
               </div>
               <div className="pickUpBox">
                 <div>
@@ -248,6 +270,8 @@ const BusPassengerDetail = () => {
                                           handleServiceChange(e, index)
                                         }
                                       />
+                                      {passengerData[index].FirstName==="" &&
+                                      <span id="error1">Enter your name</span>}
                                     </div>
                                   </Box>
                                 </Grid>
@@ -268,6 +292,8 @@ const BusPassengerDetail = () => {
                                           handleServiceChange(e, index)
                                         }
                                       />
+                                       {passengerData[index].LastName==="" &&
+                                      <span id="error1">Enter Last Name</span>}
                                     </div>
                                   </Box>
                                 </Grid>
@@ -305,11 +331,13 @@ const BusPassengerDetail = () => {
                                         name="Email"
                                         type="email"
                                         placeholder="Enter your email"
-                                        value={passengerData.Email}
+                                        value={passengerData[index].Email}
                                         onChange={(e) =>
                                           handleServiceChange(e, index)
                                         }
                                       />
+                                       {!validateEmail( passengerData[index].Email) &&
+                                      <span id="error1">Enter Email</span>}
                                     </div>
                                   </Box>
                                 </Grid>
@@ -331,6 +359,8 @@ const BusPassengerDetail = () => {
                                           handleServiceChange(e, index)
                                         }
                                       />
+                                       {passengerData[index].Address==="" &&
+                                      <span id="error1">Enter Address</span>}
                                     </div>
                                   </Box>
                                 </Grid>
@@ -352,6 +382,9 @@ const BusPassengerDetail = () => {
                                           handleServiceChange(e, index)
                                         }
                                       />
+                                       {!validatePhoneNumber(passengerData[index].Phoneno) &&
+                                      <span id="error1">Enter your name</span>}
+                                      
                                     </div>
                                   </Box>
                                 </Grid>
