@@ -13,6 +13,7 @@ import StarIcon from "@mui/icons-material/Star";
 import Swal from "sweetalert2";
 import { getUserDataAction } from "../../../Redux/Auth/UserDataById/actionUserData";
 import { balanceSubtractRequest } from "../../../Redux/Auth/balaceSubtract/actionBalnceSubtract";
+import userApi from "../../../Redux/API/api";
 
 const Hoteldescription = () => {
   const dispatch = useDispatch();
@@ -140,8 +141,8 @@ const Hoteldescription = () => {
 
   useEffect(() => {
     if (
-      reducerState?.hotelSearchResult?.bookRoom?.BookResult?.Error?.ErrorCode ==
-      0
+      reducerState?.hotelSearchResult?.hotelDetails?.data?.data
+        ?.GetBookingDetailResult?.Error?.ErrorCode == 0
     ) {
       if (userId) {
         const balancePayload = {
@@ -165,9 +166,7 @@ const Hoteldescription = () => {
           destination:
             reducerState?.hotelSearchResult?.hotelDetails?.data?.data
               ?.GetBookingDetailResult?.City,
-          bookingId:
-            reducerState?.hotelSearchResult?.hotelDetails?.data?.data
-              ?.GetBookingDetailResult?.BookingId,
+          bookingId: `${reducerState?.hotelSearchResult?.hotelDetails?.data?.data?.GetBookingDetailResult?.BookingId}`,
           CheckInDate:
             reducerState?.hotelSearchResult?.hotelDetails?.data?.data
               ?.GetBookingDetailResult?.CheckInDate,
@@ -191,15 +190,16 @@ const Hoteldescription = () => {
               ?.GetBookingDetailResult?.AddressLine1,
           room: reducerState?.hotelSearchResult?.hotelDetails?.data?.data
             ?.GetBookingDetailResult?.NoOfRooms,
+          amount: grandTotal,
+          noOfPeople: 2,
         };
-      }
-
-      if (userId) {
-        const payload = userId;
-        dispatch(getUserDataAction(payload));
+        userApi.hotelBookingDataSave(payload);
       }
     }
-  }, [reducerState?.hotelSearchResult?.bookRoom]);
+  }, [
+    reducerState?.hotelSearchResult?.hotelDetails?.data?.data
+      ?.GetBookingDetailResult,
+  ]);
 
   const storedFormData = JSON.parse(sessionStorage.getItem("hotelFormData"));
   const data = storedFormData.dynamicFormData[0]; // Assuming dynamicFormData is an array with at least one element

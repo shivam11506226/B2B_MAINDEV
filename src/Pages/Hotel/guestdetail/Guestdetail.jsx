@@ -13,6 +13,7 @@ import { useDispatch, useSelector, useReducer } from "react-redux";
 import Hoteldescription from "./Hoteldescription";
 import successGif from "../../../Images/successGif.png";
 import { balanceSubtractRequest } from "../../../Redux/Auth/balaceSubtract/actionBalnceSubtract";
+import { getUserDataAction } from "../../../Redux/Auth/UserDataById/actionUserData";
 
 import "./guestdetail.css";
 const Guestdetail = () => {
@@ -35,44 +36,30 @@ const Guestdetail = () => {
   const navigate = useNavigate();
   let bookingStatus =
     reducerState?.hotelSearchResult?.bookRoom?.BookResult?.Status || false;
-  // const getBookingDetails =
-  //   reducerState?.hotelSearchResult?.hotelDetails?.data?.data
-  //     ?.GetBookingDetailResult?.HotelRoomsDetails;
-  // console.log("getBookingDetails", getBookingDetails);
 
   const getBookingDetails = reducerState?.hotelSearchResult;
-  // console.log("get booking details", getBookingDetails)
-
-  // const totalAmount = getBookingDetails?.reduce((accumulator, item) => {
-  //   return accumulator + item?.Price?.PublishedPriceRoundedOff;
-  // }, 0);
-  // console.log("totalAmount", totalAmount);
-
-
 
   const userId = reducerState?.logIn?.loginData?.data?.data?.id;
   const markUpamount =
     reducerState?.userData?.userData?.data?.data?.markup?.hotel;
   const userBalance = reducerState?.userData?.userData?.data?.data?.balance;
-
-  // useEffect(() => {
-  //   if (bookingStatus == 1) {
-  //     if (userBalance >= markUpamount + totalAmount) {
-  //       if (userId) {
-  //         const balancePayload = {
-  //           _id: userId,
-  //           amount: markUpamount + totalAmount,
-  //         };
-
-  //         dispatch(balanceSubtractRequest(balancePayload));
-  //       }
-  //     }
-  //     setTimeout(() => {
-  //       bookingStatus = false
-  //       navigate("/Login");
-  //     }, 2000);
-  //   }
-  // }, [bookingStatus]);
+  useEffect(() => {
+      if (
+      reducerState?.hotelSearchResult?.hotelDetails?.data?.data
+        ?.GetBookingDetailResult?.Error?.ErrorCode == 0
+    ){
+      setTimeout(()=>{
+         if (userId) {
+           const payload = userId;
+           dispatch(getUserDataAction(payload));
+         }
+         navigate("/")
+      },2000)
+    }
+  }, [
+    reducerState?.hotelSearchResult?.hotelDetails?.data?.data
+      ?.GetBookingDetailResult,
+  ]);
   return (
     <React.Fragment>
       <div className="flightContainer">
