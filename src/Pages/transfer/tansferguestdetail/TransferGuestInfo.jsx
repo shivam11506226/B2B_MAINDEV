@@ -340,7 +340,7 @@ const TransferGuestInfo = () => {
             <Box my={3}>
                 <form action='/TransferReviewBooking'>
                     <Box textAlign='center'>
-                        <Button variant="contained" type='submit' style={{ backgroundColor: '#006FFF', borderRadius: '10px' }}>Proceed to Booking Review</Button>
+                        <Button variant="contained" type='submit' style={{ backgroundColor: '#006FFF', borderRadius: '10px' }}></Button>
                     </Box>
                     <Box textAlign='center'>
                         <Link color='#FF8900' >Choose Another Transfer</Link>
