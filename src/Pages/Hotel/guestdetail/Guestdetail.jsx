@@ -12,10 +12,14 @@ import Sailsummary from "./Sailsummary";
 import { useDispatch, useSelector, useReducer } from "react-redux";
 import Hoteldescription from "./Hoteldescription";
 import successGif from "../../../Images/successGif.png";
+// import { clearHotelReducer } from "../../Redux/Hotel/hotel";
+import Swal from "sweetalert2";
+
 import { balanceSubtractRequest } from "../../../Redux/Auth/balaceSubtract/actionBalnceSubtract";
 import { getUserDataAction } from "../../../Redux/Auth/UserDataById/actionUserData";
 
 import "./guestdetail.css";
+import { clearHotelReducer } from "../../../Redux/Hotel/hotel";
 const Guestdetail = () => {
   const style = {
     position: "absolute",
@@ -43,6 +47,11 @@ const Guestdetail = () => {
   const markUpamount =
     reducerState?.userData?.userData?.data?.data?.markup?.hotel;
   const userBalance = reducerState?.userData?.userData?.data?.data?.balance;
+
+
+
+
+
   useEffect(() => {
       if (
       reducerState?.hotelSearchResult?.hotelDetails?.data?.data
@@ -60,6 +69,7 @@ const Guestdetail = () => {
     reducerState?.hotelSearchResult?.hotelDetails?.data?.data
       ?.GetBookingDetailResult,
   ]);
+
   return (
     <React.Fragment>
       <div className="flightContainer">
@@ -82,7 +92,7 @@ const Guestdetail = () => {
               </Grid>
             </Box>
           </div>
-          <Modal
+          {/* <Modal
             open={bookingStatus == 1 ? true : false}
             aria-labelledby="child-modal-title"
             aria-describedby="child-modal-description"
@@ -102,7 +112,7 @@ const Guestdetail = () => {
                 Thanku!!Your booking is done..
               </Typography>
             </Box>
-          </Modal>
+          </Modal> */}
         </Box>
       </div>
     </React.Fragment>

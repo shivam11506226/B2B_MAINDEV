@@ -16,7 +16,7 @@ function Loader() {
       <div className="loader">
         <div className="box">
           <div className="logo-bx">
-            <img src={logo} alt="" />
+            <img src={logo} />
           </div>
           <div className="bottom-box">
             <div className="loader-content">

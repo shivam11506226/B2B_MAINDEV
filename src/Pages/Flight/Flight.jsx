@@ -4,6 +4,7 @@ import { Button } from "react-bootstrap";
 
 import { Box, Flex, HStack, Spacer, Text } from "@chakra-ui/react";
 import Loader from "../Loader/Loader";
+import FlightLoader from "./FlightLoader/FlightLoader";
 
 import FlightNavBar from "./FlightNavbar/FlightNavBar";
 import OneWay from "./FlightForm/OneWay";
@@ -61,26 +62,46 @@ const Flight = () => {
     navigate,
   ]);
 
+  if (loader) {
+    return <FlightLoader />;
+  }
+
   return (
-    <>
-      {loader ? (
-        <Loader />
-      ) : (
-        <div>
-          <Box
-          display={"flex"}
-          justifyContent={"center"}
-          alignSelf={"center"}
-          alignItems={"center"}
-        >
-         {/* <Flightnavbar/> */}
-       
-        </Box>
-        <StyledTabs/>
-        </div>
-        
-      )}
-    </>
+    // <>
+    //   {loader ? (
+    //     <FlightLoader />
+    //   ) : (
+    //     <div>
+    //       <Box
+    //         display={"flex"}
+    //         justifyContent={"center"}
+    //         alignSelf={"center"}
+    //         alignItems={"center"}
+    //       >
+    //         {/* <Flightnavbar/> */}
+
+    //       </Box>
+    //       <StyledTabs />
+    //     </div>
+
+    //   )}
+    // </>
+    // <>
+    //   <FlightLoader />
+    // </>
+
+    <div>
+      <Box
+        display={"flex"}
+        justifyContent={"center"}
+        alignSelf={"center"}
+        alignItems={"center"}
+      >
+        {/* <Flightnavbar /> */}
+
+      </Box>
+      <StyledTabs />
+    </div>
   );
 };
 

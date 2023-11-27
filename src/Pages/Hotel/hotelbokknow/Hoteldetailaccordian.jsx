@@ -86,6 +86,8 @@ export default function CustomizedAccordions() {
 
   const hotelInfo = reducerState?.hotelSearchResult?.hotelInfo?.HotelInfoResult;
 
+  const hotelll = reducerState?.hotelSearchResult;
+  console.log(hotelll, "hotelll")
   //Below is the functionality applied for the multiRoom selection
   const roomComponent = (RoomIndex, RoomIndexArr, col, row) => {
     // console.log(RoomIndexArr, "RoomIndexArr");

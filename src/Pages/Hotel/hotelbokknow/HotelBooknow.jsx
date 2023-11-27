@@ -31,6 +31,7 @@ import {
   hotelRoomAction,
   hotelSearchInfoAction,
 } from "../../../Redux/Hotel/hotel";
+import HotelLoading from "../hotelLoading/HotelLoading";
 
 const label = { inputProps: { "aria-label": "Checkbox demo" } };
 
@@ -83,6 +84,9 @@ const HotelBooknow = () => {
     }
   });
 
+  const hotelll = reducerState?.hotelSearchResult;
+  console.log(hotelll, "hotelll")
+
   const hotelInfo = reducerState?.hotelSearchResult?.hotelInfo?.HotelInfoResult;
   const hotelRoom =
     reducerState?.hotelSearchResult?.hotelRoom?.GetHotelRoomResult;
@@ -112,7 +116,7 @@ const HotelBooknow = () => {
   return (
     <>
       {loader ? (
-        <Loader />
+        <HotelLoading />
       ) : (
         <div className="flightContainer">
           {/* step by step updating part */}

@@ -14,16 +14,22 @@ import {
   ruleAction,
   setLoading,
 } from "../../../Redux/FlightFareQuoteRule/actionFlightQuote";
+import FlightLoader from "../FlightLoader/FlightLoader";
+
+
+
+
 
 function SingleData(props) {
   // console.log("Props", props);
+  const [loader, setLoader] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const reducerState = useSelector((state) => state);
   let statusRule = reducerState?.flightFare?.isLoadingRuleDone || false;
   let statusQuote = reducerState?.flightFare?.isLoadingQuoteDone || false;
-  // console.log("isLoadingRuleDone", statusRule);
-  // console.log("isLoadingQuoteDone", statusQuote);
+  console.log("isLoadingRuleDone", statusRule);
+  console.log("isLoadingQuoteDone", statusQuote);
   const flight = props.flight;
   const IsLCC = props.IsLCC;
   // console.log("flight single", flight);
@@ -35,17 +41,16 @@ function SingleData(props) {
   const fare =
     reducerState?.logIn?.loginData.length > 0
       ? `${Math.round(
-          Number(props.fare) +
-            Number(reducerState?.logIn?.loginData?.data?.data?.markup?.flight)
-        )}`
+        Number(props.fare) +
+        Number(reducerState?.logIn?.loginData?.data?.data?.markup?.flight)
+      )}`
       : Math.round(Number(props.fare));
 
   // console.log(fare);
   const img = flight?.Airline?.AirlineCode;
 
-  const time = `${Math.floor(flight?.Duration / 60)}hr ${
-    flight.Duration % 60
-  }min`;
+  const time = `${Math.floor(flight?.Duration / 60)}hr ${flight.Duration % 60
+    }min`;
 
   const dateString = flight?.Origin?.DepTime;
   const date1 = new Date(dateString);
@@ -78,6 +83,7 @@ function SingleData(props) {
   const handleClick = (ResultIndex) => {
     // console.log("Handel Click Index Key", ResultIndex);
     // navigate("passengerdetail");
+    setLoader(true);
     sessionStorage.setItem("ResultIndex", ResultIndex);
     const payload = {
       EndUserIp: reducerState?.ip?.ipData,
@@ -88,18 +94,23 @@ function SingleData(props) {
     dispatch(ruleAction(payload));
     dispatch(quoteAction(payload));
   };
-  // console.log("reducerrState", reducerState);
+  console.log("reducerrState", reducerState);
   useEffect(() => {
     if (statusQuote && statusRule) {
+
       navigate("/passengerdetail");
       dispatch(setLoading("hjbb"));
+      setLoader(false);
     }
   }, [statusQuote, statusRule]);
   // console.log("reducerStateDemount", reducerState);
 
+  if (loader) {
+    return <FlightLoader />;
+  }
   return (
     <div>
-      
+
 
       <Box
 
@@ -196,12 +207,12 @@ function SingleData(props) {
               <Box display="flex" justifyContent="center">
 
                 <Box>
-                  
-                  <Box  textAlign="center">
+
+                  <Box textAlign="center">
                     <Box px={1} textAlign="center">
-                  <Typography style={{color: '#BBBBBB', fontSize: '12px', fontFamily: 'Montserrat', fontWeight: '700'}}>{time}</Typography>
-                </Box>
-                    
+                      <Typography style={{ color: '#BBBBBB', fontSize: '12px', fontFamily: 'Montserrat', fontWeight: '700' }}>{time}</Typography>
+                    </Box>
+
                     <svg xmlns="http://www.w3.org/2000/svg" width="77" height="2" viewBox="0 0 77 2" fill="none">
                       <line x1="0.5" y1="1" x2="76.5" y2="1" stroke="#49DF4F" stroke-width="2" />
                     </svg>
@@ -213,7 +224,7 @@ function SingleData(props) {
                     </Typography>
                   </Box>
                   <Box display="flex" justifyContent="center" textAlign="center">
-                    
+
                   </Box>
                 </Box>
               </Box>
@@ -265,12 +276,12 @@ function SingleData(props) {
 
           <Grid
 
-display="flex"
-marginTop="-5px"
+            display="flex"
+            marginTop="-5px"
 
-flexDirection="column"
-gap={2}
-px={2}
+            flexDirection="column"
+            gap={2}
+            px={2}
 
           >
             {/* <Box display="flex"> */}
@@ -298,7 +309,7 @@ px={2}
            
             </Box>
           </Grid> */}
-          <Grid display="flex" direction='column' 
+          <Grid display="flex" direction='column'
             alignItems="center" marginTop="-5px">
             <Box px={1}>
               <Button variant="contained" id="buttons"

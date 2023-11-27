@@ -14,7 +14,11 @@ import {
 } from "../../../Redux/FlightBook/actionFlightBook";
 import { PassengersAction } from "../../../Redux/Passengers/passenger";
 import Headers from "../../../Components/Headers";
+import FlightLoader from "../FlightLoader/FlightLoader";
 const Leftdetail = () => {
+
+
+  const [loader, setLoader] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const adults = sessionStorage.getItem("adults");
@@ -229,35 +233,35 @@ const Leftdetail = () => {
   function validatePhoneNumber(phoneNumber) {
     // Define the regular expression pattern for a valid phone number
     var phonePattern = /^\d{10}$/;
-  
+
     // Test the phone number against the pattern
     return phonePattern.test(phoneNumber);
   }
   function validateEmail1(email) {
     // Define the regular expression pattern for a valid phone number
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  
+
     // Test the phone number against the pattern
     return emailRegex.test(email);
   }
-    
-  function isValidEmail(email,phoneNumber) {
+
+  function isValidEmail(email, phoneNumber) {
     // Regular expression for a simple email validation
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     var phonePattern = /^\d{10}$/;
 
     // Test the phone number against the pattern
-    const result2= validatePhoneNumber(phoneNumber);
-    
+    const result2 = validatePhoneNumber(phoneNumber);
+
 
     // Test the email against the regular expression
     const result1 = validateEmail1(email);
-    const result=result1 && result2;
+    const result = result1 && result2;
     console.warn(result, "Please fill all the details/////");
     return result
   }
-  
-  
+
+
   async function handleSubmit(event) {
     event.preventDefault();
     setSub(true)
@@ -292,13 +296,13 @@ const Leftdetail = () => {
         item.FirstName === "" || item.LastName === "" || item.DateOfBirth === ""
     );
     // const res= isValidEmail(passengerList[0].Email)
-    const emailVal = await passengerList.filter((item)=>
-      
+    const emailVal = await passengerList.filter((item) =>
+
       // console.warn(passengerList[0].Email, "***********************************************nooooooooooooooooooooooooooooo")
 
-      !isValidEmail(item.Email,item.ContactNo)
+      !isValidEmail(item.Email, item.ContactNo)
 
-    
+
     )
     // const emailVal=5
     console.warn(emailVal, "emailVaxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxkkkkkkk");
@@ -308,6 +312,8 @@ const Leftdetail = () => {
     // );
     if (valid.length === 0 && emailVal.length === 0) {
       // console.log("yessssssssssssssssssssssssssssss");
+
+
       if (fareValue?.IsLCC === false) {
         dispatch(PassengersAction(passengerData));
         navigate("/Flightresult/passengerdetail/flightreviewbooking");
@@ -426,6 +432,7 @@ const Leftdetail = () => {
 
     // sessionStorage.setItem("Passengers", payload?.Passengers);
     // navigate("flightreviewbooking");
+
   }
 
   // Add form
@@ -600,9 +607,9 @@ const Leftdetail = () => {
                               name="Email"
                               placeholder="Enter Email"
                               onChange={(e) => handleServiceChange(e, i)}
-                              
+
                             />
-                              { !validateEmail1(passengerData[i].Email) && sub && <span id="error1">Enter Email</span>}
+                            {!validateEmail1(passengerData[i].Email) && sub && <span id="error1">Enter Email</span>}
                           </div>
                         </Box>
                       </Grid>
@@ -621,7 +628,7 @@ const Leftdetail = () => {
 
 
                             />
-                           { !validatePhoneNumber(passengerData[i].ContactNo) == true  && sub && <span id="error1">Enter Contact</span>}
+                            {!validatePhoneNumber(passengerData[i].ContactNo) == true && sub && <span id="error1">Enter Contact</span>}
                           </div>
                         </Box>
                       </Grid>

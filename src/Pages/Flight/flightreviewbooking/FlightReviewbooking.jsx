@@ -15,6 +15,7 @@ import Flightbookingdetail from "./Flightbookingdetail";
 import Rightdetail from "../passengerdetail/Rightdetail";
 import { useDispatch, useSelector } from "react-redux";
 import Flightnavbar from "../Flightnavbar";
+import FlightLoader from "../FlightLoader/FlightLoader";
 const FlightReviewbooking = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -32,28 +33,32 @@ const FlightReviewbooking = () => {
       setLoading(false);
     }
   }, [reducerState]);
-  return (
-    <div className="flightContainer" style={{marginTop:"-20px"}}>
-    
 
-     
+  if (loading) {
+    <FlightLoader />
+  }
+  return (
+    <div className="flightContainer" style={{ marginTop: "-20px" }}>
+
+
+
       {/* {loading ? (
         <div>Loading...</div>
       ) : ( */}
-         {/* <Flightnavbar/> */}
-        <Grid container style={{margin:"auto",display:"flex",gap:"30px",width:"95%"}}>
-          <Grid item xs={12} md={8}>
-            <Box>
-              <Flightbookingdetail />
-            </Box>
-          </Grid>
-          <Grid item xs={12} md={3}>
-            <Box>
-              {/* <Fairsummary /> */}
-              <Rightdetail />
-            </Box>
-          </Grid>
+      {/* <Flightnavbar/> */}
+      <Grid container style={{ margin: "auto", display: "flex", gap: "30px", width: "95%" }}>
+        <Grid item xs={12} md={8}>
+          <Box>
+            <Flightbookingdetail />
+          </Box>
         </Grid>
+        <Grid item xs={12} md={3}>
+          <Box>
+            {/* <Fairsummary /> */}
+            <Rightdetail />
+          </Box>
+        </Grid>
+      </Grid>
       {/* )} */}
     </div>
   );
