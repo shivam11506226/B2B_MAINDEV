@@ -16,45 +16,45 @@ export const busSearchAction = (user) => {
     };
   }
 };
-export const busSeatBlock=(data)=>{
-  return{
-    type:types.BUS_BLOCK_SUCCESS,
-    payload:data
+export const busSeatBlock = (data) => {
+  return {
+    type: types.BUS_BLOCK_SUCCESS,
+    payload: data
   }
 }
-export const busSeatBlockAction=(data)=>{
-  if(data){
-    return{
-      type:types.BUS_BLOCK_REQUEST,
-      payload:data
+export const busSeatBlockAction = (data) => {
+  if (data) {
+    return {
+      type: types.BUS_BLOCK_REQUEST,
+      payload: data
     }
   }
 }
-export const busBook=(data)=>{
+export const busBook = (data) => {
   return {
-    type:types.BUS_BOOK_SUCCESS,
-    payload:data
+    type: types.BUS_BOOK_SUCCESS,
+    payload: data
   }
 }
-export const busBookAction=(data)=>{
-  if(data){
-   return{
-     type:types.BUS_BOOK_REQUEST,
-     payload:data
-   }
+export const busBookAction = (data) => {
+  if (data) {
+    return {
+      type: types.BUS_BOOK_REQUEST,
+      payload: data
+    }
   }
 }
-export const busBookDetails=(data)=>{
-  return{
-    type:types.BUS_DETAILS_SUCCESS,
-    payload:data
+export const busBookDetails = (data) => {
+  return {
+    type: types.BUS_DETAILS_SUCCESS,
+    payload: data
   }
 }
-export const busBookDetailsAction=(data)=>{
-  if(data){
-    return{
-      type:types.BUS_DETAILS_REQUEST,
-      payload:data
+export const busBookDetailsAction = (data) => {
+  if (data) {
+    return {
+      type: types.BUS_DETAILS_REQUEST,
+      payload: data
     }
   }
 }

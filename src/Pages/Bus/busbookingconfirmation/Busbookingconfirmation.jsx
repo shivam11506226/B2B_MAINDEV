@@ -7,7 +7,7 @@ import ReadMoreIcon from "@mui/icons-material/ReadMore";
 import BusStepper from "../../../Components/BusStepper";
 // import { useDispatch, useSelector } from "react-redux";
 import { useDispatch, useSelector } from "react-redux";
-import { busBookDetailsAction } from "../../../Redux/busSearch/busSearchAction";
+import { busBookDetailsAction, clearBusSearchReducer } from "../../../Redux/busSearch/busSearchAction";
 import userApi from "../../../Redux/API/api";
 import { useEffect } from "react";
 import Busbookingloader from "./Busbookingloader";
@@ -16,10 +16,12 @@ import Swal from "sweetalert2";
 import { getUserDataAction } from "../../../Redux/Auth/UserDataById/actionUserData";
 import { balanceSubtractRequest } from "../../../Redux/Auth/balaceSubtract/actionBalnceSubtract";
 import dayjs from "dayjs";
+import { useNavigate } from "react-router-dom";
 const Busbookingconfirmation = () => {
   const dispatch = useDispatch();
   const [loader, setLoader] = useState(false);
   const [userData, setUserData] = useState(null);
+  const navigate = useNavigate();
 
   // console.log("dispatchhhhhhh", dispatch);
   const reducerState = useSelector((state) => state);
@@ -124,6 +126,18 @@ const Busbookingconfirmation = () => {
 
 
   const storedPassengerData = JSON.parse(sessionStorage.getItem("busPassName"));
+
+
+  const handlePrint = () => {
+    Swal.fire({
+      title: "Congratulation!",
+      text: "Your Bus is booked",
+      icon: "success"
+    }).then(() => {
+      dispatch(clearBusSearchReducer());
+      navigate("/");
+    });
+  }
 
   return (
 
@@ -252,7 +266,7 @@ const Busbookingconfirmation = () => {
                   </div>
 
                   <div className="col-lg-12 mt-4 bookBus">
-                    <button type="submit">Print</button>
+                    <button type="submit" onClick={handlePrint}>Print</button>
                   </div>
                 </div>
                 <div className="col-lg-3">
