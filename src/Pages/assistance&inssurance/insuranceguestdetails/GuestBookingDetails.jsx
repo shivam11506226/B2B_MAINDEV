@@ -518,7 +518,7 @@ const GuestBookingDetails = () => {
                 m
                 sx={{fontSize:"16px", backgroundColor: "#00BDC4", borderRadius: "20px" }}
               >
-                Proceed to Booking Review
+                
               </Button>
             </Box>
           </form>

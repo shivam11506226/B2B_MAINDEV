@@ -249,9 +249,9 @@ const Holidaysalesummary = ({ childCount, adultCount }) => {
         {/* <form action="/Holidayreviewbooking"> */}
         <Box display="flex" justifyContent="center" width={"100%"}>
           {/* <Button variant="contained" type="submit" style={{borderRadius:'10px'}}>
-              Proceed to Booking Review
+              
             </Button> */}
-          <Custombutton title={"Proceed to Booking Review"} />
+          <Custombutton title={""} />
         </Box>
         {/* </form> */}
       </Box>

@@ -238,6 +238,7 @@ const CreateHolidayPackage = () => {
   };
 
   const [days, setDays] = useState(1);
+  const [sub, setSub] = useState(false);
 
   // Text editor Onchange
   const [html, setHtml] = useState("");
@@ -250,14 +251,27 @@ const CreateHolidayPackage = () => {
     // setHtml(newValues);
   };
   console.warn("days", html);
+ 
   console.warn("daysDetailsValues", daysDetailsValues);
 
   // Form handle code
   const handleCreatePackage = (event) => {
     event.preventDefault();
+    setSub(true)
     const file1 = document.getElementById("user_card_document").files[0];
+    console.warn( filterTrueProps(tag).length,filterTrueProps(tag).length,"filrter prooooddsndjndhnhjnnnnnnnnnnnnnnnnnnn")
 
     const formData = new FormData(event.target);
+    if(formData.get("exclusion_note")===""|| file1.length===0||chipData.length === 0||amount===0||formData.get("term_Conditions")===""||
+    formData.get("cancellation_Policy")===""||filterTrueProps(checkedItem)===0||
+    filterTrueProps(tag)===0
+    ){
+      setTimeout(() => {
+        setSub(false)
+      }, 7000);
+      return ;
+    }
+    else{
     const payload = {
       pakage_title: formData.get("package_title"),
       destination: inputList,
@@ -361,7 +375,7 @@ const CreateHolidayPackage = () => {
       if (result.isConfirmed) {
         navigate("/");
       }
-    });
+    });}
     // event.target.reset();
     // setDaysDetails([]);
     // setCheckedItem({
@@ -399,7 +413,25 @@ const CreateHolidayPackage = () => {
     //   wifi: false,
     // })
   };
-
+  function validation(event){
+    const formData = new FormData(event.target);
+    const file1 = document.getElementById("user_card_document").files[0];
+    if(formData.get("exclusion_note")===""|| file1.length===0||chipData.length === 0||amount===0||formData.get("term_Conditions")===""||
+    formData.get("cancellation_Policy")===""
+    ){
+      return false;
+    }
+  }
+  const filterTrueProps = (obj) => {
+    const filteredObj = {};
+    for (const key in obj) {
+      if (obj[key]) {
+        filteredObj[key] = obj[key];
+      }
+    }
+    return Object.keys(filteredObj).length ;
+  };
+  console.warn( filterTrueProps(checkedItem),filterTrueProps(tag),"filrter prooooddsndjndhnhjnnnnnnnnnnnnnnnnnnn")
   return (
     <div className="container-fluid">
 
@@ -424,13 +456,20 @@ const CreateHolidayPackage = () => {
                 <div class="mb-3">
                   <label class="form-label">Package Title <span style={{ color: "red" }}>*</span></label>
                   <div className="form-floating">
-                    <input type="text" name="package_title" class="form-control" placeholder="Enter Your Package Title" />
+                    <input type="text" name="package_title" 
+                    id="package_title"
+                    class="form-control" placeholder="Enter Your Package Title" />
                     <label for="floatingInput">Give a Name to this Package</label>
                   </div>
+                  {sub && document.getElementById("package_title").value==="" &&
+                  <span id="error1">Package Name is required</span>}
                 </div>
                 <div class="mb-3">
                   <label class="form-label">Upload a picture of the package{" "}<span style={{ color: "red" }}>*</span></label>
                   <input type="file" accept="image/png, image/jpeg" name="user_card_document" id="user_card_document" class="form-control input_file" placeholder="Enter Your Package Title" />
+                  {sub && document.getElementById("user_card_document").files.length===0 &&
+                  <span id="error1">Upload Image</span>}
+
                 </div>
 
 
@@ -469,6 +508,7 @@ const CreateHolidayPackage = () => {
                     </Paper>
                   )}
 
+
                   <div className="groupinpbut">
                     <div className="form-floating">
                       <input
@@ -499,12 +539,14 @@ const CreateHolidayPackage = () => {
 
                   </div>
                 </div>
+                {sub && chipData.length===0 &&
+                <span id="error1">Package Name is required</span>}
 
 
                 <div class="mb-3 pt-4 mt-5">
                   <label class="form-label">How Many Days ?</label>
                   <Box style={styles1.container}>
-                    <Button onClick={() => days === 0 ? setDays(0) : setDays(days - 1)} style={styles1.button}>
+                    <Button onClick={() => days === 1 ? setDays(1) : setDays(days - 1)} style={styles1.button}>
                       <RemoveIcon style={{ fontSize: "16px" }} />
                     </Button>
                     <input
@@ -550,6 +592,7 @@ const CreateHolidayPackage = () => {
                           id="schedule"
                           value="fixed departure"
                           width="32px"
+                          checked
                         />
                       </Box>
                       <Box>
@@ -636,6 +679,9 @@ const CreateHolidayPackage = () => {
                     </Box>
                     <label class="form-label">Per Person</label>
                   </div>
+                  {sub && amount===0 &&
+
+                  <span id ="error1">Amount</span>}
                 </div>
 
                 <Box style={{ fontSize: "16px", }}>
@@ -1960,6 +2006,8 @@ const CreateHolidayPackage = () => {
                           </Accordion.Body>
                         </Accordion.Item>
                       </Accordion>
+                      {sub && daysDetailsValues.length===0 &&
+                      <span id ="error1">Detailed Itinerary</span>}
                     </>
                   ))}
                 </Box>
@@ -1978,7 +2026,12 @@ const CreateHolidayPackage = () => {
                 </Grid>
 
                 <div class="mb-3">
-                  <label class="form-label">Select Tags <span style={{ color: "red" }}>*</span></label><br />
+                  <label class="form-label">Select Tags <span style={{ color: "red" }}>*</span></label>
+                  { sub && 
+                  //  (checkedItem.find(el => el.value === true).length===0) 
+                  // &&
+                  <span id ="error1">Package Name is required</span>}
+                  <br />
                   <label class="form-label">Select tags most relevant to your packages</label>
                 </div>
 
@@ -2210,18 +2263,22 @@ const CreateHolidayPackage = () => {
                       <Box my={2}>
                         <label class="form-label">Term & Conditions <span style={{ color: "red" }}>*</span></label>
                         <div class="form-floating">
-                          <textarea class="form-control" name="term_Conditions" placeholder="Enter Term And Condition" id="exclusion_note" style={{ height: "100px" }}></textarea>
+                          <textarea class="form-control" name="term_Conditions" placeholder="Enter Term And Condition" id="term_Conditions" style={{ height: "100px" }}></textarea>
                           <label for="floatingTextarea2">EnterTerm & Conditions</label>
                         </div>
+                        {sub && document.getElementById("term_Conditions").value==="" &&
+                        <span id ="error1">EnterTerm & Conditions</span>}
                       </Box>
                     </div>
                     <div className="col-lg-6 col-md-12 col-sm-12">
                       <Box my={2}>
                         <label class="form-label"> Write a descriptive summary of the T&C..... <span style={{ color: "red" }}>*</span></label>
                         <div class="form-floating">
-                          <textarea class="form-control" name="term_Conditions" placeholder="Enter Term And Condition" id="exclusion_note" style={{ height: "100px" }}></textarea>
+                          <textarea class="form-control" name="term_Conditions" placeholder="Enter Term And Condition" id="descriptive_summary" style={{ height: "100px" }}></textarea>
                           <label for="floatingTextarea2">Enter Term & Conditions</label>
                         </div>
+                        {sub && document.getElementById("descriptive_summary").value==="" &&
+                        <span id ="error1">descriptive Summary</span>}
                       </Box>
                     </div>
                   </div>
@@ -2234,18 +2291,22 @@ const CreateHolidayPackage = () => {
                       <Box my={2}>
                         <label class="form-label">Cancellation Policy<span style={{ color: "red" }}>*</span></label>
                         <div class="form-floating">
-                          <textarea class="form-control" name="cancellation_Policy" placeholder="Cancellation Policy...." id="exclusion_note" style={{ height: "100px" }}></textarea>
+                          <textarea class="form-control" name="cancellation_Policy" placeholder="Cancellation Policy...." id="cancellation_Policy" style={{ height: "100px" }}></textarea>
                           <label for="floatingTextarea2">Enter Term & Conditions</label>
                         </div>
+                        {sub && document.getElementById("cancellation_Policy").value==="" &&
+                        <span id ="error1">Term & Conditions</span>}
                       </Box>
                     </div>
                     <div className="col-lg-6 col-md-12 col-sm-12">
                       <Box my={2}>
                         <label class="form-label"> Write a descriptive summary of the Cancellation Policy...... <span style={{ color: "red" }}>*</span></label>
                         <div class="form-floating">
-                          <textarea class="form-control" name="term_Conditions" placeholder="Descriptive Cancellation Policy...." id="exclusion_note" style={{ height: "100px" }}></textarea>
+                          <textarea class="form-control" name="term_Conditions" placeholder="Descriptive Cancellation Policy...." id="descriptive_cancellation" style={{ height: "100px" }}></textarea>
                           <label for="floatingTextarea2">Descriptive Cancellation Policy....</label>
                         </div>
+                        {sub && document.getElementById("descriptive_cancellation").value==="" &&
+                        <span id ="error1">Descriptive Cancellation Policy</span>}
                       </Box>
                     </div>
                   </div>

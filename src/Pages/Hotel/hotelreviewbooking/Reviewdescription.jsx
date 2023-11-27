@@ -299,6 +299,9 @@ const Flightdetail = () => {
     console.warn("emailrefffffffffffff", emailRef.current.value);
     setSub(true);
     if (!validation()) {
+      setTimeout(() => {
+        setSub(false)
+      }, 2000);
       return;
 
     }
@@ -636,92 +639,149 @@ const Flightdetail = () => {
                             backgroundColor: "rgba(187, 187, 187, 0.30)",
                           }}
                         >
-                          <AccordionSummary
-                            expandIcon={<ExpandMoreIcon />}
-                            aria-controls="panel1a-content"
-                            id="panel1a-header"
-                          >
-                            <label>Room {roomIndex + 1}</label>
-                          </AccordionSummary>
-                          <AccordionDetails>
-                            <div>
-                              {noOfRooms[roomIndex]?.NoOfAdults > 0 &&
-                                Array.from(
-                                  { length: noOfRooms[roomIndex]?.NoOfAdults },
-                                  (_, adultIndex) => (
-                                    <div className="guestDetailsForm">
-                                      <p>
-                                        Adult {adultIndex + 1}
-                                        {adultIndex == 0 ? "(Lead Guest)" : ""}
-                                      </p>
-                                      <Grid container spacing={3} my={1}>
-                                        <Grid item xs={12} sm={12} md={4}>
-                                          <Box>
-                                            <div className="form_input">
-                                              <label
-                                                hotel_form_input
-                                                className="form_lable"
-                                              >
-                                                First name*
-                                              </label>
-                                              <input
-                                                name="FirstName"
-                                                placeholder="Enter your name"
-                                                // value={passengerData.FirstName}
-                                                onChange={(e) =>
-                                                  setTimeout(() => {
 
-                                                    console.warn((passengerData.filter((item) => (
-                                                      item.roomIndex === roomIndex && item.adultIndex === adultIndex
-                                                    )))[0].FirstName, "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%55")
+                          <label>Room {roomIndex + 1}</label>
+                        </AccordionSummary>
+                        <AccordionDetails>
+                          <div>
+                            {noOfRooms[roomIndex]?.NoOfAdults > 0 &&
+                              Array.from(
+                                { length: noOfRooms[roomIndex]?.NoOfAdults },
+                                (_, adultIndex) => (
+                                  <div className="guestDetailsForm">
+                                    <p>
+                                      Adult {adultIndex + 1}
+                                      {adultIndex == 0 ? "(Lead Guest)" : ""}
+                                    </p>
+                                    <Grid container spacing={3} my={1}>
+                                      <Grid item xs={12} sm={12} md={4}>
+                                        <Box>
+                                          <div className="form_input">
+                                            <label
+                                              hotel_form_input
+                                              className="form_lable"
+                                            >
+                                              First name*
+                                            </label>
+                                            <input
+                                              name="FirstName"
+                                              placeholder="Enter your name"
+                                              // value={passengerData.FirstName}
+                                              onChange={(e) =>
+                                                setTimeout(() => {
 
-                                                    handleServiceChange(
-                                                      e,
-                                                      roomIndex,
-                                                      { adultIndex: adultIndex }
-                                                    );
-                                                  }, 500)
-                                                }
-                                              />
+                                                  console.warn((passengerData.filter((item) => (
+                                                    item.roomIndex === roomIndex && item.adultIndex === adultIndex
+                                                  )))[0].FirstName, "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%55")
 
-                                              {sub &&
-                                                passengerData[roomIndex]
-                                                  .FirstName === "" && (
-                                                  <span className="error">
-                                                    {
-                                                      passengerData[roomIndex]
-                                                        .FirstName
-                                                    }
-                                                  </span>
-                                                )}
+                                                  handleServiceChange(
+                                                    e,
+                                                    roomIndex,
+                                                    { adultIndex: adultIndex }
+                                                  );
+                                                }, 500)
+                                              }
+                                            />
 
-                                            </div>
-                                          </Box>
-                                        </Grid>
-                                        <Grid item xs={12} sm={12} md={4} py={1}>
-                                          <Box>
-                                            <div className="form_input">
-                                              <label
-                                                hotel_form_input
-                                                className="form_lable"
-                                              >
-                                                Last name*
-                                              </label>
-                                              <input
-                                                name="LastName"
-                                                placeholder="Enter your last name"
-                                                // value={passengerData.LastName}
-                                                onChange={(e) =>
-                                                  setTimeout(() => {
-                                                    handleServiceChange(
-                                                      e,
-                                                      roomIndex,
-                                                      { adultIndex: adultIndex }
-                                                    );
-                                                  }, 300)
-                                                }
-                                              />
-                                              {
+                                            {
+                                              sub && (passengerData.filter((item) => (
+                                                item.roomIndex === roomIndex && item.adultIndex === adultIndex
+                                              )))[0].FirstName === "" &&
+                                              <span className="error">Enter First Name  </span>}
+
+                                          </div>
+                                        </Box>
+                                      </Grid>
+                                      <Grid item xs={12} sm={12} md={4} py={1}>
+                                        <Box>
+                                          <div className="form_input">
+                                            <label
+                                              hotel_form_input
+                                              className="form_lable"
+                                            >
+                                              Last name*
+                                            </label>
+                                            <input
+                                              name="LastName"
+                                              placeholder="Enter your last name"
+                                              // value={passengerData.LastName}
+                                              onChange={(e) =>
+                                                setTimeout(() => {
+                                                  handleServiceChange(
+                                                    e,
+                                                    roomIndex,
+                                                    { adultIndex: adultIndex }
+                                                  );
+                                                }, 300)
+                                              }
+                                            />
+                                           {
+                                              sub && (passengerData.filter((item) => (
+                                                item.roomIndex === roomIndex && item.adultIndex === adultIndex
+                                              )))[0].LastName === "" &&
+                                              <span className="error">Enter Last Name  </span>}
+                                          </div>
+                                        </Box>
+                                      </Grid>
+                                      <Grid item xs={12} sm={12} md={4} py={1}>
+                                        <Box>
+                                          <div className="form_input">
+                                            <label
+                                              hotel_form_input
+                                              className="form_lable"
+                                            >
+                                              age*
+                                            </label>
+                                            <input
+                                              name="Age"
+                                              type="number"
+                                              placeholder="Enter Age"
+                                              // value={passengerData.Age}
+                                              onChange={(e) =>
+                                                setTimeout(() => {
+                                                  handleServiceChange(
+                                                    e,
+                                                    roomIndex,
+                                                    { adultIndex: adultIndex }
+                                                  );
+                                                }, 300)
+                                              }
+                                            />
+                                            {
+                                              sub && (passengerData.filter((item) => (
+                                                item.roomIndex === roomIndex && item.adultIndex === adultIndex
+                                              )))[0].Age === "" &&
+                                              <span className="error">Enter Age  </span>}
+                                          </div>
+                                        </Box>
+                                      </Grid>
+                                      <Grid item xs={12} sm={12} md={4} py={1}>
+                                        <Box>
+                                          <div className="form_input">
+                                            <label
+                                              hotel_form_input
+                                              className="form_lable"
+                                            >
+                                              Pan Number*
+                                            </label>
+                                            <input
+                                              name="PAN"
+                                              type="text"
+                                              placeholder="Write in Capital"
+                                              // value={passengerData.PAN}
+                                              onChange={(e) =>
+                                                setTimeout(() => {
+                                                  handleServiceChange(
+                                                    e,
+                                                    roomIndex,
+                                                    { adultIndex: adultIndex }
+                                                  );
+                                                }, 300)
+                                              }
+                                            />
+                                            {
+                                              sub && !validatePAN(
+
                                                 sub && (passengerData.filter((item) => (
                                                   item.roomIndex === roomIndex && item.adultIndex === adultIndex
                                                 )))[0].LastName === "" &&
@@ -797,156 +857,159 @@ const Flightdetail = () => {
                                           </Box>
                                         </Grid>
                                       </Grid>
-                                    </div>
-                                  )
-                                )}
-                              {noOfRooms[roomIndex]?.NoOfChild > 0 &&
-                                Array.from(
-                                  {
-                                    length: noOfRooms[roomIndex]?.NoOfChild,
-                                  },
-                                  (_, childIndex) => (
-                                    <div className="guestDetailsForm">
-                                      Child {childIndex + 1}
-                                      <Grid container spacing={3} my={1}>
-                                        <Grid item xs={12} sm={12} md={4}>
-                                          <Box>
-                                            <div className="form_input">
-                                              <label
-                                                hotel_form_input
-                                                className="form_lable"
-                                              >
-                                                First name*
-                                              </label>
-                                              <input
-                                                name="FirstName"
-                                                placeholder="Enter your name"
-                                                // value={passengerData.FirstName}
-                                                onChange={(e) =>
-                                                  setTimeout(() => {
 
-                                                    handleServiceChange(
-                                                      e,
-                                                      roomIndex,
-                                                      { childIndex: childIndex }
-                                                    );
-                                                    {
-                                                      console.warn((passengerData.filter((item) => (
-                                                        item.roomIndex === roomIndex && item.childIndex === childIndex
-                                                      ))), "dddddddddddddddddddd")
-                                                    }
-                                                  })
-                                                }
-                                              />
-                                              {
-                                                sub && (passengerData.filter((item) => (
-                                                  item.roomIndex === roomIndex && item.childIndex === childIndex
-                                                )))[0].FirstName === "" &&
-                                                <span className="error">Enter First Name  </span>}
-                                            </div>
-                                          </Box>
-                                        </Grid>
-                                        <Grid item xs={12} sm={12} md={4} py={1}>
-                                          <Box>
-                                            <div className="form_input">
-                                              <label
-                                                hotel_form_input
-                                                className="form_lable"
-                                              >
-                                                Last name*
-                                              </label>
-                                              <input
-                                                name="LastName"
-                                                placeholder="Enter your last name"
-                                                // value={passengerData.LastName}
-                                                onChange={(e) =>
-                                                  setTimeout(() => {
-                                                    console.warn("Last name child", (passengerData.filter((item) => (
+
+                                    </Grid>
+                                  </div>
+                                )
+                              )}
+                            {noOfRooms[roomIndex]?.NoOfChild > 0 &&
+                              Array.from(
+                                {
+                                  length: noOfRooms[roomIndex]?.NoOfChild,
+                                },
+                                (_, childIndex) => (
+                                  <div className="guestDetailsForm">
+                                    Child {childIndex + 1}
+                                    <Grid container spacing={3} my={1}>
+                                      <Grid item xs={12} sm={12} md={4}>
+                                        <Box>
+                                          <div className="form_input">
+                                            <label
+                                              hotel_form_input
+                                              className="form_lable"
+                                            >
+                                              First name*
+                                            </label>
+                                            <input
+                                              name="FirstName"
+                                              placeholder="Enter your name"
+                                              // value={passengerData.FirstName}
+                                              onChange={(e) =>
+                                                setTimeout(() => {
+
+                                                  handleServiceChange(
+                                                    e,
+                                                    roomIndex,
+                                                    { childIndex: childIndex }
+                                                  );
+                                                  {
+                                                    console.warn((passengerData.filter((item) => (
                                                       item.roomIndex === roomIndex && item.childIndex === childIndex
-                                                    )))[0].LastName)
-                                                    handleServiceChange(
-                                                      e,
-                                                      roomIndex,
-                                                      { childIndex: childIndex }
-                                                    );
-                                                  })
-                                                }
-                                              />
-                                              {
-                                                sub && (passengerData.filter((item) => (
-                                                  item.roomIndex === roomIndex && item.childIndex === childIndex
-                                                )))[0].LastName === "" &&
-                                                <span className="error">Enter Last Name  </span>}
-                                            </div>
-                                          </Box>
-                                        </Grid>
-                                        <Grid item xs={12} sm={12} md={4} py={1}>
-                                          <Box>
-                                            <div className="form_input">
-                                              <label
-                                                hotel_form_input
-                                                className="form_lable"
-                                              >
-                                                age*
-                                              </label>
-                                              <input
-                                                name="Age"
-                                                type="text"
-                                                placeholder="Enter Age"
-                                                value={
-                                                  noOfRooms[roomIndex]?.ChildAge[
-                                                  childIndex
-                                                  ]
-                                                }
-                                              // onChange={(e) =>
-                                              //   handleServiceChange(
-                                              //     e,
-                                              //     roomIndex,
-                                              //     { childIndex: childIndex }
-                                              //   )
-                                              // }
-                                              />
-                                              {
-                                                sub && (passengerData.filter((item) => (
-                                                  item.roomIndex === roomIndex && item.childIndex === childIndex
-                                                )))[0].Age === "" &&
-                                                <span className="error">Enter Age </span>}
-                                            </div>
-                                          </Box>
-                                        </Grid>
-                                        <Grid item xs={12} sm={12} md={4} py={1}>
-                                          <Box>
-                                            <div className="form_input">
-                                              <label
-                                                hotel_form_input
-                                                className="form_lable"
-                                              >
-                                                PanNo*
-                                              </label>
-                                              <input
-                                                name="PAN"
-                                                type="text"
-                                                placeholder="Enter PanNo"
-                                                // value={passengerData.PAN}
-                                                onChange={(e) =>
-                                                  setTimeout(() => {
-                                                    handleServiceChange(
-                                                      e,
-                                                      roomIndex,
-                                                      { childIndex: childIndex }
-                                                    );
-                                                  })
-                                                }
-                                              />
-                                              {
-                                                sub && !validatePAN((passengerData.filter((item) => (
-                                                  item.roomIndex === roomIndex && item.childIndex === childIndex
-                                                )))[0].PAN) &&
-                                                <span className="error">Enter PAN  </span>}
+                                                    ))), "dddddddddddddddddddd")
+                                                  }
+                                                })
+                                              }
+                                            />
+                                            {
+                                              sub && (passengerData.filter((item) => (
+                                                item.roomIndex === roomIndex && item.childIndex === childIndex
+                                              )))[0].FirstName === "" &&
+                                              <span className="error">Enter First Name  </span>}
+                                          </div>
+                                        </Box>
+                                      </Grid>
+                                      <Grid item xs={12} sm={12} md={4} py={1}>
+                                        <Box>
+                                          <div className="form_input">
+                                            <label
+                                              hotel_form_input
+                                              className="form_lable"
+                                            >
+                                              Last name*
+                                            </label>
+                                            <input
+                                              name="LastName"
+                                              placeholder="Enter your last name"
+                                              // value={passengerData.LastName}
+                                              onChange={(e) =>
+                                                setTimeout(() => {
+                                                  console.warn("Last name child", (passengerData.filter((item) => (
+                                                    item.roomIndex === roomIndex && item.childIndex === childIndex
+                                                  )))[0].LastName)
+                                                  handleServiceChange(
+                                                    e,
+                                                    roomIndex,
+                                                    { childIndex: childIndex }
+                                                  );
+                                                })
+                                              }
+                                            />
+                                            {
+                                              sub && (passengerData.filter((item) => (
+                                                item.roomIndex === roomIndex && item.childIndex === childIndex
+                                              )))[0].LastName === "" &&
+                                              <span className="error">Enter Last Name  </span>}
+                                          </div>
+                                        </Box>
+                                      </Grid>
+                                      <Grid item xs={12} sm={12} md={4} py={1}>
+                                        <Box>
+                                          <div className="form_input">
+                                            <label
+                                              hotel_form_input
+                                              className="form_lable"
+                                            >
+                                              age*
+                                            </label>
+                                            <input
+                                              name="Age"
+                                              type="text"
+                                              placeholder="Enter Age"
+                                              value={
+                                                noOfRooms[roomIndex]?.ChildAge[
+                                                childIndex
+                                                ]
+                                              }
+                                            // onChange={(e) =>
+                                            //   handleServiceChange(
+                                            //     e,
+                                            //     roomIndex,
+                                            //     { childIndex: childIndex }
+                                            //   )
+                                            // }
+                                            />
+                                            {
+                                              sub && (passengerData.filter((item) => (
+                                                item.roomIndex === roomIndex && item.childIndex === childIndex
+                                              )))[0].Age === "" &&
+                                              <span className="error">Enter Age </span>}
+                                          </div>
+                                        </Box>
+                                      </Grid>
+                                      <Grid item xs={12} sm={12} md={4} py={1}>
+                                        <Box>
+                                          <div className="form_input">
+                                            <label
+                                              hotel_form_input
+                                              className="form_lable"
+                                            >
+                                              PanNo*
+                                            </label>
+                                            <input
+                                              name="PAN"
+                                              type="text"
+                                              placeholder="Enter PanNo"
+                                              // value={passengerData.PAN}
+                                              onChange={(e) =>
+                                                setTimeout(() => {
+                                                  handleServiceChange(
+                                                    e,
+                                                    roomIndex,
+                                                    { childIndex: childIndex }
+                                                  );
+                                                })
+                                              }
+                                            />
+                                            {
+                                              sub && !validatePAN((passengerData.filter((item) => (
+                                                item.roomIndex === roomIndex && item.childIndex === childIndex
+                                              )))[0].PAN) &&
+                                              <span className="error">Enter PAN  </span>}
 
-                                            </div>
-                                          </Box>
-                                        </Grid>
+                                          </div>
+                                        </Box>
+
                                       </Grid>
                                     </div>
                                   )
@@ -1076,6 +1139,7 @@ const Flightdetail = () => {
               <div className="reviewDescriptionButton">
                 {/* <Custombutton
                   title={"Proceed to Booking Review"}
+
                   type={"submit"}
                   onClick={handleClickSavePassenger}
                 /> */}

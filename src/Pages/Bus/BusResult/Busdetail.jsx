@@ -219,6 +219,12 @@ const Busdetail = () => {
   }
 
   function handleContinue() {
+    if(
+    blockedSeatArray.length===0||selectedOrigin===""||destination.length===0||
+    selectedDropPoint===""||origin===""
+    ){
+      return
+    }
     const dataToSave = {
       blockedSeatArray: blockedSeatArray,
       selectedOrigin: selectedOrigin,
@@ -605,14 +611,19 @@ const Busdetail = () => {
                                   : true
                               }
                             />
+                            
                           </Box>
+                          
                         );
                       }
                     })}
+                   
                   </Box>
+            
                 </Box>
               </Box>
             </Box>
+            
           </Box>
           <Box
             sx={{
@@ -702,9 +713,13 @@ const Busdetail = () => {
                   style={{ borderRadius: "10px", width: "120px" }}
                 >
                   {origin.map((name, index) => (
-                    <option key={index} value={name?.CityPointIndex}>
+                     (index === 0 ? <option key={index} selected value={name?.CityPointIndex}>
                       {name?.CityPointName}
-                    </option>
+                    </option> :
+
+                      <option key={index} value={name?.CityPointIndex}>
+                        {name?.CityPointName}
+                      </option>)
                   ))}
                 </select>
               </Box>
@@ -725,9 +740,14 @@ const Busdetail = () => {
                   style={{ borderRadius: "10px", width: "120px" }}
                 >
                   {destination.map((name, index) => (
-                    <option key={index} value={name?.CityPointIndex}>
+                    
+                     (index === 0 ? <option key={index} selected value={name?.CityPointIndex}>
                       {name?.CityPointName}
-                    </option>
+                    </option> :
+
+                      <option key={index} value={name?.CityPointIndex}>
+                        {name?.CityPointName}
+                      </option>)
                   ))}
                 </select>
               </Box>

@@ -123,8 +123,8 @@ const Holidayguestinfo = ({ setadultCount, setchildCount }) => {
 
   const handlePersonAdd = () => {
     setAdd(true)
-    if(validationAdd){
-      return
+    if(validationAdd()){
+      return 
     }
     dispatch(addFormEntry(formData));
     setFormData({
@@ -160,7 +160,7 @@ const Holidayguestinfo = ({ setadultCount, setchildCount }) => {
   const handleBookingPackage = (event) => {
     event.preventDefault();
     setSub(true)
-    if( validationSub()){
+    if(reducerForm.slice(1).length===0 || validationSub()){
       return
     }
     
@@ -263,7 +263,7 @@ const Holidayguestinfo = ({ setadultCount, setchildCount }) => {
           </div>
           <div className="travellerDetailsForm">
             <div className="addGuest mb-2">
-              <p>Add Guest</p>
+              <p></p>
             </div>
             {/* <div>
               <p>{reducerForm.length - 1} Travellers</p>
@@ -323,7 +323,7 @@ const Holidayguestinfo = ({ setadultCount, setchildCount }) => {
                 </div>
 
                 <div className="addGuest mt-4 mb-2">
-                  <p>Add Contact Details</p>
+                  <p></p>
                 </div>
 
                 <div className="col-lg-12">
@@ -372,7 +372,7 @@ const Holidayguestinfo = ({ setadultCount, setchildCount }) => {
 
         <div className="col-lg-12 my-3 " >
           <div className="headingGuestHoliday">
-            <p>Package Itinerary & Inclusions</p>
+            <p></p>
           </div>
 
           {onePackage?.detailed_ltinerary?.map((item, index) => {
@@ -428,7 +428,7 @@ const Holidayguestinfo = ({ setadultCount, setchildCount }) => {
         <div className="col-lg-12 my-3">
           <div className="proceedToBookHoliPack">
 
-            <button type="submit" onClick={handleBookingPackage}> Proceed to Booking Review </button>
+            <button type="submit" onClick={handleBookingPackage}>Proceed To Book  </button>
           </div>
         </div>
 
@@ -443,7 +443,7 @@ const Holidayguestinfo = ({ setadultCount, setchildCount }) => {
 
           <Box className="main-head" my={2} mt={8}>
             <Typography className="holiday_txt" textDecoration="underline">
-              Package Itinerary & Inclusions
+              
             </Typography>
             {onePackage?.detailed_ltinerary?.map((item, index) => {
               return (
@@ -644,7 +644,7 @@ const Holidayguestinfo = ({ setadultCount, setchildCount }) => {
             marginTop={12}
           >
             <Custombutton
-              title={"Proceed to Booking Review"}
+              title={""}
               type={"submit"}
               onClick={handleBookingPackage}
             />
