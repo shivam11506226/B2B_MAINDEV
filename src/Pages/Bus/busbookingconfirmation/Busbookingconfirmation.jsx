@@ -105,7 +105,7 @@ const Busbookingconfirmation = () => {
   const parsedSeatData = JSON.parse(seatData);
   const passengerCount = parsedSeatData?.blockedSeatArray.length;
   const resultIndex = parsedSeatData?.resultIndex;
-  const selectedBus = busFullData.BusResults.find((bus) => bus.ResultIndex === resultIndex);
+  const selectedBus = busFullData?.BusResults.find((bus) => bus.ResultIndex === resultIndex);
   console.log(selectedBus, "selectedBus")
   const cancellationPolicy = selectedBus?.CancellationPolicies;
   console.log(cancellationPolicy, "cancel policy")
@@ -135,6 +135,7 @@ const Busbookingconfirmation = () => {
       icon: "success"
     }).then(() => {
       dispatch(clearBusSearchReducer());
+      console.log("bus reducer cleared successfully", reducerState)
       navigate("/");
     });
   }
