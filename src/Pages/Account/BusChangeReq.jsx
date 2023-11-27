@@ -78,13 +78,13 @@ const BusChangeReq = () => {
     const formData = {
       reason: reason,
       changerequest: selectedCheckboxValue,
-      bookingId: selectedBus.bookingId,
+      busId: selectedBus.busId,
       id: selectedBus?._id,
       agentId: selectedBus?.userId,
       contactNumber: selectedBus?.phone,
       amount: selectedBus?.amount,
     };
-    // console.log(formData);
+    console.log(formData);
 
     try {
       const response = await axios.post(
