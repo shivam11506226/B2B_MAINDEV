@@ -1,98 +1,71 @@
-import React from "react";
+// AdminLogin.jsx
 
-import { useEffect, useState } from "react";
-import { Paper } from "@material-ui/core";
-import Grid from "@mui/material/Grid";
-import { Input, Typography } from "@mui/material";
-import FlightTakeoffIcon from "@mui/icons-material/FlightTakeoff";
-import FlightLandIcon from "@mui/icons-material/FlightLand";
-import Box from "@mui/material/Box";
-import Link from "@mui/material/Link";
-import { Flex, space, Spacer, Text } from "@chakra-ui/react";
-import Popularfilter from "../Flight/flightresult/Popularfilter";
-import tra from "../../Images/tra.png";
-import LockIcon from "@mui/icons-material/Lock";
-import { InnerBarLogo } from "../../data";
-import { logindata } from "../../logindata";
-import { logindataaa } from "../../logindataaa";
-import { NavLink } from "react-router-dom";
-import NavBarBox from "../../Components/NavBarBox";
-import AccountCircleIcon from "@mui/icons-material/AccountCircle";
-import RefreshIcon from "@mui/icons-material/Refresh";
-import Alert from "@mui/material/Alert";
-import Radio from "@mui/material/Radio";
-import RadioGroup from "@mui/material/RadioGroup";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import FormControl from "@mui/material/FormControl";
-import FormLabel from "@mui/material/FormLabel";
-import { useDispatch, useSelector, useReducer } from "react-redux";
+import React, { useState, useEffect } from "react";
+import { Button, Typography, Link, Box } from "@mui/material";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { Button } from "@mui/material";
-import { fontWeight } from "@mui/system";
-import { signUpAction } from "../../Redux/Auth/SignUp/actionSignUp";
-import { getUserAction } from "../../Redux/Auth/UserData/actionUserData";
 import { adminAuthAction } from "../../Redux/Auth/AdminAuth/actionAdminAuth";
 import StLogo from "../../Images/ST-Main-Logo.png";
+import { motion } from "framer-motion";
+import "./AdminLogin.css";
 
 const AdminLogin = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [formError, setFormError] = useState("");
   const reducerState = useSelector((state) => state);
   const dispatch = useDispatch();
-  // console.log(reducerState);
 
   let adminData = reducerState?.adminAuth?.adminData?.data?.roles[0];
 
   useEffect(() => {
-    if (adminData == "ADMIN") {
+    if (adminData === "ADMIN") {
       navigate("/admin/dashboard");
     }
-  }, [reducerState, navigate]);
+  }, [adminData, navigate]);
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    const formData = new FormData(event.target);
+
+    if (!email || !password) {
+      setFormError("Please fill in all fields.");
+      return;
+    }
+
     const payload = {
-      username: formData.get("username"),
-      password: formData.get("password"),
+      username: email,
+      password: password,
     };
 
     dispatch(adminAuthAction(payload));
   };
 
   return (
-    //  {
-    //    adminData === 'undefined'? (<h1>Hello</h1>): (<h1>Hell1</h1>)
-
-    //  }
-
-    <div
-      style={{
-        width: "85%",
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        flexDirection: "column",
-        margin: "0 auto",
-      }}
+    <motion.div
+      initial={{ opacity: 0, y: -50 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5 }}
+      className="login_field"
     >
-      <span className="d-flex justify-content-between align-items-center ">
-      <img src={StLogo} style={{ width: "180px",marginTop:'13px' }}></img>
-      <h1 style={{ marginTop: "20px" }}>Admin Login </h1>
-      </span>
-      
-      <form onSubmit={handleSubmit}>
-        <Box pt={5} className="login_field">
-          <Typography className="Login_min" font="Quicksand, Bold">
-            Login
-          </Typography>
+      <div className="background-animation">
+        <motion.img
+          src={StLogo}
+          style={{ width: "180px", marginTop: "13px" }}
+          alt="Logo"
+          whileHover={{ scale: 1.1 }}
+          onClick={() => navigate("/")}
+        />
+        <motion.h1 style={{ marginTop: "20px" }}>Admin Login</motion.h1>
+
+        <form onSubmit={handleSubmit} className="form">
           <Box py={2}>
             <div className="form_input">
               <label className="form_lable">Email*</label>
 
               <input
-                style={{ height: "60px", width: "100px" }}
+                className="input-box"
+                style={{ height: "60px", width: "100%" }}
                 name="username"
                 type="text"
                 placeholder="Enter your Email Address"
@@ -106,7 +79,8 @@ const AdminLogin = () => {
               <label className="form_lable">Password*</label>
 
               <input
-                style={{ height: "60px", width: "400px" }}
+                className="input-box"
+                style={{ height: "60px", width: "100%" }}
                 name="password"
                 type="password"
                 placeholder="Enter Your Password"
@@ -115,9 +89,15 @@ const AdminLogin = () => {
               />
             </div>
           </Box>
+          {formError && (
+            <Typography color="error" variant="body2">
+              {formError}
+            </Typography>
+          )}
           <Box>
             <Typography className="forget_pass">Forgot Password</Typography>
             <Button
+              className="loginButton"
               type="submit"
               variant="contained"
               style={{
@@ -125,16 +105,12 @@ const AdminLogin = () => {
                 color: "white",
                 width: "100%",
                 borderRadius: "20px",
+                marginTop: "10px",
               }}
             >
               Login
             </Button>
-            <Box
-              display="flex"
-              justifyContent="center"
-              mt={2}
-              textAlign="center"
-            >
+            <Box display="flex" justifyContent="center" mt={2} textAlign="center">
               <Typography color="black" fontSize="10px">
                 By proceeding, you agree to skyTrails{" "}
                 <Link href="#" underline="always" color="#FF8900">
@@ -151,9 +127,9 @@ const AdminLogin = () => {
               </Typography>
             </Box>
           </Box>
-        </Box>
-      </form>
-    </div>
+        </form>
+      </div>
+    </motion.div>
   );
 };
 
