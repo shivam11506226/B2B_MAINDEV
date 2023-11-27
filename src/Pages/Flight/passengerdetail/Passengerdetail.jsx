@@ -17,6 +17,8 @@ import { useDispatch, useSelector, useReducer } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import Flightnavbar from "../Flightnavbar";
 const Flight = (props) => {
+
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const reducerState = useSelector((state) => state);
@@ -24,21 +26,21 @@ const Flight = (props) => {
   const ResultIndex = sessionStorage.getItem("ResultIndex");
   // console.log("reducerStateDemount", reducerState);
   // console.log("resultIndex", ResultIndex);
-  function backRoute(){
+  function backRoute() {
     navigate("/FlightResult")
   }
   return (
-    <div className="flightContainer" style={{marginTop:"-20px"}}>
+    <div className="flightContainer" style={{ marginTop: "-20px" }}>
       {/* step by step updating part */}
 
       {/* <Flightnavbar/> */}
 
-      <Grid container style={{margin:"auto",display:"flex",gap:"30px",width:"95%"}}>
+      <Grid container style={{ margin: "auto", display: "flex", gap: "30px", width: "95%" }}>
         <Grid item xs={12} md={8}>
           <Button onClick={backRoute} >Go Back</Button>
-         
-            <Leftdetail />
-        
+
+          <Leftdetail />
+
         </Grid>
         <Grid item xs={12} md={3}>
           <Box>

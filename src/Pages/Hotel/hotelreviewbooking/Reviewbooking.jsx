@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Grid from "@mui/material/Grid";
 import { Typography } from "@mui/material";
 import FlightTakeoffIcon from "@mui/icons-material/FlightTakeoff";
@@ -11,11 +11,12 @@ import Sailsummary from "../guestdetail/Sailsummary";
 import Reviewdescription from "./Reviewdescription";
 import "./review.css";
 import { useSelector } from "react-redux";
-
+import HotelLoading from "../hotelLoading/HotelLoading";
 
 
 
 const Guestdetail = () => {
+  const [loader, setLoader] = useState(false);
   const reducerState = useSelector((state) => state);
   const result =
     reducerState?.hotelSearchResult?.ticketData?.data?.data?.HotelSearchResult;
@@ -28,147 +29,67 @@ const Guestdetail = () => {
     totalChildren += room?.NoOfChild || 0;
   });
 
+
+  console.log(reducerState?.hotelSearchResult, "hotelreducer shaan")
+  // const hotelll = reducerState?.hotelSearchResult?.isLoadingHotelRoom
+  // console.log(hotelll, "hotelll")
+  // useEffect(() => {
+  //   if (reducerState?.hotelSearchResult?.isLoadingHotelRoom == true) {
+  //     setLoader(true);
+  //   }
+  // }, [reducerState?.hotelSearchResult?.isLoadingHotelRoom]);
+
+  // useEffect(() => {
+  //   if (
+  //     reducerState?.hotelSearchResult?.hotelRoom?.GetHotelRoomResult
+  //       ?.HotelRoomsDetails.length >= 0
+  //   ) {
+  //     setLoader(false);
+  //   }
+  // }, [
+  //   reducerState?.hotelSearchResult?.hotelRoom?.GetHotelRoomResult
+  //     ?.HotelRoomsDetails,
+  // ]);
+
   const storedFormData = JSON.parse(sessionStorage.getItem('hotelFormData'));
   const data = storedFormData.dynamicFormData[0];
   // console.log(storedFormData)
   return (
     <React.Fragment>
-      <div className="flightContainer">
-        {/* step by step updating part */}
+      {loader ? (
+        <HotelLoading />
+      ) : (
+        <div className="flightContainer">
+          <Box>
+            <div className="container">
+              <div className="row">
+                <div className="col-lg-12 col-md-12 col-sm-12 mb-3">
+                  <div className="hotelBookNowOuter">
+                    <div className="hotelBookNowHeader">
+                      <p>Your Search criteria:{storedFormData?.city},{' '} India</p>
+                      <p>Duration: {storedFormData?.night}{' '}Nights</p>
+                      <p>{storedFormData?.checkIn}- {storedFormData?.checkOut}</p>
+                      <p>Guest(s): {totalAdults}Adult(s) </p>
+                      <p>Room(s): {storedFormData.room}</p>
 
-        <Box>
-          {/* <Flex
-            w="100%"
-            h="50"
-            mb="20"
-            borderRadius="20px"
-            m="auto"
-            className="shadow-sm p-3 mb-5  rounded "
-          >
-            <Flex w="19%" h="90%">
-              <Box
-                width="25px"
-                height="25px"
-                borderRadius="50%"
-                backgroundColor="#1DBCF0"
-                color="white"
-                alignItems="center"
-              >
-                <Text ml="6px">1</Text>
-              </Box>
-              <Text ml="10" fontWeight="bold">
-                Flight Search
-              </Text>
-            </Flex>
-            <Spacer />
-            <Flex w="19%" h="90%">
-              <Box
-                width="25px"
-                height="25px"
-                borderRadius="50%"
-                backgroundColor="#1DBCF0"
-                color="white"
-                alignItems="center"
-              >
-                <Text ml="6px">2</Text>
-              </Box>
-              <Text ml="10" fontWeight="bold">
-                Flight Result
-              </Text>
-            </Flex>
-            <Spacer />
-
-            <Flex w="19%" h="90%">
-              <Box
-                width="25px"
-                height="25px"
-                borderRadius="50%"
-                backgroundColor="#1DBCF0"
-                color="white"
-                alignItems="center"
-              >
-                <Text ml="6px">3</Text>
-              </Box>
-              <Text ml="10" fontWeight="bold">
-                Guest Details
-              </Text>
-            </Flex>
-            <Spacer />
-            <Flex w="19%" h="90%">
-              <Box
-                width="25px"
-                height="25px"
-                borderRadius="50%"
-                backgroundColor="#1DBCF0"
-                color="white"
-                alignItems="center"
-              >
-                <Text ml="6px">4</Text>
-              </Box>
-              <Text ml="10" fontWeight="bold">
-                Review Booking
-              </Text>
-            </Flex>
-            <Spacer />
-            <Flex w="19%" h="90%">
-              <Box
-                width="25px"
-                height="25px"
-                borderRadius="50%"
-                backgroundColor="#1DBCF0"
-                color="white"
-                alignItems="center"
-              >
-                <Text ml="6px">5</Text>
-              </Box>
-              <Text ml="10" fontWeight="bold">
-                Booking Confirmation
-              </Text>
-            </Flex>
-          </Flex> */}
-          <div className="container">
-            <div className="row">
-              <div className="col-lg-12 col-md-12 col-sm-12 mb-3">
-                <div className="hotelBookNowOuter">
-                  <div className="hotelBookNowHeader">
-                    <p>Your Search criteria:{storedFormData?.city},{' '} India</p>
-                    <p>Duration: {storedFormData?.night}{' '}Nights</p>
-                    <p>{storedFormData?.checkIn}- {storedFormData?.checkOut}</p>
-                    <p>Guest(s): {totalAdults}Adult(s) </p>
-                    <p>Room(s): {storedFormData.room}</p>
-
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
-          {/* <div>
-            <Box sx={{ flexGrow: 1 }}>
-              <Grid container spacing={3}>
-                <Grid item xs={12} md={9}>
+            <div className="container-fluid">
+              <div className="row gy-4">
+                <div className="col-lg-9 order-lg-1 order-md-2 order-sm-2">
                   <Reviewdescription />
-                </Grid>
-                <Grid item xs={12} md={3}>
+                </div>
+                <div className="col-lg-3 order-lg-2 order-md-1 order-sm-1">
                   <Sailsummary />
-                </Grid>
-              </Grid>
-            </Box>
-          </div> */}
-
-          <div className="container-fluid">
-            <div className="row gy-4">
-              <div className="col-lg-9 order-lg-1 order-md-2 order-sm-2">
-                <Reviewdescription />
-              </div>
-              <div className="col-lg-3 order-lg-2 order-md-1 order-sm-1">
-                <Sailsummary />
-                {/* <Guestdetail /> */}
-
+                </div>
               </div>
             </div>
-          </div>
-        </Box>
-      </div>
+          </Box>
+        </div>
+      )}
     </React.Fragment>
   );
 };

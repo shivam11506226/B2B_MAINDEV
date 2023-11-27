@@ -42,7 +42,7 @@ const Hoteldescription = () => {
   // console.log("passenger", passenger);
   // console.log("hotel block details", hotelBlockDetails)
   // console.log("hotel data", hotelData)
-  // console.log("hotel Info", hotelInfo)
+  console.log("hotel Info", hotelInfo)
 
   const checkInDate = moment(hotelDetails?.CheckInDate).format("MMMM DD, YYYY");
   const checkOutDate = moment(hotelDetails?.CheckOutDate).format(
@@ -114,7 +114,14 @@ const Hoteldescription = () => {
       // console.log("hotelDetailsPayload", hotelDetailsPayload);
       // Dispatch the hotelBookRoomAction
       //  bookingStatus = true;
-
+      Swal.fire({
+        title: "Congratulation!",
+        text: "Your hotel is booked",
+        icon: "success"
+      }).then(() => {
+        dispatch(clearHotelReducer());
+        navigate("/hotel"); // Navigate to "/hotel" after the Swal dialog is closed
+      });
       // if(1>2){
       setBookingSuccess(true);
       dispatch(hotelBookRoomAction([payload, hotelDetailsPayload]));
@@ -395,13 +402,13 @@ const Hoteldescription = () => {
           <div className="col-lg-12 mt-3">
             <div className="bookingDetailsGuest">
               <div className="bookingDetailsGuestHeader">
-                <p>Hotel Norms</p>
+                <p>Hotel Facilities</p>
               </div>
               <div className="guestDetailsNorms">
                 <ul>
-                  <li>mai tainu samjhawan ki </li>
-                  <li>Na tere bina lagda ji</li>
-                  <li>tu ki jaane pyaar mera </li>
+                  {hotelInfo?.HotelDetails?.HotelFacilities.map((facility, index) => (
+                    <li key={index}>{facility}</li>
+                  ))}
                 </ul>
               </div>
             </div>

@@ -24,6 +24,7 @@ import Swal from "sweetalert2";
 import { balanceSubtractRequest } from "../../../Redux/Auth/balaceSubtract/actionBalnceSubtract";
 import { clearPassengersReducer } from "../../../Redux/Passengers/passenger";
 import { clearOneWayReducer } from "../../../Redux/FlightSearch/OneWay/oneWay";
+import FlightLoader from "../FlightLoader/FlightLoader";
 const style = {
   position: "absolute",
   top: "50%",
@@ -179,7 +180,7 @@ const Flightbookingdetail = () => {
   useEffect(() => {
     if (
       reducerState?.flightBook?.flightTicketDataGDSReturn?.data?.data?.Response
-        ?.Error?.ErrorMessage==""
+        ?.Error?.ErrorMessage == ""
     ) {
       balanceSubtractReturn();
       setLoading(false);
@@ -221,13 +222,13 @@ const Flightbookingdetail = () => {
     if (fareValue && fareValueReturn) {
       if (
         fareValue?.Fare?.BaseFare +
-          fareValue?.Fare?.Tax +
-          fareValue?.Fare?.OtherCharges +
-          markUpamount +
-          fareValueReturn?.Fare?.BaseFare +
-          fareValueReturn?.Fare?.Tax +
-          fareValueReturn?.Fare?.OtherCharges +
-          markUpamount <=
+        fareValue?.Fare?.Tax +
+        fareValue?.Fare?.OtherCharges +
+        markUpamount +
+        fareValueReturn?.Fare?.BaseFare +
+        fareValueReturn?.Fare?.Tax +
+        fareValueReturn?.Fare?.OtherCharges +
+        markUpamount <=
         currentBalance
       ) {
         e.preventDefault();
@@ -258,9 +259,9 @@ const Flightbookingdetail = () => {
     } else {
       if (
         fareValue?.Fare?.BaseFare +
-          fareValue?.Fare?.Tax +
-          fareValue?.Fare?.OtherCharges +
-          markUpamount <=
+        fareValue?.Fare?.Tax +
+        fareValue?.Fare?.OtherCharges +
+        markUpamount <=
         currentBalance
       ) {
         e.preventDefault();
@@ -391,6 +392,11 @@ const Flightbookingdetail = () => {
       dispatch(balanceSubtractRequest(balancePayload));
     }
   };
+
+
+  if (loading) {
+    <FlightLoader />
+  }
 
   return (
     <Box style={{ width: "920px" }}>
@@ -720,8 +726,8 @@ const Flightbookingdetail = () => {
                           {passenger.PaxType === 1
                             ? "Adult"
                             : passenger.PaxType === 2
-                            ? "Child"
-                            : "Infant"}
+                              ? "Child"
+                              : "Infant"}
                           )
                         </span>
                       </Typography>
@@ -818,8 +824,8 @@ const Flightbookingdetail = () => {
                           {passenger.Gender === 1
                             ? "Female"
                             : passenger.Gender === 2
-                            ? "Male"
-                            : "Transgender"}
+                              ? "Male"
+                              : "Transgender"}
                         </Typography>
                         {passenger.AddressLine1 && (
                           <Typography
@@ -1278,8 +1284,8 @@ const Flightbookingdetail = () => {
               !passengerAgreement || !paymentOption
                 ? true
                 : loading
-                ? true
-                : false
+                  ? true
+                  : false
             }
           >
             {" "}

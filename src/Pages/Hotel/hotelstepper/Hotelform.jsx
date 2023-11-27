@@ -56,7 +56,7 @@ const HotelForm = () => {
   const [error, setError] = useState({
     nationality: false,
   });
-  const [sub,setSub]=useState(false)
+  const [sub, setSub] = useState(false)
 
   const [isVisible, setIsVisible] = useState(false);
   const changeHandler = (e) => {
@@ -220,14 +220,14 @@ const HotelForm = () => {
   function handleSubmit(event) {
     event.preventDefault();
     setSub(true)
-    console.warn(values.departure,values.checkOutDeparture,"hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh")
+    console.warn(values.departure, values.checkOutDeparture, "hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh")
     if (values.departure === ("" || undefined)) {
       return
     }
     if (values.checkOutDeparture === ("" || undefined)) {
       return
     }
-    
+
     const formData = new FormData(event.target);
 
 
@@ -294,8 +294,8 @@ const HotelForm = () => {
       if (Object.values(newErrors).some((error) => error)) {
         return;
       }
-      
-        const departureDate = new Date(values.departure);
+
+      const departureDate = new Date(values.departure);
       const day = departureDate.getDate().toString().padStart(2, "0");
       const month = (departureDate.getMonth() + 1).toString().padStart(2, "0");
       const year = departureDate.getFullYear();
@@ -359,7 +359,7 @@ const HotelForm = () => {
                       onChange={(e) => setSearchTerm(e.target.value)}
                       style={{ position: "relative" }}
                     />
-                    { cityError !== "" && (
+                    {cityError !== "" && (
                       <span className="error">{cityError}</span>
                     )}
                     {/* { citciError !== "" && (
@@ -392,7 +392,7 @@ const HotelForm = () => {
                       // id="datepic"
                       minDate={new Date()}
                     />
-                    {sub && values.departure=== ("" || undefined) && (
+                    {sub && values.departure === ("" || undefined) && (
                       <span className="error">Enter Check-In Date </span>
                     )}
                   </div>
@@ -605,7 +605,7 @@ const HotelForm = () => {
                 </button> */}
 
                 <div className="row button-row">
-                  <div className="col-lg-6 col-md-6 col-md-12 col-xs-12 ps-0 mb-3 d-flex justify-content-center align-items-center">
+                  <div className="col-lg-6 col-md-6 col-md-12 col-xs-12 pe-0 mb-3 d-flex justify-content-center align-items-center">
 
                     <button
                       type="submit"

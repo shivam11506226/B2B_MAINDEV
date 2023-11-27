@@ -12,9 +12,13 @@ import Sailsummary from "./Sailsummary";
 import { useDispatch, useSelector, useReducer } from "react-redux";
 import Hoteldescription from "./Hoteldescription";
 import successGif from "../../../Images/successGif.png";
+// import { clearHotelReducer } from "../../Redux/Hotel/hotel";
+import Swal from "sweetalert2";
+
 import { balanceSubtractRequest } from "../../../Redux/Auth/balaceSubtract/actionBalnceSubtract";
 
 import "./guestdetail.css";
+import { clearHotelReducer } from "../../../Redux/Hotel/hotel";
 const Guestdetail = () => {
   const style = {
     position: "absolute",
@@ -73,6 +77,15 @@ const Guestdetail = () => {
   //     }, 2000);
   //   }
   // }, [bookingStatus]);
+
+
+  // useEffect(() => {
+  //   dispatch(clearHotelReducer());
+  // }, [dispatch]);
+  // console.log("reducerState", reducerState)
+
+
+
   return (
     <React.Fragment>
       <div className="flightContainer">
@@ -95,7 +108,7 @@ const Guestdetail = () => {
               </Grid>
             </Box>
           </div>
-          <Modal
+          {/* <Modal
             open={bookingStatus == 1 ? true : false}
             aria-labelledby="child-modal-title"
             aria-describedby="child-modal-description"
@@ -115,7 +128,7 @@ const Guestdetail = () => {
                 Thanku!!Your booking is done..
               </Typography>
             </Box>
-          </Modal>
+          </Modal> */}
         </Box>
       </div>
     </React.Fragment>
