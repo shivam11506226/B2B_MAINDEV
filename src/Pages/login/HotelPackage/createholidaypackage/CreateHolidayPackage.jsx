@@ -440,12 +440,21 @@ const CreateHolidayPackage = () => {
 
               <Box my={2}>
                 <Typography style={{ fontSize: "16px", color: "#252525" }}>
-                  How Many Days?
+                  How Many Days?ssss
                 </Typography>
                 <Box style={{ display: "flex", fontSize: "14px" }}>
                   <Button
-                    onClick={() =>
-                      days === 0 ? setDays(0) : setDays(days - 1)
+                    disabled
+                    onClick={() =>{
+                      if(days===1 || days==="1" ){
+                        setDays(1)
+                        return
+                      }
+                      else{
+                        
+                        setDays(days - 1)
+                      }}
+                      // days === "1" || days === 1  ? "" : setDays(days - 1)
                     }
                   >
                     <RemoveIcon style={{ fontSize: "16px" }} />

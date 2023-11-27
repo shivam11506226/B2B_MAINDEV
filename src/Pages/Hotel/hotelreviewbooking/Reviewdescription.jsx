@@ -220,9 +220,9 @@ const Flightdetail = () => {
 
     console.log(roomIndex, knowIndex, "roomIndex", "knowIndex");
     // console.log(passengerData);
-   
+
     if (
-      roomIndex!==undefined &&roomIndex!==null &&
+      roomIndex !== undefined && roomIndex !== null &&
       knowIndex?.adultIndex !== undefined &&
       knowIndex?.adultIndex !== null
     ) {
@@ -266,13 +266,13 @@ const Flightdetail = () => {
     }
 
     console.log("passengerDataNew", passengerData);
-     const eml = document.getElementById("Email1").value;
-     const con = document.getElementById("phoneNumber1").value;
-     const val = validateEmail(eml);
-     const valCon = validatePhoneNumber(con);
-     setEmail(() => val);
-     setContact(() => valCon);
-     console.warn(val, "email validationjfnjkdfnjdfjfddddddddddddddddddn");
+    const eml = document.getElementById("Email1").value;
+    const con = document.getElementById("phoneNumber1").value;
+    const val = validateEmail(eml);
+    const valCon = validatePhoneNumber(con);
+    setEmail(() => val);
+    setContact(() => valCon);
+    console.warn(val, "email validationjfnjkdfnjdfjfddddddddddddddddddn");
   };
 
   const handleClickSavePassenger = () => {
@@ -280,6 +280,9 @@ const Flightdetail = () => {
     console.warn("emailrefffffffffffff", emailRef.current.value);
     setSub(true);
     if (!validation()) {
+      setTimeout(() => {
+        setSub(false)
+      }, 2000);
       return;
 
     }
@@ -662,16 +665,11 @@ const Flightdetail = () => {
                                               }
                                             />
 
-                                            {sub &&
-                                              passengerData[roomIndex]
-                                                .FirstName === "" && (
-                                                <span className="error">
-                                                  {
-                                                    passengerData[roomIndex]
-                                                      .FirstName
-                                                  }
-                                                </span>
-                                              )}
+                                            {
+                                              sub && (passengerData.filter((item) => (
+                                                item.roomIndex === roomIndex && item.adultIndex === adultIndex
+                                              )))[0].FirstName === "" &&
+                                              <span className="error">Enter First Name  </span>}
 
                                           </div>
                                         </Box>
@@ -699,7 +697,7 @@ const Flightdetail = () => {
                                                 }, 300)
                                               }
                                             />
-                                            {
+                                           {
                                               sub && (passengerData.filter((item) => (
                                                 item.roomIndex === roomIndex && item.adultIndex === adultIndex
                                               )))[0].LastName === "" &&
@@ -802,7 +800,7 @@ const Flightdetail = () => {
                                               // value={passengerData.FirstName}
                                               onChange={(e) =>
                                                 setTimeout(() => {
-                                                 
+
                                                   handleServiceChange(
                                                     e,
                                                     roomIndex,
@@ -873,16 +871,16 @@ const Flightdetail = () => {
                                               placeholder="Enter Age"
                                               value={
                                                 noOfRooms[roomIndex]?.ChildAge[
-                                                  childIndex
+                                                childIndex
                                                 ]
                                               }
-                                              // onChange={(e) =>
-                                              //   handleServiceChange(
-                                              //     e,
-                                              //     roomIndex,
-                                              //     { childIndex: childIndex }
-                                              //   )
-                                              // }
+                                            // onChange={(e) =>
+                                            //   handleServiceChange(
+                                            //     e,
+                                            //     roomIndex,
+                                            //     { childIndex: childIndex }
+                                            //   )
+                                            // }
                                             />
                                             {
                                               sub && (passengerData.filter((item) => (
@@ -1053,7 +1051,7 @@ const Flightdetail = () => {
           <div className="col-lg-12">
             <div className="reviewDescriptionButton">
               {/* <Custombutton
-                  title={"Proceed to Booking Review"}
+                  title={""}
                   type={"submit"}
                   onClick={handleClickSavePassenger}
                 /> */}

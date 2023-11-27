@@ -82,7 +82,7 @@ const Holidayreviewbookingdetail = () => {
 
       <div className="col-lg-12 my-3 " >
         <div className="headingGuestHoliday">
-          <p>Package Itinerary & Inclusions</p>
+          <p></p>
         </div>
 
         {onePackage?.detailed_ltinerary?.map((item, index) => {

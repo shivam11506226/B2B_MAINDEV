@@ -1998,7 +1998,7 @@ const CreateHolidayPackage = () => {
                   Select Tags<span style={{ color: "red" }}>*</span>
                 </Typography>
                 <Typography style={{ fontSize: "14px", color: "#666666",marginLeft:"20px" }}>
-                  Select tags most relevant to your packages
+                  
                 </Typography>
               </Box>
 
