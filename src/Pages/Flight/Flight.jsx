@@ -14,6 +14,7 @@ import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import StyledTabs from "./FlightFormContainer";
 import Flightnavbar from "./Flightnavbar";
+import "./Flight.css"
 
 const Flight = () => {
   const navigate = useNavigate();
@@ -90,16 +91,7 @@ const Flight = () => {
     //   <FlightLoader />
     // </>
 
-    <div>
-      <Box
-        display={"flex"}
-        justifyContent={"center"}
-        alignSelf={"center"}
-        alignItems={"center"}
-      >
-        {/* <Flightnavbar /> */}
-
-      </Box>
+    <div className="container-xxl margin-pecentage-large">
       <StyledTabs />
     </div>
   );

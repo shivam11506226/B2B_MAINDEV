@@ -290,3 +290,78 @@ input[type="checkbox"]:checked+.toggle-label {
   background-color: #8D8985;
   /* Background color for the label when it's not active */
 }
+
+
+.formFlightSearchOneWay {
+  padding: 0 !important;
+}
+
+
+.flightFormSubmit {
+  width: 100%;
+  font-family: 'Montserrat';
+  font-weight: 700;
+  border-radius: 10px;
+  font-size: 17px;
+  background-color: #21325d;
+  text-align: center;
+  height: 48px;
+  border: 2px solid #21325d;
+  color: #fff;
+}
+
+/* // sx={{
+//   mb: 2,
+//   display: "flex",
+//   flexDirection: "column",
+//   maxHeight: 150,
+//   overflow: "hidden",
+//   overflowY: "scroll",
+// }}
+className="chooseAbs" */
+
+
+/* <div className="chooseAbsBox"
+// style={{
+//   backgroundColor: "white",
+//   borderRadius: "10px",
+//   zIndex: 1,
+//   width: "100%",
+//   boxShadow: "rgba(0, 0, 0, 0.09) 0px 3px 12px",
+//   textAlign: "left",
+//   cursor: "pointer",
+//   display: displayTo ? "block" : "none",
+// }}
+> */
+
+.chooseAbsBox {
+  background-color: white;
+  border-radius: 0px 0px 10px 10px;
+  z-index: 1;
+  width: 100%;
+  box-shadow: rgba(0, 0, 0, 0.09) 0px 3px 12px;
+  cursor: pointer;
+  text-align: left;
+  position: absolute;
+  border: 1px solid #999;
+}
+
+.chooseAbsBox ul {
+  padding-left: 0 !important;
+}
+
+.chooseAbsBox ul li {
+  padding: 7px;
+  border-bottom: 1px solid #999;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  box-sizing: border-box !important;
+
+}
+
+.chooseAbs {
+  max-height: 170px;
+  overflow: hidden;
+  overflow-y: scroll;
+}

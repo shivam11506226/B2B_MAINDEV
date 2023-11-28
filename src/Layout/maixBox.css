@@ -5,6 +5,7 @@
     max-width: 800px;
     /* background-color: #F1F7F8; */
     background-color: #fff;
+    /* background-color: #e73c33; */
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
@@ -19,7 +20,8 @@
 
 .centered-box-top {
     position: absolute;
-    background-color: #21325D;
+    /* background-color: #21325D; */
+    background-color: #e73c33;
     height: 70px;
     border-radius: 15px;
     width: 89%;
