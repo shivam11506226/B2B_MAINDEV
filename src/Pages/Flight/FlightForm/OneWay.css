@@ -310,6 +310,12 @@ input[type="checkbox"]:checked+.toggle-label {
   color: #fff;
 }
 
+.flightFormSubmit svg {
+  transform: rotate(45deg);
+  margin-left: 8px;
+  font-size: 32px;
+}
+
 /* // sx={{
 //   mb: 2,
 //   display: "flex",
