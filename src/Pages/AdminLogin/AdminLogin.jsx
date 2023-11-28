@@ -47,6 +47,7 @@ const AdminLogin = () => {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
       className="login_field"
+      style={{height:"auto"}}
     >
       <div className="background-animation">
         <motion.img

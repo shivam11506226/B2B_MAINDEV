@@ -7,10 +7,11 @@
     top: 0;
     left: 0;
     width: 100vw;
-    height: 100vh;
     background: linear-gradient(45deg, #21325D, #207cca, #2989d8, #207cca, #21325D);
-    background-size: 500% 500%;
+    background-size: 1000% 1000%;
     animation: gradientAnimation 15s infinite;
+    overflow-y: hidden;
+    overflow-x: hidden;
   }
   
   @keyframes gradientAnimation {
@@ -31,7 +32,7 @@
     backdrop-filter: blur(5px);
     -webkit-backdrop-filter: blur(5px);
     border-radius: 10px;
-    padding: 20px;
+    padding-bottom:38px;
     text-align: center;
     color: #fff;
   }
@@ -46,6 +47,11 @@
     max-width: 400px;
     margin: 0 auto;
   }
+
+  .form{
+    /* height: 80vh; */
+    border: #ff0000;
+  }
   
   .form_input {
     margin-bottom: 20px;
@@ -53,10 +59,15 @@
   
   .form_lable {
     display: block;
+    text-align: left;
     color: #fff;
     margin-bottom: 5px;
     transition: opacity 0.3s ease-in-out;
   }
+  .css-1sf3xto {
+    padding-top: 16px;
+    padding-bottom: 1px !important;
+}
   
   .input-box {
     width: 100%;
