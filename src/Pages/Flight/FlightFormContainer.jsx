@@ -42,7 +42,7 @@ function CustomTabPanel(props) {
   return (
     <Slide direction="up" in={value === index} >
       <div role="tabpanel" hidden={value !== index} id={`simple-tabpanel-${index}`} aria-labelledby={`simple-tab-${index}`} {...other} style={{ marginTop: "-2px" }}>
-        <Box style={{ backgroundColor: "#F8F3F3", marginTop: "-60px", width: "100%", margin: "auto", borderRadius: "12px", border: "2px solid #d5d4d4", boxShadow: "rgba(149, 157, 165, 0.2) 0px 8px 24px", }}>
+        <Box style={{ backgroundColor: "#fff", marginTop: "-60px", width: "100%", margin: "auto", borderRadius: "12px", boxShadow: "rgba(149, 157, 165, 0.2) 0px 8px 24px", }}>
           <Typography>{children}</Typography>
         </Box>
       </div>
@@ -73,11 +73,11 @@ export default function StyledTabsExample() {
 
   return (
     <Box sx={{ width: '100%', margin: "auto" }}>
-      <StyledTabs value={value} onChange={handleChange} aria-label="styled tabs example" style={{ width: "100%", margin: "auto", marginTop: "-40px", }} >
+      <StyledTabs value={value} onChange={handleChange} aria-label="styled tabs example" style={{ width: "100%", margin: "auto", marginTop: "-7px", }} >
         <StyledTab label="One Way" {...a11yProps(0)} className='btn' />
         <StyledTab label="Return" {...a11yProps(1)} className='btn' />
-        {/* <StyledTab label="Off Share" {...a11yProps(2)} />
-        <StyledTab label="Multi Stop" {...a11yProps(3)} />
+        <StyledTab label="Fixed Departure" {...a11yProps(2)} className='btn' />
+        {/* <StyledTab label="Multi Stop" {...a11yProps(3)} />
         <StyledTab label="Calendar Fare" {...a11yProps(4)} />
         <StyledTab label="Advance Search" {...a11yProps(5)} /> */}
       </StyledTabs>
@@ -90,7 +90,7 @@ export default function StyledTabsExample() {
       <CustomTabPanel value={value} index={2}>
         <OffShare />
       </CustomTabPanel>
-      <CustomTabPanel value={value} index={3}>
+      {/* <CustomTabPanel value={value} index={3}>
         <MultiStop />
       </CustomTabPanel>
       <CustomTabPanel value={value} index={4}>
@@ -98,7 +98,7 @@ export default function StyledTabsExample() {
       </CustomTabPanel>
       <CustomTabPanel value={value} index={5}>
         <AdvanceSearch />
-      </CustomTabPanel>
+      </CustomTabPanel> */}
     </Box>
   );
 }

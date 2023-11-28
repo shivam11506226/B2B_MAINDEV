@@ -240,13 +240,13 @@ const Return = () => {
   }
 
   return (
-    <div className="container">
-      <form onSubmit={handleSubmit} className="formFlightSearch" >
+    <div className="">
+      <form onSubmit={handleSubmit} className="formFlightSearchOneWay" >
         <div className="container">
           <div className="row">
             <div className="col-xs-12 col-md-3 col-lg-3 ps-0 mb-3">
-              <div className="form_input">
-                <label for="from" className="form_lable"> FROM</label>
+              <div className="form_input" style={{ zIndex: 10, position: "relative" }}>
+                <label for="from" className="form_lable" > FROM</label>
                 <input
                   name="from"
                   placeholder="Enter city or airport"
@@ -262,32 +262,11 @@ const Return = () => {
 
                 />
                 {sub === true && from === "" && <p id="error1">Enter city or airport </p>}
-                {isLoading && displayFrom && <div>Loading...</div>}
-                {fromSearchResults && fromSearchResults.length > 0 && (
-                  <div
-                    style={{
-                      backgroundColor: "white",
-                      borderRadius: "10px",
-
-                      width: "100%",
-                      boxShadow: "rgba(0, 0, 0, 0.09) 0px 3px 12px",
-                      textAlign: "left",
-                      cursor: "pointer",
-                      display: displayFrom ? "block" : "none",
-                      position: "absolute", zIndex: "10"
-                    }}
-                  >
+                {/* {isLoading && displayFrom && <div>Loading...</div>} */}
+                {fromSearchResults && fromSearchResults.length > 0 && fromQuery.length >= 2 && (
+                  <div className="chooseAbsBox" style={{ display: displayFrom ? "block" : "none" }}>
                     <ul>
-                      <Box
-                        sx={{
-                          mb: 2,
-                          display: "flex",
-                          flexDirection: "column",
-                          maxHeight: 150,
-                          overflow: "hidden",
-                          overflowY: "scroll",
-                        }}
-                      >
+                      <div className="chooseAbs">
                         {fromSearchResults.map((result) => (
                           <li
                             key={result._id}
@@ -297,7 +276,7 @@ const Return = () => {
                             {result.code}
                           </li>
                         ))}
-                      </Box>
+                      </div>
                     </ul>
                   </div>
                 )}
@@ -308,7 +287,7 @@ const Return = () => {
             </div>
 
             <div className="col-xs-12 col-md-2 col-lg-2 ps-0 mb-3">
-              <div className="form_input">
+              <div className="form_input" style={{ zIndex: 10, position: "relative" }}>
 
                 <label for="to" className="form_lable">
                   TO
@@ -326,33 +305,11 @@ const Return = () => {
                   }}
                 />
                 {sub === true && to === "" && <p id="error1">Enter city or airport </p>}
-                {isLoading && displayTo && <div>Loading...</div>}
-                {toSearchResults && toSearchResults.length > 0 && (
-                  <div
-                    style={{
-                      backgroundColor: "white",
-                      borderRadius: "10px",
-                      position: "absolute",
-                      zIndex: "10",
-                      width: "100%",
-                      boxShadow: "rgba(0, 0, 0, 0.09) 0px 3px 12px",
-                      textAlign: "left",
-                      cursor: "pointer",
-                      display: displayTo ? "block" : "none",
-
-                    }}
-                  >
+                {/* {isLoading && displayTo && <div>Loading...</div>} */}
+                {toSearchResults && toSearchResults.length > 0 && toQuery.length >= 2 && (
+                  <div className="chooseAbsBox" style={{ display: displayTo ? "block" : "none" }}>
                     <ul>
-                      <Box
-                        sx={{
-                          mb: 2,
-                          display: "flex",
-                          flexDirection: "column",
-                          maxHeight: 150,
-                          overflow: "hidden",
-                          overflowY: "scroll",
-                        }}
-                      >
+                      <div className="chooseAbs">
                         {toSearchResults.map((result) => (
                           <li
                             key={result._id}
@@ -362,7 +319,7 @@ const Return = () => {
                             {result.code}
                           </li>
                         ))}
-                      </Box>
+                      </div>
                     </ul>
                   </div>
                 )}
@@ -405,7 +362,7 @@ const Return = () => {
                   value={returnDate}
                   onChange={(event) => setReturnDate(event.target.value)}
                 ></input>
-              {sub === true && returnDate === "" && <p id="error1">Enter date</p>}
+                {sub === true && returnDate === "" && <p id="error1">Enter date</p>}
               </div>
             </div>
 
@@ -612,25 +569,11 @@ const Return = () => {
               <div className="col-md-6 col-lg-6 col-12 col-sm-12 mb-3 ps-0">
                 <button
                   type="submit"
-                  id="cssbuttons-io-button"
-                  style={{ backgroundColor: "#21325D", borderRadius: "8px" }}
+                  className="flightFormSubmit"
                 >
                   {" "}
                   Search Flight
-                  <div id="icon">
-                    <svg
-                      height="24"
-                      width="24"
-                      viewBox="0 0 24 24"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path d="M0 0h24v24H0z" fill="none"></path>
-                      <path
-                        d="M16.172 11l-5.364-5.364 1.414-1.414L20 12l-7.778 7.778-1.414-1.414L16.172 13H4v-2z"
-                        fill="currentColor"
-                      ></path>
-                    </svg>
-                  </div>
+
                 </button>
               </div>
             </div>

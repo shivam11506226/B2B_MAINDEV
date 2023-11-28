@@ -266,8 +266,8 @@ const OneWay = () => {
   // style={{ width: "305px", height: "56px", position: "relative" }}
   // style={{ width: "305px", height: "56px" }}
   return (
-    <div className="container">
-      <form onSubmit={handleSubmit} className="formFlightSearch">
+    <div className="">
+      <form onSubmit={handleSubmit} className="formFlightSearchOneWay">
         <div className="container">
           <div className="row rowcon">
             <div className="col-xs-12 col-md-3 ps-0 mb-3 ">
@@ -284,30 +284,11 @@ const OneWay = () => {
                   }}
                 />
                 {fromError !== "" && <span className="error">{fromError}</span>}
-                {isLoading && <div>Loading...</div>}
-                {fromSearchResults && fromSearchResults.length > 0 && (
-                  <div
-                    style={{
-                      backgroundColor: "white",
-                      borderRadius: "10px",
-
-                      width: "100%",
-                      boxShadow: "rgba(0, 0, 0, 0.09) 0px 3px 12px",
-                      textAlign: "left",
-                      cursor: "pointer",
-                      display: displayFrom ? "block" : "none",
-                      overflow: "scroll",
-                    }}
-                  >
+                {/* {isLoading && <div>Loading...</div>} */}
+                {fromSearchResults && fromSearchResults.length > 0 && fromQuery.length >= 2 && (
+                  <div className="chooseAbsBox" style={{ display: displayFrom ? "block" : "none" }}>
                     <ul>
-                      <Box
-                        sx={{
-                          mb: 2,
-                          display: "flex",
-                          flexDirection: "column",
-                          maxHeight: 150,
-                        }}
-                      >
+                      <div className="chooseAbs">
                         {fromSearchResults.map((result) => (
                           <li
                             key={result._id}
@@ -317,7 +298,7 @@ const OneWay = () => {
                             {result.code}
                           </li>
                         ))}
-                      </Box>
+                      </div>
                     </ul>
                   </div>
                 )}
@@ -327,7 +308,7 @@ const OneWay = () => {
               <img src={interchange} alt="name" className="align-self-center" />
             </div>
             <div className="col-xs-12 col-md-4 ps-0 mb-3">
-              <div className="form_input" style={{ zIndex: 10 }}>
+              <div className="form_input " style={{ zIndex: 10, position: "relative" }}>
                 <label className="form_lable">Arrival</label>
                 <input
                   name="to"
@@ -345,31 +326,11 @@ const OneWay = () => {
                   style={{ border: "2px solid red" }}
                 />
                 {toError !== "" && <span className="error">{toError}</span>}
-                {isLoading && <div>Loading...</div>}
-                {toSearchResults && toSearchResults.length > 0 && (
-                  <div
-                    style={{
-                      backgroundColor: "white",
-                      borderRadius: "10px",
-                      zIndex: 1,
-                      width: "100%",
-                      boxShadow: "rgba(0, 0, 0, 0.09) 0px 3px 12px",
-                      textAlign: "left",
-                      cursor: "pointer",
-                      display: displayTo ? "block" : "none",
-                    }}
-                  >
+                {/* {isLoading && <div>Loading...</div>} */}
+                {toSearchResults && toSearchResults.length > 0 && toQuery.length >= 2 && (
+                  <div className="chooseAbsBox" style={{ display: displayTo ? "block" : "none" }}>
                     <ul>
-                      <Box
-                        sx={{
-                          mb: 2,
-                          display: "flex",
-                          flexDirection: "column",
-                          maxHeight: 150,
-                          overflow: "hidden",
-                          overflowY: "scroll",
-                        }}
-                      >
+                      <div className="chooseAbs">
                         {toSearchResults.map((result) => (
                           <li
                             key={result._id}
@@ -379,7 +340,7 @@ const OneWay = () => {
                             {result.code}
                           </li>
                         ))}
-                      </Box>
+                      </div>
                     </ul>
                   </div>
                 )}
@@ -399,19 +360,6 @@ const OneWay = () => {
                 {dateError !== "" && <span className="error">{dateError}</span>}
               </div>
             </div>
-
-            {/* <div className="col-xs-12 col-md-2">
-            <div className="form_input" >
-              <label className="form_lable"></label>
-              <select name="time" id="" className="form_input_select">
-                <option mx={5}>Any Time</option>
-                <option px={5}>Morning</option>
-                <option px={5}>Evening</option>
-                <option px={5}>Afternoon</option>
-                <option mx={5}>Night</option>
-              </select>
-            </div>
-          </div> */}
           </div>
 
           {/* <div className="row" style={{ marginTop: "32px" }}>
@@ -556,12 +504,11 @@ const OneWay = () => {
                 <div className="col-md-6 col-lg-6 col-12 col-sm-12 mb-3 ps-0">
                   <button
                     type="submit"
-                    id="cssbuttons-io-button"
-                    style={{ backgroundColor: "#21325D", borderRadius: "8px" }}
+                    className="flightFormSubmit"
                   >
                     {" "}
                     Search Flight
-                    <div id="icon">
+                    {/* <div id="icon">
                       <svg
                         height="24"
                         width="24"
@@ -574,7 +521,7 @@ const OneWay = () => {
                           fill="currentColor"
                         ></path>
                       </svg>
-                    </div>
+                    </div> */}
                   </button>
                 </div>
               </div>
