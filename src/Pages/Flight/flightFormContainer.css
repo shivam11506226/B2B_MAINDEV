@@ -49,6 +49,12 @@
 
 }
 
+.css-heg063-MuiTabs-flexContainer {
+    display: flex;
+    justify-content: center !important;
+    align-items: center !important;
+}
+
 @media screen and (min-width: 600px) and (max-width: 850px) {
     .css-heg063-MuiTabs-flexContainer {
         display: -webkit-box;

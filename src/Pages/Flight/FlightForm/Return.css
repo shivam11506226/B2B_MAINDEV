@@ -62,7 +62,8 @@
 
 
 .interchange img {
-  width: 50px;
+  width: 40px;
+  /* padding-bottom: 14px; */
 }
 
 .bottom-row {
