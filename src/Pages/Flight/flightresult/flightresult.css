@@ -250,6 +250,31 @@
 
 
 
+.cheapestFilter {
+    margin-bottom: 15px;
+}
+
+.cheapestFilter p {
+    color: black;
+    font-size: 14px;
+    font-family: 'Montserrat';
+    font-weight: 600;
+    margin-bottom: 10px !important;
+}
+
+.cheapestFilter>div {
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+}
+
+.cheapestFilter label {
+    color: black;
+    font-size: 14px;
+    font-family: 'Montserrat';
+    font-weight: 500;
+}
+
 
 .outboundFilter {
     margin-bottom: 15px;

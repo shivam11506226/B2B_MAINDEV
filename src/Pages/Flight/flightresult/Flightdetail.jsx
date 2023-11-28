@@ -56,8 +56,6 @@ const Flightdetail = () => {
 
 
 
-
-
   return results?.map((res) => {
     let result = res;
     result =
@@ -69,10 +67,6 @@ const Flightdetail = () => {
             b.Segments[0].map((i) => i.Duration)
         );
     // result = res.sort((a, b) => a.Segments[0][0].Duration - b.Fare.OfferedFare);
-
-
-    // filter box 
-
 
 
 
@@ -100,9 +94,24 @@ const Flightdetail = () => {
                 </div>
               </AccordionSummary>
               <div style={{ color: '#0048FF', textDecoration: 'underline', textAlign: "right", paddingRight: "15px" }} >
-                <button>clear all</button>
+                {/* <button>clear all</button> */}
               </div>
               <AccordionDetails>
+                <div className="cheapestFilter">
+                  <p>Type</p>
+                  <div>
+                    <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike" />
+                    <label > Cheapest</label>
+                  </div>
+                  <div>
+                    <input type="checkbox" id="vehicle2" name="vehicle2" value="Car" />
+                    <label > Fastest</label>
+                  </div>
+                  <div>
+                    <input type="checkbox" id="vehicle2" name="vehicle2" value="Car" />
+                    <label > Best</label>
+                  </div>
+                </div>
                 <div className="fareFilter">
                   <p>Fare Type</p>
                   <div>

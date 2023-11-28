@@ -14,6 +14,7 @@ import AdvanceSearch from './FlightForm/AdvanceSearch';
 // import { styled } from '@mui/system'; // Import from @mui/system
 import Slide from '@mui/material/Slide';
 import "./flightFormContainer.css"
+import FixedDeparture from './FlightForm/FixedDeparture';
 
 
 const StyledTabs = styled(Tabs)(({ theme }) => ({
@@ -88,7 +89,7 @@ export default function StyledTabsExample() {
         <Return />
       </CustomTabPanel>
       <CustomTabPanel value={value} index={2}>
-        <OffShare />
+        <FixedDeparture />
       </CustomTabPanel>
       {/* <CustomTabPanel value={value} index={3}>
         <MultiStop />
