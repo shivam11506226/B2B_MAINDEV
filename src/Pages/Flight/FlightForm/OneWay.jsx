@@ -485,7 +485,7 @@ const OneWay = () => {
             <div className="col-xs-12">
               <div className="row bottom-row">
                 <div className="col-md-6 col-lg-6 col-12 col-sm-12 mb-3 ps-0">
-                  <div className="form_input">
+                  <div className="form_input mb-0">
                     <label className="form_lable">Preferred Airline</label>
                     <select name="adult" id="" className="form_input_select1">
                       <option value="1">Select Airline </option>
