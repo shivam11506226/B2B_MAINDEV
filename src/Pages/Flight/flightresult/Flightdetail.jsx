@@ -97,7 +97,6 @@ const Flightdetail = () => {
               </AccordionSummary>
               <div style={{ color: '#0048FF', textDecoration: 'underline', textAlign: "right", paddingRight: "15px" }} >
 
-                {/* <button>clear all</button> */}
               </div>
               <AccordionDetails>
                 <div className="cheapestFilter">

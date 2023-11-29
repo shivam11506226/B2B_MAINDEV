@@ -37,72 +37,72 @@ const FlightReviewbooking = () => {
   const bookingDataNonLccReturn =
     reducerState?.flightBook?.flightBookDataGDSReturn?.Response;
   const addBookingDetailsReturn = () => {
-     if (bookingDataLccReturn) {
-       console.log("lccCheck");
-       const payloadLCC = {
-         userId: reducerState?.logIn?.loginData?.data?.data?.id,
-         bookingId: `${bookingDataLccReturn?.BookingId}`,
-         oneWay: false,
-         pnr: bookingDataLccReturn?.PNR,
-         origin: bookingDataLccReturn?.FlightItinerary?.Origin,
-         destination: bookingDataLccReturn?.FlightItinerary?.Destination,
-         paymentStatus: "success",
-         dateOfJourney: bookingDataLccReturn?.FlightItinerary?.InvoiceCreatedOn,
-         amount: bookingDataLccReturn?.FlightItinerary?.InvoiceAmount,
-         airlineDetails: {
-           AirlineName:
-             bookingDataLccReturn?.FlightItinerary?.ValidatingAirlineCode,
-           DepTime: "ggtglt",
-         },
-         passengerDetails:
-           bookingDataLccReturn?.FlightItinerary?.Passenger?.map((item) => {
-             return {
-               firstName: item?.FirstName,
-               lastName: item?.LastName,
-               gender: item?.Title,
-               ContactNo: item?.ContactNo,
-               DateOfBirth: item?.DateOfBirth,
-               email: item?.Email,
-               addressLine1: item?.AddressLine1,
-               city: item?.City,
-             };
-           }),
-       };
-       userApi.flightBookingDataSave(payloadLCC);
-     } else {
-       console.log("nonlccCheck");
-       const payloadNonLcc = {
-         userId: reducerState?.logIn?.loginData?.data?.data?.id,
-         bookingId: `${bookingDataNonLccReturn?.BookingId}`,
-         oneWay: false,
-         pnr: bookingDataNonLccReturn?.PNR,
-         origin: bookingDataNonLccReturn?.FlightItinerary?.Origin,
-         destination: bookingDataNonLccReturn?.FlightItinerary?.Destination,
-         paymentStatus: "success",
-         dateOfJourney:
-           bookingDataNonLccReturn?.FlightItinerary?.LastTicketDate,
-         amount: bookingDataNonLccReturn?.FlightItinerary?.Fare?.PublishedFare,
-         airlineDetails: {
-           AirlineName:
-             bookingDataNonLccReturn?.FlightItinerary?.ValidatingAirlineCode,
-           DepTime: "jgtr",
-         },
-         passengerDetails:
-           bookingDataNonLccReturn?.FlightItinerary?.Passenger?.map((item) => {
-             return {
-               firstName: item?.FirstName,
-               lastName: item?.LastName,
-               gender: item?.Title,
-               ContactNo: item?.ContactNo,
-               DateOfBirth: item?.DateOfBirth,
-               email: item?.Email,
-               addressLine1: item?.AddressLine1,
-               city: item?.City,
-             };
-           }),
-       };
-       userApi.flightBookingDataSave(payloadNonLcc);
-     }
+    if (bookingDataLccReturn) {
+      console.log("lccCheck");
+      const payloadLCC = {
+        userId: reducerState?.logIn?.loginData?.data?.data?.id,
+        bookingId: `${bookingDataLccReturn?.BookingId}`,
+        oneWay: false,
+        pnr: bookingDataLccReturn?.PNR,
+        origin: bookingDataLccReturn?.FlightItinerary?.Origin,
+        destination: bookingDataLccReturn?.FlightItinerary?.Destination,
+        paymentStatus: "success",
+        dateOfJourney: bookingDataLccReturn?.FlightItinerary?.InvoiceCreatedOn,
+        amount: bookingDataLccReturn?.FlightItinerary?.InvoiceAmount,
+        airlineDetails: {
+          AirlineName:
+            bookingDataLccReturn?.FlightItinerary?.ValidatingAirlineCode,
+          DepTime: "ggtglt",
+        },
+        passengerDetails:
+          bookingDataLccReturn?.FlightItinerary?.Passenger?.map((item) => {
+            return {
+              firstName: item?.FirstName,
+              lastName: item?.LastName,
+              gender: item?.Title,
+              ContactNo: item?.ContactNo,
+              DateOfBirth: item?.DateOfBirth,
+              email: item?.Email,
+              addressLine1: item?.AddressLine1,
+              city: item?.City,
+            };
+          }),
+      };
+      userApi.flightBookingDataSave(payloadLCC);
+    } else {
+      console.log("nonlccCheck");
+      const payloadNonLcc = {
+        userId: reducerState?.logIn?.loginData?.data?.data?.id,
+        bookingId: `${bookingDataNonLccReturn?.BookingId}`,
+        oneWay: false,
+        pnr: bookingDataNonLccReturn?.PNR,
+        origin: bookingDataNonLccReturn?.FlightItinerary?.Origin,
+        destination: bookingDataNonLccReturn?.FlightItinerary?.Destination,
+        paymentStatus: "success",
+        dateOfJourney:
+          bookingDataNonLccReturn?.FlightItinerary?.LastTicketDate,
+        amount: bookingDataNonLccReturn?.FlightItinerary?.Fare?.PublishedFare,
+        airlineDetails: {
+          AirlineName:
+            bookingDataNonLccReturn?.FlightItinerary?.ValidatingAirlineCode,
+          DepTime: "jgtr",
+        },
+        passengerDetails:
+          bookingDataNonLccReturn?.FlightItinerary?.Passenger?.map((item) => {
+            return {
+              firstName: item?.FirstName,
+              lastName: item?.LastName,
+              gender: item?.Title,
+              ContactNo: item?.ContactNo,
+              DateOfBirth: item?.DateOfBirth,
+              email: item?.Email,
+              addressLine1: item?.AddressLine1,
+              city: item?.City,
+            };
+          }),
+      };
+      userApi.flightBookingDataSave(payloadNonLcc);
+    }
   };
 
   const addBookingDetails = () => {
@@ -174,14 +174,14 @@ const FlightReviewbooking = () => {
     }
   };
   const debouncedAddBookingDetails = debounce(addBookingDetails, 500);
-   const debouncedAddBookingDetailsReturn = debounce(addBookingDetailsReturn,1000);
+  const debouncedAddBookingDetailsReturn = debounce(addBookingDetailsReturn, 1000);
   useEffect(() => {
     updateBalance();
     debouncedAddBookingDetails();
     debouncedAddBookingDetailsReturn()
   }, []);
 
- 
+
   const updateBalance = () => {
     if (userId) {
       const payload = userId;
@@ -190,16 +190,16 @@ const FlightReviewbooking = () => {
   };
 
   return (
-    <div className="flightContainer">
-      {/* step by step updating part */}
+    <div className="container-fluid margin-pecentage">
 
-      <Grid container spacing={3}>
-        <Grid item xs={12} md={9}>
-          <Box>
-            <Flightconfirmationdetail ticket={TicketDetails} />
-          </Box>
-        </Grid>
-      </Grid>
+      <div className="row">
+        <div className="col-lg-9">
+          <Flightconfirmationdetail ticket={TicketDetails} />
+        </div>
+        <div className="col-lg-3">
+          <Rightdetail />
+        </div>
+      </div>
     </div>
   );
 };

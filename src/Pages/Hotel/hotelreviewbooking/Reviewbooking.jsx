@@ -59,35 +59,30 @@ const Guestdetail = () => {
       {loader ? (
         <HotelLoading />
       ) : (
-        <div className="flightContainer">
-          <Box>
-            <div className="container">
-              <div className="row">
-                <div className="col-lg-12 col-md-12 col-sm-12 mb-3">
-                  <div className="hotelBookNowOuter">
-                    <div className="hotelBookNowHeader">
-                      <p>Your Search criteria:{storedFormData?.city},{' '} India</p>
-                      <p>Duration: {storedFormData?.night}{' '}Nights</p>
-                      <p>{storedFormData?.checkIn}- {storedFormData?.checkOut}</p>
-                      <p>Guest(s): {totalAdults}Adult(s) </p>
-                      <p>Room(s): {storedFormData.room}</p>
 
-                    </div>
-                  </div>
+        <div className="container-fluid margin-pecentage">
+          <div className="row">
+            <div className="col-lg-9">
+              <div className="hotelBookNowOuter">
+                <div className="hotelBookNowHeader">
+                  <p>Your Search criteria:{storedFormData?.city},{' '} India</p>
+                  <p>Duration: {storedFormData?.night}{' '}Nights</p>
+                  <p>{storedFormData?.checkIn}- {storedFormData?.checkOut}</p>
+                  <p>Guest(s): {totalAdults}Adult(s) </p>
+                  <p>Room(s): {storedFormData.room}</p>
                 </div>
               </div>
             </div>
-            <div className="container-fluid">
-              <div className="row gy-4">
-                <div className="col-lg-9 order-lg-1 order-md-2 order-sm-2">
-                  <Reviewdescription />
-                </div>
-                <div className="col-lg-3 order-lg-2 order-md-1 order-sm-1">
-                  <Sailsummary />
-                </div>
-              </div>
+          </div>
+
+          <div className="row gy-4">
+            <div className="col-lg-9 order-lg-1 order-md-2 order-sm-2">
+              <Reviewdescription />
             </div>
-          </Box>
+            <div className="col-lg-3 order-lg-2 order-md-1 order-sm-1">
+              <Sailsummary />
+            </div>
+          </div>
         </div>
       )}
     </React.Fragment>

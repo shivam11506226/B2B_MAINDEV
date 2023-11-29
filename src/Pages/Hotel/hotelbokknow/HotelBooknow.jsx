@@ -118,10 +118,10 @@ const HotelBooknow = () => {
       {loader ? (
         <HotelLoading />
       ) : (
-        <div className="flightContainer">
+        <>
           {/* step by step updating part */}
 
-          <div className="container">
+          <div className="container-fluid margin-pecentage">
             <div className="row">
               <div className="col-lg-12 col-md-12 col-sm-12 mb-3">
                 <div className="hotelBookNowOuter">
@@ -168,17 +168,18 @@ const HotelBooknow = () => {
                 </div>
               </div>
             </div>
-          </div>
 
 
-          <Box className="book_content" mt={3}>
-            <Box py={1}>
-              <Box className="accordian_area">
-                <Hoteldetailaccordian />
+
+            <Box className="book_content" mt={3}>
+              <Box py={1}>
+                <Box className="accordian_area">
+                  <Hoteldetailaccordian />
+                </Box>
               </Box>
             </Box>
-          </Box>
-        </div>
+          </div>
+        </>
       )}
     </>
   );

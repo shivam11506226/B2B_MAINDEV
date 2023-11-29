@@ -4,8 +4,10 @@ import Modal from "@mui/material/Modal";
 import CircularProgress from "@mui/material/CircularProgress";
 import React, { useEffect, useState } from "react";
 import Link from "@mui/material/Link";
+import flightdir from "../../../Images/flgihtdir.png"
 import { useDispatch, useSelector, useReducer } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import './flightreviewbooking.css'
 import {
   bookAction,
   bookActionGDS,
@@ -72,6 +74,7 @@ const Flightbookingdetail = () => {
     reducerState?.flightFare?.flightQuoteDataReturn?.Results;
   // console.log(fareValue, "😍Fare value", fareValueReturn);
   const Passengers = reducerState?.passengers?.passengersData;
+  console.log(Passengers, "passenger ka data")
   const PassengersReturn = reducerState?.passengers?.passengerDataReturn;
   const userId = reducerState?.logIn?.loginData?.data?.data?.id;
   const currentBalance = reducerState?.userData?.userData?.data?.data?.balance;
@@ -393,277 +396,200 @@ const Flightbookingdetail = () => {
     }
   };
 
+  const fareQuoteData = reducerState?.flightFare?.flightQuoteData?.Results;
+  console.log(fareQuoteData, "fare quote data")
+
+  const img = fareQuoteData?.Segments?.[0]?.[0]?.Airline?.AirlineCode;
+  const airlineName = fareQuoteData?.Segments?.[0]?.[0]?.Airline?.AirlineName;
+  const airlineCode = fareQuoteData?.Segments?.[0]?.[0]?.Airline?.AirlineCode;
+  const flightNumber = fareQuoteData?.Segments?.[0]?.[0]?.Airline?.FlightNumber;
+  const originCity = fareQuoteData?.Segments?.[0]?.[0]?.Origin?.Airport?.CityName;
+  const DestinationCity = fareQuoteData?.Segments?.[0]?.[0]?.Destination?.Airport?.CityName;
+  const flightFare = fareQuoteData?.Fare?.PublishedFare;
+  const originTerminal = fareQuoteData?.Segments?.[0]?.[0]?.Origin?.Airport?.Terminal;
+  const destinationTerminal = fareQuoteData?.Segments?.[0]?.[0]?.Destination?.Airport?.Terminal;
+
+  const adults = sessionStorage.getItem("adults");
+  const childs = sessionStorage.getItem("childs");
+  const infants = sessionStorage.getItem("infants");
+  const dateString = fareQuoteData?.Segments?.[0]?.[0]?.Origin?.DepTime;
+  const date = new Date(dateString);
+  const options = {
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+    hour: "numeric",
+    minute: "numeric",
+    hour12: true,
+  };
+  const formattedDate = date.toLocaleString("en-US", options);
+
+  const [month, day, year, time, ampm] = formattedDate.split(" ");
+  const desiredFormat = `${day}${month}-${year} ${time} ${ampm}`;
+
+  const dateString1 = fareQuoteData?.Segments?.[0]?.[0]?.Destination?.ArrTime;
+  const date1 = new Date(dateString1);
+  const options1 = {
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+    hour: "numeric",
+    minute: "numeric",
+    hour12: true,
+  };
+  const formattedDate1 = date1.toLocaleString("en-US", options1);
+  const [month1, day1, year1, time1, ampm1] =
+    formattedDate1.split(" ");
+  const desiredFormat1 = `${day1}${month1}-${year1} ${time1} ${ampm1}`;
+
+
+  const Duration = `${Math.floor(fareQuoteData?.Segments?.[0]?.[0]?.Duration / 60)}hr ${fareQuoteData?.Segments?.[0]?.[0]?.Duration % 60
+    }min`;
+  // const dateString = fareQuoteData?.Segments?.[0]?.[0]?.Origin?.DepTime;
+  // const date1 = new Date(dateString);
+  // const time1 = date1.toLocaleTimeString([], {
+  //   hour: "2-digit",
+  //   minute: "2-digit",
+  // });
+
+  // const day = date1.getDate();
+  // const month = date1.toLocaleString("default", {
+  //   month: "short",
+  // });
+  // const year = date1.getFullYear();
+  // const formattedDate = `${day} ${month} ${year}`;
+
+  // const dateString1 = fareQuoteData?.Segments?.[0]?.[0]?.Destination?.ArrTime;
+  // const date2 = new Date(dateString1);
+  // const time2 = date2.toLocaleTimeString([], {
+  //   hour: "2-digit",
+  //   minute: "2-digit",
+  // });
+
+  // const day1 = date2.getDate();
+  // const month1 = date2.toLocaleString("default", {
+  //   month: "short",
+  // });
 
   if (loading) {
     <FlightLoader />
   }
 
   return (
-    <Box style={{ width: "920px" }}>
-      <div
-        style={{
-          width: 822,
-          height: 49,
-          paddingLeft: 20,
-          paddingRight: 20,
-          paddingTop: 10,
-          paddingBottom: 10,
-          background: "#DFE6F7",
-          borderRadius: 4,
-          justifyContent: "flex-start",
-          alignItems: "center",
-          gap: 10,
-          display: "inline-flex",
-        }}
-      >
-        <div
-          style={{
-            color: "black",
-            fontSize: 24,
-            fontFamily: "Montserrat",
-            fontWeight: "600",
-            wordWrap: "break-word",
-          }}
-        >
-          Review Booking
+    <div>
+
+      <div className="singleFlightBox justify-content-evenly">
+        <div className="singleFlightBoxOne">
+          <div><img src={`${process.env.PUBLIC_URL}/FlightImages/${img}.png`} /> </div>
+          <span>{airlineName}</span>
+          <p>{airlineCode}{" "}{flightNumber}</p>
+        </div>
+        <div className="singleFlightBoxTwo">
+          <span>{originCity}</span>
+          {/* <p>{time1.substr(0, 5)}</p> */}
+          <p>{desiredFormat.slice(0, 12)}</p>
+          <p style={{ fontSize: "14px" }}>{desiredFormat.slice(13)}</p>
+          <p>Terminal{' '}{originTerminal}</p>
+        </div>
+        <div className="singleFlightBoxThree">
+          <h4>{Duration}</h4>
+          <div><img src={flightdir} /></div>
+          <p>Direct Flight</p>
+          <span>Refundable</span>
+        </div>
+        <div className="singleFlightBoxFour">
+          <span>{DestinationCity}</span>
+          {/* <p>{time2.substr(0, 5)}</p> */}
+          <p>{desiredFormat1.slice(0, 12)}</p>
+          <p style={{ fontSize: "14px" }}>{desiredFormat1.slice(13)}</p>
+          <p>Terminal{' '}{destinationTerminal}</p>
+        </div>
+        <div className="singleFlightBoxFive">
+          <span>₹{flightFare}</span>
+          <p>Publish</p>
         </div>
       </div>
-      <Box
-        py={2}
-        my={2}
-        style={{ background: "#D8DFF2", borderRadius: 4.04, width: "822px" }}
-      >
-        {fareQuote?.map((data) => {
-          return data?.map((data1) => {
-            const dateString = data1?.Origin?.DepTime;
-            const date = new Date(dateString);
-            const options = {
-              year: "numeric",
-              month: "short",
-              day: "numeric",
-              hour: "numeric",
-              minute: "numeric",
-              hour12: true,
-            };
-            const formattedDate = date.toLocaleString("en-US", options);
 
-            const [month, day, year, time, ampm] = formattedDate.split(" ");
-            const desiredFormat = `${day}-${month}-${year} ${time} ${ampm}`;
+      <div className="col-lg-12">
+        <div class="headingflightPassenger">
+          <p>Passenger Details</p>
+          <span>Total Adult(s) :{' '} {adults} Child:{' '} {childs} Infants: {' '} {infants}</span>
+        </div>
+      </div>
 
-            const dateString1 = data1?.Destination?.ArrTime;
-            const date1 = new Date(dateString1);
-            const options1 = {
-              year: "numeric",
-              month: "short",
-              day: "numeric",
-              hour: "numeric",
-              minute: "numeric",
-              hour12: true,
-            };
-            const formattedDate1 = date1.toLocaleString("en-US", options1);
-            const [month1, day1, year1, time1, ampm1] =
-              formattedDate1.split(" ");
-            const desiredFormat1 = `${day1}-${month1}-${year1} ${time1} ${ampm1}`;
-            return (
-              <Grid sx={{ display: "flex" }}>
-                <Grid item md={2}>
-                  <Box>
-                    <Typography
-                      sx={{
-                        color: "black",
-                        fontSize: "16px",
-                        textAlign: "center",
-                        fontWeight: "600",
-                        fontFamily: "Montserrat",
-                        wordWrap: "break-word",
-                      }}
-                    >
-                      Flight No.
-                    </Typography>
+      <div className="col-lg-8 my-3">
 
-                    <Typography
-                      sx={{
-                        color: "black",
-                        fontSize: "16px",
-                        fontFamily: "Montserrat",
-                        textAlign: "center",
-                        fontWeight: "400",
-                      }}
-                      pt={1}
-                    >
-                      {data1?.Airline?.AirlineCode}-
-                      {data1?.Airline?.FlightNumber}
-                    </Typography>
-                  </Box>
-                </Grid>
-                <Grid item md={2}>
-                  <Box>
-                    <Typography
-                      sx={{
-                        color: "black",
-                        fontSize: "16px",
-                        textAlign: "center",
-                        fontWeight: "600",
-                        fontFamily: "Montserrat",
-                        wordWrap: "break-word",
-                      }}
-                    >
-                      Origin
-                    </Typography>
+        {Passengers?.map((passenger, key) => {
+          return (
+            <>
+              <div>
+                <p>Passenger {key + 1}{" "}
+                  <span
+                    style={{
+                      color: "black",
+                      fontSize: 16,
+                      fontFamily: "Montserrat",
+                      fontWeight: "500",
+                      wordWrap: "break-word",
+                    }}
+                  >
+                    (
+                    {passenger.PaxType === 1
+                      ? "Adult"
+                      : passenger.PaxType === 2
+                        ? "Child"
+                        : "Infant"}
+                    )
+                  </span>
+                </p>
+              </div>
 
-                    <Typography
-                      sx={{
-                        color: "black",
-                        fontSize: "16px",
-                        fontFamily: "Montserrat",
-                        textAlign: "center",
-                        fontWeight: "400",
-                      }}
-                      pt={1}
-                    >
-                      {data1?.Origin?.Airport?.AirportCode}
-                    </Typography>
-                  </Box>
-                </Grid>
-                <Grid item md={2}>
-                  <Box>
-                    <Typography
-                      sx={{
-                        color: "black",
-                        fontSize: "16px",
-                        textAlign: "center",
-                        fontWeight: "600",
-                        fontFamily: "Montserrat",
-                        wordWrap: "break-word",
-                      }}
-                    >
-                      Destination
-                    </Typography>
 
-                    <Typography
-                      sx={{
-                        color: "black",
-                        fontSize: "16px",
-                        fontFamily: "Montserrat",
-                        textAlign: "center",
-                        fontWeight: "400",
-                      }}
-                      pt={1}
-                    >
-                      {data1?.Destination?.Airport?.AirportCode}
-                    </Typography>
-                  </Box>
-                </Grid>
-                <Grid item md={3}>
-                  <Box>
-                    <Typography
-                      sx={{
-                        color: "black",
-                        fontSize: "16px",
-                        textAlign: "center",
-                        fontWeight: "600",
-                        fontFamily: "Montserrat",
-                        wordWrap: "break-word",
-                      }}
-                    >
-                      Departure Date Time
-                    </Typography>
+              <div key={key} className="passDetails">
 
-                    <Typography
-                      sx={{
-                        color: "black",
-                        fontSize: "16px",
-                        fontFamily: "Montserrat",
-                        textAlign: "center",
-                        fontWeight: "400",
-                      }}
-                      pt={1}
-                    >
-                      {desiredFormat}
-                    </Typography>
-                  </Box>
-                </Grid>
-                <Grid item md={3}>
-                  <Box>
-                    <Typography
-                      sx={{
-                        color: "black",
-                        fontSize: "16px",
-                        textAlign: "center",
-                        fontWeight: "600",
-                        fontFamily: "Montserrat",
-                        wordWrap: "break-word",
-                      }}
-                    >
-                      Arrival Date Time
-                    </Typography>
+                <div>
+                  <p>Name:</p>
+                  <p>Gender</p>
+                  {
+                    passenger.Email && (
+                      <p>Email:</p>
+                    )
+                  }
+                  {/* {passenger.AddressLine1 && (
+                  <p>Address:</p>
+                )} */}
+                </div>
+                <div>
+                  <span>{passenger.Title} {passenger.FirstName}{" "}
+                    {passenger.LastName}</span>
+                  <span>
+                    {passenger.Gender === 1
+                      ? "Male"
+                      : passenger.Gender === 2
+                        ? "Female"
+                        : "Transgender"}
+                  </span>
+                  <span>{passenger.Email}</span>
+                  {/* {passenger.AddressLine1 && (
+                  <span>
+                    {passenger.AddressLine1}, {passenger.City},{" "}
+                    {passenger.Nationality}
+                  </span>
+                )} */}
+                </div>
+              </div>
+            </>
 
-                    <Typography
-                      sx={{
-                        color: "black",
-                        fontSize: "16px",
-                        fontFamily: "Montserrat",
-                        textAlign: "center",
-                        fontWeight: "400",
-                      }}
-                      pt={1}
-                    >
-                      {desiredFormat1}
-                    </Typography>
-                  </Box>
-                </Grid>
-                <Grid item md={2}>
-                  <Box>
-                    <Typography
-                      sx={{
-                        color: "black",
-                        fontSize: "16px",
-                        textAlign: "center",
-                        fontWeight: "600",
-                        fontFamily: "Montserrat",
-                        wordWrap: "break-word",
-                      }}
-                    >
-                      Class
-                    </Typography>
-
-                    <Typography
-                      sx={{
-                        color: "black",
-                        fontSize: "16px",
-                        fontFamily: "Montserrat",
-                        textAlign: "center",
-                        fontWeight: "400",
-                      }}
-                      pt={1}
-                    >
-                      {data1?.Airline?.FareClass}
-                    </Typography>
-                  </Box>
-                </Grid>
-              </Grid>
-            );
-          });
+          );
         })}
-      </Box>
-      <div
-        style={{
-          width: 822,
+      </div>
 
-          borderRadius: 4,
-          justifyContent: "flex-start",
-          alignItems: "center",
 
-          display: "flex",
-          flexDirection: "column",
-          gap: "10px",
-        }}
-      >
+
+
+      <div className="col-lg-12 my-3">
         <Accordion
           style={{
-            width: 822,
-            // height: 49,
-
             background: "#DFE6F7",
             borderRadius: 4,
             // position:"relative"
@@ -674,208 +600,6 @@ const Flightbookingdetail = () => {
             aria-controls="panel1a-content"
             id="panel1a-header"
             style={{
-              width: 822,
-              // height: 49,
-
-              background: "#DFE6F7",
-              borderRadius: 4,
-              // position:"absolute",
-              // zIndex:15
-            }}
-          >
-            <Typography
-              style={{
-                color: "black",
-                fontSize: 24,
-                fontFamily: "Montserrat",
-                fontWeight: "600",
-                wordWrap: "break-word",
-              }}
-            >
-              Passenger Details{" "}
-            </Typography>
-          </AccordionSummary>
-          <AccordionDetails style={{ background: "#DFE6F7", height: "auto" }}>
-            <Box
-              className="mid-headers"
-              style={{ padding: "18px", width: "100%" }}
-            >
-              {Passengers?.map((passenger, key) => {
-                // console.log("Value", passenger);
-                return (
-                  <div className="mid_header" key={key} px={5} py={2}>
-                    <Box style={{ background: "#DFE6F7" }}>
-                      <Typography
-                        color="#0048FF"
-                        fontWeight="bold"
-                        fontSize="16px"
-                        mb="2px"
-                        fontFamily="Montserrat"
-                      >
-                        Passenger {key + 1}{" "}
-                        <span
-                          style={{
-                            color: "black",
-                            fontSize: 16,
-                            fontFamily: "Montserrat",
-                            fontWeight: "500",
-                            wordWrap: "break-word",
-                          }}
-                        >
-                          (
-                          {passenger.PaxType === 1
-                            ? "Adult"
-                            : passenger.PaxType === 2
-                              ? "Child"
-                              : "Infant"}
-                          )
-                        </span>
-                      </Typography>
-                    </Box>
-                    <Grid container>
-                      <Grid item md={3} style={{ background: "#DFE6F7" }}>
-                        <Typography
-                          color="#3D7AD9"
-                          fontWeight="bold"
-                          fontSize="16px"
-                          style={{
-                            color: "black",
-                            fontSize: 16.14,
-                            fontFamily: "Montserrat",
-                            fontWeight: "600",
-                            wordWrap: "break-word",
-                          }}
-                        >
-                          Name:
-                        </Typography>
-                        <Typography
-                          color="#3D7AD9"
-                          fontWeight="bold"
-                          fontSize="16px"
-                          style={{
-                            color: "black",
-                            fontSize: 16.14,
-                            fontFamily: "Montserrat",
-                            fontWeight: "600",
-                            wordWrap: "break-word",
-                          }}
-                        >
-                          Gender:
-                        </Typography>
-                        {passenger.AddressLine1 && (
-                          <Typography
-                            color="#3D7AD9"
-                            fontWeight="bold"
-                            fontSize="16px"
-                            style={{
-                              color: "black",
-                              fontSize: 16.14,
-                              fontFamily: "Montserrat",
-                              fontWeight: "600",
-                              wordWrap: "break-word",
-                            }}
-                          >
-                            Address:
-                          </Typography>
-                        )}
-                        <Typography
-                          color="#3D7AD9"
-                          fontWeight="bold"
-                          fontSize="16px"
-                          style={{
-                            color: "black",
-                            fontSize: 16.14,
-                            fontFamily: "Montserrat",
-                            fontWeight: "600",
-                            wordWrap: "break-word",
-                          }}
-                        >
-                          Seat Preferences:
-                        </Typography>
-                      </Grid>
-                      <Grid item md={9} style={{ background: "#DFE6F7" }}>
-                        <Typography
-                          color="#FF8900"
-                          fontWeight="bold"
-                          fontSize="16px"
-                          style={{
-                            color: "black",
-                            fontSize: 16.14,
-                            fontFamily: "Montserrat",
-                            fontWeight: "400",
-                            wordWrap: "break-word",
-                          }}
-                        >
-                          {passenger.Title} {passenger.FirstName}{" "}
-                          {passenger.LastName}
-                        </Typography>
-                        <Typography
-                          color="#FF8900"
-                          fontWeight="bold"
-                          fontSize="16px"
-                          style={{
-                            color: "black",
-                            fontSize: 16.14,
-                            fontFamily: "Montserrat",
-                            fontWeight: "400",
-                            wordWrap: "break-word",
-                          }}
-                        >
-                          {passenger.Gender === 1
-                            ? "Female"
-                            : passenger.Gender === 2
-                              ? "Male"
-                              : "Transgender"}
-                        </Typography>
-                        {passenger.AddressLine1 && (
-                          <Typography
-                            style={{
-                              color: "black",
-                              fontSize: 16.14,
-                              fontFamily: "Montserrat",
-                              fontWeight: "400",
-                              wordWrap: "break-word",
-                            }}
-                          >
-                            {passenger.AddressLine1}, {passenger.City},{" "}
-                            {passenger.Nationality}
-                          </Typography>
-                        )}
-                        <Typography
-                          style={{
-                            color: "black",
-                            fontSize: 16.14,
-                            fontFamily: "Montserrat",
-                            fontWeight: "400",
-                            wordWrap: "break-word",
-                          }}
-                        >
-                          8D
-                        </Typography>
-                      </Grid>
-                    </Grid>
-                  </div>
-                );
-              })}
-            </Box>
-          </AccordionDetails>
-        </Accordion>
-
-        <Accordion
-          style={{
-            width: 822,
-
-            background: "#DFE6F7",
-            borderRadius: 4,
-            // position:"relative"
-          }}
-        >
-          <AccordionSummary
-            expandIcon={<ExpandMoreIcon />}
-            aria-controls="panel1a-content"
-            id="panel1a-header"
-            style={{
-              width: 822,
               height: 49,
 
               background: "#DFE6F7",
@@ -895,7 +619,7 @@ const Flightbookingdetail = () => {
             </Typography>
           </AccordionSummary>
           <AccordionDetails style={{ height: "auto" }}>
-            <Box className="Top_header" p={5} width={822}>
+            <Box className="Top_header" p={5}>
               {fareRules.map((rule) => (
                 <Box>
                   <div
@@ -913,276 +637,18 @@ const Flightbookingdetail = () => {
                     dangerouslySetInnerHTML={createMarkup(rule.FareRuleDetail)}
                     style={{ padding: "20px" }}
                   />
-                  {/* <Grid container spacing={1} mt={1}>
-              <Grid item xs={6} md={6}>
-                <Box textAlign="center">
-                  <Typography
-                    color="#707070"
-                    fontSize="14px"
-                    fontWeight="bold"
-                    textAlign="left"
-                    mb={1}
-                  >
-                    Cancellation
-                  </Typography>
-                  <Typography
-                    color="#008FCC"
-                    fontSize="14px"
-                    fontWeight="bold"
-                    textAlign="left"
-                  >
-                    INR 3500 from 0 To 3 Days before dept
-                  </Typography>
-                  <Typography
-                    color="#008FCC"
-                    fontSize="14px"
-                    fontWeight="bold"
-                    textAlign="left"
-                  >
-                    INR 3000 from 4 Days & above before dept
-                  </Typography>
-                </Box>
-              </Grid>
-              <Grid item xs={6} md={6}>
-                <Box textAlign="center">
-                  <Typography
-                    color="#707070"
-                    fontSize="14px"
-                    fontWeight="bold"
-                    textAlign="left"
-                    mb={1}
-                  >
-                    Reissue
-                  </Typography>
-                  <Typography
-                    color="#008FCC"
-                    fontSize="14px"
-                    fontWeight="bold"
-                    textAlign="left"
-                  >
-                    INR 3250 from 0 To 3 Days before dept
-                  </Typography>
-                  <Typography
-                    color="#008FCC"
-                    fontSize="14px"
-                    fontWeight="bold"
-                    textAlign="left"
-                  >
-                    INR 2750 from 4 Days & above before dept
-                  </Typography>
-                </Box>
-              </Grid>
-            </Grid> */}
                 </Box>
               ))}
-              {/* <Box>
-          <Typography
-            color="#008FCC"
-            fontSize="16px"
-            fontWeight="bold"
-            textAlign="center"
-          >
-            Fare Rule
-          </Typography>
-          <Typography
-            color="#707070"
-            fontSize="12px"
-            fontWeight="bold"
-            textAlign="center"
-          >
-            DEL - BOM
-          </Typography>
-          <Grid container spacing={1} mt={1}>
-            <Grid item xs={6} md={6}>
-              <Box textAlign="center">
-                <Typography
-                  color="#707070"
-                  fontSize="14px"
-                  fontWeight="bold"
-                  textAlign="left"
-                  mb={1}
-                >
-                  Cancellation
-                </Typography>
-                <Typography
-                  color="#008FCC"
-                  fontSize="14px"
-                  fontWeight="bold"
-                  textAlign="left"
-                >
-                  INR 3500 from 0 To 3 Days before dept
-                </Typography>
-                <Typography
-                  color="#008FCC"
-                  fontSize="14px"
-                  fontWeight="bold"
-                  textAlign="left"
-                >
-                  INR 3000 from 4 Days & above before dept
-                </Typography>
-              </Box>
-            </Grid>
-            <Grid item xs={6} md={6}>
-              <Box textAlign="center">
-                <Typography
-                  color="#707070"
-                  fontSize="14px"
-                  fontWeight="bold"
-                  textAlign="left"
-                  mb={1}
-                >
-                  Reissue
-                </Typography>
-                <Typography
-                  color="#008FCC"
-                  fontSize="14px"
-                  fontWeight="bold"
-                  textAlign="left"
-                >
-                  INR 3250 from 0 To 3 Days before dept
-                </Typography>
-                <Typography
-                  color="#008FCC"
-                  fontSize="14px"
-                  fontWeight="bold"
-                  textAlign="left"
-                >
-                  INR 2750 from 4 Days & above before dept
-                </Typography>
-              </Box>
-            </Grid>
-          </Grid>
-        </Box> */}
-              {/* <Box py={3}>
-          <ul>
-            <li
-              style={{ color: "#FF0000", fontSize: "14px", fontWeight: "bold" }}
-            >
-              {" "}
-              Mentioned Fee are per PAX and per sector
-            </li>
-            <li
-              style={{ color: "#FF0000", fontSize: "14px", fontWeight: "bold" }}
-            >
-              {" "}
-              Apart from airline charges, GST + RAF + applicable charges if any,
-              will be charged
-            </li>
-          </ul>
-        </Box>
-        <Box>
-          <Grid container spacing={1}>
-            <Grid item xs={6} md={8}>
-              <Typography
-                color="#707070"
-                fontSize="14px"
-                fontWeight="bold"
-                textAlign="left"
-                mb={1}
-              >
-                6E:BOM - DEL
-              </Typography>
-              <Typography
-                color="#707070"
-                fontSize="14px"
-                textAlign="left"
-                mb={1}
-              >
-                The Fare Basis Code is: R015AP These are Fare Rules for Domestic
-                Flights. Meal: Chargeable Seat: Chargeable Hand Bag: 1 Bag Upto
-                7 Kg. Check-in Baggage: 15 Kg. Check-in Baggage (Student Fare):
-                25 Kg.L
-              </Typography>
-              <Typography
-                color="#008FCC "
-                fontSize="14px"
-                textAlign="left"
-                fontWeight="bold"
-              >
-                {" "}
-                Subject to change without prior notice.{" "}
-              </Typography>
-              <Typography
-                color="#008FCC "
-                fontSize="14px"
-                textAlign="left"
-                fontWeight="bold"
-              >
-                {" "}
-                Note : We should receive the request at least four hours prior
-                to Airline Fare Rules Policy.{" "}
-              </Typography>
-            </Grid>
-          </Grid>
-        </Box> */}
             </Box>
           </AccordionDetails>
         </Accordion>
-        <div
-          style={{
-            width: 822,
-            height: 49,
-            paddingLeft: 20,
-            paddingRight: 20,
-            paddingTop: 10,
-            paddingBottom: 10,
-            background: "#DFE6F7",
-            borderRadius: 4,
-            justifyContent: "flex-start",
-            alignItems: "center",
-            gap: 10,
-            display: "inline-flex",
-          }}
-        >
-          <div
-            style={{
-              color: "black",
-              fontSize: 24,
-              fontFamily: "Montserrat",
-              fontWeight: "600",
-              wordWrap: "break-word",
-            }}
-          >
-            Terms & Conditions{" "}
-          </div>
-        </div>
       </div>
 
-      {/* <div
-        style={{
-          width: 822,
-          height: 49,
-          paddingLeft: 20,
-          paddingRight: 20,
-          paddingTop: 10,
-          paddingBottom: 10,
-          background: "#DFE6F7",
-          borderRadius: 4,
-          justifyContent: "flex-start",
-          alignItems: "center",
-          gap: 10,
-          display: "flex",
-          marginTop: "10px",
-        }}
-      >
-        <Box display="flex" alignItems="center">
-          <input
-            className="inputSelect"
-            type="checkbox"
-            value={passengerAgreement}
-            onChange={() => setPassengerAgreement(!passengerAgreement)}
-          />{" "}
-        </Box>
-        <Box display="flex" alignItems="center">
-          <input
-            className="inputSelect"
-            type="checkbox"
-            value={paymentOption}
-            onChange={() => setPaymentOption(!paymentOption)}
-          />
-        </Box>
-      </div> */}
-
+      <div className="col-lg-12 my-3">
+        <div class="headingflightPassenger">
+          <p>Term & Condition</p>
+        </div>
+      </div>
       <div
         style={{
           color: "#E73C33",
@@ -1198,7 +664,6 @@ const Flightbookingdetail = () => {
       </div>
       <div
         style={{
-          width: 728,
           height: 44,
           paddingLeft: 24,
           paddingRight: 24,
@@ -1238,59 +703,32 @@ const Flightbookingdetail = () => {
       <div
         style={{
           display: "flex",
+          justifyContent: "center",
           marginTop: "10px",
           marginBottom: "10px",
           gap: "40px",
         }}
       >
-        {/* <div
-          style={{
-            color: "#000080",
-            fontSize: 16.14,
-            fontFamily: "Montserrat",
-            fontWeight: "500",
-            wordWrap: "break-word",
-          }}
-        >
-          You have 2,000,000 as your Cash balance
-        </div> */}
         <form
-          // action="/Flightbookingconfirmation"
           className="formFlightSearch"
           textAlign="center"
           onSubmit={handleSubmit}
         >
-          <button
-            style={{
-              width: 241,
-              height: 63,
-              paddingLeft: 63.63,
-              paddingRight: 63.63,
-              paddingTop: 21.21,
-              paddingBottom: 21.21,
-              background: "#21325D",
-              borderRadius: 5.3,
-              justifyContent: "center",
-              alignItems: "center",
-              gap: 15.91,
-              display: "inline-flex",
-              border: "1px solid #21325D",
-              color: "white",
-              cursor: "pointer",
-              marginTop: "-35px",
-            }}
-            type="submit"
-            disabled={
-              !passengerAgreement || !paymentOption
-                ? true
-                : loading
+          <div className="flightDetButton">
+            <button
+              type="submit"
+              disabled={
+                !passengerAgreement || !paymentOption
                   ? true
-                  : false
-            }
-          >
-            {" "}
-            {loading ? "Loading..." : "Ticket"}{" "}
-          </button>
+                  : loading
+                    ? true
+                    : false
+              }
+            >
+              {" "}
+              {loading ? "Loading..." : "Ticket"}{" "}
+            </button>
+          </div>
         </form>
       </div>
       <Modal
@@ -1302,7 +740,7 @@ const Flightbookingdetail = () => {
           <CircularProgress />
         </Box>
       </Modal>
-    </Box>
+    </div>
   );
 };
 

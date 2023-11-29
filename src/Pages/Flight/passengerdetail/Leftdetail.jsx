@@ -7,6 +7,7 @@ import "./passenger.css";
 import { Typography, Button } from "@mui/material";
 import { useDispatch, useSelector, useReducer } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import flightdir from "../../../Images/flgihtdir.png"
 import groupimg from "../../../Images/Groupl.png";
 import {
   bookAction,
@@ -25,7 +26,7 @@ const Leftdetail = () => {
   const childs = sessionStorage.getItem("childs");
   const infants = sessionStorage.getItem("infants");
   const reducerState = useSelector((state) => state);
-  // console.log("reducerState", reducerState);
+  console.log("reducerState", reducerState);
   const ResultIndex = sessionStorage.getItem("ResultIndex");
   const [farePrice, setFarePrice] = useState("");
   const fareValue = reducerState?.flightFare?.flightQuoteData?.Results;
@@ -214,7 +215,7 @@ const Leftdetail = () => {
   //   }
   // }, [reducerState?.flightBook?.flightBookDataGDS?.Error?.ErrorCode, navigate]);
 
-  const fareQuoteData = reducerState?.flightFare?.flightQuoteData?.Results;
+
   const hii = { h11: "hii", h1: "h2", h3: "h3", h4: "" };
   // const ps = Object.keys(hii)
 
@@ -304,15 +305,8 @@ const Leftdetail = () => {
 
 
     )
-    // const emailVal=5
-    console.warn(emailVal, "emailVaxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxkkkkkkk");
-    // console.log(
-    //   passengerData,
-    //   "passengerDatammmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm"
-    // );
-    if (valid.length === 0 && emailVal.length === 0) {
-      // console.log("yessssssssssssssssssssssssssssss");
 
+    if (valid.length === 0 && emailVal.length === 0) {
 
       if (fareValue?.IsLCC === false) {
         dispatch(PassengersAction(passengerData));
@@ -488,190 +482,275 @@ const Leftdetail = () => {
 
 
 
+  const fareQuoteData = reducerState?.flightFare?.flightQuoteData?.Results;
+  console.log(fareQuoteData, "fare quote data")
+
+
+  const img = fareQuoteData?.Segments?.[0]?.[0]?.Airline?.AirlineCode;
+  const airlineName = fareQuoteData?.Segments?.[0]?.[0]?.Airline?.AirlineName;
+  const airlineCode = fareQuoteData?.Segments?.[0]?.[0]?.Airline?.AirlineCode;
+  const flightNumber = fareQuoteData?.Segments?.[0]?.[0]?.Airline?.FlightNumber;
+  const originCity = fareQuoteData?.Segments?.[0]?.[0]?.Origin?.Airport?.CityName;
+  const DestinationCity = fareQuoteData?.Segments?.[0]?.[0]?.Destination?.Airport?.CityName;
+  const flightFare = fareQuoteData?.Fare?.PublishedFare;
+  const originTerminal = fareQuoteData?.Segments?.[0]?.[0]?.Origin?.Airport?.Terminal;
+  const destinationTerminal = fareQuoteData?.Segments?.[0]?.[0]?.Destination?.Airport?.Terminal;
+
+
+
+
+
+  const time = `${Math.floor(fareQuoteData?.Segments?.[0]?.[0]?.Duration / 60)}hr ${fareQuoteData?.Segments?.[0]?.[0]?.Duration % 60
+    }min`;
+  const dateString = fareQuoteData?.Segments?.[0]?.[0]?.Origin?.DepTime;
+  const date1 = new Date(dateString);
+  const time1 = date1.toLocaleTimeString([], {
+    hour: "2-digit",
+    minute: "2-digit",
+  });
+
+  const day = date1.getDate();
+  const month = date1.toLocaleString("default", {
+    month: "short",
+  });
+  const year = date1.getFullYear();
+  const formattedDate = `${day} ${month} ${year}`;
+
+  const dateString1 = fareQuoteData?.Segments?.[0]?.[0]?.Destination?.ArrTime;
+  const date2 = new Date(dateString1);
+  const time2 = date2.toLocaleTimeString([], {
+    hour: "2-digit",
+    minute: "2-digit",
+  });
+
+  const day1 = date2.getDate();
+  const month1 = date2.toLocaleString("default", {
+    month: "short",
+  });
+
+
+
+
+
+
+
   // console.warn(minDateChild, "minDateChild", maxDateChild, "maxDateChild", 'currentDate&&&&&&&&&&&&&&&&&&&&&&&&&78888888888888888888')
 
   return (
     <div>
-      <form onSubmit={(e) => handleSubmit(e)} validate>
-        <div style={{ display: "flex", justifyContent: "space-between" }}>
-          <div className="leftdiv">Passenger Details</div>
-          <div className="rightdiv"></div>
+
+      <div className="singleFlightBox justify-content-evenly">
+        <div className="singleFlightBoxOne">
+          <div><img src={`${process.env.PUBLIC_URL}/FlightImages/${img}.png`} /> </div>
+          <span>{airlineName}</span>
+          <p>{airlineCode}{" "}{flightNumber}</p>
         </div>
+        <div className="singleFlightBoxTwo">
+          <span>{originCity}</span>
+          <p>{time1.substr(0, 5)}</p>
+          <p>Terminal{' '}{originTerminal}</p>
+        </div>
+        <div className="singleFlightBoxThree">
+          <h4>{time}</h4>
+          <div><img src={flightdir} /></div>
+          <p>Direct Flight</p>
+          <span>Refundable</span>
+        </div>
+        <div className="singleFlightBoxFour">
+          <span>{DestinationCity}</span>
+          <p>{time2.substr(0, 5)}</p>
+          <p>Terminal{' '}{destinationTerminal}</p>
+        </div>
+        <div className="singleFlightBoxFive">
+          <span>₹{flightFare}</span>
+          <p>Publish</p>
+        </div>
+      </div>
 
-        <div className="services">
-          <form onSubmit={handleSubmit}>
-            <Box
-              className="mid_header"
-              p={5}
-              mt={25}
-              mb={10}
-              style={{
-                borderRadius: "4.587px",
-                border: "1.147px solid #9E9E9E",
+      <div className="col-lg-12">
+        <div class="headingflightPassenger">
+          <p>Passenger Details</p>
+          <span>Total Adult(s) :{' '} {adults} Child:{' '} {childs} Infants: {' '} {infants}</span>
+        </div>
+      </div>
 
-                background: "#FFFBFB",
-              }}
-            >
-              <Typography className="p-2 Top_txt text-dark">
-                Adult: {adults}
-              </Typography>
+
+      <form className="p-0" onSubmit={(e) => handleSubmit(e)} validate>
+        <div className="">
+          <form className="p-0" onSubmit={handleSubmit}>
+            <Box>
 
               {Array.from({ length: adults }, (err, i) => {
                 return (
                   <div className="mb-2">
-                    <div className=" p-2 ">
-                      Passenger {i + 1} {i == 0 ? "Lead" : ""}
+                    <div className="p-2 mb-2 passenTitle">
+                      Passenger {i + 1} {i == 0 ? "( Lead )" : ""}
                     </div>
-                    <Grid
-                      container
-                      spacing={{ xs: 2, md: 3 }}
-                      columns={{ xs: 4, sm: 8, md: 12 }}
+                    <div className="col-lg-12"
                     >
-                      <Grid item md={4}>
-                        <Box>
-                          <div className="form_input">
-                            <label className="form_lable">Title*</label>
-                            <select
-                              name="Title"
-                              onChange={(e) => handleServiceChange(e, i)}
-                            >
-                              <option value="Mr">Mr.</option>
-                              <option value="Mrs">Mrs.</option>
-                              <option value="Miss">Miss</option>
-                            </select>
-                          </div>
-                        </Box>
-                      </Grid>
-                      <Grid item md={4}>
-                        {" "}
-                        <Box>
-                          <div className="form_input">
-                            <label className="form_lable">First name*</label>
-                            <input
-                              name="FirstName"
-                              placeholder="Enter your name"
-                              onChange={(e) => handleServiceChange(e, i)}
-                              required
-                            />
-
-                            {passengerData[i].FirstName == "" && sub && <span id="error1">Enter First Name</span>}
-
-                          </div>
-                        </Box>
-                      </Grid>
-                      <Grid item md={4}>
-                        <Box>
-                          <div className="form_input">
-                            <label hotel_form_input className="form_lable">
-                              Last Name*
-                            </label>
-                            <input
-                              name="LastName"
-                              placeholder="Enter your last name"
-                              onChange={(e) => handleServiceChange(e, i)}
-                              required
-                            />
-                            {passengerData[i].LastName == "" && sub && <span id="error1">Enter Last Name</span>}
-                          </div>
-                        </Box>
-                      </Grid>
-                      <Grid item md={4}>
-                        {" "}
-                        <Box>
-                          <div className="form_input">
-                            <label hotel_form_input className="form_lable">
-                              Date Of Birth*
-                            </label>
-                            <input
-                              type="date"
-                              name="DateOfBirth"
-                              onChange={(e) => handleServiceChange(e, i)}
-                              required
-                              // value={maxDate}
-                              // min={minDate}
-                              max={maxDate}
-
-                            />
-                            {passengerData[i].DateOfBirth == "" && sub && <span id="error1">Enter DOB</span>}
-                          </div>
-                        </Box>
-                      </Grid>
-                      <Grid item md={4}>
-                        <Box>
-                          <div className="form_input">
-                            <label hotel_form_input className="form_lable">
-                              Email*
-                            </label>
-                            <input
-                              type="email"
-                              name="Email"
-                              placeholder="Enter Email"
-                              onChange={(e) => handleServiceChange(e, i)}
-
-                            />
-                            {!validateEmail1(passengerData[i].Email) && sub && <span id="error1">Enter Email</span>}
-                          </div>
-                        </Box>
-                      </Grid>
-                      <Grid item md={4}>
-                        <Box>
-                          <div className="form_input">
-                            <label hotel_form_input className="form_lable">
-                              ContactNo*
-                            </label>
-                            <input
-                              type="number"
-                              name="ContactNo"
-                              placeholder="Enter ContactNo"
-                              onChange={(e) => handleServiceChange(e, i)}
-                              required
-
-
-                            />
-                            {!validatePhoneNumber(passengerData[i].ContactNo) == true && sub && <span id="error1">Enter Contact</span>}
-                          </div>
-                        </Box>
-                      </Grid>
-
-                      {isPassportRequired === true ? (
-                        <Grid item md={4}>
+                      <div className="row">
+                        <div className="col-lg-2 col-md-6 col-sm-6">
                           <Box>
                             <div className="form_input">
-                              <label className="form_lable">PassportNo*</label>
-                              <input
-                                name="PassportNo"
-                                type="text"
-                                required
-                                placeholder="Enter Passport No"
+                              <label className="form_lable">Title*</label>
+                              <select
+                                name="Title"
                                 onChange={(e) => handleServiceChange(e, i)}
-                              />
+                              >
+                                <option value="Mr">Mr.</option>
+                                <option value="Mrs">Mrs.</option>
+                                <option value="Miss">Miss</option>
+                              </select>
                             </div>
                           </Box>
-                        </Grid>
-                      ) : (
-                        ""
-                      )}
-                      {isPassportRequired === true ? (
-                        <Grid item md={4}>
+                        </div>
+                        <div className="col-lg-4 col-md-6 col-sm-6">
+                          {" "}
                           <Box>
                             <div className="form_input">
-                              <label className="form_lable">
-                                PassportExpiry*
+                              <label className="form_lable">First name*</label>
+                              <input
+                                name="FirstName"
+                                placeholder="Enter your name"
+                                onChange={(e) => handleServiceChange(e, i)}
+                                required
+                              />
+
+                              {passengerData[i].FirstName == "" && sub && <span id="error1">Enter First Name</span>}
+
+                            </div>
+                          </Box>
+                        </div>
+                        <div className="col-lg-4 col-md-6 col-sm-6">
+                          <Box>
+                            <div className="form_input">
+                              <label hotel_form_input className="form_lable">
+                                Last Name*
                               </label>
                               <input
-                                name="PassportExpiry"
-                                type="date"
-                                required
-                                placeholder="Enter Passport date"
+                                name="LastName"
+                                placeholder="Enter your last name"
                                 onChange={(e) => handleServiceChange(e, i)}
+                                required
                               />
+                              {passengerData[i].LastName == "" && sub && <span id="error1">Enter Last Name</span>}
                             </div>
                           </Box>
-                        </Grid>
-                      ) : (
-                        ""
-                      )}
-                    </Grid>
+                        </div>
+                        <div className="col-lg-2 col-md-6 col-sm-6" >
+                          <div className="hotel_form_input">
+                            <label className="form_lable">Gender*</label>
+                            <select
+                              name="Gender"
+                              className="form_input_select"
+                              onChange={(e) =>
+                                handleServiceChange(e, i)
+                              }
+                            >
+                              <option value="1">Female</option>
+                              <option value="2">Male</option>
+                              <option value="3">Transgender</option>
+                            </select>
+                          </div>
+                        </div>
+                        <div className="col-lg-4 col-md-6 col-sm-6">
+                          {" "}
+                          <Box>
+                            <div className="form_input">
+                              <label hotel_form_input className="form_lable">
+                                Date Of Birth*
+                              </label>
+                              <input
+                                type="date"
+                                name="DateOfBirth"
+                                onChange={(e) => handleServiceChange(e, i)}
+                                required
+                                // value={maxDate}
+                                // min={minDate}
+                                max={maxDate}
+
+                              />
+                              {passengerData[i].DateOfBirth == "" && sub && <span id="error1">Enter DOB</span>}
+                            </div>
+                          </Box>
+                        </div>
+                        <div className="col-lg-4 col-md-6 col-sm-6">
+                          <Box>
+                            <div className="form_input">
+                              <label hotel_form_input className="form_lable">
+                                Email*
+                              </label>
+                              <input
+                                type="email"
+                                name="Email"
+                                placeholder="Enter Email"
+                                onChange={(e) => handleServiceChange(e, i)}
+
+                              />
+                              {!validateEmail1(passengerData[i].Email) && sub && <span id="error1">Enter Email</span>}
+                            </div>
+                          </Box>
+                        </div>
+                        <div className="col-lg-4 col-md-6 col-sm-6">
+                          <Box>
+                            <div className="form_input">
+                              <label hotel_form_input className="form_lable">
+                                ContactNo*
+                              </label>
+                              <input
+                                type="number"
+                                name="ContactNo"
+                                placeholder="Enter ContactNo"
+                                onChange={(e) => handleServiceChange(e, i)}
+                                required
+
+
+                              />
+                              {!validatePhoneNumber(passengerData[i].ContactNo) == true && sub && <span id="error1">Enter Contact</span>}
+                            </div>
+                          </Box>
+                        </div>
+
+                        {isPassportRequired === true ? (
+                          <div className="col-lg-4 col-md-6 col-sm-6">
+                            <Box>
+                              <div className="form_input">
+                                <label className="form_lable">PassportNo*</label>
+                                <input
+                                  name="PassportNo"
+                                  type="text"
+                                  required
+                                  placeholder="Enter Passport No"
+                                  onChange={(e) => handleServiceChange(e, i)}
+                                />
+                              </div>
+                            </Box>
+                          </div>
+                        ) : (
+                          ""
+                        )}
+                        {isPassportRequired === true ? (
+                          <div className="col-lg-4 col-md-6 col-sm-6">
+                            <Box>
+                              <div className="form_input">
+                                <label className="form_lable">
+                                  PassportExpiry*
+                                </label>
+                                <input
+                                  name="PassportExpiry"
+                                  type="date"
+                                  required
+                                  placeholder="Enter Passport date"
+                                  onChange={(e) => handleServiceChange(e, i)}
+                                />
+                              </div>
+                            </Box>
+                          </div>
+                        ) : (
+                          ""
+                        )}
+                      </div>
+                    </div>
                   </div>
                 );
               })}
@@ -679,24 +758,16 @@ const Leftdetail = () => {
             {childs > 0 && (
               <Box
                 className="mid_header"
-                style={{ border: "1.147px solid #9E9E9E" }}
                 p={5}
                 mt={25}
               >
-                <Typography className="p-2 Top_txt text-dark">
-                  Childs: {childs}
-                </Typography>
                 {Array.from({ length: childs }, (err, i) => {
                   return (
                     <div className="mb-2">
                       <div className=" p-2 ">Child {i + 1}</div>
-                      <Grid
-                        container
-                        spacing={{ xs: 2, md: 3 }}
-                        columns={{ xs: 4, sm: 8, md: 12 }}
-                      >
-                        <Grid item md={4}>
-                          <Box>
+                      <div className="col-lg-12"   >
+                        <div className="row">
+                          <div className="col-lg-4 col-md-6 col-sm-6" >
                             <div className="form_input">
                               <label hotel_form_input className="form_lable">
                                 First name*
@@ -714,10 +785,8 @@ const Leftdetail = () => {
 
 
                             </div>
-                          </Box>
-                        </Grid>
-                        <Grid item md={4}>
-                          <Box>
+                          </div>
+                          <div className="col-lg-4 col-md-6 col-sm-6" >
                             <div className="form_input">
                               <label hotel_form_input className="form_lable">
                                 Last name*
@@ -733,10 +802,8 @@ const Leftdetail = () => {
                               {passengerData[Number(adults) + i].LastName == "" && sub && <span id="error1">Enter Last Name</span>}
 
                             </div>
-                          </Box>
-                        </Grid>
-                        <Grid item md={4}>
-                          <Box>
+                          </div>
+                          <div className="col-lg-4 col-md-6 col-sm-6" >
                             <div className="hotel_form_input">
                               <label className="form_lable">Gender*</label>
                               <select
@@ -751,10 +818,8 @@ const Leftdetail = () => {
                                 <option value="3">Transgender</option>
                               </select>
                             </div>
-                          </Box>
-                        </Grid>
-                        <Grid item md={4}>
-                          <Box>
+                          </div>
+                          <div className="col-lg-4 col-md-6 col-sm-6" >
                             <div className="form_input">
                               <label hotel_form_input className="form_lable">
                                 Date Of Birth*
@@ -774,80 +839,85 @@ const Leftdetail = () => {
                               />
                               {passengerData[Number(adults) + i].DateOfBirth == "" && sub && <span id="error1">Enter DOB</span>}
                             </div>
-                          </Box>
-                        </Grid>
-                        {isPassportRequired == true ? (
-                          <Grid item md={4}>
-                            <Box>
-                              <div className="form_input">
-                                <label className="form_lable">
-                                  PassportNo*
-                                </label>
-                                <input
-                                  name="PassportNo"
-                                  type="text"
-                                  required
-                                  placeholder="Enter Passport No"
-                                  onChange={(e) =>
-                                    handleServiceChange(e, i + Number(adults))
-                                  }
-                                />
-                              </div>
-                            </Box>
-                          </Grid>
-                        ) : (
-                          ""
-                        )}
-                        {isPassportRequired == true ? (
-                          <Grid item md={4}>
-                            <Box>
-                              <div className="form_input">
-                                <label className="form_lable">
-                                  PassportExpiry*
-                                </label>
-                                <input
-                                  name="PassportExpiry"
-                                  type="date"
-                                  required
-                                  placeholder="Enter Passport date"
-                                  onChange={(e) =>
-                                    handleServiceChange(e, i + Number(adults))
-                                  }
-                                />
-                              </div>
-                            </Box>
-                          </Grid>
-                        ) : (
-                          ""
-                        )}
-                      </Grid>
+                          </div>
+
+
+                          {isPassportRequired == true ? (
+                            <div className="col-lg-4 col-md-6 col-sm-6" >
+                              <Box>
+                                <div className="form_input">
+                                  <label className="form_lable">
+                                    Passport No*
+                                  </label>
+                                  <input
+                                    name="PassportNo"
+                                    type="text"
+                                    required
+                                    placeholder="Enter Passport No"
+                                    onChange={(e) =>
+                                      handleServiceChange(e, i + Number(adults))
+                                    }
+                                  />
+                                </div>
+                              </Box>
+                            </div>
+                          ) : (
+                            ""
+                          )}
+                          {isPassportRequired == true ? (
+                            <div className="col-lg-4 col-md-6 col-sm-6" >
+                              <Box>
+                                <div className="form_input">
+                                  <label className="form_lable">
+                                    Passport Expiry*
+                                  </label>
+                                  <input
+                                    name="PassportExpiry"
+                                    type="date"
+                                    required
+                                    placeholder="Enter Passport date"
+                                    onChange={(e) =>
+                                      handleServiceChange(e, i + Number(adults))
+                                    }
+                                  />
+                                </div>
+                              </Box>
+                            </div>
+                          ) : (
+                            ""
+                          )}
+                        </div>
+                      </div>
                     </div>
                   );
                 })}
               </Box>
             )}
+
+            {/* {Array.from({ length: childs }, (err, i) => {
+              return (
+                <div className="mb-2">
+                  <div className=" p-2 ">Child {i + 1}</div>
+                  <div className="col-lg-12"   >
+                    <div className="row">
+                      <div className="col-lg-4 col-md-6 col-sm-6" >
+                        <div className="form_input">
+                          <label hotel_form_input className="form_lable">
+                            First name*
+                          </label> */}
             {infants > 0 && (
               <Box
                 className="mid_header"
-                style={{ border: "1.147px solid #9E9E9E" }}
                 p={5}
                 mt={25}
               >
-                <Typography className="p-2 Top_txt text-dark">
-                  Infants: {infants}
-                </Typography>
                 {Array.from({ length: infants }, (err, i) => {
                   return (
                     <div className="mb-2">
                       <span className=" p-2 ">Infant {i + 1}</span>
-                      <Grid
-                        container
-                        spacing={{ xs: 2, md: 3 }}
-                        columns={{ xs: 4, sm: 8, md: 12 }}
-                      >
-                        <Grid item md={4}>
-                          {" "}
-                          <Box>
+                      <div className=" col-lg-12">
+                        <div className="row">
+                          <div className="col-lg-4 col-md-6 col-sm-6" >
                             <div className="form_input">
                               <label hotel_form_input className="form_lable">
                                 First name*
@@ -864,13 +934,9 @@ const Leftdetail = () => {
                                 }
                               />
                               {passengerData[i + Number(adults) + Number(childs)].FirstName == "" && sub && <span id="error1">Enter First Name</span>}
-
-
                             </div>
-                          </Box>
-                        </Grid>
-                        <Grid item md={4}>
-                          <Box>
+                          </div>
+                          <div className="col-lg-4 col-md-6 col-sm-6" >
                             <div className="form_input">
                               <label hotel_form_input className="form_lable">
                                 Last name*
@@ -888,10 +954,8 @@ const Leftdetail = () => {
                               />
                               {passengerData[i + Number(adults) + Number(childs)].LastName == "" && sub && <span id="error1">Enter Last Name</span>}
                             </div>
-                          </Box>
-                        </Grid>
-                        <Grid item md={4}>
-                          <Box>
+                          </div>
+                          <div className="col-lg-4 col-md-6 col-sm-6" >
                             <div className="hotel_form_input">
                               <label className="form_lable">Gender*</label>
                               <select
@@ -909,10 +973,9 @@ const Leftdetail = () => {
                                 <option value="3">Transgender</option>
                               </select>
                             </div>
-                          </Box>
-                        </Grid>
-                        <Grid item md={4}>
-                          <Box>
+                          </div>
+                          <div className="col-lg-4 col-md-6 col-sm-6" >
+
                             <div className="form_input">
                               <label hotel_form_input className="form_lable">
                                 Date Of Birth*
@@ -933,11 +996,9 @@ const Leftdetail = () => {
                               />
                               {passengerData[i + Number(adults) + Number(childs)].DateOfBirth == "" && sub && <span id="error1">Enter DOB</span>}
                             </div>
-                          </Box>
-                        </Grid>
-                        {isPassportRequired == true ? (
-                          <Grid item md={4}>
-                            <Box>
+                          </div>
+                          {isPassportRequired == true ? (
+                            <div className="col-lg-4 col-md-6 col-sm-6" >
                               <div className="form_input">
                                 <label className="form_lable">
                                   PassportNo*
@@ -955,14 +1016,12 @@ const Leftdetail = () => {
                                   }
                                 />
                               </div>
-                            </Box>
-                          </Grid>
-                        ) : (
-                          ""
-                        )}
-                        {isPassportRequired == true ? (
-                          <Grid item md={4}>
-                            <Box>
+                            </div>
+                          ) : (
+                            ""
+                          )}
+                          {isPassportRequired == true ? (
+                            <div className="col-lg-4 col-md-6 col-sm-6" >
                               <div className="form_input">
                                 <label className="form_lable">
                                   PassportExpiry*
@@ -980,12 +1039,12 @@ const Leftdetail = () => {
                                   }
                                 />
                               </div>
-                            </Box>
-                          </Grid>
-                        ) : (
-                          ""
-                        )}
-                      </Grid>
+                            </div>
+                          ) : (
+                            ""
+                          )}
+                        </div>
+                      </div>
                     </div>
                   );
                 })}
@@ -1107,392 +1166,119 @@ const Leftdetail = () => {
           </div>
         </Box> */}
 
-        <Box
-          className="mid_header"
-          p={5}
-          mt={25}
-          mb={10}
-          style={{
-            borderRadius: "4.587px",
-            border: "1.147px solid #9E9E9E",
 
-            background: "#FFFBFB",
-          }}
-        >
-          <Box px={20}>
-            <Typography
-              sx={{ fontSize: "14px", color: "#616161", fontWeight: "bold" }}
-            >
-              Baggage Details:
-            </Typography>
-          </Box>
-          <Box
-            className="inner_box"
-            display="flex"
-            justifyContent="space-around"
-            mx={20}
-            my={15}
-          >
-            {fareValue?.Segments?.map((data1, index) => {
-              // console.log("Data Map", data1);
-              // return data?.map((data1, index) => {
-              const len = data1.length;
-              return (
-                <>
-                  <Box width="120px" height="40px">
-                    <Typography
-                      color="#252525"
-                      fontSize="14px"
-                      fontWeight="bold"
-                      display="flex"
-                      justifyContent="center"
-                    >
-                      Sector
-                    </Typography>
-                    <Button
-                      style={{
-                        width: "156px",
-                        height: "30px",
-                        fontSize: "12px",
-                        alignItems: "center",
-                        display: "flex",
-                        backgroundColor: "white",
-                        color: "black",
-                        justifyContent: "center",
-                        borderRadius: "10px",
-                        border: "1px solid #D1D1D1",
-                        borderRadius: "4px",
-                      }}
-                    >
-                      {data1[0]?.Origin?.Airport?.AirportCode}-
-                      {data1[len - 1]?.Destination?.Airport?.AirportCode}
-                    </Button>
-                  </Box>
-                  <Box>
-                    <Typography
-                      color="#252525"
-                      fontSize="14px"
-                      fontWeight="bold"
-                      display="flex"
-                      justifyContent="center"
-                    >
-                      Cabin
-                    </Typography>
-                    <Button
-                      style={{
-                        width: "156px",
-                        height: "30px",
-                        fontSize: "12px",
-                        alignItems: "center",
-                        display: "flex",
-                        backgroundColor: "white",
-                        color: "black",
-                        justifyContent: "center",
-                        borderRadius: "10px",
-                        border: "1px solid #D1D1D1",
-                        borderRadius: "4px",
-                      }}
-                    >
-                      {data1[0]?.CabinBaggage ? data1[0]?.CabinBaggage : "7 Kg"}
-                    </Button>
-                  </Box>
-                  <Box>
-                    <Typography
-                      color="#252525"
-                      fontSize="14px"
-                      fontWeight="bold"
-                      display="flex"
-                      justifyContent="center"
-                    >
-                      Check-In
-                    </Typography>
-                    <Button
-                      style={{
-                        width: "156px",
-                        height: "30px",
-                        fontSize: "12px",
-                        alignItems: "center",
-                        display: "flex",
-                        backgroundColor: "white",
-                        color: "black",
-                        justifyContent: "center",
-                        borderRadius: "10px",
-                        border: "1px solid #D1D1D1",
-                        borderRadius: "4px",
-                      }}
-                    >
-                      {data1[0]?.Baggage}
-                    </Button>
-                  </Box>
-                </>
-              );
-              // });
-            })}
-          </Box>
-          <Grid container spacing={1}>
-            <Grid item xs={6} md={4}>
-              <Box p={17}>
-                <Typography color="#616161" fontSize="14px" fontWeight="bold">
-                  Select Excess Baggage
-                </Typography>
-                <Typography color="#616161" fontSize="14px" fontWeight="bold">
-                  (Extra charge will be applicable):
-                </Typography>
-              </Box>
-            </Grid>
-            <Grid item xs={6} md={4}>
-              <Box py={17}>
-                <div className="form_input">
-                  <label hotel_form_input className="form_lable">
-                    {data?.Origin}-{data?.Destination}
-                  </label>
-                  <input type="text" placeholder="No Excess / Extra Baggage" />
+        <div className="col-lg-12">
+          <div class="headingflightPassenger">
+            <p>Baggage Details</p>
+
+          </div>
+        </div>
+
+        <div className="col-lg-12">
+          {fareValue?.Segments?.map((data1, index) => {
+            const len = data1.length;
+            return (
+              <div className="BaggageSector">
+                <div>
+                  <p>Sector</p>
+                  <span>{data1[0]?.Origin?.Airport?.AirportCode}-
+                    {data1[len - 1]?.Destination?.Airport?.AirportCode}</span>
                 </div>
-              </Box>
-            </Grid>
-          </Grid>
-          <Grid container spacing={1}>
-            <Grid item xs={6} md={4}>
-              <Box p={17}>
-                <Typography color="#616161" fontSize="14px" fontWeight="bold">
-                  Meal Preferences:
-                </Typography>
-              </Box>
-            </Grid>
-            <Grid item xs={6} md={4}>
-              <Box py={17}>
-                <div className="form_input">
-                  <label hotel_form_input className="form_lable">
-                    {data?.Origin}-{data?.Destination}
-                  </label>
-                  <input type="text" placeholder="Add No Meal Rs. - 0" />
+                <div>
+                  <p>Cabin</p>
+                  <span>{data1[0]?.CabinBaggage ? data1[0]?.CabinBaggage : "7 Kg"}</span>
                 </div>
-              </Box>
-            </Grid>
-          </Grid>
-          <Grid container spacing={1}>
-            <Grid item xs={6} md={4}>
-              <Box px={17} py={5}>
-                <Grid container spacing={1} mt={1}>
-                  <Grid item xs={6} md={6}>
-                    {fareRule &&
-                      fareRule.length > 0 &&
-                      fareRule.map((dat) => {
-                        // console.log("Dat", dat);
-                        return (
-                          <Box my={2}>
-                            <Accordion
-                              style={{ width: "700px" }}
-                              defaultActiveKey={null}
-                            >
-                              <Accordion.Item>
-                                <Accordion.Header>
-                                  <p>Detailed Fare Rules</p>
-                                </Accordion.Header>
-                                <Accordion.Body>
-                                  <div
-                                    dangerouslySetInnerHTML={{
-                                      __html: dat?.FareRuleDetail,
-                                    }}
-                                  />
-                                </Accordion.Body>
-                              </Accordion.Item>
-                            </Accordion>
-                          </Box>
-                        );
-                      })}
+                <div>
+                  <p>Check-In</p>
+                  <span>{data1[0]?.Baggage}</span>
+                </div>
 
-                    {/*                
-                 <p style={{width:"100%"}}>
-                 The Fare Basis Code is:{" "}
-                    {fareQuoteData?.FareRules[0]?.FareBasisCode}
-                    <br />
-                    Meal: Chargeable
-                    <br />
-                    Seat: Chargeable
-                 </p> */}
 
-                    {/* <Typography
-                    color="#008FCC "
-                    fontSize="14px"
-                    textAlign="left"
-                    fontWeight="bold"
-                  >
-                    {" "}
-                    Subject to change without prior notice.{" "}
-                  </Typography>
-                  <Typography
-                    color="#008FCC "
-                    fontSize="14px"
-                    textAlign="left"
-                    fontWeight="bold"
-                  >
-                    {" "}
-                    Note : We should receive the request at least four hours
-                    prior to Airline Fare Rules Policy.{" "}
-                  </Typography> */}
-                  </Grid>
-                </Grid>
-              </Box>
-            </Grid>
-          </Grid>
 
-          <Box className="mid_header1" m={15}>
-            <Box display="flex" flexDirection="column">
-              <Typography
-                color="#008FCC"
-                fontSize="16px"
-                fontWeight="bold"
-                textAlign="center"
-                width="100%"
-              >
-                Fare Rule
-              </Typography>
-              <Typography
-                color="#707070"
-                fontSize="12px"
-                fontWeight="bold"
-                textAlign="center"
-                width="100%"
-              >
-                {data?.Origin}-{data?.Destination}
-              </Typography>
-            </Box>
-            <Box p={17}>
-              <Grid container spacing={1} mt={1}>
-                <Grid item xs={6} md={6}>
-                  <Box textAlign="center">
-                    <Typography
-                      color="#707070"
-                      fontSize="14px"
-                      fontWeight="bold"
-                      textAlign="left"
-                      mb={1}
-                    >
-                      Cancellation
-                    </Typography>
-                    <Typography
-                      color="#008FCC"
-                      fontSize="14px"
-                      fontWeight="bold"
-                      textAlign="left"
-                    >
-                      INR 3500 from 0 To 3 Days before dept
-                    </Typography>
-                    <Typography
-                      color="#008FCC"
-                      fontSize="14px"
-                      fontWeight="bold"
-                      textAlign="left"
-                    >
-                      INR 3000 from 4 Days & above before dept
-                    </Typography>
-                  </Box>
-                </Grid>
-                <Grid item xs={6} md={6}>
-                  <Box textAlign="center">
-                    <Typography
-                      color="#707070"
-                      fontSize="14px"
-                      fontWeight="bold"
-                      textAlign="left"
-                      mb={1}
-                    >
-                      Reissue
-                    </Typography>
-                    <Typography
-                      color="#008FCC"
-                      fontSize="14px"
-                      fontWeight="bold"
-                      textAlign="left"
-                    >
-                      INR 3250 from 0 To 3 Days before dept
-                    </Typography>
-                    <Typography
-                      color="#008FCC"
-                      fontSize="14px"
-                      fontWeight="bold"
-                      textAlign="left"
-                    >
-                      INR 2750 from 4 Days & above before dept
-                    </Typography>
-                  </Box>
-                </Grid>
-              </Grid>
-            </Box>
-            <Box py={5}>
-              <ul color="red">
-                <li
-                  style={{
-                    color: "#FF0000",
-                    fontSize: "14px",
-                    fontWeight: "bold",
-                  }}
-                >
-                  {" "}
-                  Mentioned Fee are per PAX and per sector
-                </li>
-                <li
-                  style={{
-                    color: "#FF0000",
-                    fontSize: "14px",
-                    fontWeight: "bold",
-                  }}
-                >
-                  {" "}
-                  Apart from airline charges, GST + RAF + applicable charges if
-                  any, will be charged
-                </li>
+              </div>
+
+            );
+          })}
+
+          <div className="listBox">
+            <div>
+              <p>Select Excess Baggage
+                (Extra charge will be applicable):</p>
+              <ul>
+                <li>No Excess / Extra Baggage</li>
               </ul>
-            </Box>
-            {/* {fareQuoteData?.FareRules[0]?.map((value) => {
-              return ( */}
+            </div>
+            <div>
+              <p>Select Excess Baggage
+                (Extra charge will be applicable):</p>
+              <ul>
+                <li>Add No Meal Rs. 0</li>
+              </ul>
+            </div>
+          </div>
+        </div>
 
-            {/* ); })} */}
-          </Box>
 
-          {/* <div
-            style={{
-              width: 200,
-              height: 30,
-              paddingBottom: 32,
-              background: "#21325D",
-              borderRadius: 8,
-              textAlign: "center",
-              alignItems: "center",
-              gap: 24,
-              color:"white",
-              marginLeft: "15px",
-              marginBottom:"5px"
-            }}
-          >
-          
-            <Button my={1}  type="submit">
-            Proceed to Book
-            </Button>
-          </div> */}
+        <div className="col-lg-12 accor_dian">
+          {fareRule &&
+            fareRule.length > 0 &&
+            fareRule.map((dat) => {
+              return (
+                <Box my={2}>
+                  <Accordion
+                    defaultActiveKey={null}
+                  >
+                    <Accordion.Item>
+                      <Accordion.Header>
+                        <p>Detailed Fare Rules</p>
+                      </Accordion.Header>
+                      <Accordion.Body>
+                        <div className="htmlFare"
+                          dangerouslySetInnerHTML={{
+                            __html: dat?.FareRuleDetail,
+                          }}
+                        />
+                      </Accordion.Body>
+                    </Accordion.Item>
+                  </Accordion>
+                </Box>
+              );
+            })}
+        </div>
+
+
+        <div className="col-lg-12">
+          <div class="headingflightPassenger">
+            <p>Fare Rule</p>
+            <span>{data?.Origin}-{data?.Destination}</span>
+          </div>
+        </div>
+
+        <div className="col-lg-12">
+          <div className="fareRuleleft">
+            <div>
+              <div>
+                <p>Cancellation</p>
+                <span>INR 3500 from 0 To 3 Days before dept</span>
+                <span>INR 3000 from 4 Days & above before dept</span>
+              </div>
+              <div>
+                <p>Reissue</p>
+                <span>INR 3250 from 0 To 3 Days before dept</span>
+                <span>INR 2750 from 4 Days & above before dept</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+        <div className="col-lg-12 mt-5 mb-4 leftDetBut">
           <button
-            style={{
-              width: 200,
-              height: 63,
-
-              background: "#21325D",
-              borderRadius: 5.3,
-              justifyContent: "center",
-              alignItems: "center",
-
-              display: "inline-flex",
-              border: "1px solid #21325D",
-              color: "white",
-              cursor: "pointer",
-              marginTop: "10px",
-              marginLeft: "28px",
-            }}
             type="submit"
           >
             Proceed to Book
           </button>
-        </Box>
+        </div>
       </form>
     </div>
   );
