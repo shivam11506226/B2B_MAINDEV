@@ -20,7 +20,10 @@ const BusChangeReq = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
   const [searchTerm, setSearchTerm] = useState("");
-  const [openModalTwo, setOpenModalTwo] = React.useState(false);
+  const [openModalTwo, setOpenModalTwo] = useState(false);
+  const [openModalCancelRequest, setOpenModalCancelRequest] = useState(false);
+  const handleModalOpenCancelRequest = () => setOpenModalCancelRequest(true);
+  const handleModalCloseCancelRequest = () => setOpenModalCancelRequest(false);
   const handleModalOpenTwo = () => setOpenModalTwo(true);
   const handleModalCloseTwo = () => setOpenModalTwo(false);
 
@@ -64,6 +67,11 @@ const BusChangeReq = () => {
     }
   };
 
+
+ 
+
+  
+
   const handleSubmitBus = async (event) => {
     event.preventDefault();
 
@@ -98,6 +106,41 @@ const BusChangeReq = () => {
     }
   };
 
+
+  const handleSubmitCancelBus= async (event) => {
+    event.preventDefault();
+
+    if (!selectedBus) {
+      // Handle error, no hotel selected
+      return;
+    }
+
+    const selectedReason = document.querySelector("input[type=radio]:checked");
+    const selectedCheckboxValue = selectedReason ? selectedReason.value : null;
+
+    const formData = {
+      reason: reason,
+      // changerequest: selectedCheckboxValue,
+      busId: selectedBus.busId,
+      busBookingId: selectedBus?._id,
+      agentId: selectedBus?.userId,
+      // contactNumber: selectedBus?.phone,
+      pnr:selectedBus?.pnr
+    };
+    console.log(formData);
+
+    try {
+      const response = await axios.post(
+        `${apiURL.baseURL}/skytrails/api/agent/cancelBusBooking`,
+        formData
+      );
+      // console.log("Response from the server:", response.data);
+      setOpenModalCancelRequest(false);
+    } catch (error) {
+      console.error("Error sending data to the server:", error);
+    }
+  };
+
   // Function to handle page change
   const handlePageChange = (newPage) => {
     setCurrentPage(newPage);
@@ -112,7 +155,21 @@ const BusChangeReq = () => {
       {loading ? (
         <Spinner />
       ) : (
-        busData.map((bus, index) => (
+        busData.map((bus, index) => {
+
+          const today = new Date();
+          const year = today.getFullYear();
+          const month = today.getMonth() + 1; 
+          const day = today.getDate();
+          const currentDate = `${year}-${month < 10 ? '0' : ''}${month}-${day < 10 ? '0' : ''}${day}`;
+
+          const journeyDate = bus?.dateOfJourney;
+          const differenceInMs = new Date(journeyDate) - new Date(currentDate);
+          const millisecondsInADay = 1000 * 60 * 60 * 24;
+          const differenceInDays = Math.floor(differenceInMs / millisecondsInADay);
+
+           return  (
+
           <div className="ticket" key={index}>
             <div className="ticketcart">
               <div className="innerdiv1">
@@ -136,11 +193,14 @@ const BusChangeReq = () => {
                   Change Request
                 </button>
               </div>
+              
+
             </div>
             <div className="action">
               <div className="link">
                 <Link to="">Fare Rule</Link>
                 <Link to="">View Ticket</Link>
+                {differenceInDays < 0 ? (null):(
                 <Link
                   onClick={() => {
                     handleModalOpenTwo();
@@ -150,13 +210,26 @@ const BusChangeReq = () => {
                 >
                   Change Request
                 </Link>
+                )}               
+                {differenceInDays < 0 ? (null):(
+                <Link
+                  onClick={() => {
+                    handleModalOpenCancelRequest();
+                    setSelectedBus(bus);
+                  }}
+                  to=""
+                >
+                  Cancel Request
+                </Link>
+                )}
               </div>
               <div className="view">
                 <button>View Invoice</button>
               </div>
             </div>
           </div>
-        ))
+        );
+                })
       )}
 
       {/* Add pagination controls */}
@@ -252,6 +325,63 @@ const BusChangeReq = () => {
                   className="second"
                   type="submit"
                   onClick={handleSubmitBus}
+                >
+                  Send Request
+                </button>
+              </div>
+            </form>
+          </div>
+        </Box>
+      </Modal>
+
+      {/* cancel request modal */}
+      <Modal
+        open={openModalCancelRequest}
+        onClose={handleModalCloseCancelRequest}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box sx={style}>
+          <div className="modal-box">
+            <div className="modal-header">
+              <h2>cancel Request</h2>
+              {selectedBus && (
+                <p>
+                  <span>PNR:- </span> {selectedBus.pnr}
+                </p>
+              )}
+            </div>
+            <form action="">
+            <label className="bold" htmlFor="">
+                Please Select a Valid Reason{" "}
+              </label>
+              <div className="input-check">
+                <div className="formGroup">
+                  <input
+                    type="radio"
+                    name="checkbox1"
+                    value={"Change in Travel Plans"}
+                    checked
+                  />
+                  <label>Cancel Bus Booking</label>
+                </div>                    
+
+                
+              </div>
+              <div className="input-text">
+                <label className="bold" htmlFor="reason">
+                  Write Your Valid Reason
+                </label>
+                <input type="text" id="reason" onChange={handleReasonChange} />
+              </div>
+              <div className="modal-button">
+                <button type="button" onClick={handleModalCloseCancelRequest}>
+                  Cancel
+                </button>
+                <button
+                  className="second"
+                  type="submit"
+                  onClick={handleSubmitCancelBus}
                 >
                   Send Request
                 </button>
