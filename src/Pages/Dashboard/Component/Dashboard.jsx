@@ -60,6 +60,9 @@ import Groups3Icon from '@mui/icons-material/Groups3';
 import AdminDashboard from './AdminDashboard';
 import CancelTicketRequest from './Table/CancelTicketRequest/CancelTicketRequest';
 import OfferList from './Table/OfferList/OfferList'
+import AgentCancelHotel from './Table/CancelTicketRequest/AgentCancelHotel';
+import AgentCancelFlight from './Table/CancelTicketRequest/AgentCancelFlight';
+import AgentCancelBus from './Table/CancelTicketRequest/AgentCancelBus'
 const drawerWidth = 240;
 
 const openedMixin = (theme) => ({
@@ -232,6 +235,18 @@ export default function VerticalTabs() {
 
   const handleButtonClickThree = () => {
     setOpenCollapseThree(!openCollapseThree);
+  };
+
+  const [openCollapseFour, setOpenCollapseFour] = useState(false);
+
+  const handleButtonClickFour = () => {
+    setOpenCollapseFour(!openCollapseFour);
+  };
+
+  const [openCollapseFive, setOpenCollapseFive] = useState(false);
+
+  const handleButtonClickFive = () => {
+    setOpenCollapseFive(!openCollapseFive);
   };
 
   return (
@@ -512,7 +527,7 @@ export default function VerticalTabs() {
                       justifyContent: open ? "center" : "center",
                       px: 2.5,
                     }}
-                    onClick={handleButtonClickThree}
+                    onClick={handleButtonClickTwo}
                   >
                     <ListItemIcon
                       sx={{
@@ -526,20 +541,19 @@ export default function VerticalTabs() {
                     <ListItemText primary="AGENT B2B" />
                   </ListItemButton>
                   <Collapse in={openCollapseTwo} timeout="auto" unmountOnExit>
-                    <ListItem
-                      disablePadding
-                      sx={{ display: "block" }}
-                      onClick={() => handleMenuItemClick("Hotel Bookings")}
-                    >
+                  
+                    <ListItem disablePadding sx={{ display: 'block' }} onClick={() => handleMenuItemClick("Hotel CancelTicket")}>
+
+                    
                       <ListItemButton
                         sx={{
                           minHeight: 48,
                           justifyContent: open ? "initial" : "center",
                           px: 2.5,
-                          ...((menuData === "Hotel Bookings"
-                            ? activeMenuItemClass
-                            : inactiveMenuItemClass) || {}),
+                          ...((menuData === 'Hotel CancelTicket' ? activeMenuItemClass : inactiveMenuItemClass) || {}),
+          
                         }}
+                        onClick={handleButtonClickTwo}
                       >
                         <ListItemIcon
                           sx={{
@@ -550,26 +564,22 @@ export default function VerticalTabs() {
                         >
                           <AccountBoxIcon />
                         </ListItemIcon>
-                        <ListItemText
-                          primary="Hotel Bookings"
-                          sx={{ opacity: open ? 1 : 0 }}
-                        />
+                        
+                        <ListItemText primary="Hotel CancelTicket" sx={{ opacity: open ? 1 : 0 }} />
                       </ListItemButton>
                     </ListItem>
 
-                    <ListItem
-                      disablePadding
-                      sx={{ display: "block" }}
-                      onClick={() => handleMenuItemClick("Flight Bookings")}
-                    >
+                    <ListItem disablePadding sx={{ display: 'block' }} onClick={() => handleMenuItemClick("Flight CancelTicket")}>
+
                       <ListItemButton
                         sx={{
                           minHeight: 48,
                           justifyContent: open ? "initial" : "center",
                           px: 2.5,
-                          ...((menuData === "Flight Bookings"
-                            ? activeMenuItemClass
-                            : inactiveMenuItemClass) || {}),
+
+                          ...((menuData === 'Flight CancelTicket' ? activeMenuItemClass : inactiveMenuItemClass) || {}),
+
+
                         }}
                       >
                         <ListItemIcon
@@ -581,26 +591,23 @@ export default function VerticalTabs() {
                         >
                           <AccountBoxIcon />
                         </ListItemIcon>
-                        <ListItemText
-                          primary="Flight Bookings"
-                          sx={{ opacity: open ? 1 : 0 }}
-                        />
+
+                        <ListItemText primary="Flight CancelTicket" sx={{ opacity: open ? 1 : 0 }} />
                       </ListItemButton>
                     </ListItem>
 
-                    <ListItem
-                      disablePadding
-                      sx={{ display: "block" }}
-                      onClick={() => handleMenuItemClick("Bus Bookings")}
-                    >
+                    <ListItem disablePadding sx={{ display: 'block' }} onClick={() => handleMenuItemClick("Bus CancelTicket")}>
+
+                        
                       <ListItemButton
                         sx={{
                           minHeight: 48,
                           justifyContent: open ? "initial" : "center",
                           px: 2.5,
-                          ...((menuData === "Bus Bookings"
-                            ? activeMenuItemClass
-                            : inactiveMenuItemClass) || {}),
+
+                          ...((menuData === 'Bus CancelTicket' ? activeMenuItemClass : inactiveMenuItemClass) || {}),
+
+                          
                         }}
                       >
                         <ListItemIcon
@@ -612,10 +619,10 @@ export default function VerticalTabs() {
                         >
                           <AccountBoxIcon />
                         </ListItemIcon>
-                        <ListItemText
-                          primary="Bus Bookings"
-                          sx={{ opacity: open ? 1 : 0 }}
-                        />
+
+                        <ListItemText primary="Bus CancelTicket" sx={{ opacity: open ? 1 : 0 }} />
+
+                        
                       </ListItemButton>
                     </ListItem>
                   </Collapse>
@@ -646,19 +653,20 @@ export default function VerticalTabs() {
                     <ListItemText primary="USER B2C" />
                   </ListItemButton>
                   <Collapse in={openCollapseThree} timeout="auto" unmountOnExit>
-                    <ListItem
-                      disablePadding
-                      sx={{ display: "block" }}
-                      onClick={() => handleMenuItemClick("Hotel Bookings")}
-                    >
+
+                    <ListItem disablePadding sx={{ display: 'block' }} onClick={() => handleMenuItemClick("Hotel CancelTicket")}>
+
+                    
+
                       <ListItemButton
                         sx={{
                           minHeight: 48,
                           justifyContent: open ? "initial" : "center",
                           px: 2.5,
-                          ...((menuData === "Hotel Bookings"
-                            ? activeMenuItemClass
-                            : inactiveMenuItemClass) || {}),
+
+                          ...((menuData === 'Hotel CancelTicket' ? activeMenuItemClass : inactiveMenuItemClass) || {}),
+
+                          
                         }}
                       >
                         <ListItemIcon
@@ -670,26 +678,22 @@ export default function VerticalTabs() {
                         >
                           <AccountBoxIcon />
                         </ListItemIcon>
-                        <ListItemText
-                          primary="Hotel Bookings"
-                          sx={{ opacity: open ? 1 : 0 }}
-                        />
+                        <ListItemText primary="Hotel CancelTicket" sx={{ opacity: open ? 1 : 0 }} />
                       </ListItemButton>
                     </ListItem>
 
-                    <ListItem
-                      disablePadding
-                      sx={{ display: "block" }}
-                      onClick={() => handleMenuItemClick("Flight Bookings")}
-                    >
+                    <ListItem disablePadding sx={{ display: 'block' }} onClick={() => handleMenuItemClick("Flight CancelTicket")}>
+
+                        
                       <ListItemButton
                         sx={{
                           minHeight: 48,
                           justifyContent: open ? "initial" : "center",
                           px: 2.5,
-                          ...((menuData === "Flight Bookings"
-                            ? activeMenuItemClass
-                            : inactiveMenuItemClass) || {}),
+
+                          ...((menuData === 'Flight CancelTicket' ? activeMenuItemClass : inactiveMenuItemClass) || {}),
+
+                       
                         }}
                       >
                         <ListItemIcon
@@ -701,26 +705,22 @@ export default function VerticalTabs() {
                         >
                           <AccountBoxIcon />
                         </ListItemIcon>
-                        <ListItemText
-                          primary="Flight Bookings"
-                          sx={{ opacity: open ? 1 : 0 }}
-                        />
+
+                        <ListItemText primary="Flight CancelTicket" sx={{ opacity: open ? 1 : 0 }} />
                       </ListItemButton>
                     </ListItem>
 
-                    <ListItem
-                      disablePadding
-                      sx={{ display: "block" }}
-                      onClick={() => handleMenuItemClick("Bus Bookings")}
-                    >
+                    <ListItem disablePadding sx={{ display: 'block' }} onClick={() => handleMenuItemClick("Bus CancelTicket")}>
+
+                        
                       <ListItemButton
                         sx={{
                           minHeight: 48,
                           justifyContent: open ? "initial" : "center",
                           px: 2.5,
-                          ...((menuData === "Bus Bookings"
-                            ? activeMenuItemClass
-                            : inactiveMenuItemClass) || {}),
+
+                          ...((menuData === 'Bus CancelTicket' ? activeMenuItemClass : inactiveMenuItemClass) || {}),
+                          
                         }}
                       >
                         <ListItemIcon
@@ -732,10 +732,10 @@ export default function VerticalTabs() {
                         >
                           <AccountBoxIcon />
                         </ListItemIcon>
-                        <ListItemText
-                          primary="Bus Bookings"
-                          sx={{ opacity: open ? 1 : 0 }}
-                        />
+                        
+                        <ListItemText primary="Bus CancelTicket" sx={{ opacity: open ? 1 : 0 }} />
+
+                        
                       </ListItemButton>
                     </ListItem>
                   </Collapse>
@@ -837,7 +837,7 @@ export default function VerticalTabs() {
                   justifyContent: open ? "center" : "center",
                   px: 2.5,
                 }}
-                onClick={handleButtonClick}
+                onClick={handleButtonClickFour}
               >
                 <ListItemIcon
                   sx={{
@@ -850,7 +850,7 @@ export default function VerticalTabs() {
                 </ListItemIcon>
                 <ListItemText primary="AGENT B2B" />
               </ListItemButton>
-              <Collapse in={openCollapse} timeout="auto" unmountOnExit>
+              <Collapse in={openCollapseFour} timeout="auto" unmountOnExit>
                 <ListItem
                   disablePadding
                   sx={{ display: "block" }}
@@ -953,7 +953,7 @@ export default function VerticalTabs() {
                   px: 2.5,
                   // Add your other styles here
                 }}
-                onClick={handleButtonClickTwo}
+                onClick={handleButtonClickFive}
               >
                 <ListItemIcon
                   sx={{
@@ -966,7 +966,7 @@ export default function VerticalTabs() {
                 </ListItemIcon>
                 <ListItemText primary="USER B2C" />
               </ListItemButton>
-              <Collapse in={openCollapseTwo} timeout="auto" unmountOnExit>
+              <Collapse in={openCollapseFive} timeout="auto" unmountOnExit>
                 <ListItem
                   disablePadding
                   sx={{ display: "block" }}
@@ -1181,6 +1181,9 @@ export default function VerticalTabs() {
               {menuData === "User Table" && <Tables />}
               {menuData === "AgentRequest" && <AgentRequest />}
               {menuData === "Cancel Ticket" && <CancelTicketRequest />}
+              {menuData==="Hotel CancelTicket"&&<AgentCancelHotel/>}
+              {menuData==="Flight CancelTicket"&&<AgentCancelFlight/>}
+              {menuData==="Bus CancelTicket"&&<AgentCancelBus/>}
               {menuData === "User MarkUp Amount" && <MarkUpAmount />}
               {menuData === "Edit Holiday Package" && <PackageDetails />}
               {menuData === "Forex" && <ForexData />}
