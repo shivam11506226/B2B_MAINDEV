@@ -1,0 +1,35 @@
+.topBoxDeparture {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 20px;
+}
+
+.topBoxDeparture h3 {
+    font-family: 'Montserrat';
+    font-weight: 600;
+}
+
+.topBoxDeparture p {
+    color: #21325d;
+    font-weight: 500;
+    font-family: 'montserrat';
+}
+
+.fixedDepartButton {
+    background-color: #21325d;
+    color: #fff;
+    font-weight: 600;
+    font-family: 'Montserrat';
+    font-size: 16px;
+    padding: 8px 19px;
+    border: 2px solid #21325d;
+    border-radius: 8px;
+
+}
+
+.fixedDepartSelect {
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+}

@@ -142,7 +142,6 @@ function api() {
     });
   };
 
-
   const oneWayEMTSearch = (payload) => {
     // console.log("Paayload EMT Search", payload);
     return axios({
@@ -254,9 +253,7 @@ function api() {
   const getOnePackage = (payload) => {
     // console.log("getOnePacked", payload);
     const { id } = payload;
-    return axios.get(
-      `${apiURL.baseURL}/skyTrails/international/getone/${id}`
-    );
+    return axios.get(`${apiURL.baseURL}/skyTrails/international/getone/${id}`);
   };
 
   // GET holiday Booking Request
@@ -317,9 +314,7 @@ function api() {
     return axios.get("https://api.skyTrails.com/skyTrails/forex/getAllForex");
   };
   const forexCustomerData = () => {
-    return axios.get(
-      `${apiURL.baseURL}m/skyTrails/forex/getAllCustomerforex`
-    );
+    return axios.get(`${apiURL.baseURL}m/skyTrails/forex/getAllCustomerforex`);
   };
 
   // visa data for dashboard
@@ -346,7 +341,7 @@ function api() {
     // console.log("bus result api", payload);
     return axios({
       method: "POST",
-      url: "/skyTrails/bus/search" ,
+      url: "/skyTrails/bus/search",
       baseURL: `${apiURL.baseURL}`,
       data: payload,
       headers: {
@@ -416,23 +411,18 @@ function api() {
     });
   };
 
-  
-
-const hotelBookingDetails = (payload) => { 
-  //  console.log("payload of api 👍") 
-    return axios({ 
-      method: "POST", 
-      url: "/skyTrails/hotel/bookingdetails", 
-      baseURL: `${apiURL.baseURL}`, 
-      data: payload, 
-      headers: { 
-        "Content-Type": "application/json", 
-      }, 
-    }); 
+  const hotelBookingDetails = (payload) => {
+    //  console.log("payload of api 👍")
+    return axios({
+      method: "POST",
+      url: "/skyTrails/hotel/bookingdetails",
+      baseURL: `${apiURL.baseURL}`,
+      data: payload,
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
   };
-
-
-
 
   //Bus API's Start
 
@@ -447,7 +437,7 @@ const hotelBookingDetails = (payload) => {
       },
     });
   };
-  const busBook=(payload)=>{
+  const busBook = (payload) => {
     return axios({
       method: "POST",
       url: "/skyTrails/bus/book",
@@ -457,9 +447,9 @@ const hotelBookingDetails = (payload) => {
         "Content-Type": "application/json",
       },
     });
-  }
+  };
 
-  const busBookDetails=(payload)=>{
+  const busBookDetails = (payload) => {
     return axios({
       method: "POST",
       url: "/skyTrails/bus/bookingdetails",
@@ -469,8 +459,8 @@ const hotelBookingDetails = (payload) => {
         "Content-Type": "application/json",
       },
     });
-  }
-  const busBookingDataSave=(payload)=>{
+  };
+  const busBookingDataSave = (payload) => {
     return axios({
       method: "POST",
       url: "/skyTrails/busBooking/addBusBookingData",
@@ -480,8 +470,8 @@ const hotelBookingDetails = (payload) => {
         "Content-Type": "application/json",
       },
     });
-  }
-  const flightBookingDataSave=(payload)=>{
+  };
+  const flightBookingDataSave = (payload) => {
     return axios({
       method: "POST",
       url: "/skyTrails/flightBooking/addFlightBookingData",
@@ -491,7 +481,7 @@ const hotelBookingDetails = (payload) => {
         "Content-Type": "application/json",
       },
     });
-  }
+  };
   const hotelBookingDataSave = (payload) => {
     return axios({
       method: "POST",
@@ -503,35 +493,52 @@ const hotelBookingDetails = (payload) => {
       },
     });
   };
+  const fixedDepartureAddSector = async (payload) => {
+    try {
+      const response = await axios({
+        method: "POST",
+        url: "/skyTrails/addSector",
+        baseURL: `${apiURL.baseURL}`,
+        data: payload,
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
 
+      // Assuming you want to return the response data
+      // alert(response.data)
+      return response.data
+    } catch (error) {
+      // Handle the error appropriately, e.g., log it or throw a custom error
+      alert("Sector already exists",error);
+      throw error; // You can choose to throw the error again or handle it differently
+    }
+  };
 
 
   /// userDetails by Id
 
   const UserDetail = (payload) => {
     // console.log("userDataId", payload);
-    const  userId  = payload;
-    return axios.get(
-      `${apiURL.baseURL}/skyTrails/user/${userId}`
-    );
+    const userId = payload;
+    return axios.get(`${apiURL.baseURL}/skyTrails/user/${userId}`);
   };
-
 
   // balance subtract api
 
-  const balanceSubtract = (payload) => { 
-    // console.log("balance of api 👍",payload) 
-     return axios({ 
-       method: "POST", 
-       url: "/skyTrails/subtractBalance", 
-       baseURL: `${apiURL.baseURL}`, 
-       data: payload, 
-       headers: { 
-         "Content-Type": "application/json", 
-       }, 
-     }); 
-   };
-  
+  const balanceSubtract = (payload) => {
+    // console.log("balance of api 👍",payload)
+    return axios({
+      method: "POST",
+      url: "/skyTrails/subtractBalance",
+      baseURL: `${apiURL.baseURL}`,
+      data: payload,
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+  };
+
   return {
     userB2BRegistration,
     userIP,
@@ -579,6 +586,7 @@ const hotelBookingDetails = (payload) => {
     balanceSubtract,
     flightBookingDataSave,
     hotelBookingDataSave,
+    fixedDepartureAddSector,
   };
 }
 

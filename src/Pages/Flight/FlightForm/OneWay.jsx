@@ -2,7 +2,7 @@ import React, { useEffect, useState, useRef } from "react";
 import transfer from "../../../Images/transfer.png";
 
 import interchange from '../../../Images/interchange.png'
-
+import FlightIcon from '@mui/icons-material/Flight';
 import { Button } from "react-bootstrap";
 import { Box, Grid, GridItem, Checkbox, Flex } from "@chakra-ui/react";
 import { useDispatch, useSelector, useReducer } from "react-redux";
@@ -282,6 +282,7 @@ const OneWay = () => {
                     handleFromInputChange(event);
                     handleFromSearch(event.target.value);
                   }}
+                  autoComplete="off"
                 />
                 {fromError !== "" && <span className="error">{fromError}</span>}
                 {/* {isLoading && <div>Loading...</div>} */}
@@ -323,6 +324,7 @@ const OneWay = () => {
                     handleToInputChange(event);
                     handleToSearch(event.target.value);
                   }}
+                  autoComplete="off"
                   style={{ border: "2px solid red" }}
                 />
                 {toError !== "" && <span className="error">{toError}</span>}
@@ -504,25 +506,8 @@ const OneWay = () => {
                 <div className="col-md-6 col-lg-6 col-12 col-sm-12 mb-3 ps-0">
                   <button
                     type="submit"
-                    className="flightFormSubmit"
-                  >
-                    {" "}
-                    Search Flight
-                    {/* <div id="icon">
-                      <svg
-                        height="24"
-                        width="24"
-                        viewBox="0 0 24 24"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path d="M0 0h24v24H0z" fill="none"></path>
-                        <path
-                          d="M16.172 11l-5.364-5.364 1.414-1.414L20 12l-7.778 7.778-1.414-1.414L16.172 13H4v-2z"
-                          fill="currentColor"
-                        ></path>
-                      </svg>
-                    </div> */}
-                  </button>
+                    className="flightFormSubmit">Search Flight <FlightIcon /></button>
+
                 </div>
               </div>
             </div>

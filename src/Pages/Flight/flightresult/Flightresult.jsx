@@ -12,49 +12,8 @@ import Flightnavbar from "../Flightnavbar";
 const Flightresult = () => {
   return (
     <React.Fragment>
-      <div className="flightContainer" style={{width:"100%",marginTop:"-80px"}}>
-        {/* step by step updating part */}
-        {/* <Flightnavbar/> */}
-        <Box>
-      
-          <div>
-            <Grid
-              container
-              display="flex"
-              justifyContent="center"
-              alignItems="center"
-              textAlign="center"
-              pb={5}
-            >
-              <Grid
-                item
-                xs={12}
-                sm={12}
-                md={4}
-                display="flex"
-                justifyContent="end"
-                alignItems="center"
-              >
-                
-              </Grid>
-             
-              <Grid
-                item
-                xs={12}
-                sm={12}
-                md={4}
-                display="flex"
-                justifyContent="start"
-                alignItems="center"
-              >
-                
-              </Grid>
-            </Grid>
-          </div>
-          <div>
-            <Popularfilter />
-          </div>
-        </Box>
+      <div className="container-fluid margin-pecentage" style={{ padding: "10px 15px" }}>
+        <Popularfilter />
       </div>
     </React.Fragment>
   );
