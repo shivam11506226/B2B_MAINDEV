@@ -3,9 +3,21 @@ import { Typography, Box, Grid, Button } from "@mui/material";
 import React from "react";
 import Link from "@mui/material/Link";
 import Flightaccordian from "./Flightaccordian";
+import { useDispatch, useSelector, useReducer } from "react-redux";
+import flightdir from "../../../Images/flgihtdir.png"
+
+
 
 const Flightbookingdetail = (props) => {
+
+  const reducerState = useSelector((state) => state);
+
+  const adults = sessionStorage.getItem("adults");
+  const childs = sessionStorage.getItem("childs");
+  const infants = sessionStorage.getItem("infants");
   const { ticket } = props;
+
+  console.log(ticket, "ticket data")
   const ticket1 = {
     PNR: "JWSFIB",
     BookingId: 1839811,
@@ -323,313 +335,220 @@ const Flightbookingdetail = (props) => {
     // console.log(day, month, year, date_obj, `${hours} ${minutes}`);
     return { date: `${month} ${day}, ${year}`, time: `${hours}:${minutes}` };
   };
+
+
+  const fareQuoteData = reducerState?.flightFare?.flightQuoteData?.Results;
+  console.log(fareQuoteData, "fare quote data")
+
+  const img = fareQuoteData?.Segments?.[0]?.[0]?.Airline?.AirlineCode;
+  const airlineName = fareQuoteData?.Segments?.[0]?.[0]?.Airline?.AirlineName;
+  const airlineCode = fareQuoteData?.Segments?.[0]?.[0]?.Airline?.AirlineCode;
+  const flightNumber = fareQuoteData?.Segments?.[0]?.[0]?.Airline?.FlightNumber;
+  const originCity = fareQuoteData?.Segments?.[0]?.[0]?.Origin?.Airport?.CityName;
+  const DestinationCity = fareQuoteData?.Segments?.[0]?.[0]?.Destination?.Airport?.CityName;
+  const flightFare = fareQuoteData?.Fare?.PublishedFare;
+  const originTerminal = fareQuoteData?.Segments?.[0]?.[0]?.Origin?.Airport?.Terminal;
+  const destinationTerminal = fareQuoteData?.Segments?.[0]?.[0]?.Destination?.Airport?.Terminal;
+
+
+  const dateString = fareQuoteData?.Segments?.[0]?.[0]?.Origin?.DepTime;
+  const date = new Date(dateString);
+  const options = {
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+    hour: "numeric",
+    minute: "numeric",
+    hour12: true,
+  };
+  const formattedDate = date.toLocaleString("en-US", options);
+
+  const [month, day, year, time, ampm] = formattedDate.split(" ");
+  const desiredFormat = `${day}${month}-${year} ${time} ${ampm}`;
+
+  const dateString1 = fareQuoteData?.Segments?.[0]?.[0]?.Destination?.ArrTime;
+  const date1 = new Date(dateString1);
+  const options1 = {
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+    hour: "numeric",
+    minute: "numeric",
+    hour12: true,
+  };
+  const formattedDate1 = date1.toLocaleString("en-US", options1);
+  const [month1, day1, year1, time1, ampm1] =
+    formattedDate1.split(" ");
+  const desiredFormat1 = `${day1}${month1}-${year1} ${time1} ${ampm1}`;
+
+
+  const Duration = `${Math.floor(fareQuoteData?.Segments?.[0]?.[0]?.Duration / 60)}hr ${fareQuoteData?.Segments?.[0]?.[0]?.Duration % 60
+    }min`;
+
+
+
   return (
-    <Box>
-      <Box className="mid_header" px={5} py={2} my={2}>
-        <Box textAlign="left" display="flex" justifyContent="space-between">
-          <Typography color="#252525" fontSize="18px" fontWeight="bold">
-            The Sky Trails Pvt. Ltd.
-          </Typography>
-          <Typography color="#0052D0" fontWeight="bold" fontSize="18px">
-            PNR: {ticket?.PNR}
-          </Typography>
-        </Box>
-        <Box
-          textAlign="left"
-          display="flex"
-          justifyContent="space-between"
-          mt={1}
-        >
-          <Typography color="#252525" fontSize="14px" fontWeight="bold">
-            {ticket?.FlightItinerary?.Origin} -{" "}
-            {ticket?.FlightItinerary?.Destination}
-          </Typography>
-          <Typography color="#252525" fontWeight="bold" fontSize="14px">
-            Ticket Confirmed
-          </Typography>
-        </Box>
-        <Box textAlign="left" display="flex" justifyContent="space-between">
-          <Typography color="#252525" fontSize="14px" fontWeight="bold">
-            Phone No. {ticket?.FlightItinerary?.Passenger[0]?.ContactNo}
-          </Typography>
-          <Typography color="#252525" fontWeight="bold" fontSize="14px">
-            Book on: {dateFormat(ticket?.FlightItinerary?.LastTicketDate).date}
-          </Typography>
-        </Box>
-        <Box textAlign="left" display="flex" justifyContent="space-between">
-          <Typography color="#252525" fontSize="14px" fontWeight="bold">
-            Phone No. {ticket?.FlightItinerary?.Passenger[0]?.ContactNo}
-          </Typography>
-          <Typography
-            color="#252525"
-            className="text-end"
-            fontWeight="bold"
-            fontSize="14px"
-          >
-            Travel Date:{" "}
-            {
-              dateFormat(ticket?.FlightItinerary?.Segments[0]?.Origin?.DepTime)
-                ?.date
-            }
-            <br />
-            Travel Time:{" "}
-            {
-              dateFormat(ticket?.FlightItinerary?.Segments[0]?.Origin?.DepTime)
-                ?.time
-            }{" "}
-            hrs
-          </Typography>
-        </Box>
-      </Box>
-      <Box className="mid_header" px={5} py={2} my={2}>
-        <Typography color="#252525" fontWeight="bold" fontSize="16px" mb={2}>
-          Flight Information
-        </Typography>
+    <div className="col-lg-12">
+
+      <div className="col-lg-12">
+        <div class="headingflightPassenger">
+          <p>Booking Details</p>
+        </div>
+      </div>
+
+      <div className="col-lg-12">
+        <div className="confirmRect">
+          <div>
+            <p>THE SKYTRAILS PRIVATE LIMITED 1</p>
+            <span >PNR :{" "} {ticket?.PNR}</span>
+          </div>
+          <div>
+            <p>{ticket?.FlightItinerary?.Origin} -{" "}
+              {ticket?.FlightItinerary?.Destination}</p>
+            <span style={{ color: "#0048FF", fontWeight: "600" }}>Confirmed</span>
+          </div>
+          <div>
+            <p>Contact : {' '}{ticket?.FlightItinerary?.Passenger[0]?.ContactNo}</p>
+            <span>Book on: {dateFormat(ticket?.FlightItinerary?.LastTicketDate).date}</span>
+          </div>
+          <div>
+            <p>Travel Date:{" "}
+              {
+                dateFormat(ticket?.FlightItinerary?.Segments[0]?.Origin?.DepTime)
+                  ?.date
+              }</p>
+            <span> Travel Time:{" "}
+              {
+                dateFormat(ticket?.FlightItinerary?.Segments[0]?.Origin?.DepTime)
+                  ?.time
+              }{" "}
+              hrs</span>
+          </div>
+
+        </div>
+      </div>
+
+      <div className="col-lg-12">
+        <div class="headingflightPassenger">
+          <p>Flight Details</p>
+        </div>
+      </div>
+
+      <div className="col-lg-12">
+        <div className="singleFlightBox justify-content-evenly">
+          <div className="singleFlightBoxOne">
+            <div><img src={`${process.env.PUBLIC_URL}/FlightImages/${img}.png`} /> </div>
+            <span>{airlineName}</span>
+            <p>{airlineCode}{" "}{flightNumber}</p>
+          </div>
+          <div className="singleFlightBoxTwo">
+            <span>{originCity}</span>
+            {/* <p>{time1.substr(0, 5)}</p> */}
+            <p>{desiredFormat.slice(0, 12)}</p>
+            <p style={{ fontSize: "14px" }}>{desiredFormat.slice(13)}</p>
+            <p>Terminal{' '}{originTerminal}</p>
+          </div>
+          <div className="singleFlightBoxThree">
+            <h4>{Duration}</h4>
+            <div><img src={flightdir} /></div>
+            <p>Direct Flight</p>
+            <span>Refundable</span>
+          </div>
+          <div className="singleFlightBoxFour">
+            <span>{DestinationCity}</span>
+            {/* <p>{time2.substr(0, 5)}</p> */}
+            <p>{desiredFormat1.slice(0, 12)}</p>
+            <p style={{ fontSize: "14px" }}>{desiredFormat1.slice(13)}</p>
+            <p>Terminal{' '}{destinationTerminal}</p>
+          </div>
+          <div className="singleFlightBoxFive">
+            <span>₹{flightFare}</span>
+            <p>Publish</p>
+          </div>
+        </div>
+      </div>
+
+      <div className="col-lg-12">
         {ticket?.FlightItinerary?.Segments?.map((flight, key) => (
-          <Grid key={key} container spacing={3}>
-            <Grid item md={2}>
-              <Box className="mid_header" p={1}>
-                <Typography
-                  sx={{
-                    color: "#252525",
-                    fontSize: "10px",
-                    textAlign: "center",
-                    fontWeight: "bold",
-                  }}
-                >
-                  Flight No.
-                </Typography>
-                <Divider color="gray" mar />
-                <Typography
-                  sx={{
-                    color: "#3D7AD9",
-                    fontSize: "10px",
-                    textAlign: "center",
-                    fontWeight: "bold",
-                  }}
-                  pt={1}
-                >
-                  {flight?.Airline?.AirlineCode}-{flight?.Airline?.FlightNumber}
-                </Typography>
-              </Box>
-            </Grid>
-            <Grid item md={2}>
-              <Box className="mid_header" p={1}>
-                <Typography
-                  sx={{
-                    color: "#252525",
-                    fontSize: "10px",
-                    textAlign: "center",
-                    fontWeight: "bold",
-                  }}
-                >
-                  Origin
-                </Typography>
-                <Divider color="gray" mar />
-                <Typography
-                  sx={{
-                    color: "#3D7AD9",
-                    fontSize: "10px",
-                    textAlign: "center",
-                    fontWeight: "bold",
-                  }}
-                  pt={1}
-                >
-                  {flight?.Origin?.Airport?.AirportCode}
-                  {/* <br />
-                  {flight.Origin.Airport.AirportName} */}
-                </Typography>
-              </Box>
-            </Grid>
-            <Grid item md={2}>
-              <Box className="mid_header" p={1}>
-                <Typography
-                  sx={{
-                    color: "#252525",
-                    fontSize: "10px",
-                    textAlign: "center",
-                    fontWeight: "bold",
-                  }}
-                >
-                  Destination
-                </Typography>
-                <Divider color="gray" mar />
-                <Typography
-                  sx={{
-                    color: "#3D7AD9",
-                    fontSize: "10px",
-                    textAlign: "center",
-                    fontWeight: "bold",
-                  }}
-                  pt={1}
-                >
-                  {flight?.Destination?.Airport?.AirportCode}
-                </Typography>
-              </Box>
-            </Grid>
-            <Grid item md={2}>
-              <Box className="mid_header" p={1}>
-                <Typography
-                  sx={{
-                    color: "#252525",
-                    fontSize: "10px",
-                    textAlign: "center",
-                    fontWeight: "bold",
-                  }}
-                >
-                  Dep Date Time
-                </Typography>
-                <Divider color="gray" mar />
-                <Typography
-                  sx={{
-                    color: "#3D7AD9",
-                    fontSize: "10px",
-                    textAlign: "center",
-                    fontWeight: "bold",
-                  }}
-                  pt={1}
-                >
-                  {dateFormat(flight?.Origin?.DepTime)?.date}
-                  <br />
-                  {dateFormat(flight?.Origin?.DepTime)?.time} hrs
-                </Typography>
-              </Box>
-            </Grid>
-            <Grid item md={2}>
-              <Box className="mid_header" p={1}>
-                <Typography
-                  sx={{
-                    color: "#252525",
-                    fontSize: "10px",
-                    textAlign: "center",
-                    fontWeight: "bold",
-                  }}
-                >
-                  Arr Date Time
-                </Typography>
-                <Divider color="gray" mar />
-                <Typography
-                  sx={{
-                    color: "#3D7AD9",
-                    fontSize: "10px",
-                    textAlign: "center",
-                    fontWeight: "bold",
-                  }}
-                  pt={1}
-                >
-                  {dateFormat(flight?.Destination?.ArrTime)?.date}
-                  <br />
-                  {dateFormat(flight?.Destination?.ArrTime)?.time} hrs
-                </Typography>
-              </Box>
-            </Grid>
-            <Grid item md={2}>
-              <Box className="mid_header" p={1}>
-                <Typography
-                  sx={{
-                    color: "#252525",
-                    fontSize: "10px",
-                    textAlign: "center",
-                    fontWeight: "bold",
-                  }}
-                >
-                  Class
-                </Typography>
-                <Divider color="gray" mar />
-                <Typography
-                  sx={{
-                    color: "#3D7AD9",
-                    fontSize: "10px",
-                    textAlign: "center",
-                    fontWeight: "bold",
-                  }}
-                  pt={1}
-                >
-                  {flight?.Airline?.FareClass}
-                </Typography>
-              </Box>
-            </Grid>
-          </Grid>
+          <div className="fligtConfirmDetails">
+            <div>
+              <span>Flight No.</span>
+              <p>{flight?.Airline?.AirlineCode}-{flight?.Airline?.FlightNumber}</p>
+            </div>
+            <div>
+              <span>Origin</span>
+              <p>{flight?.Origin?.Airport?.AirportCode}</p>
+            </div>
+            <div>
+              <span>Destination</span>
+              <p>{flight?.Destination?.Airport?.AirportCode}</p>
+            </div>
+            <div>
+              <span>Departure Date Time</span>
+              <p>{dateFormat(flight?.Origin?.DepTime)?.date},
+                {dateFormat(flight?.Origin?.DepTime)?.time} hrs</p>
+            </div>
+            <div>
+              <span>Arrival Date Time</span>
+              <p>{dateFormat(flight?.Destination?.ArrTime)?.date},
+                {dateFormat(flight?.Destination?.ArrTime)?.time} hrs</p>
+            </div>
+            <div>
+              <span>Class</span>
+              <p>{flight?.Airline?.FareClass}</p>
+            </div>
+          </div>
         ))}
-      </Box>
-      {ticket?.FlightItinerary?.Passenger.map((passenger, key) => (
-        <Box className="mid_header" key={key} px={5} py={2} my={2}>
-          <Box>
-            <Typography
-              color="#6B6B6B"
-              fontWeight="bold"
-              fontSize="16px"
-              mb={2}
-            >
-              Passenger {key + 1} (
-              {passenger?.PaxType === 1
-                ? "Adult"
-                : passenger?.PaxType === 2
-                ? "Child"
-                : "Infant"}
-              )
-            </Typography>
-          </Box>
-          <Grid container spacing={3}>
-            <Grid item md={3}>
-              <Typography color="#3D7AD9" fontWeight="bold" fontSize="16px">
-                Name:
-              </Typography>
-              <Typography color="#3D7AD9" fontWeight="bold" fontSize="16px">
-                Gender:
-              </Typography>
-              {passenger.AddressLine1 && (
-                <Typography color="#3D7AD9" fontWeight="bold" fontSize="16px">
-                  Address:
-                </Typography>
-              )}
-              <Typography color="#3D7AD9" fontWeight="bold" fontSize="16px">
-                Seat Preferences:
-              </Typography>
-            </Grid>
-            <Grid item md={9}>
-              <Typography color="#FF8900" fontWeight="bold" fontSize="16px">
-                {passenger.Title} {passenger.FirstName} {passenger.LastName}
-              </Typography>
-              <Typography color="#FF8900" fontWeight="bold" fontSize="16px">
-                {passenger.Gender == 1
-                  ? "Female"
-                  : passenger.Gender == 2
-                  ? "Male"
-                  : "Transgender"}
-              </Typography>
-              {passenger.AddressLine1 && (
-                <Typography color="#FF8900" fontWeight="bold" fontSize="16px">
-                  {passenger.AddressLine1}, {passenger.City},{" "}
-                  {passenger.Nationality}
-                </Typography>
-              )}
-              <Typography color="#FF8900" fontWeight="bold" fontSize="16px">
-                8D
-              </Typography>
-            </Grid>
-          </Grid>
-        </Box>
-      ))}
+      </div>
+
+      <div className="col-lg-12">
+        <div class="headingflightPassenger">
+          <p>Passenger Details</p>
+          <span>Total Adult(s) :{' '} {adults} Child:{' '} {childs} Infants: {' '} {infants}</span>
+        </div>
+      </div>
+
+
+      <div className="col-lg-12">
+        {ticket?.FlightItinerary?.Passenger.map((passenger, key) => (
+
+          <>
+            <div class="headingflightPassengerConfirm">
+              <span>
+                Passenger {key + 1} (
+                {passenger?.PaxType === 1
+                  ? "Adult"
+                  : passenger?.PaxType === 2
+                    ? "Child"
+                    : "Infant"}
+                )
+              </span>
+            </div>
+            <div className="passengerData">
+              <div>
+                <span>Name:</span>
+                <p>{passenger.Title} {passenger.FirstName} {passenger.LastName}</p>
+              </div>
+              <div>
+                <span>DOB:</span>
+                <p>{passenger.DateOfBirth.slice(0, 10)}</p>
+              </div>
+            </div>
+          </>
+        ))}
+      </div>
+
+
+
+      <div className="col-lg-12 mt-4">
+        <div class="headingflightPassenger">
+          <p>Fare Rule</p>
+        </div>
+      </div>
+
       <Box className="Top_header" p={5}>
         {ticket.FlightItinerary.FareRules.map((rule) => (
           <Box>
-            <Typography
-              color="#008FCC"
-              fontSize="30px"
-              fontWeight="bold"
-              textAlign="center"
-            >
-              Fare Rule
-            </Typography>
-            <Typography
-              color="#707070"
-              fontSize="20px"
-              fontWeight="bold"
-              textAlign="center"
-            >
-              {rule.Origin} - {rule.Destination}
-            </Typography>
             <div
               className="fs-6 mt-3"
               dangerouslySetInnerHTML={createMarkup(rule.FareRuleDetail)}
@@ -642,7 +561,7 @@ const Flightbookingdetail = (props) => {
       </Box>
       <Box textAlign="center">
         <form action="" className="formFlightSearch" textAlign="center">
-          <Box width="171px" margin="auto">
+          {/* <Box width="171px" margin="auto">
             <Button
               my={1}
               colorScheme="teal"
@@ -653,13 +572,20 @@ const Flightbookingdetail = (props) => {
               {" "}
               View invoice{" "}
             </Button>
-          </Box>
+          </Box> */}
+          <div className="flightDetButton">
+            <button
+              type="submit"
+            >
+              View Invoice
+            </button>
+          </div>
         </form>
-        <Typography color="#005778" fontWeight="bold" fontSize="18px" mt={5}>
+        <Typography color="#21325d" textAlign="center" fontWeight="bold" fontSize="18px" mt={5} mb={2}>
           Copyright © 2022 THE SKY TRAILS All Rights Reserved
         </Typography>
       </Box>
-    </Box>
+    </div>
   );
 };
 

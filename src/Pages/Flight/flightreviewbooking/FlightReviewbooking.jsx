@@ -38,28 +38,17 @@ const FlightReviewbooking = () => {
     <FlightLoader />
   }
   return (
-    <div className="flightContainer" style={{ marginTop: "-20px" }}>
+    <div className="container-fluid margin-pecentage">
 
+      <div className="row">
+        <div className="col-lg-9">
+          <Flightbookingdetail />
+        </div>
+        <div className="col-lg-3">
+          <Rightdetail />
+        </div>
+      </div>
 
-
-      {/* {loading ? (
-        <div>Loading...</div>
-      ) : ( */}
-      {/* <Flightnavbar/> */}
-      <Grid container style={{ margin: "auto", display: "flex", gap: "30px", width: "95%" }}>
-        <Grid item xs={12} md={8}>
-          <Box>
-            <Flightbookingdetail />
-          </Box>
-        </Grid>
-        <Grid item xs={12} md={3}>
-          <Box>
-            {/* <Fairsummary /> */}
-            <Rightdetail />
-          </Box>
-        </Grid>
-      </Grid>
-      {/* )} */}
     </div>
   );
 };

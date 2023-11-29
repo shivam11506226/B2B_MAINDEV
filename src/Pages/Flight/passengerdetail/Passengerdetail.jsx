@@ -30,25 +30,22 @@ const Flight = (props) => {
     navigate("/FlightResult")
   }
   return (
-    <div className="flightContainer" style={{ marginTop: "-20px" }}>
-      {/* step by step updating part */}
 
-      {/* <Flightnavbar/> */}
 
-      <Grid container style={{ margin: "auto", display: "flex", gap: "30px", width: "95%" }}>
-        <Grid item xs={12} md={8}>
-          <Button onClick={backRoute} >Go Back</Button>
-
+    <div className="container-fluid margin-pecentage">
+      <div className="row">
+        <div className="col-lg-9">
           <Leftdetail />
+        </div>
+        <div className="col-lg-3">
+          <Rightdetail />
+        </div>
+      </div>
 
-        </Grid>
-        <Grid item xs={12} md={3}>
-          <Box>
-            <Rightdetail />
-          </Box>
-        </Grid>
-      </Grid>
+
+
     </div>
+
   );
 };
 
