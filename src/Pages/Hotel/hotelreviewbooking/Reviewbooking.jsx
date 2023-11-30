@@ -62,7 +62,7 @@ const Guestdetail = () => {
 
         <div className="container-fluid margin-pecentage">
           <div className="row">
-            <div className="col-lg-9">
+            <div className="col-lg-12">
               <div className="hotelBookNowOuter">
                 <div className="hotelBookNowHeader">
                   <p>Your Search criteria:{storedFormData?.city},{' '} India</p>

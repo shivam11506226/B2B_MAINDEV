@@ -21,21 +21,9 @@ const Holidaybooknow = () => {
 
 
   return (
-    <div>
-      <div>
-        {/* <Grid container spacing={3}> */}
-        {/* <Grid sm={12} xs={12} md={"full"} item> */}
-        {/* <MuiBox> */}
+    <div className='container-fluid margin-pecentage'>
+      <div className="row">
         <Bookingdetailpackage />
-        {/* </MuiBox> */}
-        {/* </Grid> */}
-        {/* <Grid sm={12} xs={12} md={4} item> */}
-        {/* <MuiBox> */}
-        {/* <HolidayPackagedetail /> */}
-        {/* <HolidatLeftPackage packageId={packageId} userId={userId} /> */}
-        {/* </MuiBox> */}
-        {/* </Grid> */}
-        {/* </Grid> */}
       </div>
     </div>
   );

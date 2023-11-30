@@ -27,15 +27,13 @@ const HolidayGuestDetail = () => {
     }
   }, []);
   return (
-    <div>
-      <div className="container p-3 bg-light">
-        <div className="row">
-          <div className="col-lg-9">
-            <Holidayreviewbookingdetail />
-          </div>
-          <div className="col-lg-3">
-            <Holidayreviewsalesummary />
-          </div>
+    <div className="container-fluid margin-pecentage">
+      <div className="row">
+        <div className="col-lg-9">
+          <Holidayreviewbookingdetail />
+        </div>
+        <div className="col-lg-3">
+          <Holidayreviewsalesummary />
         </div>
       </div>
     </div>

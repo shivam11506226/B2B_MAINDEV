@@ -14,7 +14,7 @@ import { useDispatch } from "react-redux";
 const HotelSearch = () => {
 
   return (
-    <div>
+    <div className="container-fluid margin-pecentage">
       <Hotelresult />
     </div>
   );

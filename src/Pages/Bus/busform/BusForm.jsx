@@ -6,6 +6,7 @@ import { Button, Box } from "@mui/material";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { motion } from "framer-motion";
 import {
   busSearchAction,
   clearBusSearchReducer,
@@ -16,6 +17,40 @@ import { apiURL } from "../../../Constants/constant.js";
 import DateRangeIcon from '@mui/icons-material/DateRange';
 import FmdGoodIcon from '@mui/icons-material/FmdGood';
 import NavBarBox from "../../../Components/NavBarBox.jsx";
+
+
+
+
+
+
+
+const variants = {
+  open: {
+    transition: {
+      staggerChildren: 0.1,
+    },
+  },
+  closed: {
+    transition: {
+      staggerChildren: 0.05,
+      staggerDirection: -1,
+    },
+  },
+};
+const itemVariants = {
+  open: {
+    y: 0,
+    opacity: 1,
+  },
+  closed: {
+    y: 50,
+    opacity: 0,
+  },
+};
+
+
+
+
 
 const BusForm = () => {
   const dispatch = useDispatch();
@@ -220,16 +255,88 @@ const BusForm = () => {
 
 
 
+  // import React from "react";
+  // import { InnerBarLogo } from "../data";
+  // import { Link } from "react-router-dom";
+  // import color from "../color/color";
+  // import { useDispatch, useSelector } from "react-redux";
+  // import "./maixBox.css"
+  // import { motion } from "framer-motion";
+
+
+
+
+
+
+  // function MainBox() {
+  //   const reducerState = useSelector((state) => state);
+  //   console.log(reducerState, "jfglkdsja;edj")
+  //   return (
+
+
+  //     <motion.div
+  //       initial={{ opacity: 0, scale: 0.5 }}
+  //       animate={{ opacity: 1, scale: 1 }}
+  //       transition={{ duration: 0.5 }}
+  //       className="centeredBox"
+  //     >
+  //       <div className="centered-box-top">
+  //         <p>Services We Provide</p>
+  //       </div>
+  //       {InnerBarLogo.map(({ avatar, name, path }, index) => (
+  //         <Link to={path} key={index} style={{ textDecoration: "none" }}>
+  //           <motion.div
+  //             className={`centeredBox-content ${index === 0 || index === 1 || index === 3 || index === 4 ? 'border-right-dashed' : ''} ${index < 3 ? 'border-bottom' : ''}`}
+  //           >
+  //             <motion.div
+  //               initial={{ opacity: 0, scale: 0.5 }}
+  //               animate={{ opacity: 1, scale: 1 }}
+
+  //               transition={{
+  //                 delay: 0.7,
+  //                 type: "spring",
+  //                 stiffness: 400,
+  //                 damping: 40,
+  //                 duration: 0.9
+  //               }}
+  //               className="centeredBox-avatar">{avatar}</motion.div>
+  //             <motion.div
+  //               initial={{ opacity: 0, scale: 0.5 }}
+  //               animate={{ opacity: 1, scale: 1 }}
+
+  //               transition={{
+  //                 delay: 1,
+  //                 type: "spring",
+  //                 stiffness: 400,
+  //                 damping: 40,
+  //                 duration: 0.9
+  //               }}
+  //               className="centeredBox-name">{name}</motion.div>
+  //           </motion.div>
+  //         </Link>
+  //       ))}
+  //     </motion.div>
+  //   );
+  // }
+
+  // export default MainBox;
+
+
+
+
   return (
     <div className="container ">
       <div className="row px-5">
         <div className="col-lg-7 bgBusImg">
 
         </div>
-        <div className="col-lg-5 bgBusForm">
+        <motion.div
+          initial={{ opacity: 0, scale: 0.5 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.5 }} className="col-lg-5 bgBusForm">
           <form className="BusForm" onSubmit={handleSubmit}>
-            <div className="row">
-              <div className="col-xs-12 col-md-12">
+            <motion.div className="row" variants={variants}>
+              <motion.div variants={itemVariants} className="col-xs-12 col-md-12">
                 <div >
                   <label>FROM</label>
                   <div className="locationFrom">
@@ -270,7 +377,7 @@ const BusForm = () => {
                   )}
                   {errors.from && <div className="error">{errors.from}</div>}
                 </div>
-              </div>
+              </motion.div>
 
               <div className="col-xs-12 col-md-12">
                 <div className="">
@@ -354,25 +461,14 @@ const BusForm = () => {
 
               <div className="col-xs-6 col-md-12">
                 <div className="BusSubmitForm">
-                  {/* <Box>
-                    <Button
-                      variant="contained"
-                      colorScheme="teal"
-                      type="submit"
-                      sx={{ borderRadius: "20px" }}
-                      style={{ backgroundColor: color.bluedark }}
-                    >
-                      Bus Search
-                    </Button>
-                  </Box> */}
                   <button type="submit">
                     Bus Search
                   </button>
                 </div>
               </div>
-            </div>
+            </motion.div>
           </form>
-        </div>
+        </motion.div>
       </div>
     </div>
   );

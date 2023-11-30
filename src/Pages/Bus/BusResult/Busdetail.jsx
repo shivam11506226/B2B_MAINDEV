@@ -219,10 +219,10 @@ const Busdetail = () => {
   }
 
   function handleContinue() {
-    if(
-    blockedSeatArray.length===0||selectedOrigin===""||destination.length===0||
-    selectedDropPoint===""||origin===""
-    ){
+    if (
+      blockedSeatArray.length === 0 || selectedOrigin === "" || destination.length === 0 ||
+      selectedDropPoint === "" || origin === ""
+    ) {
       return
     }
     const dataToSave = {
@@ -334,7 +334,7 @@ const Busdetail = () => {
   return (
     <>
 
-      <div className="container-xxl margin-pecentage" style={{ background: "transparent" }}>
+      <div className="container-xxl margin-pecentage">
         <div className="row">
           <div className="col-lg-3 mt-2">
 
@@ -411,19 +411,17 @@ const Busdetail = () => {
             </div>
           </div>
           <div className="col-lg-9">
-            {filteredBusData?.map((item, index) => {
+            <div className="row top_head">
+              {filteredBusData?.map((item, index) => {
 
-              const departureDate = dayjs(item?.DepartureTime);
-              const arrivalDate = dayjs(item?.ArrivalTime);
+                const departureDate = dayjs(item?.DepartureTime);
+                const arrivalDate = dayjs(item?.ArrivalTime);
 
-              // Format the dates
-              const departureFormattedDate = departureDate.format("DD MMM, YY");
-              const arrivalFormattedDate = arrivalDate.format("DD MMM, YY");
-              return (
-                <>
-
-
-                  <div className="row top_head">
+                // Format the dates
+                const departureFormattedDate = departureDate.format("DD MMM, YY");
+                const arrivalFormattedDate = arrivalDate.format("DD MMM, YY");
+                return (
+                  <>
                     <div className="col-lg-12 busResultBox">
                       <div className="busSearchOne">
                         <p>{item?.TravelName}</p>
@@ -460,9 +458,6 @@ const Busdetail = () => {
                         </div>
 
                       </div>
-                      {/* <div className="busSearchThree">
-                        <p>₹ {item?.BusPrice?.BasePrice}</p>
-                      </div> */}
                       <div className="busSearchFour">
                         <div className="">
                           <p>₹ {item?.BusPrice?.BasePrice}</p>
@@ -477,10 +472,10 @@ const Busdetail = () => {
                         <p>{item?.AvailableSeats} {' '}Seats Available</p>
                       </div>
                     </div>
-                  </div>
-                </>
-              );
-            })}
+                  </>
+                );
+              })}
+            </div>
           </div>
         </div>
       </div >
@@ -611,19 +606,19 @@ const Busdetail = () => {
                                   : true
                               }
                             />
-                            
+
                           </Box>
-                          
+
                         );
                       }
                     })}
-                   
+
                   </Box>
-            
+
                 </Box>
               </Box>
             </Box>
-            
+
           </Box>
           <Box
             sx={{
@@ -713,7 +708,7 @@ const Busdetail = () => {
                   style={{ borderRadius: "10px", width: "120px" }}
                 >
                   {origin.map((name, index) => (
-                     (index === 0 ? <option key={index} selected value={name?.CityPointIndex}>
+                    (index === 0 ? <option key={index} selected value={name?.CityPointIndex}>
                       {name?.CityPointName}
                     </option> :
 
@@ -740,8 +735,8 @@ const Busdetail = () => {
                   style={{ borderRadius: "10px", width: "120px" }}
                 >
                   {destination.map((name, index) => (
-                    
-                     (index === 0 ? <option key={index} selected value={name?.CityPointIndex}>
+
+                    (index === 0 ? <option key={index} selected value={name?.CityPointIndex}>
                       {name?.CityPointName}
                     </option> :
 

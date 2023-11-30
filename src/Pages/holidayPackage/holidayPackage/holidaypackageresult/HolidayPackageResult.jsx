@@ -1,6 +1,6 @@
 import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-import {  Flex, Spacer, Text } from "@chakra-ui/react";
+import { Flex, Spacer, Text } from "@chakra-ui/react";
 import Grid from "@mui/system/Unstable_Grid/Grid";
 import HolidayPackagedetail from "../holidaypackageresult/HolidayPackagedetail";
 import HolidatLeftPackage from "./HolidatLeftPackage";

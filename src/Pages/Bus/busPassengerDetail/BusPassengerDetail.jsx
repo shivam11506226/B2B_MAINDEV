@@ -92,19 +92,19 @@ const BusPassengerDetail = () => {
     return regex.test(phoneNumber);
   }
   function validate() {
-    if(
-    (passengerData.filter((item)=>(
-      item.FirstName===""||item.LastName==="" ||item.Address===""|| !validateEmail( item.Email) ||!validatePhoneNumber(item.Phoneno)
-    ))).length>0){
+    if (
+      (passengerData.filter((item) => (
+        item.FirstName === "" || item.LastName === "" || item.Address === "" || !validateEmail(item.Email) || !validatePhoneNumber(item.Phoneno)
+      ))).length > 0) {
 
-      return  true;
+      return true;
     }
   }
   function handleSeatBlock() {
 
-   if( validate()){
-    return
-   }
+    if (validate()) {
+      return
+    }
     const payload = {
       Passenger:
         passengerData?.map((item, index) => {
@@ -137,7 +137,7 @@ const BusPassengerDetail = () => {
   return (
     <div className="container-xxl margin-pecentage">
       <div className="row">
-        <div className="col-lg-9  order-md-2 order-sm-2 order-lg-1">
+        <div className="col-lg-9 order-lg-1  order-md-4 order-sm-4 ">
           <div className="row ">
             <div className="col-lg-12">
               <div className="busResultBox">
@@ -237,7 +237,7 @@ const BusPassengerDetail = () => {
                 {passengerCount > 0 &&
                   Array.from({ length: passengerCount }, (_, index) => (
                     <Box>
-                      <div mb={2} key={index} className="services" py={1} style={{ border: "border: 1px solid #000;", marginBottom: "10px" }}>
+                      <div mb={2} key={index} className="" py={1} style={{ border: "border: 1px solid #000;", marginBottom: "10px" }}>
                         <Accordion
                           expanded={accordionExpanded === index}
                           onChange={handleAccordionChange(index)}
@@ -270,8 +270,8 @@ const BusPassengerDetail = () => {
                                           handleServiceChange(e, index)
                                         }
                                       />
-                                      {passengerData[index].FirstName==="" &&
-                                      <span id="error1">Enter your name</span>}
+                                      {passengerData[index].FirstName === "" &&
+                                        <span id="error1">Enter your name</span>}
                                     </div>
                                   </Box>
                                 </Grid>
@@ -292,8 +292,8 @@ const BusPassengerDetail = () => {
                                           handleServiceChange(e, index)
                                         }
                                       />
-                                       {passengerData[index].LastName==="" &&
-                                      <span id="error1">Enter Last Name</span>}
+                                      {passengerData[index].LastName === "" &&
+                                        <span id="error1">Enter Last Name</span>}
                                     </div>
                                   </Box>
                                 </Grid>
@@ -336,8 +336,8 @@ const BusPassengerDetail = () => {
                                           handleServiceChange(e, index)
                                         }
                                       />
-                                       {!validateEmail( passengerData[index].Email) &&
-                                      <span id="error1">Enter Email</span>}
+                                      {!validateEmail(passengerData[index].Email) &&
+                                        <span id="error1">Enter Email</span>}
                                     </div>
                                   </Box>
                                 </Grid>
@@ -359,8 +359,8 @@ const BusPassengerDetail = () => {
                                           handleServiceChange(e, index)
                                         }
                                       />
-                                       {passengerData[index].Address==="" &&
-                                      <span id="error1">Enter Address</span>}
+                                      {passengerData[index].Address === "" &&
+                                        <span id="error1">Enter Address</span>}
                                     </div>
                                   </Box>
                                 </Grid>
@@ -382,9 +382,9 @@ const BusPassengerDetail = () => {
                                           handleServiceChange(e, index)
                                         }
                                       />
-                                       {!validatePhoneNumber(passengerData[index].Phoneno) &&
-                                      <span id="error1">Enter your name</span>}
-                                      
+                                      {!validatePhoneNumber(passengerData[index].Phoneno) &&
+                                        <span id="error1">Enter your name</span>}
+
                                     </div>
                                   </Box>
                                 </Grid>
@@ -408,7 +408,7 @@ const BusPassengerDetail = () => {
 
         </div>
 
-        <div className="col-lg-3 mt-2  order-md-1 order-sm-1 order-lg-2">
+        <div className="col-lg-3 mt-2 mb-md-4 mb-sm-4 order-lg-2  order-md-1 order-sm-1 ">
           <BusSaleSummary />
         </div>
       </div>

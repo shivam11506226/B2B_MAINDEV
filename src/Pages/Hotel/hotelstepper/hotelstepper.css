@@ -110,8 +110,9 @@
   /* border: 10px; */
   border-radius: 10px;
   height: 3.1rem;
-  border: 1px #5C85A4 solid;
+  border: 1px solid #999 !important;
   margin: 0 !important;
+  font-weight: 600;
 
 }
 
@@ -189,8 +190,17 @@
   height: 50px !important;
   padding-left: 9px !important;
   border-radius: 10px !important;
-  border: 1px solid #5C85A4 !important;
+  border: 1px solid #999 !important;
 }
+
+
+.hotel_form_input input::placeholder {
+
+  font-weight: 600;
+}
+
+
+
 
 
 .form_label {
@@ -266,4 +276,19 @@
   padding: 0 !important;
   display: flex;
   justify-content: center;
+}
+
+
+
+.hotelFormbutton {
+  padding: 10px 22px;
+  padding: 8px 30px;
+  border-radius: 5.302px;
+  background: #21325D;
+  color: #FFF;
+  font-family: 'Montserrat';
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 600;
+  border: 2px solid #21325D;
 }

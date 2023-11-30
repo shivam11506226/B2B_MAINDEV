@@ -152,7 +152,7 @@ const Busbookingconfirmation = () => {
           <>
             <div className="container-xxl margin-pecentage">
               <div className="row">
-                <div className="col-lg-9">
+                <div className="col-lg-9 order-lg-1  order-md-2 order-sm-2">
                   <div className="col-lg-12">
                     <div className="headingReview">
                       <p>Review Booking</p>
@@ -270,7 +270,7 @@ const Busbookingconfirmation = () => {
                     <button type="submit" onClick={handlePrint}>Print</button>
                   </div>
                 </div>
-                <div className="col-lg-3">
+                <div className="col-lg-3 mt-2 mb-md-4 mb-sm-4 order-lg-2  order-md-1 order-sm-1 ">
                   <BusSaleSummary />
                 </div>
               </div>

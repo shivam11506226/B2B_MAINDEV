@@ -88,347 +88,348 @@ const Bookingdetailpackage = () => {
   };
 
   return (
-    <div div className="bookDel">
-
-      <div className="container">
+    <>
+      <div className="col-lg-9">
         <div className="row">
-          <div className="col-lg-8">
-            <div className="col-lg-12 mb-4">
-              <div className="outerFilterBox">
-                <div className="filterBox">
-                  <p className="searchDestination">Seach Destination{' '}: <b>{savedDestination}</b></p>
-                  <p className="searchDestination">Days {' '} <b>{savedDays}</b></p>
-                </div>
+          <div className="col-lg-12 mb-4">
+            <div className="outerFilterBox">
+              <div className="filterBox">
+                <p className="searchDestination">Seach Destination{' '}: <b>{savedDestination}</b></p>
+                <p className="searchDestination">Days {' '} <b>{savedDays}</b></p>
               </div>
             </div>
-            <div className="col-lg-12 mb-4">
-              <div className="packageName">
-                <p className="mb-3">{onePackage?.pakage_title}</p>
-                <span>{`${onePackage?.days - 1}N`} / {`${onePackage?.days}D`}</span>
-              </div>
+          </div>
+          <div className="col-lg-12 mb-4">
+            <div className="packageName">
+              <p className="mb-3">{onePackage?.pakage_title}</p>
+              <span>{`${onePackage?.days - 1}N`} / {`${onePackage?.days}D`}</span>
             </div>
-            <div className="col-lg-12 d-flex mb-4">
-              <div className="packageLocation">
-                <FmdGoodIcon />
+          </div>
+          <div className="col-lg-12 d-flex mb-4">
+            <div className="packageLocation">
+              <FmdGoodIcon />
 
-              </div>
-              <div>
-                <p>{savedDestination}</p>
-                <span>(India)</span>
-              </div>
             </div>
-
-            <div className="col-lg-12 mb-4">
-              <div className="TripHighlight">
-                <p className="mb-3">Trip Highlights</p>
-
-                <div className="col-lg-10">
-                  <div className="icon-boxHighlight">
-
-                    {onePackage?.insclusions?.map((ele, index) => {
-                      if (
-                        ele?.flexibility ||
-                        ele?.train ||
-                        ele?.bus ||
-                        ele?.cab ||
-                        ele?.moterBike ||
-                        ele?.hotel ||
-                        ele?.homeStays ||
-                        ele?.guestHouse ||
-                        ele?.cruise ||
-                        ele?.sightSeeing ||
-                        ele?.guide ||
-                        ele?.meals ||
-                        ele?.breakfast ||
-                        ele?.drink ||
-                        ele?.visa ||
-                        ele?.travelInsurance ||
-                        ele?.wildlife ||
-                        ele?.heritage ||
-                        ele?.adventure ||
-                        ele?.beach ||
-                        ele?.hillStation ||
-                        ele?.nature ||
-                        ele?.wellness ||
-                        ele?.hiddenGem ||
-                        ele?.tax ||
-                        ele?.discount ||
-                        ele?.waterActivities ||
-                        ele?.optionalActivities ||
-                        ele?.flexibleBooking ||
-                        ele?.wifi
-                      ) {
-                        return (
-                          <div key={index} >
-                            {ele?.flexibility && (
-                              <div className="singleIcon">
-                                <span><CommitIcon />
-                                </span>
-                                <p>Flexibility</p>
-                              </div>
-                            )}
-                            {ele?.train && (
-                              <div className="singleIcon">
-                                <span><TramIcon /></span>
-                                <p>Train</p>
-                              </div>
-                            )}
-                            {ele?.bus && (
-                              <div className="singleIcon">
-                                <span><DirectionsBusIcon /></span>
-                                <p>Bus</p>
-                              </div>
-                            )}
-                            {ele?.cab && (
-                              <div className="singleIcon">
-                                <span><DirectionsCarIcon /></span>
-                                <p>Cab</p>
-                              </div>
-                            )}
-                            {ele?.moterBike && (
-                              <div className="singleIcon">
-                                <span><TwoWheelerIcon /></span>
-                                <p>Moterbike</p>
-                              </div>
-                            )}
-                            {ele?.hotel && (
-                              <div className="singleIcon">
-                                <span><ApartmentIcon /></span>
-                                <p>Hotel</p>
-                              </div>
-                            )}
-                            {ele?.homeStays && (
-                              <div className="singleIcon">
-                                <span><HolidayVillageIcon /></span>
-                                <p>Homestays</p>
-                              </div>
-                            )}
-                            {ele?.guestHouse && (
-                              <div className="singleIcon">
-                                <span><LocationCityIcon /></span>
-                                <p>Guesthouse</p>
-                              </div>
-                            )}
-                            {ele?.camp && (
-                              <div className="singleIcon">
-                                <span><CabinIcon /></span>
-                                <p>Camp</p>
-                              </div>
-                            )}
-                            {ele?.cruise && (
-                              <div className="singleIcon">
-                                <span><BlurOnIcon /></span>
-                                <p>Cruise</p>
-                              </div>
-                            )}
-                            {ele?.sightSeeing && (
-                              <div className="singleIcon">
-                                <span><DeckIcon /></span>
-                                <p>Sightseeing</p>
-                              </div>
-                            )}
-                            {ele?.guide && (
-                              <div className="singleIcon">
-                                <span><EngineeringIcon /></span>
-                                <p>Guide</p>
-                              </div>
-                            )}
-                            {ele?.meals && (
-                              <div className="singleIcon">
-                                <span><FastfoodIcon /></span>
-                                <p>Meals</p>
-                              </div>
-                            )}
-                            {ele?.breakfast && (
-                              <div className="singleIcon">
-                                <span><DinnerDiningIcon /></span>
-                                <p>Daily Breakfast</p>
-                              </div>
-                            )}
-                            {ele?.drink && (
-                              <div className="singleIcon">
-                                <span><LiquorIcon /></span>
-                                <p>Complimentary Drink</p>
-                              </div>
-                            )}
-                            {ele?.visa && (
-                              <div className="singleIcon">
-                                <span><ArticleIcon /></span>
-                                <p>Visa</p>
-                              </div>
-                            )}
-                            {ele?.travelInsurance && (
-                              <div className="singleIcon">
-                                <span><AccountBalanceIcon /></span>
-                                <p>Travel Insurance</p>
-                              </div>
-                            )}
-                            {ele?.safeTravel && (
-                              <div className="singleIcon">
-                                <span><ParaglidingIcon /></span>
-                                <p>Safe to Travel</p>
-                              </div>
-                            )}
-                            {ele?.wildlife && (
-                              <div className="singleIcon">
-                                <span><NaturePeopleIcon /></span>
-                                <p>Wildlife</p>
-                              </div>
-                            )}
-                            {ele?.heritage && (
-                              <div className="singleIcon">
-                                <span><LandslideIcon /></span>
-                                <p>Heritage</p>
-                              </div>
-                            )}
-                            {ele?.adventure && (
-                              <div className="singleIcon">
-                                <span><KitesurfingIcon /></span>
-                                <p>Adventure</p>
-                              </div>
-                            )}
-                            {ele?.beach && (
-                              <div className="singleIcon">
-                                <span><PoolIcon /></span>
-                                <p>Beach</p>
-                              </div>
-                            )}
-                            {ele?.hillStation && (
-                              <div className="singleIcon">
-                                <span><DownhillSkiingIcon /></span>
-                                <p>Hill Station</p>
-                              </div>
-                            )}
-                            {ele?.nature && (
-                              <div className="singleIcon">
-                                <span><ForestIcon /></span>
-                                <p>Nature</p>
-                              </div>
-                            )}
-                            {ele?.wellness && (
-                              <div className="singleIcon">
-                                <span><SelfImprovementIcon /></span>
-                                <p>Wellness</p>
-                              </div>
-                            )}
-                            {ele?.hiddenGem && (
-                              <div className="singleIcon">
-                                <span><FitnessCenterIcon /></span>
-                                <p>Hidden Gem</p>
-                              </div>
-                            )}
-                            {ele?.tax && (
-                              <div className="singleIcon">
-                                <span><FolderDeleteIcon /></span>
-                                <p>Price Inclusive Tax</p>
-                              </div>
-                            )}
-                            {ele?.discount && (
-                              <div className="singleIcon">
-                                <span><LocalOfferIcon /></span>
-                                <p>50% Off</p>
-                              </div>
-                            )}
-                            {ele?.waterActivities && (
-                              <div className="singleIcon">
-                                <span><KayakingIcon /></span>
-                                <p>Water Activities</p>
-                              </div>
-                            )}
-                            {ele?.optionalActivities && (
-                              <div className="singleIcon">
-                                <span><SportsKabaddiIcon /></span>
-                                <p>Optional Activities</p>
-                              </div>
-                            )}
-                            {ele?.flexibleBooking && (
-                              <div className="singleIcon">
-                                <span><BookmarkAddIcon /></span>
-                                <p>Flexible Booking</p>
-                              </div>
-                            )}
-                            {ele?.wifi && (
-                              <div className="singleIcon">
-                                <span><WifiPasswordIcon /></span>
-                                <p>WIFI</p>
-                              </div>
-                            )}
-                          </div>
-                        );
-                      }
-                    })}
-
-                  </div>
-                </div>
-              </div>
+            <div>
+              <p>{savedDestination}</p>
+              <span>(India)</span>
             </div>
+          </div>
 
-            <div className="col-lg-12 mb-4">
-              <div className="tripOverview">
-                <div className="col-lg-10">
-                  <div className="overviewBox">
-                    <span>Overview</span>
-                    <p>{onePackage?.overview}</p>
-                  </div>
+          <div className="col-lg-12 mb-4">
+            <div className="TripHighlight">
+              <p className="mb-3">Trip Highlights</p>
+
+              <div className="col-lg-10">
+                <div className="icon-boxHighlight">
+
+                  {onePackage?.insclusions?.map((ele, index) => {
+                    if (
+                      ele?.flexibility ||
+                      ele?.train ||
+                      ele?.bus ||
+                      ele?.cab ||
+                      ele?.moterBike ||
+                      ele?.hotel ||
+                      ele?.homeStays ||
+                      ele?.guestHouse ||
+                      ele?.cruise ||
+                      ele?.sightSeeing ||
+                      ele?.guide ||
+                      ele?.meals ||
+                      ele?.breakfast ||
+                      ele?.drink ||
+                      ele?.visa ||
+                      ele?.travelInsurance ||
+                      ele?.wildlife ||
+                      ele?.heritage ||
+                      ele?.adventure ||
+                      ele?.beach ||
+                      ele?.hillStation ||
+                      ele?.nature ||
+                      ele?.wellness ||
+                      ele?.hiddenGem ||
+                      ele?.tax ||
+                      ele?.discount ||
+                      ele?.waterActivities ||
+                      ele?.optionalActivities ||
+                      ele?.flexibleBooking ||
+                      ele?.wifi
+                    ) {
+                      return (
+                        <div key={index} >
+                          {ele?.flexibility && (
+                            <div className="singleIcon">
+                              <span><CommitIcon />
+                              </span>
+                              <p>Flexibility</p>
+                            </div>
+                          )}
+                          {ele?.train && (
+                            <div className="singleIcon">
+                              <span><TramIcon /></span>
+                              <p>Train</p>
+                            </div>
+                          )}
+                          {ele?.bus && (
+                            <div className="singleIcon">
+                              <span><DirectionsBusIcon /></span>
+                              <p>Bus</p>
+                            </div>
+                          )}
+                          {ele?.cab && (
+                            <div className="singleIcon">
+                              <span><DirectionsCarIcon /></span>
+                              <p>Cab</p>
+                            </div>
+                          )}
+                          {ele?.moterBike && (
+                            <div className="singleIcon">
+                              <span><TwoWheelerIcon /></span>
+                              <p>Moterbike</p>
+                            </div>
+                          )}
+                          {ele?.hotel && (
+                            <div className="singleIcon">
+                              <span><ApartmentIcon /></span>
+                              <p>Hotel</p>
+                            </div>
+                          )}
+                          {ele?.homeStays && (
+                            <div className="singleIcon">
+                              <span><HolidayVillageIcon /></span>
+                              <p>Homestays</p>
+                            </div>
+                          )}
+                          {ele?.guestHouse && (
+                            <div className="singleIcon">
+                              <span><LocationCityIcon /></span>
+                              <p>Guesthouse</p>
+                            </div>
+                          )}
+                          {ele?.camp && (
+                            <div className="singleIcon">
+                              <span><CabinIcon /></span>
+                              <p>Camp</p>
+                            </div>
+                          )}
+                          {ele?.cruise && (
+                            <div className="singleIcon">
+                              <span><BlurOnIcon /></span>
+                              <p>Cruise</p>
+                            </div>
+                          )}
+                          {ele?.sightSeeing && (
+                            <div className="singleIcon">
+                              <span><DeckIcon /></span>
+                              <p>Sightseeing</p>
+                            </div>
+                          )}
+                          {ele?.guide && (
+                            <div className="singleIcon">
+                              <span><EngineeringIcon /></span>
+                              <p>Guide</p>
+                            </div>
+                          )}
+                          {ele?.meals && (
+                            <div className="singleIcon">
+                              <span><FastfoodIcon /></span>
+                              <p>Meals</p>
+                            </div>
+                          )}
+                          {ele?.breakfast && (
+                            <div className="singleIcon">
+                              <span><DinnerDiningIcon /></span>
+                              <p>Daily Breakfast</p>
+                            </div>
+                          )}
+                          {ele?.drink && (
+                            <div className="singleIcon">
+                              <span><LiquorIcon /></span>
+                              <p>Complimentary Drink</p>
+                            </div>
+                          )}
+                          {ele?.visa && (
+                            <div className="singleIcon">
+                              <span><ArticleIcon /></span>
+                              <p>Visa</p>
+                            </div>
+                          )}
+                          {ele?.travelInsurance && (
+                            <div className="singleIcon">
+                              <span><AccountBalanceIcon /></span>
+                              <p>Travel Insurance</p>
+                            </div>
+                          )}
+                          {ele?.safeTravel && (
+                            <div className="singleIcon">
+                              <span><ParaglidingIcon /></span>
+                              <p>Safe to Travel</p>
+                            </div>
+                          )}
+                          {ele?.wildlife && (
+                            <div className="singleIcon">
+                              <span><NaturePeopleIcon /></span>
+                              <p>Wildlife</p>
+                            </div>
+                          )}
+                          {ele?.heritage && (
+                            <div className="singleIcon">
+                              <span><LandslideIcon /></span>
+                              <p>Heritage</p>
+                            </div>
+                          )}
+                          {ele?.adventure && (
+                            <div className="singleIcon">
+                              <span><KitesurfingIcon /></span>
+                              <p>Adventure</p>
+                            </div>
+                          )}
+                          {ele?.beach && (
+                            <div className="singleIcon">
+                              <span><PoolIcon /></span>
+                              <p>Beach</p>
+                            </div>
+                          )}
+                          {ele?.hillStation && (
+                            <div className="singleIcon">
+                              <span><DownhillSkiingIcon /></span>
+                              <p>Hill Station</p>
+                            </div>
+                          )}
+                          {ele?.nature && (
+                            <div className="singleIcon">
+                              <span><ForestIcon /></span>
+                              <p>Nature</p>
+                            </div>
+                          )}
+                          {ele?.wellness && (
+                            <div className="singleIcon">
+                              <span><SelfImprovementIcon /></span>
+                              <p>Wellness</p>
+                            </div>
+                          )}
+                          {ele?.hiddenGem && (
+                            <div className="singleIcon">
+                              <span><FitnessCenterIcon /></span>
+                              <p>Hidden Gem</p>
+                            </div>
+                          )}
+                          {ele?.tax && (
+                            <div className="singleIcon">
+                              <span><FolderDeleteIcon /></span>
+                              <p>Price Inclusive Tax</p>
+                            </div>
+                          )}
+                          {ele?.discount && (
+                            <div className="singleIcon">
+                              <span><LocalOfferIcon /></span>
+                              <p>50% Off</p>
+                            </div>
+                          )}
+                          {ele?.waterActivities && (
+                            <div className="singleIcon">
+                              <span><KayakingIcon /></span>
+                              <p>Water Activities</p>
+                            </div>
+                          )}
+                          {ele?.optionalActivities && (
+                            <div className="singleIcon">
+                              <span><SportsKabaddiIcon /></span>
+                              <p>Optional Activities</p>
+                            </div>
+                          )}
+                          {ele?.flexibleBooking && (
+                            <div className="singleIcon">
+                              <span><BookmarkAddIcon /></span>
+                              <p>Flexible Booking</p>
+                            </div>
+                          )}
+                          {ele?.wifi && (
+                            <div className="singleIcon">
+                              <span><WifiPasswordIcon /></span>
+                              <p>WIFI</p>
+                            </div>
+                          )}
+                        </div>
+                      );
+                    }
+                  })}
+
                 </div>
               </div>
             </div>
           </div>
 
-          <div className="col-lg-4">
-            <div className="sidePromo">
-              <div className="col-lg-12 sidePromoImg">
-                <img src={goa} alt="" />
-              </div>
-              <div className="promoBottom">
-                <div className="promoTitle">
-                  <p>Luxurious Dubai Trip</p>
-                  <div>
-                    <StarIcon />
-                    <StarIcon />
-                    <StarIcon />
-                  </div>
-                </div>
-                <div className="promoIcons">
-                  <div className="singlePromoIcon">
-                    <span><TramIcon /></span>
-                    <p>Train</p>
-                  </div>
-                  <div className="singlePromoIcon">
-                    <span><ForestIcon /></span>
-                    <p>Nature</p>
-                  </div>
-                  <div className="singlePromoIcon">
-                    <span><LocalOfferIcon /></span>
-                    <p>50% Off</p>
-                  </div>
-
-                  <div className="singlePromoIcon">
-                    <span><WifiPasswordIcon /></span>
-                    <p>WIFI</p>
-                  </div>
-                </div>
-
-                <div className="promoDestination">
-                  <ul>
-                    <li>Mandovi river cruise</li>
-                    <li>North Dubai sightseeing</li>
-                  </ul>
-                  <div>
-                    <p>₹ 42,250 </p>
-                    <span>Per Person</span>
-                  </div>
-                </div>
-                <div className="promoBottomButton">
-                  <p>VIEW OTHER PACKAGES {" > "}</p>
-
-                  <button>CONFIRM THIS PACKAGE NOW</button>
+          <div className="col-lg-12 mb-4">
+            <div className="tripOverview">
+              <div className="col-lg-10">
+                <div className="overviewBox">
+                  <span>Overview</span>
+                  <p>{onePackage?.overview}</p>
                 </div>
               </div>
             </div>
           </div>
-
         </div>
+
+
+      </div>
+
+      <div className="col-lg-3">
+        <div className="sidePromo">
+          <div className="col-lg-12 sidePromoImg">
+            <img src={goa} alt="" />
+          </div>
+          <div className="promoBottom">
+            <div className="promoTitle">
+              <p>Luxurious Dubai Trip</p>
+              <div>
+                <StarIcon />
+                <StarIcon />
+                <StarIcon />
+              </div>
+            </div>
+            <div className="promoIcons">
+              <div className="singlePromoIcon">
+                <span><TramIcon /></span>
+                <p>Train</p>
+              </div>
+              <div className="singlePromoIcon">
+                <span><ForestIcon /></span>
+                <p>Nature</p>
+              </div>
+              <div className="singlePromoIcon">
+                <span><LocalOfferIcon /></span>
+                <p>50% Off</p>
+              </div>
+
+              <div className="singlePromoIcon">
+                <span><WifiPasswordIcon /></span>
+                <p>WIFI</p>
+              </div>
+            </div>
+
+            <div className="promoDestination">
+              <ul>
+                <li>Mandovi river cruise</li>
+                <li>North Dubai sightseeing</li>
+              </ul>
+              <div>
+                <p>₹ 42,250 </p>
+                <span>Per Person</span>
+              </div>
+            </div>
+            <div className="promoBottomButton">
+              <p>VIEW OTHER PACKAGES {" > "}</p>
+
+              <button>CONFIRM THIS PACKAGE NOW</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="col-lg-12">
         <div className="row">
           <div className="col-lg-12 mb-4">
             <TabContext value={value} style={{}}>
@@ -546,8 +547,10 @@ const Bookingdetailpackage = () => {
 
           </div>
         </div>
+      </div>
+      <div className="col-lg-12">
         <form onClick={() => navigate("/HolidayGuestDetail")}>
-          <Box textAlign="center" mt={3}>
+          {/* <Box textAlign="center" mt={3}>
             <Button
               style={{ backgroundColor: color.bluedark, color: "white" }}
               textAlign="center"
@@ -557,12 +560,13 @@ const Bookingdetailpackage = () => {
             >
               Continue
             </Button>
-          </Box>
+          </Box> */}
+          <div className="holiday_but">
+            <button type="submit">Continue</button>
+          </div>
         </form>
       </div>
-
-
-    </div>
+    </>
   );
 };
 
