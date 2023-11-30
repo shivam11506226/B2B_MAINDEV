@@ -14,63 +14,22 @@ const FlightresultOne = ({ sendDataToParent }) => {
   const [selectedFlightIndex, setSelectedFlightIndex] = useState(null);
 
   const sendData = (e) => {
-    const data =e.target;
-  // console.log("dataaaaaaaaaaa",data)
+    const data = e.target;
+    // console.log("dataaaaaaaaaaa",data)
     sendDataToParent(data);
   };
 
   return setToSearchResults[0]?.map((flight1) => {
     // result = res.sort((a, b) => a.Segments[0][0].Duration - b.Fare.OfferedFare);
     return (
-      <Box
-      padding="5px"
-      width="442px"
-      mt={2}
-
-      height="118px"
-      backgroundColor="#F5F5F5"
-      display='flex'
-      justifyContent='center'
-      alignItems='center'
-      
-      boxShadow="1px 1px 8px gray"
-      borderRadius="10px"
-      >
-        {/* <div className="row">
-          <div
-            className={`btn btn-primary m-3 text-center p-2 fs-5 col ${
-              filter === 1 ? "active" : ""
-            }`}
-            onClick={() => setFilter(1)}
-          >
-            Cheapest
-          </div>
-          <div
-            className={`btn btn-primary m-3 text-center p-2 fs-5 col ${
-              filter === 2 ? "active" : ""
-            }`}
-            onClick={() => setFilter(2)}
-          >
-            Fastest
-          </div>
-          <div
-            className={`btn btn-primary m-3 text-center p-2 fs-5 col ${
-              filter === 3 ? "active" : ""
-            }`}
-            onClick={() => setFilter(3)}
-          >
-            Best
-          </div>
-        </div> */}
-        {/* const ResultIndex = flight1.id || flight1?.ResultIndex; */}
-
+      <Box>
         <div key={flight1?.ResultIndex}>
           {flight1?.Segments?.map((flight, Index) => {
             // console.log("flight", flight);
             const length = flight.length;
             // console.log("ResultIndex1", flight1?.ResultIndex);
             return length === 1 ? (
-              <Box
+              <div
                 onClick={(e) => {
                   sendData(e);
                 }}
@@ -88,7 +47,7 @@ const FlightresultOne = ({ sendDataToParent }) => {
                   }}
                   showRadio={true}
                 />
-              </Box>
+              </div>
             ) : (
               <Box
                 onClick={(e) => {
