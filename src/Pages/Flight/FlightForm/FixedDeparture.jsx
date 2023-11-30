@@ -228,12 +228,6 @@ const FixedDeparture = () => {
                     Agent Price
                   </th>
                   <th item className="4grid_item">
-                    Sold
-                  </th>
-                  <th item className="4grid_item">
-                    UnSold
-                  </th>
-                  <th item className="4grid_item">
                     Hold
                   </th>
                   <th item className="4grid_item">
@@ -280,12 +274,6 @@ const FixedDeparture = () => {
                       </td>
                       <td item className="4grid_item item14">
                         {item.Price}
-                      </td>
-                      <td item className="4grid_item item14">
-                        {item.Sold}
-                      </td>
-                      <td item className="4grid_item item14">
-                        {item.UnSold}
                       </td>
                       <td item className="4grid_item item14">
                         {item.Hold}
