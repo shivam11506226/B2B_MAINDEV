@@ -579,7 +579,6 @@ const Leftdetail = () => {
         <div className="">
           <form className="p-0" onSubmit={handleSubmit}>
             <Box>
-
               {Array.from({ length: adults }, (err, i) => {
                 return (
                   <div className="mb-2">
@@ -831,11 +830,8 @@ const Leftdetail = () => {
                                   handleServiceChange(e, i + Number(adults))
                                 }
                                 required
-                                // value={minDateChild}
                                 max={maxDateChild}
                                 min={minDateChild}
-                              // max={"2021-11-11" }
-                              // min={ "2020-11-11"}
                               />
                               {passengerData[Number(adults) + i].DateOfBirth == "" && sub && <span id="error1">Enter DOB</span>}
                             </div>
@@ -893,18 +889,6 @@ const Leftdetail = () => {
                 })}
               </Box>
             )}
-
-            {/* {Array.from({ length: childs }, (err, i) => {
-              return (
-                <div className="mb-2">
-                  <div className=" p-2 ">Child {i + 1}</div>
-                  <div className="col-lg-12"   >
-                    <div className="row">
-                      <div className="col-lg-4 col-md-6 col-sm-6" >
-                        <div className="form_input">
-                          <label hotel_form_input className="form_lable">
-                            First name*
-                          </label> */}
             {infants > 0 && (
               <Box
                 className="mid_header"
