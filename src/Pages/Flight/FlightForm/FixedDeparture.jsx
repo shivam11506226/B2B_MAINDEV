@@ -1,4 +1,54 @@
-yup.number().required("Number of Seats is required"),
+import React, { useState, useEffect } from "react";
+import { useForm, Controller } from "react-hook-form";
+import axios from "axios";
+import { apiURL } from "../../../Constants/constant";
+import Box from "@mui/material/Box";
+import { Button } from "@mui/material";
+import Paper from "@mui/material/Paper";
+import Grid from "@mui/material/Grid";
+import { styled } from "@mui/material/styles";
+import Modal from "@mui/material/Modal";
+import Typography from "@mui/material/Typography";
+import { useSelector } from "react-redux";
+import * as yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
+
+import "./fixeddeparture.css";
+import userApi from "../../../Redux/API/api";
+
+const style = {
+    position: "relative",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    width: "90%",
+    overFlowY: "scroll",
+    bgcolor: "background.paper",
+    boxShadow: 24,
+    p: 4,
+    borderRadies: "12px",
+
+
+
+};
+const style1 = {
+    position: "fixed",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    width: "90%",
+    overFlowY: "scroll",
+    bgcolor: "background.paper",
+    boxShadow: 24,
+    p: 4,
+    borderRadies: "12px",
+
+
+
+};
+const schema = yup.object().shape({
+    loginName: yup.string().required("Login Name is required"),
+    numberOfSeats: yup.number().required("Number of Seats is required"),
     status: yup.string().required("Status is required"),
     itemPrice: yup.number().required("Sale Price is required"),
     soldTo: yup.string().required("Sold To is required"),
@@ -150,145 +200,7 @@ const FixedDeparture = () => {
                                         <option value={item.Sector}>{item.Sector}</option>
                                     )
                                 )}
-                            </select
-   
-  };
-  console.warn("Fetching results", toSearchResult);
-  console.log(item, "item");
-  return (
-    <>
-      <div className="container-fluid margin-pecenatage">
-        <div className="topBoxDeparture">
-          <h3>Search Fixed Departure</h3>
-          <p> </p>
-          <label htmlFor="">
-            Sector <sup>*</sup>
-          </label>
-
-          <div className="fixedDepartSelect">
-            {toSearchResult.data?.length > 0 ? (
-              <select
-                class="form-select"
-                onChange={(e) => settoQuery(e.target.value)}
-                aria-label="Default select example"
-              >
-                {toSearchResult?.data.map((item, index) =>
-                  index === 0 ? (
-                    <option selected value={item.Sector}>
-                      {item.Sector}
-                    </option>
-                  ) : (
-                    <option value={item.Sector}>{item.Sector}</option>
-                  )
-                )}
-              </select>
-            ) : (
-              ""
-            )}
-            <button
-              className="fixedDepartButton"
-              onClick={() => handelSearch()}
-            >
-              Search
-            </button>
-          </div>
-        </div>
-        <div className="table1">
-          {toSearchResultData.length > 0 && (
-            <table
-
-            //  id="boxx" sx={{ mt: "50px", position: "fixed", top: "30%", left: "0", width: "100%", display: 'flex', justifyContent: 'center', alignItems: "center", flexDirection: "column" }}
-            >
-              <thead
-              //  container spacing={0} columns={16} sx={{ backgroundColor: "#071C2C", display: 'flex', justifyContent: 'center', alignItems: "center", height: "70px" }}
-              >
-                <tr>
-                  <th item className="4grid_item">
-                    Sector
-                  </th>
-                  <th item className="4grid_item">
-                    Departure Date
-                  </th>
-                  <th item className="4grid_item">
-                    Return Date
-                  </th>
-                  <th item className="4grid_item">
-                    Airlines
-                  </th>
-                  <th item className="4grid_item">
-                    Flight No
-                  </th>
-                  <th item className="4grid_item">
-                    Total Seats
-                  </th>
-                  <th item className="4grid_item">
-                    Onward Time
-                  </th>
-                  <th item className="4grid_item">
-                    Return Time
-                  </th>
-                  <th item className="4grid_item">
-                    Agent Price
-                  </th>
-                  <th item className="4grid_item">
-                    Hold
-                  </th>
-                  <th item className="4grid_item">
-                    Availlable Seats
-                  </th>
-                  <th item className="4grid_item">
-                    AirTKT
-                  </th>
-                  <th item className="4grid_item">
-                    AIRPKG
-                  </th>
-                </tr>
-              </thead>
-
-              {toSearchResultData.length > 0 &&
-                toSearchResultData.map((item, index) => (
-                  <tbody
-                  //  className="child1" container spacing={0} columns={16}  sx={{ backgroundColor: "#071C2C", display: 'flex', justifyContent: 'center', alignItems: "center", height: "70px"  }}
-                  >
-                    <tr>
-                      <td item className="4grid_item item14">
-                        {item.Sector}
-                      </td>
-                      <td item className="4grid_item item14">
-                        {item.DepartureDate}
-                      </td>
-                      <td item className="4grid_item item14">
-                        {item.ReturnDate}
-                      </td>
-                      <td item className="4grid_item item14">
-                        {item.Airlines}
-                      </td>
-                      <td item className="4grid_item item14">
-                        {item.FlightNo}
-                      </td>
-                      <td item className="4grid_item item14">
-                        {item.AvailableSeats}
-                      </td>
-                      <td item className="4grid_item item14">
-                        {item.OnwardTime}
-                      </td>
-                      <td item className="4grid_item item14">
-                        {item.ReturnTime}
-                      </td>
-                      <td item className="4grid_item item14">
-                        {item.Price}
-                      </td>
-                      <td item className="4grid_item item14">
-                        {item.Hold}
-                      </td>
-                      <td item className="4grid_item item14">
-                        {item.AvailableSeats}
-                      </td>
-
-                      <td item className="4grid_item item14">
-                        {item.AirTKT === "Call Us Book" ? (
-                          item.AirTKT
-
+                            </select>
                         ) : (
                             ""
                         )}
