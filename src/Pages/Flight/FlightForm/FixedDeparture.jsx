@@ -601,6 +601,7 @@ const FixedDeparture = () => {
 
                                 <button
                                     type="button"
+                                    className="backButton"
                                     onClick={() => {
                                         setNumberOfSeats(tempnumberOfSeats);
                                         setEnableName(true);
@@ -628,6 +629,7 @@ const FixedDeparture = () => {
                                             className="fixedContainer"
                                                
                                             >
+                                                <div className="passenger"><h1>Passenger Detail's</h1> </div>
                                                 {Array.from({ length: numberOfSeats }, (_, index) => (
                                                     <div
                                                         key={index}

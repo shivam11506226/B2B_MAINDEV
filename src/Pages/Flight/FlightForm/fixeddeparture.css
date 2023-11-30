@@ -113,6 +113,37 @@ td{
     border-radius: 6px;
     padding: 0px 5px
 }
+input{
+    display: flex;
+    font-size: 16px;
+    color: #21325d;
+    font-family: "Montserrat";
+    height: 40px;
+    border: 0.5px solid #21325d;
+    border-radius: 6px;
+    padding: 0px 5px
+}
+select{
+    display: flex;
+    font-size: 16px;
+    color: #21325d;
+    font-family: "Montserrat";
+    height: 40px;
+    border: 0.5px solid #21325d;
+    border-radius: 6px;
+    padding: 0px 5px
+}
+.passenger{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.passenger >h1{
+    color: #21325d;
+    font-family: "Montserrat";
+    font-size: 24px;
+}
 .fixeddGlass{
     backdrop-filter: blur(16px) saturate(180%);
     -webkit-backdrop-filter: blur(16px) saturate(180%);
@@ -120,8 +151,8 @@ td{
     border-radius: 12px;
     border: 1px solid rgba(255, 255, 255, 0.125);
     width: 90%;
-    height: 90%;
-    padding: 9px;
+    height: 95% !important;
+    padding: 0px !important;
 }
 #zZindex{
     z-index: 99999 !important;
@@ -129,7 +160,7 @@ td{
 .fixedContainer{
     /* overflow: hidden; */
     
-    height: 90%;
+    height: 95%;
     overflow-y: scroll;
     padding: 10px;
     width: 100%;
@@ -162,6 +193,15 @@ td{
     width: 100%;
 
     
+}
+.backButton{
+    height: 50px !important;
+    background-color: #21325d !important;
+    color:#fff;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 /* .backButton{
     background-color: red;
