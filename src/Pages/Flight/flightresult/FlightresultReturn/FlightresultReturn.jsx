@@ -110,17 +110,287 @@ const FlightresultReturn = () => {
   const onComingTime = convertISOToCustomFormat(IncomeTime);
 
   return (
-    <Box>
-      {/* <Box style={{ width: 977, height: 61, background: '#FFFBFB', borderRadius: 4, border: '1px #9E9E9E solid', display: 'flex', justifyContent: 'center', alignItems: 'center', }} >
-        <Box style={{
-          backgroundColor: "red",
-        }} >
+    <div>
 
+      <div className="container margin-pecentage">
+        <div className="row">
+          <div className="col-6">
+            <div className="row">
+              <div className="col-lg-12">
+                <div className="returnheadicons">
+                  <div>
+                    <p>Flight</p>
+                    <span><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12" fill="none">
+                      <path d="M6 9.5L3 6.5M6 9.5L9 6.5M6 9.5L6 2.5" stroke="#21325D" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg></span>
+                  </div>
+                  <div>
+                    <p>Departure</p>
+                    <span><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12" fill="none">
+                      <path d="M6 9.5L3 6.5M6 9.5L9 6.5M6 9.5L6 2.5" stroke="#21325D" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg></span>
+                  </div>
+                  <div>
+                    <p>Duration</p>
+                    <span><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12" fill="none">
+                      <path d="M6 9.5L3 6.5M6 9.5L9 6.5M6 9.5L6 2.5" stroke="#21325D" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg></span>
+                  </div>
+                  <div>
+                    <p>Arrival</p>
+                    <span><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12" fill="none">
+                      <path d="M6 9.5L3 6.5M6 9.5L9 6.5M6 9.5L6 2.5" stroke="#21325D" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg></span>
+                  </div>
+                  <div>
+                    <p>Offer Fare</p>
+                    <span><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12" fill="none">
+                      <path d="M6 9.5L3 6.5M6 9.5L9 6.5M6 9.5L6 2.5" stroke="#21325D" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg></span>
+                  </div>
+                </div>
+              </div>
+
+              <div className="col-lg-12">
+                <FlightresultOne sendDataToParent={receiveChildData} />
+              </div>
+            </div>
+          </div>
+          <div className="col-6">
+            <div className="row">
+              <div className="col-lg-12">
+                <div className="returnheadicons">
+                  <div>
+                    <p>Flight</p>
+                    <span><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12" fill="none">
+                      <path d="M6 9.5L3 6.5M6 9.5L9 6.5M6 9.5L6 2.5" stroke="#21325D" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg></span>
+                  </div>
+                  <div>
+                    <p>Departure</p>
+                    <span><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12" fill="none">
+                      <path d="M6 9.5L3 6.5M6 9.5L9 6.5M6 9.5L6 2.5" stroke="#21325D" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg></span>
+                  </div>
+                  <div>
+                    <p>Duration</p>
+                    <span><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12" fill="none">
+                      <path d="M6 9.5L3 6.5M6 9.5L9 6.5M6 9.5L6 2.5" stroke="#21325D" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg></span>
+                  </div>
+                  <div>
+                    <p>Arrival</p>
+                    <span><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12" fill="none">
+                      <path d="M6 9.5L3 6.5M6 9.5L9 6.5M6 9.5L6 2.5" stroke="#21325D" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg></span>
+                  </div>
+                  <div>
+                    <p>Offer Fare</p>
+                    <span><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12" fill="none">
+                      <path d="M6 9.5L3 6.5M6 9.5L9 6.5M6 9.5L6 2.5" stroke="#21325D" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg></span>
+                  </div>
+                </div>
+              </div>
+
+              <div className="col-lg-12">
+                <FlightReturn sendDataToParent={receiveChildData} />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+
+
+      <Box
+        display={"flex"}
+        gap={"10px"}
+        justifyContent={"center"}
+        className="bokesh"
+      >
+        <Box
+          backgroundColor="#BBBBBB"
+          paddingX="8px"
+          paddingY="8px"
+          borderRadius="10px"
+          width="-webkit-autofill"
+          marginTop="10px"
+          marginBottom="10px"
+        >
+          <Box
+            backgroundColor="#FFFFFF"
+            height="104px"
+            padding="24px"
+            display="flex"
+            width="442px"
+            justifyContent="center"
+            alignItems="center"
+            flexDirection="column"
+            mt="5px"
+            borderRadius="8px"
+          >
+            <Box>
+              <Typography
+                className="flight_price_total"
+                variant="h1"
+                component="h2"
+              >
+                {origin} <ArrowRightAltIcon /> {destination} {onGoingTime}
+              </Typography>
+            </Box>
+            <Box
+              display="flex"
+              justifyContent="space-between"
+              width="400px"
+              alignItems="center"
+              fontSize="10px"
+              mt="8px"
+              color="#071C2C"
+            >
+              <Box
+                border="1px solid #071C2C"
+                flex={1}
+                style={{
+                  fontWeight: "500",
+                  fontSize: "12px",
+                }}
+                textAlign="center"
+              >
+                Duration
+              </Box>
+              <Box
+                border="1px solid #071C2C"
+                flex={1}
+                style={{
+                  fontWeight: "500",
+                  fontSize: "12px",
+                }}
+                textAlign="center"
+              >
+                Arrival
+              </Box>
+              <Box
+                border="1px solid #071C2C"
+                flex={1}
+                style={{
+                  fontWeight: "500",
+                  fontSize: "12px",
+                }}
+                textAlign="center"
+              >
+                Price
+              </Box>
+              <Box
+                border="1px solid #071C2C"
+                flex={1}
+                textAlign="center"
+                style={{
+                  fontWeight: "500",
+                  fontSize: "12px",
+                }}
+              >
+                Departure
+              </Box>
+            </Box>
+          </Box>
+
+
+
+          <FlightresultOne sendDataToParent={receiveChildData} />
         </Box>
-      </Box> */}
+        <Box
+          backgroundColor="#BBBBBB"
+          paddingX="8px"
+          paddingY="8px"
+          marginTop="10px"
+          marginBottom="10px"
+          borderRadius="10px"
+        >
+          <Box
+            backgroundColor="#FFFFFF"
+            height="104px"
+            padding="24px"
+            display="flex"
+            width="100%"
+            justifyContent="center"
+            alignItems="center"
+            flexDirection="column"
+            mt="5px"
+            borderRadius="8px"
+          >
+            <Box>
+              <Typography
+                className="flight_price_total"
+                variant="h1"
+                component="h2"
+              >
+                {destination} <ArrowRightAltIcon /> {origin} {onComingTime}
+              </Typography>
+            </Box>
+            <Box
+              display="flex"
+              justifyContent="space-between"
+              flex={1}
+              width="100%"
+              alignItems="center"
+              fontSize="10px"
+              mt="8px"
+              color="#071C2C"
+            >
+              <Box
+                border="1px solid #071C2C"
+                flex={1}
+                style={{
+                  fontWeight: "500",
+                  fontSize: "12px",
+                }}
+                textAlign="center"
+              >
+                Duration
+              </Box>
+              <Box
+                border="1px solid #071C2C"
+                flex={1}
+                style={{
+                  fontWeight: "500",
+                  fontSize: "12px",
+                }}
+                textAlign="center"
+              >
+                Arrival
+              </Box>
+              <Box
+                border="1px solid #071C2C"
+                flex={1}
+                style={{
+                  fontWeight: "500",
+                  fontSize: "12px",
+                }}
+                textAlign="center"
+              >
+                Price
+              </Box>
+              <Box
+                border="1px solid #071C2C"
+                flex={1}
+                textAlign="center"
+                style={{
+                  fontWeight: "500",
+                  fontSize: "12px",
+                }}
+              >
+                Departure
+              </Box>
+            </Box>
+          </Box>
+          <FlightReturn sendDataToParent={receiveChildData} />
+        </Box>
+      </Box>
 
-      {/* <Flightnavbar/> */}
 
+      {/* fixed bottom  */}
       <Box
         display={"flex"}
         justifyContent={"space-around"}
@@ -131,7 +401,7 @@ const FlightresultReturn = () => {
           width: "100%",
           margin: "auto",
           position: "fixed",
-          left:0,
+          left: 0,
           bottom: "2px",
           zIndex: "2",
         }}
@@ -231,10 +501,12 @@ const FlightresultReturn = () => {
                 color: "blue",
               }}
             >
-              {` ₹ ${
-                Number(ongoFlight?.Fare?.PublishedFare) +
-                Number(incomeGlight?.Fare?.PublishedFare)
-              }`}
+              {
+                ` ₹ ${(Number(ongoFlight?.Fare?.PublishedFare) +
+                  Number(incomeGlight?.Fare?.PublishedFare)
+                ).toFixed(2)
+                }`
+              }
             </Typography>
           </Box>
 
@@ -247,197 +519,14 @@ const FlightresultReturn = () => {
               // border: "10px solid red",
               height: "40px",
               fontSize: "11px",
-              marginTop:"10px"
+              marginTop: "10px"
             }}
           >
             Book Now
           </Button>
         </Box>
       </Box>
-
-      <Box
-        display={"flex"}
-        gap={"10px"}
-        // border={"2px solid red"}
-        justifyContent={"center"}
-      >
-        <Box
-          backgroundColor="#BBBBBB"
-          paddingX="8px"
-          paddingY="8px"
-          borderRadius="10px"
-          width="-webkit-autofill"
-          marginTop="10px"
-          marginBottom="10px"
-        >
-          <Box
-            backgroundColor="#FFFFFF"
-            height="104px"
-            padding="24px"
-            display="flex"
-            width="442px"
-            justifyContent="center"
-            alignItems="center"
-            flexDirection="column"
-            mt="5px"
-            borderRadius="8px"
-          >
-            <Box>
-              <Typography
-                className="flight_price_total"
-                variant="h1"
-                component="h2"
-              >
-                {origin} <ArrowRightAltIcon /> {destination} {onGoingTime}
-              </Typography>
-            </Box>
-            <Box
-              display="flex"
-              justifyContent="space-between"
-              width="400px"
-              alignItems="center"
-              fontSize="10px"
-              mt="8px"
-              color="#071C2C"
-            >
-              <Box
-                border="1px solid #071C2C"
-                flex={1}
-                style={{
-                  fontWeight: "500",
-                  fontSize: "12px",
-                }}
-                textAlign="center"
-              >
-                Duration
-              </Box>
-              <Box
-                border="1px solid #071C2C"
-                flex={1}
-                style={{
-                  fontWeight: "500",
-                  fontSize: "12px",
-                }}
-                textAlign="center"
-              >
-                Arrival
-              </Box>
-              <Box
-                border="1px solid #071C2C"
-                flex={1}
-                style={{
-                  fontWeight: "500",
-                  fontSize: "12px",
-                }}
-                textAlign="center"
-              >
-                Price
-              </Box>
-              <Box
-                border="1px solid #071C2C"
-                flex={1}
-                textAlign="center"
-                style={{
-                  fontWeight: "500",
-                  fontSize: "12px",
-                }}
-              >
-                Departure
-              </Box>
-            </Box>
-          </Box>
-
-          <FlightresultOne sendDataToParent={receiveChildData} />
-        </Box>
-        <Box
-          backgroundColor="#BBBBBB"
-          paddingX="8px"
-          paddingY="8px"
-          marginTop="10px"
-          marginBottom="10px"
-          borderRadius="10px"
-        >
-          <Box
-            backgroundColor="#FFFFFF"
-            height="104px"
-            padding="24px"
-            display="flex"
-            width="100%"
-            justifyContent="center"
-            alignItems="center"
-            flexDirection="column"
-            mt="5px"
-            borderRadius="8px"
-          >
-            <Box>
-              <Typography
-                className="flight_price_total"
-                variant="h1"
-                component="h2"
-              >
-                {destination} <ArrowRightAltIcon /> {origin} {onComingTime}
-              </Typography>
-            </Box>
-            <Box
-              display="flex"
-              justifyContent="space-between"
-              flex={1}
-              width="100%"
-              alignItems="center"
-              fontSize="10px"
-              mt="8px"
-              color="#071C2C"
-            >
-              <Box
-                border="1px solid #071C2C"
-                flex={1}
-                style={{
-                  fontWeight: "500",
-                  fontSize: "12px",
-                }}
-                textAlign="center"
-              >
-                Duration
-              </Box>
-              <Box
-                border="1px solid #071C2C"
-                flex={1}
-                style={{
-                  fontWeight: "500",
-                  fontSize: "12px",
-                }}
-                textAlign="center"
-              >
-                Arrival
-              </Box>
-              <Box
-                border="1px solid #071C2C"
-                flex={1}
-                style={{
-                  fontWeight: "500",
-                  fontSize: "12px",
-                }}
-                textAlign="center"
-              >
-                Price
-              </Box>
-              <Box
-                border="1px solid #071C2C"
-                flex={1}
-                textAlign="center"
-                style={{
-                  fontWeight: "500",
-                  fontSize: "12px",
-                }}
-              >
-                Departure
-              </Box>
-            </Box>
-          </Box>
-          <FlightReturn sendDataToParent={receiveChildData} />
-        </Box>
-      </Box>
-    </Box>
+    </div>
   );
 };
 

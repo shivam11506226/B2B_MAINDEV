@@ -20,47 +20,7 @@ const FlightresultOne = ({ sendDataToParent }) => {
   return setToSearchResults[1]?.map((flight1) => {
     // result = res.sort((a, b) => a.Segments[0][0].Duration - b.Fare.OfferedFare);
     return (
-      <Box
-      mt={2}
-        
-      backgroundColor="#F5F5F5"
-      height="118px"
-      display="flex"
-      justifyContent='center'
-      alignItems='center'        
-      boxShadow="1px 1px 8px gray"
-      borderRadius="10px"
-      paddingLeft="10px"
-      paddingRight="10px"
-      >
-        {/* <div className="row">
-          <div
-            className={`btn btn-primary m-3 text-center p-2 fs-5 col ${
-              filter === 1 ? "active" : ""
-            }`}
-            onClick={() => setFilter(1)}
-          >
-            Cheapest
-          </div>
-          <div
-            className={`btn btn-primary m-3 text-center p-2 fs-5 col ${
-              filter === 2 ? "active" : ""
-            }`}
-            onClick={() => setFilter(2)}
-          >
-            Fastest
-          </div>
-          <div
-            className={`btn btn-primary m-3 text-center p-2 fs-5 col ${
-              filter === 3 ? "active" : ""
-            }`}
-            onClick={() => setFilter(3)}
-          >
-            Best
-          </div>
-        </div> */}
-        {/* const ResultIndex = flight1.id || flight1?.ResultIndex; */}
-
+      <Box>
         <div key={flight1?.ResultIndex}>
           {flight1?.Segments?.map((flight, Index) => {
             // console.log("flight", flight);
