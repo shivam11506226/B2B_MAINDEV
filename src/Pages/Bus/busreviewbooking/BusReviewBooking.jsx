@@ -15,6 +15,26 @@ import dayjs from "dayjs";
 import axios from "axios";
 import Swal from "sweetalert2";
 import { apiURL } from "../../../Constants/constant";
+import { motion } from "framer-motion";
+
+
+const variants = {
+  initial: {
+    y: 50,
+    opacity: 0,
+  },
+  animate: {
+    y: 0,
+    opacity: 1,
+    transition: {
+      duration: 0.5,
+      staggerChildren: 0.1,
+    },
+  },
+};
+
+
+
 const BusReviewBooking = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -163,13 +183,14 @@ const BusReviewBooking = () => {
     <>
       <div className="container-xxl margin-pecentage">
         <div className="row">
-          <div className="col-lg-9 order-lg-1  order-md-2 order-sm-2">
-            <div className="col-lg-12">
+          <motion.div variants={variants} initial="initial"
+            whileInView="animate" className="col-lg-9 order-lg-1  order-md-2 order-sm-2">
+            <motion.div variants={variants} className="col-lg-12">
               <div className="headingReview">
                 <p>Review Booking</p>
               </div>
-            </div>
-            <div className="col-lg-12 my-3">
+            </motion.div>
+            <motion.div variants={variants} className="col-lg-12 my-3">
               <div className="busAllDetail">
                 <div>
                   <p>
@@ -216,14 +237,14 @@ const BusReviewBooking = () => {
                   </span>
                 </div>
               </div>
-            </div>
-            <div className="col-lg-12 my-3">
+            </motion.div>
+            <motion.div variants={variants} className="col-lg-12 my-3">
               <div className="passengerDetBox">
                 <p>Passenger Details</p>
                 <span>{passengerCount} Adult(s)</span>
               </div>
-            </div>
-            <div className="col-lg-8 my-3">
+            </motion.div>
+            <motion.div variants={variants} className="col-lg-8 my-3">
 
 
               {storedPassengerData.map((passenger, index) => (
@@ -240,14 +261,14 @@ const BusReviewBooking = () => {
                   </div>
                 </div>
               ))}
-            </div>
+            </motion.div>
 
-            <div className="col-lg-12 my-3">
+            <motion.div variants={variants} className="col-lg-12 my-3">
               <div className="passengerDetBox">
                 <p>Cancellation Policy</p>
               </div>
-            </div>
-            <div className="col-lg-8 my-3">
+            </motion.div>
+            <motion.div variants={variants} className="col-lg-8 my-3">
               <div className="CancelRulesBus">
                 <table class="table table-striped">
                   <thead>
@@ -275,15 +296,17 @@ const BusReviewBooking = () => {
                   </tbody>
                 </table>
               </div>
-            </div>
+            </motion.div>
 
-            <div className="col-lg-12 mt-4 bookBus">
+            <motion.div variants={variants} className="col-lg-12 mt-4 bookBus">
               <button onClick={handleBookBus}>Book Ticket</button>
-            </div>
-          </div>
-          <div className="col-lg-3 order-lg-2 mb-md-4 mb-sm-4  order-md-1 order-sm-1">
+            </motion.div>
+          </motion.div>
+          <motion.div initial={{ opacity: 0, scale: 0.5 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.5 }} className="col-lg-3 order-lg-2 mb-md-4 mb-sm-4  order-md-1 order-sm-1">
             <BusSaleSummary />
-          </div>
+          </motion.div>
         </div>
       </div>
     </>

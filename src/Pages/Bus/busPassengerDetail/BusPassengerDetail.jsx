@@ -23,6 +23,24 @@ import { useNavigate } from "react-router-dom";
 import { busSeatBlockAction } from "../../../Redux/busSearch/busSearchAction";
 import dayjs from "dayjs";
 import busArrow from '../../../Images/busArrow.png'
+import { motion } from "framer-motion";
+
+
+
+const variants = {
+  initial: {
+    y: 50,
+    opacity: 0,
+  },
+  animate: {
+    y: 0,
+    opacity: 1,
+    transition: {
+      duration: 0.5,
+      staggerChildren: 0.1,
+    },
+  },
+};
 
 const BusPassengerDetail = () => {
   const navigate = useNavigate();
@@ -138,8 +156,9 @@ const BusPassengerDetail = () => {
     <div className="container-xxl margin-pecentage">
       <div className="row">
         <div className="col-lg-9 order-lg-1  order-md-4 order-sm-4 ">
-          <div className="row ">
-            <div className="col-lg-12">
+          <motion.div variants={variants} initial="initial"
+            whileInView="animate" className="row ">
+            <motion.div variants={variants} className="col-lg-12">
               <div className="busResultBox">
                 <div className="busSearchOne">
                   <p>{selectedBus?.TravelName}</p>
@@ -177,17 +196,15 @@ const BusPassengerDetail = () => {
                   <p>₹ {selectedBus?.BusPrice?.BasePrice}</p>
                 </div>
               </div>
-
-
-
-            </div>
-            <div className="col-lg-12">
+            </motion.div>
+            <motion.div variants={variants} className="col-lg-12">
               <div className="busType">
                 <p>{selectedBus?.BusType}</p>
                 <p>{selectedBus?.AvailableSeats} {' '}Seats Available</p>
               </div>
-            </div>
-            <div className="col-lg-12 mt-3">
+            </motion.div>
+
+            <motion.div variants={variants} className="col-lg-12 mt-3">
               <div className="titlePickup">
                 <p></p>
               </div>
@@ -226,10 +243,9 @@ const BusPassengerDetail = () => {
                   </div>
                 </div>
               </div>
-            </div>
+            </motion.div>
 
-
-            <div className="col-lg-12 py-4">
+            <motion.div variants={variants} className="col-lg-12 py-4">
               <div className="passengerHeading mb-3">
                 <p>Passenger Details</p>
               </div>
@@ -399,18 +415,21 @@ const BusPassengerDetail = () => {
                   ))}
               </div>
 
-            </div>
+            </motion.div>
 
-            <div className="col-lg-12 btn-busPassenger">
+            <motion.div variants={variants} className="col-lg-12 btn-busPassenger">
               <button onClick={handleSeatBlock}>Proceed to Book</button>
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
 
         </div>
 
-        <div className="col-lg-3 mt-2 mb-md-4 mb-sm-4 order-lg-2  order-md-1 order-sm-1 ">
+        <motion.div initial={{ opacity: 0, scale: 0.5 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.5 }}
+          className="col-lg-3 mt-2 mb-md-4 mb-sm-4 order-lg-2  order-md-1 order-sm-1 ">
           <BusSaleSummary />
-        </div>
+        </motion.div>
       </div>
     </div>
   );
