@@ -53,17 +53,17 @@ const Guestdetail = () => {
 
 
   useEffect(() => {
-      if (
+    if (
       reducerState?.hotelSearchResult?.hotelDetails?.data?.data
         ?.GetBookingDetailResult?.Error?.ErrorCode == 0
-    ){
-      setTimeout(()=>{
-         if (userId) {
-           const payload = userId;
-           dispatch(getUserDataAction(payload));
-         }
-         navigate("/")
-      },2000)
+    ) {
+      setTimeout(() => {
+        if (userId) {
+          const payload = userId;
+          dispatch(getUserDataAction(payload));
+        }
+        navigate("/")
+      }, 2000)
     }
   }, [
     reducerState?.hotelSearchResult?.hotelDetails?.data?.data
@@ -71,28 +71,32 @@ const Guestdetail = () => {
   ]);
 
   return (
-    <React.Fragment>
-      <div className="flightContainer">
-        {/* step by step updating part */}
 
-        <Box>
 
-          <div>
-            <Box sx={{ flexGrow: 1 }}>
-              <Grid container spacing={3}>
-                <Grid item xs={12} md={9}>
-                  <Box
-                  >
-                    <Hoteldescription />
-                  </Box>
-                </Grid>
-                <Grid item xs={12} md={3}>
-                  <Sailsummary />
-                </Grid>
-              </Grid>
-            </Box>
-          </div>
-          {/* <Modal
+    <div className="container-fluid margin-pecentage">
+      <div className="row">
+        <div className="col-lg-9">
+
+          <Hoteldescription />
+
+        </div>
+        <div className="col-lg-3">
+
+          <Sailsummary />
+        </div>
+      </div>
+    </div>
+
+
+
+  );
+};
+
+export default Guestdetail;
+
+
+
+{/* <Modal
             open={bookingStatus == 1 ? true : false}
             aria-labelledby="child-modal-title"
             aria-describedby="child-modal-description"
@@ -113,10 +117,3 @@ const Guestdetail = () => {
               </Typography>
             </Box>
           </Modal> */}
-        </Box>
-      </div>
-    </React.Fragment>
-  );
-};
-
-export default Guestdetail;

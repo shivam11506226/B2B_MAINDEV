@@ -117,3 +117,12 @@
 .searchDestination b {
   text-transform: capitalize;
 }
+
+
+.css-k008qs {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  justify-content: space-between;
+}

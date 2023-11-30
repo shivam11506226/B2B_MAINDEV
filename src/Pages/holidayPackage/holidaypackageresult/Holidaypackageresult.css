@@ -83,7 +83,7 @@
     flex-direction: column;
     gap: 15px;
     justify-content: flex-start;
-    flex: 50%;
+    flex: 42%;
     padding: 0px 15px;
 }
 
@@ -103,7 +103,7 @@
 }
 
 .priceBook {
-    flex: 20%;
+    flex: 28%;
     display: flex;
     justify-content: space-between;
     flex-direction: column;

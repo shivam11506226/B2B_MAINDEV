@@ -154,3 +154,14 @@
     border: 2px solid #21325D;
     transition: all 0.3s;
 }
+
+
+.CancelRulesBus th {
+    background-color: #888;
+
+}
+
+.CancelRulesBus td {
+    background-color: white;
+    color: #21325D;
+}
