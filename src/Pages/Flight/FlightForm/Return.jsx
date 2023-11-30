@@ -17,6 +17,8 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { apiURL } from "../../../Constants/constant";
 import { Stack } from "react-bootstrap";
+import { motion, useAnimation } from "framer-motion";
+
 const options = [
   { label: "GPS", value: "1" },
   { label: "Fly Dubai", value: "2" },
@@ -40,7 +42,33 @@ const options = [
   { label: "TruJet", value: "20" },
   { label: "Mega Maldives", value: "21" },
 ];
+
+
+
+
+
+const variants = {
+  initial: {
+    y: 50,
+    opacity: 0,
+  },
+  animate: {
+    y: 0,
+    opacity: 1,
+    transition: {
+      duration: 0.5,
+      staggerChildren: 0.1,
+    },
+  },
+};
+
+
+
 const Return = () => {
+
+
+
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const reducerState = useSelector((state) => state);
@@ -244,15 +272,16 @@ const Return = () => {
     <div className="">
       <form onSubmit={handleSubmit} className="formFlightSearchOneWay" >
         <div className="container">
-          <div className="row">
-            <div className="col-xs-12 col-md-3 col-lg-3 ps-0 mb-3">
+          <motion.div variants={variants} initial="initial"
+            whileInView="animate" className="row">
+            <motion.div variants={variants} className="col-xs-12 col-md-3 col-lg-3 ps-0 mb-3">
               <div className="form_input" style={{ zIndex: 10, position: "relative" }}>
                 <label for="from" className="form_lable" > FROM</label>
                 <input
                   name="from"
                   placeholder="Enter city or airport"
                   value={from}
-
+                  autoComplete="off"
                   onClick={() => (setdisplayFrom(true), setdisplayTo(false))}
 
                   onChange={(event) => {
@@ -282,12 +311,12 @@ const Return = () => {
                   </div>
                 )}
               </div>
-            </div>
-            <div className="col-xs-12 col-md-1 col-lg-1 d-flex interchange justify-content-center ps-0">
+            </motion.div>
+            <motion.div variants={variants} className="col-xs-12 col-md-1 col-lg-1 d-flex interchange justify-content-center ps-0">
               <img src={interchange} alt="name" className="align-self-center" />
-            </div>
+            </motion.div>
 
-            <div className="col-xs-12 col-md-2 col-lg-2 ps-0 mb-3">
+            <motion.div variants={variants} className="col-xs-12 col-md-2 col-lg-2 ps-0 mb-3">
               <div className="form_input" style={{ zIndex: 10, position: "relative" }}>
 
                 <label for="to" className="form_lable">
@@ -297,7 +326,7 @@ const Return = () => {
                   name="to"
                   placeholder="Enter city or airport"
                   value={to}
-
+                  autoComplete="off"
                   onClick={() => (setdisplayFrom(false), setdisplayTo(true))}
 
                   onChange={(event) => {
@@ -325,9 +354,9 @@ const Return = () => {
                   </div>
                 )}
               </div>
-            </div>
+            </motion.div>
 
-            <div className="col-xs-12 col-md-3 col-lg-3 ps-0 mb-3">
+            <motion.div variants={variants} className="col-xs-12 col-md-3 col-lg-3 ps-0 mb-3">
               <div className="form_input">
                 <label for="departure" className="form_lable">
                   DEPARTURE
@@ -342,12 +371,12 @@ const Return = () => {
                   min={new Date().toISOString().split("T")[0]}
                   value={departureDate}
                   onChange={handleDepartureDateChange}
-
+                  autoComplete="off"
                 />
                 {sub === true && departureDate === "" && <p id="error1">Enter date</p>}
               </div>
-            </div>
-            <div className="col-xs-12 col-md-3 col-lg-3 ps-0 mb-3" >
+            </motion.div>
+            <motion.div variants={variants} className="col-xs-12 col-md-3 col-lg-3 ps-0 mb-3" >
               <div className="form_input">
                 <label for="departure" className="form_lable">
                   RETURN
@@ -361,196 +390,98 @@ const Return = () => {
                   placeholder="Enter city or airport"
                   min={minReturnDate}
                   value={returnDate}
+                  autoComplete="off"
                   onChange={(event) => setReturnDate(event.target.value)}
                 ></input>
                 {sub === true && returnDate === "" && <p id="error1">Enter date</p>}
               </div>
-            </div>
+            </motion.div>
 
-            {/* <div className="col-xs-12 col-md-2">
-          <div className="form_input">
-            <label className="form_lable"></label>
-            <select name="" id="" className="form_input_select">
-              <option mx={5}>Any Time</option>
-              <option px={5} sx={{ fontSize: "9px", fontWeight: "bold" }}>
-                Morning
-              </option>
-
-              <option px={5}>Evening</option>
-              <option px={5}>Afternoon</option>
-              <option mx={5}>Night</option>
-            </select>
-          </div>
-        </div> */}
-          </div>
-
-          {/* <div
-        className="d-flex mt-3  p-1 align-items-center gap-2"
-        style={{ width: "100%" }}
-      >
-        <div className="col-xs-3 col-md-3 pe-0">
-          <Typography mt={1} variant="h6" paddingRight={0}>
-            Select A Fair Of Type:
-          </Typography>
-        </div>
-        <div className="d-flex gap-3 ">
-          <div className="d-flex align-items-center gap-1 bg-info p-2 rounded">
-            <input type="radio" name="fareType"></input>
-            <label className="text-white">Regular Fares</label>
-          </div>
-          {/* <div className=" d-flex align-items-center gap-1 bg-secondary rounded p-2">
-            <input type="radio" name="fareType"></input>
-            <label className="text-white">Student Fares</label>
-          </div> 
-        </div>
-      </div> */}
-
-          <div className="row">
-            <div className="col-xs-9">
-              <div className="row">
-
-                <div className="col-12 col-md-6 col-lg-3 mb-3 ps-0 mb-3">
-                  <div className="form_input">
-
-                    <label className="form_lable">Adult(12+)</label>
-
-                    <select name="adult" id="" className="form_input_select">
-                      <option value="1">1</option>
-                      <option value="2">2</option>
-                      <option value="3">3</option>
-                      <option value="4">4</option>
-                      <option value="5">5</option>
-                      <option value="6">6</option>
-                      <option value="7">7</option>
-                      <option value="8">8</option>
-                      <option value="9">9</option>
-                    </select>
-                  </div>
-                </div>
+          </motion.div>
 
 
-                <div className="col-12 col-md-6 col-lg-3 mb-3 ps-0 mb-3">
-                  <div className="form_input">
 
-                    <label className="form_lable">Child(2-11)</label>
-                    <select name="child" id="" className="form_input_select">
-                      <option value="0">0</option>
-                      <option value="1">1</option>
-                      <option value="2">2</option>
-                      <option value="3">3</option>
-                      <option value="4">4</option>
-                      <option value="5">5</option>
-                      <option value="6">6</option>
-                      <option value="7">7</option>
-                      <option value="8">8</option>
-                    </select>
-                  </div>
-                </div>
-                <div className="col-3 col-md-6 col-lg-3 mb-3 ps-0 mb-3" style={{ position: "relative" }}>
-                  <div className="form_input" style={{ position: "absolute", zIndex: "1" }} >
-                    <label className="form_lable">Infant(Under 2 Yrs)</label>
-                    <select name="infant" id="" className="form_input_select">
-                      <option value="0">0</option>
-                      <option value="1">1</option>
-                      <option value="2">2</option>
-                      <option value="3">3</option>
-                      <option value="4">4</option>
-                      <option value="5">5</option>
-                      <option value="6">6</option>
-                      <option value="7">7</option>
-                      <option value="8">8</option>
-                    </select>
-                  </div>
-                </div>
+          {/* <div className="row"> */}
+          {/* <div className="col-xs-9"> */}
+          <motion.div className="row" variants={variants} initial="initial"
+            whileInView="animate">
 
-                <div className="col-12 col-md-6 col-lg-3 mb-3 ps-0 mb-3">
-                  <div className="form_input">
-                    <label className="form_lable">Class</label>
-                    <select name="class" id="" className="form_input_select">
-                      <option value="1">All</option>
-                      <option value="2">Ecomomy</option>
-                      <option value="3">Premimum Economy</option>
-                      <option value="4">Business</option>
-                      <option value="5">Premimum Business</option>
-                      <option value="6">First</option>
-                    </select>
-                  </div>
-                </div>
+            <motion.div className="col-lg-3 col-md-6 col-12 mb-3 ps-0 mb-3" variants={variants}>
+              <div className="form_input">
+
+                <label className="form_lable">Adult(12+)</label>
+
+                <select name="adult" id="" className="form_input_select">
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                  <option value="6">6</option>
+                  <option value="7">7</option>
+                  <option value="8">8</option>
+                  <option value="9">9</option>
+                </select>
               </div>
-            </div>
-          </div>
+            </motion.div>
 
-          {/* <div className="row" style={{ width: "100%" }}>
-        <label className="form_lable1">-More options: Airline prefrence</label>
-      </div> */}
-          {/* <div className="row" style={{ width: "100%" }}>
-        <div className="col-12 col-md-3 col-lg-3 mb-3">
-          <div className="showDirectFligthDiv">
-            <input name="direct" type="checkbox" />{" "}
-            <span>Show direct flights</span>
-          </div>
-        </div>
-      </div> */}
 
-          {/* <label
-        style={{
-          fontSize: "20px",
-          fontWeight: "400",
-          marginBottom: "15px",
-          border: "1px solid grey",
-          padding: "10px",
-          display: "inline-block",
-          borderRadius: "10px",
-          boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
-        }}
-      >
-        Restrict my Search to:{" "}
-        <span style={{ color: "#00BDC4" }}>
-          <input
-            type="checkbox"
-            checked={selectAll}
-            onChange={handleSelectAllChange}
-            style={{ marginRight: "5px", width: "18px", height: "18px" }}
-          />
-          Select All / Unselect All
-        </span>
-      </label> */}
+            <motion.div className="col-lg-3 col-md-6 col-12 mb-3 ps-0 mb-3" variants={variants}>
+              <div className="form_input">
 
-          {/* <Box>
-        <div>
-          <div
-            className="grid-container"
-            style={{ display: "flex", flexWrap: "wrap", gap: "40px" }}
-          >
-            {options.map(({ label, value }) => (
-              <label
-                key={value}
-                style={{
-                  width: "190px",
-                  height: "30px",
-                  gap: "10px",
-                  display: "flex",
-                }}
-              >
-                <input
-                  type="checkbox"
-                  value={label}
-                  checked={selectAll ? true : selected.includes(label)}
-                  onChange={handleCheckboxChange}
-                  disabled={selectAll}
-                  className="me-1"
-                  style={{ width: "18px", height: "18px" }}
-                />
-                <p style={{ marginTop: "-2px" }}>{label} </p>
-              </label>
-            ))}
-          </div>
-        </div>
-      </Box> */}
+                <label className="form_lable">Child(2-11)</label>
+                <select name="child" id="" className="form_input_select">
+                  <option value="0">0</option>
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                  <option value="6">6</option>
+                  <option value="7">7</option>
+                  <option value="8">8</option>
+                </select>
+              </div>
+            </motion.div>
+            <motion.div className="col-lg-3 col-md-6 col-12 mb-3 ps-0 mb-3" variants={variants} style={{ position: "relative" }}>
+              <div className="form_input" style={{ position: "absolute", zIndex: "1" }} >
+                <label className="form_lable">Infant(Under 2 Yrs)</label>
+                <select name="infant" id="" className="form_input_select">
+                  <option value="0">0</option>
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                  <option value="6">6</option>
+                  <option value="7">7</option>
+                  <option value="8">8</option>
+                </select>
+              </div>
+            </motion.div>
+
+            <motion.div className="col-lg-3 col-md-6 col-12 mb-3 ps-0 mb-3" variants={variants}>
+              <div className="form_input">
+                <label className="form_lable">Class</label>
+                <select name="class" id="" className="form_input_select">
+                  <option value="1">All</option>
+                  <option value="2">Ecomomy</option>
+                  <option value="3">Premimum Economy</option>
+                  <option value="4">Business</option>
+                  <option value="5">Premimum Business</option>
+                  <option value="6">First</option>
+                </select>
+              </div>
+            </motion.div>
+          </motion.div>
+          {/* </div> */}
+          {/* </div> */}
+
           <div className="col-xs-12">
             <div className="row bottom-row">
-              <div className="col-md-6 col-lg-6 col-12 col-sm-12 mb-3 ps-0" >
-                <div className="form_input mb-0" >
+              <motion.div className="col-md-6 col-lg-6 col-12 col-sm-12 mb-3 ps-0" variants={variants} initial="initial"
+                whileInView="animate" >
+                <motion.div variants={variants} className="form_input mb-0" >
                   <label className="form_lable">Preferred Airline</label>
 
                   <select name="adult" id="" className="form_input_select1">
@@ -564,17 +495,21 @@ const Return = () => {
                     <option value="8">8</option>
                     <option value="9">9</option>
                   </select>
-                </div>
-              </div>
+                </motion.div>
+              </motion.div>
 
-              <div className="col-md-6 col-lg-6 col-12 col-sm-12 mb-3 ps-0">
+              <motion.div className="col-md-6 col-lg-6 col-12 col-sm-12 mb-3 ps-0" >
                 <button
                   type="submit"
-                  className="flightFormSubmit">Search Flight <FlightIcon /></button>
-              </div>
+                  className="flightFormSubmit" >Search Flight <FlightIcon />
+                </button>
+              </motion.div>
             </div>
           </div>
           {/* <Box className="row">
+
+
+
         <Flex direction="row" justifyContent="center" marginLeft="330px">
           <button type="submit" id="cssbuttons-io-button">
             {" "}

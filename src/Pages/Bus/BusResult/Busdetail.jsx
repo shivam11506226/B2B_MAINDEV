@@ -29,6 +29,26 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import FilterAltIcon from '@mui/icons-material/FilterAlt';
 import dayjs from "dayjs";
 import busArrow from '../../../Images/busArrow.png'
+import { motion } from "framer-motion";
+
+
+
+const variants = {
+  initial: {
+    y: 50,
+    opacity: 0,
+  },
+  animate: {
+    y: 0,
+    opacity: 1,
+    transition: {
+      duration: 0.5,
+      staggerChildren: 0.1,
+    },
+  },
+};
+
+
 const Busdetail = () => {
   const name = [];
   const upperArray = [];
@@ -336,7 +356,9 @@ const Busdetail = () => {
 
       <div className="container-xxl margin-pecentage">
         <div className="row">
-          <div className="col-lg-3 mt-2">
+          <motion.div initial={{ opacity: 0, scale: 0.5 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.5 }} className="col-lg-3 mt-2">
 
             <div className="packResFilterBox" >
               <Accordion ref={accordionRef} expanded={expanded === 'panel1'} onChange={handleChange('panel1')}>
@@ -409,9 +431,10 @@ const Busdetail = () => {
               </Accordion>
 
             </div>
-          </div>
-          <div className="col-lg-9">
-            <div className="row top_head">
+          </motion.div>
+          <motion.div className="col-lg-9">
+            <motion.div variants={variants} initial="initial"
+              whileInView="animate" className="row top_head">
               {filteredBusData?.map((item, index) => {
 
                 const departureDate = dayjs(item?.DepartureTime);
@@ -422,7 +445,7 @@ const Busdetail = () => {
                 const arrivalFormattedDate = arrivalDate.format("DD MMM, YY");
                 return (
                   <>
-                    <div className="col-lg-12 busResultBox">
+                    <motion.div variants={variants} className="col-lg-12 busResultBox">
                       <div className="busSearchOne">
                         <p>{item?.TravelName}</p>
                       </div>
@@ -464,7 +487,7 @@ const Busdetail = () => {
                         </div>
                         <button onClick={() => handleBuslayout(item?.ResultIndex)}>Select Seat</button>
                       </div>
-                    </div>
+                    </motion.div>
                     <div className="col-lg-12">
                       <div className="busType">
                         <p>{item?.BusType}</p>
@@ -475,8 +498,8 @@ const Busdetail = () => {
                   </>
                 );
               })}
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
         </div>
       </div >
 

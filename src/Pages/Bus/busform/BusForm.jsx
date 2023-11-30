@@ -24,27 +24,42 @@ import NavBarBox from "../../../Components/NavBarBox.jsx";
 
 
 
+// const variants = {
+//   open: {
+//     transition: {
+//       staggerChildren: 0.1,
+//     },
+//   },
+//   closed: {
+//     transition: {
+//       staggerChildren: 0.05,
+//       staggerDirection: -1,
+//     },
+//   },
+// };
+// const itemVariants = {
+//   open: {
+//     y: 0,
+//     opacity: 1,
+//   },
+//   closed: {
+//     y: 50,
+//     opacity: 0,
+//   },
+// };
+
 const variants = {
-  open: {
-    transition: {
-      staggerChildren: 0.1,
-    },
-  },
-  closed: {
-    transition: {
-      staggerChildren: 0.05,
-      staggerDirection: -1,
-    },
-  },
-};
-const itemVariants = {
-  open: {
-    y: 0,
-    opacity: 1,
-  },
-  closed: {
+  initial: {
     y: 50,
     opacity: 0,
+  },
+  animate: {
+    y: 0,
+    opacity: 1,
+    transition: {
+      duration: 0.5,
+      staggerChildren: 0.1,
+    },
   },
 };
 
@@ -325,18 +340,16 @@ const BusForm = () => {
 
 
   return (
-    <div className="container ">
-      <div className="row px-5">
+    <div className="container margin-pecentage-large ">
+      <div className="row mt-0 px-2">
         <div className="col-lg-7 bgBusImg">
 
         </div>
-        <motion.div
-          initial={{ opacity: 0, scale: 0.5 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.5 }} className="col-lg-5 bgBusForm">
+        <motion.div variants={variants} initial="initial"
+          whileInView="animate" className="col-lg-5 bgBusForm">
           <form className="BusForm" onSubmit={handleSubmit}>
-            <motion.div className="row" variants={variants}>
-              <motion.div variants={itemVariants} className="col-xs-12 col-md-12">
+            <motion.div className="row">
+              <motion.div variants={variants} className="col-xs-12 col-md-12">
                 <div >
                   <label>FROM</label>
                   <div className="locationFrom">
@@ -344,6 +357,7 @@ const BusForm = () => {
                     <input
                       name="from"
                       placeholder="Enter city or airport"
+                      autoComplete="off"
                       value={from.cityId}
                       onChange={(event) => {
                         handleFromInputChange(event);
@@ -379,7 +393,7 @@ const BusForm = () => {
                 </div>
               </motion.div>
 
-              <div className="col-xs-12 col-md-12">
+              <motion.div variants={variants} className="col-xs-12 col-md-12">
                 <div className="">
                   <label >TO</label>
                   <div className="locationTo">
@@ -387,6 +401,7 @@ const BusForm = () => {
                     <input
                       name="to"
                       placeholder="Enter city or airport"
+                      autoComplete="off"
                       value={to}
                       onChange={(event) => {
                         handleToInputChange(event);
@@ -431,10 +446,10 @@ const BusForm = () => {
                   )}
                   {errors.to && <div className="error">{errors.to}</div>}
                 </div>
-              </div>
+              </motion.div>
 
 
-              <div className="col-xs-12 col-md-12">
+              <motion.div variants={variants} className="col-xs-12 col-md-12">
                 <div className="">
                   <label >DEPARTURE</label>
 
@@ -444,6 +459,7 @@ const BusForm = () => {
                       selected={startDate}
                       name="departure"
                       id="departure"
+                      autoComplete="off"
                       ref={inputRef}
                       style={{ width: "100%" }}
                       placeholderText="Select Date"
@@ -457,15 +473,15 @@ const BusForm = () => {
                   </div>
                 </div>
                 {errors.date && <div className="error">{errors.date}</div>}
-              </div>
+              </motion.div>
 
-              <div className="col-xs-6 col-md-12">
+              <motion.div variants={variants} className="col-xs-6 col-md-12">
                 <div className="BusSubmitForm">
                   <button type="submit">
                     Bus Search
                   </button>
                 </div>
-              </div>
+              </motion.div>
             </motion.div>
           </form>
         </motion.div>
