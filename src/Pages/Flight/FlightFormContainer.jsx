@@ -41,13 +41,13 @@ function CustomTabPanel(props) {
   const { children, value, index, ...other } = props;
 
   return (
-    <Slide direction="up" in={value === index} >
-      <div role="tabpanel" hidden={value !== index} id={`simple-tabpanel-${index}`} aria-labelledby={`simple-tab-${index}`} {...other} style={{ marginTop: "-2px" }}>
-        <Box style={{ backgroundColor: "#fff", marginTop: "-60px", width: "100%", margin: "auto", borderRadius: "12px", boxShadow: "rgba(149, 157, 165, 0.2) 0px 8px 24px", }}>
-          <Typography>{children}</Typography>
-        </Box>
-      </div>
-    </Slide>
+    // <Slide direction="up" in={value === index} >
+    <div role="tabpanel" hidden={value !== index} id={`simple-tabpanel-${index}`} aria-labelledby={`simple-tab-${index}`} {...other} style={{ marginTop: "-2px" }}>
+      <Box style={{ backgroundColor: "#fff", marginTop: "-60px", width: "100%", margin: "auto", borderRadius: "12px", boxShadow: "rgba(149, 157, 165, 0.2) 0px 8px 24px", }}>
+        <Typography>{children}</Typography>
+      </Box>
+    </div>
+    // </Slide>
   );
 }
 
