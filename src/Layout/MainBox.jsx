@@ -37,7 +37,7 @@ const itemVariants = {
 
 function MainBox() {
   const reducerState = useSelector((state) => state);
-  console.log(reducerState, "jfglkdsja;edj")
+  // console.log(reducerState, "jfglkdsja;edj");
   return (
 
 

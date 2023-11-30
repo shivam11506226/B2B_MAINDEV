@@ -48,10 +48,10 @@ const BusReviewBooking = () => {
   // console.log("======================", reducerState);
   const busBlockData =
     reducerState?.getBusResult?.busBlock?.data?.data?.BlockResult;
-  console.log("************************", busBlockData);
+  // console.log("************************", busBlockData);
   const busFullData =
     reducerState?.getBusResult?.busResult?.data?.data?.BusSearchResult;
-  console.log(busFullData, "bus full data");
+  // console.log(busFullData, "bus full data");
   const seatData = sessionStorage.getItem("seatData");
   const parsedSeatData = JSON.parse(seatData);
   const passengerCount = parsedSeatData?.blockedSeatArray.length;
@@ -157,13 +157,13 @@ const BusReviewBooking = () => {
 
 
   const selectedBus = busFullData.BusResults.find((bus) => bus.ResultIndex === resultIndex);
-  console.log(selectedBus, "selectedBus")
+  // console.log(selectedBus, "selectedBus")
   const cancellationPolicy = selectedBus?.CancellationPolicies;
 
-  console.log(cancellationPolicy, "cancel policy")
+  // console.log(cancellationPolicy, "cancel policy");
   const departureDate = dayjs(selectedBus?.DepartureTime);
   const arrivalDate = dayjs(selectedBus?.ArrivalTime);
-  console.log(cancellationPolicy, "cancel policy")
+  // console.log(cancellationPolicy, "cancel policy");
   // Format the dates
   const departureFormattedDate = departureDate.format("DD MMM, YY");
   const arrivalFormattedDate = arrivalDate.format("DD MMM, YY");

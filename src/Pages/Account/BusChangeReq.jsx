@@ -92,7 +92,7 @@ const BusChangeReq = () => {
       contactNumber: selectedBus?.phone,
       amount: selectedBus?.amount,
     };
-    console.log(formData);
+    // console.log(formData);
 
     try {
       const response = await axios.post(
@@ -127,7 +127,7 @@ const BusChangeReq = () => {
       // contactNumber: selectedBus?.phone,
       pnr:selectedBus?.pnr
     };
-    console.log(formData);
+    // console.log(formData);
 
     try {
       const response = await axios.post(

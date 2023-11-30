@@ -26,8 +26,8 @@ function SingleData(props) {
   const reducerState = useSelector((state) => state);
   let statusRule = reducerState?.flightFare?.isLoadingRuleDone || false;
   let statusQuote = reducerState?.flightFare?.isLoadingQuoteDone || false;
-  console.log("isLoadingRuleDone", statusRule);
-  console.log("isLoadingQuoteDone", statusQuote);
+  // console.log("isLoadingRuleDone", statusRule);
+  // console.log("isLoadingQuoteDone", statusQuote);
   const flight = props.flight;
   const IsLCC = props.IsLCC;
   // console.log("flight single", flight);
@@ -89,7 +89,7 @@ function SingleData(props) {
     dispatch(ruleAction(payload));
     dispatch(quoteAction(payload));
   };
-  console.log("reducerrState", reducerState);
+  // console.log("reducerrState", reducerState);
   useEffect(() => {
     if (statusQuote && statusRule) {
 

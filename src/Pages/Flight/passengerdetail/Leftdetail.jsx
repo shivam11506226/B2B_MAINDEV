@@ -26,7 +26,7 @@ const Leftdetail = () => {
   const childs = sessionStorage.getItem("childs");
   const infants = sessionStorage.getItem("infants");
   const reducerState = useSelector((state) => state);
-  console.log("reducerState", reducerState);
+  // console.log("reducerState", reducerState);
   const ResultIndex = sessionStorage.getItem("ResultIndex");
   const [farePrice, setFarePrice] = useState("");
   const fareValue = reducerState?.flightFare?.flightQuoteData?.Results;

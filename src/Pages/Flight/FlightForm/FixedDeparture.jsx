@@ -103,7 +103,7 @@ const FixedDeparture = () => {
     const [finalSalePrice, setFinalSalePrice] = useState("");
     const [enableName, setEnableName] = useState(false);
     
-    console.log("userData", userData);
+    // console.log("userData", userData);
     useEffect(() => {
         let mounted = true;
 
@@ -114,10 +114,10 @@ const FixedDeparture = () => {
 
             const results = await axios.get(`${apiURL.baseURL}/skyTrails/getSector`);
             setToSearchResults(results?.data);
-            console.log(
-                results,
-                "jfdvhjdfvdfuivfuifviufviu................................"
-            );
+            // console.log(
+            //     results,
+            //     "jfdvhjdfvdfuivfuifviufviu................................"
+            // );
             settoQuery(results?.data.data[0]?.Sector);
         };
         fetchSearchResults();
@@ -142,16 +142,16 @@ const FixedDeparture = () => {
 
     const handleSubmittest = (e) => {
         e.preventDefault();
-        console.log({
-            loginName,
-            numberOfSeats,
-            status,
-            salePrice,
-            soldTo,
-            phoneNo,
-            emailId,
-            finalSalePrice,
-        });
+        // console.log({
+        //     loginName,
+        //     numberOfSeats,
+        //     status,
+        //     salePrice,
+        //     soldTo,
+        //     phoneNo,
+        //     emailId,
+        //     finalSalePrice,
+        // });
     };
     const onSubmit = (data) => {
         // 'data' contains all the form values

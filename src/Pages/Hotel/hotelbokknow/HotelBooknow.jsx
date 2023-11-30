@@ -39,7 +39,7 @@ const HotelBooknow = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const reducerState = useSelector((state) => state);
-  console.log("State Data", reducerState);
+  // console.log("State Data", reducerState);
   const [loader, setLoader] = useState(false);
 
   const ResultIndex = sessionStorage.getItem("ResultIndex");
@@ -85,7 +85,7 @@ const HotelBooknow = () => {
   });
 
   const hotelll = reducerState?.hotelSearchResult;
-  console.log(hotelll, "hotelll")
+  // console.log(hotelll, "hotelll");
 
   const hotelInfo = reducerState?.hotelSearchResult?.hotelInfo?.HotelInfoResult;
   const hotelRoom =
@@ -112,7 +112,7 @@ const HotelBooknow = () => {
 
   const storedFormData = JSON.parse(sessionStorage.getItem('hotelFormData'));
   const data = storedFormData.dynamicFormData[0];
-  console.log(storedFormData)
+  // console.log(storedFormData);
   return (
     <>
       {loader ? (

@@ -1853,7 +1853,7 @@ const EditHolidayPackage = () => {
                     <Accordion.Body>
                       {/* {
             onePackage?.detailed_ltinerary?.map((ele,index)=>{
-              console.log("data 1786",ele)
+              // console.log("data 1786",ele)
 
               return(
                
