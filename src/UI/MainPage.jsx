@@ -84,6 +84,7 @@ import FlightReturnInternational from "../Pages/Flight/flightresult/Flightresult
 import Headers from "../Components/Headers";
 import InnerNavbar1 from "../Layout/InnerNavbar1";
 import LoadingSpinner from "./LoadingSpinner";
+import FlightResResult from "../Pages/Flight/flightresult/FlightresultReturn/FlightResResult";
 
 const MainPage = () => {
   const dispatch = useDispatch();
@@ -178,7 +179,8 @@ const MainPage = () => {
               <Route
                 exact
                 path="FlightresultReturn"
-                element={<FlightresultReturn />}
+                // element={<FlightresultReturn />}
+                element={<FlightResResult />}
               />
               <Route
                 exact

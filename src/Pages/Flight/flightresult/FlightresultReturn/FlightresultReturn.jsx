@@ -110,101 +110,113 @@ const FlightresultReturn = () => {
   const onComingTime = convertISOToCustomFormat(IncomeTime);
 
   return (
-    <div>
+    // <div>
 
-      <div className="container margin-pecentage">
+    <>
+      {/* <div className="row"> */}
+      <div className="col-6">
         <div className="row">
-          <div className="col-6">
-            <div className="row">
-              <div className="col-lg-12">
-                <div className="returnheadicons">
-                  <div>
-                    <p>Flight</p>
-                    <span><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12" fill="none">
-                      <path d="M6 9.5L3 6.5M6 9.5L9 6.5M6 9.5L6 2.5" stroke="#21325D" stroke-linecap="round" stroke-linejoin="round" />
-                    </svg></span>
-                  </div>
-                  <div>
-                    <p>Departure</p>
-                    <span><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12" fill="none">
-                      <path d="M6 9.5L3 6.5M6 9.5L9 6.5M6 9.5L6 2.5" stroke="#21325D" stroke-linecap="round" stroke-linejoin="round" />
-                    </svg></span>
-                  </div>
-                  <div>
-                    <p>Duration</p>
-                    <span><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12" fill="none">
-                      <path d="M6 9.5L3 6.5M6 9.5L9 6.5M6 9.5L6 2.5" stroke="#21325D" stroke-linecap="round" stroke-linejoin="round" />
-                    </svg></span>
-                  </div>
-                  <div>
-                    <p>Arrival</p>
-                    <span><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12" fill="none">
-                      <path d="M6 9.5L3 6.5M6 9.5L9 6.5M6 9.5L6 2.5" stroke="#21325D" stroke-linecap="round" stroke-linejoin="round" />
-                    </svg></span>
-                  </div>
-                  <div>
-                    <p>Offer Fare</p>
-                    <span><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12" fill="none">
-                      <path d="M6 9.5L3 6.5M6 9.5L9 6.5M6 9.5L6 2.5" stroke="#21325D" stroke-linecap="round" stroke-linejoin="round" />
-                    </svg></span>
-                  </div>
-                </div>
+          <div className="col-lg-12">
+            <div className="returnheadicons">
+              <div>
+                <p>Flight</p>
+                <span><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12" fill="none">
+                  <path d="M6 9.5L3 6.5M6 9.5L9 6.5M6 9.5L6 2.5" stroke="#21325D" stroke-linecap="round" stroke-linejoin="round" />
+                </svg></span>
               </div>
-
-              <div className="col-lg-12">
-                <FlightresultOne sendDataToParent={receiveChildData} />
+              <div>
+                <p>Departure</p>
+                <span><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12" fill="none">
+                  <path d="M6 9.5L3 6.5M6 9.5L9 6.5M6 9.5L6 2.5" stroke="#21325D" stroke-linecap="round" stroke-linejoin="round" />
+                </svg></span>
+              </div>
+              <div>
+                <p>Duration</p>
+                <span><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12" fill="none">
+                  <path d="M6 9.5L3 6.5M6 9.5L9 6.5M6 9.5L6 2.5" stroke="#21325D" stroke-linecap="round" stroke-linejoin="round" />
+                </svg></span>
+              </div>
+              <div>
+                <p>Arrival</p>
+                <span><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12" fill="none">
+                  <path d="M6 9.5L3 6.5M6 9.5L9 6.5M6 9.5L6 2.5" stroke="#21325D" stroke-linecap="round" stroke-linejoin="round" />
+                </svg></span>
+              </div>
+              <div>
+                <p>Offer Fare</p>
+                <span><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12" fill="none">
+                  <path d="M6 9.5L3 6.5M6 9.5L9 6.5M6 9.5L6 2.5" stroke="#21325D" stroke-linecap="round" stroke-linejoin="round" />
+                </svg></span>
+              </div>
+              <div>
+                <p>Select</p>
+                <span><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12" fill="none">
+                  <path d="M6 9.5L3 6.5M6 9.5L9 6.5M6 9.5L6 2.5" stroke="#21325D" stroke-linecap="round" stroke-linejoin="round" />
+                </svg></span>
               </div>
             </div>
           </div>
-          <div className="col-6">
-            <div className="row">
-              <div className="col-lg-12">
-                <div className="returnheadicons">
-                  <div>
-                    <p>Flight</p>
-                    <span><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12" fill="none">
-                      <path d="M6 9.5L3 6.5M6 9.5L9 6.5M6 9.5L6 2.5" stroke="#21325D" stroke-linecap="round" stroke-linejoin="round" />
-                    </svg></span>
-                  </div>
-                  <div>
-                    <p>Departure</p>
-                    <span><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12" fill="none">
-                      <path d="M6 9.5L3 6.5M6 9.5L9 6.5M6 9.5L6 2.5" stroke="#21325D" stroke-linecap="round" stroke-linejoin="round" />
-                    </svg></span>
-                  </div>
-                  <div>
-                    <p>Duration</p>
-                    <span><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12" fill="none">
-                      <path d="M6 9.5L3 6.5M6 9.5L9 6.5M6 9.5L6 2.5" stroke="#21325D" stroke-linecap="round" stroke-linejoin="round" />
-                    </svg></span>
-                  </div>
-                  <div>
-                    <p>Arrival</p>
-                    <span><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12" fill="none">
-                      <path d="M6 9.5L3 6.5M6 9.5L9 6.5M6 9.5L6 2.5" stroke="#21325D" stroke-linecap="round" stroke-linejoin="round" />
-                    </svg></span>
-                  </div>
-                  <div>
-                    <p>Offer Fare</p>
-                    <span><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12" fill="none">
-                      <path d="M6 9.5L3 6.5M6 9.5L9 6.5M6 9.5L6 2.5" stroke="#21325D" stroke-linecap="round" stroke-linejoin="round" />
-                    </svg></span>
-                  </div>
-                </div>
-              </div>
 
-              <div className="col-lg-12">
-                <FlightReturn sendDataToParent={receiveChildData} />
-              </div>
-            </div>
+          <div className="col-lg-12">
+            <FlightresultOne sendDataToParent={receiveChildData} />
           </div>
         </div>
       </div>
+      <div className="col-6">
+        <div className="row">
+          <div className="col-lg-12">
+            <div className="returnheadicons">
+              <div>
+                <p>Flight</p>
+                <span><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12" fill="none">
+                  <path d="M6 9.5L3 6.5M6 9.5L9 6.5M6 9.5L6 2.5" stroke="#21325D" stroke-linecap="round" stroke-linejoin="round" />
+                </svg></span>
+              </div>
+              <div>
+                <p>Departure</p>
+                <span><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12" fill="none">
+                  <path d="M6 9.5L3 6.5M6 9.5L9 6.5M6 9.5L6 2.5" stroke="#21325D" stroke-linecap="round" stroke-linejoin="round" />
+                </svg></span>
+              </div>
+              <div>
+                <p>Duration</p>
+                <span><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12" fill="none">
+                  <path d="M6 9.5L3 6.5M6 9.5L9 6.5M6 9.5L6 2.5" stroke="#21325D" stroke-linecap="round" stroke-linejoin="round" />
+                </svg></span>
+              </div>
+              <div>
+                <p>Arrival</p>
+                <span><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12" fill="none">
+                  <path d="M6 9.5L3 6.5M6 9.5L9 6.5M6 9.5L6 2.5" stroke="#21325D" stroke-linecap="round" stroke-linejoin="round" />
+                </svg></span>
+              </div>
+              <div>
+                <p>Offer Fare</p>
+                <span><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12" fill="none">
+                  <path d="M6 9.5L3 6.5M6 9.5L9 6.5M6 9.5L6 2.5" stroke="#21325D" stroke-linecap="round" stroke-linejoin="round" />
+                </svg></span>
+              </div>
+              <div>
+                <p>Select</p>
+                <span><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12" fill="none">
+                  <path d="M6 9.5L3 6.5M6 9.5L9 6.5M6 9.5L6 2.5" stroke="#21325D" stroke-linecap="round" stroke-linejoin="round" />
+                </svg></span>
+              </div>
+            </div>
+          </div>
+
+          <div className="col-lg-12">
+            <FlightReturn sendDataToParent={receiveChildData} />
+          </div>
+        </div>
+      </div>
+      {/* </div> */}
+      {/* </div> */}
 
 
 
 
-      <Box
+      {/* <Box
         display={"flex"}
         gap={"10px"}
         justifyContent={"center"}
@@ -387,7 +399,7 @@ const FlightresultReturn = () => {
           </Box>
           <FlightReturn sendDataToParent={receiveChildData} />
         </Box>
-      </Box>
+      </Box> */}
 
 
       {/* fixed bottom  */}
@@ -402,7 +414,8 @@ const FlightresultReturn = () => {
           margin: "auto",
           position: "fixed",
           left: 0,
-          bottom: "2px",
+          overflow: "hidden",
+          bottom: "0px",
           zIndex: "2",
         }}
       >
@@ -526,7 +539,7 @@ const FlightresultReturn = () => {
           </Button>
         </Box>
       </Box>
-    </div>
+    </>
   );
 };
 

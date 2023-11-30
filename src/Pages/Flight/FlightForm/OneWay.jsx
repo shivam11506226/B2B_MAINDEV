@@ -20,6 +20,25 @@ import { Typography } from "@mui/material";
 import { apiURL } from "../../../Constants/constant";
 import { clearPassengersReducer } from "../../../Redux/Passengers/passenger";
 import "./OneWay.css";
+import { motion, useAnimation } from "framer-motion";
+
+
+
+const variants = {
+  initial: {
+    y: 50,
+    opacity: 0,
+  },
+  animate: {
+    y: 0,
+    opacity: 1,
+    transition: {
+      duration: 0.5,
+      staggerChildren: 0.1,
+    },
+  },
+};
+
 
 const OneWay = () => {
   const dispatch = useDispatch();
@@ -267,10 +286,11 @@ const OneWay = () => {
   // style={{ width: "305px", height: "56px" }}
   return (
     <div className="">
-      <form onSubmit={handleSubmit} className="formFlightSearchOneWay">
+      <form onSubmit={handleSubmit} className="formFlightSearchOneWay" >
         <div className="container">
-          <div className="row rowcon">
-            <div className="col-xs-12 col-md-3 ps-0 mb-3 ">
+          <motion.div className="row rowcon" variants={variants} initial="initial"
+            whileInView="animate">
+            <motion.div variants={variants} className="col-xs-12 col-md-3 ps-0 mb-3 ">
               <div className="form_input " >
                 <label className="form_lable">Departure</label>
                 <input
@@ -304,11 +324,11 @@ const OneWay = () => {
                   </div>
                 )}
               </div>
-            </div>
-            <div className="col-md-1 d-flex justify-content-center interchange ps-0 ">
+            </motion.div>
+            <motion.div variants={variants} className="col-md-1 d-flex justify-content-center interchange ps-0 ">
               <img src={interchange} alt="name" className="align-self-center" />
-            </div>
-            <div className="col-xs-12 col-md-4 ps-0 mb-3">
+            </motion.div>
+            <motion.div variants={variants} className="col-xs-12 col-md-4 ps-0 mb-3">
               <div className="form_input " style={{ zIndex: 10, position: "relative" }}>
                 <label className="form_lable">Arrival</label>
                 <input
@@ -347,9 +367,9 @@ const OneWay = () => {
                   </div>
                 )}
               </div>
-            </div>
+            </motion.div>
 
-            <div className="col-xs-12 col-md-4 ps-0 mb-3">
+            <motion.div variants={variants} className="col-xs-12 col-md-4 ps-0 mb-3">
               <div className="form_input" onClick={handleClick}>
                 <label className="form_lable">Departure Date</label>
                 <input
@@ -361,71 +381,13 @@ const OneWay = () => {
                 />
                 {dateError !== "" && <span className="error">{dateError}</span>}
               </div>
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
 
-          {/* <div className="row" style={{ marginTop: "32px" }}>
-          <div className="col-xs-3 col-md-3 pe-0">
-            <Typography mt={1} variant="h6" paddingRight={0}>
-              Select A Fair Of Type:
-            </Typography>
-          </div>
-          <div className="col-xs-3 col-md-5">
-            <div style={{ display: "flex" }}>
-              <span
-                style={{
-                  display: "flex",
-                  padding: "10px",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  borderRadius: "10px",
-                  color: "white",
-                  opacity: 1,
-                  backgroundColor:
-                    selectedOption === "option1" ? "#00BDC4" : "#8D8985",
-                  border: "none",
-                }}
-                className="span"
-                onClick={(e) => setSelectedOption("option1")}
-              >
-                <input
-                  type="radio"
-                  value="2"
-                  checked={selectedOption === "option1"}
-                />
-                Regular Fares
-              </span>
-              
-              <button
-                style={{
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  borderRadius: "10px",
-                  color: "white",
-                  opacity: 1,
-                  marginLeft: "8px",
-                  backgroundColor:
-                    selectedOption === "option2" ? "#00BDC4" : "#8D8985",
-                  border: "none",
-                }}
-                onClick={(e) => setSelectedOption("option2")}
-              >
-                <input
-                  type="radio"
-                  value="3"
-                  checked={selectedOption === "option2"}
-                />
-                Student Fares
-              </button>
-            </div>
-          </div>
-        </div> */}
 
-          <div className="row">
-            {/* <div className="col-xs-12 col-md-12 ps-0">
-              <div className="row"> */}
-            <div className=" col-md-3 col-lg-3 col-sm-12 col-12 mb-3 ps-0">
+          <motion.div className="row" variants={variants} initial="initial"
+            whileInView="animate">
+            <motion.div variants={variants} className=" col-md-3 col-lg-3 col-sm-12 col-12 mb-3 ps-0">
               <div className="form_input">
                 <label className="form_lable">Adult(12+ Yrs)</label>
                 <select name="adult" id="" className="form_input_select">
@@ -440,9 +402,9 @@ const OneWay = () => {
                   <option value="9">9</option>
                 </select>
               </div>
-            </div>
+            </motion.div>
 
-            <div className=" col-md-3 col-lg-3 col-sm-12 col-12 mb-3 ps-0">
+            <motion.div variants={variants} className=" col-md-3 col-lg-3 col-sm-12 col-12 mb-3 ps-0">
               <div className="form_input">
                 <label className="form_lable">Child(2-12 Yrs)</label>
                 <select name="child" id="" className="form_input_select">
@@ -457,8 +419,8 @@ const OneWay = () => {
                   <option value="8">8</option>
                 </select>
               </div>
-            </div>
-            <div className=" col-md-3 col-lg-3 col-sm-12 col-12 mb-3 ps-0">
+            </motion.div>
+            <motion.div variants={variants} className=" col-md-3 col-lg-3 col-sm-12 col-12 mb-3 ps-0">
               <div className="form_input">
                 <label className="form_lable">Infant({"<"} 2 Yrs)</label>
                 <select name="infant" id="" className="form_input_select">
@@ -467,9 +429,9 @@ const OneWay = () => {
                   <option value="2">2</option>
                 </select>
               </div>
-            </div>
+            </motion.div>
 
-            <div className=" col-md-3 col-lg-3 col-sm-12 col-12 mb-3 ps-0">
+            <motion.div variants={variants} className=" col-md-3 col-lg-3 col-sm-12 col-12 mb-3 ps-0">
               <div className="form_input">
                 <label className="form_lable">Class</label>
                 <select name="class" id="" className="form_input_select">
@@ -481,12 +443,13 @@ const OneWay = () => {
                   <option value="6">First</option>
                 </select>
               </div>
-            </div>
-            {/* </div>
-            </div> */}
+            </motion.div>
+
+
+
             <div className="col-xs-12">
               <div className="row bottom-row">
-                <div className="col-md-6 col-lg-6 col-12 col-sm-12 mb-3 ps-0">
+                <div variants={variants} className="col-md-6 col-lg-6 col-12 col-sm-12 mb-3 ps-0">
                   <div className="form_input mb-0">
                     <label className="form_lable">Preferred Airline</label>
                     <select name="adult" id="" className="form_input_select1">
@@ -503,7 +466,7 @@ const OneWay = () => {
                   </div>
                 </div>
 
-                <div className="col-md-6 col-lg-6 col-12 col-sm-12 mb-3 ps-0">
+                <div variants={variants} className="col-md-6 col-lg-6 col-12 col-sm-12 mb-3 ps-0">
                   <button
                     type="submit"
                     className="flightFormSubmit">Search Flight <FlightIcon /></button>
@@ -511,7 +474,7 @@ const OneWay = () => {
                 </div>
               </div>
             </div>
-          </div>
+          </motion.div>
 
           {/* <label
       style={{
