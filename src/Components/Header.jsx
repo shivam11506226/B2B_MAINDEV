@@ -28,6 +28,8 @@ import {
   FormHelperText,
 } from "@chakra-ui/react";
 import { apiURL } from "../Constants/constant.js";
+import { clearUserReducer } from "../Redux/Auth/UserDataById/actionUserData.js";
+import { CLEAR_BUS_SEARCH_REDUCER } from "../Redux/busSearch/actionType.js";
 const style = {
   position: "absolute",
   top: "50%",
@@ -68,7 +70,8 @@ const Header = () => {
   };
   const handleSubmit = () => {
     dispatch(logoutAction());
-    window.location.reload();
+    navigate("/Login");
+    
   };
   // Edit package
   const editPackage = () => {
