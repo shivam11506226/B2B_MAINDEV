@@ -74,7 +74,7 @@ const Flightbookingdetail = () => {
     reducerState?.flightFare?.flightQuoteDataReturn?.Results;
   // console.log(fareValue, "😍Fare value", fareValueReturn);
   const Passengers = reducerState?.passengers?.passengersData;
-  console.log(Passengers, "passenger ka data")
+  // console.log(Passengers, "passenger ka data")
   const PassengersReturn = reducerState?.passengers?.passengerDataReturn;
   const userId = reducerState?.logIn?.loginData?.data?.data?.id;
   const currentBalance = reducerState?.userData?.userData?.data?.data?.balance;
@@ -397,7 +397,7 @@ const Flightbookingdetail = () => {
   };
 
   const fareQuoteData = reducerState?.flightFare?.flightQuoteData?.Results;
-  console.log(fareQuoteData, "fare quote data")
+  // console.log(fareQuoteData, "fare quote data")
 
   const img = fareQuoteData?.Segments?.[0]?.[0]?.Airline?.AirlineCode;
   const airlineName = fareQuoteData?.Segments?.[0]?.[0]?.Airline?.AirlineName;

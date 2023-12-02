@@ -24,6 +24,7 @@ import CurrencyRupeeIcon from '@mui/icons-material/CurrencyRupee';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
 import {
+  clearUserReducer,
   getUserDataAction,
 } from "../Redux/Auth/UserDataById/actionUserData";
 import {
@@ -37,6 +38,7 @@ import { useLocation } from 'react-router-dom';
 import { balanceSubtractRequest } from "../Redux/Auth/balaceSubtract/actionBalnceSubtract.js";
 import "./Headers.css"
 import { apiURL } from "../Constants/constant.js";
+import { CLEAR_BUS_SEARCH_REDUCER } from "../Redux/busSearch/actionType.js";
 const style = {
   // border: "10px solid #000",
   // boxShadow: 24,
@@ -70,7 +72,7 @@ function Headers() {
   };
   const handleSubmit = () => {
     dispatch(logoutAction());
-    window.location.reload();
+    navigate("/Login");
   };
   // Edit package
   const editPackage = () => {

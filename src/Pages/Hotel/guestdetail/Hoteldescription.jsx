@@ -43,7 +43,7 @@ const Hoteldescription = () => {
   // console.log("passenger", passenger);
   // console.log("hotel block details", hotelBlockDetails)
   // console.log("hotel data", hotelData)
-  console.log("hotel Info", hotelInfo)
+  // console.log("hotel Info", hotelInfo);
 
   const checkInDate = moment(hotelDetails?.CheckInDate).format("MMMM DD, YYYY");
   const checkOutDate = moment(hotelDetails?.CheckOutDate).format(
@@ -56,7 +56,7 @@ const Hoteldescription = () => {
   const getBookingDetails =
     reducerState?.hotelSearchResult?.blockRoom?.BlockRoomResult
       ?.HotelRoomsDetails;
-  console.log("reducerState", reducerState);
+  // console.log("reducerState", reducerState);
 
   const totalAmount = getBookingDetails?.reduce((accumulator, item) => {
     return accumulator + item?.Price?.PublishedPriceRoundedOff;

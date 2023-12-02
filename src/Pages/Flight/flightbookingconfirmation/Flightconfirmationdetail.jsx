@@ -17,7 +17,7 @@ const Flightbookingdetail = (props) => {
   const infants = sessionStorage.getItem("infants");
   const { ticket } = props;
 
-  console.log(ticket, "ticket data")
+  // console.log(ticket, "ticket data")
   const ticket1 = {
     PNR: "JWSFIB",
     BookingId: 1839811,
@@ -338,7 +338,7 @@ const Flightbookingdetail = (props) => {
 
 
   const fareQuoteData = reducerState?.flightFare?.flightQuoteData?.Results;
-  console.log(fareQuoteData, "fare quote data")
+  // console.log(fareQuoteData, "fare quote data");
 
   const img = fareQuoteData?.Segments?.[0]?.[0]?.Airline?.AirlineCode;
   const airlineName = fareQuoteData?.Segments?.[0]?.[0]?.Airline?.AirlineName;

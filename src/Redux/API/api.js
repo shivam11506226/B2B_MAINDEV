@@ -535,6 +535,27 @@ function api() {
        throw error; // You can choose to throw the error again or handle it differently
      }
    };
+   const updateFlightBookingSeat=async(data)=>{
+     try {
+       const response = await axios({
+         method: "POST",
+         url: "/skyTrails/updateFixDepartureData",
+         baseURL: `${apiURL.baseURL}`,
+         data: data,
+         headers: {
+           "Content-Type": "application/json",
+         },
+       });
+
+       // Assuming you want to return the response data
+       // alert(response.data)
+       return response.data;
+     } catch (error) {
+       // Handle the error appropriately, e.g., log it or throw a custom error
+       alert("Something Went Wrong", error);
+       throw error; // You can choose to throw the error again or handle it differently
+     }
+   }
 
 
   /// userDetails by Id
@@ -609,6 +630,7 @@ function api() {
     hotelBookingDataSave,
     fixedDepartureAddSector,
     fixedDepartureBooking,
+    updateFlightBookingSeat,
   };
 }
 
