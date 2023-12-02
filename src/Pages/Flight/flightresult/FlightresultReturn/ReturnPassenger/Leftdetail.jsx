@@ -8,6 +8,7 @@ import { Typography, Button } from "@mui/material";
 import { useDispatch, useSelector, useReducer } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import groupimg from "../../../../../Images/Groupl.png";
+import flightdir from "../../../../../Images/flgihtdir.png";
 import {
   bookAction,
   bookActionGDS,
@@ -35,11 +36,20 @@ const Leftdetail = () => {
   const fareRule = reducerState?.flightFare?.flightRuleData?.FareRules;
   const fareRuleReturn =
     reducerState?.flightFare?.flightRuleDataReturn?.FareRules;
-  // console.log(fareValueReturn, fareRuleReturn, "vivekk");
+  console.log(fareValueReturn, fareRuleReturn, "vivekk");
   const data = reducerState?.oneWay?.oneWayData?.data?.data?.Response;
   const isPassportRequired =
     reducerState?.flightFare?.flightQuoteData?.Results
       ?.IsPassportRequiredAtTicket;
+
+  // const img = flight?.Airline?.AirlineCode;
+  const flightDeparture = reducerState?.flightFare?.flightQuoteData?.Results?.Segments[0]?.[0];
+  const flightReturn = reducerState?.flightFare?.flightQuoteDataReturn?.Results?.Segments[0]?.[0];
+
+  console.log(flightDeparture, "flight departure")
+  console.log(flightReturn, "flight return ")
+
+
   const passengerTemplate = {
     Title: "Mr",
     FirstName: "",
@@ -318,10 +328,167 @@ const Leftdetail = () => {
 
     dispatch(PassengersAction(passengerData));
     dispatch(PassengersActionReturn(passengerDataReturn))
-    navigate("/Flightresult/passengerdetail/flightreviewbooking");
+    navigate("/Flightresult/passengerdetail/flightReturnreviewbooking");
   }
+
+
+
+
+  //departure flight data in passenger page 
+
+
+  // const flightDeparture = reducerState?.flightFare?.flightQuoteData?.Results?.Segments[0]?.[0];
+  // const flightReturn = reducerState?.flightFare?.flightQuoteDataReturn?.Results?.Segments[0]?.[0];
+
+  console.log(flightDeparture, "flight departure")
+  console.log(flightReturn, "flight return ")
+
+
+
+
+
+  const duration1 = `${Math.floor(flightDeparture?.Duration / 60)}hr ${flightDeparture?.Duration % 60
+    }min`;
+  const dateString = flightDeparture?.Origin?.DepTime;
+  const date1 = new Date(dateString);
+  const options = {
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+    hour: "numeric",
+    minute: "numeric",
+    hour12: true,
+  };
+  const formattedDate = date1.toLocaleString("en-US", options);
+  const [month, day, year, time, ampm] = formattedDate.split(" ");
+  const desiredFormat = `${day}${month}-${year} ${time} ${ampm}`;
+
+
+  const dateString1 = flightDeparture?.Destination?.ArrTime;
+  const date2 = new Date(dateString1);
+  const options1 = {
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+    hour: "numeric",
+    minute: "numeric",
+    hour12: true,
+  };
+  const formattedDate1 = date2.toLocaleString("en-US", options1);
+  const [month1, day1, year1, time1, ampm1] =
+    formattedDate1.split(" ");
+  const desiredFormat1 = `${day1}${month1}-${year1} ${time1} ${ampm1}`;
+  console.log(desiredFormat1, 'desired format')
+  console.log(desiredFormat, 'desired format')
+
+
+
+
+  const duration3 = `${Math.floor(flightReturn?.Duration / 60)}hr ${flightReturn?.Duration % 60
+    }min`;
+  const dateString3 = flightReturn?.Origin?.DepTime;
+  const date3 = new Date(dateString3);
+  const options3 = {
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+    hour: "numeric",
+    minute: "numeric",
+    hour12: true,
+  };
+  const formattedDate3 = date3.toLocaleString("en-US", options3);
+  const [month3, day3, year3, time3, ampm3] = formattedDate3.split(" ");
+  const desiredFormat3 = `${day3}${month3}-${year3} ${time3} ${ampm3}`;
+
+
+  const dateString4 = flightReturn?.Destination?.ArrTime;
+  const date4 = new Date(dateString4);
+  const options4 = {
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+    hour: "numeric",
+    minute: "numeric",
+    hour12: true,
+  };
+  const formattedDate4 = date4.toLocaleString("en-US", options4);
+  const [month4, day4, year4, time4, ampm4] =
+    formattedDate4.split(" ");
+  const desiredFormat4 = `${day4}${month4}-${year4} ${time4} ${ampm4}`;
+  console.log(desiredFormat4, 'desired format')
+  console.log(desiredFormat3, 'desired format')
+
+
+
+
+
+
+
+
+
+
+
+
+  console.log(flightDeparture, "flight departure")
+  console.log(flightReturn, "flight return ")
+
+
   return (
     <div>
+
+      <div className="col-lg-12">
+        <div className="row">
+
+          <div className="col-lg-6">
+            <div className="singleDataReturnBox">
+              <div className="returnBoxOne">
+                <div><img src={`${process.env.PUBLIC_URL}/FlightImages/${flightDeparture?.Airline?.AirlineCode}.png`} /> </div>
+                <span>{flightDeparture?.Airline?.AirlineName}</span>
+                <p>{flightDeparture?.Airline?.AirlineCode}{" "}{flightDeparture?.Airline?.FlightNumber}</p>
+              </div>
+              <div className="returnBoxTwo">
+                <span>{flightDeparture?.Origin?.Airport?.CityName}</span>
+                <p>{desiredFormat.slice(0, 12)}</p>
+                <p>{desiredFormat.slice(13)}</p>
+              </div>
+              <div className="returnBoxThree">
+                <h4>{duration1}</h4>
+                <div><img src={flightdir} /></div>
+              </div>
+              <div className="returnBoxFour">
+                <span>{flightDeparture?.Destination?.Airport?.CityName}</span>
+                <p>{desiredFormat1.slice(0, 12)}</p>
+                <p>{desiredFormat1.slice(13)}</p>
+              </div>
+
+            </div>
+          </div>
+          <div className="col-lg-6">
+            <div className="singleDataReturnBox">
+              <div className="returnBoxOne">
+                <div><img src={`${process.env.PUBLIC_URL}/FlightImages/${flightReturn?.Airline?.AirlineCode}.png`} /> </div>
+                <span>{flightReturn?.Airline?.AirlineName}</span>
+                <p>{flightReturn?.Airline?.AirlineCode}{" "}{flightReturn?.Airline?.FlightNumber}</p>
+              </div>
+              <div className="returnBoxTwo">
+                <span>{flightReturn?.Origin?.Airport?.CityName}</span>
+                <p>{desiredFormat3.slice(0, 12)}</p>
+                <p>{desiredFormat3.slice(13)}</p>
+              </div>
+              <div className="returnBoxThree">
+                <h4>{duration3}</h4>
+                <div><img src={flightdir} /></div>
+              </div>
+              <div className="returnBoxFour">
+                <span>{flightReturn?.Destination?.Airport?.CityName}</span>
+                <p>{desiredFormat4.slice(0, 12)}</p>
+                <p>{desiredFormat4.slice(13)}</p>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
 
 
       <div className="col-lg-12">
@@ -951,352 +1118,6 @@ const Leftdetail = () => {
           </button>
         </div>
 
-
-        {/* passengerdetraifjdsfjdslkjfkldsjgkldsjfglksdjflk;dsjfkl */}
-        {/* passengerdetraifjdsfjdslkjfkldsjgkldsjfglksdjflk;dsjfkl */}
-
-
-        <Box className="mid_header1" p={5} mt={25}>
-
-          <Grid container spacing={1}>
-            <Grid item xs={6} md={4}>
-              <Box p={17}>
-                <Typography color="#616161" fontSize="14px" fontWeight="bold">
-                  Select Excess Baggage
-                </Typography>
-                <Typography color="#616161" fontSize="14px" fontWeight="bold">
-                  (Extra charge will be applicable):
-                </Typography>
-              </Box>
-            </Grid>
-            <Grid item xs={6} md={4}>
-              <Box py={17}>
-                <div className="form_input1">
-                  <label hotel_form_input className="form_lable">
-                    {data?.Origin}-{data?.Destination}
-                  </label>
-                  <input type="text" placeholder="No Excess / Extra Baggage" />
-                </div>
-              </Box>
-            </Grid>
-            <Grid item xs={6} md={4}></Grid>
-          </Grid>
-          <Grid container spacing={1}>
-            <Grid item xs={6} md={4}>
-              <Box p={17}>
-                <Typography color="#616161" fontSize="14px" fontWeight="bold">
-                  Meal Preferences:
-                </Typography>
-              </Box>
-            </Grid>
-            <Grid item xs={6} md={4}>
-              <Box py={17}>
-                <div className="form_input1">
-                  <label hotel_form_input className="form_lable">
-                    {data?.Origin}-{data?.Destination}
-                  </label>
-                  <input type="text" placeholder="Add No Meal Rs. - 0" />
-                </div>
-              </Box>
-            </Grid>
-            <Grid item xs={6} md={4}></Grid>
-          </Grid>
-
-          <Box className="mid_header1" m={15}>
-            <Box
-              display="flex"
-              flexDirection="column"
-              alignItems="center"
-              justifyContent="center"
-              marginTop="10px"
-            >
-              <Typography
-                color="#008FCC"
-                fontSize="16px"
-                fontWeight="bold"
-                textAlign="center"
-              >
-                Fare Rule
-              </Typography>
-              <Typography
-                color="#707070"
-                fontSize="12px"
-                fontWeight="bold"
-                textAlign="center"
-              >
-                {data?.Origin}-{data?.Destination}
-              </Typography>
-            </Box>
-            <Box p={17}>
-              <Grid container spacing={1} mt={1}>
-                <Grid item xs={6} md={6}>
-                  <Box textAlign="center">
-                    <Typography
-                      color="#707070"
-                      fontSize="14px"
-                      fontWeight="bold"
-                      textAlign="left"
-                      mb={1}
-                    >
-                      Cancellation
-                    </Typography>
-                    <Typography
-                      color="#008FCC"
-                      fontSize="14px"
-                      fontWeight="bold"
-                      textAlign="left"
-                    >
-                      INR 3500 from 0 To 3 Days before dept
-                    </Typography>
-                    <Typography
-                      color="#008FCC"
-                      fontSize="14px"
-                      fontWeight="bold"
-                      textAlign="left"
-                    >
-                      INR 3000 from 4 Days & above before dept
-                    </Typography>
-                  </Box>
-                </Grid>
-                <Grid item xs={6} md={6}>
-                  <Box textAlign="center">
-                    <Typography
-                      color="#707070"
-                      fontSize="14px"
-                      fontWeight="bold"
-                      textAlign="left"
-                      mb={1}
-                    >
-                      Reissue
-                    </Typography>
-                    <Typography
-                      color="#008FCC"
-                      fontSize="14px"
-                      fontWeight="bold"
-                      textAlign="left"
-                    >
-                      INR 3250 from 0 To 3 Days before dept
-                    </Typography>
-                    <Typography
-                      color="#008FCC"
-                      fontSize="14px"
-                      fontWeight="bold"
-                      textAlign="left"
-                    >
-                      INR 2750 from 4 Days & above before dept
-                    </Typography>
-                  </Box>
-                </Grid>
-              </Grid>
-            </Box>
-            <Box py={5}>
-              <ul color="red">
-                <li
-                  style={{
-                    color: "#FF0000",
-                    fontSize: "14px",
-                    fontWeight: "bold",
-                  }}
-                >
-                  {" "}
-                  Mentioned Fee are per PAX and per sector
-                </li>
-                <li
-                  style={{
-                    color: "#FF0000",
-                    fontSize: "14px",
-                    fontWeight: "bold",
-                  }}
-                >
-                  {" "}
-                  Apart from airline charges, GST + RAF + applicable charges if
-                  any, will be charged
-                </li>
-              </ul>
-            </Box>
-            {/* {fareQuoteData?.FareRules[0]?.map((value) => {
-              return ( */}
-            <Box px={17} py={5}>
-              <Grid container spacing={1} mt={1}>
-                <Grid item xs={6} md={6}>
-                  <Typography
-                    color="#707070"
-                    fontSize="14px"
-                    fontWeight="bold"
-                    textAlign="left"
-                    mb={1}
-                  >
-                    {fareQuoteData?.AirlineCode}:{data?.Origin}-
-                    {data?.Destination}
-                  </Typography>
-                  <Typography
-                    color="#707070"
-                    fontSize="14px"
-                    textAlign="left"
-                    mb={1}
-                  >
-                    The Fare Basis Code is:{" "}
-                    {fareQuoteData?.FareRules[0]?.FareBasisCode}
-                    <br />
-                    Meal: Chargeable
-                    <br />
-                    Seat: Chargeable
-                    {fareRule &&
-                      fareRule.length > 0 &&
-                      fareRule.map((dat) => {
-                        // console.log("Dat", dat);
-                        return (
-                          <Box my={2}>
-                            <Accordion
-                              style={{ width: "700px" }}
-                              defaultActiveKey={null}
-                            >
-                              <Accordion.Item>
-                                <Accordion.Header>
-                                  <p>Detailed Fare Rules</p>
-                                </Accordion.Header>
-                                <Accordion.Body>
-                                  <div
-                                    dangerouslySetInnerHTML={{
-                                      __html: dat?.FareRuleDetail,
-                                    }}
-                                  />
-                                </Accordion.Body>
-                              </Accordion.Item>
-                            </Accordion>
-                          </Box>
-                        );
-                      })}
-                  </Typography>
-                  {/* <Typography
-                    color="#008FCC "
-                    fontSize="14px"
-                    textAlign="left"
-                    fontWeight="bold"
-                  >
-                    {" "}
-                    Subject to change without prior notice.{" "}
-                  </Typography> */}
-                  {/* <Typography
-                    color="#008FCC "
-                    fontSize="14px"
-                    textAlign="left"
-                    fontWeight="bold"
-                  >
-                    {" "}
-                    Note : We should receive the request at least four hours
-                    prior to Airline Fare Rules Policy.{" "}
-                  </Typography> */}
-                </Grid>
-              </Grid>
-            </Box>
-            {/* ); })} */}
-          </Box>
-          {/* <Box className="mid_header1" py={5} px={17} m={15}>
-            <Box px={17}>
-              <Box display="flex" alignItems="center">
-                <input
-                  className="inputSelect"
-                  type="radio"
-                  // defaultChecked="checked"
-                />{" "}
-                <Typography
-                  color="#252525"
-                  fontWeight="bold"
-                  marginLeft="5px"
-                  fontSize="16px"
-                >
-                  No Assistance and Insurance Required
-                </Typography>
-              </Box>
-              <Box display="flex">
-                <input
-                  className="inputSelect"
-                  type="radio"
-                  // defaultChecked="checked"
-                />{" "}
-                <Typography
-                  color="#252525"
-                  fontWeight="bold"
-                  marginLeft="5px"
-                  fontSize="16px"
-                >
-                  Travel Assistance and Insurance for only Rs. 161.00 per
-                  Passenger (Terms & Conditions)
-                </Typography>
-              </Box>
-              <Box display="flex" mt={15}>
-                <Typography color="#252525" fontWeight="bold" fontSize="16px">
-                  Domestic Travel Assistance and Insurance is valid from 16 Feb
-                  2023 to 16 Feb 2023 from your date of journey or till your
-                  date of return, which ever is earlier. To know more on the
-                  coverage, please Click Here
-                </Typography>
-              </Box>
-            </Box>
-          </Box> */}
-          {/* <Box py={4}>
-            <ul color="red">
-              <li
-                style={{
-                  color: "#FF0000",
-                  fontSize: "14px",
-                  fontWeight: "bold",
-                }}
-              >
-                {" "}
-                Mentioned Fee are per PAX and per sector
-              </li>
-              <li
-                style={{
-                  color: "#FF0000",
-                  fontSize: "14px",
-                  fontWeight: "bold",
-                }}
-              >
-                {" "}
-                Apart from airline charges, GST + RAF + applicable charges if
-                any, will be charged
-              </li>
-            </ul>
-          </Box> */}
-
-          {/* <Box className="Top_header" py={5} my={15} mx={15}>
-            <Typography
-              color="#707070"
-              fontSize="14px"
-              fontWeight="bold"
-              textAlign="left"
-              mb={1}
-              px={4}
-              py={2}
-            >
-              Special Service
-            </Typography>
-          </Box> */}
-
-          <button
-            style={{
-              width: 200,
-              height: 63,
-
-              background: "#21325D",
-              borderRadius: 5.3,
-              justifyContent: "center",
-              alignItems: "center",
-
-              display: "inline-flex",
-              border: "1px solid #21325D",
-              color: "white",
-              cursor: "pointer",
-              marginTop: "10px",
-              marginLeft: "28px",
-            }}
-            type="submit"
-          >
-            Proceed to Book
-          </button>
-        </Box>
       </form>
     </div>
   );
