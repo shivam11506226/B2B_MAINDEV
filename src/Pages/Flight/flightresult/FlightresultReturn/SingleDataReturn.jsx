@@ -93,6 +93,8 @@ function SingleDataReturn(props) {
     }
   };
 
+
+
   return (
     <div
       onClick={() => {
@@ -114,7 +116,6 @@ function SingleDataReturn(props) {
           <h4>{time}</h4>
           <div><img src={flightdir} /></div>
           <p>Direct Flight</p>
-          <span>{flight?.NoOfSeatAvailable} Seats Left</span>
         </div>
         <div className="returnBoxFour">
           <span>{flight?.Destination?.Airport?.CityName}</span>
