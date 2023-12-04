@@ -2,9 +2,10 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Table, TableBody, TableCell, TableRow, Paper,TextField,InputAdornment } from '@mui/material';
-import '../HotelBookings/HotelBookings.css';
+// import '../HotelBookings/HotelBookings.css';
 import SearchIcon from '@mui/icons-material/Search';
-import { apiURL } from '../../../../../Constants/constant';
+import { apiURL } from '../../../../../../Constants/constant';
+
 const AllHotelCancelTickets = () => {
   const [hotelBookings, setHotelBookings] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -47,7 +48,7 @@ const AllHotelCancelTickets = () => {
   return (
 
     <div className='hotel-container'>
-    <h3>AGENT BUSTICKET CANCEL REQUEST</h3>
+    <h3>AGENT HOTELTICKET CHANGE REQUEST</h3>
       <TextField
         type="text"
         value={searchTerm}

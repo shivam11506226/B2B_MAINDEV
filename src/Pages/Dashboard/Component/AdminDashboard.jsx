@@ -8,6 +8,7 @@ import Groups2Icon from '@mui/icons-material/Groups2';
 import Diversity1Icon from '@mui/icons-material/Diversity1';
 import CollectionsBookmarkIcon from '@mui/icons-material/CollectionsBookmark';
 import { apiURL } from '../../../Constants/constant';
+import UserFlightBookingList from '../Component/Table/FlightBookings/Flightbookings'
 const AdminDashboardData = () => {
   // State to hold dashboard data
   const [dashboardData, setDashboardData] = useState({});
@@ -27,11 +28,24 @@ const AdminDashboardData = () => {
     fetchDashboardData();
   }, []);
 
+  const handleCardClick = async (key) => {
+    if (key === 'TotalBooking') {
+      try {
+        const bookingListResponse = await axios.get(`${apiURL.baseURL}/skytrails/api/admin/getAllFlightBookingList`);
+        // Handle the booking list data as needed
+        console.log('Booking List:', bookingListResponse.data.result);
+      } catch (error) {
+        console.error('Error fetching booking list data:', error);
+      }
+    }
+    // Add more conditions for other sections if needed
+  };
+
   return (
     <Grid container spacing={3} style={{ marginTop: '50px' }}>
       {Object.keys(dashboardData).map((key, index) => (
         <Grid item xs={12} sm={6} md={4} key={index} style={{ display: 'flex', justifyContent: 'center' }}>
-          <Card sx={{position: 'relative' , maxWidth: 345, width: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+          <Card sx={{position: 'relative' , maxWidth: 345, width: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}  onClick={() => handleCardClick(key)}>
             <CardActionArea>
             <CardContent>
                 <Box position="absolute" top={0} right={0}>

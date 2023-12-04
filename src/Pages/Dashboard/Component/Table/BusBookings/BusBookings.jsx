@@ -77,16 +77,11 @@ const AllBusBooking = () => {
         <tbody>
           {busBookings.map(bookings => (
             <tr key={bookings._id}>
-              <td>{bookings._id}</td>
-              <td>{bookings.userId}</td>
+              <td>{bookings.busId}</td>
+              <td>{bookings.userDetails.username}</td>
               <td>{bookings.name}</td>
-              <td>{bookings.userDetails ? `${bookings.userDetails.email}` : "Empty"}</td>
-              <td>
-                {bookings.phone && typeof bookings.phone === 'object' ?
-                  `${bookings.phone.country_code}${bookings.phone.mobile_number}` :
-                  "Empty"
-                }
-              </td>
+              <td>{bookings.email}</td>
+              <td>{bookings.phone}</td>  
               <td>{bookings.destination}</td>
               <td>{bookings.origin}</td>
               <td>{bookings.busName}</td>

@@ -5,7 +5,7 @@ import { Table, TableBody, TableCell, TableRow, Paper,TextField,InputAdornment }
 import '../HotelBookings/HotelBookings.css';
 import SearchIcon from '@mui/icons-material/Search';
 import { apiURL } from '../../../../../Constants/constant';
-const AllHotelBooking = () => {
+const AllHotelCancelTickets = () => {
   const [hotelBookings, setHotelBookings] = useState([]);
   const [loading, setLoading] = useState(true);
   const pageSize = 5; // Number of items per page
@@ -16,7 +16,7 @@ const AllHotelBooking = () => {
     async function fetchHotelBookings() {
       try {
         const response = await axios.get(
-          `${apiURL.baseURL}/skytrails/api/admin/getAllHotelBookingList`,
+          `${apiURL.baseURL}/skyTrails/api/admin/getCancelUserHotelBooking`,
           {
             params: {
               page: currentPage,
@@ -44,9 +44,19 @@ const AllHotelBooking = () => {
     setSearchTerm(event.target.value);
     setCurrentPage(1); // Reset to the first page when performing a new search
   };
+
+  
+  const calculateStayDuration = (checkInDate, checkOutDate) => {
+    const startDate = new Date(checkInDate);
+    const endDate = new Date(checkOutDate);
+    const timeDifference = endDate - startDate;
+    const daysDifference = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+    return daysDifference;
+  };
   return (
 
     <div className='hotel-container'>
+    <h3>USER BUSTICKET CANCEL REQUEST</h3>
       <TextField
         type="text"
         value={searchTerm}
@@ -64,31 +74,33 @@ const AllHotelBooking = () => {
         <thead>
           <tr>
             <th>Booking ID</th>
-            <th>User ID</th>
             <th>Name</th>
             <th>Phone</th>
-            <th>Email</th>
+            <th>Reason</th>
+            <th>Hotel ID</th>
+            <th>Amount</th>
             <th>CheckInDate</th>
-            <th>CheckOutDate</th>
-            <th>HotelName</th>
-            <th>CityName</th>
-            {/* Add more table headers based on your data */}
+            <th>Stay Duration (Days)</th>
+            <th>Destination</th>
+            <th>Hotel Name</th>
+            <th>Approve</th>
           </tr>
         </thead>
         <tbody>
           {hotelBookings.map(booking => (
             <tr key={booking._id}>
-              <td>{booking._id}</td>
-              <td>{booking.userId}</td>
-              <td>{booking.name}</td>
-              <td>{booking.phone}</td>
-              <td>{booking.email}</td>
-              <td>{new Date(booking.CheckInDate).toDateString()}</td>
-              <td>{new Date(booking.CheckOutDate).toDateString()}</td>
-              <td>{booking.hotelName}</td>
-              <td>{booking.cityName}</td>
-              {/* Add more table data cells based on your data */}
-            </tr>
+            <td>{booking.bookingId}</td>
+            <td>{booking.userDetails.username}</td>
+            <td>{booking.userDetails?.phone?.mobile_number}</td>
+            <td>{booking.reason}</td>
+            <td>{booking.hotelDetails?.hotelId}</td>
+            <td>{booking.hotelDetails?.amount}</td>
+            <td>{booking.hotelDetails?.CheckInDate}</td>
+            <td>{calculateStayDuration(booking.hotelDetails?.CheckInDate, booking.hotelDetails?.CheckOutDate)}</td>
+            <td>{booking.hotelDetails?.cityName}</td>
+            <td>{booking.hotelDetails?.hotelName}</td>
+            <td><button>APPROVE</button></td>
+          </tr>
           ))}
         </tbody>
       </table>
@@ -104,4 +116,4 @@ const AllHotelBooking = () => {
   );
 };
 
-export default AllHotelBooking;
+export default AllHotelCancelTickets;
