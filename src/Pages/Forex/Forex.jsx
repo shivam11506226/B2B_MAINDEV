@@ -3,8 +3,8 @@ import ForexForm from "./ForexForm/ForexForm";
 
 const Forex = () => {
   return (
-    <div className='flightContainer'>
-      <ForexForm/>
+    <div className='container-fluid margin-pecentage'>
+      <ForexForm />
     </div>
   )
 }

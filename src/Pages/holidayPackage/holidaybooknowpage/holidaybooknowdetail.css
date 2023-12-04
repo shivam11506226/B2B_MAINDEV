@@ -471,3 +471,22 @@ p {
 }
 
 /* side promo css area  */
+
+
+
+.packageImgBox {
+  display: flex;
+  flex-direction: row;
+  gap: 15px;
+  align-items: flex-start;
+}
+
+.PackageImg {
+  max-width: 300px;
+
+}
+
+.PackageImg img {
+  width: 100%;
+  border-radius: 8px;
+}

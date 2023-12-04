@@ -1,5 +1,4 @@
 import { apiURL } from "../../../Constants/constant";
-import { Grid, Box } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { Button } from "@mui/material";
 import { useDispatch, useSelector, useRef } from "react-redux";
@@ -10,12 +9,36 @@ import axios from "axios";
 import "./hotelstepper.css";
 import { clearHotelReducer, hotelAction } from "../../../Redux/Hotel/hotel";
 import Loader from "../../Loader/Loader";
-import Custombutton from "../../../Custombuttom/Button";
-import color from "../../../../src/color/color.js";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { FaTrash } from "react-icons/fa";
+import { motion } from "framer-motion";
+
+
+
+const variants = {
+  initial: {
+    y: 50,
+    opacity: 0,
+  },
+  animate: {
+    y: 0,
+    opacity: 1,
+    transition: {
+      duration: 0.5,
+      staggerChildren: 0.1,
+    },
+  },
+};
+
+
+
+
+
 const HotelForm = () => {
+
+
+
   const [searchTerm, setSearchTerm] = useState("");
   const [cityid, setCityid] = useState("");
   const [results, setResults] = useState([]);
@@ -343,11 +366,10 @@ const HotelForm = () => {
       {loader ? (
         <Loader />
       ) : (
-        // <div className="row">
         <form onSubmit={handleSubmit}>
-          {/* <div className="container"> */}
-          <div className="row rowcon g-2 gx-3">
-            <div className=" col-md-12 col-lg-12 col-xs-12 ps-0 mb-3">
+          <motion.div className="row rowcon g-2 gx-3" variants={variants} initial="initial"
+            whileInView="animate">
+            <motion.div variants={variants} className=" col-md-12 col-lg-12 col-xs-12 ps-0 mb-3">
               <div className="hotel_form_input">
                 <label className="form_label">City</label>
                 <input
@@ -362,11 +384,8 @@ const HotelForm = () => {
                 {cityError !== "" && (
                   <span className="error">{cityError}</span>
                 )}
-                {/* { citciError !== "" && (
-                      <span className="error">{cityError}</span>
-                    )} */}
 
-                {loading && <div>Loading...</div>}
+                {/* {loading && <div>Loading...</div>} */}
                 {results.length > 0 && (
                   <ul id="citySearchId">
                     {results.map((city, index) => (
@@ -377,9 +396,9 @@ const HotelForm = () => {
                   </ul>
                 )}
               </div>
-            </div>
+            </motion.div>
 
-            <div className="col-lg-4 col-md-4 col-xs-12 ps-0 mb-3">
+            <motion.div variants={variants} className="col-lg-4 col-md-4 col-xs-12 ps-0 mb-3">
               <div className="hotel_form_input">
                 <label className="form_label">Check In</label>
                 <DatePicker
@@ -396,10 +415,10 @@ const HotelForm = () => {
                   <span className="error">Enter Check-In Date </span>
                 )}
               </div>
-            </div>
+            </motion.div>
 
 
-            <div className="col-lg-4 col-md-4 col-xs-12 ps-0 mb-3">
+            <motion.div variants={variants} className="col-lg-4 col-md-4 col-xs-12 ps-0 mb-3">
               <div className="hotel_form_input">
                 <label className="form_label">Check-Out</label>
                 <DatePicker
@@ -416,10 +435,10 @@ const HotelForm = () => {
                   <span className="error">Enter Check-Out Date </span>
                 )}
               </div>
-            </div>
+            </motion.div>
 
 
-            <div className="col-lg-4 col-md-4 col-xs-12 ps-0 mb-3">
+            <motion.div variants={variants} className="col-lg-4 col-md-4 col-xs-12 ps-0 mb-3">
               <div className="hotel_form_input">
                 <label className="form_label">Room*</label>
                 <select
@@ -438,12 +457,12 @@ const HotelForm = () => {
                 </select>
                 {/* Add validation error message if needed */}
               </div>
-            </div>
+            </motion.div>
 
 
 
             {/* <Box> */}
-            <div className="col-lg-12 col-md-12 col-xs-12 ps-0 mb-3">
+            <motion.div variants={variants} className="col-lg-12 col-md-12 col-xs-12 ps-0 mb-3">
               {condition > 0 &&
                 Array.from({ length: condition }).map((_, index) => (
                   <div key={index} className="room-container">
@@ -531,10 +550,10 @@ const HotelForm = () => {
                 </button>
               )}
 
-            </div>
+            </motion.div>
 
 
-            <div className="col-lg-4 col-md-4 col-xs-12 ps-0 mb-3">
+            <motion.div variants={variants} className="col-lg-4 col-md-4 col-xs-12 ps-0 mb-3">
               <div className="hotel_form_input">
                 <label className="form_label">Star Rating*</label>
                 <select
@@ -555,10 +574,10 @@ const HotelForm = () => {
                   </label>
                 )}
               </div>
-            </div>
+            </motion.div>
 
 
-            <div className="col-lg-4 col-md-4 col-xs-12 ps-0 mb-3">
+            <motion.div variants={variants} className="col-lg-4 col-md-4 col-xs-12 ps-0 mb-3">
               <div className="hotel_form_input">
                 <label className="form_label">Nights</label>
                 <input
@@ -569,9 +588,9 @@ const HotelForm = () => {
                   className="hotel_input_select"
                 />
               </div>
-            </div>
+            </motion.div>
 
-            <div className="col-lg-4 col-md-4 col-xs-12 ps-0 mb-3">
+            <motion.div variants={variants} className="col-lg-4 col-md-4 col-xs-12 ps-0 mb-3">
               <div className="hotel_form_input">
                 <label className="form_label">
                   Nationality*
@@ -598,9 +617,9 @@ const HotelForm = () => {
                   ""
                 )}
               </div>
-            </div>
+            </motion.div>
 
-            <div className="row button-row">
+            <motion.div variants={variants} className="row button-row">
               <div className="col-lg-12 col-md-12 col-xs-12 pe-0 mb-3 d-flex justify-content-center align-items-center">
 
                 <button
@@ -610,12 +629,10 @@ const HotelForm = () => {
                 </button>
 
               </div>
-            </div>
+            </motion.div>
 
-          </div>
-          {/* </div> */}
+          </motion.div>
         </form>
-        // </div>
       )}
     </>
   );

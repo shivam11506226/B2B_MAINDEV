@@ -11,7 +11,6 @@ import {
   busSearchAction,
   clearBusSearchReducer,
 } from "../../../Redux/busSearch/busSearchAction";
-import color from "../../../color/color.js";
 import { apiURL } from "../../../Constants/constant.js";
 
 import DateRangeIcon from '@mui/icons-material/DateRange';
@@ -334,7 +333,7 @@ const BusForm = () => {
   //   );
   // }
 
-  // export default MainBox;
+  // export default MainBox;      
 
 
 
@@ -342,9 +341,13 @@ const BusForm = () => {
   return (
     <div className="container margin-pecentage-large ">
       <div className="row mt-0 px-2">
-        <div className="col-lg-7 bgBusImg">
+        <motion.div
+          initial={{ opacity: 0, scale: 0.5 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.5 }}
+          className="col-lg-7 bgBusImg">
 
-        </div>
+        </motion.div>
         <motion.div variants={variants} initial="initial"
           whileInView="animate" className="col-lg-5 bgBusForm">
           <form className="BusForm" onSubmit={handleSubmit}>
