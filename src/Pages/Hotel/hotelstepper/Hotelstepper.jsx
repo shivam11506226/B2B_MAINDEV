@@ -14,7 +14,7 @@ const Hotelstepper = () => {
   // console.log("State Data", reducerState?.hotelSearchResult);
 
   return (
-    <div className="container-fluid margin-pecentage-large" >
+    <div className="container-fluid " id="margin-pecentage-large">
       <div>
         <Hotelform />
         {/* <Loader /> */}

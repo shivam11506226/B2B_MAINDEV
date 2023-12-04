@@ -173,7 +173,7 @@ const OneWay = () => {
     const adultCount = formData.get("adult");
     const infantCount = formData.get("infant");
     const childCount = formData.get("child");
-    console.log(+adultCount+ +infantCount+ +childCount,"check")
+    console.log(+adultCount + +infantCount + +childCount, "check")
     if (+adultCount + +infantCount + +childCount > 9) {
       setValidationError("Total Number of passenger should be less then 9");
       return;
@@ -451,7 +451,7 @@ const OneWay = () => {
                 </div>
               </div>
             </div>
-<p class="validationError">{validationError}</p>
+            <p class="validationError">{validationError}</p>
           </motion.div>
 
 
