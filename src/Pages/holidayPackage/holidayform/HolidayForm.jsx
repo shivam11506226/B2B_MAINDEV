@@ -9,9 +9,40 @@ import { useDispatch, useSelector } from "react-redux";
 import { searchPackageAction } from "../../../Redux/SearchPackage/actionSearchPackage";
 import { clearHolidayReducer } from "../../../Redux/OnePackageSearchResult/actionOneSearchPackage";
 import color from "../../../../src/color/color.js"
+
+import { motion } from "framer-motion";
+
+
+
+
+
+
+const variants = {
+  initial: {
+    y: 50,
+    opacity: 0,
+  },
+  animate: {
+    y: 0,
+    opacity: 1,
+    transition: {
+      duration: 0.5,
+      staggerChildren: 0.1,
+    },
+  },
+};
+
+
+
+
+
+
+
+
 const HolidayForm = () => {
+
+
   const reducerState = useSelector((state) => state);
-  // console.log("holiday", reducerState?.searchResult);
   const [destination, setDestination] = useState("");
   const [daysSearch, setDaySearch] = useState(0);
   const [error, setError] = useState({
@@ -26,8 +57,6 @@ const HolidayForm = () => {
   const daysSearchInputRef = useRef(null);
 
   useEffect(() => {
-    // console.log('=====================');
-    // console.log("--------working--------")
     dispatch(clearHolidayReducer());
   }, [dispatch]);
 
@@ -92,22 +121,30 @@ const HolidayForm = () => {
 
   return (
     <React.Fragment>
-      <div className="packageFirstPage">
-        <div className="container">
-          <div className="row">
-            <div className="col-lg-6">
-              <div className="holidayFirstPage">
 
-                <div class="form-floating mb-3">
-                  <input type="text" name="destination" placeholder="Search From Destination" class="form-control" id="filled-basic" onChange={handleDestinationChange} required />
-                  <label for="floatingInput">Search From Destination</label>
-                </div>
-                {error.destination && (
-                  <Typography color="error">{error.destination}</Typography>
-                )}
+      <div className="row">
+        <div className="col-lg-7" variants={variants} initial="initial"
+          whileInView="animate">
+          <div variants={variants} className="holidayFirstPage">
+
+          </div>
+        </div>
+        <motion.div className="col-lg-5" variants={variants} initial="initial"
+          whileInView="animate">
+          <div className="row holidayForm">
+
+            <motion.div variants={variants} className="col-lg-12">
+              <label>Destination</label>
+              <div class="form-floating mb-3">
+                <input type="text" name="destination" placeholder="Search From Destination" class="form-control" id="filled-basic" onChange={handleDestinationChange} required />
+                <label for="floatingInput">Search From Destination</label>
               </div>
-            </div>
-            <div className="col-lg-6">
+              {error.destination && (
+                <Typography color="error">{error.destination}</Typography>
+              )}
+            </motion.div>
+            <motion.div variants={variants} className="col-lg-12">
+              <label>Days</label>
               <div class="form-floating mb-3">
                 <input type="number" name="destination" placeholder="Days" class="form-control" id="filled-basic" onChange={handleDaysSearchChange} required />
                 <label for="floatingInput">Days</label>
@@ -115,21 +152,25 @@ const HolidayForm = () => {
               {error.daysSearch && (
                 <Typography color="error">{error.daysSearch}</Typography>
               )}
-            </div>
+            </motion.div>
 
-            <div className="buttonBoxHoliday">
-              <button
-                className="holiday_submit"
-                onClick={clickUs}
-                variant="contained"
-                style={{ backgroundColor: color.bluedark }}
-              >
-                Search Holiday Package
-              </button>
-            </div>
+            <motion.div variants={variants} className="col-lg-12">
+              <div className="buttonBoxHoliday">
+                <button
+                  onClick={clickUs}
+                  variant="contained"
+                >
+                  Search Holiday Package
+                </button>
+              </div>
+            </motion.div>
           </div>
-        </div>
+
+
+        </motion.div>
       </div>
+
+
 
 
     </React.Fragment>
@@ -137,3 +178,133 @@ const HolidayForm = () => {
 };
 
 export default HolidayForm;
+
+
+
+
+
+// <div className="container margin-pecentage-large ">
+//   <div className="row mt-0 px-2">
+//     <div className="col-lg-7 bgBusImg">
+
+//     </div>
+//     <motion.div variants={variants} initial="initial"
+//       whileInView="animate" className="col-lg-5 bgBusForm">
+//       <form className="BusForm" onSubmit={handleSubmit}>
+//         <motion.div className="row">
+//           <motion.div variants={variants} className="col-xs-12 col-md-12">
+//             <div >
+//               <label>FROM</label>
+//               <div className="locationFrom">
+//                 <FmdGoodIcon className="locationFromIcon" />
+//                 <input
+//                   name="from"
+//                   placeholder="Enter city or airport"
+//                   autoComplete="off"
+//                   value={from.cityId}
+//                   onChange={(event) => {
+//                     handleFromInputChange(event);
+//                     handleFromSearch(event.target.value);
+//                   }}
+//                   ref={fromInputRef}
+//                   style={{ width: "100%" }}
+//                 />
+//               </div>
+//               {isLoading && <div>Loading...</div>}
+//             </div>
+//           </motion.div>
+
+//           <motion.div variants={variants} className="col-xs-12 col-md-12">
+//             <div className="">
+//               <label >TO</label>
+//               <div className="locationTo">
+//                 <FmdGoodIcon className="locationToIcon" />
+//                 <input
+//                   name="to"
+//                   placeholder="Enter city or airport"
+//                   autoComplete="off"
+//                   value={to}
+//                   onChange={(event) => {
+//                     handleToInputChange(event);
+//                     handleToSearch(event.target.value);
+//                   }}
+//                   ref={toInputRef}
+//                 />
+//               </div>
+//               {isLoading && <div>Loading...</div>}
+//               {toSearchResults && toSearchResults.length > 0 && (
+//                 <div
+//                   style={{
+//                     backgroundColor: "white",
+
+//                     display: displayTo ? "block" : "none",
+//                   }}
+//                   className="busToRes"
+//                 >
+//                   <ul>
+//                     <Box
+//                       sx={{
+//                         mb: 2,
+//                         display: "flex",
+//                         flexDirection: "column",
+//                         maxHeight: 150,
+//                         overflow: "hidden",
+//                         overflowY: "scroll",
+//                       }}
+//                     >
+//                       {toSearchResults.map((result) => (
+//                         <li
+//                           key={result._id}
+//                           onClick={() => handleToClick(result)}
+//                         >
+//                           <strong>{result.CityId}</strong> {result.CityName}{" "}
+//                           {result.CityId}
+//                         </li>
+//                       ))}
+//                     </Box>
+//                   </ul>
+//                 </div>
+//               )}
+//               {errors.to && <div className="error">{errors.to}</div>}
+//             </div>
+//           </motion.div>
+
+
+//           <motion.div variants={variants} className="col-xs-12 col-md-12">
+//             <div className="">
+//               <label >DEPARTURE</label>
+
+//               <div className="dateDepart">
+//                 <DateRangeIcon className="dateIcon" />
+//                 <DatePicker
+//                   selected={startDate}
+//                   name="departure"
+//                   id="departure"
+//                   autoComplete="off"
+//                   ref={inputRef}
+//                   style={{ width: "100%" }}
+//                   placeholderText="Select Date"
+//                   onChange={(date) => {
+//                     setStartDate(date);
+//                     handleDateInputChange();
+//                   }}
+//                   minDate={new Date()}
+//                   className="datePick"
+//                 />
+//               </div>
+//             </div>
+//             {errors.date && <div className="error">{errors.date}</div>}
+//           </motion.div>
+
+//           <motion.div variants={variants} className="col-xs-6 col-md-12">
+//             <div className="BusSubmitForm">
+//               <button type="submit">
+//                 Bus Search
+//               </button>
+//             </div>
+//           </motion.div>
+//         </motion.div>
+//       </form>
+//     </motion.div>
+//   </div>
+// </div>

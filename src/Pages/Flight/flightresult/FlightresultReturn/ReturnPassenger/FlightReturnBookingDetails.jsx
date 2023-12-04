@@ -108,7 +108,7 @@ const FlightReturnBookingDetails = () => {
             } else {
                 balanceSubtractOneWay();
                 setLoading(false);
-                navigate("/Flightbookingconfirmation");
+                navigate("/Flightreturnbookingconfirmation");
             }
         }
     }, [reducerState?.flightBook?.flightTicketDataGDS]);
@@ -123,7 +123,7 @@ const FlightReturnBookingDetails = () => {
             } else {
                 balanceSubtractOneWay();
                 setLoading(false);
-                navigate("/Flightbookingconfirmation");
+                navigate("/Flightreturnbookingconfirmation");
             }
         }
     }, [reducerState?.flightBook?.flightBookData]);
@@ -183,7 +183,7 @@ const FlightReturnBookingDetails = () => {
             balanceSubtractReturn();
 
             setLoading(false);
-            navigate("/Flightbookingconfirmation");
+            navigate("/Flightreturnbookingconfirmation");
         }
     }, [reducerState?.flightBook?.flightBookDataReturn?.Response]);
 
@@ -194,7 +194,7 @@ const FlightReturnBookingDetails = () => {
         ) {
             balanceSubtractReturn();
             setLoading(false);
-            navigate("/Flightbookingconfirmation");
+            navigate("/Flightreturnbookingconfirmation");
         }
     }, [reducerState?.flightBook?.flightTicketDataGDSReturn]);
 
@@ -422,44 +422,6 @@ const FlightReturnBookingDetails = () => {
 
 
 
-    // const dateString = fareQuoteData?.Segments?.[0]?.[0]?.Origin?.DepTime;
-    // const date = new Date(dateString);
-    // const options = {
-    //     year: "numeric",
-    //     month: "short",
-    //     day: "numeric",
-    //     hour: "numeric",
-    //     minute: "numeric",
-    //     hour12: true,
-    // };
-    // const formattedDate = date.toLocaleString("en-US", options);
-
-    // const [month, day, year, time, ampm] = formattedDate.split(" ");
-    // const desiredFormat = `${day}${month}-${year} ${time} ${ampm}`;
-
-    // const dateString1 = fareQuoteData?.Segments?.[0]?.[0]?.Destination?.ArrTime;
-    // const date1 = new Date(dateString1);
-    // const options1 = {
-    //     year: "numeric",
-    //     month: "short",
-    //     day: "numeric",
-    //     hour: "numeric",
-    //     minute: "numeric",
-    //     hour12: true,
-    // };
-    // const formattedDate1 = date1.toLocaleString("en-US", options1);
-    // const [month1, day1, year1, time1, ampm1] =
-    //     formattedDate1.split(" ");
-    // const desiredFormat1 = `${day1}${month1}-${year1} ${time1} ${ampm1}`;
-
-
-    // const Duration = `${Math.floor(fareQuoteData?.Segments?.[0]?.[0]?.Duration / 60)}hr ${fareQuoteData?.Segments?.[0]?.[0]?.Duration % 60
-    //     }min`;
-
-
-
-
-
 
 
 
@@ -552,7 +514,12 @@ const FlightReturnBookingDetails = () => {
 
 
     if (loading) {
-        <FlightLoader />
+        return (
+            <>
+                <FlightLoader />
+
+            </>
+        )
     }
 
     return (
@@ -612,37 +579,6 @@ const FlightReturnBookingDetails = () => {
                 </div>
             </div>
 
-
-
-            {/* <div className="singleFlightBox justify-content-evenly">
-                <div className="singleFlightBoxOne">
-                    <div><img src={`${process.env.PUBLIC_URL}/FlightImages/${img}.png`} /> </div>
-                    <span>{airlineName}</span>
-                    <p>{airlineCode}{" "}{flightNumber}</p>
-                </div>
-                <div className="singleFlightBoxTwo">
-                    <span>{originCity}</span>
-                    <p>{desiredFormat.slice(0, 12)}</p>
-                    <p style={{ fontSize: "14px" }}>{desiredFormat.slice(13)}</p>
-                    <p>Terminal{' '}{originTerminal}</p>
-                </div>
-                <div className="singleFlightBoxThree">
-                    <h4>{Duration}</h4>
-                    <div><img src={flightdir} /></div>
-                    <p>Direct Flight</p>
-                    <span>Refundable</span>
-                </div>
-                <div className="singleFlightBoxFour">
-                    <span>{DestinationCity}</span>
-                    <p>{desiredFormat1.slice(0, 12)}</p>
-                    <p style={{ fontSize: "14px" }}>{desiredFormat1.slice(13)}</p>
-                    <p>Terminal{' '}{destinationTerminal}</p>
-                </div>
-                <div className="singleFlightBoxFive">
-                    <span>₹{flightFare}</span>
-                    <p>Publish</p>
-                </div>
-            </div> */}
 
             <div className="col-lg-12">
                 <div class="headingflightPassenger">
@@ -865,17 +801,18 @@ const FlightReturnBookingDetails = () => {
                     </div>
                 </form>
             </div>
-            <div
+
+            {/* <Modal
                 open={loading}
-            // aria-labelledby="child-modal-title"
-            // aria-describedby="child-modal-description"
+                aria-labelledby="child-modal-title"
+                aria-describedby="child-modal-description"
             >
-                {/* <Box sx={{ ...style }}>
+                <Box sx={{ ...style }}>
                     <CircularProgress />
-                </Box> */}
-                <FlightLoader />
-            </div>
+                </Box>
+            </Modal> */}
         </div>
+
     );
 };
 

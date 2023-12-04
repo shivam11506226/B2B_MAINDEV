@@ -1,10 +1,10 @@
 import React from 'react'
 import Holidaystepper from './holidaystepper/Holidaystepper'
-
+import HolidayForm from './holidayform/HolidayForm'
 const HotelPackage = () => {
   return (
-    <div>
-      <Holidaystepper/>
+    <div className="container margin-pecentage-large">
+      <HolidayForm />
     </div>
   )
 }
