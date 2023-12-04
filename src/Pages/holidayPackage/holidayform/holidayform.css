@@ -58,3 +58,75 @@
     justify-content: center;
     align-items: center;
 }
+
+
+
+
+
+.holidayFirstPage {
+    height: 270px;
+    width: 100%;
+    border-radius: 12px 0px 0px 12px;
+    background-image: url(../../../Images/TOur\ Package.jpg);
+    background-repeat: no-repeat;
+    background-size: contain;
+    object-fit: fill;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+
+.holidayForm label {
+    margin-bottom: 8px;
+    color: #000;
+
+    font-family: 'Montserrat';
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+
+
+}
+
+
+
+.holidayForm input::placeholder {
+    color: #BBB;
+    font-family: 'Montserrat';
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+}
+
+
+.holidayForm input {
+    height: 50px;
+    padding: 10px;
+    padding-left: 40px;
+    border: 1px solid #21325D;
+    border-radius: 8px;
+    width: 100%;
+
+    color: #3e3d3d;
+    font-family: 'Montserrat';
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+}
+
+
+
+.buttonBoxHoliday button {
+    width: 100%;
+    height: 50px;
+    background-color: #21325D;
+    color: white;
+    border: 2px solid #21325D;
+    transition: 0.3s all;
+    border-radius: 7px;
+}

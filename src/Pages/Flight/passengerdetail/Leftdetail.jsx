@@ -500,33 +500,71 @@ const Leftdetail = () => {
 
 
 
-  const time = `${Math.floor(fareQuoteData?.Segments?.[0]?.[0]?.Duration / 60)}hr ${fareQuoteData?.Segments?.[0]?.[0]?.Duration % 60
+  // const time = `${Math.floor(fareQuoteData?.Segments?.[0]?.[0]?.Duration / 60)}hr ${fareQuoteData?.Segments?.[0]?.[0]?.Duration % 60
+  //   }min`;
+  // const dateString = fareQuoteData?.Segments?.[0]?.[0]?.Origin?.DepTime;
+  // const date1 = new Date(dateString);
+  // const time1 = date1.toLocaleTimeString([], {
+  //   hour: "2-digit",
+  //   minute: "2-digit",
+  // });
+
+  // const day = date1.getDate();
+  // const month = date1.toLocaleString("default", {
+  //   month: "short",
+  // });
+  // const year = date1.getFullYear();
+  // const formattedDate = `${day} ${month} ${year}`;
+
+  // const dateString1 = fareQuoteData?.Segments?.[0]?.[0]?.Destination?.ArrTime;
+  // const date2 = new Date(dateString1);
+  // const time2 = date2.toLocaleTimeString([], {
+  //   hour: "2-digit",
+  //   minute: "2-digit",
+  // });
+
+  // const day1 = date2.getDate();
+  // const month1 = date2.toLocaleString("default", {
+  //   month: "short",
+  // });
+
+
+
+
+
+
+
+  const timeDuration = `${Math.floor(fareQuoteData?.Segments?.[0]?.[0]?.Duration / 60)}hr ${fareQuoteData?.Segments?.[0]?.[0]?.Duration % 60
     }min`;
   const dateString = fareQuoteData?.Segments?.[0]?.[0]?.Origin?.DepTime;
   const date1 = new Date(dateString);
-  const time1 = date1.toLocaleTimeString([], {
-    hour: "2-digit",
-    minute: "2-digit",
-  });
-
-  const day = date1.getDate();
-  const month = date1.toLocaleString("default", {
+  const options = {
+    year: "numeric",
     month: "short",
-  });
-  const year = date1.getFullYear();
-  const formattedDate = `${day} ${month} ${year}`;
+    day: "numeric",
+    hour: "numeric",
+    minute: "numeric",
+    hour12: true,
+  };
+  const formattedDate = date1.toLocaleString("en-US", options);
+  const [month, day, year, time, ampm] = formattedDate.split(" ");
+  const desiredFormat = `${day}${month}-${year} ${time} ${ampm}`;
+
 
   const dateString1 = fareQuoteData?.Segments?.[0]?.[0]?.Destination?.ArrTime;
   const date2 = new Date(dateString1);
-  const time2 = date2.toLocaleTimeString([], {
-    hour: "2-digit",
-    minute: "2-digit",
-  });
-
-  const day1 = date2.getDate();
-  const month1 = date2.toLocaleString("default", {
+  const options1 = {
+    year: "numeric",
     month: "short",
-  });
+    day: "numeric",
+    hour: "numeric",
+    minute: "numeric",
+    hour12: true,
+  };
+  const formattedDate1 = date2.toLocaleString("en-US", options1);
+  const [month1, day1, year1, time1, ampm1] =
+    formattedDate1.split(" ");
+  const desiredFormat1 = `${day1}${month1}-${year1} ${time1} ${ampm1}`;
 
 
 
@@ -547,18 +585,22 @@ const Leftdetail = () => {
         </div>
         <div className="singleFlightBoxTwo">
           <span>{originCity}</span>
-          <p>{time1.substr(0, 5)}</p>
+          {/* <p>{time1.substr(0, 5)}</p> */}
+          <p>{desiredFormat.slice(0, 12)}</p>
+          <p>{desiredFormat.slice(13)}</p>
           <p>Terminal{' '}{originTerminal}</p>
         </div>
         <div className="singleFlightBoxThree">
-          <h4>{time}</h4>
+          <h4>{timeDuration}</h4>
           <div><img src={flightdir} /></div>
           <p>Direct Flight</p>
           <span>Refundable</span>
         </div>
         <div className="singleFlightBoxFour">
           <span>{DestinationCity}</span>
-          <p>{time2.substr(0, 5)}</p>
+          {/* <p>{time2.substr(0, 5)}</p> */}
+          <p>{desiredFormat1.slice(0, 12)}</p>
+          <p>{desiredFormat1.slice(13)}</p>
           <p>Terminal{' '}{destinationTerminal}</p>
         </div>
         <div className="singleFlightBoxFive">

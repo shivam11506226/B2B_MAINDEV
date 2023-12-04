@@ -87,6 +87,7 @@ import InnerNavbar1 from "../Layout/InnerNavbar1";
 import LoadingSpinner from "./LoadingSpinner";
 import FlightResResult from "../Pages/Flight/flightresult/FlightresultReturn/FlightResResult";
 import FlightReturnReviewbooking from "../Pages/Flight/flightresult/FlightresultReturn/ReturnPassenger/FlightReturnReviewbooking";
+import FlightReturnBookingConfirmation from "../Pages/Flight/flightresult/FlightresultReturn/ReturnPassenger/FlightReturnBookingConfirmation";
 const MainPage = () => {
   const dispatch = useDispatch();
   const location = useLocation();
@@ -241,6 +242,11 @@ const MainPage = () => {
                 exact
                 path="/Flightbookingconfirmation"
                 element={<Flightbookingconfirmation />}
+              />
+              <Route
+                exact
+                path="//Flightreturnbookingconfirmation"
+                element={<FlightReturnBookingConfirmation />}
               />
 
               <Route

@@ -8,6 +8,25 @@ import Admini from "../../Images/Admin.svg";
 // import color from "../../color/color";
 import { useNavigate } from "react-router-dom";
 import "./Administration.css";
+import { motion } from "framer-motion";
+
+
+
+const variants = {
+  initial: {
+    y: 50,
+    opacity: 0,
+  },
+  animate: {
+    y: 0,
+    opacity: 1,
+    transition: {
+      duration: 0.5,
+      staggerChildren: 0.1,
+    },
+  },
+};
+
 
 const Administration = () => {
   const navigate = useNavigate();
@@ -33,24 +52,58 @@ const Administration = () => {
     navigate("/Forex");
   };
   return (
-    <div className="button-container">
-      <div className="header">
-        <p>How Can we Assist you today?</p>
-      </div>
-      <div className="content">
-        <div className="category">
-          <img src={Admini} alt="" />
-          <p>Administration</p>
-        </div>
-        <div className="menu">
-          <div><div onClick={Services}>Services</div></div>
-          <div><div onClick={Accounts}>Accounts</div></div>
-          <div><div onClick={Reports}>Reports</div></div>
-          <div><div onClick={Queues} >Queues</div></div>
-          <div><div onClick={GST}>GST</div></div>
-          <div><div onClick={Service_Request}>Service Request</div></div>
-          <div><div onClick={Forex}>Forex</div></div>
-        </div>
+    // <div className="button-container">
+    //   <div className="header">
+    //     <p>How Can we Assist you today?</p>
+    //   </div>
+    //   <div className="content">
+    //     <div className="category">
+    //       <img src={Admini} alt="" />
+    //       <p>Administration</p>
+    //     </div>
+    //     <div className="menu">
+    //       <div><div onClick={Services}>Services</div></div>
+    //       <div><div onClick={Accounts}>Accounts</div></div>
+    //       <div><div onClick={Reports}>Reports</div></div>
+    //       <div><div onClick={Queues} >Queues</div></div>
+    //       <div><div onClick={GST}>GST</div></div>
+    //       <div><div onClick={Service_Request}>Service Request</div></div>
+    //       <div><div onClick={Forex}>Forex</div></div>
+    //     </div>
+    //   </div>
+    // </div>
+
+    <div className="container-fluid margin-pecentage-large">
+      <div className="administrationBoxMain">
+        <motion.div className="row" variants={variants} initial="initial"
+          whileInView="animate">
+          <motion.div className="col-lg-3" variants={variants}>
+            <div className="adminsImg">
+              <img src={Admini} alt="" />
+            </div>
+          </motion.div>
+          <motion.div className="col-lg-3" variants={variants}>
+            <div onClick={Services}><p >Services</p></div>
+          </motion.div>
+          <motion.div className="col-lg-3" variants={variants}>
+            <div onClick={Accounts}><p >Accounts</p></div>
+          </motion.div>
+          <motion.div className="col-lg-3" variants={variants}>
+            <div onClick={Reports}><p >Reports</p></div>
+          </motion.div>
+          <motion.div className="col-lg-3" variants={variants}>
+            <div onClick={Queues}><p  >Queues</p></div>
+          </motion.div>
+          <motion.div className="col-lg-3" variants={variants}>
+            <div onClick={GST}><p >GST</p></div>
+          </motion.div>
+          <motion.div className="col-lg-3" variants={variants}>
+            <div onClick={Service_Request}><p>Service Request</p></div>
+          </motion.div>
+          <motion.div className="col-lg-3" variants={variants}>
+            <div onClick={Forex}><p >Forex</p></div>
+          </motion.div>
+        </motion.div>
       </div>
     </div>
   );

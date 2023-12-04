@@ -35,7 +35,11 @@ const FlightReviewbooking = () => {
   }, [reducerState]);
 
   if (loading) {
-    <FlightLoader />
+    return (
+      <>
+        <FlightLoader />
+      </>
+    )
   }
   return (
     <div className="container-fluid margin-pecentage">

@@ -687,7 +687,7 @@ const Leftdetail = () => {
                               </label>
                               <input
                                 type="date"
-                                name="Date Of Birth"
+                                name="DateOfBirth"
                                 max={maxDateChild}
                                 min={minDateChild}
                                 onChange={(e) =>

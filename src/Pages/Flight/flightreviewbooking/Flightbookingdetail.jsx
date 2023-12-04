@@ -472,7 +472,11 @@ const Flightbookingdetail = () => {
   // });
 
   if (loading) {
-    <FlightLoader />
+    return (
+      <>
+        <FlightLoader />
+      </>
+    )
   }
 
   return (
