@@ -498,11 +498,13 @@ const Return = () => {
                 </motion.div>
               </motion.div>
 
-              <motion.div className="col-md-6 col-lg-6 col-12 col-sm-12 mb-3 ps-0" >
-                <button
+              <motion.div variants={variants} initial="initial"
+                whileInView="animate" className="col-md-6 col-lg-6 col-12 col-sm-12 mb-3 ps-0" >
+                <motion.button
+                  variants={variants}
                   type="submit"
                   className="flightFormSubmit" >Search Flight <FlightIcon />
-                </button>
+                </motion.button>
               </motion.div>
             </div>
           </div>

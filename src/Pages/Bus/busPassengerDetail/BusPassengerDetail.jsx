@@ -49,13 +49,13 @@ const BusPassengerDetail = () => {
   const dispatch = useDispatch();
   const busFullData =
     reducerState?.getBusResult?.busResult?.data?.data?.BusSearchResult;
-  console.log(busFullData, "bus full data");
+  // console.log(busFullData, "bus full data");
   const passengerLists = [];
   const [accordionExpanded, setAccordionExpanded] = useState(false);
   const [sub, setSub] = useState(true);
   const seatData = sessionStorage.getItem("seatData");
   const parsedSeatData = JSON.parse(seatData);
-  console.log(parsedSeatData, "parsed seat data");
+  // console.log(parsedSeatData, "parsed seat data");
   const passengerCount = parsedSeatData?.blockedSeatArray.length;
   const resultIndex = parsedSeatData?.resultIndex;
   const boardingPoint = parsedSeatData?.selectedOrigin;
@@ -100,7 +100,7 @@ const BusPassengerDetail = () => {
     setPassengerData(updatedPassenger);
 
   };
-  console.log(passengerData);
+  // console.log(passengerData);
   function validateEmail(email) {
     const regex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
     return regex.test(email);
@@ -144,7 +144,7 @@ const BusPassengerDetail = () => {
 
   const selectedBus = busFullData.BusResults.find((bus) => bus.ResultIndex === resultIndex);
   const cancellationPolicy = selectedBus?.CancellationPolicies;
-  console.log(selectedBus, "selectedBus")
+  // console.log(selectedBus, "selectedBus")
 
   const departureDate = dayjs(selectedBus?.DepartureTime);
   const arrivalDate = dayjs(selectedBus?.ArrivalTime);

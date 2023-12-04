@@ -137,7 +137,7 @@ const Login = () => {
     console.warn(formData, "from");
 
   }
-  console.log(reducerState.signUp,"reducer state")
+  // console.log(reducerState.signUp,"reducer state");
 
 
   function handleSubmit(event) {
