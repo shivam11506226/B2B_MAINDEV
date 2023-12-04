@@ -105,10 +105,12 @@ const Bookingdetailpackage = () => {
               <span>{`${onePackage?.days - 1}N`} / {`${onePackage?.days}D`}</span>
             </div>
           </div>
-          <div className="col-lg-12 d-flex mb-4">
+          <div className="col-lg-12 mb-4 packageImgBox" >
+            <div className="PackageImg">
+              <img src={onePackage?.pakage_img} alt="" />
+            </div>
             <div className="packageLocation">
               <FmdGoodIcon />
-
             </div>
             <div>
               <p>{savedDestination}</p>

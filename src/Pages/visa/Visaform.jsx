@@ -5,6 +5,25 @@ import { createVisaAction } from "../../Redux/visaRequest/actionVisaRequest";
 import "./visaform.css";
 import color from "../../color/color.js"
 import axios from "axios";
+import { motion } from "framer-motion";
+
+
+const variants = {
+  initial: {
+    y: 50,
+    opacity: 0,
+  },
+  animate: {
+    y: 0,
+    opacity: 1,
+    transition: {
+      duration: 0.5,
+      staggerChildren: 0.1,
+    },
+  },
+};
+
+
 const Visaform = () => {
   const dispatch = useDispatch();
   const [formData, setFormData] = useState({
@@ -218,12 +237,14 @@ const Visaform = () => {
       </Typography>
       <form onSubmit={handleVisaRequest}>
         <div className="container" style={{ width: "90%", margin: "auto" }}>
-          <div
+          <motion.div
             className="row"
+            variants={variants} initial="initial"
+            whileInView="animate"
             style={{ display: "flex", flexWrap: "wrap", gap: "10px" }}
           >
             {/* For all screen sizes, display one column */}
-            <div className="col-xs-12" style={{ flex: "1", minWidth: "200px" }}>
+            <motion.div variants={variants} className="col-xs-12" style={{ flex: "1", minWidth: "200px" }}>
               <div className="form_input">
                 <label className="form_lable">Name</label>
                 <input
@@ -235,8 +256,8 @@ const Visaform = () => {
                 />
                 {errors.name && <p className="error">{errors.name}</p>}
               </div>
-            </div>
-            <div className="col-xs-12" style={{ flex: "1", minWidth: "200px" }}>
+            </motion.div>
+            <motion.div variants={variants} className="col-xs-12" style={{ flex: "1", minWidth: "200px" }}>
               <div className="form_input">
                 <label className="form_lable">Email</label>
                 <input
@@ -248,8 +269,8 @@ const Visaform = () => {
                 />
                 {errors.email && <p className="error">{errors.email}</p>}
               </div>
-            </div>
-            <div className="col-xs-12" style={{ flex: "1", minWidth: "200px" }}>
+            </motion.div>
+            <motion.div variants={variants} className="col-xs-12" style={{ flex: "1", minWidth: "200px" }}>
               <div className="form_input">
                 <label className="form_lable">Mobile Number</label>
                 <input
@@ -261,8 +282,8 @@ const Visaform = () => {
                 />
                 {errors.mobile && <p className="error">{errors.mobile}</p>}
               </div>
-            </div>
-            <div className="col-xs-12" style={{ flex: "1", minWidth: "200px" }}>
+            </motion.div>
+            <motion.div variants={variants} className="col-xs-12" style={{ flex: "1", minWidth: "200px" }}>
               <div className="form_input">
                 <label className="form_lable">Select Country</label>
                 <select
@@ -283,8 +304,8 @@ const Visaform = () => {
                   <p className="error">{errors.destination}</p>
                 )}
               </div>
-            </div>
-            <div className="col-lg-6 col-md-6 col-xs-12" style={{ flex: "1", minWidth: "200px" }}>
+            </motion.div>
+            <motion.div variants={variants} className="col-lg-6 col-md-6 col-xs-12" style={{ flex: "1", minWidth: "200px" }}>
               <div className="form_input">
                 <label className="form_lable">Your Query</label>
                 <input
@@ -296,8 +317,8 @@ const Visaform = () => {
                 />
                 {errors.query && <p className="error">{errors.query}</p>}
               </div>
-            </div>
-            <div className="col-lg-6 col-md-6 col-xs-12" style={{ flex: "1", minWidth: "200px" }}>
+            </motion.div>
+            <motion.div variants={variants} className="col-lg-6 col-md-6 col-xs-12" style={{ flex: "1", minWidth: "200px" }}>
               <div className="form_input">
                 <label className="form_lable">Select Visa Category</label>
 
@@ -317,39 +338,27 @@ const Visaform = () => {
                 </select>
                 {errors.visaType && <p className="error">{errors.visaType}</p>}
               </div>
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
           {successMessage && (
             <div style={{ color: "green" }}>
               {successMessage}
             </div>
           )}
-          <div className="row">
-            <div className="col-xs-12">
+          <motion.div variants={variants} initial="initial"
+            whileInView="animate" className="row">
+            <motion.div variants={variants} className="col-xs-12">
               <Typography
                 sx={{ fontSize: "13px", fontWeight: "bold", color: color.red1 }}
                 textAlign="left"
               >
                 Note : All Document Required
               </Typography>
-              {/* <Box display="flex" justifyContent="center">
-                <Button
-                  variant="contained"
-                  my={4}
-                  colorScheme="teal"
-                  type="submit"
-                  m
-                  sx={{ borderRadius: "20px" }}
-                  style={{ backgroundColor: color.bluedark }}
-                >
-                  Apply now →
-                </Button>
-              </Box> */}
               <div className="visaButton">
                 <button>Apply Now →</button>
               </div>
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
         </div>
       </form>
 

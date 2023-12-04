@@ -189,7 +189,7 @@ const HolidayPackageResult = () => {
                 <p>Showing {' '}{filteredPackage?.length} {' '} Results</p>
                 <p className="searchDestination">Seach Destination{' '}: <b>{savedDestination}</b></p>
                 <p className="searchDestination">Days {' '} <b>{savedDays}</b></p>
-                <div>
+                <div className="d-flex align-items-center">
                   <label>Price <FilterAltIcon style={{ fontWeight: "600", fontFamily: "Montserrat", fontSize: '14px', marginLeft: "7px" }} /></label>
                   <select onChange={handleSortChange} value={sortOption}>
 

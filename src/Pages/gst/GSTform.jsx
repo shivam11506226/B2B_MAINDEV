@@ -26,7 +26,7 @@ const initialData = [
     { label: 'CCST Rate: %) CGST Amount:', inputName: 'cgstAmount' },
     { label: '(SGST/UTGST Rate: %) SGST/UTGST Amount:', inputName: 'sgstAmount' },
     // ... Add more items as needed
-  ];
+];
 const GSTform = () => {
 
     const [age, setAge] = React.useState('');
@@ -35,25 +35,25 @@ const GSTform = () => {
         setAge(event.target.value);
     };
 
-    
-      
-      const [formData, setFormData] = useState({
+
+
+    const [formData, setFormData] = useState({
         taxableValue: '',
         cgstAmount: '',
         sgstAmount: '',
         // ... Initialize other form fields
-      });
-      const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value,
     });
-  };
+    const handleInputChange = (e) => {
+        const { name, value } = e.target;
+        setFormData({
+            ...formData,
+            [name]: value,
+        });
+    };
     return (
-        <div className='flightContainer'>
+        <div className='container-fluid margin-pecentage'>
             <Typography sx={{ fontSize: '20px', fontWeight: 'bold', color: '#252525' }} textAlign='center'>Submit GST Input Invoice</Typography>
-            <Typography sx={{ fontSize: '22px', fontWeight: 'bold', color:color.bluedark }} textAlign='left' my={2}>Details of Receiver (Billed To):</Typography>
+            <Typography sx={{ fontSize: '22px', fontWeight: 'bold', color: color.bluedark }} textAlign='left' my={2}>Details of Receiver (Billed To):</Typography>
             <Box sx={{ flexGrow: 1 }}>
                 <Grid container spacing={2} columns={16}>
                     <Grid item xs={6} >
@@ -105,14 +105,14 @@ const GSTform = () => {
                 </Grid>
             </Box>
 
-            <Typography sx={{ fontSize: '22px', fontWeight: 'bold', color:color.bluedark }} textAlign='left' my={2}>Details of Source (Billed From):</Typography>
+            <Typography sx={{ fontSize: '22px', fontWeight: 'bold', color: color.bluedark }} textAlign='left' my={2}>Details of Source (Billed From):</Typography>
             <Box sx={{ flexGrow: 1 }}>
                 <Grid container spacing={2} columns={16}>
                     <Grid item xs={6}>
                         <Box display='flex' alignItems='center' justifyContent='space-between' my={2}>
                             <Typography sx={{ fontSize: '14px', fontWeight: 'bold', color: '#666666' }} textAlign='Left'>Company State:</Typography>
                             <Box sx={{ width: '50%', boxShadow: '0px 3px 6px #00000029', borderRadius: '10px', height: 'auto' }}>
-                                <select className='gst_input' name="company state"  style={{ border: 'none', textDecoration: 'none', width: '100%', borderRadius: '10px', paddingY: '10px' }}>
+                                <select className='gst_input' name="company state" style={{ border: 'none', textDecoration: 'none', width: '100%', borderRadius: '10px', paddingY: '10px' }}>
                                     <option>Supplier Invoice</option>
                                     <option>Select</option>
                                     <option>Select</option>
@@ -141,9 +141,9 @@ const GSTform = () => {
                                     <option>Select</option>
                                 </select>
                             </Box>
-                            
+
                         </Box>
-                         <Box display='flex' alignItems='center' justifyContent='space-between' my={2}>
+                        <Box display='flex' alignItems='center' justifyContent='space-between' my={2}>
                             <Typography sx={{ fontSize: '14px', fontWeight: 'bold', color: '#666666' }} textAlign='Left'>Select Source:</Typography>
                             <Box sx={{ width: '50%', boxShadow: '0px 3px 6px #00000029', borderRadius: '10px', height: 'auto' }}>
                                 <select className='gst_input' name="company state" style={{ border: 'none', textDecoration: 'none', width: '100%', borderRadius: '10px', paddingY: '10px' }}>
@@ -152,7 +152,7 @@ const GSTform = () => {
                                     <option>Select</option>
                                 </select>
                             </Box>
-                            
+
                         </Box>
                     </Grid>
                     <Grid item xs={5}>
@@ -165,9 +165,9 @@ const GSTform = () => {
                                     <option>Select</option>
                                 </select>
                             </Box>
-                            
+
                         </Box>
-                       
+
                         <Box display='flex' alignItems='center' justifyContent='space-between' my={2}>
                             <Typography sx={{ fontSize: '14px', fontWeight: 'bold', color: '#666666' }} textAlign='Left'></Typography>
                             <Box sx={{ width: '50%', boxShadow: '0px 3px 6px #00000029', borderRadius: '10px', height: 'auto' }}>
@@ -178,7 +178,7 @@ const GSTform = () => {
                                 </select>
                             </Box>
                         </Box>
-                      
+
                     </Grid>
                 </Grid>
             </Box>
@@ -188,7 +188,7 @@ const GSTform = () => {
                         <Box display='flex' alignItems='center' justifyContent='space-between' my={2}>
                             <Typography sx={{ fontSize: '14px', fontWeight: 'bold', color: '#666666' }} textAlign='Left'>GST Flag:</Typography>
                             <Box sx={{ width: '50%', boxShadow: '0px 3px 6px #00000029', borderRadius: '10px', height: 'auto' }}>
-                                <select name="gst flag" className='gst_input'  style={{ border: 'none', textDecoration: 'none', width: '100%', borderRadius: '10px', paddingY: '10px' }}>
+                                <select name="gst flag" className='gst_input' style={{ border: 'none', textDecoration: 'none', width: '100%', borderRadius: '10px', paddingY: '10px' }}>
                                     <option>GST Paid</option>
                                     <option>Select</option>
                                     <option>Select</option>
@@ -205,7 +205,7 @@ const GSTform = () => {
                                 </select>
                             </Box>
                         </Box>
-                    
+
                     </Grid>
                     <Grid item xs={5}>
                         <Box display='flex' alignItems='center' justifyContent='space-between' my={2}>
@@ -241,7 +241,7 @@ const GSTform = () => {
                     </Grid>
                 </Grid>
             </Box>
-            <Typography sx={{ fontSize: '18px', fontWeight: 'bold', color:color.bluedark }} textAlign='left' my={2}>Details of Goods/Service:</Typography>
+            <Typography sx={{ fontSize: '18px', fontWeight: 'bold', color: color.bluedark }} textAlign='left' my={2}>Details of Goods/Service:</Typography>
 
 
 
@@ -263,35 +263,35 @@ const GSTform = () => {
 
                 </Grid>
                 <Grid item xs={6} >
-                   
-                <Grid container>
-      {initialData.map((item, index) => (
-        <Box
-          key={index}
-          display='flex'
-          justifyContent='space-between'
-          alignItems='center'
-          my={2}
-          p={2}
-          borderRadius={10}
-        
-        >
-        
-          <Typography variant='body1' style={{width:"200px"}}>{item.label}</Typography>
-          <Input
-            type='text'
-            name={item.inputName}
-            className='gst_input'
-            value={formData[item.inputName]}
-            onChange={handleInputChange}
-            style={{ width: '150px' }}
-          />
-        </Box>
-      ))}
-   
-    </Grid>
-                  
-                   
+
+                    <Grid container>
+                        {initialData.map((item, index) => (
+                            <Box
+                                key={index}
+                                display='flex'
+                                justifyContent='space-between'
+                                alignItems='center'
+                                my={2}
+                                p={2}
+                                borderRadius={10}
+
+                            >
+
+                                <Typography variant='body1' style={{ width: "200px" }}>{item.label}</Typography>
+                                <Input
+                                    type='text'
+                                    name={item.inputName}
+                                    className='gst_input'
+                                    value={formData[item.inputName]}
+                                    onChange={handleInputChange}
+                                    style={{ width: '150px' }}
+                                />
+                            </Box>
+                        ))}
+
+                    </Grid>
+
+
 
                 </Grid>
             </Grid>
@@ -301,8 +301,8 @@ const GSTform = () => {
             </Box>
             <Box textAlign='center' display='flex' justifyContent='center' my={3}>
                 <Stack spacing={2} direction="row" textAlign='center'>
-                    <Button variant='contained' type='submit' style={{backgroundColor:color.bluedark}}>Reset</Button>
-                    <Button variant='contained' type='submit'  style={{backgroundColor:color.bluedark}}>Submit</Button>
+                    <Button variant='contained' type='submit' style={{ backgroundColor: color.bluedark }}>Reset</Button>
+                    <Button variant='contained' type='submit' style={{ backgroundColor: color.bluedark }}>Submit</Button>
                 </Stack>
             </Box>
         </div>

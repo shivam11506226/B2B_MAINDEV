@@ -49,7 +49,7 @@ const Reports = () => {
 
   // end
   return (
-    <div className="flightContainer">
+    <div className="container-fluid margin-pecentage">
       <Box
         textAlign="center"
         display="flex"

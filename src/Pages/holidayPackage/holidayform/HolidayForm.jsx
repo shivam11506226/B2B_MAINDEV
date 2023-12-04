@@ -123,11 +123,14 @@ const HolidayForm = () => {
     <React.Fragment>
 
       <div className="row">
-        <div className="col-lg-7" variants={variants} initial="initial"
-          whileInView="animate">
-          <div variants={variants} className="holidayFirstPage">
+        <div className="col-lg-7">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.5 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.5 }}
+            className="holidayFirstPage">
 
-          </div>
+          </motion.div>
         </div>
         <motion.div className="col-lg-5" variants={variants} initial="initial"
           whileInView="animate">
