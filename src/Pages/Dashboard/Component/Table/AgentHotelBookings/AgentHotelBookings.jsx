@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import './BusBookings.css';
+import './AgentHotelBookings.css';
 import { Table, TableBody, TableCell, TableRow, Paper, TextField, InputAdornment } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import { apiURL } from '../../../../../Constants/constant';
@@ -14,7 +14,7 @@ const AllBusBooking = () => {
   useEffect(() => {
     async function fetchBusBookings() {
       try {
-        const response = await axios.get(`${apiURL.baseURL}/skytrails/api/admin/getAllBusBookingList`,
+        const response = await axios.get(`${apiURL.baseURL}/skytrails/api/admin/getAllHotelBookingListAgent`,
           {
             params: {
               page: currentPage,
@@ -60,40 +60,33 @@ const AllBusBooking = () => {
       <table border="1">
         <thead>
           <tr>
-            <th>Bus ID</th>
-            <th>User ID</th>
+            <th>Booking ID</th>
+            <th>Agency Name</th>
             <th>Name</th>
             <th>Email</th>
             <th>Phone</th>
             <th>Destination</th>
-            <th>Origin</th>
-            <th>Bus Name</th>
-            <th>Bus Type</th>
-            <th>PNR</th>
+            <th>Hotel Name</th>
+            <th>Amount</th>
+            <th>Hotel Id</th>
             <th>Date Of Journey</th>
-            <th>No Of Seats</th>
+            <th>Rooms</th>
           </tr>
         </thead>
         <tbody>
           {busBookings.map(bookings => (
             <tr key={bookings._id}>
-              <td>{bookings._id}</td>
-              <td>{bookings.userId}</td>
-              <td>{bookings.name}</td>
-              <td>{bookings.userDetails ? `${bookings.userDetails.email}` : "Empty"}</td>
-              <td>
-                {bookings.phone && typeof bookings.phone === 'object' ?
-                  `${bookings.phone.country_code}${bookings.phone.mobile_number}` :
-                  "Empty"
-                }
-              </td>
+              <td>{bookings.bookingId}</td>
+              <td>{bookings.userDetails.agency_details.agency_name}</td>
+              <td>{`${bookings.userDetails.personal_details.first_name}${bookings.userDetails.personal_details.last_name}`}</td>
+              <td>{bookings.userDetails ? `${bookings.userDetails.personal_details.email}` : "Empty"}</td>
+              <td>{bookings.userDetails.personal_details.mobile.mobile_number}</td>
               <td>{bookings.destination}</td>
-              <td>{bookings.origin}</td>
-              <td>{bookings.busName}</td>
-              <td>{bookings.busType}</td>
-              <td>{bookings.pnr}</td>
+              <td>{bookings.hotelName}</td>
+              <td>{bookings.amount}</td>
+              <td>{bookings.hotelId}</td>
               <td>{new Date(bookings.dateOfJourney).toDateString()}</td>
-              <td>{bookings.noOfSeats}</td>
+              <td>{bookings.room}</td>
             </tr>
           ))}
         </tbody>

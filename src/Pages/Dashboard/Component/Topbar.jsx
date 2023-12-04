@@ -246,6 +246,7 @@ function ResponsiveAppBar() {
                 Log Out
               </Typography>
             </Button>
+            
           </Box>
         </Toolbar>
       </Container>

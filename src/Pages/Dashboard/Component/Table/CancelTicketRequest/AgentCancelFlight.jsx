@@ -47,6 +47,7 @@ const AllFlightCancelTickets = () => {
   return (
 
     <div className='hotel-container'>
+    <h3>AGENT FLIGHTTICKET CANCEL REQUEST</h3>
       <TextField
         type="text"
         value={searchTerm}
@@ -64,7 +65,7 @@ const AllFlightCancelTickets = () => {
         <thead>
           <tr>
             <th>Booking ID</th>
-            <th>User ID</th>
+            <th>Agency Name</th>
             <th>Name</th>
             <th>Phone</th>
             <th>Email</th>
@@ -74,14 +75,15 @@ const AllFlightCancelTickets = () => {
             <th>Origin</th>
             <th>Destination</th>
             <th>DateOfJourney</th>
-            <th>PaymentStatus</th>
+            <th>AirlineName</th>
+            <th>Approve</th>
           </tr>
         </thead>
         <tbody>
           {hotelBookings.map(booking => (
             <tr key={booking._id}>
               <td>{booking.bookingId}</td>
-              <td>{booking.userId}</td>
+              <td>{booking.userDetails.agency_details.agency_name}</td>
               <td>{`${booking.userDetails.personal_details.first_name}  ${booking.userDetails.personal_details.last_name}` }</td>
               <td>{booking.userDetails.personal_details.mobile.mobile_number}</td>
               <td>{booking.userDetails.personal_details.email}</td>
@@ -91,7 +93,8 @@ const AllFlightCancelTickets = () => {
               <td>{booking.flightDetails.origin}</td>
               <td>{booking.flightDetails.destination}</td>
               <td>{booking.flightDetails.dateOfJourney}</td>
-              <td>{booking.flightDetails.paymentStatus}</td>
+              <td>{booking.flightDetails.airlineDetails.AirlineName}</td>
+              <td><button>APPROVE</button></td>
             </tr>
           ))}
         </tbody>
