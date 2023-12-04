@@ -63,7 +63,7 @@ const Flightbookingdetail = () => {
   //   paymentOption,
   //   ResultIndex
   // );
-  // console.log("reducerState", reducerState);
+  console.log("reducerState", reducerState);
   const fareQuote =
     reducerState?.flightFare?.flightQuoteData?.Results?.Segments;
   // const flightReviewDetails =
@@ -118,8 +118,20 @@ const Flightbookingdetail = () => {
         setLoading(false);
         navigate("/Flightbookingconfirmation");
       }
+    } else if (
+      reducerState?.flightBook?.flightBookData?.Error?.ErrorMessage !== "" 
+    ) {
+      const error =
+        reducerState?.flightBook?.flightBookData?.Error?.ErrorMessage;
+      setLoading(false);
+      Swal.fire({
+        title: "Heii Encountered Error",
+        text: `${error}`,
+        icon: "question",
+      });
+      navigate("oneway");
     }
-  }, [reducerState?.flightBook?.flightBookData]);
+  }, [reducerState?.flightBook?.flightBookData?.Response]);
 
   useEffect(() => {
     if (reducerState?.flightBook?.flightBookDataGDSReturn?.Response) {

@@ -1,10 +1,6 @@
 import React, { useEffect, useState, useRef } from "react";
-import transfer from "../../../Images/transfer.png";
-
-import interchange from '../../../Images/interchange.png'
-import FlightIcon from '@mui/icons-material/Flight';
-import { Button } from "react-bootstrap";
-import { Box, Grid, GridItem, Checkbox, Flex } from "@chakra-ui/react";
+import interchange from "../../../Images/interchange.png";
+import FlightIcon from "@mui/icons-material/Flight";
 import { useDispatch, useSelector, useReducer } from "react-redux";
 import {
   clearOneWayReducer,
@@ -16,7 +12,6 @@ import {
 } from "../../../Redux/FlightSearch/OneWayEMT/oneWayEMT";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import { Typography } from "@mui/material";
 import { apiURL } from "../../../Constants/constant";
 import { clearPassengersReducer } from "../../../Redux/Passengers/passenger";
 import "./OneWay.css";
@@ -44,39 +39,12 @@ const OneWay = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const reducerState = useSelector((state) => state);
-  const [checked, setChecked] = useState(false);
-  const [checkedd, setCheckedd] = useState(false);
   const inputRef = useRef(null);
+  const [validationError, setValidationError] = useState("");
 
   // console.log("reducerState", reducerState);
 
   // multiselect conditions
-  const options = [
-    { label: "GPS", value: "1" },
-    { label: "Fly Dubai", value: "2" },
-    { label: "Air Arobia", value: "3" },
-    { label: "Zoom Air", value: "4" },
-    { label: "Other untl LCC", value: "5" },
-    { label: "Air Asia", value: "6" },
-    { label: "Air India Express", value: "7" },
-    { label: "Air Cost", value: "8" },
-    { label: "NokScoot", value: "9" },
-    { label: "Salman Air", value: "10" },
-    { label: "Inter Sky", value: "11" },
-    { label: "Triger Airways", value: "12" },
-    { label: "SpiceJet", value: "13" },
-    { label: "GOFIRTS", value: "14" },
-    { label: "Alliance Air", value: "15" },
-    { label: "Akasa Air", value: "16" },
-    { label: "Fly Scoot", value: "17" },
-    { label: "Indigo", value: "18" },
-    { label: "Bhutan Airlines", value: "19" },
-    { label: "TruJet", value: "20" },
-    { label: "Mega Maldives", value: "21" },
-  ];
-  const [selected, setSelected] = useState([]);
-  const [selectAll, setSelectAll] = useState(false);
-  const [selectedOption, setSelectedOption] = useState("option1");
   const [isLoading, setIsLoading] = useState(false);
   const [fromSearchResults, setFromSearchResults] = useState([]);
   const [toSearchResults, setToSearchResults] = useState([]);
@@ -148,8 +116,8 @@ const OneWay = () => {
 
   // Get the current date in the format "YYYY-MM-DD"
   useEffect(() => {
-    const currentDate = new Date().toISOString().split('T')[0];
-    const today = new Date().toISOString().split('T')[0];
+    const currentDate = new Date().toISOString().split("T")[0];
+    const today = new Date().toISOString().split("T")[0];
     inputRef.current.value = today;
     inputRef.current.min = currentDate;
   }, []);
@@ -177,24 +145,6 @@ const OneWay = () => {
     setDateError("");
   };
 
-  function handleCheckboxChange(event) {
-    const { value } = event.target;
-    if (selected.includes(value)) {
-      setSelected(selected.filter((item) => item !== value));
-    } else {
-      setSelected([...selected, value]);
-    }
-  }
-
-  function handleSelectAllChange(event) {
-    const { checked } = event.target;
-    setSelectAll(checked);
-    if (checked) {
-      setSelected(options.map((item) => item.label));
-    } else {
-      setSelected([]);
-    }
-  }
   // end
 
   const handleFromInputChange = (event) => {
@@ -220,6 +170,18 @@ const OneWay = () => {
   function handleSubmit(event) {
     event.preventDefault();
     const formData = new FormData(event.target);
+    const adultCount = formData.get("adult");
+    const infantCount = formData.get("infant");
+    const childCount = formData.get("child");
+    console.log(+adultCount+ +infantCount+ +childCount,"check")
+    if (+adultCount + +infantCount + +childCount > 9) {
+      setValidationError("Total Number of passenger should be less then 9");
+      return;
+    }
+    if (adultCount < infantCount) {
+      setValidationError("Infant count should be less than adult count");
+      return;
+    }
 
     if (!formData.get("from")) {
       setFromError("Enter Destination City");
@@ -288,10 +250,12 @@ const OneWay = () => {
     <div className="">
       <form onSubmit={handleSubmit} className="formFlightSearchOneWay" >
         <div className="container">
+
           <motion.div className="row rowcon" variants={variants} initial="initial"
             whileInView="animate">
             <motion.div variants={variants} className="col-xs-12 col-md-3 ps-0 mb-3 ">
               <div className="form_input " >
+
                 <label className="form_lable">Departure</label>
                 <input
                   name="from"
@@ -306,30 +270,37 @@ const OneWay = () => {
                 />
                 {fromError !== "" && <span className="error">{fromError}</span>}
                 {/* {isLoading && <div>Loading...</div>} */}
-                {fromSearchResults && fromSearchResults.length > 0 && fromQuery.length >= 2 && (
-                  <div className="chooseAbsBox" style={{ display: displayFrom ? "block" : "none" }}>
-                    <ul>
-                      <div className="chooseAbs">
-                        {fromSearchResults.map((result) => (
-                          <li
-                            key={result._id}
-                            onClick={() => handleFromClick(result)}
-                          >
-                            <strong>{result.AirportCode}</strong> {result.name}{" "}
-                            {result.code}
-                          </li>
-                        ))}
-                      </div>
-                    </ul>
-                  </div>
-                )}
+                {fromSearchResults &&
+                  fromSearchResults.length > 0 &&
+                  fromQuery.length >= 2 && (
+                    <div
+                      className="chooseAbsBox"
+                      style={{ display: displayFrom ? "block" : "none" }}
+                    >
+                      <ul>
+                        <div className="chooseAbs">
+                          {fromSearchResults.map((result) => (
+                            <li
+                              key={result._id}
+                              onClick={() => handleFromClick(result)}
+                            >
+                              <strong>{result.AirportCode}</strong>{" "}
+                              {result.name} {result.code}
+                            </li>
+                          ))}
+                        </div>
+                      </ul>
+                    </div>
+                  )}
               </div>
             </motion.div>
             <motion.div variants={variants} className="col-md-1 d-flex justify-content-center interchange ps-0 ">
               <img src={interchange} alt="name" className="align-self-center" />
+
             </motion.div>
             <motion.div variants={variants} className="col-xs-12 col-md-4 ps-0 mb-3">
               <div className="form_input " style={{ zIndex: 10, position: "relative" }}>
+
                 <label className="form_lable">Arrival</label>
                 <input
                   name="to"
@@ -349,23 +320,28 @@ const OneWay = () => {
                 />
                 {toError !== "" && <span className="error">{toError}</span>}
                 {/* {isLoading && <div>Loading...</div>} */}
-                {toSearchResults && toSearchResults.length > 0 && toQuery.length >= 2 && (
-                  <div className="chooseAbsBox" style={{ display: displayTo ? "block" : "none" }}>
-                    <ul>
-                      <div className="chooseAbs">
-                        {toSearchResults.map((result) => (
-                          <li
-                            key={result._id}
-                            onClick={() => handleToClick(result)}
-                          >
-                            <strong>{result.AirportCode}</strong> {result.name}{" "}
-                            {result.code}
-                          </li>
-                        ))}
-                      </div>
-                    </ul>
-                  </div>
-                )}
+                {toSearchResults &&
+                  toSearchResults.length > 0 &&
+                  toQuery.length >= 2 && (
+                    <div
+                      className="chooseAbsBox"
+                      style={{ display: displayTo ? "block" : "none" }}
+                    >
+                      <ul>
+                        <div className="chooseAbs">
+                          {toSearchResults.map((result) => (
+                            <li
+                              key={result._id}
+                              onClick={() => handleToClick(result)}
+                            >
+                              <strong>{result.AirportCode}</strong>{" "}
+                              {result.name} {result.code}
+                            </li>
+                          ))}
+                        </div>
+                      </ul>
+                    </div>
+                  )}
               </div>
             </motion.div>
 
@@ -466,6 +442,7 @@ const OneWay = () => {
                   </div>
                 </div>
 
+
                 <div variants={variants} className="col-md-6 col-lg-6 col-12 col-sm-12 mb-3 ps-0">
                   <button
                     type="submit"
@@ -474,7 +451,9 @@ const OneWay = () => {
                 </div>
               </div>
             </div>
+<p class="validationError">{validationError}</p>
           </motion.div>
+
 
           {/* <label
       style={{
