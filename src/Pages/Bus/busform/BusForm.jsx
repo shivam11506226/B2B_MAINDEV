@@ -339,7 +339,7 @@ const BusForm = () => {
 
 
   return (
-    <div className="container margin-pecentage-large ">
+    <div className="container  " id="margin-pecentage-large">
       <div className="row mt-0 px-2">
         <motion.div
           initial={{ opacity: 0, scale: 0.5 }}

@@ -380,6 +380,7 @@ const HotelForm = () => {
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
                   style={{ position: "relative" }}
+                  autoComplete="off"
                 />
                 {cityError !== "" && (
                   <span className="error">{cityError}</span>
@@ -410,6 +411,7 @@ const HotelForm = () => {
                   isClearable
                   // id="datepic"
                   minDate={new Date()}
+                  autoComplete="off"
                 />
                 {sub && values.departure === ("" || undefined) && (
                   <span className="error">Enter Check-In Date </span>
@@ -429,7 +431,8 @@ const HotelForm = () => {
                   placeholderText="Select Check-Out Date"
                   minDate={values.departure || new Date()} // Disable dates before Check-In date
                   isClearable
-                // id="datepic"
+                  // id="datepic"
+                  autoComplete="off"
                 />
                 {sub && values.checkOutDeparture === ("" || undefined) && (
                   <span className="error">Enter Check-Out Date </span>
@@ -586,6 +589,7 @@ const HotelForm = () => {
                   name="night"
                   value={nightdays}
                   className="hotel_input_select"
+                  disabled
                 />
               </div>
             </motion.div>

@@ -3,7 +3,7 @@ import Holidaystepper from './holidaystepper/Holidaystepper'
 import HolidayForm from './holidayform/HolidayForm'
 const HotelPackage = () => {
   return (
-    <div className="container margin-pecentage-large">
+    <div className="container-fluid " id='margin-pecentage-large'>
       <HolidayForm />
     </div>
   )

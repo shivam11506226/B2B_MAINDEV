@@ -19,7 +19,7 @@ const Flight = () => {
       reducerState?.return?.isLoading === true
     ) {
       setLoader(true);
-    } 
+    }
   }, [reducerState?.oneWay?.isLoading || reducerState?.return?.isLoading]);
   // useEffect(() => {
   //   if (reducerState?.oneWay?.oneWayData?.data?.data?.Response?.Results||reducerState?.return?.returnData?.data?.data?.Response?.Results) {
@@ -33,7 +33,7 @@ const Flight = () => {
       reducerState?.oneWay?.oneWayData?.data?.data?.Response?.Results;
     const returnResults =
       reducerState?.return?.returnData?.data?.data?.Response?.Results;
-    
+
     if (oneWayResults) {
       navigate("/Flightresult");
     } else if (returnResults) {
@@ -94,7 +94,7 @@ const Flight = () => {
     //   <FlightLoader />
     // </>
 
-    <div className="container-xxl margin-pecentage-large">
+    <div className="container-xxl " id="margin-pecentage-large">
       <StyledTabs />
     </div>
   );
