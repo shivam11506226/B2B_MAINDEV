@@ -1,6 +1,7 @@
 import axios from "axios";
 import { apiURL } from "../../Constants/constant";
 
+
 function api() {
   const userIP = (formData) => {
     return axios.get("https://api.ipify.org?format=json");
@@ -113,17 +114,33 @@ function api() {
   //Flight API's Start
 
   const oneWaySearch = async (payload) => {
-    // console.log({ payload, emtPayload });
-    return axios({
-      method: "POST",
-      url: "/skyTrails/flight/search/oneway",
-      baseURL: `${apiURL.baseURL}`,
-      data: payload,
-      headers: {
-        "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "*",
-      },
-    });
+    
+    try {
+      const response = await axios({
+        method: "POST",
+        url: "/skyTrails/flight/search/oneway",
+        baseURL: `${apiURL.baseURL}`,
+        data: payload,
+        headers: {
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "*",
+        },
+      });
+
+      // Check if the response status is within the success range (e.g., 200-299)
+      if (response.status >= 200 && response.status < 300) {
+        return response; // Return the data if successful
+      } else {
+        // If the response status is not in the success range, throw an error
+        throw new Error(`Request failed with status ${response.status}`);
+      }
+    } catch (error) {
+      // Handle the error here
+      // console.error("An error occurred during the request:", error);
+      
+      alert(error)
+      throw error; // Re-throw the error to propagate it to the caller
+    }
   };
 
   //flight return api

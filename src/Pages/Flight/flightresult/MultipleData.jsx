@@ -13,11 +13,14 @@ import {
   ruleAction,
   setLoading,
 } from "../../../Redux/FlightFareQuoteRule/actionFlightQuote";
+import FlightLoader from "../FlightLoader/FlightLoader";
+import Swal from "sweetalert2";
 
 const MultipleData = (props) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const reducerState = useSelector((state) => state);
+   const [loader, setLoader] = useState(false);
   let statusRule = reducerState?.flightFare?.isLoadingRuleDone || false;
   let statusQuote = reducerState?.flightFare?.isLoadingQuoteDone || false;
   // console.log("isLoadingRuleDone", statusRule);
@@ -48,6 +51,7 @@ const MultipleData = (props) => {
   const handleClick = (ResultIndex) => {
     // console.log("Handel Click Index Key", ResultIndex);
     // navigate("passengerdetail");
+      setLoader(true);
     sessionStorage.setItem("ResultIndex", ResultIndex);
     const payload = {
       EndUserIp: reducerState?.ip?.ipData,
@@ -59,10 +63,26 @@ const MultipleData = (props) => {
     dispatch(quoteAction(payload));
   };
   useEffect(() => {
-    if (statusQuote && statusRule) {
-      navigate("/passengerdetail");
-      dispatch(setLoading("hjbb"));
-    }
+     if (statusQuote && statusRule) {
+       if (
+         reducerState?.flightFare?.flightQuoteData?.Error?.ErrorCode == 0 &&
+         reducerState?.flightFare?.flightRuleData?.Error?.ErrorCode == 0
+       ) {
+         navigate("/passengerdetail");
+         dispatch(setLoading("hjbb"));
+         setLoader(false);
+       } else if (
+         reducerState?.flightFare?.flightQuoteData?.Error?.ErrorCode !== 0 &&
+         reducerState?.flightFare?.flightRuleData?.Error?.ErrorCode !== 0
+       ) {
+         Swal.fire({
+           title: "Heii Encountered Error",
+           text: `${reducerState?.flightFare?.flightQuoteData?.Error?.ErrorMessage}`,
+           icon: "question",
+         });
+         console.log("insideSweet");
+       }
+     }
   }, [statusQuote, statusRule]);
 
   const time = `${Math.floor(flight[0]?.Duration / 60)}hr ${flight[0].Duration % 60
@@ -89,6 +109,9 @@ const MultipleData = (props) => {
   });
   const year2 = date2.getFullYear();
   const formattedDate2 = `${day2} ${month2} ${year2}`;
+   if (loader) {
+     return <FlightLoader />;
+   }
   return (
     <div key={indexKey} className="singleFlightBox">
       <div className="singleFlightBoxOne">
