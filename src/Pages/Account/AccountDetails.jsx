@@ -636,7 +636,7 @@ const Account = () => {
                     fontWeight: "500",
                   }}
                 >
-                  ₹ {user?.balance}
+                  ₹ {user?.balance?.toFixed(2)}
                 </Typography>
               </Box>
             </Grid>

@@ -215,3 +215,15 @@ form label {
   border: none;
   outline: none;
 }
+
+
+.pagination{
+  margin: 10px;
+  padding: 5px;
+  align-items: center;
+  justify-content: space-between;
+}
+.pagination button{
+  padding: 10px 15px;
+
+}

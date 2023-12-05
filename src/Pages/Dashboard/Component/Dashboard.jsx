@@ -43,6 +43,9 @@ import RiseLoader from "react-spinners/RiseLoader";
 import HotelBookings from './Table/HotelBookings/HotelBookings';
 import FlightBookings from './Table/FlightBookings/Flightbookings';
 import BusBookings from './Table/BusBookings/BusBookings';
+
+import FixedDeparture from "./Table/FixedDeparture/FixedDeparture";
+import FixedDepartureControl from "./Table/FixedDepartureControl/FixedDepartureControl";
 import AgentHotelBookings from './Table/AgentHotelBookings/AgentHotelBookings';
 import AgentFlightBookings from './Table/AgentFlightBookings/AgentFlightBookings';
 import AgentBusBookings from './Table/AgentBusBookings/AgentBusBookings'
@@ -1459,6 +1462,10 @@ export default function VerticalTabs() {
               {menuData === "Flight Booking" && <FlightBookings />}
               {menuData === "Bus Booking" && <BusBookings />}
               {menuData === "OfferList" && <OfferList />}
+              {menuData === "fixedDeparture" && <FixedDeparture />}
+              {menuData === "fixedDepartureControl" && (
+                <FixedDepartureControl />
+              )}
             </div>
           )}
         </Box>
