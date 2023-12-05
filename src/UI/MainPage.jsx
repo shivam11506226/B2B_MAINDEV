@@ -88,6 +88,7 @@ import LoadingSpinner from "./LoadingSpinner";
 import FlightResResult from "../Pages/Flight/flightresult/FlightresultReturn/FlightResResult";
 import FlightReturnReviewbooking from "../Pages/Flight/flightresult/FlightresultReturn/ReturnPassenger/FlightReturnReviewbooking";
 import FlightReturnBookingConfirmation from "../Pages/Flight/flightresult/FlightresultReturn/ReturnPassenger/FlightReturnBookingConfirmation";
+import CreateSubAdminPage from "../Pages/Dashboard/Component/Table/AddSubadmin";
 const MainPage = () => {
   const dispatch = useDispatch();
   const location = useLocation();
@@ -377,6 +378,7 @@ const MainPage = () => {
                 element={<InsuranceBookingConfirmation />}
               />
               <Route exact path="/admin" element={<Admin />} />
+              <Route exact path="/addSubAdmin" element={<CreateSubAdminPage />} />
               <Route exact path="/AdminUserForm" element={<AdminUserForm />} />
               <Route exact path="/Administration" element={<Administration />} />
               <Route exact path="/accounts" element={<Account />} />
