@@ -78,6 +78,7 @@ import UserCancelHotel from './Table/CancelTicketRequest/UserCancelHotel';
 import AllFlightCancelTicketsUser from "./Table/CancelTicketRequest/UserCancelFlight";
 import UserCancelBus from './Table/CancelTicketRequest/UserCancelBus';
 import AllFlightCancelTickets from "./Table/CancelTicketRequest/UserCancelFlight";
+import AddSubadmin from "../Component/Table/AddSubadmin"
 const drawerWidth = 240;
 
 const openedMixin = (theme) => ({
@@ -185,7 +186,7 @@ export default function VerticalTabs() {
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
+const redirect=useNavigate()
   const handleDrawerClose = () => {
     setOpen(false);
   };
@@ -205,6 +206,7 @@ export default function VerticalTabs() {
   const handleClose = () => {
     setAnchorEl(null);
   };
+
   const activeMenuItemClass = {
     backgroundColor: "#2196F3",
     color: "#fff",
@@ -218,6 +220,10 @@ export default function VerticalTabs() {
     dispatch(adminSignOut());
     navigate("/adminLogin");
   };
+
+  const createSubAdmin=()=>{
+    navigate("/addSubAdmin");
+  }
 
   
   // const [value, setValue] = useState(0);
@@ -404,13 +410,18 @@ export default function VerticalTabs() {
                   </ListItemIcon>
                   Add another account
                 </MenuItem>
-                <MenuItem onClick={handleClose}>
+                <MenuItem onClick={() => {
+                  handleClose();
+                  createSubAdmin();
+                }}>
                   <ListItemIcon>
                     <PersonAdd fontSize="small" />
                   </ListItemIcon>
                   Add SUBADMIN
                 </MenuItem>
-                <MenuItem onClick={handleClose}>
+                <MenuItem onClick={() => {
+                  handleClose();
+                }}>
                   <ListItemIcon>
                     <Settings fontSize="small" />
                   </ListItemIcon>
@@ -473,8 +484,7 @@ export default function VerticalTabs() {
                 </ListItemIcon>
                 <ListItemText primary="Home" sx={{ opacity: open ? 1 : 0 }} />
               </ListItemButton>
-            </ListItem>
-            
+            </ListItem>       
             <ListItem
               disablePadding
               sx={{ display: "block" }}
@@ -1057,7 +1067,6 @@ export default function VerticalTabs() {
                 <ListItemText primary="Forex" sx={{ opacity: open ? 1 : 0 }} />
               </ListItemButton>
             </ListItem>
-
             <ListItem disablePadding sx={{ display: "block" }}>
               <ListItemButton
                 sx={{
@@ -1172,7 +1181,6 @@ export default function VerticalTabs() {
                 </ListItem>
               </Collapse>
             </ListItem>
-
             <ListItem disablePadding sx={{ display: "block" }}>
               <ListItemButton
                 sx={{
@@ -1285,7 +1293,6 @@ export default function VerticalTabs() {
                 </ListItem>
               </Collapse>
             </ListItem>
-
             <ListItem
               disablePadding
               sx={{ display: "block" }}
@@ -1405,8 +1412,7 @@ export default function VerticalTabs() {
                   sx={{ opacity: open ? 1 : 0 }}
                 />
               </ListItemButton>
-            </ListItem>
-            
+            </ListItem>           
           </List>
           <Divider />
         </Drawer>
@@ -1466,3 +1472,36 @@ export default function VerticalTabs() {
     </>
   );
 }
+
+
+
+// <ListItem
+//             disablePadding
+//             sx={{ display: "block" }}
+//             onClick={() => handleMenuItemClick("ADD SUBADMIN")}
+//             className={
+//               menuData === "ADD SUBADMIN" ? "active-menu-item" : "inactive-menu-item"
+//             }
+//           >
+//             <ListItemButton
+//               sx={{
+//                 minHeight: 48,
+//                 justifyContent: open ? "initial" : "center",
+//                 px: 2.5,
+//                 ...((menuData === "ADD SUBADMIN"
+//                   ? activeMenuItemClass
+//                   : inactiveMenuItemClass) || {}),
+//               }}
+//             >
+//               <ListItemIcon
+//                 sx={{
+//                   minWidth: 0,
+//                   mr: open ? 3 : "auto",
+//                   justifyContent: "center",
+//                 }}
+//               >
+//                 <HomeOutlinedIcon />
+//               </ListItemIcon>
+//               <ListItemText primary="ADD SUBADMIN" sx={{ opacity: open ? 1 : 0 }} />
+//             </ListItemButton>
+//           </ListItem>
