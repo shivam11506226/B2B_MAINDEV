@@ -25,7 +25,7 @@ function InnerNavbar() {
   const location = useLocation();
   const { pathname } = location;
 
-  const isAdminPath = pathname === "/adminLogin" || pathname === "/admin/dashboard";
+  const isAdminPath = pathname === "/adminLogin" || pathname === "/admin/dashboard"|| pathname==="/addSubAdmin";
 
   if (isAdminPath) {
     return null;
