@@ -4,6 +4,13 @@ body {
   padding: 0;
 }
 
+.subAdminForm {
+  display: flex;
+    flex-direction: column;
+    gap: 0px !important;
+    padding: 20px;
+}
+
 .form-container {
   display: flex;
   flex-direction: column;
@@ -56,11 +63,11 @@ body {
   transition: 0.3s ease-in-out;
 }
 
-.form-label:hover,
+/* .form-label:hover,
 .form-label:focus,
 .form-label:active {
   background-color: #0a0909;
-}
+} */
 
 .form-input {
   flex: 1;
