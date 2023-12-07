@@ -132,9 +132,11 @@ function Headers() {
         // Check if the Razorpay payment is successful
         if (response.razorpay_payment_id) {
           // Payment was successful, now update the user's balance
+          console.log(response,"response razorpay")
           const paymentData = {
             _id: reducerState?.logIn?.loginData?.data?.data?.id,
             amount: amount,
+            paymentId:response.razorpay_payment_id
           };
 
           axios
@@ -156,6 +158,10 @@ function Headers() {
           };
 
           // console.log("paymentVeriy", paymentVerifyData);
+
+          setTimeout(()=>{
+            dispatch(getUserDataAction(reducerState?.logIn?.loginData?.data?.data?.id));
+          },10000)
 
           axios
             .post(`${apiURL.baseURL}/payVerify`, paymentVerifyData)
@@ -221,10 +227,6 @@ function Headers() {
     //     console.error(error);
     //     // Handle errors, e.g., display an error message
     //   });
-
-
-
-
 
   }, [userId, dispatch]);
 
@@ -297,14 +299,14 @@ function Headers() {
               onClose={handleClose}
               TransitionComponent={Fade}
             >
-              <MenuItem onClick={handleSubmit} style={{ width: "130px" }}>
+              <MenuItem onClick={handleSubmit} style={{ width: "130px" }} >
                 {reducerState?.logIn?.loginData?.data?.data
                   ? "Logout"
                   : "Login"}
               </MenuItem>
-              <MenuItem onClick={editPackage} style={{ fontSize: "15px" }}>
+              {/* <MenuItem onClick={editPackage} style={{ fontSize: "15px" }}>
                 My Package
-              </MenuItem>
+              </MenuItem> */}
             </Menu>
           </div>
         </div>
