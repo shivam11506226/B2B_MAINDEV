@@ -428,9 +428,9 @@ const Header = () => {
                   ? "Logout"
                   : "Login"}
               </MenuItem>
-              <MenuItem onClick={editPackage} style={{ fontSize: "15px" }}>
+              {/* <MenuItem onClick={editPackage} style={{ fontSize: "15px" }}>
                 My Package
-              </MenuItem>
+              </MenuItem> */}
             </Menu>
           </div>
         </div>

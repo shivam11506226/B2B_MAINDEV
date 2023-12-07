@@ -299,14 +299,14 @@ function Headers() {
               onClose={handleClose}
               TransitionComponent={Fade}
             >
-              <MenuItem onClick={handleSubmit} style={{ width: "130px" }}>
+              <MenuItem onClick={handleSubmit} style={{ width: "130px" }} >
                 {reducerState?.logIn?.loginData?.data?.data
                   ? "Logout"
                   : "Login"}
               </MenuItem>
-              <MenuItem onClick={editPackage} style={{ fontSize: "15px" }}>
+              {/* <MenuItem onClick={editPackage} style={{ fontSize: "15px" }}>
                 My Package
-              </MenuItem>
+              </MenuItem> */}
             </Menu>
           </div>
         </div>
