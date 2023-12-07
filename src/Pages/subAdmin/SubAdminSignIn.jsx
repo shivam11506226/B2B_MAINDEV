@@ -33,7 +33,6 @@ console.log("e",e)
         const data = await response.json();
         // Store token and redirect to dashboard
         localStorage.setItem('token', data.token);
-        // window.location.href = '/subAdmin/dashboard';
         navigate('/subAdmin/dashboard');
         // Extract and store user information
         const user = {
@@ -43,7 +42,6 @@ console.log("e",e)
           authType:data.data.authType
           // Add other relevant details as needed
         };
-
       } else {
         const errorData = await response.json();
         setErrorMessage(errorData.message || 'Login failed');
