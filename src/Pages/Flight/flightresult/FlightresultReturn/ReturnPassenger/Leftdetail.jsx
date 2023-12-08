@@ -8,6 +8,7 @@ import { Typography, Button } from "@mui/material";
 import { useDispatch, useSelector, useReducer } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import groupimg from "../../../../../Images/Groupl.png";
+import flightdir from "../../../../../Images/flgihtdir.png";
 import {
   bookAction,
   bookActionGDS,
@@ -35,11 +36,20 @@ const Leftdetail = () => {
   const fareRule = reducerState?.flightFare?.flightRuleData?.FareRules;
   const fareRuleReturn =
     reducerState?.flightFare?.flightRuleDataReturn?.FareRules;
-  // console.log(fareValueReturn, fareRuleReturn, "vivekk");
+  console.log(fareValueReturn, fareRuleReturn, "vivekk");
   const data = reducerState?.oneWay?.oneWayData?.data?.data?.Response;
   const isPassportRequired =
     reducerState?.flightFare?.flightQuoteData?.Results
       ?.IsPassportRequiredAtTicket;
+
+  // const img = flight?.Airline?.AirlineCode;
+  const flightDeparture = reducerState?.flightFare?.flightQuoteData?.Results?.Segments[0]?.[0];
+  const flightReturn = reducerState?.flightFare?.flightQuoteDataReturn?.Results?.Segments[0]?.[0];
+
+  console.log(flightDeparture, "flight departure")
+  console.log(flightReturn, "flight return ")
+
+
   const passengerTemplate = {
     Title: "Mr",
     FirstName: "",
@@ -318,48 +328,195 @@ const Leftdetail = () => {
 
     dispatch(PassengersAction(passengerData));
     dispatch(PassengersActionReturn(passengerDataReturn))
-    navigate("/Flightresult/passengerdetail/flightreviewbooking");
+    navigate("/Flightresult/passengerdetail/flightReturnreviewbooking");
   }
+
+
+
+
+  //departure flight data in passenger page 
+
+
+  // const flightDeparture = reducerState?.flightFare?.flightQuoteData?.Results?.Segments[0]?.[0];
+  // const flightReturn = reducerState?.flightFare?.flightQuoteDataReturn?.Results?.Segments[0]?.[0];
+
+  console.log(flightDeparture, "flight departure")
+  console.log(flightReturn, "flight return ")
+
+
+
+
+
+  const duration1 = `${Math.floor(flightDeparture?.Duration / 60)}hr ${flightDeparture?.Duration % 60
+    }min`;
+  const dateString = flightDeparture?.Origin?.DepTime;
+  const date1 = new Date(dateString);
+  const options = {
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+    hour: "numeric",
+    minute: "numeric",
+    hour12: true,
+  };
+  const formattedDate = date1.toLocaleString("en-US", options);
+  const [month, day, year, time, ampm] = formattedDate.split(" ");
+  const desiredFormat = `${day}${month}-${year} ${time} ${ampm}`;
+
+
+  const dateString1 = flightDeparture?.Destination?.ArrTime;
+  const date2 = new Date(dateString1);
+  const options1 = {
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+    hour: "numeric",
+    minute: "numeric",
+    hour12: true,
+  };
+  const formattedDate1 = date2.toLocaleString("en-US", options1);
+  const [month1, day1, year1, time1, ampm1] =
+    formattedDate1.split(" ");
+  const desiredFormat1 = `${day1}${month1}-${year1} ${time1} ${ampm1}`;
+  console.log(desiredFormat1, 'desired format')
+  console.log(desiredFormat, 'desired format')
+
+
+
+
+  const duration3 = `${Math.floor(flightReturn?.Duration / 60)}hr ${flightReturn?.Duration % 60
+    }min`;
+  const dateString3 = flightReturn?.Origin?.DepTime;
+  const date3 = new Date(dateString3);
+  const options3 = {
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+    hour: "numeric",
+    minute: "numeric",
+    hour12: true,
+  };
+  const formattedDate3 = date3.toLocaleString("en-US", options3);
+  const [month3, day3, year3, time3, ampm3] = formattedDate3.split(" ");
+  const desiredFormat3 = `${day3}${month3}-${year3} ${time3} ${ampm3}`;
+
+
+  const dateString4 = flightReturn?.Destination?.ArrTime;
+  const date4 = new Date(dateString4);
+  const options4 = {
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+    hour: "numeric",
+    minute: "numeric",
+    hour12: true,
+  };
+  const formattedDate4 = date4.toLocaleString("en-US", options4);
+  const [month4, day4, year4, time4, ampm4] =
+    formattedDate4.split(" ");
+  const desiredFormat4 = `${day4}${month4}-${year4} ${time4} ${ampm4}`;
+  console.log(desiredFormat4, 'desired format')
+  console.log(desiredFormat3, 'desired format')
+
+
+
+
+
+
+
+
+
+
+
+
+  console.log(flightDeparture, "flight departure")
+  console.log(flightReturn, "flight return ")
+
+
   return (
     <div>
-      <form onSubmit={handleSubmit}>
-        <div style={{ display: "flex", justifyContent: "space-between" }}>
-          <div className="leftdiv">Passenger Details</div>
-          <div className="rightdiv">Name Format as per airline guidelines</div>
+
+      <div className="col-lg-12">
+        <div className="row">
+
+          <div className="col-lg-6">
+            <div className="singleDataReturnBox">
+              <div className="returnBoxOne">
+                <div><img src={`${process.env.PUBLIC_URL}/FlightImages/${flightDeparture?.Airline?.AirlineCode}.png`} /> </div>
+                <span>{flightDeparture?.Airline?.AirlineName}</span>
+                <p>{flightDeparture?.Airline?.AirlineCode}{" "}{flightDeparture?.Airline?.FlightNumber}</p>
+              </div>
+              <div className="returnBoxTwo">
+                <span>{flightDeparture?.Origin?.Airport?.CityName}</span>
+                <p>{desiredFormat.slice(0, 12)}</p>
+                <p>{desiredFormat.slice(13)}</p>
+              </div>
+              <div className="returnBoxThree">
+                <h4>{duration1}</h4>
+                <div><img src={flightdir} /></div>
+              </div>
+              <div className="returnBoxFour">
+                <span>{flightDeparture?.Destination?.Airport?.CityName}</span>
+                <p>{desiredFormat1.slice(0, 12)}</p>
+                <p>{desiredFormat1.slice(13)}</p>
+              </div>
+
+            </div>
+          </div>
+          <div className="col-lg-6">
+            <div className="singleDataReturnBox">
+              <div className="returnBoxOne">
+                <div><img src={`${process.env.PUBLIC_URL}/FlightImages/${flightReturn?.Airline?.AirlineCode}.png`} /> </div>
+                <span>{flightReturn?.Airline?.AirlineName}</span>
+                <p>{flightReturn?.Airline?.AirlineCode}{" "}{flightReturn?.Airline?.FlightNumber}</p>
+              </div>
+              <div className="returnBoxTwo">
+                <span>{flightReturn?.Origin?.Airport?.CityName}</span>
+                <p>{desiredFormat3.slice(0, 12)}</p>
+                <p>{desiredFormat3.slice(13)}</p>
+              </div>
+              <div className="returnBoxThree">
+                <h4>{duration3}</h4>
+                <div><img src={flightdir} /></div>
+              </div>
+              <div className="returnBoxFour">
+                <span>{flightReturn?.Destination?.Airport?.CityName}</span>
+                <p>{desiredFormat4.slice(0, 12)}</p>
+                <p>{desiredFormat4.slice(13)}</p>
+              </div>
+
+            </div>
+          </div>
         </div>
-        <Box p={5} mt={25}>
-          <div className="services">
-            <form onSubmit={handleSubmit}>
-              <Box className="mid_header1" p={5} mt={25}>
-                <Typography className="p-2 Top_txt1 text-dark1">
-                  Adult: {adults}
-                </Typography>
-                {Array.from({ length: adults }, (err, i) => {
-                  return (
-                    <div className="mb-3 p-2">
-                      <div className="mb-1">Passenger {i + 1}</div>
-                      <Grid
-                        container
-                        rowSpacing={2}
-                        columnSpacing={{ xs: 1, sm: 2, md: 2 }}
-                        columns={{ xs: 4, sm: 6, md: 12 }}
-                      >
-                        <Grid item md={4} sm={3}>
+      </div>
+
+
+      <div className="col-lg-12">
+        <div class="headingflightPassenger">
+          <p>Passenger Details</p>
+          <span>Total Adult(s) :{' '} {adults} Child:{' '} {childs} Infants: {' '} {infants}</span>
+        </div>
+      </div>
+
+      <form onSubmit={handleSubmit}>
+        <div>
+          <form onSubmit={handleSubmit}>
+            <Box className="mid_header1" p={5}>
+              {Array.from({ length: adults }, (err, i) => {
+                return (
+                  <div className="mb-2">
+                    <div className="p-2 mb-2 passenTitle">
+                      Passenger {i + 1}
+                    </div>
+                    <div className="col-lg-12">
+                      <div className="row">
+                        <div className="col-lg-4 col-md-6 col-sm-6">
                           <Box>
-                            <div className="hotel_form_input">
-                              <label className="form_lable1_1">
-                                Title
-                                <span
-                                  style={{
-                                    color: "red",
-                                  }}
-                                >
-                                  *
-                                </span>
-                              </label>
+                            <div className="form_input">
+                              <label className="form_lable">Title*</label>
                               <select
                                 name="Title"
-                                className="hotel_input_select border_input1"
+                                className="form_input_select"
                                 onChange={(e) => handleServiceChange(e, i)}
                               >
                                 <option value="Mr">Mr.</option>
@@ -368,20 +525,12 @@ const Leftdetail = () => {
                               </select>
                             </div>
                           </Box>
-                        </Grid>
-                        <Grid item md={4} sm={3}>
-                          <Box marginLeft={15}>
-                            <div className="form_input1">
-                              <label hotel_form_input className="form_lable1_1">
-                                First name
-                                <span
-                                  style={{
-                                    color: "red",
-                                  }}
-                                >
-                                  *
-                                </span>
-                              </label>
+                        </div>
+                        <div className="col-lg-4 col-md-6 col-sm-6">
+                          {" "}
+                          <Box>
+                            <div className="form_input">
+                              <label className="form_lable">First name*</label>
                               <input
                                 className="form_input_input"
                                 name="FirstName"
@@ -391,20 +540,12 @@ const Leftdetail = () => {
                               {passengerData[i].FirstName == "" && sub && <span id="error1">Enter First Name</span>}
                             </div>
                           </Box>
-                        </Grid>
-
-                        <Grid item md={4} sm={3}>
-                          <Box marginLeft={15}>
-                            <div className="form_input1">
-                              <label hotel_form_input className="form_lable1_1">
-                                Last name
-                                <span
-                                  style={{
-                                    color: "red",
-                                  }}
-                                >
-                                  *
-                                </span>
+                        </div>
+                        <div className="col-lg-4 col-md-6 col-sm-6">
+                          <Box>
+                            <div className="form_input">
+                              <label hotel_form_input className="form_lable">
+                                Last Name*
                               </label>
                               <input
                                 id="br"
@@ -415,108 +556,86 @@ const Leftdetail = () => {
                               {passengerData[i].LastName == "" && sub && <span id="error1">Enter Last Name</span>}
                             </div>
                           </Box>
-                        </Grid>
-                        <Grid item md={4} sm={3}>
-                          <Box marginLeft={8}>
-                            <div className="form_input1">
-                              <label hotel_form_input className="form_lable1_1">
-                                Date Of Birth
-                                <span
-                                  style={{
-                                    color: "red",
-                                  }}
-                                >
-                                  *
-                                </span>
+                        </div>
+
+                        <div className="col-lg-4 col-md-6 col-sm-6">
+                          {" "}
+                          <Box>
+                            <div className="form_input">
+                              <label hotel_form_input className="form_lable">
+                                Date Of Birth*
                               </label>
                               <input
                                 type="date"
                                 name="DateOfBirth"
-                                className="deaprture_input"
                                 max={maxDate}
                                 onChange={(e) => handleServiceChange(e, i)}
                               />
                               {passengerData[i].DateOfBirth == "" && sub && <span id="error1">Enter DOB</span>}
                             </div>
                           </Box>
-                        </Grid>
-                        <Grid item md={4} sm={3}>
-                          <Box marginLeft={15}>
-                            <div className="form_input1">
-                              <label hotel_form_input className="form_lable1_1">
-                                Email
-                                <span
-                                  style={{
-                                    color: "red",
-                                  }}
-                                >
-                                  *
-                                </span>
+                        </div>
+
+                        <div className="col-lg-4 col-md-6 col-sm-6">
+                          <Box>
+                            <div className="form_input">
+                              <label hotel_form_input className="form_lable">
+                                Email*
                               </label>
                               <input
                                 type="email"
                                 name="Email"
-                                className="deaprture_input"
                                 placeholder="Enter Email"
                                 onChange={(e) => handleServiceChange(e, i)}
                               />
                               {!validateEmail1(passengerData[i].Email) && sub && <span id="error1">Enter Email</span>}
                             </div>
                           </Box>
-                        </Grid>
-                        <Grid item md={4} sm={3}>
-                          {" "}
-                          <Box marginLeft={15}>
-                            <div className="form_input1">
-                              <label hotel_form_input className="form_lable1_1">
-                                ContactNo
-                                <span
-                                  style={{
-                                    color: "red",
-                                  }}
-                                >
-                                  *
-                                </span>
+                        </div>
+
+                        <div className="col-lg-4 col-md-6 col-sm-6">
+                          <Box>
+                            <div className="form_input">
+                              <label hotel_form_input className="form_lable">
+                                ContactNo*
                               </label>
                               <input
                                 type="number"
                                 name="ContactNo"
-                                className="deaprture_input"
                                 placeholder="Enter Contact"
                                 onChange={(e) => handleServiceChange(e, i)}
                               />
                               {!validatePhoneNumber(passengerData[i].ContactNo) == true && sub && <span id="error1">Enter Contact</span>}
                             </div>
                           </Box>
-                        </Grid>
-                      </Grid>
+                        </div>
+                      </div>
                     </div>
-                  );
-                })}
-              </Box>
-              {childs > 0 && (
-                <Box className="mid_header1" p={5} mt={25}>
-                  <Typography className="p-2 Top_txt text-dark">
-                    Childs: {childs}
-                  </Typography>
-                  {Array.from({ length: childs }, (err, i) => {
-                    return (
-                      <div className="mb-2">
-                        <span className=" p-2 ">Passenger {i + 1}</span>
-                        <Box p={15} display="flex">
-                          <Box>
-                            <div className="form_input1">
+                  </div>
+                );
+              })}
+            </Box>
+            {childs > 0 && (
+              <Box
+                className="mid_header1"
+                p={5}
+                mt={25}>
+                <Typography className="p-2 Top_txt text-dark">
+                  Childs: {childs}
+                </Typography>
+                {Array.from({ length: childs }, (err, i) => {
+                  return (
+                    <div className="mb-2">
+                      <span className=" p-2 ">Passenger {i + 1}</span>
+                      <div className="col-lg-12">
+                        <div className="row">
+                          <div className="col-lg-4 col-md-6 col-sm-6" >
+                            <div className="form_input">
                               <label hotel_form_input className="form_lable">
-                                First name
-                                <span
-                                  style={{
-                                    color: "red",
-                                  }}
-                                >
-                                  *
-                                </span>
+                                First name*
                               </label>
                               <input
+                                type="text"
                                 name="FirstName"
                                 placeholder="Enter your name"
                                 onChange={(e) =>
@@ -525,18 +644,12 @@ const Leftdetail = () => {
                               />
                               {passengerData[Number(adults) + i].FirstName == "" && sub && <span id="error1">Enter First Name</span>}
                             </div>
-                          </Box>
-                          <Box marginLeft={15}>
-                            <div className="form_input1">
+                          </div>
+
+                          <div className="col-lg-4 col-md-6 col-sm-6" >
+                            <div className="form_input">
                               <label hotel_form_input className="form_lable">
-                                Last name
-                                <span
-                                  style={{
-                                    color: "red",
-                                  }}
-                                >
-                                  *
-                                </span>
+                                Last name*
                               </label>
                               <input
                                 name="LastName"
@@ -544,25 +657,18 @@ const Leftdetail = () => {
                                 onChange={(e) =>
                                   handleServiceChange(e, i + Number(adults))
                                 }
+                                required
                               />
                               {passengerData[Number(adults) + i].LastName == "" && sub && <span id="error1">Enter Last Name</span>}
                             </div>
-                          </Box>
-                          <Box marginLeft={15}>
+                          </div>
+
+                          <div className="col-lg-4 col-md-6 col-sm-6" >
                             <div className="hotel_form_input">
-                              <label className="form_lable">
-                                Gender
-                                <span
-                                  style={{
-                                    color: "red",
-                                  }}
-                                >
-                                  *
-                                </span>
-                              </label>
+                              <label className="form_lable">Gender*</label>
                               <select
                                 name="Gender"
-                                className="hotel_input_select border_input1 "
+                                className="form_input_select"
                                 onChange={(e) =>
                                   handleServiceChange(e, i + Number(adults))
                                 }
@@ -571,24 +677,17 @@ const Leftdetail = () => {
                                 <option value="2">Male</option>
                                 <option value="3">Transgender</option>
                               </select>
+
                             </div>
-                          </Box>
-                          <Box marginLeft={15}>
-                            <div className="form_input1">
+                          </div>
+                          <div className="col-lg-4 col-md-6 col-sm-6" >
+                            <div className="form_input">
                               <label hotel_form_input className="form_lable">
-                                Date Of Birth
-                                <span
-                                  style={{
-                                    color: "red",
-                                  }}
-                                >
-                                  *
-                                </span>
+                                Date Of Birth*
                               </label>
                               <input
                                 type="date"
                                 name="DateOfBirth"
-                                className="deaprture_input"
                                 max={maxDateChild}
                                 min={minDateChild}
                                 onChange={(e) =>
@@ -597,34 +696,32 @@ const Leftdetail = () => {
                               />
                               {passengerData[Number(adults) + i].DateOfBirth == "" && sub && <span id="error1">Enter DOB</span>}
                             </div>
-                          </Box>
-                        </Box>
+                          </div>
+                        </div>
                       </div>
-                    );
-                  })}
-                </Box>
-              )}
-              {infants > 0 && (
-                <Box className="mid_header1" p={5} mt={25}>
-                  <Typography className="p-2 Top_txt text-dark">
-                    Infants: {infants}
-                  </Typography>
-                  {Array.from({ length: infants }, (err, i) => {
-                    return (
-                      <div className="mb-2">
-                        <span className=" p-2 ">Infant {i + 1}</span>
-                        <Box p={15} display="flex">
-                          <Box>
-                            <div className="form_input1">
+                    </div>
+                  );
+                })}
+              </Box>
+            )}
+            {infants > 0 && (
+              <Box
+                className="mid_header1"
+                p={5}
+                mt={25}>
+                <Typography className="p-2 Top_txt text-dark">
+                  Infants: {infants}
+                </Typography>
+                {Array.from({ length: infants }, (err, i) => {
+                  return (
+                    <div className="mb-2">
+                      <span className=" p-2 ">Infant {i + 1}</span>
+                      <div className="col-lg-12">
+                        <div className="row">
+                          <div className="col-lg-4 col-md-6 col-sm-6" >
+                            <div className="form_input">
                               <label hotel_form_input className="form_lable">
-                                First name
-                                <span
-                                  style={{
-                                    color: "red",
-                                  }}
-                                >
-                                  *
-                                </span>
+                                First name*
                               </label>
                               <input
                                 name="FirstName"
@@ -638,18 +735,11 @@ const Leftdetail = () => {
                               />
                               {passengerData[i + Number(adults) + Number(childs)].FirstName == "" && sub && <span id="error1">Enter First Name</span>}
                             </div>
-                          </Box>
-                          <Box marginLeft={15}>
-                            <div className="form_input1">
+                          </div>
+                          <div className="col-lg-4 col-md-6 col-sm-6" >
+                            <div className="form_input">
                               <label hotel_form_input className="form_lable">
-                                Last name
-                                <span
-                                  style={{
-                                    color: "red",
-                                  }}
-                                >
-                                  *
-                                </span>
+                                Last name*
                               </label>
                               <input
                                 name="LastName"
@@ -663,22 +753,13 @@ const Leftdetail = () => {
                               />
                               {passengerData[i + Number(adults) + Number(childs)].LastName == "" && sub && <span id="error1">Enter Last Name</span>}
                             </div>
-                          </Box>
-                          <Box marginLeft={15}>
+                          </div>
+                          <div className="col-lg-4 col-md-6 col-sm-6" >
                             <div className="hotel_form_input">
-                              <label className="form_lable">
-                                Gender
-                                <span
-                                  style={{
-                                    color: "red",
-                                  }}
-                                >
-                                  *
-                                </span>
-                              </label>
+                              <label className="form_lable">Gender*</label>
                               <select
                                 name="Gender"
-                                className="hotel_input_select border_input1"
+                                className="form_input_select"
                                 onChange={(e) =>
                                   handleServiceChange(
                                     e,
@@ -691,23 +772,18 @@ const Leftdetail = () => {
                                 <option value="3">Transgender</option>
                               </select>
                             </div>
-                          </Box>
-                          <Box marginLeft={15}>
-                            <div className="form_input1">
+                          </div>
+                          <div className="col-lg-4 col-md-6 col-sm-6" >
+
+                            <div className="form_input">
                               <label hotel_form_input className="form_lable">
-                                Date Of Birth
-                                <span
-                                  style={{
-                                    color: "red",
-                                  }}
-                                >
-                                  *
-                                </span>
+                                Date Of Birth*
                               </label>
                               <input
                                 type="date"
                                 name="DateOfBirth"
-                                className="deaprture_input"
+                                className="deaprture_input form_input_select"
+                                required
                                 min={minDateInfer}
                                 max={currentDate}
                                 onChange={(e) =>
@@ -719,777 +795,329 @@ const Leftdetail = () => {
                               />
                               {passengerData[i + Number(adults) + Number(childs)].DateOfBirth == "" && sub && <span id="error1">Enter DOB</span>}
                             </div>
-                          </Box>
-                        </Box>
+                          </div>
+                        </div>
                       </div>
-                    );
-                  })}
-                </Box>
-              )}
-              {/* <Box className="mid_header1" p={5} mt={25}>
-                <Typography className="p-2 Top_txt text-dark">
-                  Add GST Details
-                </Typography>
+                    </div>
+                  );
+                })}
+              </Box>
+            )}
 
-              </Box> */}
+            <div
+              style={{
+                width: "100%",
+                height: 45,
+                paddingLeft: 16,
+                paddingRight: 16,
+                paddingTop: 8,
+                paddingBottom: 8,
+                background: "rgba(187, 187, 187, 0.30)",
+                borderRadius: 4,
+                justifyContent: "flex-start",
+                alignItems: "center",
+                gap: 16,
+                display: "inline-flex",
+                marginTop: "20px",
+              }}
+            >
               <div
                 style={{
-                  width: "100%",
-                  height: 45,
-                  paddingLeft: 16,
-                  paddingRight: 16,
-                  paddingTop: 8,
-                  paddingBottom: 8,
-                  background: "rgba(187, 187, 187, 0.30)",
-                  borderRadius: 4,
-                  justifyContent: "flex-start",
-                  alignItems: "center",
-                  gap: 16,
-                  display: "inline-flex",
-                  marginTop: "20px",
+                  color: "black",
+                  fontSize: 24,
+                  fontFamily: "Montserrat",
+                  fontWeight: "600",
+                  wordWrap: "break-word",
                 }}
               >
+                Add GST Details
+              </div>
+              <div style={{ width: 16, height: 16, position: "relative" }}>
                 <div
                   style={{
-                    color: "black",
-                    fontSize: 24,
-                    fontFamily: "Montserrat",
-                    fontWeight: "600",
-                    wordWrap: "break-word",
+                    width: 16,
+                    height: 16,
+                    left: 0,
+                    top: 0,
+                    position: "absolute",
+
+                    borderRadius: 9999,
                   }}
+                />
+
+                <div
+                  style={{
+                    width: 10.33,
+                    height: 0,
+                    left: 28,
+                    top: 3,
+                    position: "absolute",
+                    transform: "rotate(90deg)",
+                    transformOrigin: "0 0",
+                  }}
+                  onClick={() => setIsGst(!isGST)}
                 >
-                  Add GST Details
-                </div>
-                <div style={{ width: 16, height: 16, position: "relative" }}>
-                  <div
-                    style={{
-                      width: 16,
-                      height: 16,
-                      left: 0,
-                      top: 0,
-                      position: "absolute",
-
-                      borderRadius: 9999,
-                    }}
-                  />
-
-                  <div
-                    style={{
-                      width: 10.33,
-                      height: 0,
-                      left: 28,
-                      top: 3,
-                      position: "absolute",
-                      transform: "rotate(90deg)",
-                      transformOrigin: "0 0",
-                    }}
-                    onClick={() => setIsGst(!isGST)}
-                  >
-                    {" "}
-                    <img src={groupimg} alt="" />
-                  </div>
+                  {" "}
+                  <img src={groupimg} alt="" />
                 </div>
               </div>
-              {isGST &&
-                <Box className="mid_header1" p={5} mt={25}>
-                  {/* <Typography className="p-2 Top_txt text-dark">
+            </div>
+            {isGST &&
+              <Box className="mid_header1" p={5} mt={25}>
+                {/* <Typography className="p-2 Top_txt text-dark">
                   Contact Details
                 </Typography> */}
 
-                  <div className="mb-2">
-                    {/* <span className=" p-2 ">Passenger {i + 1}</span> */}
-                    <Box p={15} display="flex" flexWrap="wrap" gap="10px" justifyContent="space-between">
-                      <Box marginLeft={15} flex={1} minWidth="200px" >
-                        <div className="form_input1">
-                          <label className="form_lable">
-                            GST Number
-                            <span
-                              style={{
-                                color: "red",
-                              }}
-                            >
-                              *
-                            </span>
-                          </label>
-                          <input
-                            name="Nationality"
-                            type="text"
-                            placeholder="Enter your Country"
-                            onChange={(e, i) => handleServiceChange(e, i)}
-                          />
-                        </div>
-                      </Box>
-                      <Box
-                        marginLeft={15}
-                        flex={1}
-                        minWidth="200px"
-                      >
-                        <div className="form_input1">
-                          <label hotel_form_input className="form_lable">
-                            GST Company Name
-                            <span
-                              style={{
-                                color: "red",
-                              }}
-                            >
-                              *
-                            </span>
-                          </label>
-                          <input
-                            name="ContactNo"
-                            type="text"
-                            placeholder="Enter GST Number"
-                            onChange={(e, i) => handleServiceChange(e, i)}
-                          />
-                        </div>
-                      </Box>
-                      <Box marginLeft={15} minWidth="200px"
-                        flex={1}>
-                        <div className="form_input1">
-                          <label hotel_form_input className="form_lable">
-                            GST Company Contact
-                            <span
-                              style={{
-                                color: "red",
-                              }}
-                            >
-                              *
-                            </span>
-                          </label>
-                          <input
-                            name="Email"
-                            type="email"
-                            placeholder="company name"
-                            onChange={(e, i) => handleServiceChange(e, i)}
-                          />
-                        </div>
-                      </Box>
-                      <Box marginLeft={15} flex={1} minWidth="200px">
-                        <div className="form_input1">
-                          <label className="form_lable">
-                            Company Address
-                            <span
-                              style={{
-                                color: "red",
-                              }}
-                            >
-                              *
-                            </span>
-                          </label>
-                          <input
-                            name="Email"
-                            type="email"
-                            placeholder="Company Address"
-                            onChange={(e, i) => handleServiceChange(e, i)}
-                          />
-                        </div>
-                      </Box>
-
-                      <Box marginLeft={15} flex={1} minWidth="200px">
-                        <div className="form_input1">
-                          <label className="form_lable">
-                            GST Company Email
-                            <span
-                              style={{
-                                color: "red",
-                              }}
-                            >
-                              *
-                            </span>
-                          </label>
-                          <input
-                            name="Nationality"
-                            type="text"
-                            placeholder="Enter Company Email"
-                            onChange={(e, i) => handleServiceChange(e, i)}
-                          />
-                        </div>
-                      </Box>
+                <div className="mb-2">
+                  {/* <span className=" p-2 ">Passenger {i + 1}</span> */}
+                  <Box p={15} display="flex" flexWrap="wrap" gap="10px" justifyContent="space-between">
+                    <Box marginLeft={15} flex={1} minWidth="200px" >
+                      <div className="form_input1">
+                        <label className="form_lable">
+                          GST Number
+                          <span
+                            style={{
+                              color: "red",
+                            }}
+                          >
+                            *
+                          </span>
+                        </label>
+                        <input
+                          name="Nationality"
+                          type="text"
+                          placeholder="Enter your Country"
+                          onChange={(e, i) => handleServiceChange(e, i)}
+                        />
+                      </div>
                     </Box>
-                  </div>
-                  {/* ); */}
-                  {/* })} */}
-                </Box>}
-              <Box
-                // className="mid_header"
-                p={5}
-                mt={25}
-              >
-                <div
-                  style={{
-                    color: "black",
-                    fontSize: 24,
-                    fontFamily: "Montserrat",
-                    fontWeight: "600",
-                    wordWrap: "break-word",
-                  }}
-                >
-                  Baggage & Meal Services
-                </div>{" "}
-              </Box>
-            </form>
-          </div>
-        </Box>
-        {/* <Box className="mid_header" p={5} mt={25}>
-          <Typography className="Top_txt1">Travellers</Typography>
+                    <Box
+                      marginLeft={15}
+                      flex={1}
+                      minWidth="200px"
+                    >
+                      <div className="form_input1">
+                        <label hotel_form_input className="form_lable">
+                          GST Company Name
+                          <span
+                            style={{
+                              color: "red",
+                            }}
+                          >
+                            *
+                          </span>
+                        </label>
+                        <input
+                          name="ContactNo"
+                          type="text"
+                          placeholder="Enter GST Number"
+                          onChange={(e, i) => handleServiceChange(e, i)}
+                        />
+                      </div>
+                    </Box>
+                    <Box marginLeft={15} minWidth="200px"
+                      flex={1}>
+                      <div className="form_input1">
+                        <label hotel_form_input className="form_lable">
+                          GST Company Contact
+                          <span
+                            style={{
+                              color: "red",
+                            }}
+                          >
+                            *
+                          </span>
+                        </label>
+                        <input
+                          name="Email"
+                          type="email"
+                          placeholder="company name"
+                          onChange={(e, i) => handleServiceChange(e, i)}
+                        />
+                      </div>
+                    </Box>
+                    <Box marginLeft={15} flex={1} minWidth="200px">
+                      <div className="form_input1">
+                        <label className="form_lable">
+                          Company Address
+                          <span
+                            style={{
+                              color: "red",
+                            }}
+                          >
+                            *
+                          </span>
+                        </label>
+                        <input
+                          name="Email"
+                          type="email"
+                          placeholder="Company Address"
+                          onChange={(e, i) => handleServiceChange(e, i)}
+                        />
+                      </div>
+                    </Box>
 
-          <div className="services">
-            <Box className="mid_header" p={5} mt={25}>
-              <Box p={15} display="flex">
-                <Box>
-                  <div className="form_input1">
-                    <label hotel_form_input className="form_lable">
-                      First name*
-                    </label>
-                    <input name="name" placeholder="Enter your name" />
-                  </div>
-                </Box>
-                <Box marginLeft={15}>
-                  <div className="form_input1">
-                    <label hotel_form_input className="form_lable">
-                      Last name*
-                    </label>
-                    <input name="lastname" placeholder="Enter your last name" />
-                  </div>
-                </Box>
-              </Box>
-              <Box p={15} display="flex">
-                <Box>
-                  <div className="hotel_form_input">
-                    <label className="form_lable">Gender*</label>
-                    <select name="gender" className="hotel_input_select">
-                      <option value="1">Female</option>
-                      <option value="2">Male</option>
-                      <option value="3">Transgender</option>
-                    </select>
-                  </div>
-                </Box>
-                <Box marginLeft={15}>
-                  <div className="form_input1">
-                    <label hotel_form_input className="form_lable">
-                      Mobile*
-                    </label>
-                    <input
-                      name="mobilenumber"
-                      type="text"
-                      placeholder="Enter your number"
-                    />
-                  </div>
-                </Box>
-                <Box marginLeft={15}>
-                  <div className="form_input1">
-                    <label hotel_form_input className="form_lable">
-                      Date Of Birth*
-                    </label>
-                    <input
-                      type="date"
-                      name="dateofbirth"
-                      className="deaprture_input"
-                    />
-                  </div>
-                </Box>
-              </Box>
-              <Box p={15} display="flex">
-                <Box>
-                  <div className="form_input1">
-                    <label hotel_form_input className="form_lable">
-                      Email**
-                    </label>
-                    <input
-                      name="email"
-                      type="email"
-                      placeholder="Enter your email"
-                    />
-                  </div>
-                </Box>
-                <Box marginLeft={15}>
-                  <div className="form_input1">
-                    <label hotel_form_input className="form_lable">
-                      Address*
-                    </label>
-                    <input
-                      name="address"
-                      type="text"
-                      placeholder="Enter your Address"
-                    />
-                  </div>
-                </Box>
-                <Box marginLeft={15}>
-                  <div className="form_input1">
-                    <label hotel_form_input className="form_lable">
-                      City*
-                    </label>
-                    <input
-                      name="city"
-                      type="text"
-                      placeholder="Enter your City"
-                    />
-                  </div>
-                </Box>
-              </Box>
-              <Box p={15} display="flex">
-                <Box>
-                  <div className="form_input1">
-                    <label className="form_lable">Country*</label>
-                    <input
-                      name="country"
-                      type="text"
-                      placeholder="Enter your Country"
-                    />
-                  </div>
-                </Box>
-              </Box>
-            </Box>
-          </div>
-        </Box> */}
-
-        <Box className="mid_header1" p={5} mt={25}>
-          {/* <Box px={20}>
-            <Typography
-              sx={{ fontSize: "14px", color: "#616161", fontWeight: "bold" }}
-            >
-              Baggage Details:
-            </Typography>
-          </Box> */}
-          {/* <Box
-            className="inner_box"
-            display="flex"
-            justifyContent="space-around"
-            mx={20}
-            my={15}
-          >
-            {fareValue?.Segments?.map((data1, index) => {
-              // console.log("Data Map", data1);
-              // return data?.map((data1, index) => {
-              const len = data1.length;
-              return (
-                <>
-                  <Box width="120px">
-                    <Typography
-                      color="#252525"
-                      fontSize="14px"
-                      fontWeight="bold"
-                      display="flex"
-                      justifyContent="center"
-                    >
-                      Sector
-                    </Typography>
-                    <Button
-                      style={{
-                        width: "156px",
-                        height: "22px",
-                        fontSize: "9px",
-                        alignItems: "center",
-                        display: "flex",
-                        backgroundColor: "white",
-                        color: "black",
-                        justifyContent: "center",
-                        borderRadius: "10px",
-                        border: "1px solid #D1D1D1",
-                      }}
-                    >
-                      {data1[0]?.Origin?.Airport?.AirportCode}-
-                      {data1[len - 1]?.Destination?.Airport?.AirportCode}
-                    </Button>
+                    <Box marginLeft={15} flex={1} minWidth="200px">
+                      <div className="form_input1">
+                        <label className="form_lable">
+                          GST Company Email
+                          <span
+                            style={{
+                              color: "red",
+                            }}
+                          >
+                            *
+                          </span>
+                        </label>
+                        <input
+                          name="Nationality"
+                          type="text"
+                          placeholder="Enter Company Email"
+                          onChange={(e, i) => handleServiceChange(e, i)}
+                        />
+                      </div>
+                    </Box>
                   </Box>
-                  <Box>
-                    <Typography
-                      color="#252525"
-                      fontSize="14px"
-                      fontWeight="bold"
-                      display="flex"
-                      justifyContent="center"
-                    >
-                      Cabin
-                    </Typography>
-                    <Button
-                      style={{
-                        width: "156px",
-                        height: "22px",
-                        fontSize: "9px",
-                        alignItems: "center",
-                        display: "flex",
-                        backgroundColor: "white",
-                        color: "black",
-                        justifyContent: "center",
-                        borderRadius: "10px",
-                        border: "1px solid #D1D1D1",
-                      }}
-                    >
-                      {data1[0]?.CabinBaggage ? data1[0]?.CabinBaggage : "7 Kg"}
-                    </Button>
-                  </Box>
-                  <Box>
-                    <Typography
-                      color="#252525"
-                      fontSize="14px"
-                      fontWeight="bold"
-                      display="flex"
-                      justifyContent="center"
-                    >
-                      Check-In
-                    </Typography>
-                    <Button
-                      style={{
-                        width: "156px",
-                        height: "22px",
-                        fontSize: "9px",
-                        alignItems: "center",
-                        display: "flex",
-                        backgroundColor: "white",
-                        color: "black",
-                        justifyContent: "center",
-                        borderRadius: "10px",
-                        border: "1px solid #D1D1D1",
-                      }}
-                    >
-                      {data1[0]?.Baggage}
-                    </Button>
-                  </Box>
-                </>
-              );
-              // });
-            })}
-          </Box> */}
-          <Grid container spacing={1}>
-            <Grid item xs={6} md={4}>
-              <Box p={17}>
-                <Typography color="#616161" fontSize="14px" fontWeight="bold">
-                  Select Excess Baggage
-                </Typography>
-                <Typography color="#616161" fontSize="14px" fontWeight="bold">
-                  (Extra charge will be applicable):
-                </Typography>
-              </Box>
-            </Grid>
-            <Grid item xs={6} md={4}>
-              <Box py={17}>
-                <div className="form_input1">
-                  <label hotel_form_input className="form_lable">
-                    {data?.Origin}-{data?.Destination}
-                  </label>
-                  <input type="text" placeholder="No Excess / Extra Baggage" />
                 </div>
-              </Box>
-            </Grid>
-            <Grid item xs={6} md={4}></Grid>
-          </Grid>
-          <Grid container spacing={1}>
-            <Grid item xs={6} md={4}>
-              <Box p={17}>
-                <Typography color="#616161" fontSize="14px" fontWeight="bold">
-                  Meal Preferences:
-                </Typography>
-              </Box>
-            </Grid>
-            <Grid item xs={6} md={4}>
-              <Box py={17}>
-                <div className="form_input1">
-                  <label hotel_form_input className="form_lable">
-                    {data?.Origin}-{data?.Destination}
-                  </label>
-                  <input type="text" placeholder="Add No Meal Rs. - 0" />
-                </div>
-              </Box>
-            </Grid>
-            <Grid item xs={6} md={4}></Grid>
-          </Grid>
-
-          <Box className="mid_header1" m={15}>
+                {/* ); */}
+                {/* })} */}
+              </Box>}
             <Box
-              display="flex"
-              flexDirection="column"
-              alignItems="center"
-              justifyContent="center"
-              marginTop="10px"
+              // className="mid_header"
+              p={5}
+              mt={25}
             >
-              <Typography
-                color="#008FCC"
-                fontSize="16px"
-                fontWeight="bold"
-                textAlign="center"
+              <div
+                style={{
+                  color: "black",
+                  fontSize: 24,
+                  fontFamily: "Montserrat",
+                  fontWeight: "600",
+                  wordWrap: "break-word",
+                }}
               >
-                Fare Rule
-              </Typography>
-              <Typography
-                color="#707070"
-                fontSize="12px"
-                fontWeight="bold"
-                textAlign="center"
-              >
-                {data?.Origin}-{data?.Destination}
-              </Typography>
+                Baggage & Meal Services
+              </div>{" "}
             </Box>
-            <Box p={17}>
-              <Grid container spacing={1} mt={1}>
-                <Grid item xs={6} md={6}>
-                  <Box textAlign="center">
-                    <Typography
-                      color="#707070"
-                      fontSize="14px"
-                      fontWeight="bold"
-                      textAlign="left"
-                      mb={1}
-                    >
-                      Cancellation
-                    </Typography>
-                    <Typography
-                      color="#008FCC"
-                      fontSize="14px"
-                      fontWeight="bold"
-                      textAlign="left"
-                    >
-                      INR 3500 from 0 To 3 Days before dept
-                    </Typography>
-                    <Typography
-                      color="#008FCC"
-                      fontSize="14px"
-                      fontWeight="bold"
-                      textAlign="left"
-                    >
-                      INR 3000 from 4 Days & above before dept
-                    </Typography>
-                  </Box>
-                </Grid>
-                <Grid item xs={6} md={6}>
-                  <Box textAlign="center">
-                    <Typography
-                      color="#707070"
-                      fontSize="14px"
-                      fontWeight="bold"
-                      textAlign="left"
-                      mb={1}
-                    >
-                      Reissue
-                    </Typography>
-                    <Typography
-                      color="#008FCC"
-                      fontSize="14px"
-                      fontWeight="bold"
-                      textAlign="left"
-                    >
-                      INR 3250 from 0 To 3 Days before dept
-                    </Typography>
-                    <Typography
-                      color="#008FCC"
-                      fontSize="14px"
-                      fontWeight="bold"
-                      textAlign="left"
-                    >
-                      INR 2750 from 4 Days & above before dept
-                    </Typography>
-                  </Box>
-                </Grid>
-              </Grid>
-            </Box>
-            <Box py={5}>
-              <ul color="red">
-                <li
-                  style={{
-                    color: "#FF0000",
-                    fontSize: "14px",
-                    fontWeight: "bold",
-                  }}
-                >
-                  {" "}
-                  Mentioned Fee are per PAX and per sector
-                </li>
-                <li
-                  style={{
-                    color: "#FF0000",
-                    fontSize: "14px",
-                    fontWeight: "bold",
-                  }}
-                >
-                  {" "}
-                  Apart from airline charges, GST + RAF + applicable charges if
-                  any, will be charged
-                </li>
+          </form>
+        </div>
+
+
+        {/* passengerdetraifjdsfjdslkjfkldsjgkldsjfglksdjflk;dsjfkl */}
+        {/* passengerdetraifjdsfjdslkjfkldsjgkldsjfglksdjflk;dsjfkl */}
+
+        <div className="col-lg-12">
+          <div class="headingflightPassenger">
+            <p>Baggage Details</p>
+
+          </div>
+        </div>
+
+        <div className="col-lg-12">
+          {fareValue?.Segments?.map((data1, index) => {
+            const len = data1.length;
+            return (
+              <div className="BaggageSector">
+                <div>
+                  <p>Sector</p>
+                  <span>{data1[0]?.Origin?.Airport?.AirportCode}-
+                    {data1[len - 1]?.Destination?.Airport?.AirportCode}</span>
+                </div>
+                <div>
+                  <p>Cabin</p>
+                  <span>{data1[0]?.CabinBaggage ? data1[0]?.CabinBaggage : "7 Kg"}</span>
+                </div>
+                <div>
+                  <p>Check-In</p>
+                  <span>{data1[0]?.Baggage}</span>
+                </div>
+
+
+
+              </div>
+
+            );
+          })}
+
+          <div className="listBox">
+            <div>
+              <p>Select Excess Baggage
+                (Extra charge will be applicable):</p>
+              <ul>
+                <li>No Excess / Extra Baggage</li>
               </ul>
-            </Box>
-            {/* {fareQuoteData?.FareRules[0]?.map((value) => {
-              return ( */}
-            <Box px={17} py={5}>
-              <Grid container spacing={1} mt={1}>
-                <Grid item xs={6} md={6}>
-                  <Typography
-                    color="#707070"
-                    fontSize="14px"
-                    fontWeight="bold"
-                    textAlign="left"
-                    mb={1}
-                  >
-                    {fareQuoteData?.AirlineCode}:{data?.Origin}-
-                    {data?.Destination}
-                  </Typography>
-                  <Typography
-                    color="#707070"
-                    fontSize="14px"
-                    textAlign="left"
-                    mb={1}
-                  >
-                    The Fare Basis Code is:{" "}
-                    {fareQuoteData?.FareRules[0]?.FareBasisCode}
-                    <br />
-                    Meal: Chargeable
-                    <br />
-                    Seat: Chargeable
-                    {fareRule &&
-                      fareRule.length > 0 &&
-                      fareRule.map((dat) => {
-                        // console.log("Dat", dat);
-                        return (
-                          <Box my={2}>
-                            <Accordion
-                              style={{ width: "700px" }}
-                              defaultActiveKey={null}
-                            >
-                              <Accordion.Item>
-                                <Accordion.Header>
-                                  <p>Detailed Fare Rules</p>
-                                </Accordion.Header>
-                                <Accordion.Body>
-                                  <div
-                                    dangerouslySetInnerHTML={{
-                                      __html: dat?.FareRuleDetail,
-                                    }}
-                                  />
-                                </Accordion.Body>
-                              </Accordion.Item>
-                            </Accordion>
-                          </Box>
-                        );
-                      })}
-                  </Typography>
-                  {/* <Typography
-                    color="#008FCC "
-                    fontSize="14px"
-                    textAlign="left"
-                    fontWeight="bold"
-                  >
-                    {" "}
-                    Subject to change without prior notice.{" "}
-                  </Typography> */}
-                  {/* <Typography
-                    color="#008FCC "
-                    fontSize="14px"
-                    textAlign="left"
-                    fontWeight="bold"
-                  >
-                    {" "}
-                    Note : We should receive the request at least four hours
-                    prior to Airline Fare Rules Policy.{" "}
-                  </Typography> */}
-                </Grid>
-              </Grid>
-            </Box>
-            {/* ); })} */}
-          </Box>
-          {/* <Box className="mid_header1" py={5} px={17} m={15}>
-            <Box px={17}>
-              <Box display="flex" alignItems="center">
-                <input
-                  className="inputSelect"
-                  type="radio"
-                  // defaultChecked="checked"
-                />{" "}
-                <Typography
-                  color="#252525"
-                  fontWeight="bold"
-                  marginLeft="5px"
-                  fontSize="16px"
-                >
-                  No Assistance and Insurance Required
-                </Typography>
-              </Box>
-              <Box display="flex">
-                <input
-                  className="inputSelect"
-                  type="radio"
-                  // defaultChecked="checked"
-                />{" "}
-                <Typography
-                  color="#252525"
-                  fontWeight="bold"
-                  marginLeft="5px"
-                  fontSize="16px"
-                >
-                  Travel Assistance and Insurance for only Rs. 161.00 per
-                  Passenger (Terms & Conditions)
-                </Typography>
-              </Box>
-              <Box display="flex" mt={15}>
-                <Typography color="#252525" fontWeight="bold" fontSize="16px">
-                  Domestic Travel Assistance and Insurance is valid from 16 Feb
-                  2023 to 16 Feb 2023 from your date of journey or till your
-                  date of return, which ever is earlier. To know more on the
-                  coverage, please Click Here
-                </Typography>
-              </Box>
-            </Box>
-          </Box> */}
-          {/* <Box py={4}>
-            <ul color="red">
-              <li
-                style={{
-                  color: "#FF0000",
-                  fontSize: "14px",
-                  fontWeight: "bold",
-                }}
-              >
-                {" "}
-                Mentioned Fee are per PAX and per sector
-              </li>
-              <li
-                style={{
-                  color: "#FF0000",
-                  fontSize: "14px",
-                  fontWeight: "bold",
-                }}
-              >
-                {" "}
-                Apart from airline charges, GST + RAF + applicable charges if
-                any, will be charged
-              </li>
-            </ul>
-          </Box> */}
+            </div>
+            <div>
+              <p>Select Excess Baggage
+                (Extra charge will be applicable):</p>
+              <ul>
+                <li>Add No Meal Rs. 0</li>
+              </ul>
+            </div>
+          </div>
+        </div>
 
-          {/* <Box className="Top_header" py={5} my={15} mx={15}>
-            <Typography
-              color="#707070"
-              fontSize="14px"
-              fontWeight="bold"
-              textAlign="left"
-              mb={1}
-              px={4}
-              py={2}
-            >
-              Special Service
-            </Typography>
-          </Box> */}
+        <div className="col-lg-12 accor_dian">
+          {fareRule &&
+            fareRule.length > 0 &&
+            fareRule.map((dat) => {
+              return (
+                <Box my={2}>
+                  <Accordion
+                    defaultActiveKey={null}
+                  >
+                    <Accordion.Item>
+                      <Accordion.Header>
+                        <p>Detailed Fare Rules</p>
+                      </Accordion.Header>
+                      <Accordion.Body>
+                        <div className="htmlFare"
+                          dangerouslySetInnerHTML={{
+                            __html: dat?.FareRuleDetail,
+                          }}
+                        />
+                      </Accordion.Body>
+                    </Accordion.Item>
+                  </Accordion>
+                </Box>
+              );
+            })}
+        </div>
 
+
+        <div className="col-lg-12">
+          <div class="headingflightPassenger">
+            <p>Fare Rule</p>
+            <span>{data?.Origin}-{data?.Destination}</span>
+          </div>
+        </div>
+
+        <div className="col-lg-12">
+          <div className="fareRuleleft">
+            <div>
+              <div>
+                <p>Cancellation</p>
+                <span>INR 3500 from 0 To 3 Days before dept</span>
+                <span>INR 3000 from 4 Days & above before dept</span>
+              </div>
+              <div>
+                <p>Reissue</p>
+                <span>INR 3250 from 0 To 3 Days before dept</span>
+                <span>INR 2750 from 4 Days & above before dept</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+        <div className="col-lg-12 mt-5 mb-4 leftDetBut">
           <button
-            style={{
-              width: 200,
-              height: 63,
-
-              background: "#21325D",
-              borderRadius: 5.3,
-              justifyContent: "center",
-              alignItems: "center",
-
-              display: "inline-flex",
-              border: "1px solid #21325D",
-              color: "white",
-              cursor: "pointer",
-              marginTop: "10px",
-              marginLeft: "28px",
-            }}
             type="submit"
           >
             Proceed to Book
           </button>
-        </Box>
+        </div>
+
       </form>
     </div>
   );

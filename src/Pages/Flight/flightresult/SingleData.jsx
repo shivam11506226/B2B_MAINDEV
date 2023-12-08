@@ -25,8 +25,8 @@ function SingleData(props) {
   const reducerState = useSelector((state) => state);
   let statusRule = reducerState?.flightFare?.isLoadingRuleDone || false;
   let statusQuote = reducerState?.flightFare?.isLoadingQuoteDone || false;
-  console.log("isLoadingRuleDone", statusRule);
-  console.log("isLoadingQuoteDone", statusQuote);
+  // console.log("isLoadingRuleDone", statusRule);
+  // console.log("isLoadingQuoteDone", statusQuote);
   const flight = props.flight;
   const IsLCC = props.IsLCC;
   // console.log("flight single", flight);
@@ -46,36 +46,43 @@ function SingleData(props) {
   // console.log(fare);
   const img = flight?.Airline?.AirlineCode;
 
-  const time = `${Math.floor(flight?.Duration / 60)}hr ${
-    flight.Duration % 60
-  }min`;
-  const dateString = flight?.Origin?.DepTime;
-  const date1 = new Date(dateString);
-  const time1 = date1.toLocaleTimeString([], {
-    hour: "2-digit",
-    minute: "2-digit",
-  });
 
-  const day = date1.getDate();
-  const month = date1.toLocaleString("default", {
+  const duration = `${Math.floor(flight?.Duration / 60)}hr ${flight.Duration % 60
+    }min`;
+
+
+
+  const dateString = flight?.Origin?.DepTime;
+  const date = new Date(dateString);
+  const options = {
+    year: "numeric",
     month: "short",
-  });
-  const year = date1.getFullYear();
-  const formattedDate = `${day} ${month} ${year}`;
+    day: "numeric",
+    hour: "numeric",
+    minute: "numeric",
+    hour12: true,
+  };
+  const formattedDate = date.toLocaleString("en-US", options);
+
+  const [month, day, year, time, ampm] = formattedDate.split(" ");
+  const desiredFormat = `${day}${month}-${year} ${time} ${ampm}`;
 
   const dateString1 = flight?.Destination?.ArrTime;
-  const date2 = new Date(dateString1);
-  const time2 = date2.toLocaleTimeString([], {
-    hour: "2-digit",
-    minute: "2-digit",
-  });
-
-  const day1 = date2.getDate();
-  const month1 = date2.toLocaleString("default", {
+  const date1 = new Date(dateString1);
+  const options1 = {
+    year: "numeric",
     month: "short",
-  });
-  const year1 = date2.getFullYear();
-  const formattedDate1 = `${day1} ${month1} ${year1}`;
+    day: "numeric",
+    hour: "numeric",
+    minute: "numeric",
+    hour12: true,
+  };
+  const formattedDate1 = date1.toLocaleString("en-US", options1);
+  const [month1, day1, year1, time1, ampm1] =
+    formattedDate1.split(" ");
+  const desiredFormat1 = `${day1}${month1}-${year1} ${time1} ${ampm1}`;
+
+
 
   const handleClick = (ResultIndex) => {
     setLoader(true);
@@ -89,6 +96,9 @@ function SingleData(props) {
     dispatch(ruleAction(payload));
     dispatch(quoteAction(payload));
   };
+
+  // console.log("reducerrState", reducerState);
+
   useEffect(() => {
     if (statusQuote && statusRule) {
       if (
@@ -130,19 +140,23 @@ function SingleData(props) {
       </div>
       <div className="singleFlightBoxTwo">
         <span>{flight?.Origin?.Airport?.CityName}</span>
-        <p>{time1.substr(0, 5)}</p>
+        {/* <p>{time1.substr(0, 5)}</p> */}
+        <p>{desiredFormat.slice(0, 12)}</p>
+        <p style={{ fontSize: "14px" }}>{desiredFormat.slice(13)}</p>
       </div>
       <div className="singleFlightBoxThree">
-        <h4>{time}</h4>
-        <div>
-          <img src={flightdir} />
-        </div>
+
+        <h4>{duration}</h4>
+        <div><img src={flightdir} /></div>
+
         <p>Direct Flight</p>
         <span>{flight?.NoOfSeatAvailable} Seats Left</span>
       </div>
       <div className="singleFlightBoxFour">
         <span>{flight?.Destination?.Airport?.CityName}</span>
-        <p>{time2.substr(0, 5)}</p>
+        {/* <p>{time2.substr(0, 5)}</p> */}
+        <p>{desiredFormat1.slice(0, 12)}</p>
+        <p style={{ fontSize: "14px" }}>{desiredFormat1.slice(13)}</p>
       </div>
       <div className="singleFlightBoxFive">
         <span>₹{fare}</span>

@@ -72,6 +72,7 @@ import EditHolidayPackage from "../Pages/Dashboard/Component/Table/packageUpdate
 import Queue from "../Pages/Account/Queue";
 import MainBox from "../Layout/MainBox";
 import { useLocation, Navigate } from "react-router-dom";
+
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector, useReducer } from "react-redux";
 import { ipAction, tokenAction } from "../Redux/IP/actionIp";
@@ -84,7 +85,9 @@ import FlightReturnInternational from "../Pages/Flight/flightresult/Flightresult
 import Headers from "../Components/Headers";
 import InnerNavbar1 from "../Layout/InnerNavbar1";
 import LoadingSpinner from "./LoadingSpinner";
-
+import FlightResResult from "../Pages/Flight/flightresult/FlightresultReturn/FlightResResult";
+import FlightReturnReviewbooking from "../Pages/Flight/flightresult/FlightresultReturn/ReturnPassenger/FlightReturnReviewbooking";
+import FlightReturnBookingConfirmation from "../Pages/Flight/flightresult/FlightresultReturn/ReturnPassenger/FlightReturnBookingConfirmation";
 const MainPage = () => {
   const dispatch = useDispatch();
   const location = useLocation();
@@ -178,7 +181,8 @@ const MainPage = () => {
               <Route
                 exact
                 path="FlightresultReturn"
-                element={<FlightresultReturn />}
+                // element={<FlightresultReturn />}
+                element={<FlightResResult />}
               />
               <Route
                 exact
@@ -231,8 +235,18 @@ const MainPage = () => {
               />
               <Route
                 exact
+                path="/Flightresult/passengerdetail/flightReturnreviewbooking"
+                element={<FlightReturnReviewbooking />}
+              />
+              <Route
+                exact
                 path="/Flightbookingconfirmation"
                 element={<Flightbookingconfirmation />}
+              />
+              <Route
+                exact
+                path="//Flightreturnbookingconfirmation"
+                element={<FlightReturnBookingConfirmation />}
               />
 
               <Route

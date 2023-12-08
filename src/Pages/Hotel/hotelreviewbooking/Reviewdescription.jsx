@@ -73,9 +73,9 @@ const Flightdetail = () => {
     const allPassengerData = handleSettingPassengerArr(noOfRooms);
     // console.log("allPassengerData", allPassengerData);
     setPassengerData(allPassengerData);
-    console.log(passengerData, "passengerDataUseEffect");
+    // console.log(passengerData, "passengerDataUseEffect");
   }, []);
-  console.warn(passengerData, "passengerData")
+  // console.warn(passengerData, "passengerData")
 
   const handleSettingPassengerArr = (roomCombination) => {
     const passengerData = [];
@@ -210,14 +210,14 @@ const Flightdetail = () => {
   useEffect(() => {
     if (isLoad.length == 0) {
       setLoader(true);
-      console.log("truehai bhai")
+      // console.log("truehai bhai");
     }
   }, [isLoad]);
 
   useEffect(() => {
     if (isLoad.length >= 0) {
       setLoader(false);
-      console.log("truehai bhai")
+      // console.log("truehai bhai");
     }
   }, [isLoad]);
 
@@ -237,7 +237,7 @@ const Flightdetail = () => {
 
   const handleServiceChange = (e, roomIndex, knowIndex) => {
 
-    console.log(roomIndex, knowIndex, "roomIndex", "knowIndex");
+    // console.log(roomIndex, knowIndex, "roomIndex", "knowIndex");
     // console.log(passengerData);
 
     if (

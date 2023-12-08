@@ -23,7 +23,7 @@ const FixedDepartureControl = () => {
 
     fetchData();
   }, []);
-  console.log(data?.result?.docs, "data");
+  // console.log(data?.result?.docs, "data");
   const handleUpdate=(flightId,seat)=>{
     const payload = {
       _id: flightId,

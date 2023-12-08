@@ -23,10 +23,10 @@ const Queue = () => {
   // };
   return (
     <>
-      <div className="main-container">
-        <div className="header_queue">
+      <div className="container-fluid margin-pecentage">
+        {/* <div className="header_queue">
           <h5>Administration / Queues / Your Bookings</h5>
-        </div >
+        </div > */}
         <div className="main-search">
           <div className="heading">
             <h3>Your Bookings</h3>

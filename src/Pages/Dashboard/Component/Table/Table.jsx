@@ -292,9 +292,9 @@ export default function Tables() {
   const handleClose = () => setShow(false);
 
   const handleShow = (ele) => {
-    console.log("user Id", ele);
+    // console.log("user Id", ele);
     setUser_id(ele);
-    console.log(user_id);
+    // console.log(user_id);
     setShow(true);
   };
 

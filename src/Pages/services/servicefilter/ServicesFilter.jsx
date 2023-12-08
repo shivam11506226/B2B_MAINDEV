@@ -1,269 +1,210 @@
 import { Box, Grid, Typography, label, Input } from "@mui/material";
-import React from "react";
+import React, { useEffect, useState, useRef } from "react";
 import './servicefilter.css';
 import color from "../../../color/color"
+import Accordion from '@mui/material/Accordion';
+import AccordionSummary from '@mui/material/AccordionSummary';
+import AccordionDetails from '@mui/material/AccordionDetails';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import FilterAltIcon from '@mui/icons-material/FilterAlt';
+
+
+
+
 const ServicesFilter = () => {
+
+
+
+  const [expanded, setExpanded] = React.useState('panel1');
+
+  const handleChange = (panel) => (event, newExpanded) => {
+    setExpanded(newExpanded ? panel : false);
+  };
+
+  const accordionRef = useRef(null);
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth <= 991) {
+        setExpanded(false);
+      } else {
+        setExpanded('panel1');
+      }
+    };
+    window.addEventListener('resize', handleResize);
+    handleResize();
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
+
+
+
+
+
   return (
     <>
-      <Box
-        p={3}
-        backgroundColor="#FCFFFF"
-        boxShadow="1px 1px 8px gray"
-        borderRadius="10px"
-        alignItems="center"
-       
-        display="flex"
-        flexWrap="wrap"
-        className="filter-container"
-      >
-        <Box p={1}>
-          <Typography
-            sx={{
-              fontSize: "16px",
-              fontWeight: "bold",
-              color: "#252525",
-              borderBottom: "2px solid grey",
-            }}
-            textAlign="center"
+
+
+
+
+
+
+
+      <div className="packResFilterBox" >
+        <Accordion ref={accordionRef} expanded={expanded === 'panel1'} onChange={handleChange('panel1')}>
+          <AccordionSummary
+            expandIcon={<ExpandMoreIcon />}
+            aria-controls="panel1a-content"
+            id="panel1a-header"
+            style={{ width: '100%', border: "none" }}
           >
-            Filter
-          </Typography>
-        </Box>
+            <div style={{ width: "100%", display: "flex", justifyContent: "space-between" }}>
 
-        <Grid container alignItems="center">
-          <Grid md={7} sm={6}>
-            <Box display="flex" alignItems="center">
-              <Box px={1}>
-                <Typography color="#666666" fontSize="15px" fontWeight="bold">
-                  Status
-                </Typography>
-              </Box>
-            </Box>
-          </Grid>
-          <Grid md={5} sm={6} display="flex">
-            <Box display="flex" justifyContent="right" width="100%">
-              <Box display="block" alignItems="right" textAlign="end">
-                <Typography
-                  display="flex"
-                  sx={{color:color.bluedark}}
-                  fontSize="15px"
-                  fontWeight="bold"
-                >
-                  (Select/ Unselect)
-                </Typography>
-              </Box>
-            </Box>
-          </Grid>
-        </Grid>
+              <Typography style={{
+                fontFamily: 'Montserrat',
+                fontSize: '12px',
+                fontWeight: '400',
+                textAlign: 'center'
 
+              }} ><FilterAltIcon style={{ fontWeight: "600", fontFamily: "Montserrat", fontSize: '14px' }} /> Filter</Typography>
 
-        <div style={{ display: 'flex', width: '95%',  marginLeft: '10px', height: '50px', gap: '10px' }}>
-          <Box className="input" display='flex' alignItems='center' >
-            <input type="checkbox"  style={{ width: '20px', height: '20px' }} />
-            <Typography ml={2} color="#252525" fontSize="15px" fontWeight="bold">Open</Typography>
-          </Box>
-          <Box className="input" display='flex' alignItems='center'>
-            <input type="checkbox"  style={{ width: '20px', height: '20px' }} />
-            <Typography ml={2} color="#252525" fontSize="15px" fontWeight="bold">In Progress</Typography>
-          </Box>
-          <Box className="input" display='flex' alignItems='center'>
-            <input type="checkbox" style={{ width: '20px', height: '20px' }} />
-            <Typography ml={2} color="#252525" fontSize="15px" fontWeight="bold">Hold</Typography>
-          </Box>
-        </div>
+            </div>
+          </AccordionSummary>
+          <div style={{ color: '#0048FF', textDecoration: 'underline', textAlign: "right", paddingRight: "15px" }} >
 
+          </div>
+          <AccordionDetails>
+            <div className="cheapestFilter">
+              <p>Type</p>
+              <div className="serviceFilterOne">
+                <div>
+                  <input type="checkbox" id="Open" name="Open" value="Open" />
+                  <label>Open</label>
+                </div>
+                <div>
+                  <input type="checkbox" id="Progress" name="Progress" value="Progress" />
+                  <label > In Progress</label>
+                </div>
+                <div>
+                  <input type="checkbox" id="Hold" name="Hold" value="Hold" />
+                  <label > Hold</label>
+                </div>
+                <div>
+                  <input type="checkbox" id="Hold" name="Hold" value="Hold" />
+                  <label > Closed</label>
+                </div>
+                <div>
+                  <input type="checkbox" id="Hold" name="Hold" value="Hold" />
+                  <label > Rejected</label>
+                </div>
+                <div>
+                  <input type="checkbox" id="Hold" name="Hold" value="Hold" />
+                  <label > Re Open</label>
+                </div>
+              </div>
+            </div>
 
+            <div className="demographicFilter">
+              <p>Demographic Type</p>
+              <div className="demographicButton">
+                <div>
+                  <button>Non Set</button>
+                </div>
+                <div>
+                  <button>Domestic</button>
+                </div>
+                <div>
+                  <button>International</button>
+                </div>
+              </div>
+            </div>
 
-        <div style={{ display: 'flex', width: '95%',  marginLeft: '10px', height: '50px', gap: '10px' }}>
-          <Box className="input" display='flex' alignItems='center'>
-            <input type="checkbox" style={{ width: '20px', height: '20px' }} />
-            <Typography ml={2} color="#252525" fontSize="15px" fontWeight="bold">Closed</Typography>
-          </Box>
-          <Box className="input" display='flex' alignItems='center'>
-            <input type="checkbox" style={{ width: '20px', height: '20px' }} />
-            <Typography ml={2} color="#252525" fontSize="15px" fontWeight="bold">Rejected</Typography>
-          </Box>
-          <Box className="input" display='flex' alignItems='center'  >
-            <input type="checkbox" style={{ width: '20px', height: '20px' }} />
-            <Typography ml={2} color="#252525" fontSize="15px" fontWeight="bold">Re Open</Typography>
-          </Box>
-        </div>
+            <div className="fareFilter mt-3">
+              <p>Restrict By Category</p>
+              <div>
+                <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike" />
+                <label > Amendment Request</label>
+              </div>
+              <div>
+                <input type="checkbox" id="vehicle2" name="vehicle2" value="Car" />
+                <label >BeddingTypeIssue</label>
+              </div>
+              <div>
+                <input type="checkbox" id="vehicle2" name="vehicle2" value="Car" />
+                <label >BeddingTypeIssue</label>
+              </div>
+              <div>
+                <input type="checkbox" id="vehicle2" name="vehicle2" value="Car" />
+                <label >Booking Cancelled at Hotel End</label>
+              </div>
+              <div>
+                <input type="checkbox" id="vehicle2" name="vehicle2" value="Car" />
+                <label >Book-out</label>
+              </div>
+              <div>
+                <input type="checkbox" id="vehicle2" name="vehicle2" value="Car" />
+                <label >Domestic Package</label>
+              </div>
+              <div>
+                <input type="checkbox" id="vehicle2" name="vehicle2" value="Car" />
+                <label >
+                  Hotel Refund</label>
+              </div>
+              <div>
+                <input type="checkbox" id="vehicle2" name="vehicle2" value="Car" />
+                <label >Hotel Cancellation/Amendment</label>
+              </div>
+            </div>
 
+            <div className="airlinesFilter">
+              <p>Restrict By Request Id</p>
+              <div>
+                <input className="input_date" type="text" style={{ border: '2px solid grey', marginLeft: '10px' }} />
+              </div>
 
-
-
-
-
-        {/* ------------------------------------------- */}
-
-        <Box p={1}>
-        <Typography color="#666666" fontSize="15px" fontWeight="bold">
-            
-            Demographic Type
-          </Typography>
-        </Box>
-        <Box display="flex" justifyContent='space-around' style={{ marginLeft: '8px',gap:'10px' }}>
-          <button className="click" style={{backgroundColor:color.bluedark}}>Non Set</button>
-          <button className="click" style={{backgroundColor:color.bluedark}}>Domestic</button>
-          <button className="click" style={{backgroundColor:color.bluedark}}>International</button>
-
-        </Box>
-
-        {/* ----------------------------------------------------------- */}
-        <Grid container alignItems="center" style={{marginTop:'10px'}}>
-          <Grid md={7} sm={6}>
-            <Box display="flex" alignItems="center">
-              <Box px={1}>
-                <Typography color="#666666" fontSize="15px" fontWeight="bold">
-                  Restrict By Category
-                </Typography>
-              </Box>
-            </Box>
-          </Grid>
-          <Grid md={5} sm={6} display="flex">
-            <Box display="flex" justifyContent="right" width="100%">
-              <Box display="block" alignItems="right" textAlign="end">
-                <Typography
-                  display="flex"
-                  sx={{color:color.bluedark}}
-                  fontSize="15px"
-                  fontWeight="bold"
-                >
-                  (Select/ Unselect)
-                </Typography>
-              </Box>
-            </Box>
-          </Grid>
-        </Grid>
-
-
-        <div style={{  marginLeft: '10px', marginBottom: '10px',width:'70%' }}>
-          <Box className="input" display='flex' alignItems='center' >
-            <input type="checkbox" style={{ width: '20px', height: '20px' }} />
-            <Typography ml={2} color="#252525" fontSize="15px" fontWeight="bold">Amendment Request</Typography>
-          </Box>
-          <Box className="input" display='flex' alignItems='center'>
-            <input type="checkbox" style={{ width: '20px', height: '20px' }} />
-            <Typography ml={2} color="#252525" fontSize="15px" fontWeight="bold">BeddingTypeIssue</Typography>
-          </Box>
-           <Box className="input" display='flex' alignItems='center'>
-            <input type="checkbox" style={{ width: '20px', height: '20px' }} />
-            <Typography ml={2} color="#252525" fontSize="15px" fontWeight="bold">BeddingTypeIssue</Typography>
-          </Box>
-          <Box className="input" display='flex' alignItems='center'>
-            <input type="checkbox" style={{ width: '20px', height: '20px' }} />
-            <Typography ml={2} color="#252525" fontSize="15px" fontWeight="bold">Booking Cancelled at Hotel End</Typography>
-          </Box>
-          <Box className="input" display='flex' alignItems='center'>
-            <input type="checkbox" style={{ width: '20px', height: '20px' }} />
-            <Typography ml={2} color="#252525" fontSize="15px" fontWeight="bold">Book-out</Typography>
-          </Box>
-          <Box className="input" display='flex' alignItems='center'>
-            <input type="checkbox" style={{ width: '20px', height: '20px' }} />
-            <Typography ml={2} color="#252525" fontSize="15px" fontWeight="bold">Domestic Package</Typography>
-          </Box>
-          <Box className="input" display='flex' alignItems='center'>
-            <input type="checkbox" style={{ width: '20px', height: '20px' }} />
-            <Typography ml={2} color="#252525" fontSize="15px" fontWeight="bold">Hotel Refund</Typography>
-          </Box>
-          <Box className="input" display='flex' alignItems='center'  >
-            <input type="checkbox" style={{ width: '20px', height: '20px' }} />
-            <Typography ml={2} color="#252525" fontSize="15px" fontWeight="bold">Hotel Cancellation/Amendment</Typography>
-          </Box>
-        </div>
-
-
-        <Grid container alignItems="center">
-          <Box  alignItems="center" gap="20px">
-            <Box px={1}>
-              <Typography color="#666666" fontSize="15px" fontWeight="bold">
-                Restrict By Request Id
-              </Typography>
-            </Box>
-            <Box mt={1}>
-              <input className="input_date" type="text" style={{border:'2px solid grey',marginLeft:'10px'}} />
-            </Box>
-          </Box>
-        </Grid>
-
-        <Grid container alignItems="center" mt={2}>
-          <Box display="flex" alignItems="center">
-            <Box px={1}>
-            <Typography color="#666666" fontSize="15px" fontWeight="bold">
-                Restrict By Request Date
-              </Typography>
-            </Box>
-          </Box>
-        </Grid>
+            </div>
 
 
 
-        <div style={{display:'flex',gap:'10px'}}>
-        <Box>
-          <Typography mt={1} fontSize="12px" fontWeight='bold' color="#252525" ml={2}>
-            From:
-          </Typography>
-          <input mt={1} className="input_date" type="date" style={{border:'2px solid grey',marginLeft:'10px'}}/>
-        </Box>
-        <Box>
-          <Typography mt={1} fontSize="12px" fontWeight='bold' color="#252525" ml={2}>
-            To:
-          </Typography>
-          <input mt={1} className="input_date" type="date" style={{border:'2px solid grey',marginLeft:'10px'}}/>
-        </Box>
-        </div>
+            <div className="Request ">
+              <p>Restrict By Request Date</p>
+              <div>
+                <label htmlFor="">From</label>
+                <input className="input_date" type="text" style={{ border: '2px solid grey', }} />
+              </div>
+              <div>
+                <label htmlFor="">To</label>
+                <input mt={1} className="input_date" type="date" style={{ border: '2px solid grey', }} />
+              </div>
+
+            </div>
+
+            <div className="Request mt-4">
+              <p>Restrict By Reminder Date</p>
+              <div>
+                <label htmlFor="">From</label>
+                <input className="input_date" type="text" style={{ border: '2px solid grey', }} />
+              </div>
+              <div>
+                <label htmlFor="">To</label>
+                <input mt={1} className="input_date" type="date" style={{ border: '2px solid grey', }} />
+              </div>
+
+            </div>
+
+            <div className="serviceButtonBox">
+              <button>Apply</button>
+              <button>Reset</button>
+            </div>
+
+          </AccordionDetails>
+        </Accordion>
+
+      </div>
 
 
 
-
-
-        <Grid container alignItems="center" mt={2}>
-          <Box display="flex" alignItems="center">
-            <Box px={1}>
-            <Typography color="#666666" fontSize="15px" fontWeight="bold">
-                Restrict By Reminder Date
-              </Typography>
-            </Box>
-          </Box>
-        </Grid>
-
-
-        <div style={{display:'flex',gap:'10px',marginBottom:'20px'}}> 
-        <Box>
-          <Typography mt={1} fontSize="12px" fontWeight='bold' color="#252525" ml={2}>
-            From:
-          </Typography>
-          <input className="input_date" type="date" style={{border:'2px solid grey',marginLeft:'10px'}}/>
-        </Box>
-        <Box>
-          <Typography mt={1} fontSize="12px" fontWeight='bold' color="#252525" ml={2}>
-            To:
-          </Typography>
-          <input className="input_date" type="date" style={{border:'2px solid grey',marginLeft:'10px'}}/>
-        </Box>
-        </div>
-       
-
-
-
-        <div > 
-        <Box  style={{display:'flex',gap:'10px',marginLeft:'10px',width:'100%'}}>
-          <form action="/">
-            <button className="click" type="submit"   style={{backgroundColor:color.bluedark}}>Apply</button>
-          </form>
-
-          <form action="/services">
-            <button className="click" type="submit"   style={{backgroundColor:color.bluedark}}>Reset</button>
-          </form>
-        </Box>
-        </div>
-        
-
-
-
-
-
-      </Box>
     </>
   );
 };

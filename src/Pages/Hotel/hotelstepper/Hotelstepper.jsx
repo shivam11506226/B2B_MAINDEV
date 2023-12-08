@@ -11,7 +11,7 @@ const Hotelstepper = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const reducerState = useSelector((state) => state);
-  console.log("State Data", reducerState?.hotelSearchResult);
+  // console.log("State Data", reducerState?.hotelSearchResult);
 
   return (
     <div className="container-fluid margin-pecentage" >

@@ -69,11 +69,11 @@ const Busdetail = () => {
   const reducerState = useSelector((state) => state);
   const busFullData =
     reducerState?.getBusResult?.busResult?.data?.data?.BusSearchResult;
-  console.log(busFullData);
+  // console.log(busFullData);
   const busDataResult =
     reducerState?.getBusResult?.busResult?.data?.data?.BusSearchResult
       ?.BusResults;
-  console.log("bus res", busDataResult);
+  // console.log("bus res", busDataResult);
 
 
 
