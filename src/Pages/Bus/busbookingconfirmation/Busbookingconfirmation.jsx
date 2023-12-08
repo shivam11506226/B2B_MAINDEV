@@ -41,6 +41,8 @@ const Busbookingconfirmation = () => {
   const [loader, setLoader] = useState(false);
   const [userData, setUserData] = useState(null);
   const navigate = useNavigate();
+  const markUpamount =
+    reducerState?.userData?.userData?.data?.data?.markup?.bus;
 
   // console.log("dispatchhhhhhh", dispatch);
   const reducerState = useSelector((state) => state);
@@ -94,7 +96,9 @@ const Busbookingconfirmation = () => {
     // busBookSave()
     dispatch(busBookDetailsAction(payload));
   };
-
+ console.log(
+   reducerState?.getBusResult?.busDetails?.data?.data?.GetBookingDetailResult
+ ,"testing");
   const busBookSave = () => {
     const getDetails =
       reducerState?.getBusResult?.busDetails?.data?.data?.GetBookingDetailResult
@@ -105,18 +109,36 @@ const Busbookingconfirmation = () => {
 
     const payloadSavedata = {
       userId: reducerState?.logIn?.loginData?.data?.data?.id,
-      name: getDetails?.Passenger[0]?.FirstName,
-      phone: getDetails?.Passenger[0]?.Phoneno,
-      email: getDetails?.Passenger[0]?.Email,
-      address: getDetails?.Passenger[0]?.Address,
       destination: getDetails?.Destination,
       origin: getDetails?.Origin,
-      dateOfJourney: getDetails?.DateOfJourney,
+      departureTime: getDetails?.DepartureTime,
+      arrivalTime: getDetails?.ArrivalTime,
+      travelName: getDetails?.TravelName,
+
       busType: getDetails?.BusType,
       pnr: getDetails?.TicketNo,
       busId: getDetails?.BusId,
       noOfSeats: getDetails?.NoOfSeats,
-      amount: totalAmount,
+      amount: totalAmount + markUpamount,
+      passenger: getDetails?.Passenger.map((item, index) => {
+        return {
+          title: item?.Title,
+          firstName: item?.FirstName,
+          lastName: item?.LastName,
+          Email: item?.Email,
+          Phone: item?.Phoneno,
+          Address: item?.Address,
+          seatNumber: item?.Seat?.SeatName,
+          Price: item?.Seat?.Price?.PublishedPrice,
+        };
+      }),
+      BoardingPoint: {
+        Location: getDetails?.BoardingPointdetails?.CityPointLocation,
+        Landmark: getDetails?.BoardingPointdetails?.CityPointLandmark,
+        Address: getDetails?.BoardingPointdetails?.CityPointAddress,
+        Contactnumber: getDetails?.BoardingPointdetails?.CityPointContactNumber,
+      },
+      CancelPolicy: getDetails?.CancelPolicy,
     };
     userApi.busBookingDataSave(payloadSavedata);
   };
