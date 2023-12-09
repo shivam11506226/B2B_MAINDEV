@@ -105,7 +105,8 @@ function SingleData(props) {
         reducerState?.flightFare?.flightQuoteData?.Error?.ErrorCode == 0 &&
         reducerState?.flightFare?.flightRuleData?.Error?.ErrorCode == 0
       ) {
-        navigate("/flightresult/passengerdetail");
+        // navigate("/Flightresult/passengerdetail");
+        navigate("/passengerdetail");
 
       
         dispatch(setLoading("hjbb"));
@@ -120,6 +121,21 @@ function SingleData(props) {
           title: "Hii Encountered an Error",
           text: `${reducerState?.flightFare?.flightQuoteData?.Error?.ErrorMessage}`,
           icon: "question",
+          timer:5000,
+          showClass: {
+            popup: `
+              animate__animated
+              animate__fadeInUp
+              animate__faster
+            `
+          },
+          hideClass: {
+            popup: `
+              animate__animated
+              animate__fadeOutDown
+              animate__faster
+            `
+          }
         });
         navigate("/flights")
       }

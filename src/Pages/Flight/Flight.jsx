@@ -143,6 +143,21 @@ const Flight = () => {
         title: "Hii Encountered Error Flight",
         text: `${error}`,
         icon: "question",
+        timer:5000,
+        showClass: {
+          popup: `
+            animate__animated
+            animate__fadeInUp
+            animate__faster
+          `
+        },
+        hideClass: {
+          popup: `
+            animate__animated
+            animate__fadeOutDown
+            animate__faster
+          `
+        }
       });
     }
   }, [reducerState?.oneWay?.oneWayData?.data?.data?.Response]);
