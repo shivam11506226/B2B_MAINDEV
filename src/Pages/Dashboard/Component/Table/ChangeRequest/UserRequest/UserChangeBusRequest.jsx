@@ -2,12 +2,12 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Table, TableBody, TableCell, TableRow, Paper,TextField,InputAdornment,TableHead } from '@mui/material';
-import '../HotelBookings/HotelBookings.css';
+// import '../HotelBookings/HotelBookings.css';
 import SearchIcon from '@mui/icons-material/Search';
-import { apiURL } from '../../../../../Constants/constant';
+import { apiURL } from '../../../../../../Constants/constant';
 
 
-const AllBusCancelTickets = () => {
+const AllBusChangeTickets = () => {
     const [hotelBookings, setHotelBookings] = useState([]);
     const [loading, setLoading] = useState(true);
     const pageSize = 10;
@@ -20,7 +20,7 @@ const AllBusCancelTickets = () => {
         try {
           setLoading(true); // Set loading to true when fetching data
           const response = await axios.get(
-            `${apiURL.baseURL}/skytrails/api/agent/getCancelBusBooking`,
+            `${apiURL.baseURL}/skyTrails/api/admin/getchangeBusRequestAgent`,
             {
               params: {
                 page: currentPage,
@@ -52,7 +52,7 @@ const AllBusCancelTickets = () => {
   
     return (
       <div className='hotel-container'>
-      <h3>AGENT HOTELTICKET CANCEL REQUEST</h3>
+      <h3>AGENT BUSTICKET CHANGE REQUEST</h3>
         <TextField
           type="text"
           value={searchTerm}
@@ -91,18 +91,18 @@ const AllBusCancelTickets = () => {
               <TableBody>
                 {hotelBookings.map((booking) => (
                   <TableRow key={booking._id}>
-                    <TableCell>{booking.busId}</TableCell>
+                    <TableCell>{booking.busDetails.busId}</TableCell>
                     <TableCell>{booking.userDetails.agency_details.agency_name}</TableCell>
                     <TableCell>{`${booking.userDetails.personal_details.first_name} ${booking.userDetails.personal_details.last_name}`}</TableCell>
                     <TableCell>{booking.userDetails.personal_details.mobile.mobile_number}</TableCell>
                     <TableCell>{booking.userDetails.personal_details.email}</TableCell>
                     <TableCell>{booking.reason}</TableCell>
-                    <TableCell>{booking.bustDetails.pnr}</TableCell>
-                    <TableCell>{booking.bustDetails.amount}</TableCell>
-                    <TableCell>{booking.bustDetails.origin}</TableCell>
-                    <TableCell>{booking.bustDetails.destination}</TableCell>
-                    <TableCell>{booking.bustDetails.dateOfJourney}</TableCell>
-                    <TableCell>{booking.bustDetails.busType}</TableCell>
+                    <TableCell>{booking.busDetails.pnr}</TableCell>
+                    <TableCell>{booking.busDetails.amount}</TableCell>
+                    <TableCell>{booking.busDetails.origin}</TableCell>
+                    <TableCell>{booking.busDetails.destination}</TableCell>
+                    <TableCell>{booking.busDetails.dateOfJourney}</TableCell>
+                    <TableCell>{booking.busDetails.busType}</TableCell>
                     <TableCell><button>APPROVE</button></TableCell>
                   </TableRow>
                 ))}
@@ -121,4 +121,4 @@ const AllBusCancelTickets = () => {
     );
   };
   
-  export default AllBusCancelTickets;
+  export default AllBusChangeTickets;

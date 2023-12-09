@@ -32,7 +32,6 @@ import HolidayconfirmationDetail from "../Pages/holidayPackage/holidaybookingcon
 import Assistanceinssurance from "../Pages/assistance&inssurance/Assistanceinssurance";
 import Sightseeing from "../Pages/sightseeing/Sightseeing";
 import BusResult from "../Pages/Bus/BusResult/BusResult";
-
 import BusPassengerDetail from "../Pages/Bus/busPassengerDetail/BusPassengerDetail";
 import BusReviewBooking from "../Pages/Bus/busreviewbooking/BusReviewBooking";
 import Busbookingconfirmation from "../Pages/Bus/busbookingconfirmation/Busbookingconfirmation";
@@ -88,6 +87,8 @@ import LoadingSpinner from "./LoadingSpinner";
 import FlightResResult from "../Pages/Flight/flightresult/FlightresultReturn/FlightResResult";
 import FlightReturnReviewbooking from "../Pages/Flight/flightresult/FlightresultReturn/ReturnPassenger/FlightReturnReviewbooking";
 import FlightReturnBookingConfirmation from "../Pages/Flight/flightresult/FlightresultReturn/ReturnPassenger/FlightReturnBookingConfirmation";
+import CreateSubAdminPage from "../Pages/Dashboard/Component/Table/AddSubadmin";
+import SubAdminLoginPage from "../Pages/subAdmin/SubAdminSignIn"; // Import SubAdminLoginPage
 const MainPage = () => {
   const dispatch = useDispatch();
   const location = useLocation();
@@ -96,13 +97,16 @@ const MainPage = () => {
   const isRegisterRoute = location.pathname === "/Registration";
   const isLogin = location.pathname === "/adminLogin";
   const isDashboard = location.pathname === "/admin/dashboard";
+  const isSubAdminLogin = location.pathname === "/subAdminLogin";
+  const isSubAdmindashboard = location.pathname === "/subAdmin/dashboard";
   const navigate = useNavigate();
 
   useEffect(() => {
     if (
       !reducerState?.logIn?.loginData?.data &&
       location.pathname !== "/Registration" &&
-      location.pathname !== "/adminLogin"
+      location.pathname !== "/adminLogin" &&
+      location.pathname !== "/subAdminLogin"
     ) {
       navigate("/Login");
     } else if (location.pathname === "/admin/dashboard") {
@@ -110,6 +114,12 @@ const MainPage = () => {
         navigate("/admin/dashboard");
       } else {
         navigate("/adminLogin");
+      }
+    } else if (location.pathname === "/subAdmin/dashboard") {
+      if (!reducerState?.adminAuth?.adminData?.data) {
+        navigate("/subAdmin/dashboard");
+      } else {
+        navigate("/subAdminLogin");
       }
     }
   }, []);
@@ -124,7 +134,6 @@ const MainPage = () => {
     };
     dispatch(tokenAction(payload));
   }, [reducerState?.ip?.ipData]);
-
 
   const [isLoading, setIsLoading] = useState(true);
 
@@ -148,267 +157,289 @@ const MainPage = () => {
       </div> */}
 
       {/* <Headers/> */}
-      {location.pathname === "/Login" || location.pathname === "/Registration" ? null : <Headers />}
-      {location.pathname === "/" || location.pathname === "/Login" || location.pathname === "/Registration" ? null : <InnerNavbar />}
+      {location.pathname === "/Login" || location.pathname === "/Registration"? null :<Headers />}
+      {location.pathname === "/" || location.pathname === "/Login" || location.pathname === "/Registration"? null :<InnerNavbar />}
+
+      {!isLoginRoute && !isRegisterRoute &&
+        !isDashboard &&
+        !isLogin &&
+        !isSubAdmindashboard &&
+        !isSubAdminLogin && (
+          <div className="mainBox">
+            {/* header of main dashboard */}
+
+            {/* all routes of inner navbar */}
+            <div className="componentsContainer">
+              <Routes>
+                <Route
+                  element={<Active />}
+                  style={{ color: "inherit", textDecoration: "inherit" }}
+                />
+                <Route
+                  path="/"
+                  element={<MainBox />}
+                  style={{ color: "inherit", textDecoration: "inherit" }}
+                />
+                <Route
+                  path="/Hotel"
+                  element={<Hotel />}
+                  style={{ color: "inherit", textDecoration: "inherit" }}
+                />
+                <Route exact path="flightresult" element={<Flightresult />} />
+
+                <Route
+                  exact
+                  path="FlightresultReturn"
+                  // element={<FlightresultReturn />}
+                  element={<FlightResResult />}
+                />
+                <Route
+                  exact
+                  path="FlightResultInternational"
+                  element={<FlightReturnInternational />}
+                />
+                <Route
+                  exact
+                  path="/hotel/hotelsearch"
+                  element={<HotelSearch />}
+                />
+                <Route
+                  exact
+                  path="/Flightresult/booknow"
+                  element={<Booknow />}
+                />
+                <Route path="/flights/*" element={<Flight />}>
+                  <Route exact path="oneway" element={<OneWay />} />
+                  <Route exact path="offShare" element={<OffShare />} />
+                  <Route exact path="multiStop" element={<MultiStop />} />
+                  <Route exact path="calenderfare" element={<Calander />} />
+                  <Route exact path="return" element={<Return />} />
+                </Route>
+
+                {/* <Route path="/" element={<Banner />} /> */}
+
+                {/* <Route path="/" element={<Slider />} /> */}
+
+                <Route
+                  exact
+                  path="/hotel/hotelsearch/HotelBooknow"
+                  element={<HotelBooknow />}
+                />
+                <Route exact path="/Guestdetail" element={<Guestdetail />} />
+                <Route
+                  exact
+                  path="/hotel/hotelsearch/HotelBooknow/Reviewbooking"
+                  element={<Reviewbooking />}
+                />
+                <Route
+                  exact
+                  path="/passengerdetail"
+                  element={<Passengerdetail />}
+                />
+                <Route
+                  exact
+                  path="/FlightresultReturn/Passengerdetail"
+                  element={<ReturnPassenger />}
+                />
+                <Route
+                  exact
+                  path="/Flightresult/passengerdetail/flightreviewbooking"
+                  element={<FlightReviewbooking />}
+                />
+                <Route
+                  exact
+                  path="/Flightresult/passengerdetail/flightReturnreviewbooking"
+                  element={<FlightReturnReviewbooking />}
+                />
+                <Route
+                  exact
+                  path="/Flightbookingconfirmation"
+                  element={<Flightbookingconfirmation />}
+                />
+                <Route
+                  exact
+                  path="//Flightreturnbookingconfirmation"
+                  element={<FlightReturnBookingConfirmation />}
+                />
+
+                <Route
+                  exact
+                  path="/holidaypackage"
+                  element={<HolidayPackage />}
+                />
+                <Route
+                  exact
+                  path="/holidaypackage/HolidaypackageResult"
+                  element={<HolidayPackageResult />}
+                />
+                <Route
+                  exact
+                  path="/holidaypackage/HolidaypackageResult/HolidayPackage"
+                  element={<HolidayPackage />}
+                />
+                <Route
+                  exact
+                  path="/holidaypackage/Holidaybooknow"
+                  element={<Holidaybooknow />}
+                />
 
 
+                <Route
+                  exact
+                  path="/HolidayGuestDetail"
+                  element={<HolidayGuestDetail />}
+                />
+                <Route
+                  exact
+                  path="/Holidayreviewbooking"
+                  element={<Holidayreviewbooking />}
+                />
+                <Route
+                  exact
+                  path="/Reviewbooling"
+                  element={<HotelbookingConfirmation />}
+                />
+                <Route
+                  exact
+                  path="/HolidayconfirmationDetail"
+                  element={<HolidayconfirmationDetail />}
+                />
+                <Route exact path="/Bus" element={<Bus />} />
+                <Route
+                  exact
+                  path="/assistance&inssurance"
+                  element={<Assistanceinssurance />}
+                />
+                <Route exact path="/sightseeing" element={<Sightseeing />} />
+                <Route exact path="/BusResult" element={<BusResult />} />
+                <Route
+                  exact
+                  path="/BusPassengerDetail"
+                  element={<BusPassengerDetail />}
+                />
+                <Route
+                  exact
+                  path="/BusReviewBooking"
+                  element={<BusReviewBooking />}
+                />
+                <Route
+                  exact
+                  path="/Busbookingconfirmation"
+                  element={<Busbookingconfirmation />}
+                />
+                <Route
+                  exact
+                  path="/SightseeingResult"
+                  element={<SightseeingResult />}
+                />
+                <Route
+                  exact
+                  path="/SightseeingGuestDetail"
+                  element={<SightseeingGuestDetail />}
+                />
+                <Route
+                  exact
+                  path="/SightseeingReviewBooking"
+                  element={<SightseeingReviewBooking />}
+                />
+                <Route
+                  exact
+                  path="/SightseeingBookingConfirmation"
+                  element={<SightseeingBookingConfirmation />}
+                />
+                <Route exact path="Transfer" element={<Transfer />} />
+                <Route
+                  exact
+                  path="TransferResult"
+                  element={<TransferResult />}
+                />
+                <Route
+                  exact
+                  path="TansferGuestDetail"
+                  element={<TansferGuestDetail />}
+                />
+                <Route
+                  exact
+                  path="TransferReviewBooking"
+                  element={<TransferReviewBooking />}
+                />
+                <Route
+                  exact
+                  path="TransferConfirmation"
+                  element={<TransferConfirmation />}
+                />
+                <Route exact path="/Forex" element={<Forex />} />
+                <Route
+                  exact
+                  path="/InsuranceSearchCriteria"
+                  element={<InsuranceSearchCriteria />}
+                />
+                <Route
+                  exact
+                  path="/InsuranceResult"
+                  element={<InsuranceResult />}
+                />
+                <Route
+                  exact
+                  path="/InsuranceGuestDetails"
+                  element={<InsuranceGuestDetails />}
+                />
+                <Route
+                  exact
+                  path="/InsuranceReviewBooking"
+                  element={<InsuranceReviewBooking />}
+                />
+                <Route
+                  exact
+                  path="/InsuranceBookingConfirmation"
+                  element={<InsuranceBookingConfirmation />}
+                />
+                <Route exact path="/admin" element={<Admin />} />
+                <Route
+                  exact
+                  path="/addSubAdmin"
+                  element={<CreateSubAdminPage />}
+                />
+                <Route
+                  exact
+                  path="/AdminUserForm"
+                  element={<AdminUserForm />}
+                />
+                <Route
+                  exact
+                  path="/Administration"
+                  element={<Administration />}
+                />
+                <Route exact path="/accounts" element={<Account />} />
+                <Route
+                  exact
+                  path="/AccountDetails"
+                  element={<AccountDetails />}
+                />
+                <Route exact path="/reports" element={<Reports />} />
+                <Route exact path="/services" element={<Services />} />
+                <Route exact path="/gst" element={<GSTform />} />
+                <Route exact path="/visa" element={<Visaform />} />
+                <Route
+                  exact
+                  path="/CreateHolidayPackage"
+                  element={<CreateHolidayPackage />}
+                ></Route>
+                <Route
+                  exact
+                  path="/EditHolidayPackage"
+                  element={<EditHolidayPackage />}
+                ></Route>
+                <Route exact path="/Queue" element={<Queue />}></Route>
+              </Routes>
+            </div>
 
-      {!isLoginRoute && !isRegisterRoute && !isDashboard && !isLogin && (
-        <div className="mainBox"  >
-          {/* header of main dashboard */}
 
-
-          {/* all routes of inner navbar */}
-          <div className="componentsContainer">
-            <Routes>
-
-              <Route
-                element={<Active />}
-                style={{ color: "inherit", textDecoration: "inherit" }}
-              />
-              <Route
-                path="/"
-                element={<MainBox />}
-                style={{ color: "inherit", textDecoration: "inherit" }}
-              />
-              <Route
-                path="/Hotel"
-                element={<Hotel />}
-                style={{ color: "inherit", textDecoration: "inherit" }}
-              />
-              <Route exact path="flightresult" element={<Flightresult />} />
-
-              <Route
-                exact
-                path="FlightresultReturn"
-                // element={<FlightresultReturn />}
-                element={<FlightResResult />}
-              />
-              <Route
-                exact
-                path="FlightResultInternational"
-                element={<FlightReturnInternational />}
-              />
-              <Route
-                exact
-                path="/hotel/hotelsearch"
-                element={<HotelSearch />}
-              />
-              <Route exact path="/Flightresult/booknow" element={<Booknow />} />
-              <Route path="/flights/*" element={<Flight />}>
-                <Route exact path="oneway" element={<OneWay />} />
-                <Route exact path="offShare" element={<OffShare />} />
-                <Route exact path="multiStop" element={<MultiStop />} />
-                <Route exact path="calenderfare" element={<Calander />} />
-                <Route exact path="return" element={<Return />} />
-              </Route>
-
-              {/* <Route path="/" element={<Banner />} /> */}
-
-              {/* <Route path="/" element={<Slider />} /> */}
-
-              <Route
-                exact
-                path="/hotel/hotelsearch/HotelBooknow"
-                element={<HotelBooknow />}
-              />
-              <Route exact path="/Guestdetail" element={<Guestdetail />} />
-              <Route
-                exact
-                path="/hotel/hotelsearch/HotelBooknow/Reviewbooking"
-                element={<Reviewbooking />}
-              />
-              <Route
-                exact
-                path="/flightresult/passengerdetail"
-                element={<Passengerdetail />}
-              />
-              <Route
-                exact
-                path="/FlightresultReturn/Passengerdetail"
-                element={<ReturnPassenger />}
-              />
-              <Route
-                exact
-                path="/Flightresult/passengerdetail/flightreviewbooking"
-                element={<FlightReviewbooking />}
-              />
-              <Route
-                exact
-                path="/Flightresult/passengerdetail/flightReturnreviewbooking"
-                element={<FlightReturnReviewbooking />}
-              />
-              <Route
-                exact
-                path="/Flightbookingconfirmation"
-                element={<Flightbookingconfirmation />}
-              />
-              <Route
-                exact
-                path="//Flightreturnbookingconfirmation"
-                element={<FlightReturnBookingConfirmation />}
-              />
-
-              <Route
-                exact
-                path="/holidaypackage"
-                element={<HolidayPackage />}
-              />
-              <Route
-                exact
-                path="/holidaypackage/HolidaypackageResult"
-                element={<HolidayPackageResult />}
-              />
-              <Route
-                exact
-                path="/holidaypackage/HolidaypackageResult/HolidayPackage"
-                element={<HolidayPackage />}
-              />
-              <Route
-                exact
-                path="/holidaypackage/Holidaybooknow"
-                element={<Holidaybooknow />}
-              />
-
-              <Route
-                exact
-                path="/HolidayGuestDetail"
-                element={<HolidayGuestDetail />}
-              />
-              <Route
-                exact
-                path="/Holidayreviewbooking"
-                element={<Holidayreviewbooking />}
-              />
-              <Route
-                exact
-                path="/Reviewbooling"
-                element={<HotelbookingConfirmation />}
-              />
-              <Route
-                exact
-                path="/HolidayconfirmationDetail"
-                element={<HolidayconfirmationDetail />}
-              />
-              <Route exact path="/Bus" element={<Bus />} />
-              <Route
-                exact
-                path="/assistance&inssurance"
-                element={<Assistanceinssurance />}
-              />
-              <Route exact path="/sightseeing" element={<Sightseeing />} />
-              <Route exact path="/BusResult" element={<BusResult />} />
-              <Route
-                exact
-                path="/BusPassengerDetail"
-                element={<BusPassengerDetail />}
-              />
-              <Route
-                exact
-                path="/BusReviewBooking"
-                element={<BusReviewBooking />}
-              />
-              <Route
-                exact
-                path="/Busbookingconfirmation"
-                element={<Busbookingconfirmation />}
-              />
-              <Route
-                exact
-                path="/SightseeingResult"
-                element={<SightseeingResult />}
-              />
-              <Route
-                exact
-                path="/SightseeingGuestDetail"
-                element={<SightseeingGuestDetail />}
-              />
-              <Route
-                exact
-                path="/SightseeingReviewBooking"
-                element={<SightseeingReviewBooking />}
-              />
-              <Route
-                exact
-                path="/SightseeingBookingConfirmation"
-                element={<SightseeingBookingConfirmation />}
-              />
-              <Route exact path="Transfer" element={<Transfer />} />
-              <Route exact path="TransferResult" element={<TransferResult />} />
-              <Route
-                exact
-                path="TansferGuestDetail"
-                element={<TansferGuestDetail />}
-              />
-              <Route
-                exact
-                path="TransferReviewBooking"
-                element={<TransferReviewBooking />}
-              />
-              <Route
-                exact
-                path="TransferConfirmation"
-                element={<TransferConfirmation />}
-              />
-              <Route exact path="/Forex" element={<Forex />} />
-              <Route
-                exact
-                path="/InsuranceSearchCriteria"
-                element={<InsuranceSearchCriteria />}
-              />
-              <Route
-                exact
-                path="/InsuranceResult"
-                element={<InsuranceResult />}
-              />
-              <Route
-                exact
-                path="/InsuranceGuestDetails"
-                element={<InsuranceGuestDetails />}
-              />
-              <Route
-                exact
-                path="/InsuranceReviewBooking"
-                element={<InsuranceReviewBooking />}
-              />
-              <Route
-                exact
-                path="/InsuranceBookingConfirmation"
-                element={<InsuranceBookingConfirmation />}
-              />
-              <Route exact path="/admin" element={<Admin />} />
-              <Route exact path="/AdminUserForm" element={<AdminUserForm />} />
-              <Route exact path="/Administration" element={<Administration />} />
-              <Route exact path="/accounts" element={<Account />} />
-              <Route exact path="/AccountDetails" element={<AccountDetails />} />
-              <Route exact path="/reports" element={<Reports />} />
-              <Route exact path="/services" element={<Services />} />
-              <Route exact path="/gst" element={<GSTform />} />
-              <Route exact path="/visa" element={<Visaform />} />
-              <Route
-                exact
-                path="/CreateHolidayPackage"
-                element={<CreateHolidayPackage />}
-              ></Route>
-              <Route
-                exact
-                path="/EditHolidayPackage"
-                element={<EditHolidayPackage />}
-              ></Route>
-              <Route
-                exact
-                path="/Queue"
-                element={<Queue />}
-              ></Route>
-            </Routes>
+                        
+            {/* main page footer */}
+            {/* {!isLoginRoute && <Footer />} */}
           </div>
-
-          {/* main page footer */}
-          {/* {!isLoginRoute && <Footer />} */}
-
-        </div>
-
-      )}
+        )}
       {/* <GotoTopBtn /> */}
       <div>
         <Routes>
@@ -420,8 +451,16 @@ const MainPage = () => {
             element={<Dashboard />}
           ></Route>
           <Route exact path="/adminLogin" element={<AdminLogin />}></Route>
+          <Route exact path="/subAdmin/dashboard/*" element={<Dashboard />} > </Route>
+          {isSubAdminLogin && (
+          <Route
+            exact
+            path="/subAdminLogin"
+            element={<SubAdminLoginPage />}></Route>
+          )}
         </Routes>
       </div>
+
       {/* main page footer */}
       {/* {!isLoginRoute && reducerState?.adminAuth?.adminData?.data ? (
         <FooterAdmin />

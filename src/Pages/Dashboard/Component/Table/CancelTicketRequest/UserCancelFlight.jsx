@@ -2,21 +2,21 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Table, TableBody, TableCell, TableRow, Paper,TextField,InputAdornment } from '@mui/material';
-import '../HotelBookings/HotelBookings.css';
+import '../FlightBookings/Flightbookings';
 import SearchIcon from '@mui/icons-material/Search';
 import { apiURL } from '../../../../../Constants/constant';
-const AllHotelCancelTickets = () => {
-  const [hotelBookings, setHotelBookings] = useState([]);
+const AllFlightCancelTicketsUser = () => {
+  const [flightBookings, setFlightBookings] = useState([]);
   const [loading, setLoading] = useState(true);
   const pageSize = 5; // Number of items per page
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
   const [searchTerm, setSearchTerm] = useState('');
   useEffect(() => {
-    async function fetchHotelBookings() {
+    async function fetchflightBookings() {
       try {
         const response = await axios.get(
-          `${apiURL.baseURL}/skytrails/api/agent/getCancelHotelBooking`,
+          `${apiURL.baseURL}/skyTrails/api/agent/getCancelUserFlightBooking`,
           {
             params: {
               page: currentPage,
@@ -25,7 +25,7 @@ const AllHotelCancelTickets = () => {
             }
           }
         );
-        setHotelBookings(response.data.result.docs);
+        setFlightBookings(response.data.result.docs);
         setTotalPages(response.data.result.totalPages);
         setLoading(false);
       } catch (error) {
@@ -33,8 +33,7 @@ const AllHotelCancelTickets = () => {
         setLoading(false);
       }
     }
-    // console.log("hotelBookings========", hotelBookings);
-    fetchHotelBookings();
+    fetchflightBookings();
   }, [currentPage, searchTerm]);
   const handlePageChange = (page) => {
     // console.log("page", page)
@@ -47,7 +46,7 @@ const AllHotelCancelTickets = () => {
   return (
 
     <div className='hotel-container'>
-    <h3>AGENT BUSTICKET CANCEL REQUEST</h3>
+    <h3>AGENT FLIGHTTICKET CANCEL REQUEST</h3>
       <TextField
         type="text"
         value={searchTerm}
@@ -70,32 +69,31 @@ const AllHotelCancelTickets = () => {
             <th>Phone</th>
             <th>Email</th>
             <th>Reason</th>
-            <th>Hotel ID</th>
+            <th>PNR</th>
             <th>Amount</th>
-            <th>CheckInDate</th>
+            <th>Origin</th>
             <th>Destination</th>
-            <th>Rooms</th>
-            <th>Hotel Name</th>
+            <th>DateOfJourney</th>
+            <th>AirlineName</th>
             <th>Approve</th>
           </tr>
         </thead>
         <tbody>
-          {hotelBookings.map(booking => (
-            <tr key={booking.bookingId}>
+          {flightBookings.map(booking => (
+            <tr key={booking._id}>
               <td>{booking.bookingId}</td>
               <td>{booking.userDetails.agency_details.agency_name}</td>
               <td>{`${booking.userDetails.personal_details.first_name}  ${booking.userDetails.personal_details.last_name}` }</td>
               <td>{booking.userDetails.personal_details.mobile.mobile_number}</td>
               <td>{booking.userDetails.personal_details.email}</td>
               <td>{booking.reason}</td>
-              <td>{booking.hotelDetails.hotelId}</td>
-              <td>{booking.hotelDetails.amount}</td>
-              <td>{booking.hotelDetails.CheckInDate}</td>
-              <td>{booking.hotelDetails.destination}</td>
-              <td>{booking.hotelDetails.room}</td>
-              <td>{booking.hotelDetails.hotelName}</td>
+              <td>{booking.pnr}</td>
+              <td>{booking.flightDetails.amount}</td>
+              <td>{booking.flightDetails.origin}</td>
+              <td>{booking.flightDetails.destination}</td>
+              <td>{booking.flightDetails.dateOfJourney}</td>
+              <td>{booking.flightDetails.airlineDetails.AirlineName}</td>
               <td><button>APPROVE</button></td>
-              
             </tr>
           ))}
         </tbody>
@@ -112,4 +110,4 @@ const AllHotelCancelTickets = () => {
   );
 };
 
-export default AllHotelCancelTickets;
+export default AllFlightCancelTicketsUser;

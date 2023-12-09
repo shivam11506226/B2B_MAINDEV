@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import './BusBookings.css';
+import './AgentBusBookings.css';
 import { Table, TableBody, TableCell, TableRow, Paper, TextField, InputAdornment } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import { apiURL } from '../../../../../Constants/constant';
@@ -61,13 +61,13 @@ const AllBusBooking = () => {
         <thead>
           <tr>
             <th>Bus ID</th>
-            <th>User ID</th>
+            <th>Agency Name</th>
             <th>Name</th>
             <th>Email</th>
             <th>Phone</th>
             <th>Destination</th>
             <th>Origin</th>
-            <th>Bus Name</th>
+            <th>Amount</th>
             <th>Bus Type</th>
             <th>PNR</th>
             <th>Date Of Journey</th>
@@ -77,19 +77,20 @@ const AllBusBooking = () => {
         <tbody>
           {busBookings.map(bookings => (
             <tr key={bookings._id}>
-              <td>{bookings._id}</td>
-              <td>{bookings.userId}</td>
-              <td>{bookings.name}</td>
-              <td>{bookings.userDetails ? `${bookings.userDetails.email}` : "Empty"}</td>
+              <td>{bookings.busId}</td>
+              <td>{bookings.userDetails.agency_details.agency_name}</td>
+              <td>{`${bookings.userDetails.personal_details.first_name}${bookings.userDetails.personal_details.last_name}`}</td>
+              <td>{bookings.userDetails ? `${bookings.userDetails.personal_details.email}` : "Empty"}</td>
               <td>
-                {bookings.phone && typeof bookings.phone === 'object' ?
-                  `${bookings.phone.country_code}${bookings.phone.mobile_number}` :
+                {/* {bookings.phone && typeof bookings.phone === 'object' ?
+                  `${bookings.userDetails.personal_details.mobile.country_code}${bookings.userDetails.personal_details.mobile.mobile_number}` :
                   "Empty"
-                }
+                } */}
+                {bookings.phone}
               </td>
               <td>{bookings.destination}</td>
               <td>{bookings.origin}</td>
-              <td>{bookings.busName}</td>
+              <td>{bookings.amount}</td>
               <td>{bookings.busType}</td>
               <td>{bookings.pnr}</td>
               <td>{new Date(bookings.dateOfJourney).toDateString()}</td>

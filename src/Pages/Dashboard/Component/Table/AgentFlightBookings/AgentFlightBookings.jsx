@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Table, TableBody, TableCell, TableRow, Paper, TextField, InputAdornment } from '@mui/material';
-import './FlightBooking.css';
+import './AgentFlightBooking.css';
 import SearchIcon from '@mui/icons-material/Search';
 import { apiURL } from '../../../../../Constants/constant';
 const AllFlightBooking = () => {
   const [flightBookings, setFlightBookings] = useState([]);
   const [loading, setLoading] = useState(true);
-  const pageSize = 5; // Number of items per page
+  const pageSize = 10; // Number of items per page
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
   const [searchTerm, setSearchTerm] = useState('');
@@ -61,36 +61,35 @@ const AllFlightBooking = () => {
       <table border="1">
         <thead>
           <tr>
+            <th>Booking Id</th>
             <th>PNR</th>
-            <th>User ID</th>
+            <th>Agency Name</th>
             <th>Passenger Name</th>
             <th>Email</th>
             <th>Phone Number</th>
             <th>Flight Name</th>
-            <th>PaymentStatus</th>
-            <th>City </th>
-            <th>Country </th>
-            <th>Gender</th>
+            <th>Date Of Journey</th>
+            <th>Origin </th>
+            <th>Destination </th>
+            <th>Amount</th>
           </tr>
         </thead>
         <tbody>
           {flightBookings.map(booking => (
             <tr key={booking._id}>
+              <td>{booking.bookingId}</td>
               <td>{booking.pnr}</td>
-              <td>{booking.userId}</td>
+              <td>{booking.Userb2bDetails.agency_details.agency_name}</td>
               <td>{`${booking.passengerDetails[0].firstName} ${booking.passengerDetails[0].lastName}`}</td>
               <td>{booking.passengerDetails[0].email}</td>
-
               <td>
-                {`${booking.passengerDetails[0]?.phone?.country_code || 'N/A'} ${booking.passengerDetails[0]?.phone?.mobile_number || ''}`}
-
-
+                {`${booking.passengerDetails[0]?.ContactNo || 'N/A'}`}||{`${booking.Userb2bDetails.personal_details.mobile?.mobile_number || ''}`}
               </td>
-              <td>{booking.flightName}</td>
-              <td>{booking.paymentStatus}</td>
-              <td>{booking.city}</td>
-              <td>{booking.country}</td>
-              <td>{booking.gender}</td>
+              <td>{booking.airlineDetails.AirlineName}</td>
+              <td>{booking.dateOfJourney}</td>
+              <td>{booking.origin}</td>
+              <td>{booking.destination}</td>
+              <td>{booking.amount}</td>
             </tr>
           ))}
         </tbody>

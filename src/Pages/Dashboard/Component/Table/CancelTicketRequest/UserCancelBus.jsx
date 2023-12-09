@@ -20,7 +20,7 @@ const AllBusCancelTickets = () => {
         try {
           setLoading(true); // Set loading to true when fetching data
           const response = await axios.get(
-            `${apiURL.baseURL}/skytrails/api/agent/getCancelBusBooking`,
+            `${apiURL.baseURL}/skyTrails/api/admin/getCancelUserBusBooking`,
             {
               params: {
                 page: currentPage,
@@ -52,7 +52,7 @@ const AllBusCancelTickets = () => {
   
     return (
       <div className='hotel-container'>
-      <h3>AGENT HOTELTICKET CANCEL REQUEST</h3>
+      <h3>USER BUSTICKET CANCEL REQUEST</h3>
         <TextField
           type="text"
           value={searchTerm}
@@ -74,10 +74,8 @@ const AllBusCancelTickets = () => {
               <TableHead>
                 <TableRow>
                   <TableCell>Bus ID</TableCell>
-                  <TableCell>Agency Name</TableCell>
                   <TableCell>Name</TableCell>
                   <TableCell>Phone</TableCell>
-                  <TableCell>Email</TableCell>
                   <TableCell>Reason</TableCell>
                   <TableCell>PNR</TableCell>
                   <TableCell>Amount</TableCell>
@@ -85,6 +83,7 @@ const AllBusCancelTickets = () => {
                   <TableCell>Destination</TableCell>
                   <TableCell>DateOfJourney</TableCell>
                   <TableCell>busType</TableCell>
+                  <TableCell>No of Seats</TableCell>
                   <TableCell>Approve</TableCell>
                 </TableRow>
               </TableHead>
@@ -92,17 +91,17 @@ const AllBusCancelTickets = () => {
                 {hotelBookings.map((booking) => (
                   <TableRow key={booking._id}>
                     <TableCell>{booking.busId}</TableCell>
-                    <TableCell>{booking.userDetails.agency_details.agency_name}</TableCell>
-                    <TableCell>{`${booking.userDetails.personal_details.first_name} ${booking.userDetails.personal_details.last_name}`}</TableCell>
-                    <TableCell>{booking.userDetails.personal_details.mobile.mobile_number}</TableCell>
-                    <TableCell>{booking.userDetails.personal_details.email}</TableCell>
+                    <TableCell>{booking.userDetails.username}</TableCell>
+                    <TableCell>{booking.userDetails.phone.mobile_number}</TableCell>
+                    {/* <TableCell>{booking.userDetails.email}</TableCell> */}
                     <TableCell>{booking.reason}</TableCell>
-                    <TableCell>{booking.bustDetails.pnr}</TableCell>
-                    <TableCell>{booking.bustDetails.amount}</TableCell>
-                    <TableCell>{booking.bustDetails.origin}</TableCell>
-                    <TableCell>{booking.bustDetails.destination}</TableCell>
-                    <TableCell>{booking.bustDetails.dateOfJourney}</TableCell>
-                    <TableCell>{booking.bustDetails.busType}</TableCell>
+                    <TableCell>{booking.busDetails.pnr}</TableCell>
+                    <TableCell>{booking.busDetails.amount}</TableCell>
+                    <TableCell>{booking.busDetails.origin}</TableCell>
+                    <TableCell>{booking.busDetails.destination}</TableCell>
+                    <TableCell>{booking.busDetails.dateOfJourney}</TableCell>
+                    <TableCell>{booking.busDetails.busType}</TableCell>
+                    <TableCell>{booking.busDetails.noOfSeats}</TableCell>
                     <TableCell><button>APPROVE</button></TableCell>
                   </TableRow>
                 ))}
