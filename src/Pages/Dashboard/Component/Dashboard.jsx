@@ -688,7 +688,6 @@ export default function VerticalTabs() {
                     </ListItem>
                   </Collapse>
                 </ListItem>
-
                 <ListItem
                   disablePadding
                   sx={{ display: "block" }}
@@ -1033,7 +1032,6 @@ export default function VerticalTabs() {
                         />
                       </ListItemButton>
                     </ListItem>
-
                     <ListItem
                       disablePadding
                       sx={{ display: "block" }}
@@ -1321,7 +1319,6 @@ export default function VerticalTabs() {
                     />
                   </ListItemButton>
                 </ListItem>
-
                 <ListItem
                   disablePadding
                   sx={{ display: "block" }}
@@ -1536,22 +1533,14 @@ export default function VerticalTabs() {
               {menuData === "Hotel CancelTicket" && <AgentCancelHotel />}
               {menuData === "Flight CancelTicket" && <AgentCancelFlight />}
               {menuData === "Bus CancelTicket" && <AgentCancelBus />}
-              {menuData === "Hotel CancelTickets" && (
-                <AllFlightCancelTicketsUser />
-              )}
-              {menuData === "Flight CancelTickets" && (
-                <AllFlightCancelTickets />
-              )}
-              {menuData === "Bus CancelTickets" && <AgentCancelBus />}
+              {menuData === "Hotel CancelTickets" && (<UserCancelHotel />)}
+              {menuData === "Flight CancelTickets" && (<AllFlightCancelTickets />)}
+              {menuData === "Bus CancelTickets" && <UserCancelBus />}
               {menuData === "Hotel ChangeTicket" && <AgentHotelChangeRequest />}
-              {menuData === "Flight ChangeTicket" && (
-                <AgentFlightChangeRequest />
-              )}
-              {menuData === "Bus ChangeTicket" && <AgentBusChangeRequest />}
+              {menuData === "Flight ChangeTicket" && (<AgentFlightChangeRequest />)}
+              {menuData === "Bus ChangeTickets" && <AgentBusChangeRequest />}
               {menuData === "Hotel ChangeTickets" && <UserHotelChangeRequest />}
-              {menuData === "Flight ChangeTickets" && (
-                <UserFlightChangeRequest />
-              )}
+              {menuData === "Flight ChangeTickets" && (<UserFlightChangeRequest />)}
               {menuData === "Bus ChangeTickets" && <UserBusChangeRequest />}
               {menuData === "User MarkUp Amount" && <MarkUpAmount />}
               {menuData === "Edit Holiday Package" && <PackageDetails />}

@@ -17,7 +17,7 @@ const AllHotelCancelTickets = () => {
     async function fetchHotelBookings() {
       try {
         const response = await axios.get(
-          `${apiURL.baseURL}/skytrails/api/agent/getCancelHotelBooking`,
+          `${apiURL.baseURL}/skytrails/user/changeHotelDetailsRequest`,
           {
             params: {
               page: currentPage,
