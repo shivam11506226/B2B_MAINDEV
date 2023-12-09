@@ -240,7 +240,7 @@ function Headers() {
     return null; // If the path matches '/admin/dashboard', the header is not rendered
   }
 
-  const isAdminPath = pathname === "/adminLogin" || pathname === "/admin/dashboard "|| pathname==="/subAdminLogin";
+  const isAdminPath = pathname === "/adminLogin" || pathname === "/admin/dashboard "|| pathname==="/subAdminLogin" || pathname==="/addSubAdmin";
 
   if (isAdminPath) {
     return null; // Don't render the InnerNavbar for admin paths
