@@ -124,7 +124,7 @@ const OneWay = () => {
 
   useEffect(() => {
     dispatch(clearOneWayReducer());
-    dispatch(clearOneWayEMTReducer());
+    // dispatch(clearOneWayEMTReducer());
   }, [dispatch]);
 
   const handleFromClick = (result) => {
@@ -242,7 +242,7 @@ const OneWay = () => {
     sessionStorage.setItem("infants", formData.get("infant"));
     // console.log(payload, emtPayload);
     dispatch(oneWayAction(payload));
-    dispatch(oneWayEMTAction(emtPayload));
+    // dispatch(oneWayEMTAction(emtPayload));
   }
   // style={{ width: "305px", height: "56px", position: "relative" }}
   // style={{ width: "305px", height: "56px" }}

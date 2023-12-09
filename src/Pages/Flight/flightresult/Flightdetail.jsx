@@ -14,6 +14,7 @@ import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import FilterAltIcon from '@mui/icons-material/FilterAlt';
+import FlightLoader from "../FlightLoader/FlightLoader";
 
 const Flightdetail = () => {
   const reducerState = useSelector((state) => state);
@@ -21,10 +22,10 @@ const Flightdetail = () => {
   const [filter, setFilter] = useState(1);
   const results =
     reducerState?.oneWay?.oneWayData?.data?.data?.Response?.Results || reducerState?.return?.returnData?.data?.data?.Response?.Results;
-  // console.log("Reducer State", results);
+  console.log("Reducer State Result___________________________", results);
 
   useEffect(() => {
-    if (!results) {
+    if (results===undefined || results?.length===0) {
       navigate("/flights");
     }
   }, [results]);
@@ -54,7 +55,9 @@ const Flightdetail = () => {
     };
   }, []);
 
-
+if(results===undefined || results.length===0) {
+  return (<div>Loading</div>)
+}
 
 
   return results?.map((res) => {

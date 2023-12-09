@@ -7,6 +7,8 @@ import Link from "@mui/material/Link";
 import flightdir from "../../../Images/flgihtdir.png"
 import { useDispatch, useSelector, useReducer } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { logoutAction } from "../../../Redux/Auth/logIn/actionLogin";
+import { flightReducerClear } from "../../../Redux/FlightBook/actionFlightBook";
 import './flightreviewbooking.css'
 import {
   bookAction,
@@ -26,6 +28,11 @@ import Swal from "sweetalert2";
 import { balanceSubtractRequest } from "../../../Redux/Auth/balaceSubtract/actionBalnceSubtract";
 import { clearPassengersReducer } from "../../../Redux/Passengers/passenger";
 import { clearOneWayReducer } from "../../../Redux/FlightSearch/OneWay/oneWay";
+import { clearOneWayEMTReducer } from "../../../Redux/FlightSearch/OneWayEMT/oneWayEMT";
+// import {flightReducerClear} from "../../../Redux/FlightBook/actionFlightBook";
+import { ClearAllActionReturn } from "../../../Redux/FlightFareQuoteRule/actionFlightQuote"
+// import { clearOneWayReducer } from "../../../Redux/FlightSearch/OneWay/oneWay";
+
 import FlightLoader from "../FlightLoader/FlightLoader";
 const style = {
   position: "absolute",
@@ -42,6 +49,7 @@ const Flightbookingdetail = () => {
   const [passengerAgreement, setPassengerAgreement] = useState(false);
   const [loading, setLoading] = useState(false);
   const [paymentOption, setPaymentOption] = useState(false);
+  const [bookingConfirmed, setBookingConfirmed] = useState(false);
   const reducerState = useSelector((state) => state);
   const markUpamount =
     reducerState?.userData?.userData?.data?.data?.markup?.flight;
@@ -82,11 +90,18 @@ const Flightbookingdetail = () => {
   useEffect(() => {
     if (reducerState?.flightBook?.flightBookDataGDS?.Response) {
       getTicketForNonLCC();
-    } else if (reducerState?.flightBook?.flightBookDataGDS?.Error) {
-      setLoading(false);
-      alert(reducerState?.flightBook?.flightBookDataGDS?.Error?.ErrorMessage);
     }
+    //  else if (reducerState?.flightBook?.flightBookDataGDS?.Error) {
+    //   setLoading(false);
+    //   alert(reducerState?.flightBook?.flightBookDataGDS?.Error?.ErrorMessage);
+    // }
   }, [reducerState?.flightBook?.flightBookDataGDS]);
+  useEffect(() => {
+    if (reducerState?.flightBook?.flightBookDataGDS?.Error !== "") {
+      setLoading(false);
+      // alert(reducerState?.flightBook?.flightBookDataGDS?.Error?.ErrorMessage);
+    }
+  }, [reducerState?.flightBook?.flightBookDataGDS])
 
   //Balance Substraction useEffect implemented below
   useEffect(() => {
@@ -101,14 +116,15 @@ const Flightbookingdetail = () => {
       } else {
         balanceSubtractOneWay();
         setLoading(false);
-        navigate("/Flightbookingconfirmation");
+        setBookingConfirmed(true)
+        // navigate("/Flightbookingconfirmation");
       }
     }
   }, [reducerState?.flightBook?.flightTicketDataGDS]);
 
   useEffect(() => {
     if (
-      reducerState?.flightBook?.flightBookData?.Error?.ErrorMessage == "" &&
+      reducerState?.flightBook?.flightBookData?.Error?.ErrorMessage === "" &&
       reducerState?.flightBook?.flightBookData?.Response
     ) {
       if (fareValue && fareValueReturn) {
@@ -116,22 +132,12 @@ const Flightbookingdetail = () => {
       } else {
         balanceSubtractOneWay();
         setLoading(false);
-        navigate("/Flightbookingconfirmation");
+        setBookingConfirmed(true)
+        // navigate("/Flightbookingconfirmation");
       }
-    } else if (
-      reducerState?.flightBook?.flightBookData?.Error?.ErrorMessage !== "" 
-    ) {
-      const error =
-        reducerState?.flightBook?.flightBookData?.Error?.ErrorMessage;
-      setLoading(false);
-      Swal.fire({
-        title: "Heii Encountered Error",
-        text: `${error}`,
-        icon: "question",
-      });
-      navigate("oneway");
     }
   }, [reducerState?.flightBook?.flightBookData?.Response]);
+
 
   useEffect(() => {
     if (reducerState?.flightBook?.flightBookDataGDSReturn?.Response) {
@@ -188,7 +194,8 @@ const Flightbookingdetail = () => {
       balanceSubtractReturn();
 
       setLoading(false);
-      navigate("/Flightbookingconfirmation");
+      setBookingConfirmed(true);
+      // navigate("/Flightbookingconfirmation");
     }
   }, [reducerState?.flightBook?.flightBookDataReturn?.Response]);
 
@@ -199,11 +206,90 @@ const Flightbookingdetail = () => {
     ) {
       balanceSubtractReturn();
       setLoading(false);
-      navigate("/Flightbookingconfirmation");
+      setBookingConfirmed(true);
+      // navigate("/Flightbookingconfirmation");
     }
   }, [reducerState?.flightBook?.flightTicketDataGDSReturn]);
 
   //Handling return booking here(flow Here is Non-Lcc to Non-Lcc OR Non-Lcc to Lcc)
+  useEffect(() => {
+    if (reducerState?.flightBook?.flightBookData?.Error?.ErrorCode !== 0 && reducerState?.flightBook?.flightBookData?.Error?.ErrorCode !== undefined) {
+      setLoading(true)
+      setTimeout(() => {
+        Swal.fire({
+          title: 'Hii Encounter An Error',
+          text: `${reducerState?.flightBook?.flightBookData?.Error?.ErrorMessage}`,
+          icon: "question",
+  
+  
+        })
+      }, 3000);
+     
+      dispatch(flightReducerClear())
+      dispatch(ClearAllActionReturn())
+      dispatch(clearOneWayReducer())
+      dispatch(clearOneWayEMTReducer())
+      dispatch(clearPassengersReducer())
+       sessionStorage.removeItem("infants")
+       sessionStorage.removeItem("ResultIndex")
+       sessionStorage.removeItem("childs")
+       sessionStorage.removeItem("adults")
+      sessionStorage("passengers", {
+        passengersData: [],
+        passengerDataReturn: [],
+
+        isLoading: false,
+
+        isError: false,
+
+        showSuccessMessage: false,
+      })
+      sessionStorage.getItem('oneWay', {
+        oneWayData: [],
+
+        isLoading: false,
+
+        isError: false,
+
+        showSuccessMessage: false,
+      })
+      sessionStorage.getItem('oneWayEMT', {
+        oneWayEMTData: [],
+
+        isLoading: false,
+
+        isError: false,
+
+        showSuccessMessage: false,
+      })
+      sessionStorage.getItem('flightBook', {
+        flightBookData: {},
+        flightBookDataGDS: {},
+        flightTicketDataGDS: {},
+        flightBookDataReturn: {},
+        flightBookDataGDSReturn: {},
+        flightTicketDataGDSReturn: {},
+        isLogin: false,
+        isLoading: false,
+        isError: false,
+      });
+      sessionStorage.getItem('flightFare', {
+        flightRuleData: {},
+        flightQuoteData: {},
+        flightRuleDataReturn: {},
+        flightQuoteDataReturn: {},
+        isLogin: false,
+        isLoadingRuleDone: false,
+        isLoadingQuoteDoneReturn: false,
+        isLoadingRuleDoneReturn: false,
+        isLoadingQuoteDone: false,
+        isError: false
+      })
+
+
+      navigate("/")
+    }
+  },[reducerState?.flightBook?.flightBookData?.Error?.ErrorCode,reducerState?.flightBook?.flightBookData?.Error?.ErrorCode])
 
   useEffect(() => {
     if (fareValueReturn?.IsLCC) {
@@ -453,6 +539,7 @@ const Flightbookingdetail = () => {
   const [month1, day1, year1, time1, ampm1] =
     formattedDate1.split(" ");
   const desiredFormat1 = `${day1}${month1}-${year1} ${time1} ${ampm1}`;
+  console.warn("eror.....................", reducerState?.flightBook?.flightBookData?.Error?.ErrorMessage)
 
 
   const Duration = `${Math.floor(fareQuoteData?.Segments?.[0]?.[0]?.Duration / 60)}hr ${fareQuoteData?.Segments?.[0]?.[0]?.Duration % 60
@@ -489,6 +576,62 @@ const Flightbookingdetail = () => {
         <FlightLoader />
       </>
     )
+  }
+
+  if (bookingConfirmed) {
+    Swal.fire({
+      title: "Booking Confirmed",
+      icon: "success"
+    })
+    dispatch(flightReducerClear())
+    dispatch(ClearAllActionReturn())
+    dispatch(clearOneWayReducer())
+    dispatch(clearOneWayEMTReducer())
+    sessionStorage.getItem('oneWay', {
+      oneWayData: [],
+
+      isLoading: false,
+
+      isError: false,
+
+      showSuccessMessage: false,
+    })
+    sessionStorage.getItem('oneWayEMT', {
+      oneWayEMTData: [],
+
+      isLoading: false,
+
+      isError: false,
+
+      showSuccessMessage: false,
+    })
+    sessionStorage.getItem('flightBook', {
+      flightBookData: {},
+      flightBookDataGDS: {},
+      flightTicketDataGDS: {},
+      flightBookDataReturn: {},
+      flightBookDataGDSReturn: {},
+      flightTicketDataGDSReturn: {},
+      isLogin: false,
+      isLoading: false,
+      isError: false,
+    });
+    sessionStorage.getItem('flightFare', {
+      flightRuleData: {},
+      flightQuoteData: {},
+      flightRuleDataReturn: {},
+      flightQuoteDataReturn: {},
+      isLogin: false,
+      isLoadingRuleDone: false,
+      isLoadingQuoteDoneReturn: false,
+      isLoadingRuleDoneReturn: false,
+      isLoadingQuoteDone: false,
+      isError: false
+    })
+
+
+
+    navigate("/")
   }
 
   return (
@@ -579,9 +722,9 @@ const Flightbookingdetail = () => {
                   <span>{passenger.Title} {passenger.FirstName}{" "}
                     {passenger.LastName}</span>
                   <span>
-                    {passenger.Gender === 1
+                    {passenger.Gender === "2"
                       ? "Male"
-                      : passenger.Gender === 2
+                      : (passenger.Gender === "1")
                         ? "Female"
                         : "Transgender"}
                   </span>

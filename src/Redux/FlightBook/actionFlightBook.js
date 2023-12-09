@@ -90,3 +90,11 @@ export const bookTicketGDSReturn=(data)=>{
     }
   }
 }
+export const flightReducerClear=()=>{
+  
+    return{
+      type:types.FLIGHT_REDUCER_CLEAR,
+      payload:[],
+    
+  }
+}

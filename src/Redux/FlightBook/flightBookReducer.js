@@ -4,9 +4,9 @@ const initialState = {
   flightBookData: {},
   flightBookDataGDS: {},
   flightTicketDataGDS: {},
-  flightBookDataReturn:{},
-  flightBookDataGDSReturn:{},
-  flightTicketDataGDSReturn:{},
+  flightBookDataReturn: {},
+  flightBookDataGDSReturn: {},
+  flightTicketDataGDSReturn: {},
   isLogin: false,
   isLoading: false,
   isError: false,
@@ -97,6 +97,18 @@ export const flightBookReducer = (state = initialState, action) => {
       return {
         ...state,
         isLoading: true,
+        isError: false,
+      };
+    case types.FLIGHT_REDUCER_CLEAR:
+      return {
+        flightBookData: {},
+        flightBookDataGDS: {},
+        flightTicketDataGDS: {},
+        flightBookDataReturn: {},
+        flightBookDataGDSReturn: {},
+        flightTicketDataGDSReturn: {},
+        isLogin: false,
+        isLoading: false,
         isError: false,
       };
     default:

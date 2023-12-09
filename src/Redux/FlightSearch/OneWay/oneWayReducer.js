@@ -28,6 +28,16 @@ export const oneWayReducer = (state = initState, action) => {
         isError: false,
         showSuccessMessage: true,
       };
+    case types.CLEAR_ONEWAY_REDUCER:
+      return {
+        oneWayData: [],
+
+        isLoading: false,
+      
+        isError: false,
+      
+        showSuccessMessage: false,
+      };
 
     default:
       return state;

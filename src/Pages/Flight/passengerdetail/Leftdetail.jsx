@@ -16,6 +16,9 @@ import {
 import { PassengersAction } from "../../../Redux/Passengers/passenger";
 import Headers from "../../../Components/Headers";
 import FlightLoader from "../FlightLoader/FlightLoader";
+import Alert from "@mui/material/Alert";
+import { FalseAllActionReturn, quoteActionReturn, ruleActionReturn, setLoading } from "../../../Redux/FlightFareQuoteRule/actionFlightQuote";
+
 const Leftdetail = () => {
 
 
@@ -41,6 +44,8 @@ const Leftdetail = () => {
   const [toError, setToError] = useState("");
   const [dateError, setDateError] = useState("");
   const [sub, setSub] = useState(false);
+  const [alert, setAlert] = useState(false);
+  console.warn("resucer state.....................", reducerState)
 
   const passengerTemplate = {
     Title: "Mr",
@@ -101,6 +106,13 @@ const Leftdetail = () => {
   const passengerLists = [];
   const passengerChildLists = [];
   const passengerInfantLists = [];
+  // useEffect(() => {
+  //   // dispatch(setLoading(reducerState?.flightFare))
+    
+  //   dispatch(FalseAllActionReturn(reducerState?.flightFare))
+  //   console.warn("seLoding dispatch cleanup complete",reducerState?.flightFare)
+  // }, [])
+  console.warn("seLoding dispatch cleanup complete 1111111111111111111111",reducerState?.flightFare)
   useEffect(() => {
     if (fareValue) {
       let fareDetails = fareValue?.Fare;
@@ -316,7 +328,11 @@ const Leftdetail = () => {
         navigate("/Flightresult/passengerdetail/flightreviewbooking");
       }
     } else {
-      alert("Please fill all the details");
+      // alert("Please fill all the details");
+      setAlert(true)
+      setTimeout(() => {
+        setAlert(false)
+      }, 3000);
     }
 
     // if()
@@ -576,6 +592,12 @@ const Leftdetail = () => {
 
   return (
     <div>
+      {alert &&
+        <Alert className="alert_passenger" onClick={() => {
+          // dispatch(signUpActionClear());
+        }} severity="error">
+          Please fill all the details
+        </Alert>}
 
       <div className="singleFlightBox justify-content-evenly">
         <div className="singleFlightBoxOne">

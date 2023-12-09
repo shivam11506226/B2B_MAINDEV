@@ -94,7 +94,7 @@ function SingleData(props) {
       ResultIndex: ResultIndex,
     };
     dispatch(ruleAction(payload));
-    dispatch(quoteAction(payload));
+    dispatch(quoteAction(payload)); 
   };
 
   // console.log("reducerrState", reducerState);
@@ -105,7 +105,9 @@ function SingleData(props) {
         reducerState?.flightFare?.flightQuoteData?.Error?.ErrorCode == 0 &&
         reducerState?.flightFare?.flightRuleData?.Error?.ErrorCode == 0
       ) {
-        navigate("/passengerdetail");
+        navigate("/flightresult/passengerdetail");
+
+      
         dispatch(setLoading("hjbb"));
         setLoader(false);
       }
@@ -113,12 +115,13 @@ function SingleData(props) {
         reducerState?.flightFare?.flightQuoteData?.Error?.ErrorCode !== 0 &&
           reducerState?.flightFare?.flightRuleData?.Error?.ErrorCode !== 0
       )
-      {
+      { 
         Swal.fire({
-          title: "Heii Encountered Error",
+          title: "Hii Encountered an Error",
           text: `${reducerState?.flightFare?.flightQuoteData?.Error?.ErrorMessage}`,
           icon: "question",
         });
+        navigate("/flights")
       }
     }
   }, [statusQuote, statusRule]);

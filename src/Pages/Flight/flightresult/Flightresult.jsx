@@ -10,6 +10,7 @@ import Popularfilter from "../flightresult/Popularfilter";
 import "./flightresult.css";
 import Flightnavbar from "../Flightnavbar";
 const Flightresult = () => {
+  
   return (
     <React.Fragment>
       <div className="container-fluid margin-pecentage" style={{ padding: "10px 15px" }}>

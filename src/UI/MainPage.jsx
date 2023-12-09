@@ -220,7 +220,7 @@ const MainPage = () => {
               />
               <Route
                 exact
-                path="/passengerdetail"
+                path="/flightresult/passengerdetail"
                 element={<Passengerdetail />}
               />
               <Route

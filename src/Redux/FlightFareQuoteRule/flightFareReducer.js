@@ -78,6 +78,30 @@ export const flightFareReducer = (state = initialState, action) => {
         isLoadingQuoteDone: false,
         isLoadingRuleDone: false,
       };
+    case types.FALSE_ALL_DATA:
+      return {
+        ...state,
+
+        isError: false,
+        isLoadingQuoteDone: false,
+        isLoadingQuoteDoneReturn: false,
+        isLoadingRuleDone: false,
+        isLoadingRuleDoneReturn: false,
+        isLogin: false
+      };
+    case type.CLEAR_ALL_FILGHT_FARE_QUOUTE:
+      return {
+        flightRuleData: {},
+        flightQuoteData: {},
+        flightRuleDataReturn: {},
+        flightQuoteDataReturn: {},
+        isLogin: false,
+        isLoadingRuleDone: false,
+        isLoadingQuoteDoneReturn: false,
+        isLoadingRuleDoneReturn: false,
+        isLoadingQuoteDone: false,
+        isError: false,
+      };
 
     default:
       return state;

@@ -517,6 +517,7 @@ const Login = () => {
                   style={{ height: "auto", width: "100%", borderRadius: "20px", marginTop: "10px" }}
                 >
                   {reducerState.signUp?.showSuccessMessage && (
+                    
                     <Alert onClick={() =>{ 
                       dispatch(signUpActionClear());
                       }} severity="success">

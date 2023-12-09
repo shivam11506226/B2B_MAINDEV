@@ -325,7 +325,8 @@ const HotelForm = () => {
       const formattedDate = `${day}/${month}/${year}`;
       const payload = {
         CheckInDate: formattedDate,
-        NoOfNights: formData.get("night"),
+        // NoOfNights: formData.get("night"),
+        NoOfNights: nightdays,
         CountryCode: "IN",
         CityId: cityid,
         ResultCount: null,

@@ -28,6 +28,16 @@ export const oneWayEMTReducer = (state = initState, action) => {
         isError: false,
         showSuccessMessage: true,
       };
+      case type.CLEAR_ONEWAY_EMT_REDUCER:
+        return{
+        oneWayEMTData: [],
+      
+        isLoading: false,
+      
+        isError: false,
+      
+        showSuccessMessage: false,
+      }
 
     default:
       return state;

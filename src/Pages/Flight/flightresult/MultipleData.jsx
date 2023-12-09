@@ -53,6 +53,7 @@ const MultipleData = (props) => {
     // navigate("passengerdetail");
       setLoader(true);
     sessionStorage.setItem("ResultIndex", ResultIndex);
+    console.warn("resultIndex",ResultIndex)
     const payload = {
       EndUserIp: reducerState?.ip?.ipData,
       TokenId: reducerState?.ip?.tokenData,
@@ -68,7 +69,7 @@ const MultipleData = (props) => {
          reducerState?.flightFare?.flightQuoteData?.Error?.ErrorCode == 0 &&
          reducerState?.flightFare?.flightRuleData?.Error?.ErrorCode == 0
        ) {
-         navigate("/passengerdetail");
+         navigate("/Flightresult/passengerdetail");
          dispatch(setLoading("hjbb"));
          setLoader(false);
        } else if (
@@ -76,7 +77,7 @@ const MultipleData = (props) => {
          reducerState?.flightFare?.flightRuleData?.Error?.ErrorCode !== 0
        ) {
          Swal.fire({
-           title: "Heii Encountered Error",
+           title: "Hii Encountered an Error",
            text: `${reducerState?.flightFare?.flightQuoteData?.Error?.ErrorMessage}`,
            icon: "question",
          });
@@ -88,16 +89,17 @@ const MultipleData = (props) => {
   const time = `${Math.floor(flight[0]?.Duration / 60)}hr ${flight[0].Duration % 60
     }min`;
 
-  const dateString = flight[0]?.Origin?.DepTime;
-  const date1 = new Date(dateString);
-  const time1 = date1.toLocaleTimeString();
+ 
+    const dateString = flight[0]?.Origin?.DepTime;  
+  // const date1 = new Date(dateString);
+  // const time1 = date1.toLocaleTimeString();
 
-  const day1 = date1.getDate();
-  const month1 = date1.toLocaleString("default", {
-    month: "short",
-  });
-  const year1 = date1.getFullYear();
-  const formattedDate1 = `${day1} ${month1} ${year1}`;
+  // const day1 = date1.getDate();
+  // const month1 = date1.toLocaleString("default", {
+  //   month: "short",
+  // });
+  // const year1 = date1.getFullYear();
+  // const formattedDate1 = `${day1} ${month1} ${year1}`;
 
   const dateString1 = flight[1]?.Destination?.ArrTime;
   const date2 = new Date(dateString1);
@@ -109,6 +111,36 @@ const MultipleData = (props) => {
   });
   const year2 = date2.getFullYear();
   const formattedDate2 = `${day2} ${month2} ${year2}`;
+
+  const date = new Date(dateString);
+  const options = {
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+    hour: "numeric",
+    minute: "numeric",
+    hour12: true,
+  };
+  const formattedDate = date.toLocaleString("en-US", options);
+
+  const [month, day, year, tim, ampm] = formattedDate.split(" ");
+  const desiredFormat = `${day}${month}-${year} ${tim} ${ampm}`;
+  const date1 = new Date(dateString1);
+  const options1 = {
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+    hour: "numeric",
+    minute: "numeric",
+    hour12: true,
+  };
+  const formattedDate1 = date1.toLocaleString("en-US", options1);
+  const [month1, day1, year1, time1, ampm1] =
+    formattedDate1.split(" ");
+  const desiredFormat1 = `${day1}${month1}-${year1} ${time1} ${ampm1}`;
+  
+
+
    if (loader) {
      return <FlightLoader />;
    }
@@ -121,7 +153,8 @@ const MultipleData = (props) => {
       </div>
       <div className="singleFlightBoxTwo">
         <span>{flight[0]?.Origin?.Airport?.CityName}</span>
-        <p>{time1.substr(0, 5)}</p>
+        {/* <p>{time1.substr(0, 5)}</p> */} <p>{desiredFormat?.slice(0, 12)}</p>
+        <p style={{ fontSize: "14px" }}>{desiredFormat?.slice(13)}</p>
       </div>
       <div className="singleFlightBoxThree">
         <h4>{time}</h4>
@@ -131,7 +164,8 @@ const MultipleData = (props) => {
       </div>
       <div className="singleFlightBoxFour">
         <span>{flight[1]?.Destination?.Airport?.CityName}</span>
-        <p>{time2.substr(0, 5)}</p>
+        <p>{desiredFormat1?.slice(0, 12)}</p>
+        <p style={{ fontSize: "14px" }}>{desiredFormat1?.slice(13)}</p>
       </div>
       <div className="singleFlightBoxFive">
         <span>₹{fare}</span>
