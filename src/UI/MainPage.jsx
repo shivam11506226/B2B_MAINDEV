@@ -283,6 +283,7 @@ const MainPage = () => {
                   element={<Holidaybooknow />}
                 />
 
+
                 <Route
                   exact
                   path="/HolidayGuestDetail"
@@ -432,6 +433,7 @@ const MainPage = () => {
                 <Route exact path="/Queue" element={<Queue />}></Route>
               </Routes>
             </div>
+
 
                         
             {/* main page footer */}

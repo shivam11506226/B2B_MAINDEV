@@ -1,11 +1,14 @@
 import { Typography, Box, Grid, Button } from "@mui/material";
-import React from "react";
+import React, { useEffect, useState } from "react";
 // import Flightaccordian from "./Flightaccordian";
 import Flightaccordian from "../../../flightbookingconfirmation/Flightaccordian";
 import { useDispatch, useSelector, useReducer } from "react-redux";
 import flightdir from "../../../../../Images/flgihtdir.png"
+import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
 
 const FlightReturnConfirmationDetails = (props) => {
+    const navigator = useNavigate()
 
     const reducerState = useSelector((state) => state);
 
@@ -15,8 +18,46 @@ const FlightReturnConfirmationDetails = (props) => {
     const childs = sessionStorage.getItem("childs");
     const infants = sessionStorage.getItem("infants");
     const { ticket } = props;
+    const [loader, setLoader] = useState(true)
 
     console.log(ticket, "ticket")
+   
+// if (loader) {
+    Swal.fire({
+        title: "Filght Booking Sucessfull",
+        text: `PNR: ${ticket.PNR}`,
+        icon: 'success',
+        timer: 5000,
+        showClass: {
+            popup: `
+              animate__animated
+              animate__fadeInUp
+              animate__faster
+            `
+          },
+          hideClass: {
+            popup: `
+              animate__animated
+              animate__fadeOutDown
+              animate__faster
+            `
+          }
+    })
+// }
+    useEffect(() => {
+        setLoader(true);
+        
+
+        setTimeout(() => {
+            // setLoader(false)
+            navigator("/")
+        }, 5000);
+
+
+
+
+    }, [])
+
 
     // console.log(ticket, "ticket data")
     const ticket1 = {

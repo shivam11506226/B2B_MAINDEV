@@ -66,3 +66,20 @@ export const ruleActionReturn = (data) => {
     };
   }
 };
+export const FalseAllActionReturn = (data) => {
+  if (data) {
+    return {
+      type: types.FALSE_ALL_DATA,
+      payload: data,
+    };
+  }
+};
+export const ClearAllActionReturn = () => {
+
+  return {
+    type: types.CLEAR_ALL_FILGHT_FARE_QUOUTE,
+    payload: [],
+  };
+
+};
+

@@ -17,6 +17,8 @@ import Flightconfirmationdetail from "./Flightconfirmationdetail";
 import { useDispatch, useSelector } from "react-redux";
 import { getUserDataAction } from "../../../Redux/Auth/UserDataById/actionUserData";
 import userApi from "../../../Redux/API/api";
+import Swal from "sweetalert2"
+import FlightLoader from "../FlightLoader/FlightLoader";
 const FlightReviewbooking = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -188,6 +190,21 @@ const FlightReviewbooking = () => {
       dispatch(getUserDataAction(payload));
     }
   };
+  console.warn(TicketDetails, "ticlit Detaild0000000000000000000000000")
+
+  if (TicketDetails == undefined) {
+    navigate("/flights")
+    Swal.fire({
+      title: "Hii Encountered an error",
+      text: "Redirecting to home page...",
+      // text:TicketDetails,
+      icon: "question"
+    })
+    return (<>
+      <FlightLoader />
+    </>)
+  }
+
 
   return (
     <div className="container-fluid margin-pecentage">

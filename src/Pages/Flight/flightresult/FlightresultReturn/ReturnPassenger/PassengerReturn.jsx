@@ -14,6 +14,7 @@ import Rightdetail from "./Rightdetail";
 import { useDispatch, useSelector, useReducer } from "react-redux";
 
 import { useNavigate } from "react-router-dom";
+
 import Flightnavbar from "../../../Flightnavbar";
 const Flight = (props) => {
   const dispatch = useDispatch();
@@ -23,6 +24,8 @@ const Flight = (props) => {
   const ResultIndex = sessionStorage.getItem("ResultIndex");
   // console.log("reducerState", reducerState);
   // console.log("resultIndex", ResultIndex);
+  console.warn("reducerstate", reducerState);
+  
   return (
     <div className="container bg-light">
       <div className="row">

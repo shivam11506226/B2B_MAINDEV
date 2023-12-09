@@ -13,6 +13,7 @@ import {
   quoteActionReturn,
   ruleActionReturn,
 } from "../../../../Redux/FlightFareQuoteRule/actionFlightQuote";
+import FlightLoader from "../../FlightLoader/FlightLoader";
 
 import "./FlightresultReturn.css";
 import Flightnavbar from "../../Flightnavbar";
@@ -20,11 +21,35 @@ const FlightresultReturn = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const reducerState = useSelector((state) => state);
+  const [loading, setLoading] = useState(false);
 
-  const result =
-    reducerState?.return?.returnData?.data?.data?.Response?.Results;
-  const initialGoFlight = result[0][0];
-  const initialReturnFlight = result[1][0];
+  const result = reducerState?.return?.returnData?.data?.data?.Response?.Results;
+  useEffect(() => {
+    if (result === undefined) {
+      navigate("/")
+    }
+  }, [result])
+  
+  console.log(result, "resultCheck", reducerState)
+  let initialGoFlight;
+  let initialReturnFlight;
+  let destination
+  let origin
+  let onGoTime
+  let IncomeTime
+
+  if (reducerState?.return?.returnData?.data?.data?.Response?.Results !== undefined) {
+    initialGoFlight = result[0][0];
+    initialReturnFlight = result[1][0];
+    destination =
+      result[0][0]?.Segments[0][0]?.Destination?.Airport?.CityName;
+    origin = result[0][0]?.Segments[0][0]?.Origin?.Airport?.CityName;
+    onGoTime = result[0][0]?.Segments[0][0]?.Destination?.ArrTime;
+    IncomeTime = result[1][0]?.Segments[0][0]?.Destination?.ArrTime;
+  }
+
+  // const initialGoFlight = result[0][0]  ;
+  // const initialReturnFlight = result[1][0] ;
   const [ongoFlight, setOngoFlight] = useState(initialGoFlight);
   const [incomeGlight, setIncomeFlight] = useState(initialReturnFlight);
 
@@ -32,6 +57,12 @@ const FlightresultReturn = () => {
     setOngoFlight(initialGoFlight);
     setIncomeFlight(initialReturnFlight);
   }, [initialGoFlight, initialReturnFlight]);
+  useEffect(()=>{
+    sessionStorage.setItem("flightDetailsONGo", JSON.stringify(initialGoFlight));
+    sessionStorage.setItem("flightDetailsIncome", JSON.stringify(initialReturnFlight));
+  },[])
+
+
 
   const receiveChildData = (data) => {
     // console.log("callbackData", data);
@@ -47,9 +78,11 @@ const FlightresultReturn = () => {
     }
   };
 
+
   const handleFareRuleAndQuote = async () => {
     // console.log(ongoFlight, "ongoFlight");
     // console.log(incomeGlight, "incomeGlight");
+    setLoading(true);
     const payload = {
       EndUserIp: reducerState?.ip?.ipData,
       TokenId: reducerState?.ip?.tokenData,
@@ -67,19 +100,18 @@ const FlightresultReturn = () => {
     await dispatch(quoteAction(payload));
     await dispatch(ruleActionReturn(payloadReturn));
     await dispatch(quoteActionReturn(payloadReturn));
+    setLoading(false)
     navigate("/FlightresultReturn/Passengerdetail");
 
     // console.log("reducerrrState", reducerState);
   };
 
-  const destination =
-    result[0][0]?.Segments[0][0]?.Destination?.Airport?.CityName;
-  const origin = result[0][0]?.Segments[0][0]?.Origin?.Airport?.CityName;
+
   // console.log(result[1][0]?.Segments[0][0]?.Destination?.ArrTime,"Hellllllllll")
-  const onGoTime = result[0][0]?.Segments[0][0]?.Destination?.ArrTime;
-  const IncomeTime = result[1][0]?.Segments[0][0]?.Destination?.ArrTime;
+
 
   // convert date in formate
+
 
   function convertISOToCustomFormat(isoDate) {
     const months = [
@@ -108,6 +140,21 @@ const FlightresultReturn = () => {
   }
   const onGoingTime = convertISOToCustomFormat(onGoTime);
   const onComingTime = convertISOToCustomFormat(IncomeTime);
+  if (result === undefined) {
+
+    navigate("/")
+    return
+  }
+
+
+  if (loading) {
+    return (
+      <div>
+        <FlightLoader />
+      </div>)
+  }
+
+
 
   return (
     // <div>
@@ -435,7 +482,7 @@ const FlightresultReturn = () => {
               wholeFlight={ongoFlight}
               index={ongoFlight?.ResultIndex}
               fare={ongoFlight?.Fare?.PublishedFare}
-              IsLCC={ongoFlight.IsLCC}
+              IsLCC={ongoFlight?.IsLCC}
               showRadio={false}
             />
           ) : (
@@ -444,7 +491,7 @@ const FlightresultReturn = () => {
               wholeFlight={ongoFlight}
               index={ongoFlight?.ResultIndex}
               fare={ongoFlight?.Fare?.PublishedFare}
-              IsLCC={ongoFlight.IsLCC}
+              IsLCC={ongoFlight?.IsLCC}
               showRadio={false}
             />
           )}
@@ -540,7 +587,8 @@ const FlightresultReturn = () => {
         </Box>
       </Box>
     </>
-  );
-};
+  )
+}
+
 
 export default FlightresultReturn;

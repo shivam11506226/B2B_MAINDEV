@@ -20,4 +20,5 @@ export const clearOneWayEMTReducer = () => {
   return {
     type: types.CLEAR_ONEWAY_EMT_REDUCER,
   };
+  
 };

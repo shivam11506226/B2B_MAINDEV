@@ -82,7 +82,8 @@ function SingleDataReturn(props) {
 
   const handleClick = (allDetails, ResultIndex) => {
     const slicedResultIndex = ResultIndex.slice(0, 2);
-    // console.log("Handel Click Index Key", slicedResultIndex);
+    console.warn("Handel Click Index Key", slicedResultIndex,allDetails,ResultIndex);
+
     // console.log("hghfdsjgdsjsfd", props.flight);
 
     if (slicedResultIndex == "OB") {

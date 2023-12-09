@@ -17,6 +17,8 @@ import {
   PassengersAction,
   PassengersActionReturn,
 } from "../../../../../Redux/Passengers/passenger";
+import FlightLoader from "../../../FlightLoader/FlightLoader";
+import { setLoading } from "../../../../../Redux/FlightFareQuoteRule/actionFlightQuote";
 const Leftdetail = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -328,6 +330,7 @@ const Leftdetail = () => {
 
     dispatch(PassengersAction(passengerData));
     dispatch(PassengersActionReturn(passengerDataReturn))
+
     navigate("/Flightresult/passengerdetail/flightReturnreviewbooking");
   }
 
@@ -425,12 +428,24 @@ const Leftdetail = () => {
 
 
 
-
-
+  const [Loading, setLoading] = useState(true);
 
 
   console.log(flightDeparture, "flight departure")
   console.log(flightReturn, "flight return ")
+  useEffect(() => {
+    if (flightDeparture?.Airline?.AirlineCode === undefined) {
+      setLoading(true)
+
+
+    }
+    else (setLoading(false))
+  }, [flightDeparture?.Airline?.AirlineCode])
+  if (Loading) {
+    return (<div>
+      <FlightLoader />
+    </div>)
+  }
 
 
   return (
