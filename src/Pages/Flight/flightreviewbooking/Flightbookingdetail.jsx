@@ -215,25 +215,40 @@ const Flightbookingdetail = () => {
   useEffect(() => {
     if (reducerState?.flightBook?.flightBookData?.Error?.ErrorCode !== 0 && reducerState?.flightBook?.flightBookData?.Error?.ErrorCode !== undefined) {
       setLoading(true)
-      setTimeout(() => {
-        Swal.fire({
-          title: 'Hii Encounter An Error',
-          text: `${reducerState?.flightBook?.flightBookData?.Error?.ErrorMessage}`,
-          icon: "question",
-  
-  
-        })
-      }, 3000);
-     
+
+      Swal.fire({
+        title: 'Hii Encounter An Error',
+        text: `${reducerState?.flightBook?.flightBookData?.Error?.ErrorMessage}`,
+        icon: "question",
+        timer: 5000,
+
+        showClass: {
+          popup: `
+              animate__animated
+              animate__fadeInUp
+              animate__faster
+            `
+        },
+        hideClass: {
+          popup: `
+              animate__animated
+              animate__fadeOutDown
+              animate__faster
+            `
+        }
+
+      })
+
+
       dispatch(flightReducerClear())
       dispatch(ClearAllActionReturn())
       dispatch(clearOneWayReducer())
       dispatch(clearOneWayEMTReducer())
       dispatch(clearPassengersReducer())
-       sessionStorage.removeItem("infants")
-       sessionStorage.removeItem("ResultIndex")
-       sessionStorage.removeItem("childs")
-       sessionStorage.removeItem("adults")
+      sessionStorage.removeItem("infants")
+      sessionStorage.removeItem("ResultIndex")
+      sessionStorage.removeItem("childs")
+      sessionStorage.removeItem("adults")
       sessionStorage("passengers", {
         passengersData: [],
         passengerDataReturn: [],
@@ -289,7 +304,7 @@ const Flightbookingdetail = () => {
 
       navigate("/")
     }
-  },[reducerState?.flightBook?.flightBookData?.Error?.ErrorCode,reducerState?.flightBook?.flightBookData?.Error?.ErrorCode])
+  }, [reducerState?.flightBook?.flightBookData?.Error?.ErrorCode, reducerState?.flightBook?.flightBookData?.Error?.ErrorCode])
 
   useEffect(() => {
     if (fareValueReturn?.IsLCC) {
@@ -354,7 +369,27 @@ const Flightbookingdetail = () => {
           setLoading(true);
         }
       } else {
-        alert("Insufficeint balance!! Please Recharge your Wallet");
+        // alert("Insufficeint balance!! Please Recharge your Wallet");
+        Swal.fire({
+          title: "An Error Occured",
+          text: "Insufficeint balance!! Please Recharge your Wallet",
+          icon: "error",
+          timer: 5000,
+          showClass: {
+            popup: `
+              animate__animated
+              animate__fadeInUp
+              animate__faster
+            `
+          },
+          hideClass: {
+            popup: `
+              animate__animated
+              animate__fadeOutDown
+              animate__faster
+            `
+          }
+        })
         navigate("/flights");
       }
     } else {
@@ -386,7 +421,27 @@ const Flightbookingdetail = () => {
           setLoading(true);
         }
       } else {
-        alert("Insufficeint balance!! Please Recharge your Wallet");
+        Swal.fire({
+          title: "An Error Occured",
+          text: "Insufficeint balance!! Please Recharge your Wallet",
+          icon: "error",
+          timer: 5000,
+          showClass: {
+            popup: `
+              animate__animated
+              animate__fadeInUp
+              animate__faster
+            `
+          },
+          hideClass: {
+            popup: `
+              animate__animated
+              animate__fadeOutDown
+              animate__faster
+            `
+          }
+        })
+        // alert("Insufficeint balance!! Please Recharge your Wallet");
         navigate("/flights");
       }
     }
@@ -581,7 +636,23 @@ const Flightbookingdetail = () => {
   if (bookingConfirmed) {
     Swal.fire({
       title: "Booking Confirmed",
-      icon: "success"
+      icon: "success",
+      timer: 5000,
+      showClass: {
+        popup: `
+          animate__animated
+          animate__fadeInUp
+          animate__faster
+        `
+      },
+      hideClass: {
+        popup: `
+          animate__animated
+          animate__fadeOutDown
+          animate__faster
+        `
+      }
+
     })
     dispatch(flightReducerClear())
     dispatch(ClearAllActionReturn())

@@ -378,7 +378,22 @@ const FlightReturnBookingDetails = () => {
                 // navigate("/flights");
                 Swal.fire({
                     title:"Insufficeint balance!! Please Recharge your Wallet",
-                    icon:"error"
+                    icon:"error",
+                    timer:5000,
+                    showClass: {
+                        popup: `
+                          animate__animated
+                          animate__fadeInUp
+                          animate__faster
+                        `
+                      },
+                      hideClass: {
+                        popup: `
+                          animate__animated
+                          animate__fadeOutDown
+                          animate__faster
+                        `
+                      }
                     
                 })
                 bookingConfirmed()
@@ -416,7 +431,22 @@ const FlightReturnBookingDetails = () => {
                 // alert("Insufficeint balance!! Please Recharge your Wallet");
                 Swal.fire({
                     title:"Insufficeint balance!! Please Recharge your Wallet",
-                    icon:"error"
+                    icon:"error",
+                    timer:5000,
+                    showClass: {
+                        popup: `
+                          animate__animated
+                          animate__fadeInUp
+                          animate__faster
+                        `
+                      },
+                      hideClass: {
+                        popup: `
+                          animate__animated
+                          animate__fadeOutDown
+                          animate__faster
+                        `
+                      }
                     
                 })
                 bookingConfirmed()

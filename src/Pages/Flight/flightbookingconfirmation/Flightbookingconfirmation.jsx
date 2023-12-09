@@ -198,7 +198,22 @@ const FlightReviewbooking = () => {
       title: "Hii Encountered an error",
       text: "Redirecting to home page...",
       // text:TicketDetails,
-      icon: "question"
+      icon: "question",
+      timer:5000,
+      showClass: {
+        popup: `
+          animate__animated
+          animate__fadeInUp
+          animate__faster
+        `
+      },
+      hideClass: {
+        popup: `
+          animate__animated
+          animate__fadeOutDown
+          animate__faster
+        `
+      }
     })
     return (<>
       <FlightLoader />
