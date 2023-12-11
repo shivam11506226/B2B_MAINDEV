@@ -58,6 +58,7 @@ const Flightdetail = () => {
   const [bookingSuccess, setBookingSuccess] = useState(bookingStatus);
   const [passengerData, setPassengerData] = useState([]);
   const [sub, setSub] = useState(false);
+  console.warn("reducerstate::::::::::::::::", reducerState)
 
   // console.log("State Data", reducerState);
 
@@ -67,6 +68,11 @@ const Flightdetail = () => {
       navigate("/Guestdetail");
     }
   }, [bookingStatus]);
+  useEffect(() => {
+    if (HotelIndex === undefined || HotelIndex === null || ResultIndex === undefined || ResultIndex === null || HotelCode === undefined || HotelCode === null) {
+      navigate("/hotel/hotelsearch")
+    }
+  }, [])
 
   useEffect(() => {
     //  console.log(handleSettingPassengerArr(noOfRooms))
@@ -113,7 +119,7 @@ const Flightdetail = () => {
       roomIndex: "",
     };
     // console.log(roomCombination);
-    roomCombination.map((item, indexRoom) => {
+    roomCombination?.map((item, indexRoom) => {
       const adultCount = item?.NoOfAdults;
       const childCount = item?.NoOfChild;
       if (adultCount > 0) {
@@ -174,9 +180,7 @@ const Flightdetail = () => {
     reducerState?.hotelSearchResult?.hotelRoom?.GetHotelRoomResult
       ?.HotelRoomsDetails[0]?.RoomTypeName;
   // console.log("hotel Room Name", hotelRoomName)
-  const hotelCancellationPolicies =
-    reducerState?.hotelSearchResult?.blockRoom?.BlockRoomResult
-      ?.HotelRoomsDetails[0];
+  const hotelCancellationPolicies = reducerState?.hotelSearchResult?.blockRoom?.BlockRoomResult?.HotelRoomsDetails ? reducerState?.hotelSearchResult?.blockRoom?.BlockRoomResult?.HotelRoomsDetails[0] : undefined;
   const cancellationStartingDate =
     hotelCancellationPolicies?.CancellationPolicies[0]?.FromDate;
   const cancellationFormattedStartingDate = moment(
@@ -208,14 +212,14 @@ const Flightdetail = () => {
 
 
   useEffect(() => {
-    if (isLoad.length == 0) {
+    if (isLoad?.length == 0) {
       setLoader(true);
       // console.log("truehai bhai");
     }
   }, [isLoad]);
 
   useEffect(() => {
-    if (isLoad.length >= 0) {
+    if (isLoad?.length >= 0) {
       setLoader(false);
       // console.log("truehai bhai");
     }
@@ -437,7 +441,7 @@ const Flightdetail = () => {
 
   // Retrieve data from sessionStorage
   const storedFormData = JSON.parse(sessionStorage.getItem("hotelFormData"));
-  const data = storedFormData.dynamicFormData[0]; // Assuming dynamicFormData is an array with at least one element
+  const data = storedFormData?.dynamicFormData[0]; // Assuming dynamicFormData is an array with at least one element
 
   // // Calculate total number of guests
   // const totalAdult = data.NoOfAdults || 0;
@@ -627,8 +631,8 @@ const Flightdetail = () => {
 
             <div className="col-lg-12">
               <div className="accordianSection">
-                {noOfRooms.length > 0 &&
-                  Array.from({ length: noOfRooms.length }, (_, roomIndex) => (
+                {noOfRooms?.length > 0 &&
+                  Array.from({ length: noOfRooms?.length }, (_, roomIndex) => (
                     <Box sx={{ marginBottom: "15px" }}>
                       <div mb={2} key={roomIndex} className="services" py={1}>
                         <Accordion

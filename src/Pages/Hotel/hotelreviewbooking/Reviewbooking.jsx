@@ -52,7 +52,7 @@ const Guestdetail = () => {
   // ]);
 
   const storedFormData = JSON.parse(sessionStorage.getItem('hotelFormData'));
-  const data = storedFormData.dynamicFormData[0];
+  const data = storedFormData?.dynamicFormData[0];
   // console.log(storedFormData)
   return (
     <React.Fragment>
@@ -69,7 +69,7 @@ const Guestdetail = () => {
                   <p>Duration: {storedFormData?.night}{' '}Nights</p>
                   <p>{storedFormData?.checkIn}- {storedFormData?.checkOut}</p>
                   <p>Guest(s): {totalAdults}Adult(s) </p>
-                  <p>Room(s): {storedFormData.room}</p>
+                  <p>Room(s): {storedFormData?.room}</p>
                 </div>
               </div>
             </div>

@@ -59,11 +59,11 @@ const Flightbookingdetail = () => {
     reducerState?.flightFare?.flightQuoteData?.Results
       ?.IsPassportRequiredAtTicket;
   const ResultIndex =
-    sessionStorage.getItem("ResultIndex") ||
-    JSON.parse(sessionStorage.getItem("flightDetailsONGo")).ResultIndex;
+    sessionStorage?.getItem("ResultIndex") ||
+    JSON.parse(sessionStorage.getItem("flightDetailsONGo"))?.ResultIndex;
   const ResultIndexReturn =
     sessionStorage.getItem("ResultIndex") ||
-    JSON.parse(sessionStorage.getItem("flightDetailsIncome")).ResultIndex;
+    JSON.parse(sessionStorage?.getItem("flightDetailsIncome"))?.ResultIndex;
   // console.log(
   //   "passengerAgreement",
   //   passengerAgreement,
@@ -213,7 +213,7 @@ const Flightbookingdetail = () => {
 
   //Handling return booking here(flow Here is Non-Lcc to Non-Lcc OR Non-Lcc to Lcc)
   useEffect(() => {
-    if (reducerState?.flightBook?.flightBookData?.Error?.ErrorCode !== 0 && reducerState?.flightBook?.flightBookData?.Error?.ErrorCode !== undefined) {
+    if (reducerState?.flightBook?.flightBookData?.Error?.ErrorCode !== 0 && reducerState?.flightBook?.flightBookData?.Error?.ErrorCode !== undefined ) {
       setLoading(true)
 
       Swal.fire({
@@ -249,7 +249,7 @@ const Flightbookingdetail = () => {
       sessionStorage.removeItem("ResultIndex")
       sessionStorage.removeItem("childs")
       sessionStorage.removeItem("adults")
-      sessionStorage("passengers", {
+      sessionStorage.setItem("passengers", {
         passengersData: [],
         passengerDataReturn: [],
 
@@ -305,6 +305,12 @@ const Flightbookingdetail = () => {
       navigate("/")
     }
   }, [reducerState?.flightBook?.flightBookData?.Error?.ErrorCode, reducerState?.flightBook?.flightBookData?.Error?.ErrorCode])
+
+  useEffect(()=>{
+    if(ResultIndex=== undefined || ResultIndex===null || ResultIndexReturn===undefined || ResultIndexReturn===null){
+      navigate("/passengerdetail")
+    }
+  })
 
   useEffect(() => {
     if (fareValueReturn?.IsLCC) {
@@ -390,7 +396,7 @@ const Flightbookingdetail = () => {
             `
           }
         })
-        navigate("/flights");
+        navigate("/");
       }
     } else {
       if (
@@ -442,7 +448,7 @@ const Flightbookingdetail = () => {
           }
         })
         // alert("Insufficeint balance!! Please Recharge your Wallet");
-        navigate("/flights");
+        navigate("/");
       }
     }
   };
@@ -850,7 +856,7 @@ const Flightbookingdetail = () => {
           </AccordionSummary>
           <AccordionDetails style={{ height: "auto" }}>
             <Box className="Top_header" p={5}>
-              {fareRules.map((rule) => (
+              {fareRules?.map((rule) => (
                 <Box>
                   <div
                     style={{
@@ -864,7 +870,7 @@ const Flightbookingdetail = () => {
                     QP: {rule.Origin} - {rule.Destination}
                   </div>
                   <div
-                    dangerouslySetInnerHTML={createMarkup(rule.FareRuleDetail)}
+                    dangerouslySetInnerHTML={createMarkup(rule?.FareRuleDetail)}
                     style={{ padding: "20px" }}
                   />
                 </Box>

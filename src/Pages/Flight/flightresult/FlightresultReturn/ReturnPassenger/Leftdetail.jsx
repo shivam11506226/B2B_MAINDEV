@@ -47,7 +47,11 @@ const Leftdetail = () => {
   // const img = flight?.Airline?.AirlineCode;
   const flightDeparture = reducerState?.flightFare?.flightQuoteData?.Results?.Segments[0]?.[0];
   const flightReturn = reducerState?.flightFare?.flightQuoteDataReturn?.Results?.Segments[0]?.[0];
-
+useEffect(()=>{
+  if(adults===undefined||adults===null||childs===undefined|| childs===null||infants===undefined||infants===null){
+    navigate("/FlightresultReturn")
+  }
+})
   console.log(flightDeparture, "flight departure")
   console.log(flightReturn, "flight return ")
 

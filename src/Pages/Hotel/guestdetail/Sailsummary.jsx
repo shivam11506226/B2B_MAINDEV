@@ -84,7 +84,7 @@ export default function Popularfilter() {
           </div>
           <div >
             <span className="text-bold">No of Rooms</span>
-            <p className="text-bold">{storedFormData.room}</p>
+            <p className="text-bold">{storedFormData?.room}</p>
           </div>
         </div>
         {/* <div className="totCOmm">

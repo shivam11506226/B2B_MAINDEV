@@ -32,6 +32,7 @@ import {
   hotelSearchInfoAction,
 } from "../../../Redux/Hotel/hotel";
 import HotelLoading from "../hotelLoading/HotelLoading";
+import Swal from "sweetalert2";
 
 const label = { inputProps: { "aria-label": "Checkbox demo" } };
 
@@ -39,26 +40,63 @@ const HotelBooknow = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const reducerState = useSelector((state) => state);
-  // console.log("State Data", reducerState);
+  console.log("State Data ????????????????????", reducerState);
   const [loader, setLoader] = useState(false);
 
   const ResultIndex = sessionStorage.getItem("ResultIndex");
   const HotelCode = sessionStorage.getItem("HotelCode");
+  useEffect(() => {
+    if (reducerState?.hotelSearchResult?.hotelInfo?.HotelInfoResult
+      ?.Error?.ErrorCode !== 0 && reducerState?.hotelSearchResult?.hotelInfo?.HotelInfoResult
+        ?.Error?.ErrorCode !== undefined) {
+      Swal.fire({
+        title: "Failed!",
+        text: reducerState?.hotelSearchResult?.hotelInfo?.HotelInfoResult
+          .Error?.ErrorMessage,
+        icon: "question",
+        timer: 3000,
+        showClass: {
+          popup: `
+            animate__animated
+            animate__fadeInUp
+            animate__faster
+          `
+        },
+        hideClass: {
+          popup: `
+            animate__animated
+            animate__fadeOutDown
+            animate__faster
+          `
+        }
+      })
+      sessionStorage.removeItem("HotelCode")
+      sessionStorage.removeItem("ResultIndex")
+      navigate("/")
+    }
+  }, [reducerState?.hotelSearchResult?.hotelInfo?.HotelInfoResult
+    ?.Error?.ErrorCode])
 
   useEffect(() => {
-    const payload = {
-      ResultIndex: ResultIndex,
-      HotelCode: HotelCode,
-      EndUserIp: reducerState?.ip?.ipData,
-      TokenId: reducerState?.ip?.tokenData,
-      TraceId:
-        reducerState?.hotelSearchResult?.ticketData?.data?.data
-          ?.HotelSearchResult?.TraceId,
-    };
+    if (ResultIndex === undefined||ResultIndex === null || HotelCode === undefined || HotelCode === null) {
+      navigate("/hotel/hotelsearch")
+    }
+    else {
+      const payload = {
+        ResultIndex: ResultIndex,
+        HotelCode: HotelCode,
+        EndUserIp: reducerState?.ip?.ipData,
+        TokenId: reducerState?.ip?.tokenData,
+        TraceId:
+          reducerState?.hotelSearchResult?.ticketData?.data?.data
+            ?.HotelSearchResult?.TraceId,
+      };
 
-    dispatch(hotelSearchInfoAction(payload));
-    dispatch(hotelRoomAction(payload));
+      dispatch(hotelSearchInfoAction(payload));
+      dispatch(hotelRoomAction(payload))
+    }
   }, []);
+  console.warn(ResultIndex,HotelCode,"ResultIndex,HotelCode")
 
   useEffect(() => {
     if (reducerState?.hotelSearchResult?.isLoadingHotelRoom == true) {
@@ -69,7 +107,7 @@ const HotelBooknow = () => {
   useEffect(() => {
     if (
       reducerState?.hotelSearchResult?.hotelRoom?.GetHotelRoomResult
-        ?.HotelRoomsDetails.length >= 0
+        ?.HotelRoomsDetails?.length >= 0
     ) {
       setLoader(false);
     }
@@ -91,6 +129,7 @@ const HotelBooknow = () => {
   const hotelRoom =
     reducerState?.hotelSearchResult?.hotelRoom?.GetHotelRoomResult;
 
+
   const star = (data) => {
     const stars = [];
     for (let i = 0; i < data; i++) {
@@ -111,8 +150,9 @@ const HotelBooknow = () => {
   });
 
   const storedFormData = JSON.parse(sessionStorage.getItem('hotelFormData'));
-  const data = storedFormData.dynamicFormData[0];
+  const data = storedFormData?.dynamicFormData[0];
   // console.log(storedFormData);
+
   return (
     <>
       {loader ? (
@@ -130,7 +170,7 @@ const HotelBooknow = () => {
                     <p>Duration: {storedFormData?.night}{' '}Nights</p>
                     <p>{storedFormData?.checkIn}- {storedFormData?.checkOut}</p>
                     <p>Guest(s): {totalAdults}Adult(s) </p>
-                    <p>Room(s): {storedFormData.room}</p>
+                    <p>Room(s): {storedFormData?.room}</p>
 
                   </div>
                 </div>

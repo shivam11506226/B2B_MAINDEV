@@ -13,6 +13,8 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { FaTrash } from "react-icons/fa";
 import { motion } from "framer-motion";
+import Swal from "sweetalert2";
+import { clearPassengersReducer } from "../../../Redux/Passengers/passenger";
 
 
 
@@ -60,7 +62,7 @@ const HotelForm = () => {
   ]);
 
   const reducerState = useSelector((state) => state);
-  // console.log("State Data", reducerState);
+  console.warn("State Data", reducerState);
 
   const errorCode =
     reducerState?.hotelSearchResult?.ticketData?.data?.data?.HotelSearchResult
@@ -89,10 +91,17 @@ const HotelForm = () => {
       setIsVisible(false);
     }
   };
-
-  useEffect(() => {
+  function All_Hotel_Reducer_Clear() {
     dispatch(clearHotelReducer());
-  }, [dispatch]);
+    dispatch(clearPassengersReducer())
+    sessionStorage?.removeItem("hotelFormData")
+    sessionStorage?.removeItem("HotelCode")
+    sessionStorage?.removeItem("HotelIndex")
+    sessionStorage?.removeItem("ResultIndex")
+  }
+  useEffect(() => {
+    All_Hotel_Reducer_Clear()
+  }, []);
 
   useEffect(() => {
     if (reducerState?.hotelSearchResult?.isLoading == true) {
@@ -100,8 +109,44 @@ const HotelForm = () => {
     }
   }, [reducerState?.hotelSearchResult?.isLoading]);
 
+  console.warn("Error code.......................", (reducerState?.hotelSearchResult?.ticketData?.data?.data?.HotelSearchResult
+    ?.Error?.ErrorCode !== 0
+    && reducerState?.hotelSearchResult?.ticketData?.data?.data?.HotelSearchResult
+      ?.Error?.ErrorCode !== undefined))
   useEffect(() => {
-    if (
+    if (reducerState?.hotelSearchResult?.ticketData?.data?.data?.HotelSearchResult
+      ?.Error?.ErrorCode !== 0
+      && reducerState?.hotelSearchResult?.ticketData?.data?.data?.HotelSearchResult
+        ?.Error?.ErrorCode !== undefined
+    ) {
+      Swal.fire({
+        title: "Failed!",
+        text: reducerState?.hotelSearchResult?.ticketData?.data?.data?.HotelSearchResult
+        ?.Error?.ErrorMessage,
+        icon: "question",
+        timer: 5000,
+        showClass: {
+          popup: `
+            animate__animated
+            animate__fadeInUp
+            animate__faster
+          `
+        },
+        hideClass: {
+          popup: `
+            animate__animated
+            animate__fadeOutDown
+            animate__faster
+          `
+        }
+      })
+      setLoader(false);
+      All_Hotel_Reducer_Clear()
+      navigate("/");
+
+
+    }
+    else if (
       reducerState?.hotelSearchResult?.ticketData?.data?.data?.HotelSearchResult
         ?.HotelResults?.length >= 0
     ) {
@@ -110,7 +155,6 @@ const HotelForm = () => {
     }
   }, [
     reducerState?.hotelSearchResult?.ticketData?.data?.data?.HotelSearchResult
-      ?.HotelResults,
   ]);
   //fetch city Logic implemented below
   useEffect(() => {

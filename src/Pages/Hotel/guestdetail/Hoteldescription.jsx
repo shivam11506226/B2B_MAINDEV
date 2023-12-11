@@ -22,6 +22,7 @@ const Hoteldescription = () => {
     navigate("booknow");
   };
   const reducerState = useSelector((state) => state);
+  console.warn(reducerState, "reducer State;;;;;;;;;;;;;;;;;;;;;;;;;;")
   const bookingId =
     reducerState?.hotelSearchResult?.bookRoom?.BookResult?.BookingId;
   let bookingStatus =
@@ -68,9 +69,47 @@ const Hoteldescription = () => {
   const userBalance = reducerState?.userData?.userData?.data?.data?.balance;
   // console.log("markup hotel", markUpamount)
   const grandTotal = totalAmount + markUpamount;
+  useEffect(() => {
+    if (resultIndex === undefined ||
+      hotelCode === undefined || reducerState?.passengers?.passengersData?.length===0 || reducerState?.passengers?.passengersData===undefined     ){
+        alert("navigate")
+        navigate("/hotel/hotelsearch/HotelBooknow/Reviewbooking")
+      }
+  },[])
+  useEffect(() => {
+    if (reducerState?.hotelSearchResult?.bookRoom?.BookResult?.Error?.ErrorCode
+      !== 0 && reducerState?.hotelSearchResult?.bookRoom?.BookResult?.Error?.ErrorCode
+      !== undefined) {
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: reducerState?.hotelSearchResult?.bookRoom?.BookResult?.Error?.ErrorMessage
+        ,
+        timer: 3000,
+        showClass: {
+          popup: `
+              animate__animated
+              animate__fadeInUp
+              animate__faster
+            `
+        },
+        hideClass: {
+          popup: `
+              animate__animated
+              animate__fadeOutDown
+              animate__faster
+            `
+        }
+
+
+      })
+      navigate("/")
+    }
+  }, [reducerState?.hotelSearchResult?.bookRoom?.BookResult])
 
   const handleClickBooking = async () => {
     // console.log(userBalance,"userbalance", grandTotal, "grandTotal")
+
 
     if (userBalance >= grandTotal) {
       const payload = {
@@ -115,16 +154,33 @@ const Hoteldescription = () => {
       // console.log("hotelDetailsPayload", hotelDetailsPayload);
       // Dispatch the hotelBookRoomAction
       //  bookingStatus = true;
-      Swal.fire({
-        title: "Congratulation!",
-        text: "Your hotel is booked",
-        icon: "success"
-      }).then(() => {
-        dispatch(clearHotelReducer());
-        navigate("/hotel"); // Navigate to "/hotel" after the Swal dialog is closed
-      });
+      // Swal.fire({
+      //   title: "Congratulation!",
+      //   text: "Your hotel is booked",
+      //   icon: "success",
+      //   timer: 5000,
+      //   showClass: {
+      //     popup: `
+      //       animate__animated
+      //       animate__fadeInUp
+      //       animate__faster
+      //     `
+      //   },
+      //   hideClass: {
+      //     popup: `
+      //       animate__animated
+      //       animate__fadeOutDown
+      //       animate__faster
+      //     `
+      //   }
+      // })
+      // .then(() => {
+      //   dispatch(clearHotelReducer());
+      //   navigate("/"); 
+      //   // Navigate to "/hotel" after the Swal dialog is closed
+      // });
       // if(1>2){
-      setBookingSuccess(true);
+      // setBookingSuccess(true);
       dispatch(hotelBookRoomAction([payload, hotelDetailsPayload]));
       // dispatch(hotelBookRoomAction(payload));
     } else {
@@ -134,9 +190,27 @@ const Hoteldescription = () => {
         icon: "error",
         title: "Oops...",
         text: "Insufficient balance!! Please Recharge your Wallet!",
+        timer: 3000,
+        showClass: {
+          popup: `
+            animate__animated
+            animate__fadeInUp
+            animate__faster
+          `
+        },
+        hideClass: {
+          popup: `
+            animate__animated
+            animate__fadeOutDown
+            animate__faster
+          `
+        }
+
+
       }).then(() => {
-        dispatch(clearHotelReducer());
-        navigate("/hotel"); // Navigate to "/hotel" after the Swal dialog is closed
+        // dispatch(clearHotelReducer());
+        // navigate("/"); 
+        // Navigate to "/hotel" after the Swal dialog is closed
       });
     }
   };
@@ -209,7 +283,7 @@ const Hoteldescription = () => {
   ]);
 
   const storedFormData = JSON.parse(sessionStorage.getItem("hotelFormData"));
-  const data = storedFormData.dynamicFormData[0]; // Assuming dynamicFormData is an array with at least one element
+  const data = storedFormData?.dynamicFormData[0]; // Assuming dynamicFormData is an array with at least one element
 
   const hotelCancellationPolicies =
     reducerState?.hotelSearchResult?.blockRoom?.BlockRoomResult
@@ -235,6 +309,14 @@ const Hoteldescription = () => {
     }
     return stars;
   };
+  if (resultIndex === undefined ||
+    hotelCode === undefined || reducerState?.passengers?.passengersData?.length===0 || reducerState?.passengers?.passengersData===undefined     ){
+      // alert("navigate")
+      // navigate("/hotel/hotelsearch/HotelBooknow/Reviewbooking")
+      return(<div>
+        loading....
+      </div>)
+    }
 
   return (
     <>

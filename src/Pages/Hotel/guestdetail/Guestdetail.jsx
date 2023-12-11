@@ -62,7 +62,7 @@ const Guestdetail = () => {
           const payload = userId;
           dispatch(getUserDataAction(payload));
         }
-        navigate("/")
+        // navigate("/")
       }, 2000)
     }
   }, [
