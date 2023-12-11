@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { styled } from "@mui/material/styles";
 import ArrowForwardIosSharpIcon from "@mui/icons-material/ArrowForwardIosSharp";
 import MuiAccordion from "@mui/material/Accordion";
@@ -28,6 +28,7 @@ import availableRooms from "../../../Images/Hotel/availableRooms.png"
 import hotelMap from "../../../Images/Hotel/hotelMap.png"
 import hotelDetails from "../../../Images/Hotel/hotelDetails.png"
 import imageGallery from "../../../Images/Hotel/imageGallery.png"
+import HotelLoading from "../hotelLoading/HotelLoading";
 
 const Accordion = styled((props) => (
   <MuiAccordion disableGutters elevation={0} square {...props} />
@@ -80,6 +81,7 @@ export default function CustomizedAccordions() {
   );
   // console.log("initialDisabledOption", disabledOption);
 
+
   const handleChange = (panel) => (event, newExpanded) => {
     setExpanded(newExpanded ? panel : false);
   };
@@ -87,6 +89,11 @@ export default function CustomizedAccordions() {
   const hotelInfo = reducerState?.hotelSearchResult?.hotelInfo?.HotelInfoResult;
 
   const hotelll = reducerState?.hotelSearchResult;
+  useEffect(() => {
+    if (HotelCode === undefined || ResultIndex === undefined) {
+      navigate("/hotel/hotelsearch")
+    }
+  }, [])
   // console.log(hotelll, "hotelll");
   //Below is the functionality applied for the multiRoom selection
   const roomComponent = (RoomIndex, RoomIndexArr, col, row) => {
@@ -120,6 +127,13 @@ export default function CustomizedAccordions() {
     });
     const year = date1.getFullYear();
     const formattedDate = `${day} ${month} ${year}`;
+    if (ResultIndex === undefined || HotelCode === undefined) {
+      return (
+        <>
+          <HotelLoading />
+        </>
+      )
+    }
     return (
       // <Box className="offer_area" p={2}>
       //   <Grid container>

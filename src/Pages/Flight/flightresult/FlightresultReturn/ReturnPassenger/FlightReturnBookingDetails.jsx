@@ -15,7 +15,7 @@ import {
     bookTicketGDSReturn,
     flightReducerClear,
 } from "../../../../../Redux/FlightBook/actionFlightBook";
-import {ClearAllActionReturn} from "../../../../../Redux/FlightFareQuoteRule/actionFlightQuote"
+import { ClearAllActionReturn } from "../../../../../Redux/FlightFareQuoteRule/actionFlightQuote"
 
 
 import Accordion from "@mui/material/Accordion";
@@ -42,7 +42,7 @@ const style = {
 
 const FlightReturnBookingDetails = () => {
 
-    
+
 
 
 
@@ -53,9 +53,9 @@ const FlightReturnBookingDetails = () => {
     const [passengerAgreement, setPassengerAgreement] = useState(false);
     const [loading, setLoading] = useState(false);
     const [paymentOption, setPaymentOption] = useState(false);
-    
+
     const reducerState = useSelector((state) => state);
-    console.warn("reducer state..........................",reducerState)
+    console.warn("reducer state..........................", reducerState,(sessionStorage?.getItem("flightDetailsONGo")))
     const markUpamount =
         reducerState?.userData?.userData?.data?.data?.markup?.flight;
 
@@ -65,10 +65,15 @@ const FlightReturnBookingDetails = () => {
             ?.IsPassportRequiredAtTicket;
     const ResultIndex =
         sessionStorage.getItem("ResultIndex") ||
-        JSON.parse(sessionStorage.getItem("flightDetailsONGo")).ResultIndex;
+        JSON.parse(sessionStorage?.getItem("flightDetailsONGo")!=="undefined" ? sessionStorage?.getItem("flightDetailsONGo") : '{"result":true}')?.ResultIndex;
     const ResultIndexReturn =
         sessionStorage.getItem("ResultIndex") ||
-        JSON.parse(sessionStorage.getItem("flightDetailsIncome")).ResultIndex;
+        JSON.parse(sessionStorage?.getItem("flightDetailsIncome") !=="undefined"? sessionStorage?.getItem("flightDetailsIncome") : '{"result":true}')?.ResultIndex;
+    useEffect(() => {
+        if (ResultIndex === undefined || ResultIndex === null || ResultIndexReturn === undefined || ResultIndexReturn === null) {
+            navigate("/FlightresultReturn/Passengerdetail")
+        }
+    }, [])
     // console.log(
     //   "passengerAgreement",
     //   passengerAgreement,
@@ -91,77 +96,77 @@ const FlightReturnBookingDetails = () => {
     const PassengersReturn = reducerState?.passengers?.passengerDataReturn;
     const userId = reducerState?.logIn?.loginData?.data?.data?.id;
     const currentBalance = reducerState?.userData?.userData?.data?.data?.balance;
-    async function bookingConfirmed  (){
+    async function bookingConfirmed() {
         // Swal.fire({
         //   title: "Booking Confirmed",
         //   icon: "success"
         // })
-      await  dispatch(flightReducerClear())
-      await  dispatch(ClearAllActionReturn())
-       await dispatch(clearOneWayReducer())
-       await dispatch(clearOneWayEMTReducer())
-       await dispatch(clearPassengersReducer())
-       await sessionStorage.getItem('oneWay', {
-          oneWayData: [],
-    
-          isLoading: false,
-    
-          isError: false,
-    
-          showSuccessMessage: false,
+        await dispatch(flightReducerClear())
+        await dispatch(ClearAllActionReturn())
+        await dispatch(clearOneWayReducer())
+        await dispatch(clearOneWayEMTReducer())
+        await dispatch(clearPassengersReducer())
+        await sessionStorage.getItem('oneWay', {
+            oneWayData: [],
+
+            isLoading: false,
+
+            isError: false,
+
+            showSuccessMessage: false,
         })
-      await  sessionStorage.getItem('oneWayEMT', {
-          oneWayEMTData: [],
-    
-          isLoading: false,
-    
-          isError: false,
-    
-          showSuccessMessage: false,
+        await sessionStorage.getItem('oneWayEMT', {
+            oneWayEMTData: [],
+
+            isLoading: false,
+
+            isError: false,
+
+            showSuccessMessage: false,
         })
-     await   sessionStorage.getItem('flightBook', {
-          flightBookData: {},
-          flightBookDataGDS: {},
-          flightTicketDataGDS: {},
-          flightBookDataReturn: {},
-          flightBookDataGDSReturn: {},
-          flightTicketDataGDSReturn: {},
-          isLogin: false,
-          isLoading: false,
-          isError: false,
+        await sessionStorage.getItem('flightBook', {
+            flightBookData: {},
+            flightBookDataGDS: {},
+            flightTicketDataGDS: {},
+            flightBookDataReturn: {},
+            flightBookDataGDSReturn: {},
+            flightTicketDataGDSReturn: {},
+            isLogin: false,
+            isLoading: false,
+            isError: false,
         });
-      await  sessionStorage.getItem('flightFare', {
-          flightRuleData: {},
-          flightQuoteData: {},
-          flightRuleDataReturn: {},
-          flightQuoteDataReturn: {},
-          isLogin: false,
-          isLoadingRuleDone: false,
-          isLoadingQuoteDoneReturn: false,
-          isLoadingRuleDoneReturn: false,
-          isLoadingQuoteDone: false,
-          isError: false
+        await sessionStorage.getItem('flightFare', {
+            flightRuleData: {},
+            flightQuoteData: {},
+            flightRuleDataReturn: {},
+            flightQuoteDataReturn: {},
+            isLogin: false,
+            isLoadingRuleDone: false,
+            isLoadingQuoteDoneReturn: false,
+            isLoadingRuleDoneReturn: false,
+            isLoadingQuoteDone: false,
+            isError: false
         })
         await sessionStorage("passengers", {
             passengersData: [],
             passengerDataReturn: [],
-    
+
             isLoading: false,
-    
+
             isError: false,
-    
+
             showSuccessMessage: false,
-          })
-          await sessionStorage.removeItem("ResultIndex")
-          await sessionStorage.removeItem("infants")
-          await sessionStorage.removeItem("childs")
-          await sessionStorage.removeItem("adults")
-          
-    
-    
-       
+        })
+        await sessionStorage.removeItem("ResultIndex")
+        await sessionStorage.removeItem("infants")
+        await sessionStorage.removeItem("childs")
+        await sessionStorage.removeItem("adults")
+
+
+
+
         navigate("/")
-      }
+    }
 
     useEffect(() => {
         if (reducerState?.flightBook?.flightBookDataGDS?.Response) {
@@ -171,16 +176,16 @@ const FlightReturnBookingDetails = () => {
             alert(reducerState?.flightBook?.flightBookDataGDS?.Error?.ErrorMessage);
         }
     }, [reducerState?.flightBook?.flightBookDataGDS]);
-    useEffect(()=>{
-        if(reducerState?.flightBook?.flightBookData?.Error?.ErrorCode!==0 && reducerState?.flightBook?.flightBookData?.Error?.ErrorCode!== undefined ){
+    useEffect(() => {
+        if (reducerState?.flightBook?.flightBookData?.Error?.ErrorCode !== 0 && reducerState?.flightBook?.flightBookData?.Error?.ErrorCode !== undefined) {
             Swal.fire({
-                title:'Booking Failed',
-                text:reducerState?.flightBook?.flightBookData?.Error?.ErrorMessage,
-                icon:"error"
+                title: 'Booking Failed',
+                text: reducerState?.flightBook?.flightBookData?.Error?.ErrorMessage,
+                icon: "error"
             })
             bookingConfirmed()
         }
-    },[reducerState?.flightBook?.flightBookData?.Error?.ErrorCode])
+    }, [reducerState?.flightBook?.flightBookData?.Error?.ErrorCode])
 
     //Balance Substraction useEffect implemented below
     useEffect(() => {
@@ -198,7 +203,7 @@ const FlightReturnBookingDetails = () => {
                 // Swal.fire({
                 //     title:"Booking Sucessfull",
                 //     icon:"success"
-                    
+
                 // })
                 // bookingConfirmed()
                 navigate("/Flightreturnbookingconfirmation");
@@ -219,7 +224,7 @@ const FlightReturnBookingDetails = () => {
                 // Swal.fire({
                 //     title:"Booking Sucessfull",
                 //     icon:"success"
-                    
+
                 // })
                 // bookingConfirmed()
                 navigate("/Flightreturnbookingconfirmation");
@@ -285,7 +290,7 @@ const FlightReturnBookingDetails = () => {
             // Swal.fire({
             //     title:"Booking Sucessfull",
             //     icon:"success"
-                
+
             // })
             // bookingConfirmed()
             navigate("/Flightreturnbookingconfirmation");
@@ -302,7 +307,7 @@ const FlightReturnBookingDetails = () => {
             // Swal.fire({
             //     title:"Booking Sucessfull",
             //     icon:"success"
-                
+
             // })
             // bookingConfirmed()
             navigate("/Flightreturnbookingconfirmation");
@@ -377,24 +382,24 @@ const FlightReturnBookingDetails = () => {
                 // alert("Insufficeint balance!! Please Recharge your Wallet");
                 // navigate("/flights");
                 Swal.fire({
-                    title:"Insufficeint balance!! Please Recharge your Wallet",
-                    icon:"error",
-                    timer:5000,
+                    title: "Insufficeint balance!! Please Recharge your Wallet",
+                    icon: "error",
+                    timer: 5000,
                     showClass: {
                         popup: `
                           animate__animated
                           animate__fadeInUp
                           animate__faster
                         `
-                      },
-                      hideClass: {
+                    },
+                    hideClass: {
                         popup: `
                           animate__animated
                           animate__fadeOutDown
                           animate__faster
                         `
-                      }
-                    
+                    }
+
                 })
                 bookingConfirmed()
                 navigate("/");
@@ -430,24 +435,24 @@ const FlightReturnBookingDetails = () => {
             } else {
                 // alert("Insufficeint balance!! Please Recharge your Wallet");
                 Swal.fire({
-                    title:"Insufficeint balance!! Please Recharge your Wallet",
-                    icon:"error",
-                    timer:5000,
+                    title: "Insufficeint balance!! Please Recharge your Wallet",
+                    icon: "error",
+                    timer: 5000,
                     showClass: {
                         popup: `
                           animate__animated
                           animate__fadeInUp
                           animate__faster
                         `
-                      },
-                      hideClass: {
+                    },
+                    hideClass: {
                         popup: `
                           animate__animated
                           animate__fadeOutDown
                           animate__faster
                         `
-                      }
-                    
+                    }
+
                 })
                 bookingConfirmed()
                 navigate("/");
@@ -847,7 +852,7 @@ const FlightReturnBookingDetails = () => {
                     </AccordionSummary>
                     <AccordionDetails style={{ height: "auto" }}>
                         <Box className="Top_header" p={5}>
-                            {fareRules.map((rule) => (
+                            {fareRules?.map((rule) => (
                                 <Box>
                                     <div
                                         style={{
@@ -858,10 +863,10 @@ const FlightReturnBookingDetails = () => {
                                             wordWrap: "break-word",
                                         }}
                                     >
-                                        QP: {rule.Origin} - {rule.Destination}
+                                        QP: {rule?.Origin} - {rule?.Destination}
                                     </div>
                                     <div
-                                        dangerouslySetInnerHTML={createMarkup(rule.FareRuleDetail)}
+                                        dangerouslySetInnerHTML={createMarkup(rule?.FareRuleDetail)}
                                         style={{ padding: "20px" }}
                                     />
                                 </Box>

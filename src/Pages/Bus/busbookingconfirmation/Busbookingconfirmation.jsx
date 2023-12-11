@@ -41,11 +41,11 @@ const Busbookingconfirmation = () => {
   const [loader, setLoader] = useState(false);
   const [userData, setUserData] = useState(null);
   const navigate = useNavigate();
+  const reducerState = useSelector((state) => state);
   const markUpamount =
     reducerState?.userData?.userData?.data?.data?.markup?.bus;
 
   // console.log("dispatchhhhhhh", dispatch);
-  const reducerState = useSelector((state) => state);
   // console.log("_______________", reducerState);
   const busFullData =
     reducerState?.getBusResult?.busResult?.data?.data?.BusSearchResult;

@@ -25,6 +25,8 @@ import Loader from "../../Loader/Loader";
 
 import { useDispatch, useSelector, useReducer } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { clearHotelReducer } from "../../../Redux/Hotel/hotel";
+import HotelLoading from "../hotelLoading/HotelLoading";
 
 const label = { inputProps: { "aria-label": "Checkbox demo" } };
 
@@ -40,7 +42,7 @@ export default function Popularfilter() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const reducerState = useSelector((state) => state);
-  // console.log("State Data", reducerState?.hotelSearchResult?.ticketData);
+  console.warn("State Data", reducerState?.hotelSearchResult);
 
   const result =
     reducerState?.hotelSearchResult?.ticketData?.data?.data?.HotelSearchResult;
@@ -51,9 +53,27 @@ export default function Popularfilter() {
     sessionStorage.setItem("ResultIndex", resultIndex);
     sessionStorage.setItem("HotelCode", hotelCode);
   };
-  const handleModifySearchClick = () => {
+  function All_Hotel_Reducer_Clear() {
+    dispatch(clearHotelReducer());
+    sessionStorage.removeItem("hotelFormData")
+  }
+  const handleModifySearchClick = async() => {
+    await All_Hotel_Reducer_Clear()
     navigate("/hotel");
   };
+  useEffect(()=>{
+    sessionStorage.removeItem("ResultIndex")
+    sessionStorage.removeItem("HotelCode")
+  
+  },[]);
+  useEffect(()=>{
+    if(result?.length===0 || result===undefined){
+      All_Hotel_Reducer_Clear()
+      navigate("/hotel");
+      console.warn(result,"hotle resu;tmcmdjkdfjvnfjnvjifnvjgfnj");
+    }
+  },[result])
+  console.warn(result,"hotle resu;tmcmdjkdfjvnfjnvjifnvjgfnj");
 
 
 
@@ -95,13 +115,19 @@ export default function Popularfilter() {
 
   // Retrieve data from sessionStorage
   const storedFormData = JSON.parse(sessionStorage.getItem('hotelFormData'));
-  const data = storedFormData.dynamicFormData[0]; // Assuming dynamicFormData is an array with at least one element
+  const data = storedFormData?.dynamicFormData[0]; // Assuming dynamicFormData is an array with at least one element
 
   // Calculate total number of guests
-  const totalAdult = data.NoOfAdults || 0;
-  const totalChild = data.NoOfChild || 0;
+  const totalAdult = data?.NoOfAdults || 0;
+  const totalChild = data?.NoOfChild || 0;
 
   // console.log("shaan", sortedAndFilteredResults)
+  if(result?.length===0 || result===undefined ){
+    // navigate("/hotel")
+    return(<>
+    <HotelLoading/>
+    </>)
+  }
   return (
 
     <div className="row">

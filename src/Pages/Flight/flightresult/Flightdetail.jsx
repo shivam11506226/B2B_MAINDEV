@@ -25,7 +25,7 @@ const Flightdetail = () => {
   console.log("Reducer State Result___________________________", results);
 
   useEffect(() => {
-    if (results===undefined || results?.length===0) {
+    if (results === undefined || results?.length === 0) {
       navigate("/flights");
     }
   }, [results]);
@@ -55,9 +55,9 @@ const Flightdetail = () => {
     };
   }, []);
 
-if(results===undefined || results.length===0) {
-  return (<div>Loading</div>)
-}
+  if (results === undefined || results.length === 0) {
+    return (<div><FlightLoader /></div>)
+  }
 
 
   return results?.map((res) => {

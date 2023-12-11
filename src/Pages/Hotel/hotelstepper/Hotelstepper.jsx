@@ -7,10 +7,15 @@ import Hotelform from "./Hotelform";
 import { useDispatch, useSelector, useReducer } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import color from "../../../color/color.js"
+import { clearHotelReducer } from "../../../Redux/Hotel/hotel.js";
 const Hotelstepper = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const reducerState = useSelector((state) => state);
+  useEffect(()=>{
+    dispatch(clearHotelReducer())
+  },[])
+
   // console.log("State Data", reducerState?.hotelSearchResult);
 
   return (

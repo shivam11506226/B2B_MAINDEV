@@ -69,7 +69,7 @@ const MultipleData = (props) => {
          reducerState?.flightFare?.flightQuoteData?.Error?.ErrorCode == 0 &&
          reducerState?.flightFare?.flightRuleData?.Error?.ErrorCode == 0
        ) {
-         navigate("/Flightresult/passengerdetail");
+         navigate("/passengerdetail");
          dispatch(setLoading("hjbb"));
          setLoader(false);
        } else if (

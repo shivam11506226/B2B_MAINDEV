@@ -46,6 +46,11 @@ const Leftdetail = () => {
   const [sub, setSub] = useState(false);
   const [alert, setAlert] = useState(false);
   console.warn("resucer state.....................", reducerState)
+  useEffect(()=>{
+    if(adults===null || adults===undefined || childs===undefined|| childs===null||infants===undefined|| infants===null|| ResultIndex===undefined || ResultIndex===null||data===undefined || null){
+      navigate("/Flightresult")
+    }
+  })
 
   const passengerTemplate = {
     Title: "Mr",
@@ -712,7 +717,7 @@ const Leftdetail = () => {
                             >
                               <option value="1">Female</option>
                               <option value="2">Male</option>
-                              <option value="3">Transgender</option>
+                              {/* <option value="3">Transgender</option> */}
                             </select>
                           </div>
                         </div>
