@@ -103,6 +103,7 @@ const Hoteldescription = () => {
 
 
       })
+      navigate("/")
     }
   }, [reducerState?.hotelSearchResult?.bookRoom?.BookResult])
 
