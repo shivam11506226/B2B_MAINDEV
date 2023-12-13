@@ -194,6 +194,7 @@ export default function VerticalTabs() {
     setOpen(false);
   };
   const handleMenuItemClick = (menuItem) => {
+    // console.log(menuItem,menuData)
     setLoading(true);
     setMenuData(menuItem);
 
@@ -247,6 +248,11 @@ export default function VerticalTabs() {
     setOpenCollapse(!openCollapse);
   };
 
+  const[openCollapseOne,setOpenCollapseOne]=useState(false);
+  const handleButtonClickOne=()=>{
+    setOpenCollapseOne(!openCollapseOne)
+  };
+
   const [openCollapseTwo, setOpenCollapseTwo] = useState(false);
 
   const handleButtonClickTwo = () => {
@@ -280,6 +286,11 @@ export default function VerticalTabs() {
 
   const handleButtonClickSeven = () => {
     setOpenCollapseSeven(!openCollapseSeven);
+  };
+
+  const[openCollapseEight,setOpenCollapseEight]=useState(false)
+  const handleButtonClickEight=()=>{
+    setOpenCollapseEight(!openCollapseEight);
   };
 
   return (
@@ -487,6 +498,9 @@ export default function VerticalTabs() {
                 <ListItemText primary="Home" sx={{ opacity: open ? 1 : 0 }} />
               </ListItemButton>
             </ListItem>
+
+
+
             <ListItem
               disablePadding
               sx={{ display: "block" }}
@@ -691,7 +705,7 @@ export default function VerticalTabs() {
                 <ListItem
                   disablePadding
                   sx={{ display: "block" }}
-                  onClick={() => handleMenuItemClick("USER B2C")}
+                  onClick={handleButtonClickOne}
                 >
                   <ListItemButton
                     sx={{
@@ -713,6 +727,8 @@ export default function VerticalTabs() {
                     <ListItemText primary="USER B2C" />
                   </ListItemButton>
                   <Collapse in={openCollapseThree} timeout="auto" unmountOnExit>
+
+                  
                     <ListItem
                       disablePadding
                       sx={{ display: "block" }}
@@ -743,6 +759,8 @@ export default function VerticalTabs() {
                         />
                       </ListItemButton>
                     </ListItem>
+
+                    
 
                     <ListItem
                       disablePadding
@@ -807,6 +825,7 @@ export default function VerticalTabs() {
                         />
                       </ListItemButton>
                     </ListItem>
+
                   </Collapse>
                 </ListItem>
               </Collapse>
@@ -850,7 +869,7 @@ export default function VerticalTabs() {
                     >
                       <AccountBoxIcon />
                     </ListItemIcon>
-                    <ListItemText primary="AGENT B2B" />
+                    <ListItemText primary="AGENT" />
                   </ListItemButton>
                   <Collapse in={openCollapseSeven} timeout="auto" unmountOnExit>
                     <ListItem
@@ -955,7 +974,7 @@ export default function VerticalTabs() {
                       justifyContent: open ? "center" : "center",
                       px: 2.5,
                     }}
-                    onClick={handleButtonClickThree}
+                    onClick={handleButtonClickEight}
                   >
                     <ListItemIcon
                       sx={{
@@ -966,9 +985,9 @@ export default function VerticalTabs() {
                     >
                       <AccountBoxIcon />
                     </ListItemIcon>
-                    <ListItemText primary="USER B2C" />
+                    <ListItemText primary="USER" />
                   </ListItemButton>
-                  <Collapse in={openCollapseThree} timeout="auto" unmountOnExit>
+                  <Collapse in={openCollapseEight} timeout="auto" unmountOnExit>
                     <ListItem
                       disablePadding
                       sx={{ display: "block" }}
@@ -1533,14 +1552,14 @@ export default function VerticalTabs() {
               {menuData === "Hotel CancelTicket" && <AgentCancelHotel />}
               {menuData === "Flight CancelTicket" && <AgentCancelFlight />}
               {menuData === "Bus CancelTicket" && <AgentCancelBus />}
-              {menuData === "Hotel CancelTickets" && (<UserCancelHotel />)}
-              {menuData === "Flight CancelTickets" && (<AllFlightCancelTickets />)}
+              {menuData === "Hotel CancelTickets" && <UserCancelHotel />}
+              {menuData === "Flight CancelTickets" && <AllFlightCancelTickets />}
               {menuData === "Bus CancelTickets" && <UserCancelBus />}
               {menuData === "Hotel ChangeTicket" && <AgentHotelChangeRequest />}
-              {menuData === "Flight ChangeTicket" && (<AgentFlightChangeRequest />)}
-              {menuData === "Bus ChangeTickets" && <AgentBusChangeRequest />}
+              {menuData === "Flight ChangeTicket" && <AgentFlightChangeRequest />}
+              {menuData === "Bus ChangeTicket" && <AgentBusChangeRequest />}
               {menuData === "Hotel ChangeTickets" && <UserHotelChangeRequest />}
-              {menuData === "Flight ChangeTickets" && (<UserFlightChangeRequest />)}
+              {menuData === "Flight ChangeTickets" && <UserFlightChangeRequest />}
               {menuData === "Bus ChangeTickets" && <UserBusChangeRequest />}
               {menuData === "User MarkUp Amount" && <MarkUpAmount />}
               {menuData === "Edit Holiday Package" && <PackageDetails />}

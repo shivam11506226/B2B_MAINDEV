@@ -14,6 +14,7 @@ const AllHotelCancelTickets = () => {
   const [searchTerm, setSearchTerm] = useState('');
   useEffect(() => {
     async function fetchHotelBookings() {
+      console.log("jjjjjjj")
       try {
         const response = await axios.get(
           `${apiURL.baseURL}/skyTrails/api/admin/getCancelUserHotelBooking`,
@@ -90,7 +91,7 @@ const AllHotelCancelTickets = () => {
           {hotelBookings.map(booking => (
             <tr key={booking._id}>
             <td>{booking.bookingId}</td>
-            <td>{booking.userDetails.username}</td>
+            <td>{booking.userDetails?.username}</td>
             <td>{booking.userDetails?.phone?.mobile_number}</td>
             <td>{booking.reason}</td>
             <td>{booking.hotelDetails?.hotelId}</td>

@@ -2,13 +2,13 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Table, TableBody, TableCell, TableRow, Paper,TextField,InputAdornment,TableHead } from '@mui/material';
-import '../HotelBookings/HotelBookings.css';
+import './CancelTicketRequest.css';
 import SearchIcon from '@mui/icons-material/Search';
 import { apiURL } from '../../../../../Constants/constant';
 
 
 const AllBusCancelTickets = () => {
-    const [hotelBookings, setHotelBookings] = useState([]);
+    const [busBookings, setBusBookings] = useState([]);
     const [loading, setLoading] = useState(true);
     const pageSize = 10;
     const [currentPage, setCurrentPage] = useState(1);
@@ -16,7 +16,7 @@ const AllBusCancelTickets = () => {
     const [searchTerm, setSearchTerm] = useState('');
   
     useEffect(() => {
-      async function fetchHotelBookings() {
+      async function fetchBusBookings() {
         try {
           setLoading(true); // Set loading to true when fetching data
           const response = await axios.get(
@@ -29,7 +29,7 @@ const AllBusCancelTickets = () => {
               }
             }
           );
-          setHotelBookings(response.data.result.docs);
+          setBusBookings(response.data.result.docs);
           setTotalPages(response.data.result.totalPages);
           setLoading(false);
         } catch (error) {
@@ -38,7 +38,7 @@ const AllBusCancelTickets = () => {
         }
       }
   
-      fetchHotelBookings();
+      fetchBusBookings();
     }, [currentPage, searchTerm]);
   
     const handlePageChange = (page) => {
@@ -88,7 +88,7 @@ const AllBusCancelTickets = () => {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {hotelBookings.map((booking) => (
+                {busBookings.map((booking) => (
                   <TableRow key={booking._id}>
                     <TableCell>{booking.busId}</TableCell>
                     <TableCell>{booking.userDetails.username}</TableCell>

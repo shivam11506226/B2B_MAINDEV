@@ -16,7 +16,9 @@ const SubAdminLoginForm = () => {
 //       navigate("/subAdmin");
 //     }
 //   }, [reducerState, navigate]);
-
+function handleclick(){
+  navigate('/subAdmin/dashboard')
+}
  const handleSubmit = async (e) => {
     e.preventDefault();
 console.log("e",e)
@@ -79,7 +81,7 @@ console.log("e",e)
           />
         </label>
         <br />
-        <button type="submit" className="subAdminsubmit-button" >
+        <button type="submit" onClick={handleclick}className="subAdminsubmit-button" >
           Login
         </button>
       </form>
