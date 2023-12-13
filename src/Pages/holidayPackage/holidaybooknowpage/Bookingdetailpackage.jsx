@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Box, Typography, Button, Grid } from "@mui/material";
 import mainImage from "../../../Images/mainImage.png";
 import goa from "../../../Images/goa.jpg"
@@ -77,8 +77,14 @@ const Bookingdetailpackage = () => {
 
   const savedDataString = sessionStorage.getItem("searchPackageData");
   const savedData = JSON.parse(savedDataString);
-  const savedDestination = savedData.destination.toUpperCase();
-  const savedDays = savedData.days;
+  const savedDestination = savedData?.destination?.toUpperCase();
+  const savedDays = savedData?.days;
+  console.warn(savedDataString,"savedDataString,,,,,,,,,,,,,,,,")
+  useEffect(()=>{
+   if( savedDataString===undefined||savedDataString===null){
+    return(navigate("/holidayPackage/HolidaypackageResult"))
+   }
+  },[])
 
 
   const [value, setValue] = React.useState('1');
@@ -86,6 +92,11 @@ const Bookingdetailpackage = () => {
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
+  if(savedDataString===undefined||savedDataString===null){
+    return (
+      <>Loading......</>
+    )
+  }
 
   return (
     <>

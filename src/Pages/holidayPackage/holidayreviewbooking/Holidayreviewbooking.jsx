@@ -17,6 +17,7 @@ import { getUserDataAction } from "../../../Redux/Auth/UserDataById/actionUserDa
 const HolidayGuestDetail = () => {
   const dispatch = useDispatch();
   const reducerState = useSelector((state) => state);
+  console.warn("Reducer state", reducerState);
   const userId = reducerState?.logIn?.loginData?.data?.data?.id;
   useEffect(() => {
     if (userId) {
@@ -26,6 +27,9 @@ const HolidayGuestDetail = () => {
       dispatch(getUserDataAction(payload));
     }
   }, []);
+  useEffect(() => {
+    console.warn("Reducer state", reducerState);
+  }, [reducerState.packageBook, reducerState.packageBookingRequest])
   return (
     <div className="container-fluid margin-pecentage">
       <div className="row">

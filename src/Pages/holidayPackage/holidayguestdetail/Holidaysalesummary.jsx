@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { styled } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
@@ -8,7 +8,9 @@ import Divider from "@mui/material/Divider";
 import { Grid, Radio, Typography, Button } from "@mui/material";
 import Custombutton from "../../../Custombuttom/Button";
 import color from "../../../color/color";
+import { useNavigate } from "react-router-dom";
 const label = { inputProps: { "aria-label": "Checkbox demo" } };
+
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
@@ -18,13 +20,18 @@ const Item = styled(Paper)(({ theme }) => ({
   color: theme.palette.text.secondary,
 }));
 
-const Holidaysalesummary = ({ childCount, adultCount }) => {
+const  Holidaysalesummary = ({ childCount, adultCount }) => {
   const [grandTotal, setgrandTotal] = useState(0);
   const dispatch = useDispatch();
+  const navigate=useNavigate();
   const reducerState = useSelector((state) => state);
   const onePackage =
     reducerState?.searchOneResult?.OneSearchPackageResult?.data?.data;
   const reducerForm = reducerState?.form?.formEntries;
+  console.warn("reducerForm",reducerForm)
+if(reducerForm===undefined){
+  return(<div></div>)
+}
   return (
 
     <>
@@ -45,16 +52,16 @@ const Holidaysalesummary = ({ childCount, adultCount }) => {
             <p>{'₹'}{(reducerForm.length - 1) *
               onePackage?.pakage_amount.amount *
               0.05 +
-              (reducerForm.length - 1) * onePackage?.pakage_amount.amount}</p>
+              (reducerForm?.length - 1) * onePackage?.pakage_amount.amount}</p>
           </div>
           <div >
             <div className="noOfTravellers">
               <span>Total Basic Cost</span>
               <span>{" "}
-                Travellers {reducerForm.length - 1} x{" "}₹
+                Travellers {reducerForm?.length - 1} x{" "}₹
                 {onePackage?.pakage_amount.amount}</span>
             </div>
-            <p>{'₹'}{(reducerForm.length - 1) * onePackage?.pakage_amount.amount}</p>
+            <p>{'₹'}{(reducerForm?.length - 1) * onePackage?.pakage_amount.amount}</p>
           </div>
         </div>
         <div className="totCOmm">
@@ -78,9 +85,9 @@ const Holidaysalesummary = ({ childCount, adultCount }) => {
           <div >
             <span>Grand Total:</span>
             <p>{'₹'}{(reducerForm.length - 1) *
-              onePackage?.pakage_amount.amount *
+              onePackage?.pakage_amount?.amount *
               0.05 +
-              (reducerForm.length - 1) * onePackage?.pakage_amount.amount}</p>
+              (reducerForm?.length - 1) * onePackage?.pakage_amount?.amount}</p>
           </div>
         </div>
 

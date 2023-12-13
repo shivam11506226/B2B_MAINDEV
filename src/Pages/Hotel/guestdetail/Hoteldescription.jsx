@@ -67,15 +67,16 @@ const Hoteldescription = () => {
   const markUpamount =
     reducerState?.userData?.userData?.data?.data?.markup?.hotel;
   const userBalance = reducerState?.userData?.userData?.data?.data?.balance;
+
   // console.log("markup hotel", markUpamount)
   const grandTotal = totalAmount + markUpamount;
   useEffect(() => {
     if (resultIndex === undefined ||
-      hotelCode === undefined || reducerState?.passengers?.passengersData?.length===0 || reducerState?.passengers?.passengersData===undefined     ){
-        alert("navigate")
-        navigate("/hotel/hotelsearch/HotelBooknow/Reviewbooking")
-      }
-  },[])
+      hotelCode === undefined || reducerState?.passengers?.passengersData?.length === 0 || reducerState?.passengers?.passengersData === undefined) {
+      // alert("navigate")
+      navigate("/hotel/hotelsearch/HotelBooknow/Reviewbooking")
+    }
+  }, [])
   useEffect(() => {
     if (reducerState?.hotelSearchResult?.bookRoom?.BookResult?.Error?.ErrorCode
       !== 0 && reducerState?.hotelSearchResult?.bookRoom?.BookResult?.Error?.ErrorCode
@@ -106,6 +107,36 @@ const Hoteldescription = () => {
       navigate("/")
     }
   }, [reducerState?.hotelSearchResult?.bookRoom?.BookResult])
+
+  useEffect(() => {
+    if (reducerState?.hotelSearchResult?.bookRoom?.Error === 0) {
+      Swal.fire({
+        icon: "success",
+        title: "Hotel Booking Success",
+        text: `Booking Id: ${reducerState?.hotelSearchResult?.bookRoom?.BookResult?.BookingId
+          } and Confirmation Number id ${reducerState?.hotelSearchResult?.bookRoom?.BookResult?.ConfirmationNo}`,
+
+        timer: 3000,
+        showClass: {
+          popup: `
+              animate__animated
+              animate__fadeInUp
+              animate__faster
+            `
+        },
+        hideClass: {
+          popup: `
+              animate__animated
+              animate__fadeOutDown
+              animate__faster
+            `
+        }
+
+
+      })
+      navigate("/")
+    }
+  })
 
   const handleClickBooking = async () => {
     // console.log(userBalance,"userbalance", grandTotal, "grandTotal")
@@ -285,22 +316,23 @@ const Hoteldescription = () => {
   const storedFormData = JSON.parse(sessionStorage.getItem("hotelFormData"));
   const data = storedFormData?.dynamicFormData[0]; // Assuming dynamicFormData is an array with at least one element
 
-  const hotelCancellationPolicies =
+  const hotelCancellationPolicies = reducerState?.hotelSearchResult?.blockRoom?.BlockRoomResult
+    ?.HotelRoomsDetails ?
     reducerState?.hotelSearchResult?.blockRoom?.BlockRoomResult
-      ?.HotelRoomsDetails[0];
-  const cancellationStartingDate =
-    hotelCancellationPolicies?.CancellationPolicies[0]?.FromDate;
+      ?.HotelRoomsDetails[0] : [];
+  const cancellationStartingDate = hotelCancellationPolicies?.CancellationPolicies ?
+    hotelCancellationPolicies?.CancellationPolicies[0]?.FromDate : [];
   const cancellationFormattedStartingDate = moment(
     cancellationStartingDate
   ).format("MMMM DD, YYYY");
-  const cancellationEndingDate =
-    hotelCancellationPolicies?.CancellationPolicies[0]?.ToDate;
+  const cancellationEndingDate = hotelCancellationPolicies?.CancellationPolicies ?
+    hotelCancellationPolicies?.CancellationPolicies[0]?.ToDate : "";
   const cancellationFormattedEndingDate = moment(cancellationEndingDate).format(
     "MMMM DD, YYYY"
   );
 
-  const cancellationCharge =
-    hotelCancellationPolicies?.CancellationPolicies[0]?.Charge;
+  const cancellationCharge = hotelCancellationPolicies?.CancellationPolicies ?
+    hotelCancellationPolicies?.CancellationPolicies[0]?.Charge : null;
 
   const star = (data) => {
     const stars = [];
@@ -309,14 +341,16 @@ const Hoteldescription = () => {
     }
     return stars;
   };
+  console.warn(userBalance, grandTotal, "userBalance >= grandTotal")
+
   if (resultIndex === undefined ||
-    hotelCode === undefined || reducerState?.passengers?.passengersData?.length===0 || reducerState?.passengers?.passengersData===undefined     ){
-      // alert("navigate")
-      // navigate("/hotel/hotelsearch/HotelBooknow/Reviewbooking")
-      return(<div>
-        loading....
-      </div>)
-    }
+    hotelCode === undefined || reducerState?.passengers?.passengersData?.length === 0 || reducerState?.passengers?.passengersData === undefined) {
+    // alert("navigate")
+    // navigate("/hotel/hotelsearch/HotelBooknow/Reviewbooking")
+    return (<div>
+      loading....
+    </div>)
+  }
 
   return (
     <>
