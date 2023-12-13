@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   Typography,
@@ -62,7 +62,7 @@ const Holidayguestinfo = ({ setadultCount, setchildCount }) => {
   });
   const [requestData, setrequestData] = useState({
     email: "",
-    countryCode: "",
+    countryCode: "+91",
     mobile: "",
     departureCity: "",
   });
@@ -77,6 +77,7 @@ const Holidayguestinfo = ({ setadultCount, setchildCount }) => {
   const onePackage =
     reducerState?.searchOneResult?.OneSearchPackageResult?.data?.data;
   const reducerForm = reducerState?.form?.formEntries;
+ 
   // console.log("package Req", reducerState);
   // console.log("onePackageee", onePackage);
   // console.log("reducerForm", reducerForm);
@@ -92,6 +93,7 @@ const Holidayguestinfo = ({ setadultCount, setchildCount }) => {
   const savedData = JSON.parse(savedDataString);
   const savedDestination = savedData.destination.toUpperCase();
   const savedDays = savedData.days;
+  console.log(reducerForm,"reducer form.................")
 
   const handlePersonChange = (e) => {
     const { name, value } = e.target;
@@ -123,8 +125,8 @@ const Holidayguestinfo = ({ setadultCount, setchildCount }) => {
 
   const handlePersonAdd = () => {
     setAdd(true)
-    if(validationAdd()){
-      return 
+    if (validationAdd()) {
+      return
     }
     dispatch(addFormEntry(formData));
     setFormData({
@@ -147,29 +149,29 @@ const Holidayguestinfo = ({ setadultCount, setchildCount }) => {
     // Test the phone number against the pattern
     return phonePattern.test(phoneNumber);
   }
-  function validationAdd(){
-    if(formData.name===""||formData.dob==="" || formData.gender===""){
+  function validationAdd() {
+    if (formData.name === "" || formData.dob === "" || formData.gender === "") {
       return true
     }
   }
-  function validationSub(){
-    if(!validateEmail( requestData.email) || !validatePhoneNumber( requestData.mobile) || requestData.departureCity===""){
+  function validationSub() {
+    if (!validateEmail(requestData.email) || !validatePhoneNumber(requestData.mobile) || requestData.departureCity === "") {
       return true
     }
   }
   const handleBookingPackage = (event) => {
     event.preventDefault();
     setSub(true)
-    if(reducerForm.slice(1).length===0 || validationSub()){
+    if (reducerForm.slice(1).length === 0 || validationSub()) {
       return
     }
-    
+
     if (
       userBalance >=
       (reducerForm.length - 1) * onePackage?.pakage_amount.amount * 0.05 +
       (reducerForm.length - 1) * onePackage?.pakage_amount.amount
     ) {
-      
+
       const formData = new FormData();
       const payload = {
         pakageid: packageId,
@@ -209,14 +211,14 @@ const Holidayguestinfo = ({ setadultCount, setchildCount }) => {
       holidayData.append("data", JSON.stringify(payload));
       dispatch(packageBookingAction(payload));
       if (userId) {
-        const balancePayload = {
+        const balancePayload  = {
           _id: userId,
           amount:
             (reducerForm.length - 1) * onePackage?.pakage_amount.amount * 0.05 +
             (reducerForm.length - 1) * onePackage?.pakage_amount.amount,
         };
 
-        dispatch(balanceSubtractRequest(balancePayload));
+        // dispatch(balanceSubtractRequest(balancePayload));
       }
     } else {
       Swal.fire({
@@ -228,12 +230,35 @@ const Holidayguestinfo = ({ setadultCount, setchildCount }) => {
         confirmButtonText: "OK",
       }).then((result) => {
         if (result.isConfirmed) {
-          navigate("/Login");
+          navigate("/");
+
         }
-      });
+      }).catch((data) => {
+        console.log("dataddddddddddd", data);
+      })
     }
-    handleSuccessandNavigate();
+    // handleSuccessandNavigate();
   };
+  // if()
+  console.warn("result", reducerState, "reducer state")
+  useEffect(()=>{
+    console.warn("new resucerstate'''''''''''''''''''''''''''''''''''",reducerState)  
+    if(reducerState?.packageBookingRequest?.isError==false && reducerState?.packageBookingRequest?.isLoading===false
+      && reducerState?.packageBookingRequest?.showSuccessMessage) {
+        if (userId) {
+          const balancePayload  = {
+            _id: userId,
+            amount:
+              (reducerForm.length - 1) * onePackage?.pakage_amount.amount * 0.05 +
+              (reducerForm.length - 1) * onePackage?.pakage_amount.amount,
+          };
+  
+          dispatch(balanceSubtractRequest(balancePayload));
+        }
+     
+        navigate("/")
+      }
+    },[reducerState?.packageBookingRequest])
 
   return (
     <>
@@ -275,25 +300,25 @@ const Holidayguestinfo = ({ setadultCount, setchildCount }) => {
                     <input type="text" class="form-control" name="name" value={formData.name} onChange={handlePersonChange} id="floatingInput" placeholder="Enter Your Name" />
                     <label for="floatingInput">Enter Your Name</label>
                   </div>
-                 {add && formData.name==="" && <span id="error1">Enter name</span>}
+                  {add && formData.name === "" && <span id="error1">Enter name</span>}
                 </div>
                 <div className="col-lg-3">
                   <div class="form-floating md-mb-3">
                     <input type="date" class="form-control" name="dob" max={(new Date()).toISOString().split('T')[0]} value={formData.dob} onChange={handlePersonChange} id="floatingInput" placeholder="Enter Your DOB" />
                     <label for="floatingInput">Date of Birth</label>
                   </div>
-                  {add && formData.dob==="" && <span id="error1">Enter DOB</span>}
+                  {add && formData.dob === "" && <span id="error1">Enter DOB</span>}
                 </div>
                 <div className="col-lg-3">
                   <div class="form-floating md-mb-3">
-                    <select class="form-select" name="gender" value={formData.gender}  onChange={handlePersonChange} id="floatingSelect" aria-label="Floating label select example">
+                    <select class="form-select" name="gender" value={formData.gender} onChange={handlePersonChange} id="floatingSelect" aria-label="Floating label select example">
                       <option value="male">Male</option>
                       <option value="female">Female</option>
                       <option value="other">Other</option>
                     </select>
                     <label for="floatingSelect">Choose Your Gender</label>
                   </div>
-                  {add && formData.gender==="" && <span id="error1">Enter DOB</span>}
+                  {add && formData.gender === "" && <span id="error1">Enter DOB</span>}
                 </div>
                 <div className="col-lg-3 ">
                   <button className="btnAddGuest" onClick={handlePersonAdd}> Add Guest</button>
@@ -333,7 +358,7 @@ const Holidayguestinfo = ({ setadultCount, setchildCount }) => {
                         <input type="email" class="form-control" name="email" value={requestData.email} onChange={handleRequestChange} id="floatingInput" placeholder="Enter Your Email" />
                         <label for="floatingInput">Enter Your Email</label>
                       </div>
-                      {sub && !validateEmail( requestData.email) && <span id="error1">Enter Email</span>}
+                      {sub && !validateEmail(requestData.email) && <span id="error1">Enter Email</span>}
 
                     </div>
                     <div className="col-lg-3">
@@ -358,7 +383,7 @@ const Holidayguestinfo = ({ setadultCount, setchildCount }) => {
                         <input type="text" class="form-control" name="departureCity" value={requestData.departureCity} onChange={handleRequestChange} id="floatingInput" placeholder="Enter Your Email" />
                         <label for="floatingInput">Departure City</label>
                       </div>
-                      {sub && requestData.departureCity==="" && <span id="error1">Enter Departure City </span>}
+                      {sub && requestData.departureCity === "" && <span id="error1">Enter Departure City </span>}
                     </div>
                   </div>
                 </div>
@@ -650,7 +675,7 @@ const Holidayguestinfo = ({ setadultCount, setchildCount }) => {
             />
           </Box>
         </form> */}
-        <Modal
+        {/* <Modal
           open={showSuccess}
           aria-labelledby="child-modal-title"
           aria-describedby="child-modal-description"
@@ -666,7 +691,7 @@ const Holidayguestinfo = ({ setadultCount, setchildCount }) => {
               Thanku!!Your booking is done
             </Typography>
           </MuiBox>
-        </Modal>
+        </Modal> */}
       </Box>
 
     </>

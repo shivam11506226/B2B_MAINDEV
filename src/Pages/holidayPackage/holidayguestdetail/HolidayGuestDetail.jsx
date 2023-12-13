@@ -53,7 +53,7 @@ const HolidayGuestDetail = () => {
 
 
 
-      <Modal
+      {/* <Modal
         open={showSuccess}
         aria-labelledby="child-modal-title"
         aria-describedby="child-modal-description"
@@ -66,7 +66,7 @@ const HolidayGuestDetail = () => {
           />
           <Button>Close Child Modal</Button>
         </MuiBox>
-      </Modal>
+      </Modal> */}
       <div className="container p-3 bg-light">
         <div className="row">
           <div className="col-lg-9">

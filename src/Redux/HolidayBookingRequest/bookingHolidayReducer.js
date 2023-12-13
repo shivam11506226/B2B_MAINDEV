@@ -10,8 +10,8 @@ export const packageBookingReducer = (state = initState, action) => {
   switch (type) {
     case types.PACKAGE_SUCCESS:
       return {
-        ...state,   
-        isLoading: true,
+        ...state,
+        isLoading: false,
         isError: false,
       };
 
@@ -19,10 +19,25 @@ export const packageBookingReducer = (state = initState, action) => {
       return {
         ...state,
         packageRequestData: payload,
-        isLoading: false,
+        isLoading: true,
         isError: false,
         showSuccessMessage: true,
       };
+    case types.PACKAGE_FAILURE:
+      return {
+        ...state,
+        packageRequestData: payload,
+        isLoading: false,
+        isError: true,
+        showSuccessMessage: false,
+      };
+    case types.PACKAGE_CLEAR:
+      return {
+        packageRequestData: [],
+        isLoading: false,
+        isError: false,
+        showSuccessMessage: false,
+      }
 
     default:
       return state;
