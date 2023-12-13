@@ -70,9 +70,8 @@ import CreateHolidayPackage from "../Pages/HotelPackage/createholidaypackage/Cre
 import EditHolidayPackage from "../Pages/Dashboard/Component/Table/packageUpdate/EditPackage";
 import Queue from "../Pages/Account/Queue";
 import MainBox from "../Layout/MainBox";
-import { useLocation, Navigate } from "react-router-dom";
 
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams, useLocation , Navigate } from "react-router-dom";
 import { useDispatch, useSelector, useReducer } from "react-redux";
 import { ipAction, tokenAction } from "../Redux/IP/actionIp";
 // import Slider from "../Pages/Banner/Slider";
@@ -89,6 +88,8 @@ import FlightReturnReviewbooking from "../Pages/Flight/flightresult/Flightresult
 import FlightReturnBookingConfirmation from "../Pages/Flight/flightresult/FlightresultReturn/ReturnPassenger/FlightReturnBookingConfirmation";
 import CreateSubAdminPage from "../Pages/Dashboard/Component/Table/AddSubadmin";
 import SubAdminLoginPage from "../Pages/subAdmin/SubAdminSignIn"; // Import SubAdminLoginPage
+import FlightOneTicket from "../Pages/Account/FlightOneTicket";
+import FlightOpen from "../Pages/Account/FlightOpen";
 const MainPage = () => {
   const dispatch = useDispatch();
   const location = useLocation();
@@ -100,6 +101,8 @@ const MainPage = () => {
   const isSubAdminLogin = location.pathname === "/subAdminLogin";
   const isSubAdmindashboard = location.pathname === "/subAdmin/dashboard";
   const navigate = useNavigate();
+  const { id } = useParams();
+  const isFlightEticketPage = location.pathname.startsWith('/FlightEticket');
 
   useEffect(() => {
     if (
@@ -157,8 +160,8 @@ const MainPage = () => {
       </div> */}
 
       {/* <Headers/> */}
-      {location.pathname === "/Login" || location.pathname === "/Registration"? null :<Headers />}
-      {location.pathname === "/" || location.pathname === "/Login" || location.pathname === "/Registration"? null :<InnerNavbar />}
+      {location.pathname === "/Login" || location.pathname === "/Registration" || isFlightEticketPage ? null :<Headers />}
+      {location.pathname === "/" || location.pathname === "/Login" || location.pathname === "/Registration" || isFlightEticketPage ? null :<InnerNavbar />}
 
       {!isLoginRoute && !isRegisterRoute &&
         !isDashboard &&
@@ -431,6 +434,8 @@ const MainPage = () => {
                   element={<EditHolidayPackage />}
                 ></Route>
                 <Route exact path="/Queue" element={<Queue />}></Route>
+                <Route exact path="/FlightConfirmBooking/:id" element={<FlightOpen />} />
+                <Route exact path="/FlightEticket/:id" element={<FlightOneTicket />} /> 
               </Routes>
             </div>
 

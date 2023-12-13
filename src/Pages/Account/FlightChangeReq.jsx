@@ -190,7 +190,7 @@ const FlightChangeReq = () => {
             <div className="action">
               <div className="link">
                 <a href="http://">Fare Rule</a>
-                <a href="http://">View Ticket</a>
+                <Link to={`/FlightEticket/${flight._id}`}>View Ticket</Link>
                 {differenceInDays<0?(null):(
                   <Link
                     onClick={() => {
@@ -214,9 +214,10 @@ const FlightChangeReq = () => {
                   </Link>
               )}
               </div>
+              <Link to={`/FlightConfirmBooking/${flight._id}`}>
               <div className="view">
-                <button>View Invoice</button>
-              </div>
+                <button >Open</button>
+              </div></Link>
             </div>
           </div>
         )
