@@ -66,7 +66,6 @@ const AllHotelCancelTickets = () => {
         <thead>
           <tr>
             <th>Booking ID</th>
-            <th>Agency Name</th>
             <th>Name</th>
             <th>Phone</th>
             <th>Email</th>
@@ -84,7 +83,6 @@ const AllHotelCancelTickets = () => {
           {hotelBookings.map(booking => (
             <tr key={booking.bookingId}>
               <td>{booking.bookingId}</td>
-              <td>{booking.userDetails.agency_details.agency_name}</td>
               <td>{`${booking.userDetails.personal_details.first_name}  ${booking.userDetails.personal_details.last_name}` }</td>
               <td>{booking.userDetails.personal_details.mobile.mobile_number}</td>
               <td>{booking.userDetails.personal_details.email}</td>

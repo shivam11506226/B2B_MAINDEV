@@ -16,7 +16,7 @@ const AllFlightCancelTickets = () => {
     async function fetchHotelBookings() {
       try {
         const response = await axios.get(
-          `${apiURL.baseURL}/skytrails/api/agent/getcancelFlightBooking`,
+          `${apiURL.baseURL}/skyTrails/api/admin/getCancelAgentUserFlightBooking`,
           {
             params: {
               page: currentPage,
@@ -89,11 +89,11 @@ const AllFlightCancelTickets = () => {
               <td>{booking.userDetails.personal_details.email}</td>
               <td>{booking.reason}</td>
               <td>{booking.pnr}</td>
-              <td>{booking.flightDetails.amount}</td>
+              <td>{booking.flightDetails.totalAmount}</td>
               <td>{booking.flightDetails.origin}</td>
               <td>{booking.flightDetails.destination}</td>
-              <td>{booking.flightDetails.dateOfJourney}</td>
-              <td>{booking.flightDetails.airlineDetails.AirlineName}</td>
+              <td>{booking.flightDetails.airlineDetails[0].Origin.DepTime}</td>
+              <td>{booking.flightDetails.airlineDetails[0].Airline.AirlineName}</td>
               <td><button>APPROVE</button></td>
             </tr>
           ))}

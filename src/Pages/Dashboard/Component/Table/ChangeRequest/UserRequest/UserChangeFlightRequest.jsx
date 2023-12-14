@@ -65,7 +65,6 @@ const AllFlightChangeTickets = () => {
         <thead>
           <tr>
             <th>Booking ID</th>
-            <th>Agency Name</th>
             <th>Name</th>
             <th>Phone</th>
             <th>Email</th>
@@ -83,17 +82,16 @@ const AllFlightChangeTickets = () => {
           {hotelBookings.map(booking => (
             <tr key={booking._id}>
               <td>{booking.bookingId}</td>
-              <td>{booking.userDetails.agency_details.agency_name}</td>
               <td>{`${booking.userDetails.personal_details.first_name}  ${booking.userDetails.personal_details.last_name}` }</td>
               <td>{booking.userDetails.personal_details.mobile.mobile_number}</td>
               <td>{booking.userDetails.personal_details.email}</td>
               <td>{booking.reason}</td>
               <td>{booking.flightDetails.pnr}</td>
-              <td>{booking.flightDetails.amount}</td>
+              <td>{booking.flightDetails.totalAmount}</td>
               <td>{booking.flightDetails.origin}</td>
               <td>{booking.flightDetails.destination}</td>
-              <td>{booking.flightDetails.dateOfJourney}</td>
-              <td>{booking.flightDetails.airlineDetails.AirlineName}</td>
+              <td>{booking.flightDetails.airlineDetails[0].Origin.DepTime}</td>
+              <td>{booking.flightDetails.airlineDetails[0].Airline.AirlineName}</td>
               <td><button>APPROVE</button></td>
             </tr>
           ))}

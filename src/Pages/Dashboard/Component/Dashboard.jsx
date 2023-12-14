@@ -12,6 +12,8 @@ import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import PersonAdd from "@mui/icons-material/PersonAdd";
 import Settings from "@mui/icons-material/Settings";
 import Logout from "@mui/icons-material/Logout";
+import profilePicUrl from '../../../Images/Admin.svg'
+// import profilePicUrl from '../../../Images/Admin.svg'
 
 import {
   ListItem,
@@ -43,7 +45,6 @@ import RiseLoader from "react-spinners/RiseLoader";
 import HotelBookings from "./Table/HotelBookings/HotelBookings";
 import FlightBookings from "./Table/FlightBookings/Flightbookings";
 import BusBookings from "./Table/BusBookings/BusBookings";
-
 import FixedDeparture from "./Table/FixedDeparture/FixedDeparture";
 import FixedDepartureControl from "./Table/FixedDepartureControl/FixedDepartureControl";
 import AgentHotelBookings from "./Table/AgentHotelBookings/AgentHotelBookings";
@@ -78,7 +79,6 @@ import AgentCancelHotel from "./Table/CancelTicketRequest/AgentCancelHotel";
 import AgentCancelFlight from "./Table/CancelTicketRequest/AgentCancelFlight";
 import AgentCancelBus from "./Table/CancelTicketRequest/AgentCancelBus";
 import UserCancelHotel from "./Table/CancelTicketRequest/UserCancelHotel";
-import AllFlightCancelTicketsUser from "./Table/CancelTicketRequest/UserCancelFlight";
 import UserCancelBus from "./Table/CancelTicketRequest/UserCancelBus";
 import AllFlightCancelTickets from "./Table/CancelTicketRequest/UserCancelFlight";
 import AddSubadmin from "../Component/Table/AddSubadmin";
@@ -324,10 +324,10 @@ export default function VerticalTabs() {
             >
               <MenuIcon />
             </IconButton>
-            <Typography variant="h4" noWrap component="div">
-              <img src={STLOGO} height={100} margin-top={100} alt="logo" />
-            </Typography>
-
+            <Typography variant="h4" noWrap component="div" style={{ marginTop: '10px' }}>
+            <img src={STLOGO} height={50} alt="logo" />
+          </Typography>
+          
             {/* Search Bar */}
             <div
               style={{
@@ -369,7 +369,7 @@ export default function VerticalTabs() {
                   aria-haspopup="true"
                   aria-expanded={openAccountMenu ? "true" : undefined}
                 >
-                  <Avatar sx={{ width: 32, height: 32 }}>M</Avatar>
+                  <Avatar sx={{ width: 32, height: 32 }} alt="Admin" src={profilePicUrl} />
                 </IconButton>
               </Tooltip>
               <Menu
@@ -561,12 +561,15 @@ export default function VerticalTabs() {
                 />
               </ListItemButton>
             </ListItem>
-            <ListItem disablePadding sx={{ display: "block" }}>
+            <ListItem disablePadding sx={{ display: "block" }} >
               <ListItemButton
                 sx={{
                   minHeight: 48,
                   justifyContent: open ? "center" : "center",
                   px: 2.5,
+                  ...((menuData === "Cancel Ticket"
+                    ? activeMenuItemClass
+                    : inactiveMenuItemClass) || {}),
                 }}
                 onClick={handleButtonClick}
               >
@@ -579,7 +582,7 @@ export default function VerticalTabs() {
                 >
                   <CalendarTodayOutlinedIcon />
                 </ListItemIcon>
-                <ListItemText primary="Cancel Ticket" />
+                <ListItemText primary="Cancel Ticket" sx={{ opacity: open ? 1 : 0 }} />
               </ListItemButton>
               <Collapse in={openCollapse} timeout="auto" unmountOnExit>
                 <ListItem disablePadding sx={{ display: "block" }}>
@@ -836,6 +839,9 @@ export default function VerticalTabs() {
                   minHeight: 48,
                   justifyContent: open ? "center" : "center",
                   px: 2.5,
+                  ...((menuData === "Change Request"
+                    ? activeMenuItemClass
+                    : inactiveMenuItemClass) || {}),
                 }}
                 onClick={handleButtonClickSix}
               >
@@ -848,7 +854,7 @@ export default function VerticalTabs() {
                 >
                   <CalendarTodayOutlinedIcon />
                 </ListItemIcon>
-                <ListItemText primary="Change Request" />
+                <ListItemText primary="Change Request" sx={{ opacity: open ? 1 : 0 }}/>
               </ListItemButton>
               <Collapse in={openCollapseSix} timeout="auto" unmountOnExit>
                 <ListItem disablePadding sx={{ display: "block" }}>
@@ -1172,12 +1178,19 @@ export default function VerticalTabs() {
                 <ListItemText primary="Forex" sx={{ opacity: open ? 1 : 0 }} />
               </ListItemButton>
             </ListItem>
-            <ListItem disablePadding sx={{ display: "block" }}>
+            <ListItem disablePadding sx={{ display: "block" }}
+            onClick={() => handleMenuItemClick("AGENT B2B")}
+              className={
+                menuData === "AGENT B2B" ? "active-menu-item" : "inactive-menu-item"
+              }>
               <ListItemButton
                 sx={{
                   minHeight: 48,
                   justifyContent: open ? "center" : "center",
                   px: 2.5,
+                  ...((menuData === "AGENT B2B"
+                    ? activeMenuItemClass
+                    : inactiveMenuItemClass) || {}),
                 }}
                 onClick={handleButtonClickFour}
               >
@@ -1190,7 +1203,7 @@ export default function VerticalTabs() {
                 >
                   <AccountBoxIcon />
                 </ListItemIcon>
-                <ListItemText primary="AGENT B2B" />
+                <ListItemText primary="AGENT B2B"  sx={{ opacity: open ? 1 : 0 }} />
               </ListItemButton>
               <Collapse in={openCollapseFour} timeout="auto" unmountOnExit>
                 <ListItem
@@ -1286,13 +1299,19 @@ export default function VerticalTabs() {
                 </ListItem>
               </Collapse>
             </ListItem>
-            <ListItem disablePadding sx={{ display: "block" }}>
+            <ListItem disablePadding sx={{ display: "block" }}
+            onClick={() => handleMenuItemClick("USER B2C")}
+              className={
+                menuData === "USER B2C" ? "active-menu-item" : "inactive-menu-item"
+              }>
               <ListItemButton
                 sx={{
                   minHeight: 48,
                   justifyContent: "center",
                   px: 2.5,
-                  // Add your other styles here
+                  ...((menuData === "USER B2C"
+                    ? activeMenuItemClass
+                    : inactiveMenuItemClass) || {}),
                 }}
                 onClick={handleButtonClickFive}
               >
@@ -1305,7 +1324,7 @@ export default function VerticalTabs() {
                 >
                   <AccountBoxIcon />
                 </ListItemIcon>
-                <ListItemText primary="USER B2C" />
+                <ListItemText primary="USER B2C" sx={{ opacity: open ? 1 : 0 }}/>
               </ListItemButton>
               <Collapse in={openCollapseFive} timeout="auto" unmountOnExit>
                 <ListItem
