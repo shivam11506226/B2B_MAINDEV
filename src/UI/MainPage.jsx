@@ -65,6 +65,7 @@ import GSTform from "../Pages/gst/GSTform";
 import Visaform from "../Pages/visa/Visaform";
 import HotelbookingConfirmation from "../Pages/Hotel/hotelreviewbooking/HotelbookingConfirmation";
 import Dashboard from "../Pages/Dashboard/Component/Dashboard";
+import SubAdminDashboard from "../Pages/subAdmin/subAdminDashboard/subAdminDashboard"
 import AdminLogin from "../Pages/AdminLogin/AdminLogin";
 import CreateHolidayPackage from "../Pages/HotelPackage/createholidaypackage/CreateHolidayPackage";
 import EditHolidayPackage from "../Pages/Dashboard/Component/Table/packageUpdate/EditPackage";
@@ -456,7 +457,7 @@ const MainPage = () => {
             element={<Dashboard />}
           ></Route>
           <Route exact path="/adminLogin" element={<AdminLogin />}></Route>
-          <Route exact path="/subAdmin/dashboard/*" element={<Dashboard />} > </Route>
+          <Route exact path="/subAdmin/dashboard/*" element={<SubAdminDashboard />} > </Route>
           {isSubAdminLogin && (
           <Route
             exact
