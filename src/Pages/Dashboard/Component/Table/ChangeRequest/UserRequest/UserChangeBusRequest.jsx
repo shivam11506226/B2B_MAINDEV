@@ -52,7 +52,7 @@ const AllBusChangeTickets = () => {
   
     return (
       <div className='hotel-container'>
-      <h3>AGENT BUSTICKET CHANGE REQUEST</h3>
+      <h3>USER BUSTICKET CHANGE REQUEST</h3>
         <TextField
           type="text"
           value={searchTerm}
@@ -74,7 +74,6 @@ const AllBusChangeTickets = () => {
               <TableHead>
                 <TableRow>
                   <TableCell>Bus ID</TableCell>
-                  <TableCell>Agency Name</TableCell>
                   <TableCell>Name</TableCell>
                   <TableCell>Phone</TableCell>
                   <TableCell>Email</TableCell>
@@ -92,7 +91,6 @@ const AllBusChangeTickets = () => {
                 {hotelBookings.map((booking) => (
                   <TableRow key={booking._id}>
                     <TableCell>{booking.busDetails.busId}</TableCell>
-                    <TableCell>{booking.userDetails.agency_details.agency_name}</TableCell>
                     <TableCell>{`${booking.userDetails.personal_details.first_name} ${booking.userDetails.personal_details.last_name}`}</TableCell>
                     <TableCell>{booking.userDetails.personal_details.mobile.mobile_number}</TableCell>
                     <TableCell>{booking.userDetails.personal_details.email}</TableCell>
@@ -101,7 +99,7 @@ const AllBusChangeTickets = () => {
                     <TableCell>{booking.busDetails.amount}</TableCell>
                     <TableCell>{booking.busDetails.origin}</TableCell>
                     <TableCell>{booking.busDetails.destination}</TableCell>
-                    <TableCell>{booking.busDetails.dateOfJourney}</TableCell>
+                    <TableCell>{booking.busDetails.departureTime}</TableCell>
                     <TableCell>{booking.busDetails.busType}</TableCell>
                     <TableCell><button>APPROVE</button></TableCell>
                   </TableRow>

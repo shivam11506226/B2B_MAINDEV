@@ -8,7 +8,7 @@ import Groups2Icon from '@mui/icons-material/Groups2';
 import Diversity1Icon from '@mui/icons-material/Diversity1';
 import CollectionsBookmarkIcon from '@mui/icons-material/CollectionsBookmark';
 import { apiURL } from '../../../Constants/constant';
-import UserFlightBookingList from '../Component/Table/FlightBookings/Flightbookings'
+import './AdminDashboard.css'; 
 const AdminDashboardData = () => {
   // State to hold dashboard data
   const [dashboardData, setDashboardData] = useState({});
@@ -42,21 +42,30 @@ const AdminDashboardData = () => {
   };
 
   return (
-    <Grid container spacing={3} style={{ marginTop: '50px' }}>
+    <Grid container spacing={3} className="admin-dashboard-grid" style={{ marginTop: '50px' }}>
       {Object.keys(dashboardData).map((key, index) => (
-        <Grid item xs={12} sm={6} md={4} key={index} style={{ display: 'flex', justifyContent: 'center' }}>
-          <Card sx={{position: 'relative' , maxWidth: 345, width: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}  onClick={() => handleCardClick(key)}>
-            <CardActionArea>
-            <CardContent>
-                <Box position="absolute" top={0} right={0}>
+        <Grid item xs={12} sm={6} md={4} key={index} className={`grid-item grid-item-${index}`}>
+          <Card
+            className={`admin-dashboard-card admin-dashboard-card-${index}`}
+            sx={{ position: 'relative', maxWidth: 345, width: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}
+            onClick={() => handleCardClick(key)}
+          >
+            <CardActionArea className={`card-action-area card-action-area-${index}`}>
+              <CardContent className={`card-content card-content-${index}`}>
+                <Box position="absolute" top={0} right={0} className={`box box-${index}`}>
                   {icons[index % icons.length] && React.createElement(icons[index % icons.length])}
                 </Box>
-                <Typography gutterBottom variant="h6" component="div">
+                <Typography gutterBottom variant="h6" component="div" className={`typography-h6 typography-h6-${index}`}>
                   {key}
                 </Typography>
-                <Typography variant="body2" color="text.secondary">
+                <Typography variant="body2" color="text.secondary" className={`typography-body2 typography-body2-${index}`}>
                   {dashboardData[key]}
                 </Typography>
+                {key === 'TotalBookings' && (
+                  <div className="progress-bar-container">
+                    <div className="progress-bar"></div>
+                  </div>
+                )}
               </CardContent>
             </CardActionArea>
           </Card>
@@ -67,3 +76,4 @@ const AdminDashboardData = () => {
 };
 
 export default AdminDashboardData;
+

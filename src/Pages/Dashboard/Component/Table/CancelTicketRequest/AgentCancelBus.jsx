@@ -101,7 +101,7 @@ const AllBusCancelTickets = () => {
                     <TableCell>{booking.bustDetails.amount}</TableCell>
                     <TableCell>{booking.bustDetails.origin}</TableCell>
                     <TableCell>{booking.bustDetails.destination}</TableCell>
-                    <TableCell>{booking.bustDetails.dateOfJourney}</TableCell>
+                    <TableCell>{booking.bustDetails.departureTime}</TableCell>
                     <TableCell>{booking.bustDetails.busType}</TableCell>
                     <TableCell><button>APPROVE</button></TableCell>
                   </TableRow>

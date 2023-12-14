@@ -9,7 +9,7 @@ import { apiURL } from '../../../../../../Constants/constant';
 const AllHotelCancelTickets = () => {
   const [hotelBookings, setHotelBookings] = useState([]);
   const [loading, setLoading] = useState(true);
-  const pageSize = 5; // Number of items per page
+  const pageSize = 10; // Number of items per page
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
   const [searchTerm, setSearchTerm] = useState('');
@@ -83,21 +83,21 @@ const AllHotelCancelTickets = () => {
         <tbody>
           {hotelBookings.map(booking => (
             <tr key={booking.bookingId}>
-              <td>{booking.bookingId}</td>
-              <td>{booking.userDetails.agency_details.agency_name}</td>
-              <td>{`${booking.userDetails.personal_details.first_name}  ${booking.userDetails.personal_details.last_name}` }</td>
-              <td>{booking.userDetails.personal_details.mobile.mobile_number}</td>
-              <td>{booking.userDetails.personal_details.email}</td>
-              <td>{booking.reason}</td>
-              <td>{booking.hotelDetails.hotelId}</td>
-              <td>{booking.hotelDetails.amount}</td>
-              <td>{booking.hotelDetails.CheckInDate}</td>
-              <td>{booking.hotelDetails.destination}</td>
-              <td>{booking.hotelDetails.room}</td>
-              <td>{booking.hotelDetails.hotelName}</td>
-              <td><button>APPROVE</button></td>
-              
-            </tr>
+            <td>{booking.bookingId}</td>
+            <td>{booking.userDetails.agency_details.agency_name}</td>
+            <td>{`${booking.userDetails.personal_details.first_name}  ${booking.userDetails.personal_details.last_name}` }</td>
+            <td>{booking.userDetails.personal_details.mobile.mobile_number}</td>
+            <td>{booking.userDetails.personal_details.email}</td>
+            <td>{booking.reason}</td>
+            <td>{booking.hotelDetails.hotelId}</td>
+            <td>{booking.hotelDetails.amount}</td>
+            <td>{booking.hotelDetails.CheckInDate}</td>
+            <td>{booking.hotelDetails.destination}</td>
+            <td>{booking.hotelDetails.room}</td>
+            <td>{booking.hotelDetails.hotelName}</td>
+            <td><button>APPROVE</button></td>
+            
+          </tr>
           ))}
         </tbody>
       </table>
