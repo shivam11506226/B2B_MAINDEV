@@ -91,6 +91,7 @@ import CreateSubAdminPage from "../Pages/Dashboard/Component/Table/AddSubadmin";
 import SubAdminLoginPage from "../Pages/subAdmin/SubAdminSignIn"; // Import SubAdminLoginPage
 import FlightOneTicket from "../Pages/Account/FlightOneTicket";
 import FlightOpen from "../Pages/Account/FlightOpen";
+import CreateAgentPage from "../Pages/Dashboard/Component/Table/AddAgent"
 const MainPage = () => {
   const dispatch = useDispatch();
   const location = useLocation();
@@ -405,6 +406,11 @@ const MainPage = () => {
                   element={<CreateSubAdminPage />}
                 />
                 <Route
+                exact
+                path="/addAgent"
+                element={<CreateAgentPage />}
+              />
+                <Route
                   exact
                   path="/AdminUserForm"
                   element={<AdminUserForm />}
@@ -465,6 +471,7 @@ const MainPage = () => {
             element={<SubAdminLoginPage />}></Route>
           )}
         </Routes>
+        
       </div>
 
       {/* main page footer */}

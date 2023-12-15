@@ -229,6 +229,10 @@ export default function VerticalTabs() {
     navigate("/addSubAdmin");
   };
 
+  const createAgent=()=>{
+    navigate("/addAgent");
+  }
+
   // const [value, setValue] = useState(0);
   // const handleChange = (event, newValue) => {
   //   setValue(newValue);
@@ -431,6 +435,17 @@ export default function VerticalTabs() {
                   </ListItemIcon>
                   Add SUBADMIN
                 </MenuItem>
+                <MenuItem
+                onClick={() => {
+                  handleClose();
+                  createAgent();
+                }}
+              >
+                <ListItemIcon>
+                  <PersonAdd fontSize="small" />
+                </ListItemIcon>
+                Add Agent
+              </MenuItem>
                 <MenuItem
                   onClick={() => {
                     handleClose();
