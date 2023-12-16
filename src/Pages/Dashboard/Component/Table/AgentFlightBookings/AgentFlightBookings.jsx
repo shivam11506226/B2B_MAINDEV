@@ -1,26 +1,35 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import { Table, TableBody, TableCell, TableRow, Paper, TextField, InputAdornment } from '@mui/material';
-import './AgentFlightBooking.css';
-import SearchIcon from '@mui/icons-material/Search';
-import { apiURL } from '../../../../../Constants/constant';
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableRow,
+  Paper,
+  TextField,
+  InputAdornment,
+} from "@mui/material";
+import "./AgentFlightBooking.css";
+import SearchIcon from "@mui/icons-material/Search";
+import { apiURL } from "../../../../../Constants/constant";
 const AllFlightBooking = () => {
   const [flightBookings, setFlightBookings] = useState([]);
   const [loading, setLoading] = useState(true);
   const pageSize = 10; // Number of items per page
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
-  const [searchTerm, setSearchTerm] = useState('');
+  const [searchTerm, setSearchTerm] = useState("");
   useEffect(() => {
     async function fetchFlightBookings() {
       try {
-        const response = await axios.get(`${apiURL.baseURL}/skytrails/api/admin/getAllFlightBookingListAgent`,
+        const response = await axios.get(
+          `${apiURL.baseURL}/skytrails/api/admin/getAllFlightBookingListAgent`,
           {
             params: {
               page: currentPage,
               size: pageSize,
               search: searchTerm,
-            }
+            },
           }
         );
         setFlightBookings(response.data.result.docs);
@@ -28,13 +37,12 @@ const AllFlightBooking = () => {
         setTotalPages(response.data.result.totalPages);
         setLoading(false);
       } catch (error) {
-        console.error('Error fetching flight bookings:', error);
+        console.error("Error fetching flight bookings:", error);
         setLoading(false);
       }
     }
     fetchFlightBookings();
-  }, [currentPage, searchTerm])
-
+  }, [currentPage, searchTerm]);
 
   const handlePageChange = (page) => {
     setCurrentPage(page);
@@ -44,7 +52,7 @@ const AllFlightBooking = () => {
     setCurrentPage(1); // Reset to the first page when performing a new search
   };
   return (
-    <div className='flight-container'>
+    <div className="flight-container">
       <TextField
         type="text"
         value={searchTerm}
@@ -75,21 +83,29 @@ const AllFlightBooking = () => {
           </tr>
         </thead>
         <tbody>
-          {flightBookings.map(booking => (
+          {flightBookings.map((booking) => (
             <tr key={booking._id}>
               <td>{booking.bookingId}</td>
               <td>{booking.pnr}</td>
-              <td>{booking.Userb2bDetails.agency_details.agency_name}</td>
-              <td>{`${booking.passengerDetails[0].firstName} ${booking.passengerDetails[0].lastName}`}</td>
-              <td>{booking.passengerDetails[0].email}</td>
+              <td>{booking.UserDetails[0].agency_details.agency_name}</td>
+              <td>{`${booking.UserDetails[0].personal_details.first_name}${booking.UserDetails[0].personal_details.last_name}`}</td>
               <td>
-                {`${booking.passengerDetails[0]?.ContactNo || 'N/A'}`}||{`${booking.Userb2bDetails.personal_details.mobile?.mobile_number || ''}`}
-              </td>
-              <td>{booking.airlineDetails.AirlineName}</td>
-              <td>{booking.dateOfJourney}</td>
-              <td>{booking.origin}</td>
-              <td>{booking.destination}</td>
-              <td>{booking.amount}</td>
+              {booking.UserDetails[0]
+                ? `${booking.UserDetails[0].personal_details.email}`
+                : "Empty"}
+            </td>
+            <td>{booking.UserDetails[0]?.personal_details.mobile.mobile_number || ""}</td>
+      
+            {/* Modify the following lines */}
+            <td>
+              {booking.airlineDetails[0]?.Airline?.AirlineName || ""}
+            </td>
+            <td>
+              {booking.airlineDetails[0]?.Origin?.DepTime || ""}
+            </td>
+              <td>{booking.origin || ""}</td>
+              <td>{booking.destination || ""}</td>
+              <td>{booking.totalAmount||""}</td>
             </tr>
           ))}
         </tbody>
@@ -97,8 +113,12 @@ const AllFlightBooking = () => {
       {/* Pagination */}
       <div className="paginate">
         {Array.from({ length: totalPages }, (_, i) => (
-          <button className='flightButton' key={i} onClick={() => handlePageChange(i + 1)}>
-            <h5 className='flightButton'>{i + 1}</h5>
+          <button
+            className="flightButton"
+            key={i}
+            onClick={() => handlePageChange(i + 1)}
+          >
+            <h5 className="flightButton">{i + 1}</h5>
           </button>
         ))}
       </div>

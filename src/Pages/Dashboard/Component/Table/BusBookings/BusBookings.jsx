@@ -61,7 +61,7 @@ const AllBusBooking = () => {
         <thead>
           <tr>
             <th>Bus ID</th>
-            <th>User ID</th>
+            <th>UserName</th>
             <th>Name</th>
             <th>Email</th>
             <th>Phone</th>
@@ -75,23 +75,23 @@ const AllBusBooking = () => {
           </tr>
         </thead>
         <tbody>
-          {busBookings.map(bookings => (
-            <tr key={bookings._id}>
-              <td>{bookings.busId}</td>
-              <td>{bookings.userDetails.username}</td>
-              <td>{bookings.name}</td>
-              <td>{bookings.email}</td>
-              <td>{bookings.phone}</td>  
-              <td>{bookings.destination}</td>
-              <td>{bookings.origin}</td>
-              <td>{bookings.busName}</td>
-              <td>{bookings.busType}</td>
-              <td>{bookings.pnr}</td>
-              <td>{new Date(bookings.dateOfJourney).toDateString()}</td>
-              <td>{bookings.noOfSeats}</td>
-            </tr>
-          ))}
-        </tbody>
+  {busBookings.map(bookings => (
+    <tr key={bookings._id}>
+      <td>{bookings.busId}</td>
+      <td>{bookings.userDetails ? bookings.userDetails.username : ""}</td>
+      <td>{bookings.passenger[0].firstName}{bookings.passenger[0].lastName}</td>
+      <td>{bookings.passenger ? bookings.passenger[0].Email : ""}</td>
+      <td>{bookings.userDetails ? bookings.userDetails.phone.mobile_number : ""}</td>  
+      <td>{bookings.destination}</td>
+      <td>{bookings.origin}</td>
+      <td>{bookings.travelName}</td>
+      <td>{bookings.busType}</td>
+      <td>{bookings.pnr}</td>
+      <td>{new Date(bookings.dateOfJourney).toDateString()}</td>
+      <td>{bookings.noOfSeats}</td>
+    </tr>
+  ))}
+</tbody>
       </table>
       <div className="paginate">
         {Array.from({ length: totalPages }, (_, i) => (

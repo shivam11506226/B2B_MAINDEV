@@ -90,7 +90,7 @@ const AllFlightBooking = () => {
               <td>{`${booking.passengerDetails[0].firstName} ${booking.passengerDetails[0].lastName}`}</td>
               <td>{booking.passengerDetails[0].email}</td>
               <td>{booking.passengerDetails[0].ContactNo || "N/A"}</td>
-              <td>{booking.airlineDetails.AirlineName}</td>
+              <td>{booking.airlineDetails[0].Airline.AirlineName}</td>
               <td>{booking.origin}</td>
               <td>{booking.destination}</td>
               <td>{booking.passengerDetails[0].gender}</td>

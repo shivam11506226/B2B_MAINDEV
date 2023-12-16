@@ -513,9 +513,6 @@ export default function VerticalTabs() {
                 <ListItemText primary="Home" sx={{ opacity: open ? 1 : 0 }} />
               </ListItemButton>
             </ListItem>
-
-
-
             <ListItem
               disablePadding
               sx={{ display: "block" }}
@@ -618,7 +615,7 @@ export default function VerticalTabs() {
                     >
                       <AccountBoxIcon />
                     </ListItemIcon>
-                    <ListItemText primary="AGENT B2B" />
+                    <ListItemText primary="AGENT Bookings" />
                   </ListItemButton>
                   <Collapse in={openCollapseTwo} timeout="auto" unmountOnExit>
                     <ListItem
@@ -742,11 +739,9 @@ export default function VerticalTabs() {
                     >
                       <AccountBoxIcon />
                     </ListItemIcon>
-                    <ListItemText primary="USER B2C" />
+                    <ListItemText primary="USER Bookings" />
                   </ListItemButton>
-                  <Collapse in={openCollapseThree} timeout="auto" unmountOnExit>
-
-                  
+                  <Collapse in={openCollapseThree} timeout="auto" unmountOnExit>                
                     <ListItem
                       disablePadding
                       sx={{ display: "block" }}
@@ -777,9 +772,6 @@ export default function VerticalTabs() {
                         />
                       </ListItemButton>
                     </ListItem>
-
-                    
-
                     <ListItem
                       disablePadding
                       sx={{ display: "block" }}
@@ -812,7 +804,6 @@ export default function VerticalTabs() {
                         />
                       </ListItemButton>
                     </ListItem>
-
                     <ListItem
                       disablePadding
                       sx={{ display: "block" }}
@@ -843,7 +834,6 @@ export default function VerticalTabs() {
                         />
                       </ListItemButton>
                     </ListItem>
-
                   </Collapse>
                 </ListItem>
               </Collapse>
@@ -1193,17 +1183,13 @@ export default function VerticalTabs() {
                 <ListItemText primary="Forex" sx={{ opacity: open ? 1 : 0 }} />
               </ListItemButton>
             </ListItem>
-            <ListItem disablePadding sx={{ display: "block" }}
-            onClick={() => handleMenuItemClick("AGENT B2B")}
-              className={
-                menuData === "AGENT B2B" ? "active-menu-item" : "inactive-menu-item"
-              }>
+            <ListItem disablePadding sx={{ display: "block" }}>
               <ListItemButton
                 sx={{
                   minHeight: 48,
                   justifyContent: open ? "center" : "center",
                   px: 2.5,
-                  ...((menuData === "AGENT B2B"
+                  ...((menuData === "AGENT Bookings"
                     ? activeMenuItemClass
                     : inactiveMenuItemClass) || {}),
                 }}
@@ -1218,7 +1204,7 @@ export default function VerticalTabs() {
                 >
                   <AccountBoxIcon />
                 </ListItemIcon>
-                <ListItemText primary="AGENT B2B"  sx={{ opacity: open ? 1 : 0 }} />
+                <ListItemText primary="AGENT Bookings"  sx={{ opacity: open ? 1 : 0 }} />
               </ListItemButton>
               <Collapse in={openCollapseFour} timeout="auto" unmountOnExit>
                 <ListItem
@@ -1314,17 +1300,13 @@ export default function VerticalTabs() {
                 </ListItem>
               </Collapse>
             </ListItem>
-            <ListItem disablePadding sx={{ display: "block" }}
-            onClick={() => handleMenuItemClick("USER B2C")}
-              className={
-                menuData === "USER B2C" ? "active-menu-item" : "inactive-menu-item"
-              }>
+            <ListItem disablePadding sx={{ display: "block" }}>
               <ListItemButton
                 sx={{
                   minHeight: 48,
                   justifyContent: "center",
                   px: 2.5,
-                  ...((menuData === "USER B2C"
+                  ...((menuData === "USER Bookings"
                     ? activeMenuItemClass
                     : inactiveMenuItemClass) || {}),
                 }}
@@ -1339,7 +1321,7 @@ export default function VerticalTabs() {
                 >
                   <AccountBoxIcon />
                 </ListItemIcon>
-                <ListItemText primary="USER B2C" sx={{ opacity: open ? 1 : 0 }}/>
+                <ListItemText primary="USER Bookings" sx={{ opacity: open ? 1 : 0 }}/>
               </ListItemButton>
               <Collapse in={openCollapseFive} timeout="auto" unmountOnExit>
                 <ListItem
@@ -1554,6 +1536,36 @@ export default function VerticalTabs() {
                 />
               </ListItemButton>
             </ListItem>
+            <ListItem
+            disablePadding
+            sx={{ display: "block" }}
+            onClick={() => handleMenuItemClick("Advertisment")}
+            className={
+              menuData === "Advertisment" ? "active-menu-item" : "inactive-menu-item"
+            }
+          >
+            <ListItemButton
+              sx={{
+                minHeight: 48,
+                justifyContent: open ? "initial" : "center",
+                px: 2.5,
+                ...((menuData === "Advertisment"
+                  ? activeMenuItemClass
+                  : inactiveMenuItemClass) || {}),
+              }}
+            >
+              <ListItemIcon
+                sx={{
+                  minWidth: 0,
+                  mr: open ? 3 : "auto",
+                  justifyContent: "center",
+                }}
+              >
+                <HomeOutlinedIcon />
+              </ListItemIcon>
+              <ListItemText primary="Advertisment" sx={{ opacity: open ? 1 : 0 }} />
+            </ListItemButton>
+          </ListItem>
           </List>
           <Divider />
         </Drawer>

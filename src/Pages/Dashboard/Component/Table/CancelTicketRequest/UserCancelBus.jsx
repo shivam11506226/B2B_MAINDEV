@@ -91,15 +91,15 @@ const AllBusCancelTickets = () => {
                 {busBookings.map((booking) => (
                   <TableRow key={booking._id}>
                     <TableCell>{booking.busId}</TableCell>
-                    <TableCell>{booking.userDetails.username}</TableCell>
-                    <TableCell>{booking.userDetails.phone.mobile_number}</TableCell>
+                    <TableCell>{booking.userDetails?.username || "null"}</TableCell>
+                    <TableCell>{booking.userDetails?.phone.mobile_number||"null"}</TableCell>
                     {/* <TableCell>{booking.userDetails.email}</TableCell> */}
                     <TableCell>{booking.reason}</TableCell>
                     <TableCell>{booking.busDetails.pnr}</TableCell>
                     <TableCell>{booking.busDetails.amount}</TableCell>
                     <TableCell>{booking.busDetails.origin}</TableCell>
                     <TableCell>{booking.busDetails.destination}</TableCell>
-                    <TableCell>{booking.busDetails.dateOfJourney}</TableCell>
+                    <TableCell>{booking.busDetails.departureTime}</TableCell>
                     <TableCell>{booking.busDetails.busType}</TableCell>
                     <TableCell>{booking.busDetails.noOfSeats}</TableCell>
                     <TableCell><button>APPROVE</button></TableCell>

@@ -86,14 +86,14 @@ const AllBusBooking = () => {
                   `${bookings.userDetails.personal_details.mobile.country_code}${bookings.userDetails.personal_details.mobile.mobile_number}` :
                   "Empty"
                 } */}
-                {bookings.phone}
+                {bookings.passenger[0].Phone}
               </td>
               <td>{bookings.destination}</td>
               <td>{bookings.origin}</td>
               <td>{bookings.amount}</td>
               <td>{bookings.busType}</td>
               <td>{bookings.pnr}</td>
-              <td>{new Date(bookings.dateOfJourney).toDateString()}</td>
+              <td>{new Date(bookings.departureTime).toDateString()}</td>
               <td>{bookings.noOfSeats}</td>
             </tr>
           ))}
