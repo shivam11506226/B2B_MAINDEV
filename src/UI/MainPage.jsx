@@ -90,6 +90,7 @@ import FlightReturnBookingConfirmation from "../Pages/Flight/flightresult/Flight
 import CreateSubAdminPage from "../Pages/Dashboard/Component/Table/AddSubadmin";
 import SubAdminLoginPage from "../Pages/subAdmin/SubAdminSignIn"; // Import SubAdminLoginPage
 import FlightOneTicket from "../Pages/Account/FlightOneTicket";
+import BusOneTicket from "../Pages/Account/BusTicket";
 import FlightOpen from "../Pages/Account/FlightOpen";
 const MainPage = () => {
   const dispatch = useDispatch();
@@ -104,6 +105,7 @@ const MainPage = () => {
   const navigate = useNavigate();
   const { id } = useParams();
   const isFlightEticketPage = location.pathname.startsWith('/FlightEticket');
+  const isBusEticketPage = location.pathname.startsWith('/BusEticket');
 
   useEffect(() => {
     if (
@@ -161,8 +163,8 @@ const MainPage = () => {
       </div> */}
 
       {/* <Headers/> */}
-      {location.pathname === "/Login" || location.pathname === "/Registration" || isFlightEticketPage ? null :<Headers />}
-      {location.pathname === "/" || location.pathname === "/Login" || location.pathname === "/Registration" || isFlightEticketPage ? null :<InnerNavbar />}
+      {location.pathname === "/Login" || location.pathname === "/Registration" || isFlightEticketPage || isBusEticketPage ? null :<Headers />}
+      {location.pathname === "/" || location.pathname === "/Login" || location.pathname === "/Registration" || isFlightEticketPage || isBusEticketPage ? null :<InnerNavbar />}
 
       {!isLoginRoute && !isRegisterRoute &&
         !isDashboard &&
@@ -437,6 +439,7 @@ const MainPage = () => {
                 <Route exact path="/Queue" element={<Queue />}></Route>
                 <Route exact path="/FlightConfirmBooking/:id" element={<FlightOpen />} />
                 <Route exact path="/FlightEticket/:id" element={<FlightOneTicket />} /> 
+                <Route exact path="/BusEticket/:id" element={<BusOneTicket />} /> 
               </Routes>
             </div>
 

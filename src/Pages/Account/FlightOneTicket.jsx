@@ -204,6 +204,7 @@ const FlightOneTicket = () => {
                 Print Ticket
               </button>
             </div>
+            <div id="pdf-content">
 
             
               <div
@@ -229,8 +230,6 @@ const FlightOneTicket = () => {
                   }}
                 >
                   E - Ticket
-                  <br />
-                  Ticketed
                 </div>
 
                 <div
@@ -329,7 +328,7 @@ const FlightOneTicket = () => {
                 </div>
               </div>
 
-              <div id="pdf-content">
+              
                 {/* Passenger Details */}
 
                 <div
