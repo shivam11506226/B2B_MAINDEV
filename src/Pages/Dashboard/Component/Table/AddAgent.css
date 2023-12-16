@@ -1,17 +1,5 @@
 /* General styles */
 
-body {
-
-  font-family: Inter, sans-serif;
-  margin: 0;
-  padding: 0;
-  background-color: #f2f2f2;
-  font-family: Inter, sans-serif;
-  background: linear-gradient(135deg, rgb(241, 189, 197), lightblue);
-  animation: gradientAnimation 8s linear infinite alternate;
-  overflow: hidden; 
-  margin-top: -80px;
-}
 
 @keyframes gradientAnimation {
   0% {
