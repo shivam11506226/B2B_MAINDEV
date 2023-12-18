@@ -64,3 +64,9 @@ export const clearBusSearchReducer = () => {
     type: types.CLEAR_BUS_SEARCH_REDUCER,
   };
 };
+
+export const busBookBack = () => {
+  return {
+    type: types.BUS_BOOK_BACK,
+  };
+};
