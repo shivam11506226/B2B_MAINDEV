@@ -99,7 +99,11 @@ const BusForm = () => {
 
   useEffect(() => {
     dispatch(clearBusSearchReducer());
-  }, [dispatch]);
+
+    sessionStorage.removeItem("busPassName")
+    sessionStorage.removeItem("seatData")
+
+  }, []);
 
   //============== copied -----=======//
 

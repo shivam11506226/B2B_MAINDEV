@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Stepper from "../../../Components/Stepper";
 import { Box, Grid, Typography, Link, Button } from "@mui/material";
 import BusSaleSummary from "../busPassengerDetail/BusSaleSummary";
@@ -6,10 +6,9 @@ import Buscancellation from "../BusResult/Buscancellation";
 import ReadMoreIcon from "@mui/icons-material/ReadMore";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { busBookAction } from "../../../Redux/busSearch/busSearchAction";
+import { busBookAction, clearBusSearchReducer } from "../../../Redux/busSearch/busSearchAction";
 import { getUserDataAction } from "../../../Redux/Auth/UserDataById/actionUserData";
 import { balanceSubtractRequest } from "../../../Redux/Auth/balaceSubtract/actionBalnceSubtract";
-import { useEffect } from "react";
 import "./busreviewbooking.css"
 import dayjs from "dayjs";
 import axios from "axios";
@@ -63,6 +62,9 @@ const BusReviewBooking = () => {
     reducerState?.userData?.userData?.data?.data?.markup?.bus;
 
   // console.log(seatObject);
+  console.log(reducerState, "reducer state");
+ 
+
   const published = seatObject.reduce(function (
     accumulator,
     currentValue,
@@ -120,16 +122,16 @@ const BusReviewBooking = () => {
         dispatch(busBookAction(payload));
 
         // If dispatch is successful, navigate to the specified route
-        navigate("/Busbookingconfirmation");
+        // navigate("/Busbookingconfirmation");
 
-        if (userId) {
-          const balancePayload = {
-            _id: userId,
-            amount: tds + publishedPrice,
-          };
+        // if (userId) {
+        //   const balancePayload = {
+        //     _id: userId,
+        //     amount: tds + publishedPrice,
+        //   };
 
-          dispatch(balanceSubtractRequest(balancePayload));
-        }
+        //   // dispatch(balanceSubtractRequest(balancePayload));
+        // }
       } else {
         Swal.fire({
           icon: "error",
@@ -155,30 +157,81 @@ const BusReviewBooking = () => {
   };
 
 
+  useEffect(() => {
+    if (reducerState?.getBusResult?.busBook?.data?.data?.BookResult?.Error?.ErrorCode === 0 && reducerState?.getBusResult?.showSuccessMessage) {
+      if (userId) {
+        const balancePayload = {
+          _id: userId,
+          amount: tds + publishedPrice,
+        };
+        
+        dispatch(balanceSubtractRequest(balancePayload));
+        Swal.fire({
+          icon:"success",
+          timer:3000,
+          title:"Booking Sucessfull",
+          text:"Thank you for booking with The Skytrails"
 
-  const selectedBus = busFullData.BusResults.find((bus) => bus.ResultIndex === resultIndex);
+        })
+        navigate("/Busbookingconfirmation");
+
+      }
+
+    }
+    else if (reducerState?.getBusResult?.busBook?.data?.data?.BookResult?.Error?.ErrorCode === 0 &&reducerState?.getBusResult?.showSuccessMessage===false) {
+      dispatch(clearBusSearchReducer())
+      navigate("/")
+    }
+    else if (reducerState?.getBusResult?.busBook?.data?.data?.BookResult?.Error?.ErrorCode !== 0 && reducerState?.getBusResult?.busBook?.data?.data?.BookResult?.Error?.ErrorCode !== undefined) {
+      Swal.fire({
+        icon: "error",
+        title: "Booking Failed",
+        text: reducerState?.getBusResult?.busBook?.data?.data?.BookResult?.Error?.ErrorMessage
+        ,
+
+      })
+      dispatch(clearBusSearchReducer())
+      navigate("/");
+
+      console.warn(reducerState?.getBusResult?.busBook?.data?.data?.BookResult?.Error?.ErrorMessage
+        , "bussssssssssssssssss")
+    }
+   
+
+
+
+
+  }, [reducerState?.getBusResult?.busBook]) 
+
+
+  const selectedBus = busFullData?.BusResults?.find((bus) => bus?.ResultIndex === resultIndex);
   // console.log(selectedBus, "selectedBus")
   const cancellationPolicy = selectedBus?.CancellationPolicies;
 
   // console.log(cancellationPolicy, "cancel policy");
   const departureDate = dayjs(selectedBus?.DepartureTime);
   const arrivalDate = dayjs(selectedBus?.ArrivalTime);
+  const storedPassengerData = JSON.parse(sessionStorage.getItem("busPassName"));
   // console.log(cancellationPolicy, "cancel policy");
   // Format the dates
   const departureFormattedDate = departureDate.format("DD MMM, YY");
   const arrivalFormattedDate = arrivalDate.format("DD MMM, YY");
+  useEffect(()=>{
+    if(storedPassengerData===undefined|| cancellationPolicy===undefined || userId==undefined){
+      navigate("/")
+    }
+  })
 
 
 
-  const cancelFromDate = dayjs(cancellationPolicy[0]?.FromDate.slice(0, 9));
-  const cancelToDateTime = dayjs(cancellationPolicy[0]?.FromDate.slice(11, 18));
-  const cancelFromDateFormatted = cancelFromDate.format("DD MMM, YY");
-  const cancelToDateTimeFormatted = cancelToDateTime.format("DD MMM, YY");
+  const cancelFromDate = cancellationPolicy!==undefined?dayjs(cancellationPolicy[0]?.FromDate.slice(0, 9)):undefined;
+  const cancelToDateTime =cancellationPolicy!==undefined? dayjs(cancellationPolicy[0]?.FromDate.slice(11, 18)):undefined;
+  const cancelFromDateFormatted = cancelFromDate?.format("DD MMM, YY");
+  const cancelToDateTimeFormatted = cancelToDateTime?.format("DD MMM, YY");
 
 
 
-  const storedPassengerData = JSON.parse(sessionStorage.getItem("busPassName"));
-
+  console.warn(reducerState,"reducer Statemkskjdnvd")
   return (
     <>
       <div className="container-xxl margin-pecentage">

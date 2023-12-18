@@ -7,7 +7,7 @@ import ReadMoreIcon from "@mui/icons-material/ReadMore";
 import BusStepper from "../../../Components/BusStepper";
 // import { useDispatch, useSelector } from "react-redux";
 import { useDispatch, useSelector } from "react-redux";
-import { busBookDetailsAction, clearBusSearchReducer } from "../../../Redux/busSearch/busSearchAction";
+import { busBookBack, busBookDetailsAction, clearBusSearchReducer } from "../../../Redux/busSearch/busSearchAction";
 import userApi from "../../../Redux/API/api";
 import { useEffect } from "react";
 import Busbookingloader from "./Busbookingloader";
@@ -55,6 +55,10 @@ const Busbookingconfirmation = () => {
   const userId = reducerState?.logIn?.loginData?.data?.data?.id;
 
   useEffect(() => {
+
+    console.warn(
+      reducerState
+      , "testing Reducer state...");
     if (reducerState?.getBusResult?.isLoadingBook == true) setLoader(true);
 
   }, [reducerState?.getBusResult?.isLoadingBook]);
@@ -65,6 +69,7 @@ const Busbookingconfirmation = () => {
 
         // console.log(payload,'userIdiii');
         dispatch(getUserDataAction(payload));
+
       }
       handleGetBookingDetails();
       setBusId(
@@ -80,6 +85,7 @@ const Busbookingconfirmation = () => {
     ) {
       busBookSave();
     }
+    dispatch(busBookBack())
   }, [
     reducerState?.getBusResult?.busDetails?.data?.data?.GetBookingDetailResult,
   ]);
@@ -96,9 +102,7 @@ const Busbookingconfirmation = () => {
     // busBookSave()
     dispatch(busBookDetailsAction(payload));
   };
- console.log(
-   reducerState?.getBusResult?.busDetails?.data?.data?.GetBookingDetailResult
- ,"testing");
+
   const busBookSave = () => {
     const getDetails =
       reducerState?.getBusResult?.busDetails?.data?.data?.GetBookingDetailResult
@@ -156,29 +160,34 @@ const Busbookingconfirmation = () => {
   // Format the dates
   const departureFormattedDate = departureDate.format("DD MMM, YY");
   const arrivalFormattedDate = arrivalDate.format("DD MMM, YY");
-
-
-
-  const cancelFromDate = dayjs(cancellationPolicy[0]?.FromDate.slice(0, 9));
-  const cancelToDateTime = dayjs(cancellationPolicy[0]?.FromDate.slice(11, 18));
-  const cancelFromDateFormatted = cancelFromDate.format("DD MMM, YY");
-  const cancelToDateTimeFormatted = cancelToDateTime.format("DD MMM, YY");
-
-
-
   const storedPassengerData = JSON.parse(sessionStorage.getItem("busPassName"));
+  useEffect(() => {
+    if (seatData === undefined || cancellationPolicy === undefined || storedPassengerData === undefined,resultIndex===undefined ||userId===undefined) {
+      navigate("/")
+    }
+  })
+
+
+
+  const cancelFromDate = cancellationPolicy !== undefined ? dayjs(cancellationPolicy[0]?.FromDate.slice(0, 9)) : undefined;
+  const cancelToDateTime = cancellationPolicy !== undefined ? dayjs(cancellationPolicy[0]?.FromDate.slice(11, 18)) : undefined;
+  const cancelFromDateFormatted = cancelFromDate?.format("DD MMM, YY");
+  const cancelToDateTimeFormatted = cancelToDateTime?.format("DD MMM, YY");
+
+
+
 
 
   const handlePrint = () => {
-    Swal.fire({
-      title: "Congratulation!",
-      text: "Your Bus is booked",
-      icon: "success"
-    }).then(() => {
-      dispatch(clearBusSearchReducer());
-      console.log("bus reducer cleared successfully", reducerState)
-      navigate("/");
-    });
+    // Swal.fire({
+    //   title: "Congratulation!",
+    //   text: "Your Bus is booked",
+    //   icon: "success"
+    // }).then(() => {
+    dispatch(clearBusSearchReducer());
+    console.log("bus reducer cleared successfully", reducerState)
+    navigate("/");
+    // });
   }
 
   return (

@@ -73,7 +73,24 @@ export const busSearchReducer = (state = initState, action) => {
           isLoadingDetails:true,
           isError:false
         }
-
+      case types.BUS_BOOK_BACK:
+        return{
+          ...state,
+          showSuccessMessage:false
+        }
+        case types.CLEAR_BUS_SEARCH_REDUCER:
+         return {
+          busResult: [],
+          busBlock:[],
+          busBook:[],
+          busDetails:[],
+          isLoading: false,
+          isError: false,
+          isLoadingBlockBus:false,
+          isLoadingDetails:false,
+          isLoadingBook:false,
+          showSuccessMessage: false,
+        }
     default:
       return state;
   }

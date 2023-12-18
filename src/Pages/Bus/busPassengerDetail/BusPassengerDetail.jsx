@@ -1,5 +1,5 @@
 import Stepper from "../../../Components/Stepper";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { styled } from "@mui/material/styles";
 import {
   Box,
@@ -52,7 +52,7 @@ const BusPassengerDetail = () => {
   // console.log(busFullData, "bus full data");
   const passengerLists = [];
   const [accordionExpanded, setAccordionExpanded] = useState(false);
-  const [sub, setSub] = useState(true);
+  const [sub, setSub] = useState(false);
   const seatData = sessionStorage.getItem("seatData");
   const parsedSeatData = JSON.parse(seatData);
   // console.log(parsedSeatData, "parsed seat data");
@@ -60,6 +60,13 @@ const BusPassengerDetail = () => {
   const resultIndex = parsedSeatData?.resultIndex;
   const boardingPoint = parsedSeatData?.selectedOrigin;
   const droppingPoint = parsedSeatData?.selectedDropPoint;
+  console.warn(parsedSeatData,"parsedSeatData..................")
+  useEffect(()=>{
+    if(parsedSeatData===undefined || parsedSeatData===null || seatData===undefined){
+      navigate("/")
+    }
+  },[])
+
   // console.log(passengerCount);
   const passengerTemplate = {
     LeadPassenger: true,
@@ -119,6 +126,7 @@ const BusPassengerDetail = () => {
     }
   }
   function handleSeatBlock() {
+    setSub(true);
 
     if (validate()) {
       return
@@ -142,7 +150,7 @@ const BusPassengerDetail = () => {
     navigate("/BusReviewBooking");
   }
 
-  const selectedBus = busFullData.BusResults.find((bus) => bus.ResultIndex === resultIndex);
+  const selectedBus = busFullData?.BusResults?.find((bus) => bus?.ResultIndex === resultIndex);
   const cancellationPolicy = selectedBus?.CancellationPolicies;
   // console.log(selectedBus, "selectedBus")
 
@@ -286,7 +294,7 @@ const BusPassengerDetail = () => {
                                           handleServiceChange(e, index)
                                         }
                                       />
-                                      {passengerData[index].FirstName === "" &&
+                                      {passengerData[index].FirstName === "" && sub  &&
                                         <span id="error1">Enter your name</span>}
                                     </div>
                                   </Box>
@@ -308,7 +316,7 @@ const BusPassengerDetail = () => {
                                           handleServiceChange(e, index)
                                         }
                                       />
-                                      {passengerData[index].LastName === "" &&
+                                      {passengerData[index].LastName === "" && sub &&
                                         <span id="error1">Enter Last Name</span>}
                                     </div>
                                   </Box>
@@ -352,7 +360,7 @@ const BusPassengerDetail = () => {
                                           handleServiceChange(e, index)
                                         }
                                       />
-                                      {!validateEmail(passengerData[index].Email) &&
+                                      {!validateEmail(passengerData[index].Email)  && sub &&
                                         <span id="error1">Enter Email</span>}
                                     </div>
                                   </Box>
@@ -375,7 +383,7 @@ const BusPassengerDetail = () => {
                                           handleServiceChange(e, index)
                                         }
                                       />
-                                      {passengerData[index].Address === "" &&
+                                      {passengerData[index].Address === "" && sub &&
                                         <span id="error1">Enter Address</span>}
                                     </div>
                                   </Box>
@@ -398,8 +406,8 @@ const BusPassengerDetail = () => {
                                           handleServiceChange(e, index)
                                         }
                                       />
-                                      {!validatePhoneNumber(passengerData[index].Phoneno) &&
-                                        <span id="error1">Enter your name</span>}
+                                      {!validatePhoneNumber(passengerData[index].Phoneno) && sub &&
+                                        <span id="error1">Enter your Phonne Number</span>}
 
                                     </div>
                                   </Box>
