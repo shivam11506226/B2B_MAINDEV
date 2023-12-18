@@ -8,9 +8,11 @@ import "./holidayform.css";
 import { useDispatch, useSelector } from "react-redux";
 import { searchPackageAction } from "../../../Redux/SearchPackage/actionSearchPackage";
 import { clearHolidayReducer } from "../../../Redux/OnePackageSearchResult/actionOneSearchPackage";
+import {packageBookingActionClear} from "../../../Redux/HolidayBookingRequest/actionBooking.js"
 import color from "../../../../src/color/color.js"
 
 import { motion } from "framer-motion";
+import { clearHolidayPackage } from "../../../Redux/HolidayPackageTravellerDetails/HolidayPackageTravellerDetailsAction.js";
 
 
 
@@ -55,10 +57,16 @@ const HolidayForm = () => {
   const dispatch = useDispatch();
   const destinationInputRef = useRef(null);
   const daysSearchInputRef = useRef(null);
+  console.warn("reducer state ",reducerState)
 
   useEffect(() => {
     dispatch(clearHolidayReducer());
-  }, [dispatch]);
+    dispatch(packageBookingActionClear());
+    dispatch(clearHolidayPackage());
+    sessionStorage.removeItem("searchPackageData")
+    console.warn("reducer state useEffect",reducerState)
+    
+  }, []);
 
   const navigate = useNavigate();
   useEffect(() => {

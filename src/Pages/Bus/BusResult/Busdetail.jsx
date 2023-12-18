@@ -74,7 +74,11 @@ const Busdetail = () => {
     reducerState?.getBusResult?.busResult?.data?.data?.BusSearchResult
       ?.BusResults;
   // console.log("bus res", busDataResult);
-
+useEffect(()=>{
+  if(busDataResult===undefined ){
+    navigate("/")
+  }
+},[])
 
 
 

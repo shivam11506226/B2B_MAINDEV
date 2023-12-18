@@ -198,8 +198,8 @@ const BusChangeReq = () => {
             </div>
             <div className="action">
               <div className="link">
-                <Link to="">Fare Rule</Link>
-                <Link to="">View Ticket</Link>
+                {/* <Link to="">Fare Rule</Link> */}
+                <Link to={`/BusEticket/${bus._id}`}>View Ticket</Link>
                 {differenceInDays < 0 ? (null):(
                 <Link
                   onClick={() => {

@@ -1,11 +1,11 @@
 // CreateSubAdminPage.js
 import React, { useState } from 'react';
-import './AddSubadmin.css'; // Import the CSS file
+import './AddAgent.css'; // Import the CSS file
 import { apiURL } from '../../../../Constants/constant';
 import { useNavigate } from 'react-router-dom';
 import profilePicUrl from '../../../../Images/logo.jpeg'
 
-const CreateSubAdminPage = () => {
+const CreateAgentPage = () => {
   const [formData, setFormData] = useState({
     username: '',
     email: '',
@@ -24,7 +24,7 @@ const CreateSubAdminPage = () => {
     e.preventDefault();
 console.log("============",e)
     try {
-      const response = await fetch(`${apiURL.baseURL}/skytrails/api/subAdmin/createSubAdmin`, {
+      const response = await fetch(`${apiURL.baseURL}/skytrails/api/agent/createAgent`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -34,12 +34,12 @@ console.log("============",e)
 
       if (response.ok) {
         const data = await response.json();
-        console.log('Subadmin created successfully:', data);
-        alert('Subadmin created successfully!');
+        console.log('Agent created successfully:', data);
+        alert('Agent created successfully!');
         navigate('/admin/dashboard');
       } else{
         if(response.status === 409){
-          alert('Subadmin with this username or email already exists!');
+          alert('Agent with this username or email already exists!');
           console.error('SubAdmin already exist:.', response.statusText);
         }else {
           alert('Failed to create subadmin:!');
@@ -52,12 +52,12 @@ console.log("============",e)
   };
 
   return (
-    <div className="form-container">
-  <div className='image-div'><img  src={profilePicUrl}   alt='logo' className="agent-image"/></div>
-      <h1 className="form-title"><strong>Create Subadmin</strong></h1>
-      <form className="subadmin-form" onSubmit={handleSubmit}>
-        <div className="form-group">
-          <label htmlFor="username" className="form-label-subAdmin">
+    <div className="form-container-agent">
+      <form className="form-agent" onSubmit={handleSubmit}>
+    <img  src={profilePicUrl} height={50}  alt='logo' className="agent-image"/>
+      <h1 className="form-title-agent"><strong>Create Agent</strong></h1>
+        <div className="form-group-agent">
+          <label htmlFor="username" className="form-label">
             Username:
           </label>
           <input
@@ -66,12 +66,12 @@ console.log("============",e)
             name="username"
             value={formData.username}
             onChange={handleChange}
-            className="form-input"
+            className="form-input-agent"
           />
         </div>
 
-        <div className="form-group">
-          <label htmlFor="email" className="form-label-subAdmin">
+        <div className="form-group-agent">
+          <label htmlFor="email" className="form-label">
             Email:
           </label>
           <input
@@ -80,13 +80,13 @@ console.log("============",e)
             name="email"
             value={formData.email}
             onChange={handleChange}
-            className="form-input"
+            className="form-input-agent"
           />
         </div>
 
-        <div className="form-group">
-          <label htmlFor="password" className="form-label-subAdmin">
-            Password:
+        <div className="form-group-agent">
+          <label htmlFor="password" className="form-label">
+           Password:
           </label>
           <input
             type="password"
@@ -94,12 +94,12 @@ console.log("============",e)
             name="password"
             value={formData.password}
             onChange={handleChange}
-            className="form-input"
+            className="form-input-agent"
           />
         </div>
 
-        <div className="form-group">
-          <label htmlFor="mobile_number" className="form-label-subAdmin">
+        <div className="form-group-agent">
+          <label htmlFor="mobile_number" className="form-label">
             Mobile Number:
           </label>
           <input
@@ -108,26 +108,12 @@ console.log("============",e)
             name="mobile_number"
             value={formData.mobile_number}
             onChange={handleChange}
-            className="form-input"
+            className="form-input-agent"
           />
         </div>
-        <div className="form-group">
-          <label htmlFor="authType" className="form-label-subAdmin">
-            Auth Type:
-          </label>
-          <input
-            type="text"
-            id="authType"
-            name="authType"
-            value={formData.authType}
-            onChange={handleChange}
-            className="form-input"
-            placeholder='REQUEST_HANDLER,ADS_HANDLER,PACKAGE_HANDLER'
-          />
-        </div>
-        <div className="form-group">
-          <button type="submit" className="form-button">
-            Create Subadmin
+        <div className="form-group-agent">
+          <button type="submit" className="form-button-agent">
+            Create Agent
           </button>
         </div>
       </form>
@@ -135,4 +121,4 @@ console.log("============",e)
   );
 };
 
-export default CreateSubAdminPage;
+export default CreateAgentPage;

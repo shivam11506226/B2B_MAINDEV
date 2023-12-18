@@ -1,9 +1,9 @@
 const initialState = {
   formEntries: [
     {
-      name:"",
-      dob:"",
-      gender:""
+      name: "",
+      dob: "",
+      gender: ""
 
     }
   ],
@@ -22,6 +22,17 @@ export default function formReducer(state = initialState, action) {
       return {
         ...state,
         formEntries: updatedEntries,
+      };
+    case "CLEAR_ALL_PACKAGES":
+      return {
+        formEntries: [
+          {
+            name: "",
+            dob: "",
+            gender: ""
+
+          }
+        ],
       };
     default:
       return state;

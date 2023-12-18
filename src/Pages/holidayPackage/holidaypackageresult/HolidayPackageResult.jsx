@@ -101,8 +101,8 @@ const HolidayPackageResult = () => {
 
   const savedDataString = sessionStorage.getItem("searchPackageData");
   const savedData = JSON.parse(savedDataString);
-  const savedDestination = savedData.destination;
-  const savedDays = savedData.days;
+  const savedDestination = savedData?.destination;
+  const savedDays = savedData?.days;
 
 
   const accordionRef = useRef(null);
@@ -127,6 +127,9 @@ const HolidayPackageResult = () => {
   const handleSortChange = (event) => {
     setSortOption(event.target.value);
   };
+  if(savedDataString===null || savedDataString===undefined){
+    navigate("/holidayPackage")
+  }
 
   return (
 
@@ -205,9 +208,9 @@ const HolidayPackageResult = () => {
           {filteredPackage
             ?.sort((a, b) => {
               if (sortOption === "lowToHigh") {
-                return a.pakage_amount.amount - b.pakage_amount.amount;
+                return a.pakage_amount.amount - b?.pakage_amount.amount;
               } else {
-                return b.pakage_amount.amount - a.pakage_amount.amount;
+                return b.pakage_amount.amount - a?.pakage_amount.amount;
               }
             })
             .map((item, index) => {

@@ -65,14 +65,14 @@ import GSTform from "../Pages/gst/GSTform";
 import Visaform from "../Pages/visa/Visaform";
 import HotelbookingConfirmation from "../Pages/Hotel/hotelreviewbooking/HotelbookingConfirmation";
 import Dashboard from "../Pages/Dashboard/Component/Dashboard";
+import SubAdminDashboard from "../Pages/subAdmin/subAdminDashboard/subAdminDashboard"
 import AdminLogin from "../Pages/AdminLogin/AdminLogin";
 import CreateHolidayPackage from "../Pages/HotelPackage/createholidaypackage/CreateHolidayPackage";
 import EditHolidayPackage from "../Pages/Dashboard/Component/Table/packageUpdate/EditPackage";
 import Queue from "../Pages/Account/Queue";
 import MainBox from "../Layout/MainBox";
-import { useLocation, Navigate } from "react-router-dom";
 
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams, useLocation , Navigate } from "react-router-dom";
 import { useDispatch, useSelector, useReducer } from "react-redux";
 import { ipAction, tokenAction } from "../Redux/IP/actionIp";
 // import Slider from "../Pages/Banner/Slider";
@@ -89,6 +89,10 @@ import FlightReturnReviewbooking from "../Pages/Flight/flightresult/Flightresult
 import FlightReturnBookingConfirmation from "../Pages/Flight/flightresult/FlightresultReturn/ReturnPassenger/FlightReturnBookingConfirmation";
 import CreateSubAdminPage from "../Pages/Dashboard/Component/Table/AddSubadmin";
 import SubAdminLoginPage from "../Pages/subAdmin/SubAdminSignIn"; // Import SubAdminLoginPage
+import FlightOneTicket from "../Pages/Account/FlightOneTicket";
+import BusOneTicket from "../Pages/Account/BusTicket";
+import FlightOpen from "../Pages/Account/FlightOpen";
+import CreateAgentPage from "../Pages/Dashboard/Component/Table/AddAgent"
 const MainPage = () => {
   const dispatch = useDispatch();
   const location = useLocation();
@@ -100,6 +104,9 @@ const MainPage = () => {
   const isSubAdminLogin = location.pathname === "/subAdminLogin";
   const isSubAdmindashboard = location.pathname === "/subAdmin/dashboard";
   const navigate = useNavigate();
+  const { id } = useParams();
+  const isFlightEticketPage = location.pathname.startsWith('/FlightEticket');
+  const isBusEticketPage = location.pathname.startsWith('/BusEticket');
 
   useEffect(() => {
     if (
@@ -157,8 +164,8 @@ const MainPage = () => {
       </div> */}
 
       {/* <Headers/> */}
-      {location.pathname === "/Login" || location.pathname === "/Registration"? null :<Headers />}
-      {location.pathname === "/" || location.pathname === "/Login" || location.pathname === "/Registration"? null :<InnerNavbar />}
+      {location.pathname === "/Login" || location.pathname === "/Registration" || isFlightEticketPage || isBusEticketPage ? null :<Headers />}
+      {location.pathname === "/" || location.pathname === "/Login" || location.pathname === "/Registration" || isFlightEticketPage || isBusEticketPage ? null :<InnerNavbar />}
 
       {!isLoginRoute && !isRegisterRoute &&
         !isDashboard &&
@@ -401,6 +408,11 @@ const MainPage = () => {
                   element={<CreateSubAdminPage />}
                 />
                 <Route
+                exact
+                path="/addAgent"
+                element={<CreateAgentPage />}
+              />
+                <Route
                   exact
                   path="/AdminUserForm"
                   element={<AdminUserForm />}
@@ -431,6 +443,9 @@ const MainPage = () => {
                   element={<EditHolidayPackage />}
                 ></Route>
                 <Route exact path="/Queue" element={<Queue />}></Route>
+                <Route exact path="/FlightConfirmBooking/:id" element={<FlightOpen />} />
+                <Route exact path="/FlightEticket/:id" element={<FlightOneTicket />} /> 
+                <Route exact path="/BusEticket/:id" element={<BusOneTicket />} /> 
               </Routes>
             </div>
 
@@ -451,7 +466,7 @@ const MainPage = () => {
             element={<Dashboard />}
           ></Route>
           <Route exact path="/adminLogin" element={<AdminLogin />}></Route>
-          <Route exact path="/subAdmin/dashboard/*" element={<Dashboard />} > </Route>
+          <Route exact path="/subAdmin/dashboard/*" element={<SubAdminDashboard />} > </Route>
           {isSubAdminLogin && (
           <Route
             exact
@@ -459,6 +474,7 @@ const MainPage = () => {
             element={<SubAdminLoginPage />}></Route>
           )}
         </Routes>
+        
       </div>
 
       {/* main page footer */}

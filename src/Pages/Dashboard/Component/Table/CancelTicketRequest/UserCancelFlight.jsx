@@ -16,7 +16,7 @@ const AllFlightCancelTicketsUser = () => {
     async function fetchflightBookings() {
       try {
         const response = await axios.get(
-          `${apiURL.baseURL}/skyTrails/api/agent/getCancelUserFlightBooking`,
+          `${apiURL.baseURL}/skyTrails/api/admin/getCancelUserFlightBooking`,
           {
             params: {
               page: currentPage,
@@ -46,7 +46,7 @@ const AllFlightCancelTicketsUser = () => {
   return (
 
     <div className='hotel-container'>
-    <h3>AGENT FLIGHTTICKET CANCEL REQUEST</h3>
+    <h3>USER FLIGHTTICKET CANCEL REQUEST</h3>
       <TextField
         type="text"
         value={searchTerm}
@@ -64,10 +64,8 @@ const AllFlightCancelTicketsUser = () => {
         <thead>
           <tr>
             <th>Booking ID</th>
-            <th>Agency Name</th>
             <th>Name</th>
             <th>Phone</th>
-            <th>Email</th>
             <th>Reason</th>
             <th>PNR</th>
             <th>Amount</th>
@@ -82,17 +80,15 @@ const AllFlightCancelTicketsUser = () => {
           {flightBookings.map(booking => (
             <tr key={booking._id}>
               <td>{booking.bookingId}</td>
-              <td>{booking.userDetails.agency_details.agency_name}</td>
-              <td>{`${booking.userDetails.personal_details.first_name}  ${booking.userDetails.personal_details.last_name}` }</td>
-              <td>{booking.userDetails.personal_details.mobile.mobile_number}</td>
-              <td>{booking.userDetails.personal_details.email}</td>
+              <td>{booking.userDetails.username||"No Data"}</td>
+              <td>{booking.userDetails.phone.mobile_number||"No Data"}</td>
               <td>{booking.reason}</td>
-              <td>{booking.pnr}</td>
-              <td>{booking.flightDetails.amount}</td>
-              <td>{booking.flightDetails.origin}</td>
-              <td>{booking.flightDetails.destination}</td>
-              <td>{booking.flightDetails.dateOfJourney}</td>
-              <td>{booking.flightDetails.airlineDetails.AirlineName}</td>
+              <td>{booking.flightDetails.pnr||"No Data "}</td>
+              <td>{booking.flightDetails.totalAmount||" No Data"}</td>
+              <td>{booking.flightDetails.origin||"No Data "}</td>
+              <td>{booking.flightDetails.destination||"No Data"}</td>
+              <td>{booking.flightDetails.airlineDetails[0].Origin.DepTime||" No Data"}</td>
+              <td>{booking.flightDetails.airlineDetails[0].Airline.AirlineName||" No Data"}</td>
               <td><button>APPROVE</button></td>
             </tr>
           ))}

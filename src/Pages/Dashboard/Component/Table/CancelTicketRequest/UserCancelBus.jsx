@@ -2,13 +2,13 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Table, TableBody, TableCell, TableRow, Paper,TextField,InputAdornment,TableHead } from '@mui/material';
-import '../HotelBookings/HotelBookings.css';
+import './CancelTicketRequest.css';
 import SearchIcon from '@mui/icons-material/Search';
 import { apiURL } from '../../../../../Constants/constant';
 
 
 const AllBusCancelTickets = () => {
-    const [hotelBookings, setHotelBookings] = useState([]);
+    const [busBookings, setBusBookings] = useState([]);
     const [loading, setLoading] = useState(true);
     const pageSize = 10;
     const [currentPage, setCurrentPage] = useState(1);
@@ -16,7 +16,7 @@ const AllBusCancelTickets = () => {
     const [searchTerm, setSearchTerm] = useState('');
   
     useEffect(() => {
-      async function fetchHotelBookings() {
+      async function fetchBusBookings() {
         try {
           setLoading(true); // Set loading to true when fetching data
           const response = await axios.get(
@@ -29,7 +29,7 @@ const AllBusCancelTickets = () => {
               }
             }
           );
-          setHotelBookings(response.data.result.docs);
+          setBusBookings(response.data.result.docs);
           setTotalPages(response.data.result.totalPages);
           setLoading(false);
         } catch (error) {
@@ -38,7 +38,7 @@ const AllBusCancelTickets = () => {
         }
       }
   
-      fetchHotelBookings();
+      fetchBusBookings();
     }, [currentPage, searchTerm]);
   
     const handlePageChange = (page) => {
@@ -88,20 +88,22 @@ const AllBusCancelTickets = () => {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {hotelBookings.map((booking) => (
+                {busBookings.map((booking) => (
                   <TableRow key={booking._id}>
                     <TableCell>{booking.busId}</TableCell>
-                    <TableCell>{booking.userDetails.username}</TableCell>
-                    <TableCell>{booking.userDetails.phone.mobile_number}</TableCell>
+
+                    <TableCell>{booking.userDetails.username||"No Data"}</TableCell>
+                    <TableCell>{booking.userDetails.phone.mobile_number||"No Data"}</TableCell>
                     {/* <TableCell>{booking.userDetails.email}</TableCell> */}
                     <TableCell>{booking.reason}</TableCell>
-                    <TableCell>{booking.busDetails.pnr}</TableCell>
-                    <TableCell>{booking.busDetails.amount}</TableCell>
-                    <TableCell>{booking.busDetails.origin}</TableCell>
-                    <TableCell>{booking.busDetails.destination}</TableCell>
-                    <TableCell>{booking.busDetails.dateOfJourney}</TableCell>
-                    <TableCell>{booking.busDetails.busType}</TableCell>
-                    <TableCell>{booking.busDetails.noOfSeats}</TableCell>
+                    <TableCell>{booking.busDetails.pnr||"No Data"}</TableCell>
+                    <TableCell>{booking.busDetails.amount||"No Data"}</TableCell>
+                    <TableCell>{booking.busDetails.origin||"No Data"}</TableCell>
+                    <TableCell>{booking.busDetails.destination||"No Data"}</TableCell>
+                    <TableCell>{booking.busDetails.dateOfJourney||"No Data"}</TableCell>
+                    <TableCell>{booking.busDetails.busType||"No Data"}</TableCell>
+                    <TableCell>{booking.busDetails.noOfSeats||"No Data"}</TableCell>
+
                     <TableCell><button>APPROVE</button></TableCell>
                   </TableRow>
                 ))}

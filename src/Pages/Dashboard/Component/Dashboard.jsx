@@ -12,6 +12,8 @@ import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import PersonAdd from "@mui/icons-material/PersonAdd";
 import Settings from "@mui/icons-material/Settings";
 import Logout from "@mui/icons-material/Logout";
+import profilePicUrl from '../../../Images/Admin.svg'
+// import profilePicUrl from '../../../Images/Admin.svg'
 
 import {
   ListItem,
@@ -43,7 +45,6 @@ import RiseLoader from "react-spinners/RiseLoader";
 import HotelBookings from "./Table/HotelBookings/HotelBookings";
 import FlightBookings from "./Table/FlightBookings/Flightbookings";
 import BusBookings from "./Table/BusBookings/BusBookings";
-
 import FixedDeparture from "./Table/FixedDeparture/FixedDeparture";
 import FixedDepartureControl from "./Table/FixedDepartureControl/FixedDepartureControl";
 import AgentHotelBookings from "./Table/AgentHotelBookings/AgentHotelBookings";
@@ -78,7 +79,6 @@ import AgentCancelHotel from "./Table/CancelTicketRequest/AgentCancelHotel";
 import AgentCancelFlight from "./Table/CancelTicketRequest/AgentCancelFlight";
 import AgentCancelBus from "./Table/CancelTicketRequest/AgentCancelBus";
 import UserCancelHotel from "./Table/CancelTicketRequest/UserCancelHotel";
-import AllFlightCancelTicketsUser from "./Table/CancelTicketRequest/UserCancelFlight";
 import UserCancelBus from "./Table/CancelTicketRequest/UserCancelBus";
 import AllFlightCancelTickets from "./Table/CancelTicketRequest/UserCancelFlight";
 import AddSubadmin from "../Component/Table/AddSubadmin";
@@ -194,6 +194,7 @@ export default function VerticalTabs() {
     setOpen(false);
   };
   const handleMenuItemClick = (menuItem) => {
+    // console.log(menuItem,menuData)
     setLoading(true);
     setMenuData(menuItem);
 
@@ -228,6 +229,10 @@ export default function VerticalTabs() {
     navigate("/addSubAdmin");
   };
 
+  const createAgent=()=>{
+    navigate("/addAgent");
+  }
+
   // const [value, setValue] = useState(0);
   // const handleChange = (event, newValue) => {
   //   setValue(newValue);
@@ -245,6 +250,11 @@ export default function VerticalTabs() {
 
   const handleButtonClick = () => {
     setOpenCollapse(!openCollapse);
+  };
+
+  const[openCollapseOne,setOpenCollapseOne]=useState(false);
+  const handleButtonClickOne=()=>{
+    setOpenCollapseOne(!openCollapseOne)
   };
 
   const [openCollapseTwo, setOpenCollapseTwo] = useState(false);
@@ -282,6 +292,11 @@ export default function VerticalTabs() {
     setOpenCollapseSeven(!openCollapseSeven);
   };
 
+  const[openCollapseEight,setOpenCollapseEight]=useState(false)
+  const handleButtonClickEight=()=>{
+    setOpenCollapseEight(!openCollapseEight);
+  };
+
   return (
     <>
       <Box sx={{ display: "flex" }}>
@@ -313,10 +328,10 @@ export default function VerticalTabs() {
             >
               <MenuIcon />
             </IconButton>
-            <Typography variant="h4" noWrap component="div">
-              <img src={STLOGO} height={100} margin-top={100} alt="logo" />
-            </Typography>
-
+            <Typography variant="h4" noWrap component="div" style={{ marginTop: '10px' }}>
+            <img src={STLOGO} height={50} alt="logo" />
+          </Typography>
+          
             {/* Search Bar */}
             <div
               style={{
@@ -358,7 +373,7 @@ export default function VerticalTabs() {
                   aria-haspopup="true"
                   aria-expanded={openAccountMenu ? "true" : undefined}
                 >
-                  <Avatar sx={{ width: 32, height: 32 }}>M</Avatar>
+                  <Avatar sx={{ width: 32, height: 32 }} alt="Admin" src={profilePicUrl} />
                 </IconButton>
               </Tooltip>
               <Menu
@@ -420,6 +435,17 @@ export default function VerticalTabs() {
                   </ListItemIcon>
                   Add SUBADMIN
                 </MenuItem>
+                <MenuItem
+                onClick={() => {
+                  handleClose();
+                  createAgent();
+                }}
+              >
+                <ListItemIcon>
+                  <PersonAdd fontSize="small" />
+                </ListItemIcon>
+                Add Agent
+              </MenuItem>
                 <MenuItem
                   onClick={() => {
                     handleClose();
@@ -547,12 +573,15 @@ export default function VerticalTabs() {
                 />
               </ListItemButton>
             </ListItem>
-            <ListItem disablePadding sx={{ display: "block" }}>
+            <ListItem disablePadding sx={{ display: "block" }} >
               <ListItemButton
                 sx={{
                   minHeight: 48,
                   justifyContent: open ? "center" : "center",
                   px: 2.5,
+                  ...((menuData === "Cancel Ticket"
+                    ? activeMenuItemClass
+                    : inactiveMenuItemClass) || {}),
                 }}
                 onClick={handleButtonClick}
               >
@@ -565,7 +594,7 @@ export default function VerticalTabs() {
                 >
                   <CalendarTodayOutlinedIcon />
                 </ListItemIcon>
-                <ListItemText primary="Cancel Ticket" />
+                <ListItemText primary="Cancel Ticket" sx={{ opacity: open ? 1 : 0 }} />
               </ListItemButton>
               <Collapse in={openCollapse} timeout="auto" unmountOnExit>
                 <ListItem disablePadding sx={{ display: "block" }}>
@@ -586,7 +615,7 @@ export default function VerticalTabs() {
                     >
                       <AccountBoxIcon />
                     </ListItemIcon>
-                    <ListItemText primary="AGENT B2B" />
+                    <ListItemText primary="AGENT Bookings" />
                   </ListItemButton>
                   <Collapse in={openCollapseTwo} timeout="auto" unmountOnExit>
                     <ListItem
@@ -691,7 +720,7 @@ export default function VerticalTabs() {
                 <ListItem
                   disablePadding
                   sx={{ display: "block" }}
-                  onClick={() => handleMenuItemClick("USER B2C")}
+                  onClick={handleButtonClickOne}
                 >
                   <ListItemButton
                     sx={{
@@ -710,9 +739,9 @@ export default function VerticalTabs() {
                     >
                       <AccountBoxIcon />
                     </ListItemIcon>
-                    <ListItemText primary="USER B2C" />
+                    <ListItemText primary="USER Bookings" />
                   </ListItemButton>
-                  <Collapse in={openCollapseThree} timeout="auto" unmountOnExit>
+                  <Collapse in={openCollapseThree} timeout="auto" unmountOnExit>                
                     <ListItem
                       disablePadding
                       sx={{ display: "block" }}
@@ -743,7 +772,6 @@ export default function VerticalTabs() {
                         />
                       </ListItemButton>
                     </ListItem>
-
                     <ListItem
                       disablePadding
                       sx={{ display: "block" }}
@@ -776,7 +804,6 @@ export default function VerticalTabs() {
                         />
                       </ListItemButton>
                     </ListItem>
-
                     <ListItem
                       disablePadding
                       sx={{ display: "block" }}
@@ -817,6 +844,9 @@ export default function VerticalTabs() {
                   minHeight: 48,
                   justifyContent: open ? "center" : "center",
                   px: 2.5,
+                  ...((menuData === "Change Request"
+                    ? activeMenuItemClass
+                    : inactiveMenuItemClass) || {}),
                 }}
                 onClick={handleButtonClickSix}
               >
@@ -829,7 +859,7 @@ export default function VerticalTabs() {
                 >
                   <CalendarTodayOutlinedIcon />
                 </ListItemIcon>
-                <ListItemText primary="Change Request" />
+                <ListItemText primary="Change Request" sx={{ opacity: open ? 1 : 0 }}/>
               </ListItemButton>
               <Collapse in={openCollapseSix} timeout="auto" unmountOnExit>
                 <ListItem disablePadding sx={{ display: "block" }}>
@@ -850,7 +880,7 @@ export default function VerticalTabs() {
                     >
                       <AccountBoxIcon />
                     </ListItemIcon>
-                    <ListItemText primary="AGENT B2B" />
+                    <ListItemText primary="AGENT" />
                   </ListItemButton>
                   <Collapse in={openCollapseSeven} timeout="auto" unmountOnExit>
                     <ListItem
@@ -955,7 +985,7 @@ export default function VerticalTabs() {
                       justifyContent: open ? "center" : "center",
                       px: 2.5,
                     }}
-                    onClick={handleButtonClickThree}
+                    onClick={handleButtonClickEight}
                   >
                     <ListItemIcon
                       sx={{
@@ -966,9 +996,9 @@ export default function VerticalTabs() {
                     >
                       <AccountBoxIcon />
                     </ListItemIcon>
-                    <ListItemText primary="USER B2C" />
+                    <ListItemText primary="USER" />
                   </ListItemButton>
-                  <Collapse in={openCollapseThree} timeout="auto" unmountOnExit>
+                  <Collapse in={openCollapseEight} timeout="auto" unmountOnExit>
                     <ListItem
                       disablePadding
                       sx={{ display: "block" }}
@@ -1159,6 +1189,9 @@ export default function VerticalTabs() {
                   minHeight: 48,
                   justifyContent: open ? "center" : "center",
                   px: 2.5,
+                  ...((menuData === "AGENT Bookings"
+                    ? activeMenuItemClass
+                    : inactiveMenuItemClass) || {}),
                 }}
                 onClick={handleButtonClickFour}
               >
@@ -1171,7 +1204,7 @@ export default function VerticalTabs() {
                 >
                   <AccountBoxIcon />
                 </ListItemIcon>
-                <ListItemText primary="AGENT B2B" />
+                <ListItemText primary="AGENT Bookings"  sx={{ opacity: open ? 1 : 0 }} />
               </ListItemButton>
               <Collapse in={openCollapseFour} timeout="auto" unmountOnExit>
                 <ListItem
@@ -1273,7 +1306,9 @@ export default function VerticalTabs() {
                   minHeight: 48,
                   justifyContent: "center",
                   px: 2.5,
-                  // Add your other styles here
+                  ...((menuData === "USER Bookings"
+                    ? activeMenuItemClass
+                    : inactiveMenuItemClass) || {}),
                 }}
                 onClick={handleButtonClickFive}
               >
@@ -1286,7 +1321,7 @@ export default function VerticalTabs() {
                 >
                   <AccountBoxIcon />
                 </ListItemIcon>
-                <ListItemText primary="USER B2C" />
+                <ListItemText primary="USER Bookings" sx={{ opacity: open ? 1 : 0 }}/>
               </ListItemButton>
               <Collapse in={openCollapseFive} timeout="auto" unmountOnExit>
                 <ListItem
@@ -1501,6 +1536,36 @@ export default function VerticalTabs() {
                 />
               </ListItemButton>
             </ListItem>
+            <ListItem
+            disablePadding
+            sx={{ display: "block" }}
+            onClick={() => handleMenuItemClick("Advertisment")}
+            className={
+              menuData === "Advertisment" ? "active-menu-item" : "inactive-menu-item"
+            }
+          >
+            <ListItemButton
+              sx={{
+                minHeight: 48,
+                justifyContent: open ? "initial" : "center",
+                px: 2.5,
+                ...((menuData === "Advertisment"
+                  ? activeMenuItemClass
+                  : inactiveMenuItemClass) || {}),
+              }}
+            >
+              <ListItemIcon
+                sx={{
+                  minWidth: 0,
+                  mr: open ? 3 : "auto",
+                  justifyContent: "center",
+                }}
+              >
+                <HomeOutlinedIcon />
+              </ListItemIcon>
+              <ListItemText primary="Advertisment" sx={{ opacity: open ? 1 : 0 }} />
+            </ListItemButton>
+          </ListItem>
           </List>
           <Divider />
         </Drawer>
@@ -1533,14 +1598,14 @@ export default function VerticalTabs() {
               {menuData === "Hotel CancelTicket" && <AgentCancelHotel />}
               {menuData === "Flight CancelTicket" && <AgentCancelFlight />}
               {menuData === "Bus CancelTicket" && <AgentCancelBus />}
-              {menuData === "Hotel CancelTickets" && (<UserCancelHotel />)}
-              {menuData === "Flight CancelTickets" && (<AllFlightCancelTickets />)}
+              {menuData === "Hotel CancelTickets" && <UserCancelHotel />}
+              {menuData === "Flight CancelTickets" && <AllFlightCancelTickets />}
               {menuData === "Bus CancelTickets" && <UserCancelBus />}
               {menuData === "Hotel ChangeTicket" && <AgentHotelChangeRequest />}
-              {menuData === "Flight ChangeTicket" && (<AgentFlightChangeRequest />)}
-              {menuData === "Bus ChangeTickets" && <AgentBusChangeRequest />}
+              {menuData === "Flight ChangeTicket" && <AgentFlightChangeRequest />}
+              {menuData === "Bus ChangeTicket" && <AgentBusChangeRequest />}
               {menuData === "Hotel ChangeTickets" && <UserHotelChangeRequest />}
-              {menuData === "Flight ChangeTickets" && (<UserFlightChangeRequest />)}
+              {menuData === "Flight ChangeTickets" && <UserFlightChangeRequest />}
               {menuData === "Bus ChangeTickets" && <UserBusChangeRequest />}
               {menuData === "User MarkUp Amount" && <MarkUpAmount />}
               {menuData === "Edit Holiday Package" && <PackageDetails />}
@@ -1554,9 +1619,7 @@ export default function VerticalTabs() {
               {menuData === "Bus Booking" && <BusBookings />}
               {menuData === "OfferList" && <OfferList />}
               {menuData === "fixedDeparture" && <FixedDeparture />}
-              {menuData === "fixedDepartureControl" && (
-                <FixedDepartureControl />
-              )}
+              {menuData === "fixedDepartureControl" && (<FixedDepartureControl />)}
             </div>
           )}
         </Box>

@@ -78,23 +78,25 @@ const AllBusBooking = () => {
           {busBookings.map(bookings => (
             <tr key={bookings._id}>
               <td>{bookings.busId}</td>
-              <td>{bookings.userDetails.agency_details.agency_name}</td>
-              <td>{`${bookings.userDetails.personal_details.first_name}${bookings.userDetails.personal_details.last_name}`}</td>
-              <td>{bookings.userDetails ? `${bookings.userDetails.personal_details.email}` : "Empty"}</td>
+              <td>{bookings.userDetails[0]?.agency_details.agency_name||"No Data"}</td>
+              <td>{`${bookings.userDetails[0]?.personal_details.first_name}${bookings.userDetails[0]?.personal_details.last_name}`||"No Data"}</td>
+              <td>{bookings.userDetails[0] ? `${bookings.userDetails[0].personal_details.email}` : "Empty"}</td>
               <td>
                 {/* {bookings.phone && typeof bookings.phone === 'object' ?
                   `${bookings.userDetails.personal_details.mobile.country_code}${bookings.userDetails.personal_details.mobile.mobile_number}` :
                   "Empty"
                 } */}
-                {bookings.phone}
+
+                {bookings.phone||"No Data"}
               </td>
-              <td>{bookings.destination}</td>
-              <td>{bookings.origin}</td>
-              <td>{bookings.amount}</td>
-              <td>{bookings.busType}</td>
-              <td>{bookings.pnr}</td>
-              <td>{new Date(bookings.dateOfJourney).toDateString()}</td>
-              <td>{bookings.noOfSeats}</td>
+              <td>{bookings.destination||"No Data"}</td>
+              <td>{bookings.origin||"No Data"}</td>
+              <td>{bookings.amountv||"No Data"}</td>
+              <td>{bookings.busType||"No Data"}</td>
+              <td>{bookings.pnr||"No Data"}</td>
+              <td>{new Date(bookings.dateOfJourney).toDateString()||"No Data"}</td>
+              <td>{bookings.noOfSeats||"No Data"}</td>
+
             </tr>
           ))}
         </tbody>

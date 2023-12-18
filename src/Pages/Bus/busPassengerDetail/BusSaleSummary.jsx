@@ -14,7 +14,7 @@ const BusSaleSummary = () => {
   const parsedSeatData = JSON.parse(seatData);
   const seatObject = parsedSeatData?.blockedSeatArray;
   // console.log(seatObject);
-  const published = seatObject.reduce(function (
+  const published = seatObject?.reduce(function (
     accumulator,
     currentValue,
     currentIndex,
@@ -23,13 +23,13 @@ const BusSaleSummary = () => {
     return accumulator + currentValue?.Price?.BasePrice;
   },
     0);
-  const offeredPrice = seatObject.reduce(
+  const offeredPrice = seatObject?.reduce(
     (accumulator, currentValue, currentIndex, array) => {
       return accumulator + currentValue?.Price?.OfferedPrice;
     },
     0
   );
-  const tdsTotal = markUpamount + seatObject.reduce((accumulator, currentValue) => {
+  const tdsTotal = markUpamount + seatObject?.reduce((accumulator, currentValue) => {
     return accumulator + currentValue?.Price?.TDS;
   }, 0);
   useEffect(() => {

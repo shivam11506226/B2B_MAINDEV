@@ -14,3 +14,22 @@ export const packageBookingAction = (user) => {
     };
   }
 };
+export const packageBookingActionError = () => {
+  // console.log("data",user);
+
+  return {
+    type: types.PACKAGE_FAILURE,
+    // payload: user,
+
+  }
+
+};
+export const packageBookingActionClear = () => {
+  // console.log("data",user);
+    return {
+      type: types.PACKAGE_CLEAR,
+    };
+  
+
+  }
+
