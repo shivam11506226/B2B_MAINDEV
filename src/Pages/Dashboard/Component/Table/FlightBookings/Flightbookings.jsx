@@ -84,6 +84,7 @@ const AllFlightBooking = () => {
         <tbody>
           {flightBookings.map((booking) => (
             <tr key={booking._id}>
+
               <td>{booking.bookingId||"No Data"}</td>
               <td>{booking.pnr||"No Data"}</td>
               <td>{booking.UserDetails.username||"No Data"}</td>
@@ -94,6 +95,7 @@ const AllFlightBooking = () => {
               <td>{booking.origin||"No Data"}</td>
               <td>{booking.destination||"No Data"}</td>
               <td>{booking.passengerDetails[0].gender||"No Data"}</td>
+
             </tr>
           ))}
         </tbody>

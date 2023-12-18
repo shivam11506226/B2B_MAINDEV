@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import './AddSubadmin.css'; // Import the CSS file
 import { apiURL } from '../../../../Constants/constant';
 import { useNavigate } from 'react-router-dom';
-
+import profilePicUrl from '../../../../Images/logo.jpeg'
 
 const CreateSubAdminPage = () => {
   const [formData, setFormData] = useState({
@@ -53,10 +53,11 @@ console.log("============",e)
 
   return (
     <div className="form-container">
-      <h1 className="form-title">Create Subadmin</h1>
+  <div className='image-div'><img  src={profilePicUrl}   alt='logo' className="agent-image"/></div>
+      <h1 className="form-title"><strong>Create Subadmin</strong></h1>
       <form className="subadmin-form" onSubmit={handleSubmit}>
         <div className="form-group">
-          <label htmlFor="username" className="form-label">
+          <label htmlFor="username" className="form-label-subAdmin">
             Username:
           </label>
           <input
@@ -70,7 +71,7 @@ console.log("============",e)
         </div>
 
         <div className="form-group">
-          <label htmlFor="email" className="form-label">
+          <label htmlFor="email" className="form-label-subAdmin">
             Email:
           </label>
           <input
@@ -84,7 +85,7 @@ console.log("============",e)
         </div>
 
         <div className="form-group">
-          <label htmlFor="password" className="form-label">
+          <label htmlFor="password" className="form-label-subAdmin">
             Password:
           </label>
           <input
@@ -98,7 +99,7 @@ console.log("============",e)
         </div>
 
         <div className="form-group">
-          <label htmlFor="mobile_number" className="form-label">
+          <label htmlFor="mobile_number" className="form-label-subAdmin">
             Mobile Number:
           </label>
           <input
@@ -111,7 +112,7 @@ console.log("============",e)
           />
         </div>
         <div className="form-group">
-          <label htmlFor="authType" className="form-label">
+          <label htmlFor="authType" className="form-label-subAdmin">
             Auth Type:
           </label>
           <input

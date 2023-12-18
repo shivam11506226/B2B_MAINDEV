@@ -61,6 +61,7 @@ const AllBusBooking = () => {
         <thead>
           <tr>
             <th>Bus ID</th>
+
             <th>Name</th>
             <th>Email</th>
             <th>Phone</th>
@@ -74,6 +75,7 @@ const AllBusBooking = () => {
           </tr>
         </thead>
         <tbody>
+
           {busBookings.map(bookings => (
             <tr key={bookings._id}>
               <td>{bookings.busId||"No Data"}</td>
@@ -90,6 +92,7 @@ const AllBusBooking = () => {
             </tr>
           ))}
         </tbody>
+
       </table>
       <div className="paginate">
         {Array.from({ length: totalPages }, (_, i) => (

@@ -86,6 +86,7 @@ const AllBusBooking = () => {
                   `${bookings.userDetails.personal_details.mobile.country_code}${bookings.userDetails.personal_details.mobile.mobile_number}` :
                   "Empty"
                 } */}
+
                 {bookings.phone||"No Data"}
               </td>
               <td>{bookings.destination||"No Data"}</td>
@@ -95,6 +96,7 @@ const AllBusBooking = () => {
               <td>{bookings.pnr||"No Data"}</td>
               <td>{new Date(bookings.dateOfJourney).toDateString()||"No Data"}</td>
               <td>{bookings.noOfSeats||"No Data"}</td>
+
             </tr>
           ))}
         </tbody>
