@@ -214,7 +214,11 @@ const FlightChangeReq = () => {
                   </Link>
               )}
               </div>
-              <Link to={`/FlightConfirmBooking/${flight._id}`}>
+              {/* <Link to={`/FlightConfirmBooking/${flight._id}`}>
+              <div className="view">
+                <button >Open</button>
+              </div></Link> */}
+              <Link to=''>
               <div className="view">
                 <button >Open</button>
               </div></Link>
