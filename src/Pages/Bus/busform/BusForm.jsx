@@ -70,7 +70,7 @@ const BusForm = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const reducerState = useSelector((state) => state);
-  // console.log(reducerState);
+  console.log(reducerState);
   const [isLoading, setIsLoading] = useState(false);
   const [fromSearchResults, setFromSearchResults] = useState([]);
   const [toSearchResults, setToSearchResults] = useState([]);
@@ -228,6 +228,13 @@ const BusForm = () => {
 
     return valid;
   };
+  useEffect(() => {
+    if (reducerState?.getBusResult?.busResult?.data?.data?.BusSearchResult?.Error?.ErrorCode === 0) {
+      navigate("/BusResult");
+    }
+    console.warn(reducerState?.getBusResult?.busResult?.data?.data?.BusSearchResult?.Error?.ErrorCode
+      , "reducerState?.getBusResult?.data?.data?.BusSearchResult?.Error?.ErrorCode")
+  }, [reducerState?.getBusResult])
 
   // form submit data
   function handleSubmit(event) {
@@ -256,7 +263,7 @@ const BusForm = () => {
       };
       // console.log("payload", payload);
       dispatch(busSearchAction(payload));
-      navigate("/BusResult");
+
     } else {
       // Focus on the first empty field
       if (!from) {

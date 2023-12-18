@@ -246,6 +246,7 @@ const OneWay = () => {
   }
   // style={{ width: "305px", height: "56px", position: "relative" }}
   // style={{ width: "305px", height: "56px" }}
+
   return (
     <div className="">
       <form onSubmit={handleSubmit} className="formFlightSearchOneWay" >
@@ -265,6 +266,7 @@ const OneWay = () => {
                   onChange={(event) => {
                     handleFromInputChange(event);
                     handleFromSearch(event.target.value);
+                    console.warn(fromSearchResults,"fromSearchResults")
                   }}
                   autoComplete="off"
                 />
