@@ -168,7 +168,7 @@ const FlightChangeReq = () => {
               <div className="innerdiv1">
                 <p>
                   Passenger Name:{" "}
-                  {/* {`${flight.passengerDetails[0].firstName} ${flight.passengerDetails[0].lastName}`} */}
+                  {`${flight.passengerDetails[0].firstName} ${flight.passengerDetails[0].lastName}`}
                 </p>
                 <p>Flight Name: {flight.airlineDetails.AirlineName}</p>
                 <p>Departure: {flight.airlineDetails.DepTime}</p>
