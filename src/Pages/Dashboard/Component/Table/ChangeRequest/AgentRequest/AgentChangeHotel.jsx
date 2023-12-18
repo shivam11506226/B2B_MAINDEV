@@ -84,17 +84,17 @@ const AllHotelCancelTickets = () => {
           {hotelBookings.map(booking => (
             <tr key={booking.bookingId}>
             <td>{booking.bookingId}</td>
-            <td>{booking.userDetails.agency_details.agency_name}</td>
-            <td>{`${booking.userDetails.personal_details.first_name}  ${booking.userDetails.personal_details.last_name}` }</td>
-            <td>{booking.userDetails.personal_details.mobile.mobile_number}</td>
-            <td>{booking.userDetails.personal_details.email}</td>
-            <td>{booking.reason}</td>
-            <td>{booking.hotelDetails.hotelId}</td>
-            <td>{booking.hotelDetails.amount}</td>
-            <td>{booking.hotelDetails.CheckInDate}</td>
-            <td>{booking.hotelDetails.destination}</td>
-            <td>{booking.hotelDetails.room}</td>
-            <td>{booking.hotelDetails.hotelName}</td>
+            <td>{booking.userDetails.agency_details.agency_name||"No Data"}</td>
+            <td>{`${booking.userDetails.personal_details.first_name}  ${booking.userDetails.personal_details.last_name}`||"No Data"}</td>
+            <td>{booking.userDetails.personal_details.mobile.mobile_number||"No Data"}</td>
+            <td>{booking.userDetails.personal_details.email||"No Data"}</td>
+            <td>{booking.reason||"No Data"}</td>
+            <td>{booking.hotelDetails.hotelId||"No Data"}</td>
+            <td>{booking.hotelDetails.amount||"No Data"}</td>
+            <td>{booking.hotelDetails.CheckInDate||"No Data"}</td>
+            <td>{booking.hotelDetails.destination||"No Data"}</td>
+            <td>{booking.hotelDetails.room||"No Data"}</td>
+            <td>{booking.hotelDetails.hotelName||"No Data"}</td>
             <td><button>APPROVE</button></td>
             
           </tr>

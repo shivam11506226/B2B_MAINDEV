@@ -1193,11 +1193,7 @@ export default function VerticalTabs() {
                 <ListItemText primary="Forex" sx={{ opacity: open ? 1 : 0 }} />
               </ListItemButton>
             </ListItem>
-            <ListItem disablePadding sx={{ display: "block" }}
-            onClick={() => handleMenuItemClick("AGENT B2B")}
-              className={
-                menuData === "AGENT B2B" ? "active-menu-item" : "inactive-menu-item"
-              }>
+            <ListItem disablePadding sx={{ display: "block" }}>
               <ListItemButton
                 sx={{
                   minHeight: 48,
@@ -1314,11 +1310,7 @@ export default function VerticalTabs() {
                 </ListItem>
               </Collapse>
             </ListItem>
-            <ListItem disablePadding sx={{ display: "block" }}
-            onClick={() => handleMenuItemClick("USER B2C")}
-              className={
-                menuData === "USER B2C" ? "active-menu-item" : "inactive-menu-item"
-              }>
+            <ListItem disablePadding sx={{ display: "block" }}>
               <ListItemButton
                 sx={{
                   minHeight: 48,
@@ -1607,9 +1599,7 @@ export default function VerticalTabs() {
               {menuData === "Bus Booking" && <BusBookings />}
               {menuData === "OfferList" && <OfferList />}
               {menuData === "fixedDeparture" && <FixedDeparture />}
-              {menuData === "fixedDepartureControl" && (
-                <FixedDepartureControl />
-              )}
+              {menuData === "fixedDepartureControl" && (<FixedDepartureControl />)}
             </div>
           )}
         </Box>

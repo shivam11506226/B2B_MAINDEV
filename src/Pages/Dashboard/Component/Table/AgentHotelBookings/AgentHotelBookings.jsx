@@ -77,16 +77,16 @@ const AllBusBooking = () => {
           {busBookings.map(bookings => (
             <tr key={bookings._id}>
               <td>{bookings.bookingId}</td>
-              <td>{bookings.userDetails.agency_details.agency_name}</td>
-              <td>{`${bookings.userDetails.personal_details.first_name}${bookings.userDetails.personal_details.last_name}`}</td>
-              <td>{bookings.userDetails ? `${bookings.userDetails.personal_details.email}` : "Empty"}</td>
-              <td>{bookings.userDetails.personal_details.mobile.mobile_number}</td>
-              <td>{bookings.destination}</td>
-              <td>{bookings.hotelName}</td>
-              <td>{bookings.amount}</td>
-              <td>{bookings.hotelId}</td>
-              <td>{new Date(bookings.dateOfJourney).toDateString()}</td>
-              <td>{bookings.room}</td>
+              <td>{bookings.userDetails.agency_details.agency_name||"No Data"}</td>
+              <td>{`${bookings.userDetails.personal_details.first_name}${bookings.userDetails.personal_details.last_name}`||"No Data"}</td>
+              <td>{bookings.userDetails ? `${bookings.userDetails.personal_details.email||"No Data"}` : "Empty"}</td>
+              <td>{bookings.userDetails.personal_details.mobile.mobile_number||"No Data"}</td>
+              <td>{bookings.destination||"No Data"}</td>
+              <td>{bookings.hotelName||"No Data"}</td>
+              <td>{bookings.amount||"No Data"}</td>
+              <td>{bookings.hotelId||"No Data"}</td>
+              <td>{new Date(bookings.dateOfJourney).toDateString()||"No Data"}</td>
+              <td>{bookings.room||"No Data"}</td>
             </tr>
           ))}
         </tbody>
