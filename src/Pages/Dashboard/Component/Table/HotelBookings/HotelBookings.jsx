@@ -78,15 +78,15 @@ const AllHotelBooking = () => {
         <tbody>
           {hotelBookings.map(booking => (
             <tr key={booking._id}>
-              <td>{booking._id}</td>
-              <td>{booking.userId}</td>
-              <td>{booking.name}</td>
-              <td>{booking.phone}</td>
-              <td>{booking.email}</td>
-              <td>{new Date(booking.CheckInDate).toDateString()}</td>
-              <td>{new Date(booking.CheckOutDate).toDateString()}</td>
-              <td>{booking.hotelName}</td>
-              <td>{booking.cityName}</td>
+              <td>{booking._id||"No Data"}</td>
+              <td>{booking.userId||"No Data"}</td>
+              <td>{booking.name||"No Data"}</td>
+              <td>{booking.phone||"No Data"}</td>
+              <td>{booking.email||"No Data"}</td>
+              <td>{new Date(booking.CheckInDate).toDateString()||"No Data"}</td>
+              <td>{new Date(booking.CheckOutDate).toDateString()||"No Data"}</td>
+              <td>{booking.hotelName||"No Data"}</td>
+              <td>{booking.cityName||"No Data"}</td>
               {/* Add more table data cells based on your data */}
             </tr>
           ))}

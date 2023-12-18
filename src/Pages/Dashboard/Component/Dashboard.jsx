@@ -1619,9 +1619,7 @@ export default function VerticalTabs() {
               {menuData === "Bus Booking" && <BusBookings />}
               {menuData === "OfferList" && <OfferList />}
               {menuData === "fixedDeparture" && <FixedDeparture />}
-              {menuData === "fixedDepartureControl" && (
-                <FixedDepartureControl />
-              )}
+              {menuData === "fixedDepartureControl" && (<FixedDepartureControl />)}
             </div>
           )}
         </Box>

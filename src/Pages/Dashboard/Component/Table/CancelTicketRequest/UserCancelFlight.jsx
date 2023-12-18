@@ -80,15 +80,15 @@ const AllFlightCancelTicketsUser = () => {
           {flightBookings.map(booking => (
             <tr key={booking._id}>
               <td>{booking.bookingId}</td>
-              <td>{booking.userDetails.username}</td>
-              <td>{booking.userDetails.phone.mobile_number}</td>
+              <td>{booking.userDetails.username||"No Data"}</td>
+              <td>{booking.userDetails.phone.mobile_number||"No Data"}</td>
               <td>{booking.reason}</td>
-              <td>{booking.flightDetails.pnr}</td>
-              <td>{booking.flightDetails.totalAmount}</td>
-              <td>{booking.flightDetails.origin}</td>
-              <td>{booking.flightDetails.destination}</td>
-              <td>{booking.flightDetails.airlineDetails[0].Origin.DepTime}</td>
-              <td>{booking.flightDetails.airlineDetails[0].Airline.AirlineName}</td>
+              <td>{booking.flightDetails.pnr||"No Data "}</td>
+              <td>{booking.flightDetails.totalAmount||" No Data"}</td>
+              <td>{booking.flightDetails.origin||"No Data "}</td>
+              <td>{booking.flightDetails.destination||"No Data"}</td>
+              <td>{booking.flightDetails.airlineDetails[0].Origin.DepTime||" No Data"}</td>
+              <td>{booking.flightDetails.airlineDetails[0].Airline.AirlineName||" No Data"}</td>
               <td><button>APPROVE</button></td>
             </tr>
           ))}

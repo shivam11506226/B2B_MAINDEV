@@ -90,17 +90,17 @@ const AllBusChangeTickets = () => {
               <TableBody>
                 {hotelBookings.map((booking) => (
                   <TableRow key={booking._id}>
-                    <TableCell>{booking.busDetails.busId}</TableCell>
-                    <TableCell>{`${booking.userDetails.personal_details.first_name} ${booking.userDetails.personal_details.last_name}`}</TableCell>
-                    <TableCell>{booking.userDetails.personal_details.mobile.mobile_number}</TableCell>
-                    <TableCell>{booking.userDetails.personal_details.email}</TableCell>
-                    <TableCell>{booking.reason}</TableCell>
-                    <TableCell>{booking.busDetails.pnr}</TableCell>
-                    <TableCell>{booking.busDetails.amount}</TableCell>
-                    <TableCell>{booking.busDetails.origin}</TableCell>
-                    <TableCell>{booking.busDetails.destination}</TableCell>
-                    <TableCell>{booking.busDetails.departureTime}</TableCell>
-                    <TableCell>{booking.busDetails.busType}</TableCell>
+                    <TableCell>{booking.busDetails.busId||"No Data"}</TableCell>
+                    <TableCell>{`${booking.userDetails.personal_details.first_name} ${booking.userDetails.personal_details.last_name}`||"No Data"}</TableCell>
+                    <TableCell>{booking.userDetails.personal_details.mobile.mobile_number||"No Data"}</TableCell>
+                    <TableCell>{booking.userDetails.personal_details.email||"No Data"}</TableCell>
+                    <TableCell>{booking.reason||"No Data"}</TableCell>
+                    <TableCell>{booking.busDetails.pnr||"No Data"}</TableCell>
+                    <TableCell>{booking.busDetails.amount||"No Data"}</TableCell>
+                    <TableCell>{booking.busDetails.origin||"No Data"}</TableCell>
+                    <TableCell>{booking.busDetails.destination||"No Data"}</TableCell>
+                    <TableCell>{booking.busDetails.departureTime||"No Data"}</TableCell>
+                    <TableCell>{booking.busDetails.busType||"No Data"}</TableCell>
                     <TableCell><button>APPROVE</button></TableCell>
                   </TableRow>
                 ))}

@@ -84,16 +84,18 @@ const AllFlightBooking = () => {
         <tbody>
           {flightBookings.map((booking) => (
             <tr key={booking._id}>
-              <td>{booking.bookingId}</td>
-              <td>{booking.pnr}</td>
-              <td>{booking.UserDetails.username}</td>
-              <td>{`${booking.passengerDetails[0].firstName} ${booking.passengerDetails[0].lastName}`}</td>
-              <td>{booking.passengerDetails[0].email}</td>
-              <td>{booking.passengerDetails[0].ContactNo || "N/A"}</td>
-              <td>{booking.airlineDetails[0].Airline.AirlineName}</td>
-              <td>{booking.origin}</td>
-              <td>{booking.destination}</td>
-              <td>{booking.passengerDetails[0].gender}</td>
+
+              <td>{booking.bookingId||"No Data"}</td>
+              <td>{booking.pnr||"No Data"}</td>
+              <td>{booking.UserDetails.username||"No Data"}</td>
+              <td>{`${booking.passengerDetails[0]?.firstName} ${booking.passengerDetails[0]?.lastName}`||"No Data"}</td>
+              <td>{booking.passengerDetails[0]?.email||"No Data"}</td>
+              <td>{booking.passengerDetails[0]?.ContactNo || "N/A"}</td>
+              <td>{booking.airlineDetails.AirlineName||"No Data"}</td>
+              <td>{booking.origin||"No Data"}</td>
+              <td>{booking.destination||"No Data"}</td>
+              <td>{booking.passengerDetails[0].gender||"No Data"}</td>
+
             </tr>
           ))}
         </tbody>
