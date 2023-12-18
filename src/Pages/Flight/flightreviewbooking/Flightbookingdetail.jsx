@@ -117,7 +117,7 @@ const Flightbookingdetail = () => {
         balanceSubtractOneWay();
         setLoading(false);
         setBookingConfirmed(true)
-        // navigate("/Flightbookingconfirmation");
+        navigate("/Flightbookingconfirmation");
       }
     }
   }, [reducerState?.flightBook?.flightTicketDataGDS]);
@@ -133,7 +133,7 @@ const Flightbookingdetail = () => {
         balanceSubtractOneWay();
         setLoading(false);
         setBookingConfirmed(true)
-        // navigate("/Flightbookingconfirmation");
+        navigate("/Flightbookingconfirmation");
       }
     }
   }, [reducerState?.flightBook?.flightBookData?.Response]);
@@ -143,7 +143,7 @@ const Flightbookingdetail = () => {
     if (reducerState?.flightBook?.flightBookDataGDSReturn?.Response) {
       setLoading(false);
       getTicketForNonLCCReturn();
-      // navigate("/Flightbookingconfirmation");
+      navigate("/Flightbookingconfirmation");
     } else if (reducerState?.flightBook?.flightBookDataGDSReturn?.Error) {
       setLoading(false);
       let error =
@@ -195,7 +195,7 @@ const Flightbookingdetail = () => {
 
       setLoading(false);
       setBookingConfirmed(true);
-      // navigate("/Flightbookingconfirmation");
+      navigate("/Flightbookingconfirmation");
     }
   }, [reducerState?.flightBook?.flightBookDataReturn?.Response]);
 
@@ -207,7 +207,7 @@ const Flightbookingdetail = () => {
       balanceSubtractReturn();
       setLoading(false);
       setBookingConfirmed(true);
-      // navigate("/Flightbookingconfirmation");
+      navigate("/Flightbookingconfirmation");
     }
   }, [reducerState?.flightBook?.flightTicketDataGDSReturn]);
 

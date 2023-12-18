@@ -17,13 +17,16 @@ import Flightconfirmationdetail from "./Flightconfirmationdetail";
 import { useDispatch, useSelector } from "react-redux";
 import { getUserDataAction } from "../../../Redux/Auth/UserDataById/actionUserData";
 import userApi from "../../../Redux/API/api";
-import Swal from "sweetalert2"
+import Swal from "sweetalert2";
 import FlightLoader from "../FlightLoader/FlightLoader";
 const FlightReviewbooking = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const reducerState = useSelector((state) => state);
-  // console.log("reducerState", reducerState);
+  const PassengersSaved = reducerState?.passengers?.passengersData;
+  const markUpamount =
+    reducerState?.userData?.userData?.data?.data?.markup?.flight;
+  console.log("reducerState", reducerState);
   const TicketDetails =
     reducerState?.flightBook?.flightBookDataGDS?.Response ||
     reducerState?.flightBook?.flightBookData?.Response;
@@ -43,65 +46,128 @@ const FlightReviewbooking = () => {
       // console.log("lccCheck");
       const payloadLCC = {
         userId: reducerState?.logIn?.loginData?.data?.data?.id,
-        bookingId: `${bookingDataLccReturn?.BookingId}`,
-        oneWay: false,
-        pnr: bookingDataLccReturn?.PNR,
-        origin: bookingDataLccReturn?.FlightItinerary?.Origin,
-        destination: bookingDataLccReturn?.FlightItinerary?.Destination,
+        bookingId: `${bookingDataLcc?.BookingId}`,
+        oneWay: true,
+        pnr: bookingDataLcc?.PNR,
+        origin: bookingDataLcc?.FlightItinerary?.Origin,
+        destination: bookingDataLcc?.FlightItinerary?.Destination,
         paymentStatus: "success",
-        dateOfJourney: bookingDataLccReturn?.FlightItinerary?.InvoiceCreatedOn,
-        amount: bookingDataLccReturn?.FlightItinerary?.InvoiceAmount,
-        airlineDetails: {
-          AirlineName:
-            bookingDataLccReturn?.FlightItinerary?.ValidatingAirlineCode,
-          DepTime: "ggtglt",
-        },
-        passengerDetails:
-          bookingDataLccReturn?.FlightItinerary?.Passenger?.map((item) => {
+        totalAmount:
+          bookingDataLcc?.FlightItinerary?.InvoiceAmount + markUpamount,
+        airlineDetails: bookingDataLcc?.FlightItinerary?.Segments.map(
+          (item, index) => {
             return {
+              Airline: {
+                AirlineCode: item.Airline.AirlineCode,
+                AirlineName: item.Airline.AirlineName,
+                FlightNumber: item.Airline.FlightNumber,
+                FareClass: item.Airline.FareClass,
+              },
+              Origin: {
+                AirportCode: item.Origin.Airport.AirportCode,
+                AirportName: item.Origin.Airport.AirportName,
+                CityName: item.Origin.Airport.CityName,
+                Terminal: item.Origin.Airport.Terminal,
+                DepTime: item.Origin.DepTime,
+              },
+              Destination: {
+                AirportCode: item.Destination.Airport.AirportCode,
+                AirportName: item.Destination.Airport.AirportName,
+                CityName: item.Destination.Airport.CityName,
+                Terminal: item.Destination.Airport.Terminal,
+                ArrTime: item.Destination.ArrTime,
+              },
+              Baggage: item.Baggage,
+            };
+          }
+        ),
+        passengerDetails: bookingDataLcc?.FlightItinerary?.Passenger?.map(
+          (item, index) => {
+            return {
+              title: item?.Title,
               firstName: item?.FirstName,
               lastName: item?.LastName,
-              gender: item?.Title,
-              ContactNo: item?.ContactNo,
+              gender: item?.Gender,
+              ContactNo:
+                PassengersSaved[index]?.ContactNo == undefined
+                  ? ""
+                  : PassengersSaved[index]?.ContactNo,
               DateOfBirth: item?.DateOfBirth,
-              email: item?.Email,
-              addressLine1: item?.AddressLine1,
+              email:
+                PassengersSaved[index]?.Email == undefined
+                  ? ""
+                  : PassengersSaved[index]?.Email,
+              addressLine1: item?.addressLine1,
               city: item?.City,
+              TicketNumber: item?.Ticket?.TicketNumber,
+              amount: item?.Fare?.PublishedFare?.toFixed(),
             };
-          }),
+          }
+        ),
       };
       userApi.flightBookingDataSave(payloadLCC);
     } else {
       // console.log("nonlccCheck");
       const payloadNonLcc = {
         userId: reducerState?.logIn?.loginData?.data?.data?.id,
-        bookingId: `${bookingDataNonLccReturn?.BookingId}`,
-        oneWay: false,
-        pnr: bookingDataNonLccReturn?.PNR,
-        origin: bookingDataNonLccReturn?.FlightItinerary?.Origin,
-        destination: bookingDataNonLccReturn?.FlightItinerary?.Destination,
+        bookingId: `${bookingDataNonLcc?.BookingId}`,
+        oneWay: true,
+        pnr: bookingDataNonLcc?.PNR,
+        origin: bookingDataNonLcc?.FlightItinerary?.Origin,
+        destination: bookingDataNonLcc?.FlightItinerary?.Destination,
         paymentStatus: "success",
-        dateOfJourney:
-          bookingDataNonLccReturn?.FlightItinerary?.LastTicketDate,
-        amount: bookingDataNonLccReturn?.FlightItinerary?.Fare?.PublishedFare,
-        airlineDetails: {
-          AirlineName:
-            bookingDataNonLccReturn?.FlightItinerary?.ValidatingAirlineCode,
-          DepTime: "jgtr",
-        },
-        passengerDetails:
-          bookingDataNonLccReturn?.FlightItinerary?.Passenger?.map((item) => {
+        totalAmount:
+          bookingDataNonLcc?.FlightItinerary?.InvoiceAmount + markUpamount,
+        airlineDetails: bookingDataNonLcc?.FlightItinerary?.Segments.map(
+          (item, index) => {
             return {
+              Airline: {
+                AirlineCode: item.Airline.AirlineCode,
+                AirlineName: item.Airline.AirlineName,
+                FlightNumber: item.Airline.FlightNumber,
+                FareClass: item.Airline.FareClass,
+              },
+              Origin: {
+                AirportCode: item.Origin.Airport.AirportCode,
+                AirportName: item.Origin.Airport.AirportName,
+                CityName: item.Origin.Airport.CityName,
+                Terminal: item.Origin.Airport.Terminal,
+                DepTime: item.Origin.DepTime,
+              },
+              Destination: {
+                AirportCode: item.Destination.Airport.AirportCode,
+                AirportName: item.Destination.Airport.AirportName,
+                CityName: item.Destination.Airport.CityName,
+                Terminal: item.Destination.Airport.Terminal,
+                ArrTime: item.Destination.ArrTime,
+              },
+              Baggage: item.Baggage,
+            };
+          }
+        ),
+        passengerDetails: bookingDataNonLcc?.FlightItinerary?.Passenger?.map(
+          (item, index) => {
+            return {
+              title: item?.Title,
               firstName: item?.FirstName,
               lastName: item?.LastName,
-              gender: item?.Title,
-              ContactNo: item?.ContactNo,
+              gender: item?.Gender,
+              ContactNo:
+                PassengersSaved[index]?.ContactNo == undefined
+                  ? ""
+                  : PassengersSaved[index]?.ContactNo,
               DateOfBirth: item?.DateOfBirth,
-              email: item?.Email,
-              addressLine1: item?.AddressLine1,
+              email:
+                PassengersSaved[index]?.Email == undefined
+                  ? ""
+                  : PassengersSaved[index]?.ContactNo,
+              addressLine1: item?.addressLine1,
               city: item?.City,
+              TicketNumber: item?.Ticket?.TicketNumber,
+              amount: item?.Fare?.PublishedFare?.toFixed(),
             };
-          }),
+          }
+        ),
       };
       userApi.flightBookingDataSave(payloadNonLcc);
     }
@@ -118,23 +184,55 @@ const FlightReviewbooking = () => {
         origin: bookingDataLcc?.FlightItinerary?.Origin,
         destination: bookingDataLcc?.FlightItinerary?.Destination,
         paymentStatus: "success",
-        dateOfJourney: bookingDataLcc?.FlightItinerary?.InvoiceCreatedOn,
-        amount: bookingDataLcc?.FlightItinerary?.InvoiceAmount,
-        airlineDetails: {
-          AirlineName: bookingDataLcc?.FlightItinerary?.ValidatingAirlineCode,
-          DepTime: "ggtglt",
-        },
-        passengerDetails: bookingDataLcc?.FlightItinerary?.Passenger?.map(
-          (item) => {
+        totalAmount:
+          bookingDataLcc?.FlightItinerary?.InvoiceAmount + markUpamount,
+        airlineDetails: bookingDataLcc?.FlightItinerary?.Segments.map(
+          (item, index) => {
             return {
+              Airline: {
+                AirlineCode: item.Airline.AirlineCode,
+                AirlineName: item.Airline.AirlineName,
+                FlightNumber: item.Airline.FlightNumber,
+                FareClass: item.Airline.FareClass,
+              },
+              Origin: {
+                AirportCode: item.Origin.Airport.AirportCode,
+                AirportName: item.Origin.Airport.AirportName,
+                CityName: item.Origin.Airport.CityName,
+                Terminal: item.Origin.Airport.Terminal,
+                DepTime: item.Origin.DepTime,
+              },
+              Destination: {
+                AirportCode: item.Destination.Airport.AirportCode,
+                AirportName: item.Destination.Airport.AirportName,
+                CityName: item.Destination.Airport.CityName,
+                Terminal: item.Destination.Airport.Terminal,
+                ArrTime: item.Destination.ArrTime,
+              },
+              Baggage: item.Baggage,
+            };
+          }
+        ),
+        passengerDetails: bookingDataLcc?.FlightItinerary?.Passenger?.map(
+          (item, index) => {
+            return {
+              title: item?.Title,
               firstName: item?.FirstName,
               lastName: item?.LastName,
-              gender: item?.Title,
-              ContactNo: item?.ContactNo,
+              gender: item?.Gender,
+              ContactNo:
+                PassengersSaved[index]?.ContactNo == undefined
+                  ? ""
+                  : PassengersSaved[index]?.ContactNo,
               DateOfBirth: item?.DateOfBirth,
-              email: item?.Email,
-              addressLine1: item?.AddressLine1,
+              email:
+                PassengersSaved[index]?.Email == undefined
+                  ? ""
+                  : PassengersSaved[index]?.Email,
+              addressLine1: item?.addressLine1,
               city: item?.City,
+              TicketNumber: item?.Ticket?.TicketNumber,
+              amount: item?.Fare?.PublishedFare?.toFixed(),
             };
           }
         ),
@@ -150,24 +248,55 @@ const FlightReviewbooking = () => {
         origin: bookingDataNonLcc?.FlightItinerary?.Origin,
         destination: bookingDataNonLcc?.FlightItinerary?.Destination,
         paymentStatus: "success",
-        dateOfJourney: bookingDataNonLcc?.FlightItinerary?.LastTicketDate,
-        amount: bookingDataNonLcc?.FlightItinerary?.Fare?.PublishedFare,
-        airlineDetails: {
-          AirlineName:
-            bookingDataNonLcc?.FlightItinerary?.ValidatingAirlineCode,
-          DepTime: "jgtr",
-        },
-        passengerDetails: bookingDataNonLcc?.FlightItinerary?.Passenger?.map(
-          (item) => {
+        totalAmount:
+          bookingDataNonLcc?.FlightItinerary?.InvoiceAmount + markUpamount,
+        airlineDetails: bookingDataNonLcc?.FlightItinerary?.Segments.map(
+          (item, index) => {
             return {
+              Airline: {
+                AirlineCode: item.Airline.AirlineCode,
+                AirlineName: item.Airline.AirlineName,
+                FlightNumber: item.Airline.FlightNumber,
+                FareClass: item.Airline.FareClass,
+              },
+              Origin: {
+                AirportCode: item.Origin.Airport.AirportCode,
+                AirportName: item.Origin.Airport.AirportName,
+                CityName: item.Origin.Airport.CityName,
+                Terminal: item.Origin.Airport.Terminal,
+                DepTime: item.Origin.DepTime,
+              },
+              Destination: {
+                AirportCode: item.Destination.Airport.AirportCode,
+                AirportName: item.Destination.Airport.AirportName,
+                CityName: item.Destination.Airport.CityName,
+                Terminal: item.Destination.Airport.Terminal,
+                ArrTime: item.Destination.ArrTime,
+              },
+              Baggage: item.Baggage,
+            };
+          }
+        ),
+        passengerDetails: bookingDataNonLcc?.FlightItinerary?.Passenger?.map(
+          (item, index) => {
+            return {
+              title: item?.Title,
               firstName: item?.FirstName,
               lastName: item?.LastName,
-              gender: item?.Title,
-              ContactNo: item?.ContactNo,
+              gender: item?.Gender,
+              ContactNo:
+                PassengersSaved[index]?.ContactNo == undefined
+                  ? ""
+                  : PassengersSaved[index]?.ContactNo,
               DateOfBirth: item?.DateOfBirth,
-              email: item?.Email,
-              addressLine1: item?.AddressLine1,
+              email:
+                PassengersSaved[index]?.Email == undefined
+                  ? ""
+                  : PassengersSaved[index]?.ContactNo,
+              addressLine1: item?.addressLine1,
               city: item?.City,
+              TicketNumber: item?.Ticket?.TicketNumber,
+              amount: item?.Fare?.PublishedFare?.toFixed(),
             };
           }
         ),
@@ -176,13 +305,15 @@ const FlightReviewbooking = () => {
     }
   };
   const debouncedAddBookingDetails = debounce(addBookingDetails, 500);
-  const debouncedAddBookingDetailsReturn = debounce(addBookingDetailsReturn, 1000);
+  const debouncedAddBookingDetailsReturn = debounce(
+    addBookingDetailsReturn,
+    1000
+  );
   useEffect(() => {
     updateBalance();
     debouncedAddBookingDetails();
-    debouncedAddBookingDetailsReturn()
+    debouncedAddBookingDetailsReturn();
   }, []);
-
 
   const updateBalance = () => {
     if (userId) {
@@ -190,40 +321,40 @@ const FlightReviewbooking = () => {
       dispatch(getUserDataAction(payload));
     }
   };
-  console.warn(TicketDetails, "ticlit Detaild0000000000000000000000000")
+  console.warn(TicketDetails, "ticlit Detaild0000000000000000000000000");
 
   if (TicketDetails == undefined) {
-    navigate("/flights")
+    navigate("/flights");
     Swal.fire({
       title: "Hii Encountered an error",
       text: "Redirecting to home page...",
       // text:TicketDetails,
       icon: "question",
-      timer:5000,
+      timer: 5000,
       showClass: {
         popup: `
           animate__animated
           animate__fadeInUp
           animate__faster
-        `
+        `,
       },
       hideClass: {
         popup: `
           animate__animated
           animate__fadeOutDown
           animate__faster
-        `
-      }
-    })
-    return (<>
-      <FlightLoader />
-    </>)
+        `,
+      },
+    });
+    return (
+      <>
+        <FlightLoader />
+      </>
+    );
   }
-
 
   return (
     <div className="container-fluid margin-pecentage">
-
       <div className="row">
         <div className="col-lg-9">
           <Flightconfirmationdetail ticket={TicketDetails} />
