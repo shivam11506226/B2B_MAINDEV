@@ -79,9 +79,9 @@ const AllBusBooking = () => {
           {busBookings.map(bookings => (
             <tr key={bookings._id}>
               <td>{bookings.busId||"No Data"}</td>
-              <td>{bookings.userDetails.username||"No Data"}</td>
+              <td>{bookings.userDetails?.username||"No Data"}</td>
               <td>{bookings.passenger[0]?.Email||"No Data"}</td>
-              <td>{bookings.userDetails.phone.mobile_number||"No Data"}</td>  
+              <td>{bookings.userDetails?.phone.mobile_number||"No Data"}</td>  
               <td>{bookings.destination||"No Data"}</td>
               <td>{bookings.origin||"No Data"}</td>
               <td>{bookings.busName||"No Data"}</td>
